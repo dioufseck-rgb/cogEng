@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+build/
+dist/
+.eggs/
+
+# Virtual envs
+venv/
+.venv/
+env/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Build outputs (RuleKit's pickled DAGs)
+*.pkl
+built_*.pkl
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+*.swp
+
+# Logs and audit dumps
+*.log
+a1_audit.json
+evaluation_output.txt
+
+# LLM cache (if any)
+.llm_cache/
+
+# Study results
+results/

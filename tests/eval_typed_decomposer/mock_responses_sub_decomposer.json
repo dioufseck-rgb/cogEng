@@ -1,0 +1,37 @@
+{
+  "_about": "Mock responses for the sub-decomposer eval. Each is what we'd hope Opus 4.7 returns. If the eval runner passes all 17 against these, the scoring logic is sound.",
+
+  "eval_sub_decomposer::leaf_simple_team_salary": "{\"spec_type\": \"numeric_leaf\", \"atom_id_hint\": \"team_salary\", \"statement\": \"The team's current team salary in US dollars.\"}",
+
+  "eval_sub_decomposer::leaf_yos": "{\"spec_type\": \"numeric_leaf\", \"atom_id_hint\": \"player_years_of_service\", \"statement\": \"The player's total NBA Years of Service.\"}",
+
+  "eval_sub_decomposer::leaf_contract_salary": "{\"spec_type\": \"numeric_leaf\", \"atom_id_hint\": \"contract_first_year_salary\", \"statement\": \"The annual salary in the first year of the contract.\"}",
+
+  "eval_sub_decomposer::constant_integer": "{\"spec_type\": \"constant\", \"value\": 4}",
+
+  "eval_sub_decomposer::constant_named_salary_cap": "{\"spec_type\": \"constant\", \"label\": \"salary_cap\"}",
+
+  "eval_sub_decomposer::constant_named_first_apron": "{\"spec_type\": \"constant\", \"label\": \"first_apron_level\"}",
+
+  "eval_sub_decomposer::constant_dollar_amount": "{\"spec_type\": \"constant\", \"value\": 250000}",
+
+  "eval_sub_decomposer::arithmetic_percent_of_named_constant": "{\"spec_type\": \"unary_arithmetic\", \"operator\": \"times_const\", \"constant\": 0.0912, \"child\": {\"spec_type\": \"constant\", \"label\": \"salary_cap\"}}",
+
+  "eval_sub_decomposer::arithmetic_percent_of_numeric_leaf": "{\"spec_type\": \"unary_arithmetic\", \"operator\": \"times_const\", \"constant\": 1.05, \"child\": {\"spec_type\": \"numeric_leaf\", \"atom_id_hint\": \"player_prior_year_salary\", \"statement\": \"The player's salary in the final season of the prior contract.\"}}",
+
+  "eval_sub_decomposer::arithmetic_plus_const": "{\"spec_type\": \"unary_arithmetic\", \"operator\": \"plus_const\", \"constant\": 250000, \"child\": {\"spec_type\": \"numeric_leaf\", \"atom_id_hint\": \"aggregated_outgoing_pre_trade_salary\", \"statement\": \"Sum of pre-trade salaries of outgoing players.\"}}",
+
+  "eval_sub_decomposer::arithmetic_const_minus_child": "{\"spec_type\": \"unary_arithmetic\", \"operator\": \"const_minus\", \"constant_label\": \"salary_cap\", \"child\": {\"spec_type\": \"numeric_leaf\", \"atom_id_hint\": \"team_salary\", \"statement\": \"The team's current team salary.\"}}",
+
+  "eval_sub_decomposer::arithmetic_125_percent_of_outgoing": "{\"spec_type\": \"unary_arithmetic\", \"operator\": \"times_const\", \"constant\": 1.25, \"child\": {\"spec_type\": \"numeric_leaf\", \"atom_id_hint\": \"aggregated_outgoing_pre_trade_salary\", \"statement\": \"Sum of pre-trade outgoing salaries.\"}}",
+
+  "eval_sub_decomposer::derived_aggregate_mle": "{\"spec_type\": \"derived_atom\", \"atom_id_hint\": \"aggregated_mle_first_year_salary\", \"statement\": \"Sum of first-year salaries of all contracts signed under MLE.\", \"computation_kind\": \"aggregate_sum\"}",
+
+  "eval_sub_decomposer::derived_max_of_formulas": "{\"spec_type\": \"derived_atom\", \"atom_id_hint\": \"max_salary_ceiling\", \"statement\": \"The greater of 25% of cap or 105% of prior salary.\", \"computation_kind\": \"max_of\"}",
+
+  "eval_sub_decomposer::derived_named_quantity": "{\"spec_type\": \"derived_atom\", \"atom_id_hint\": \"max_annual_salary\", \"statement\": \"The Maximum Annual Salary as defined by Article II Section 7.\", \"computation_kind\": \"named_quantity\"}",
+
+  "eval_sub_decomposer::adversarial_mistagged_constant": "{\"spec_type\": \"constant\", \"label\": \"salary_cap\"}",
+
+  "eval_sub_decomposer::nested_percent_of_difference": "{\"spec_type\": \"unary_arithmetic\", \"operator\": \"times_const\", \"constant\": 0.0912, \"child\": {\"spec_type\": \"unary_arithmetic\", \"operator\": \"const_minus\", \"constant_label\": \"salary_cap\", \"child\": {\"spec_type\": \"numeric_leaf\", \"atom_id_hint\": \"player_prior_year_salary\", \"statement\": \"The player's prior-year salary.\"}}}"
+}

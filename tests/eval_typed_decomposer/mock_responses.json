@@ -1,0 +1,43 @@
+{
+  "_about": "Mock LLM responses to dry-run the eval runner. Each response is what we'd HOPE Opus 4.7 returns for the corresponding eval case. If the eval runner passes all 20 against these mocks, the scoring logic is sound and we can move to a live run.",
+
+  "eval_typed_classify::boolean_regression_simple_atomic": "{\"type\": \"leaf\", \"claim\": \"The applicant submitted a completed form.\", \"source_span\": \"\"}",
+
+  "eval_typed_classify::boolean_regression_or": "{\"type\": \"or\", \"children\": [{\"claim\": \"Member has confirmed cervical radiculopathy.\", \"source_span\": \"\"}, {\"claim\": \"Member has confirmed cervical myelopathy.\", \"source_span\": \"\"}], \"surface_label\": \"diagnosis disjunction\", \"provenance\": \"transcribed\", \"source_span\": \"\"}",
+
+  "eval_typed_classify::boolean_regression_and": "{\"type\": \"and\", \"children\": [{\"claim\": \"Member has completed at least 6 weeks of physical therapy.\", \"source_span\": \"\"}, {\"claim\": \"The therapy was supervised.\", \"source_span\": \"\"}], \"surface_label\": \"pt conjunction\", \"provenance\": \"transcribed\", \"source_span\": \"\"}",
+
+  "eval_typed_classify::boolean_regression_not": "{\"type\": \"not\", \"children\": [{\"claim\": \"The transaction was authorized by the cardholder.\", \"source_span\": \"\"}], \"surface_label\": \"negation of authorization\", \"provenance\": \"transcribed\", \"source_span\": \"\"}",
+
+  "eval_typed_classify::comparison_single_leq_with_constant_int": "{\"type\": \"comparison\", \"operator\": \"leq\", \"lhs_description\": \"contract length\", \"rhs_description\": \"the integer 4\", \"lhs_kind\": \"numeric_leaf\", \"rhs_kind\": \"constant\", \"surface_label\": \"contract length leq 4\", \"source_span\": \"\", \"provenance\": \"transcribed\"}",
+
+  "eval_typed_classify::comparison_single_lt_with_named_constant": "{\"type\": \"comparison\", \"operator\": \"lt\", \"lhs_description\": \"team salary\", \"rhs_description\": \"the salary cap\", \"lhs_kind\": \"numeric_leaf\", \"rhs_kind\": \"constant\", \"surface_label\": \"team below cap\", \"source_span\": \"\", \"provenance\": \"transcribed\"}",
+
+  "eval_typed_classify::comparison_single_geq_yos": "{\"type\": \"comparison\", \"operator\": \"geq\", \"lhs_description\": \"player years of service\", \"rhs_description\": \"the integer 10\", \"lhs_kind\": \"numeric_leaf\", \"rhs_kind\": \"constant\", \"surface_label\": \"YOS geq 10\", \"source_span\": \"\", \"provenance\": \"transcribed\"}",
+
+  "eval_typed_classify::comparison_single_eq": "{\"type\": \"comparison\", \"operator\": \"eq\", \"lhs_description\": \"first-year salary\", \"rhs_description\": \"prior-year salary\", \"lhs_kind\": \"numeric_leaf\", \"rhs_kind\": \"numeric_leaf\", \"surface_label\": \"salary equality\", \"source_span\": \"\", \"provenance\": \"transcribed\"}",
+
+  "eval_typed_classify::bracket_geq_and_lt": "{\"type\": \"and\", \"children\": [{\"claim\": \"Team salary is at or above the salary cap.\", \"source_span\": \"\"}, {\"claim\": \"Team salary is below the first apron level.\", \"source_span\": \"\"}], \"surface_label\": \"salary bracket\", \"provenance\": \"transcribed\", \"source_span\": \"\"}",
+
+  "eval_typed_classify::comparison_arithmetic_rhs_percent_of_cap": "{\"type\": \"comparison\", \"operator\": \"leq\", \"lhs_description\": \"contract salary\", \"rhs_description\": \"9.12% of the salary cap\", \"lhs_kind\": \"numeric_leaf\", \"rhs_kind\": \"arithmetic\", \"surface_label\": \"non-taxpayer MLE limit\", \"source_span\": \"\", \"provenance\": \"transcribed\"}",
+
+  "eval_typed_classify::comparison_arithmetic_rhs_percent_25": "{\"type\": \"comparison\", \"operator\": \"eq\", \"lhs_description\": \"max annual salary\", \"rhs_description\": \"25% of the salary cap\", \"lhs_kind\": \"numeric_leaf\", \"rhs_kind\": \"arithmetic\", \"surface_label\": \"25% max\", \"source_span\": \"\", \"provenance\": \"transcribed\"}",
+
+  "eval_typed_classify::comparison_arithmetic_rhs_105_percent_prior": "{\"type\": \"comparison\", \"operator\": \"leq\", \"lhs_description\": \"first-year salary\", \"rhs_description\": \"105% of player's prior-year salary\", \"lhs_kind\": \"numeric_leaf\", \"rhs_kind\": \"arithmetic\", \"surface_label\": \"105% prior\", \"source_span\": \"\", \"provenance\": \"transcribed\"}",
+
+  "eval_typed_classify::comparison_arithmetic_rhs_plus_allowance": "{\"type\": \"comparison\", \"operator\": \"leq\", \"lhs_description\": \"aggregated incoming salary\", \"rhs_description\": \"outgoing salary plus $250,000\", \"lhs_kind\": \"numeric_leaf\", \"rhs_kind\": \"arithmetic\", \"surface_label\": \"TPE allowance\", \"source_span\": \"\", \"provenance\": \"transcribed\"}",
+
+  "eval_typed_classify::comparison_arithmetic_rhs_expanded_tpe_ratio": "{\"type\": \"comparison\", \"operator\": \"leq\", \"lhs_description\": \"incoming salary\", \"rhs_description\": \"125% of outgoing salary\", \"lhs_kind\": \"numeric_leaf\", \"rhs_kind\": \"arithmetic\", \"surface_label\": \"expanded TPE\", \"source_span\": \"\", \"provenance\": \"transcribed\"}",
+
+  "eval_typed_classify::boolean_at_least_n_regression": "{\"type\": \"at_least\", \"n\": 2, \"children\": [{\"claim\": \"Member trialed NSAIDs.\", \"source_span\": \"\"}, {\"claim\": \"Member trialed muscle relaxants.\", \"source_span\": \"\"}, {\"claim\": \"Member trialed neuropathic agents.\", \"source_span\": \"\"}, {\"claim\": \"Member trialed oral corticosteroids.\", \"source_span\": \"\"}], \"surface_label\": \"pharma trials at least 2\", \"provenance\": \"transcribed\", \"source_span\": \"\"}",
+
+  "eval_typed_classify::comparison_no_arithmetic_just_threshold": "{\"type\": \"comparison\", \"operator\": \"geq\", \"lhs_description\": \"contract length\", \"rhs_description\": \"the integer 2\", \"lhs_kind\": \"numeric_leaf\", \"rhs_kind\": \"constant\", \"surface_label\": \"contract length geq 2\", \"source_span\": \"\", \"provenance\": \"transcribed\"}",
+
+  "eval_typed_classify::adversarial_count_word_not_comparison": "{\"type\": \"leaf\", \"claim\": \"Member has completed a 6-week course of physical therapy.\", \"source_span\": \"\"}",
+
+  "eval_typed_classify::adversarial_phrase_within_not_comparison": "{\"type\": \"leaf\", \"claim\": \"Member has an MRI within 6 months of the request.\", \"source_span\": \"\"}",
+
+  "eval_typed_classify::comparison_double_negation_avoided": "{\"type\": \"comparison\", \"operator\": \"leq\", \"lhs_description\": \"team salary\", \"rhs_description\": \"the salary cap\", \"lhs_kind\": \"numeric_leaf\", \"rhs_kind\": \"constant\", \"surface_label\": \"team at or below cap\", \"source_span\": \"\", \"provenance\": \"inferred\", \"latent_type\": \"meta-interpretation\", \"confidence\": 0.9}",
+
+  "eval_typed_classify::comparison_arithmetic_two_levels_nested": "{\"type\": \"and\", \"children\": [{\"claim\": \"The Non-Taxpayer MLE limit equals 9.12% of the salary cap.\", \"source_span\": \"\"}, {\"claim\": \"The contract salary is at or below the Non-Taxpayer MLE limit.\", \"source_span\": \"\"}], \"surface_label\": \"MLE limit defined and applied\", \"provenance\": \"transcribed\", \"source_span\": \"\"}"
+}

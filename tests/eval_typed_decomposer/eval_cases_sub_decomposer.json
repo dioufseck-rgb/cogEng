@@ -1,0 +1,256 @@
+{
+  "_about": "Eval cases for Piece 2 — the LHS/RHS numeric sub-decomposer. Each case is (description, kind, expected_spec). Input is a free-text description from the Stage-1 classifier (e.g., '9.12% of the Salary Cap'). Output is a structured spec tree the engine conversion stage can use.",
+
+  "_decisions_referenced": [
+    "Decision 3: definitional inlining already done by Stage-1; sub-decomposer trusts inlined form",
+    "Decision 4: aggregates route to derived_atom (Map-resolved), NOT engine SumNodes",
+    "Decision 5: max-of-formulas route to derived_atom (Map-resolved), NOT engine MaxNodes"
+  ],
+
+  "_node_semantics_reference": {
+    "TimesConstNode": "child × constant — used for 'X percent of Y' patterns",
+    "PlusConstNode": "child + constant — used for 'Y plus $C' patterns",
+    "MinusConstNode": "child − constant — used for 'Y minus $C' patterns",
+    "ConstMinusNode": "constant − child — used for 'cap minus Y' patterns",
+    "DivByConstNode": "child ÷ constant",
+    "ConstDivByNode": "constant ÷ child"
+  },
+
+  "cases": [
+
+    {
+      "id": "leaf_simple_team_salary",
+      "category": "numeric_leaf",
+      "description": "team salary",
+      "kind": "numeric_leaf",
+      "context": "Direct reference to a case-data numeric attribute.",
+      "expected": {
+        "spec_type": "numeric_leaf",
+        "atom_id_hint": "team_salary"
+      }
+    },
+
+    {
+      "id": "leaf_yos",
+      "category": "numeric_leaf",
+      "description": "player Years of Service",
+      "kind": "numeric_leaf",
+      "context": "Common CBA numeric attribute.",
+      "expected": {
+        "spec_type": "numeric_leaf",
+        "atom_id_hint": "player_years_of_service"
+      }
+    },
+
+    {
+      "id": "leaf_contract_salary",
+      "category": "numeric_leaf",
+      "description": "contract first-year salary",
+      "kind": "numeric_leaf",
+      "context": "Compound noun phrase referring to a single numeric attribute.",
+      "expected": {
+        "spec_type": "numeric_leaf",
+        "atom_id_hint": "contract_first_year_salary"
+      }
+    },
+
+    {
+      "id": "constant_integer",
+      "category": "constant",
+      "description": "the integer 4",
+      "kind": "constant",
+      "context": "Bare integer constant. Should produce a value=4 spec.",
+      "expected": {
+        "spec_type": "constant",
+        "value": 4
+      }
+    },
+
+    {
+      "id": "constant_named_salary_cap",
+      "category": "constant",
+      "description": "the salary cap",
+      "kind": "constant",
+      "context": "Named CBA constant. The 2024-25 value is $140,588,000. The spec should record the label; downstream knows the value.",
+      "expected": {
+        "spec_type": "constant",
+        "label": "salary_cap"
+      }
+    },
+
+    {
+      "id": "constant_named_first_apron",
+      "category": "constant",
+      "description": "the First Apron Level",
+      "kind": "constant",
+      "context": "Named CBA constant, label-form.",
+      "expected": {
+        "spec_type": "constant",
+        "label": "first_apron_level"
+      }
+    },
+
+    {
+      "id": "constant_dollar_amount",
+      "category": "constant",
+      "description": "$250,000",
+      "kind": "constant",
+      "context": "Bare dollar constant. Should produce value=250000.",
+      "expected": {
+        "spec_type": "constant",
+        "value": 250000
+      }
+    },
+
+    {
+      "id": "arithmetic_percent_of_named_constant",
+      "category": "unary_arithmetic",
+      "description": "9.12% of the Salary Cap",
+      "kind": "arithmetic",
+      "context": "The MLE limit pattern. Engine-expressible as TimesConst(0.0912, Constant(salary_cap)).",
+      "expected": {
+        "spec_type": "unary_arithmetic",
+        "operator": "times_const",
+        "constant": 0.0912,
+        "child": {"spec_type": "constant", "label": "salary_cap"}
+      }
+    },
+
+    {
+      "id": "arithmetic_percent_of_numeric_leaf",
+      "category": "unary_arithmetic",
+      "description": "105% of the player's prior-year salary",
+      "kind": "arithmetic",
+      "context": "The 105%-of-prior pattern. Engine-expressible as TimesConst(1.05, NumericLeaf(prior_salary)).",
+      "expected": {
+        "spec_type": "unary_arithmetic",
+        "operator": "times_const",
+        "constant": 1.05,
+        "child": {"spec_type": "numeric_leaf", "atom_id_hint": "player_prior_year_salary"}
+      }
+    },
+
+    {
+      "id": "arithmetic_plus_const",
+      "category": "unary_arithmetic",
+      "description": "outgoing aggregated salary plus $250,000",
+      "kind": "arithmetic",
+      "context": "The TPE allowance pattern. Engine-expressible as PlusConst(NumericLeaf(outgoing), 250000). The child is a numeric leaf; constant is 250000.",
+      "expected": {
+        "spec_type": "unary_arithmetic",
+        "operator": "plus_const",
+        "constant": 250000,
+        "child": {"spec_type": "numeric_leaf"}
+      }
+    },
+
+    {
+      "id": "arithmetic_const_minus_child",
+      "category": "unary_arithmetic",
+      "description": "the salary cap minus the team's current salary",
+      "kind": "arithmetic",
+      "context": "Cap room. ConstMinus(constant=cap, child=NumericLeaf(team_salary)).",
+      "expected": {
+        "spec_type": "unary_arithmetic",
+        "operator": "const_minus",
+        "constant_label": "salary_cap",
+        "child": {"spec_type": "numeric_leaf", "atom_id_hint": "team_salary"}
+      }
+    },
+
+    {
+      "id": "arithmetic_125_percent_of_outgoing",
+      "category": "unary_arithmetic",
+      "description": "125% of the outgoing aggregated salary",
+      "kind": "arithmetic",
+      "context": "Expanded TPE ratio. TimesConst(1.25, NumericLeaf(outgoing)).",
+      "expected": {
+        "spec_type": "unary_arithmetic",
+        "operator": "times_const",
+        "constant": 1.25,
+        "child": {"spec_type": "numeric_leaf"}
+      }
+    },
+
+    {
+      "id": "derived_aggregate_mle",
+      "category": "derived_atom",
+      "description": "aggregate first-year Salaries and Unlikely Bonuses of all Player Contracts signed under the Non-Taxpayer Mid-Level Salary Exception",
+      "kind": "arithmetic",
+      "context": "Per Decision 4, aggregates over multiple instances are not engine SumNodes. They are derived numeric atoms that Map computes. The spec should record the description and tag as aggregate_sum.",
+      "expected": {
+        "spec_type": "derived_atom",
+        "computation_kind": "aggregate_sum"
+      }
+    },
+
+    {
+      "id": "derived_max_of_formulas",
+      "category": "derived_atom",
+      "description": "the greater of 25% of the Salary Cap or 105% of the player's prior-year salary",
+      "kind": "arithmetic",
+      "context": "Per Decision 5, max-of-formulas are derived atoms (no engine MaxNode). The spec should record the description and tag as max_of.",
+      "expected": {
+        "spec_type": "derived_atom",
+        "computation_kind": "max_of"
+      }
+    },
+
+    {
+      "id": "derived_named_quantity",
+      "category": "derived_atom",
+      "description": "the player's Maximum Annual Salary under Article II, Section 7",
+      "kind": "arithmetic",
+      "context": "A reference to a named derived quantity. The full computation lives in Section 7. The spec should treat this as a derived atom — Map computes the value by reading Section 7's formula and the player's attributes.",
+      "expected": {
+        "spec_type": "derived_atom",
+        "computation_kind": "named_quantity"
+      }
+    },
+
+    {
+      "id": "adversarial_mistagged_constant",
+      "category": "adversarial",
+      "description": "the salary cap",
+      "kind": "arithmetic",
+      "context": "Stage-1 may sometimes tag a bare named constant as 'arithmetic' instead of 'constant'. The sub-decomposer should be robust: recognize this is actually a constant and produce a constant spec.",
+      "expected": {
+        "spec_type": "constant",
+        "label": "salary_cap"
+      },
+      "_eval_note": "Acceptable also: derived_atom (treating cap as a named quantity). Either is recoverable downstream."
+    },
+
+    {
+      "id": "nested_percent_of_difference",
+      "category": "unary_arithmetic",
+      "description": "9.12% of (the Salary Cap minus the prior-year contract salary)",
+      "kind": "arithmetic",
+      "context": "Nested arithmetic: TimesConst(0.0912, child=ConstMinus(constant=cap, child=NumericLeaf(prior))). Tests whether the sub-decomposer correctly recurses on the inner arithmetic.",
+      "expected": {
+        "spec_type": "unary_arithmetic",
+        "operator": "times_const",
+        "constant": 0.0912,
+        "child": {
+          "spec_type": "unary_arithmetic",
+          "operator": "const_minus"
+        }
+      }
+    }
+
+  ],
+
+  "_routing_notes": {
+    "scoring_levels": [
+      "Level 1 (mandatory): spec_type matches (numeric_leaf / constant / unary_arithmetic / derived_atom).",
+      "Level 2 (preferred): for unary_arithmetic, operator matches; for constant, value or label is correct.",
+      "Level 3 (informational): atom_id_hint is reasonable; computation_kind is correct for derived_atom."
+    ],
+    "decisions_under_test": [
+      "Will Opus correctly route aggregates and max-of-formulas to derived_atom?",
+      "Will Opus correctly identify the engine-expressible operator for each unary arithmetic case?",
+      "Will Opus recurse into nested arithmetic correctly?",
+      "Will Opus handle the adversarial mistagging case gracefully?"
+    ]
+  }
+}

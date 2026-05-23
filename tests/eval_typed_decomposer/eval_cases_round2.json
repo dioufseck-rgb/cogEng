@@ -1,0 +1,183 @@
+{
+  "_about": "Expanded eval cases (Round 2) drawn from real RuleArena NBA CBA text. These cases include actual policy_text context, which the Round 1 eval did not. Each case targets a specific failure mode the Round 1 eval did not probe: definitional reference resolution, real-context classification stability, messy real-world phrasing, table-driven constants, and conditional/qualified comparisons.",
+
+  "cases": [
+
+    {
+      "id": "cba_direct_mle_term_limit",
+      "category": "real_cba_direct_quote",
+      "claim": "The term of a Player Contract signed pursuant to the Non-Taxpayer Mid-Level Salary Exception may not exceed four (4) Seasons in length.",
+      "policy_text": "Article VII, Section 6(e)(2): The term of a Player Contract signed pursuant to the Non-Taxpayer Mid-Level Salary Exception may not exceed four (4) Seasons in length, and the remaining term of a Player Contract acquired by assignment pursuant to the Non-Taxpayer Mid-Level Salary Exception may not exceed four (4) Seasons in length.",
+      "context": "Direct quote from real CBA Section 6(e)(2). Tests whether Opus correctly identifies the single LEQ comparison even with surrounding policy text. Note the paragraph contains TWO parallel claims (term of signed contract, term of acquired contract) — the claim we're classifying is JUST the first one.",
+      "expected": {
+        "type": "comparison",
+        "operator": "leq",
+        "lhs": {"type": "numeric_leaf", "concept": "contract_length_years"},
+        "rhs": {"type": "constant", "value": 4}
+      }
+    },
+
+    {
+      "id": "cba_messy_mle_salary_limit",
+      "category": "messy_phrasing",
+      "claim": "A Team may use the Non-Taxpayer Mid-Level Salary Exception to sign and/or acquire by assignment one (1) or more Player Contracts during each Salary Cap Year that, in the aggregate, provide for Salaries and Unlikely Bonuses in the first Salary Cap Year totaling up to 9.12% of the Salary Cap for such Salary Cap Year.",
+      "policy_text": "Article VII, Section 6(e)(1): A Team may use the Non-Taxpayer Mid-Level Salary Exception to sign and/or acquire by assignment one (1) or more Player Contracts during each Salary Cap Year that, in the aggregate, provide for Salaries and Unlikely Bonuses (or in the case of assignment, post-assignment Salaries and Unlikely Bonuses) in the first Salary Cap Year totaling up to 9.12% of the Salary Cap for such Salary Cap Year; provided, however, that, prior to the first day of the 2024-25 Salary Cap Year, a Team shall not be permitted to use the Non-Taxpayer Mid-Level Salary Exception to acquire a Player Contract by assignment.",
+      "context": "Real CBA wording is dense. The actual comparison buried inside is: aggregated contract salary ≤ 9.12% * Salary Cap. The classifier may struggle because the sentence is also describing permission/operation (`A Team may use...`). Important test: does the classifier identify this as a COMPARISON, or as some other structure? It's actually ambiguous — the sentence is both a permission grant AND embeds a numeric limit. A reasonable answer is to flag it as inferred/composed, since 'the comparison' is implied by 'totaling up to.'",
+      "expected_either": [
+        {
+          "type": "comparison",
+          "operator": "leq",
+          "lhs": {"type": "numeric_leaf", "concept": "contract_first_year_salary"},
+          "rhs": {"type": "arithmetic"}
+        },
+        {
+          "type": "leaf"
+        }
+      ],
+      "_eval_note": "Either outcome is acceptable. If 'leaf', the LLM is being appropriately conservative on a sentence that fuses permission with limit. If 'comparison', the LLM has correctly extracted the latent inequality. We want to OBSERVE which happens."
+    },
+
+    {
+      "id": "cba_definitional_reference",
+      "category": "definitional_reference",
+      "claim": "Contract salary must not exceed the Non-Taxpayer Mid-Level Salary Exception limit.",
+      "policy_text": "Article VII, Section 6(e)(1): A Team may use the Non-Taxpayer Mid-Level Salary Exception to sign and/or acquire by assignment one (1) or more Player Contracts during each Salary Cap Year that, in the aggregate, provide for Salaries and Unlikely Bonuses in the first Salary Cap Year totaling up to 9.12% of the Salary Cap for such Salary Cap Year.",
+      "context": "DEFINITIONAL REFERENCE TEST. The claim references 'the Non-Taxpayer MLE limit' which is defined in the policy text as 9.12% of the Salary Cap. Three possible classifications: (a) COMPARISON with rhs_description='Non-Taxpayer MLE limit' and rhs_kind='constant' (treating the named limit as an opaque named constant — REQUIRES downstream resolution); (b) COMPARISON with rhs_description='9.12% of the Salary Cap' and rhs_kind='arithmetic' (LLM inlined the definition); (c) flag/inferred. We want to observe what Opus does.",
+      "expected_either": [
+        {
+          "type": "comparison",
+          "operator": "leq",
+          "lhs": {"type": "numeric_leaf", "concept": "contract_first_year_salary"},
+          "rhs": {"type": "constant", "concept": "non_taxpayer_mle_limit"}
+        },
+        {
+          "type": "comparison",
+          "operator": "leq",
+          "lhs": {"type": "numeric_leaf", "concept": "contract_first_year_salary"},
+          "rhs": {"type": "arithmetic"}
+        }
+      ],
+      "_eval_note": "Both classifications are architecturally valid. Inlining gets us a tighter engine tree; named-constant preserves the source structure. Either is correct; we record which Opus prefers."
+    },
+
+    {
+      "id": "cba_team_salary_apron_restriction",
+      "category": "real_cba_direct_quote",
+      "claim": "Immediately following such transaction, the Team's Team Salary for such Salary Cap Year may not exceed the Applicable Apron Level that corresponds with such transaction in the table.",
+      "policy_text": "Article VII, Section 2(e)(2)(i)(A): A Team may not engage in a transaction set forth in the Transaction Restrictions Table if, immediately following such transaction, the Team's Team Salary for such Salary Cap Year would exceed the Applicable Apron Level that corresponds with such transaction in the table.",
+      "context": "A LEQ comparison where the RHS is a TABLE LOOKUP, not a fixed constant. 'The Applicable Apron Level that corresponds with such transaction in the table' references row-keyed data the engine cannot evaluate. The classifier should recognize this as a comparison but with rhs_kind='constant' (an extractable named value, where the extraction is parametric on transaction type). Edge case: this may also be flagged as 'inferred' or composed.",
+      "expected": {
+        "type": "comparison",
+        "operator": "leq",
+        "lhs": {"type": "numeric_leaf", "concept": "team_salary_post_transaction"},
+        "rhs": {"type": "constant", "concept": "applicable_apron_level"}
+      }
+    },
+
+    {
+      "id": "cba_max_salary_conditional_with_5th_year",
+      "category": "real_cba_direct_quote",
+      "claim": "For any player who has completed fewer than seven (7) Years of Service, the maximum salary is the greater of (x) twenty-five percent (25%) of the Salary Cap, or (y) one hundred five percent (105%) of the Salary for the final Season of the player's prior Contract.",
+      "policy_text": "Article II, Section 7(a)(i): for any player who has completed fewer than seven (7) Years of Service, the greater of (x) twenty-five percent (25%) of the Salary Cap in effect at the time the Contract is executed, or (y) one hundred five percent (105%) of the Salary for the final Season of the player's prior Contract.",
+      "context": "Real CBA: max-salary formula. This is NOT a comparison — it's a DEFINITIONAL clause that defines max_salary. A good decomposer should classify this as a LEAF (the whole formula is the definition of max_salary_ceiling and Map will compute it), OR flag it as 'inferred / composed'. The architecturally correct downstream treatment is: max_salary_ceiling is a derived numeric atom whose computation Map handles via a per-atom prompt. The classifier should NOT try to decompose this into a comparison.",
+      "expected_either": [
+        {
+          "type": "leaf"
+        },
+        {
+          "type": "or",
+          "n_children": 2
+        }
+      ],
+      "_eval_note": "Either 'leaf' or 'or' of two arithmetic alternatives is reasonable. If Opus tries to classify as 'comparison', that would be wrong — there's no inequality here, it's a definition."
+    },
+
+    {
+      "id": "cba_bi_annual_exception_threshold",
+      "category": "real_cba_direct_quote",
+      "claim": "Contracts signed under the Bi-annual Exception must in the aggregate provide for first-year Salaries and Unlikely Bonuses totaling no more than 3.32% of the Salary Cap.",
+      "policy_text": "Article VII, Section 6(d)(1): A Team may use the Bi-annual Exception during a Salary Cap Year to sign and/or acquire by assignment one (1) or more Player Contracts that, in the aggregate, provide for Salaries and Unlikely Bonuses in the first Salary Cap Year totaling up to 3.32% of the Salary Cap for such Salary Cap Year.",
+      "context": "Build's reformulation of CBA Section 6(d)(1). The original text says 'A Team may use... totaling up to 3.32% of the Salary Cap' — that's the embedded comparison. Build's reformulation pulls it into a cleaner comparison statement. Test: classifier should produce a clean COMPARISON.",
+      "expected": {
+        "type": "comparison",
+        "operator": "leq",
+        "lhs": {"type": "numeric_leaf", "concept": "aggregated_bi_annual_first_year_salary"},
+        "rhs": {"type": "arithmetic"}
+      }
+    },
+
+    {
+      "id": "cba_bi_annual_length_cap",
+      "category": "real_cba_direct_quote",
+      "claim": "The term of a Player Contract signed pursuant to the Bi-annual Exception may not exceed two (2) Seasons in length.",
+      "policy_text": "Article VII, Section 6(d)(2): The term of a Player Contract signed pursuant to the Bi-annual Exception may not exceed two (2) Seasons in length, and the remaining term of a Player Contract acquired by assignment pursuant to the Bi-annual Exception may not exceed two (2) Seasons in length.",
+      "context": "Direct CBA quote — should be a clean LEQ with integer constant.",
+      "expected": {
+        "type": "comparison",
+        "operator": "leq",
+        "lhs": {"type": "numeric_leaf", "concept": "contract_length_years"},
+        "rhs": {"type": "constant", "value": 2}
+      }
+    },
+
+    {
+      "id": "cba_taxpayer_mle_gate",
+      "category": "definitional_reference",
+      "claim": "The Team's Team Salary immediately following the Team's use of the Taxpayer Mid-Level Salary Exception must exceed the First Apron Level.",
+      "policy_text": "Article VII, Section 6(f)(1): A Team may use the Taxpayer Mid-Level Salary Exception to sign one (1) or more Player Contracts during each Salary Cap Year not to exceed two (2) Seasons in length, that, in the aggregate, provide for Salaries and Unlikely Bonuses in the first Salary Cap Year totaling up to the amounts set forth below, provided that the Team's Team Salary immediately following the Team's use of such Exception exceeds the First Apron Level.",
+      "context": "GT comparison where the LHS is a post-action team salary (derived) and the RHS is a named CBA constant (First Apron Level). The claim is the proviso isolated from the surrounding permission. Test: classifier should produce GT comparison; rhs_kind should be 'constant' (First Apron Level is a known named CBA value).",
+      "expected": {
+        "type": "comparison",
+        "operator": "gt",
+        "lhs": {"type": "numeric_leaf", "concept": "team_salary_post_use"},
+        "rhs": {"type": "constant", "concept": "first_apron_level"}
+      }
+    },
+
+    {
+      "id": "cba_higher_max_disjunction",
+      "category": "real_cba_direct_quote",
+      "claim": "The player was named to the All-NBA first, second, or third team, or was named Defensive Player of the Year, in the immediately preceding Season or in two (2) Seasons during the immediately preceding three (3) Seasons; or the player was named NBA MVP during one of the immediately preceding three (3) Seasons.",
+      "policy_text": "Article II, Section 7(a)(i)(A) and (B): (A) the player was named to the All-NBA first, second, or third team, or was named Defensive Player of the Year, in the immediately preceding Season or in two (2) Seasons during the immediately preceding three (3) Seasons; or (B) the player was named NBA MVP during one of the immediately preceding three (3) Seasons.",
+      "context": "Higher Max Criteria — a complex OR of disjunctions. The classifier should produce an OR. Note: the inner cardinality ('two of three seasons') is technically AT_LEAST_2 over a window, but for the top-level classification, the right answer is OR(2 children corresponding to (A) and (B)).",
+      "expected": {
+        "type": "or",
+        "n_children": 2
+      }
+    },
+
+    {
+      "id": "cba_max_salary_5th_year_boost_conditional",
+      "category": "messy_phrasing",
+      "claim": "A player who has four (4) Years of Service as of the June 30 following the end of the last Season covered by his Player Contract shall be eligible to receive from his Prior Team up to thirty percent (30%) of the Salary Cap in effect at the time the Contract is executed if the player has met at least one of the Higher Max Criteria.",
+      "policy_text": "Article II, Section 7(a)(i): for any player who has completed fewer than seven (7) Years of Service, the greater of (x) twenty-five percent (25%) of the Salary Cap in effect at the time the Contract is executed, or (y) one hundred five percent (105%) of the Salary for the final Season of the player's prior Contract; provided, however, that a player who has four (4) Years of Service as of the June 30 following the end of the last Season covered by his Player Contract ('5th Year Eligible Players') shall be eligible to receive from his Prior Team up to thirty percent (30%) of the Salary Cap in effect at the time the Contract is executed if the player has met at least one of the Higher Max Criteria.",
+      "context": "Conditional eligibility: IF (5th-year + Higher Max Criteria) THEN max salary may go up to 30% of cap. This is a CONDITIONAL, not a comparison. Best classification is likely AND of preconditions, with the salary limit treated as a downstream consequence. May also be classified as 'composed/inferred' or as a leaf. Test: does the classifier correctly avoid trying to flatten this into a single comparison?",
+      "expected_either": [
+        {
+          "type": "and",
+          "n_children": 2
+        },
+        {
+          "type": "leaf"
+        }
+      ],
+      "_eval_note": "Either 'and' (preconditions for eligibility) or 'leaf' (atomic eligibility predicate) is reasonable. A COMPARISON classification would be wrong because the conditional structure is part of the meaning."
+    }
+
+  ],
+
+  "_design_notes": {
+    "categories_added_vs_round_1": [
+      "real_cba_direct_quote: claims taken verbatim from CBA",
+      "messy_phrasing: claims with conditionals, permissions fused with limits, embedded clauses",
+      "definitional_reference: claims that reference named limits/constants defined elsewhere"
+    ],
+    "scoring_for_expected_either": "Either alternative passes. The eval is OBSERVATIONAL on these cases — we want to see which Opus prefers, not enforce a single answer.",
+    "what_to_watch_for": [
+      "Does adding real policy_text change classifications vs the no-context Round 1 cases?",
+      "How does Opus handle definitional references? Does it inline definitions, treat them as opaque constants, or flag for refinement?",
+      "On 'permission fused with limit' sentences, does Opus extract the latent comparison or stay conservative?",
+      "Do classifications shift toward 'inferred' provenance on messy cases? That would be desirable behavior."
+    ]
+  }
+}
