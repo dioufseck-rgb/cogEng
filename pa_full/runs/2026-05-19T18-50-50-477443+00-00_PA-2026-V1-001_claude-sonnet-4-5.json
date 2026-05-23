@@ -1,0 +1,347 @@
+{
+  "schema_version": "1.0",
+  "timestamp": "2026-05-19T18:50:50.477443+00:00",
+  "case_key": "PA-2026-V1-001",
+  "case_id": "PA-2026-V1-001",
+  "case_name": "PA-2026-V1-001",
+  "failure_mode": "n/a (v2 case, no engineered failure mode)",
+  "notes": "v2 case from cases_v2/PA-2026-V1-001/. GT disposition=uphold, GT routing band=['auto'], GT confidence=high [VARIANCE_SESSION=10e0019f RUN=6]",
+  "model": "claude-sonnet-4-5",
+  "tree_version": "1.0",
+  "ground_truth": {
+    "expected_disposition": "uphold",
+    "expected_routing": "auto",
+    "match_disposition": true,
+    "match_routing": true
+  },
+  "determination": {
+    "disposition": "uphold",
+    "routing_tier": "auto",
+    "is_tentative": false,
+    "confidence": 0.92,
+    "primary_reasoning": "Plan criteria not met; no regulatory carve-out applies; clinical standard does not strongly support surgery.",
+    "secondary_grounds": [],
+    "routing_reasons": [],
+    "tree_version": "1.0",
+    "trace": {
+      "denial_specifies_criteria": {
+        "node_id": "denial_specifies_criteria",
+        "value": true,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The denial notice explicitly identifies the clinical criteria applied, citing 'CC-SPINE-2024 (Plan Medical Policy: Cervical Spine Surgery)' and specifically referencing '\u00a7 2.1 (Diagnosis requirement...)' and '\u00a7 2.2 (Conservative treatment requirement...)' with detailed sub-components. The notice then explains how each criterion applies to the facts of this case, satisfying the requirement to specify which clinical criteria from the plan policy were applied.",
+        "cited_facts": [
+          "case content"
+        ],
+        "error": null
+      },
+      "denial_specifies_clinical_reason": {
+        "node_id": "denial_specifies_clinical_reason",
+        "value": true,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The denial notice explicitly identifies the clinical fact patterns that led to denial: (1) intact neurological examination without motor/sensory radicular signs or positive Spurling's maneuver, inconsistent with radiculopathy; (2) only 4 weeks of physical therapy instead of required 6 weeks; (3) only OTC ibuprofen use without additional pharmacotherapy classes; (4) no interventional procedures attempted. The notice goes beyond stating which criteria were applied and explains which specific clinical findings in this patient's case failed to satisfy each criterion.",
+        "cited_facts": [
+          "case content (confidence 0.80)"
+        ],
+        "error": null
+      },
+      "denial_provides_imr_rights": {
+        "node_id": "denial_provides_imr_rights",
+        "value": true,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The denial notice includes a dedicated section titled 'RIGHT TO INDEPENDENT MEDICAL REVIEW' that explicitly references California Health & Safety Code \u00a7 1374.30 and \u00a7 1374.31, explains the member's right to request an IMR, describes the IMR as conducted by physicians not affiliated with the plan, provides contact information (phone number and website), and states the 6-month filing deadline. This satisfies the requirement that the denial notice include notice of the member's IMR rights.",
+        "cited_facts": [
+          "case content"
+        ],
+        "error": null
+      },
+      "denial_procedurally_adequate": {
+        "node_id": "denial_procedurally_adequate",
+        "value": true,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "AND of 3 children: all true",
+        "cited_facts": [
+          "case content",
+          "case content (confidence 0.80)",
+          "case content"
+        ],
+        "error": null
+      },
+      "denial_factual_basis_correct": {
+        "node_id": "denial_factual_basis_correct",
+        "value": "ACCURATE",
+        "confidence": 0.92,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The denial makes four substantive factual assertions: (1) PT lasted approximately 4 weeks and patient discontinued prior to completion, (2) pharmacotherapy limited to intermittent ibuprofen with no other agent classes documented, (3) no interventional procedures documented or waived, and (4) neurological exam showed no radicular signs and MRI showed no significant stenosis or nerve root impingement. Each of these assertions is directly corroborated by the corresponding case record documents with no contradictions identified.",
+        "cited_facts": [
+          "case content (confidence 0.80): PACIFIC WESTERN HEALTH PLAN \u2014 NOTICE OF NON-COVERAGE DETERMINATION",
+          "case content (confidence 0.80): Discharge summary, Westside Rehabilitation, 2025-09-02",
+          "unknown (confidence 0.80): {'date': '2026-01-14', 'modality': 'MRI', 'region': 'cervical spine'",
+          "case content (confidence 0.80): No focal neurological deficit. No evidence of radiculopathy.",
+          "case content (confidence 0.80): Pharmacy fill history (Pacific Western pharmacy benefit, 2024-2026)",
+          "case content (confidence 0.80): No interventional procedures documented."
+        ],
+        "error": null
+      },
+      "cervical_radiculopathy_diagnosed": {
+        "node_id": "cervical_radiculopathy_diagnosed",
+        "value": false,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The condition requires a confirmed diagnosis of cervical radiculopathy with nerve root compression and radicular symptoms (pain, numbness, weakness in dermatomal distribution). The medical records explicitly document 'No radiculopathy documented,' the neurological examination shows no dermatomal sensory loss, normal strength (5/5) throughout, negative Spurling's test, and the MRI shows 'no nerve root impingement' and 'without significant neural compromise.' These findings affirmatively exclude the required diagnosis.",
+        "cited_facts": [
+          "[extract] case content (confidence 0.80): Chronic axial cervical pain with bilateral shoulder girdle pain. Mild multilevel cervical spondylosis (C4-C5, C5-C6, C6-C7 disc desiccation). No radiculopathy documented. No myelopathy documented. No disc herniation with neurological deficit documented.",
+          "[extract] case content (confidence 0.80): Examination dated 2026-03-18 by Dr. Elena Rodriguez: Mental status intact. Cranial nerves II-XII intact. Motor: strength 5/5 throughout bilateral upper extremities including deltoid, biceps, triceps, wrist extension, finger flexion, intrinsic hand muscles. Sensation: intact to light touch, pinprick, and proprioception throughout C4-T1 distributions bilaterally. No dermatomal sensory loss documented. Reflexes: biceps 2+ bilaterally, triceps 2+ bilaterally, brachioradialis 2+ bilaterally. No Hoffmann sign. No clonus. Spurling's test negative bilaterally. Shoulder abduction relief sign negative. Range of motion: cervical flexion 50\u00b0, extension 40\u00b0, lateral rotation 70\u00b0 bilaterally, lateral flexion 35\u00b0 bilaterally with end-range discomfort. Tenderness to palpation over bilateral paraspinal muscles C5-T1 level and bilateral trapezii. Adson's maneuver negative.",
+          "[extract] case content (confidence 0.80): MRI cervical spine, 2026-01-14: Mild multilevel cervical spondylosis. C4-C5: mild disc desiccation, small posterior bulge, no significant central or foraminal stenosis. C5-C6: moderate disc desiccation, small broad-based posterior disc bulge measuring 1.5mm, no central stenosis, mild bilateral neural foraminal narrowing without nerve root impingement. C6-C7: mild disc desiccation, no significant bulge. No evidence of disc herniation, no central canal stenosis, no severe foraminal stenosis, no nerve root impingment, no cord compression, no myelomalacia signal. Impression: Mild multilevel cervical degenerative changes without significant neural compromise."
+        ],
+        "error": null
+      },
+      "cervical_myelopathy_diagnosed": {
+        "node_id": "cervical_myelopathy_diagnosed",
+        "value": false,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The condition requires a confirmed diagnosis of cervical myelopathy with spinal cord compression and myelopathic symptoms. The medical record explicitly states 'No myelopathy documented' and the MRI shows 'no cord compression.' The examination reveals normal reflexes (2+ bilaterally), no Hoffmann sign, normal strength (5/5), and no myelopathic findings. These facts directly negate all elements required by the condition.",
+        "cited_facts": [
+          "[extract] case content (confidence 0.80): Chronic axial cervical pain with bilateral shoulder girdle pain. Mild multilevel cervical spondylosis (C4-C5, C5-C6, C6-C7 disc desiccation). No radiculopathy documented. No myelopathy documented. No disc herniation with neurological deficit documented.",
+          "[extract] case content (confidence 0.80): Examination dated 2026-03-18 by Dr. Elena Rodriguez: Mental status intact. Cranial nerves II-XII intact. Motor: strength 5/5 throughout bilateral upper extremities including deltoid, biceps, triceps, wrist extension, finger flexion, intrinsic hand muscles. Sensation: intact to light touch, pinprick, and proprioception throughout C4-T1 distributions bilaterally. No dermatomal sensory loss documented. Reflexes: biceps 2+ bilaterally, triceps 2+ bilaterally, brachioradialis 2+ bilaterally. No Hoffmann sign. No clonus. Spurling's test negative bilaterally.",
+          "[extract] case content (confidence 0.80): MRI cervical spine, 2026-01-14: Mild multilevel cervical spondylosis. C4-C5: mild disc desiccation, small posterior bulge, no significant central or foraminal stenosis. C5-C6: moderate disc desiccation, small broad-based posterior disc bulge measuring 1.5mm, no central stenosis, mild bilateral neural foraminal narrowing without nerve root impingement. C6-C7: mild disc desiccation, no significant bulge. No evidence of disc herniation, no central canal stenosis, no severe foraminal stenosis, no nerve root impingement, no cord compression, no myelomalacia signal."
+        ],
+        "error": null
+      },
+      "disc_herniation_with_neurological_deficit": {
+        "node_id": "disc_herniation_with_neurological_deficit",
+        "value": false,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The condition requires both cervical disc herniation AND objective neurological deficit. The MRI explicitly states 'No evidence of disc herniation' and documents only disc bulges. The neurological examination shows normal motor strength (5/5), intact sensation, and normal symmetric reflexes (2+ bilaterally) with no documented sensory loss, motor weakness, or reflex changes. Both prongs of the condition are not satisfied.",
+        "cited_facts": [
+          "[extract] case content (confidence 0.80): Examination dated 2026-03-18 by Dr. Elena Rodriguez",
+          "[extract] case content (confidence 0.80): MRI cervical spine, 2026-01-14"
+        ],
+        "error": null
+      },
+      "diagnosis_requirement_met": {
+        "node_id": "diagnosis_requirement_met",
+        "value": false,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "OR of 3 children: none true",
+        "cited_facts": [
+          "[extract] case content (confidence 0.80): Chronic axial cervical pain with bilateral shoulder girdle pain. Mild multilevel cervical spondylosis (C4-C5, C5-C6, C6-C7 disc desiccation). No radiculopathy documented. No myelopathy documented. No disc herniation with neurological deficit documented.",
+          "[extract] case content (confidence 0.80): Examination dated 2026-03-18 by Dr. Elena Rodriguez: Mental status intact. Cranial nerves II-XII intact. Motor: strength 5/5 throughout bilateral upper extremities including deltoid, biceps, triceps, wrist extension, finger flexion, intrinsic hand muscles. Sensation: intact to light touch, pinprick, and proprioception throughout C4-T1 distributions bilaterally. No dermatomal sensory loss documented. Reflexes: biceps 2+ bilaterally, triceps 2+ bilaterally, brachioradialis 2+ bilaterally. No Hoffmann sign. No clonus. Spurling's test negative bilaterally. Shoulder abduction relief sign negative. Range of motion: cervical flexion 50\u00b0, extension 40\u00b0, lateral rotation 70\u00b0 bilaterally, lateral flexion 35\u00b0 bilaterally with end-range discomfort. Tenderness to palpation over bilateral paraspinal muscles C5-T1 level and bilateral trapezii. Adson's maneuver negative.",
+          "[extract] case content (confidence 0.80): MRI cervical spine, 2026-01-14: Mild multilevel cervical spondylosis. C4-C5: mild disc desiccation, small posterior bulge, no significant central or foraminal stenosis. C5-C6: moderate disc desiccation, small broad-based posterior disc bulge measuring 1.5mm, no central stenosis, mild bilateral neural foraminal narrowing without nerve root impingement. C6-C7: mild disc desiccation, no significant bulge. No evidence of disc herniation, no central canal stenosis, no severe foraminal stenosis, no nerve root impingment, no cord compression, no myelomalacia signal. Impression: Mild multilevel cervical degenerative changes without significant neural compromise.",
+          "[extract] case content (confidence 0.80): Chronic axial cervical pain with bilateral shoulder girdle pain. Mild multilevel cervical spondylosis (C4-C5, C5-C6, C6-C7 disc desiccation). No radiculopathy documented. No myelopathy documented. No disc herniation with neurological deficit documented.",
+          "[extract] case content (confidence 0.80): Examination dated 2026-03-18 by Dr. Elena Rodriguez: Mental status intact. Cranial nerves II-XII intact. Motor: strength 5/5 throughout bilateral upper extremities including deltoid, biceps, triceps, wrist extension, finger flexion, intrinsic hand muscles. Sensation: intact to light touch, pinprick, and proprioception throughout C4-T1 distributions bilaterally. No dermatomal sensory loss documented. Reflexes: biceps 2+ bilaterally, triceps 2+ bilaterally, brachioradialis 2+ bilaterally. No Hoffmann sign. No clonus. Spurling's test negative bilaterally.",
+          "[extract] case content (confidence 0.80): MRI cervical spine, 2026-01-14: Mild multilevel cervical spondylosis. C4-C5: mild disc desiccation, small posterior bulge, no significant central or foraminal stenosis. C5-C6: moderate disc desiccation, small broad-based posterior disc bulge measuring 1.5mm, no central stenosis, mild bilateral neural foraminal narrowing without nerve root impingement. C6-C7: mild disc desiccation, no significant bulge. No evidence of disc herniation, no central canal stenosis, no severe foraminal stenosis, no nerve root impingement, no cord compression, no myelomalacia signal.",
+          "[extract] case content (confidence 0.80): Examination dated 2026-03-18 by Dr. Elena Rodriguez",
+          "[extract] case content (confidence 0.80): MRI cervical spine, 2026-01-14"
+        ],
+        "error": null
+      },
+      "plan_criteria_satisfied": {
+        "node_id": "plan_criteria_satisfied",
+        "value": false,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "AND short-circuit: diagnosis_requirement_met is false",
+        "cited_facts": [
+          "[extract] case content (confidence 0.80): Chronic axial cervical pain with bilateral shoulder girdle pain. Mild multilevel cervical spondylosis (C4-C5, C5-C6, C6-C7 disc desiccation). No radiculopathy documented. No myelopathy documented. No disc herniation with neurological deficit documented.",
+          "[extract] case content (confidence 0.80): Examination dated 2026-03-18 by Dr. Elena Rodriguez: Mental status intact. Cranial nerves II-XII intact. Motor: strength 5/5 throughout bilateral upper extremities including deltoid, biceps, triceps, wrist extension, finger flexion, intrinsic hand muscles. Sensation: intact to light touch, pinprick, and proprioception throughout C4-T1 distributions bilaterally. No dermatomal sensory loss documented. Reflexes: biceps 2+ bilaterally, triceps 2+ bilaterally, brachioradialis 2+ bilaterally. No Hoffmann sign. No clonus. Spurling's test negative bilaterally. Shoulder abduction relief sign negative. Range of motion: cervical flexion 50\u00b0, extension 40\u00b0, lateral rotation 70\u00b0 bilaterally, lateral flexion 35\u00b0 bilaterally with end-range discomfort. Tenderness to palpation over bilateral paraspinal muscles C5-T1 level and bilateral trapezii. Adson's maneuver negative.",
+          "[extract] case content (confidence 0.80): MRI cervical spine, 2026-01-14: Mild multilevel cervical spondylosis. C4-C5: mild disc desiccation, small posterior bulge, no significant central or foraminal stenosis. C5-C6: moderate disc desiccation, small broad-based posterior disc bulge measuring 1.5mm, no central stenosis, mild bilateral neural foraminal narrowing without nerve root impingement. C6-C7: mild disc desiccation, no significant bulge. No evidence of disc herniation, no central canal stenosis, no severe foraminal stenosis, no nerve root impingment, no cord compression, no myelomalacia signal. Impression: Mild multilevel cervical degenerative changes without significant neural compromise.",
+          "[extract] case content (confidence 0.80): Chronic axial cervical pain with bilateral shoulder girdle pain. Mild multilevel cervical spondylosis (C4-C5, C5-C6, C6-C7 disc desiccation). No radiculopathy documented. No myelopathy documented. No disc herniation with neurological deficit documented.",
+          "[extract] case content (confidence 0.80): Examination dated 2026-03-18 by Dr. Elena Rodriguez: Mental status intact. Cranial nerves II-XII intact. Motor: strength 5/5 throughout bilateral upper extremities including deltoid, biceps, triceps, wrist extension, finger flexion, intrinsic hand muscles. Sensation: intact to light touch, pinprick, and proprioception throughout C4-T1 distributions bilaterally. No dermatomal sensory loss documented. Reflexes: biceps 2+ bilaterally, triceps 2+ bilaterally, brachioradialis 2+ bilaterally. No Hoffmann sign. No clonus. Spurling's test negative bilaterally.",
+          "[extract] case content (confidence 0.80): MRI cervical spine, 2026-01-14: Mild multilevel cervical spondylosis. C4-C5: mild disc desiccation, small posterior bulge, no significant central or foraminal stenosis. C5-C6: moderate disc desiccation, small broad-based posterior disc bulge measuring 1.5mm, no central stenosis, mild bilateral neural foraminal narrowing without nerve root impingement. C6-C7: mild disc desiccation, no significant bulge. No evidence of disc herniation, no central canal stenosis, no severe foraminal stenosis, no nerve root impingement, no cord compression, no myelomalacia signal.",
+          "[extract] case content (confidence 0.80): Examination dated 2026-03-18 by Dr. Elena Rodriguez",
+          "[extract] case content (confidence 0.80): MRI cervical spine, 2026-01-14"
+        ],
+        "error": null
+      },
+      "pt_contraindicated_or_futile": {
+        "node_id": "pt_contraindicated_or_futile",
+        "value": false,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The condition requires written documentation from the treating physician that physical therapy is contraindicated or unlikely to benefit the member. Dr. Rodriguez's documentation does not include any explicit statement that physical therapy is contraindicated or unlikely to benefit; rather, the physical therapy records show the patient improved with PT (pain decreased from 7/10 to 4/10) and self-discontinued after 4 weeks due to feeling better. The absence of such documentation means the condition is not satisfied.",
+        "cited_facts": [
+          "[extract] case content (confidence 0.80): Treating physician: Dr. Elena Rodriguez...",
+          "[extract] case content (confidence 0.80): Physical therapy at Westside Rehabilitation..."
+        ],
+        "error": null
+      },
+      "functional_plateau_documented": {
+        "node_id": "functional_plateau_documented",
+        "value": false,
+        "confidence": 0.92,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The condition requires both completion of physical therapy AND documented functional plateau. The patient discontinued PT before completing the planned 6-week course, explicitly failing the first element. Additionally, the PT documented 'continued expected progress' and 'expected gains' with 15% ROM improvement and pain reduction from 7/10 to 4/10, which contradicts functional plateau criteria (less than 10% improvement or explicit maximum benefit documentation).",
+        "cited_facts": [
+          "[extract] case content (confidence 0.80): Discharge summary, Westside Rehabilitation, 2025-09-02: Patient discontinued before completing planned 6-week course. Final session pain rating 4/10 (initial 7/10). Cervical range of motion improved by approximately 15% bilaterally. Patient declined further sessions. Discharge status: improvement noted, plan of care not completed.",
+          "[extract] case content (confidence 0.80): Progress notes consistent with discharge summary. No documentation of plateau, contraindication, or futility. Treating PT documented continued expected progress at time of discontinuation. Notes contain language: 'Patient making expected gains and would benefit from completion of planned care; however, patient elects to discontinue.'"
+        ],
+        "error": null
+      },
+      "structural_neurological_compromise": {
+        "node_id": "structural_neurological_compromise",
+        "value": false,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The MRI shows no cord compression, no disc herniation, no nerve root impingement, and no significant neural compromise. The physical examination demonstrates normal motor strength (5/5), intact sensation, normal reflexes, negative Spurling's test, and no signs of radiculopathy or myelopathy. The condition requires objective evidence of structural neurological compromise such as cord compression with deficit, significant herniation causing radiculopathy, or myelopathy\u2014none of which are present in this case.",
+        "cited_facts": [
+          "[extract] case content (confidence 0.80): MRI cervical spine, 2026-01-14",
+          "[extract] case content (confidence 0.80): Examination dated 2026-03-18 by Dr. Elena Rodriguez",
+          "[extract] case content (confidence 0.80): Chronic axial cervical pain with bilateral shoulder girdle pain"
+        ],
+        "error": null
+      },
+      "cic_10169_5_carve_out": {
+        "node_id": "cic_10169_5_carve_out",
+        "value": false,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "OR of 3 children: none true",
+        "cited_facts": [
+          "[extract] case content (confidence 0.80): Treating physician: Dr. Elena Rodriguez...",
+          "[extract] case content (confidence 0.80): Physical therapy at Westside Rehabilitation...",
+          "[extract] case content (confidence 0.80): Discharge summary, Westside Rehabilitation, 2025-09-02: Patient discontinued before completing planned 6-week course. Final session pain rating 4/10 (initial 7/10). Cervical range of motion improved by approximately 15% bilaterally. Patient declined further sessions. Discharge status: improvement noted, plan of care not completed.",
+          "[extract] case content (confidence 0.80): Progress notes consistent with discharge summary. No documentation of plateau, contraindication, or futility. Treating PT documented continued expected progress at time of discontinuation. Notes contain language: 'Patient making expected gains and would benefit from completion of planned care; however, patient elects to discontinue.'",
+          "[extract] case content (confidence 0.80): MRI cervical spine, 2026-01-14",
+          "[extract] case content (confidence 0.80): Examination dated 2026-03-18 by Dr. Elena Rodriguez",
+          "[extract] case content (confidence 0.80): Chronic axial cervical pain with bilateral shoulder girdle pain"
+        ],
+        "error": null
+      },
+      "objective_progressive_pathology": {
+        "node_id": "objective_progressive_pathology",
+        "value": false,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The condition requires objective imaging demonstrating progressive pathology including cord signal change, myelomalacia, or progressive herniation on serial imaging. The available MRI from 2026-01-14 explicitly states 'no myelomalacia signal' and 'No evidence of disc herniation,' and there is no prior cervical imaging available for comparison to assess progression. Without serial imaging, progressive pathology cannot be demonstrated.",
+        "cited_facts": [
+          "[extract] case content (confidence 0.80): MRI cervical spine, 2026-01-14",
+          "[extract] case content (confidence 0.80): No prior cervical imaging available for comparison"
+        ],
+        "error": null
+      },
+      "apl_22_014_carve_out": {
+        "node_id": "apl_22_014_carve_out",
+        "value": false,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "AND short-circuit: objective_progressive_pathology is false",
+        "cited_facts": [
+          "[extract] case content (confidence 0.80): MRI cervical spine, 2026-01-14",
+          "[extract] case content (confidence 0.80): No prior cervical imaging available for comparison"
+        ],
+        "error": null
+      },
+      "regulatory_carve_out_applies": {
+        "node_id": "regulatory_carve_out_applies",
+        "value": false,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "OR of 2 children: none true",
+        "cited_facts": [
+          "[extract] case content (confidence 0.80): Treating physician: Dr. Elena Rodriguez...",
+          "[extract] case content (confidence 0.80): Physical therapy at Westside Rehabilitation...",
+          "[extract] case content (confidence 0.80): Discharge summary, Westside Rehabilitation, 2025-09-02: Patient discontinued before completing planned 6-week course. Final session pain rating 4/10 (initial 7/10). Cervical range of motion improved by approximately 15% bilaterally. Patient declined further sessions. Discharge status: improvement noted, plan of care not completed.",
+          "[extract] case content (confidence 0.80): Progress notes consistent with discharge summary. No documentation of plateau, contraindication, or futility. Treating PT documented continued expected progress at time of discontinuation. Notes contain language: 'Patient making expected gains and would benefit from completion of planned care; however, patient elects to discontinue.'",
+          "[extract] case content (confidence 0.80): MRI cervical spine, 2026-01-14",
+          "[extract] case content (confidence 0.80): Examination dated 2026-03-18 by Dr. Elena Rodriguez",
+          "[extract] case content (confidence 0.80): Chronic axial cervical pain with bilateral shoulder girdle pain",
+          "[extract] case content (confidence 0.80): MRI cervical spine, 2026-01-14",
+          "[extract] case content (confidence 0.80): No prior cervical imaging available for comparison"
+        ],
+        "error": null
+      },
+      "clinical_standard_supports_surgery": {
+        "node_id": "clinical_standard_supports_surgery",
+        "value": "TIER_3",
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "Per tier_3_criteria, TIER 3 applies when there is axial neck pain without radiculopathy or myelopathy. The facts show chronic axial cervical pain with bilateral shoulder girdle pain, but no documented radiculopathy (Spurling's negative, sensation intact, no dermatomal sensory loss) and no myelopathy (no Hoffmann sign, no clonus, strength 5/5 throughout, no cord compression or myelomalacia on MRI). This meets the TIER 3 criterion of 'axial neck pain without radiculopathy or myelopathy,' meaning surgery itself is not clinically indicated for this presentation.",
+        "cited_facts": [
+          "[extract] case content (confidence 0.80): Chronic axial cervical pain with bilateral shoulder girdle pain. Mild multilevel cervical spondylosis (C4-C5, C5-C6, C6-C7 disc desiccation). No radiculopathy documented. No myelopathy documented. No disc herniation with neurological deficit documented.",
+          "[extract] case content (confidence 0.80): Examination dated 2026-03-18 by Dr. Elena Rodriguez: Mental status intact. Cranial nerves II-XII intact. Motor: strength 5/5 throughout bilateral upper extremities including deltoid, biceps, triceps, wrist extension, finger flexion, intrinsic hand muscles. Sensation: intact to light touch, pinprick, and proprioception throughout C4-T1 distributions bilaterally. No dermatomal sensory loss documented. Reflexes: biceps 2+ bilaterally, triceps 2+ bilaterally, brachioradialis 2+ bilaterally. No Hoffmann sign. No clonus. Spurling's test negative bilaterally. Shoulder abduction relief sign negative.",
+          "[extract] case content (confidence 0.80): MRI cervical spine, 2026-01-14: Mild multilevel cervical spondylosis. C4-C5: mild disc desiccation, small posterior bulge, no significant central or foraminal stenosis. C5-C6: moderate disc desiccation, small broad-based posterior disc bulge measuring 1.5mm, no central stenosis, mild bilateral neural foraminal narrowing without nerve root impingement. C6-C7: mild disc desiccation, no significant bulge. No evidence of disc herniation, no central canal stenosis, no severe foraminal stenosis, no nerve root impingement, no cord compression, no myelomalacia signal. Impression: Mild multilevel cervical degenerative changes without significant neural compromise."
+        ],
+        "error": null
+      },
+      "root.acdf_appeal": {
+        "node_id": "root.acdf_appeal",
+        "value": null,
+        "confidence": 1.0,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "root node \u2014 routing logic applies",
+        "cited_facts": [],
+        "error": null
+      }
+    }
+  },
+  "run_stats": {
+    "wall_clock_seconds": 80.94013977050781,
+    "substrate_calls": 12,
+    "avg_latency_ms": 6744.5,
+    "escalations": 0
+  }
+}

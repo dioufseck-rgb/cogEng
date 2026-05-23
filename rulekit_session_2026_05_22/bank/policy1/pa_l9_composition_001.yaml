@@ -1,0 +1,48 @@
+case_id: pa-l9-composition-001
+policy: pa
+difficulty_level: 9
+case_class: main
+tags:
+  - composition_stress
+  - at_least_n_tight
+description: |
+  PA request where the at-least-2-of-4 pharmacotherapy requirement
+  is satisfied at exactly the threshold (no margin).
+
+  DIAGNOSIS: Cervical radiculopathy at C5-C6 with confirmed nerve
+  root compression. Radicular pain and numbness in C5 dermatomal
+  distribution. No myelopathy. No disc herniation.
+
+  IMAGING: MRI within 6 months, pathology at C5-C6 consistent with
+  symptoms and surgical level. Radiologist interpretation.
+
+  CONSERVATIVE TREATMENT - PT: 8 weeks supervised PT directed at
+  cervical with functional outcomes documented.
+
+  CONSERVATIVE TREATMENT - PHARMACOTHERAPY: Trialed exactly two of
+  the four required classes. Naproxen (NSAID) for 4 weeks (exactly
+  meeting the 4-week minimum). Cyclobenzaprine (muscle relaxant)
+  for 4 weeks (exactly meeting the 4-week minimum). Did NOT trial a
+  neuropathic agent (no gabapentin, pregabalin, or duloxetine). Did
+  NOT trial oral corticosteroids.
+
+  CONSERVATIVE TREATMENT - INTERVENTIONAL: One cervical epidural
+  steroid injection.
+
+  MYELOPATHY EXCEPTION: Not applicable.
+
+  PHYSICIAN DOCUMENTATION: All four elements provided.
+expected_outcomes:
+  pa.D1: "true"
+  pa.D2: "false"
+load_bearing_annotation:
+  - Both pharmacotherapy trials are individually load-bearing (NSAID + muscle relaxant — losing either drops the count below 2)
+  - Both trial durations are exactly at 4 weeks — each is load-bearing
+  - All other required elements documented
+authoring_notes: |
+  Level 9: composition stress. The AT-LEAST-2-of-4 requirement is
+  met at exactly N=2. Every contributing pharmacotherapy atom is
+  individually load-bearing — sensitivity analysis should identify
+  twice as many load-bearing atoms compared to a margin-2 case.
+  Tests that the AT-LEAST-N operator correctly distinguishes
+  "exactly threshold" from "above threshold."

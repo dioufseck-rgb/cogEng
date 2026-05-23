@@ -1,0 +1,41 @@
+case_id: fcba-l1-undelivered-001
+policy: fcba
+difficulty_level: 1
+case_class: main
+tags:
+  - canonical_positive
+  - undelivered_services
+description: |
+  Credit card billing-error dispute for services not delivered.
+
+  The cardholder's periodic statement reflects a $1,200 extension of
+  credit to a vacation rental company for a one-week stay scheduled
+  for the prior month.
+
+  The cardholder DID make the transaction (authorized the booking
+  at the time).
+
+  Property-or-services issue: services were not delivered as agreed
+  — the rental property was uninhabitable on arrival due to
+  undisclosed water damage, and the rental company refused to provide
+  an alternative property or a refund. The cardholder did not accept
+  the services (arrived, found the property uninhabitable, left
+  immediately). The services were not accepted by any designee of
+  the cardholder either.
+
+  The transaction was properly identified on the periodic statement.
+
+  No unauthorized-use issue. No payment-crediting issue. No
+  computational error. No documentary-evidence request. Statement
+  mailed and delivered.
+expected_outcomes:
+  fcba.D1: "true"
+  fcba.D2: "false"
+load_bearing_annotation:
+  - Extension of credit for property or services
+  - Services not delivered as agreed
+  - Services not accepted by consumer or designee
+authoring_notes: |
+  Canonical Level 1 positive — non-delivery under § 1026.13(a)(3).
+  Distinct from unauthorized-charge pathway. Tests the alternate
+  billing-error category.

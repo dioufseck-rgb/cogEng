@@ -1,0 +1,38 @@
+case_id: fcba-l3-misidentified-001
+policy: fcba
+difficulty_level: 3
+case_class: main
+tags:
+  - alternate_pathway
+  - identification_failure
+description: |
+  Credit card dispute on the identification-failure pathway under
+  § 1026.13(a)(2).
+
+  The cardholder's periodic statement reflects a $350 transaction
+  from a merchant with an obscure shell-name doing business under
+  multiple aliases. The merchant identification on the statement
+  does NOT comply with the Regulation Z formatting requirements
+  (§§ 1026.7(a)(2) or (b)(2) and 1026.8) — the merchant name
+  printed on the statement does not match the merchant's registered
+  trading name, and the location identifier is missing.
+
+  The cardholder did make the transaction. The charge is for goods
+  the cardholder ordered, which were delivered. The cardholder's
+  dispute is about the misidentification on the statement, not
+  about the underlying transaction.
+
+  Not unauthorized (cardholder made it). Not undelivered (goods
+  received). Not a payment-crediting issue. Not a computational
+  error. Statement was mailed and delivered.
+expected_outcomes:
+  fcba.D1: "true"
+  fcba.D2: "false"
+load_bearing_annotation:
+  - Extension of credit on the periodic statement
+  - Transaction NOT identified per § 1026.7/§ 1026.8 requirements
+authoring_notes: |
+  Level 3 alternate pathway — identification failure under
+  § 1026.13(a)(2). Tests that the build correctly recognizes a
+  billing error of category (2), separate from (1) unauthorized
+  and (3) non-delivery.

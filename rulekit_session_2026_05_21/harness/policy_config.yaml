@@ -1,0 +1,48 @@
+# Policy configuration for the comparison study.
+# Referenced by harness/select_prompt.py, harness/run_study.py.
+
+policies:
+  pa:
+    name: "PA Section 2 (Cervical Spinal Surgery)"
+    text_path: policy_inputs/pa_section2.txt
+    voice_key: pa
+    voice: "experienced plan medical director and prior authorization reviewer"
+    determinations:
+      - id: pa.D1
+        description: >-
+          Authorization for cervical spinal surgery is approved when all
+          Section 2 medical necessity criteria are satisfied.
+        polarity: positive
+        composition: derived
+      - id: pa.D2
+        description: >-
+          Authorization for cervical spinal surgery is denied.
+        polarity: negative
+        composition: complement
+        linked_to: pa.D1
+
+  fcba:
+    name: "FCBA 12 CFR § 1026.13(a)"
+    text_path: policy_inputs/fcba_1026_13a.txt
+    voice_key: fcba
+    voice: "experienced credit card dispute adjudicator at a financial institution"
+    determinations:
+      - id: fcba.D1
+        description: >-
+          The disputed item qualifies as a billing error under any of the
+          enumerated categories in 12 CFR § 1026.13(a).
+        polarity: positive
+        composition: derived
+      - id: fcba.D2
+        description: >-
+          The disputed item does not qualify as a billing error.
+        polarity: negative
+        composition: complement
+        linked_to: fcba.D1
+
+  # Policy 3 selection deferred per PROTOCOL.md Section 3.1.
+  # When selected, add a third entry here with:
+  #   - text_path
+  #   - voice_key registered in policies/voices.py
+  #   - determinations matching the policy's structure
+  # Then re-run harness/run_study.py --phase build

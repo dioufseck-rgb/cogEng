@@ -1,0 +1,122 @@
+case_id: pa-l1-std-001
+policy: pa
+difficulty_level: 1
+case_class: main
+tags:
+- canonical_positive
+- standard_pathway
+description: 'Cervical spinal surgery authorization request.
+
+
+  DIAGNOSIS: Cervical radiculopathy at C5-C6 with confirmed nerve root
+
+  compression demonstrated on MRI imaging. The member presents with
+
+  radicular pain, radicular numbness, and radicular weakness all
+
+  following a C5 dermatomal distribution. Member does not have cervical
+
+  myelopathy. There is no spinal cord compression. Member does not have
+
+  cervical disc herniation as a separate diagnosis; the underlying
+
+  pathology is nerve root compression. Member does not have gait
+
+  disturbance, bilateral upper extremity weakness, hyperreflexia,
+
+  positive Hoffman sign, or bowel/bladder dysfunction.
+
+
+  IMAGING: MRI of the cervical spine performed 2 months ago demonstrates
+
+  structural pathology (foraminal stenosis at C5-C6 with nerve root
+
+  compression). The structural pathology is consistent with the member''s
+
+  radicular symptoms and with the proposed surgical level (C5-C6). No
+
+  CT myelogram was performed. The imaging was interpreted by a
+
+  radiologist. The treating specialist did not separately interpret
+
+  the imaging.
+
+
+  CONSERVATIVE TREATMENT - PHYSICAL THERAPY: Member completed 8 weeks
+
+  of supervised physical therapy (exceeds the 6-week minimum). The
+
+  physical therapy was directed toward the cervical condition for
+
+  which surgery is being requested. Functional outcomes were
+
+  documented throughout the course.
+
+
+  CONSERVATIVE TREATMENT - PHARMACOTHERAPY: Member trialed naproxen
+
+  500mg BID for 6 weeks (an NSAID, with duration exceeding the 4-week
+
+  minimum). Member also trialed gabapentin 300mg TID for 5 weeks (a
+
+  neuropathic agent, with duration exceeding the 4-week minimum).
+
+  Member did not trial a COX-2 inhibitor, did not trial a muscle
+
+  relaxant, did not trial pregabalin, did not trial duloxetine, and
+
+  did not trial oral corticosteroids.
+
+
+  CONSERVATIVE TREATMENT - INTERVENTIONAL: Member received one cervical
+
+  epidural steroid injection at C5-C6. No cervical medial branch block
+
+  was performed. No trigger point injection series was performed.
+
+
+  MYELOPATHY EXCEPTION: The myelopathy exception does NOT apply. Member
+
+  does not have myelopathy as primary or secondary diagnosis. The
+
+  treating physician has not documented that interventional treatment
+
+  poses risk of neurological deterioration. Modified PT requirements
+
+  under the myelopathy exception are not applicable.
+
+
+  PHYSICIAN DOCUMENTATION: Treating physician has provided written
+
+  attestation that conservative treatment has been completed.
+
+  Treating physician has provided clinical rationale for surgical
+
+  intervention. Treating physician has provided description of
+
+  functional limitations. Treating physician has provided a written
+
+  statement of surgical risks and a written statement of alternatives
+
+  considered.
+
+  '
+expected_outcomes:
+  pa.D1: true
+  pa.D2: false
+load_bearing_annotation:
+- Qualifying cervical diagnosis (radiculopathy with nerve root compression)
+- MRI imaging within 6 months demonstrating structural pathology at surgical level
+- 6 weeks of supervised physical therapy directed at cervical condition with documented
+  outcomes
+- "At least 2 pharmacotherapy classes each trialed for \u22654 weeks"
+- One interventional treatment (cervical epidural steroid injection)
+- All four physician documentation elements (attestation, rationale, limitations,
+  risks/alternatives)
+authoring_notes: 'Canonical positive standard-pathway case for pilot smoke test.
+
+  Sourced from cases/pa_standard_approval.yaml. Tests basic correctness
+
+  on a case with full documentation, no exception pathway, no partial
+
+  evidence.'

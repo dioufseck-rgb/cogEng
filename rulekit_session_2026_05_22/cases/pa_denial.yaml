@@ -1,0 +1,48 @@
+case_id: pa-denial
+
+description: |
+  Cervical spinal surgery authorization request without a qualifying
+  diagnosis or imaging-supported structural pathology.
+
+  DIAGNOSIS: Member does NOT have cervical radiculopathy. There is no
+  documented nerve root compression. The member does not have
+  radicular pain, numbness, or weakness in any dermatomal distribution.
+  Member does NOT have cervical myelopathy. There is no spinal cord
+  compression. Member does not have gait disturbance, bilateral upper
+  extremity weakness, hyperreflexia, positive Hoffman sign, or
+  bowel/bladder dysfunction. Member does NOT have cervical disc
+  herniation with objective neurological deficit. Member presents with
+  general neck discomfort without a qualifying surgical diagnosis.
+
+  IMAGING: MRI of the cervical spine performed 2 months ago does NOT
+  demonstrate structural pathology. The imaging is unremarkable. The
+  imaging does not show pathology consistent with any specific
+  symptoms or with any proposed surgical level. No CT myelogram was
+  performed. The imaging was interpreted by a radiologist.
+
+  CONSERVATIVE TREATMENT - PHYSICAL THERAPY: Member completed 8 weeks
+  of supervised physical therapy directed at the cervical condition,
+  with documented functional outcomes. (Conservative treatment was
+  completed but is moot without a qualifying diagnosis.)
+
+  CONSERVATIVE TREATMENT - PHARMACOTHERAPY: Member trialed naproxen
+  (NSAID) for 6 weeks and a muscle relaxant for 4 weeks. Member did
+  not trial a COX-2 inhibitor, did not trial any neuropathic agent
+  (no gabapentin, no pregabalin, no duloxetine), and did not trial
+  oral corticosteroids.
+
+  CONSERVATIVE TREATMENT - INTERVENTIONAL: Member did not receive any
+  interventional treatment. No epidural steroid injection. No medial
+  branch block. No trigger point injection series.
+
+  MYELOPATHY EXCEPTION: Does not apply. No myelopathy.
+
+  PHYSICIAN DOCUMENTATION: Treating physician has provided attestation
+  of conservative treatment completion, clinical rationale for surgical
+  intervention (which is not supported by the diagnostic picture),
+  description of functional limitations, and a statement of surgical
+  risks and alternatives considered.
+
+expected_outcomes:
+  pa.D1: false
+  pa.D2: true

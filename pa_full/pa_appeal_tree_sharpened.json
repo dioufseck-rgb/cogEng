@@ -1,0 +1,626 @@
+{
+  "tree_metadata": {
+    "tree_id": "acdf_pa_appeal_healthfirst_california",
+    "version": "1.1-sharpened",
+    "policy_source": "CC-SPINE-2024 + California regulatory framework",
+    "approved_by": "(pending clinical and legal review)",
+    "approved_date": null,
+    "root_node_id": "root.acdf_appeal",
+    "default_disposition": "uphold",
+    "default_reasoning": "Plan criteria not met; no regulatory carve-out applies; clinical standard does not strongly support surgery.",
+    "indeterminate_disposition": "indeterminate_insufficient_record",
+    "required_nodes": [
+      "denial_procedurally_adequate",
+      "denial_factual_basis_correct",
+      "plan_criteria_satisfied",
+      "regulatory_carve_out_applies",
+      "clinical_standard_supports_surgery"
+    ],
+    "default_critical_leaves": {
+      "include": [
+        "plan_criteria_satisfied",
+        "clinical_standard_supports_surgery"
+      ],
+      "exclude_descendants_of": [
+        "physician_documentation_complete"
+      ]
+    },
+    "signal_severity": {
+      "contradictory_facts": "hold",
+      "requires_institutional_judgment": "hold",
+      "insufficient_facts_on_critical": "hold",
+      "insufficient_facts": "gate",
+      "contested_reading": "gate",
+      "low_confidence_in_value": "gate"
+    },
+    "tier_rules": {
+      "HOLD": [
+        {
+          "field": "hold_on_critical",
+          "op": ">=",
+          "value": 1
+        },
+        {
+          "field": "hold_total",
+          "op": ">=",
+          "value": 3
+        }
+      ],
+      "GATE": [
+        {
+          "field": "hold_on_peripheral",
+          "op": ">=",
+          "value": 1
+        },
+        {
+          "field": "gate_on_critical",
+          "op": ">=",
+          "value": 1
+        },
+        {
+          "field": "gate_total",
+          "op": ">=",
+          "value": 3
+        }
+      ],
+      "SPOT_CHECK": [
+        {
+          "field": "gate_on_peripheral",
+          "op": ">=",
+          "value": 1
+        }
+      ]
+    },
+    "default_tier": "AUTO"
+  },
+  "tree": {
+    "root.acdf_appeal": {
+      "id": "root.acdf_appeal",
+      "type": "compose",
+      "op": "DETERMINATION",
+      "policy_ref": "CC-SPINE-2024 + California regulatory framework",
+      "children": [
+        "denial_procedurally_adequate",
+        "denial_factual_basis_correct",
+        "plan_criteria_satisfied",
+        "regulatory_carve_out_applies",
+        "clinical_standard_supports_surgery"
+      ]
+    },
+    "denial_procedurally_adequate": {
+      "id": "denial_procedurally_adequate",
+      "type": "compose",
+      "op": "AND",
+      "policy_ref": "CHSC \u00a7 1374.31(a)",
+      "children": [
+        "denial_specifies_criteria",
+        "denial_specifies_clinical_reason",
+        "denial_provides_imr_rights"
+      ],
+      "disposition_role": {
+        "rank": 5,
+        "fallback_only": true,
+        "when": {
+          "value": false
+        },
+        "produces": "overturn_procedural_defect",
+        "reasoning_template": "Denial notice fails CHSC \u00a7 1374.31(b) requirements (specific criteria cited, specific clinical reason, IMR rights notice). Defective denial is treated as if no denial was issued. Note: substantive evaluation did not produce overturn grounds \u2014 on remand, plan should reissue a compliant denial.",
+        "critical_leaves": {
+          "self_descendants": true
+        }
+      }
+    },
+    "denial_specifies_criteria": {
+      "id": "denial_specifies_criteria",
+      "type": "char",
+      "policy_ref": "CHSC \u00a7 1374.31(a)(2)",
+      "condition_text": "Does the denial notice specify which clinical criteria from the plan policy were applied in reaching the denial decision?",
+      "definitions": [],
+      "expected_output_type": "boolean",
+      "tier": "routine",
+      "inputs": [
+        "denial_notice_text"
+      ]
+    },
+    "denial_specifies_clinical_reason": {
+      "id": "denial_specifies_clinical_reason",
+      "type": "char",
+      "policy_ref": "CHSC \u00a7 1374.31(a)(2)",
+      "condition_text": "Does the denial notice specify the specific clinical reason for the denial (i.e., which clinical fact pattern in the case led to the denial, not just which criterion was applied)?",
+      "definitions": [],
+      "expected_output_type": "boolean",
+      "tier": "routine",
+      "inputs": [
+        "denial_notice_text"
+      ]
+    },
+    "denial_provides_imr_rights": {
+      "id": "denial_provides_imr_rights",
+      "type": "char",
+      "policy_ref": "CHSC \u00a7 1374.31(a)(2)",
+      "condition_text": "Does the denial notice include notice of the member's IMR (Independent Medical Review) rights?",
+      "definitions": [],
+      "expected_output_type": "boolean",
+      "tier": "routine",
+      "inputs": [
+        "denial_notice_text"
+      ]
+    },
+    "denial_factual_basis_correct": {
+      "id": "denial_factual_basis_correct",
+      "type": "char",
+      "policy_ref": "Implicit in appeal review",
+      "condition_text": "Are the SUBSTANTIVE FACTUAL assertions in the denial notice accurately supported by the case record?\n\nA 'substantive factual assertion' is a claim the denial makes about something concrete and verifiable in the case record. Examples:\n  - 'PT not completed' / 'X weeks of PT completed'\n  - 'Hardware failure not confirmed in imaging'\n  - 'Clinical status has not materially changed'\n  - 'No interventional procedure documented'\n  - 'Imaging shows no myelopathy'\n  - 'One pharmacotherapy agent trialed'\n\nDO NOT evaluate procedural adequacy here. Whether the denial notice cites specific criteria, includes IMR rights, or follows proper form is evaluated by separate leaves (denial_procedurally_adequate branch). This leaf only evaluates whether the FACTUAL claims the denial makes about the case match the documented record.\n\nCompare each factual claim in the denial against the documents in the case record (PT discharge summaries, imaging reports, neurological exam notes, pharmacotherapy records, interventional records).\n\nReturn one of:\nACCURATE \u2014 all material factual claims in the denial match the record. The denial may have procedural defects, but its factual basis is sound.\nPARTIALLY_INACCURATE \u2014 at least one material factual claim is contradicted by the record, but other factual claims are accurate.\nINACCURATE \u2014 a critical factual claim that the denial relies on is contradicted by the record (e.g., denial says X happened when record clearly shows X did not happen, or denial says imaging shows nothing when imaging actually shows the relevant pathology).\n\nIf the denial makes no specific factual claims (e.g., denial is purely procedural or references prior PA history without making clinical assertions), return ACCURATE \u2014 there are no factual claims to evaluate as inaccurate.",
+      "definitions": [
+        {
+          "name": "factual_vs_procedural",
+          "text": "Factual claims describe the case record content (what was done, what was found, what is documented). Procedural defects are about how the denial notice is constructed (missing required elements, citing wrong criteria, etc.). Evaluate ONLY factual claims here. Procedural defects are evaluated by the denial_procedurally_adequate branch."
+        }
+      ],
+      "expected_output_type": "enumerated",
+      "tier": "frontier",
+      "inputs": [
+        "denial_notice_text",
+        "pt_discharge_summary",
+        "imaging_reports",
+        "neurological_exam_notes",
+        "pharmacotherapy_records",
+        "interventional_records"
+      ],
+      "disposition_role": {
+        "rank": 1,
+        "when": {
+          "value": "INACCURATE",
+          "min_confidence": 0.9
+        },
+        "produces": "overturn_factual_error_in_denial",
+        "reasoning_template": "Denial's stated factual basis is contradicted by the case record (substrate identified specific factual errors with high confidence): {reasoning}",
+        "critical_leaves": {
+          "include_self": true
+        }
+      }
+    },
+    "plan_criteria_satisfied": {
+      "id": "plan_criteria_satisfied",
+      "type": "compose",
+      "op": "AND",
+      "policy_ref": "CC-SPINE-2024 Section 2",
+      "children": [
+        "diagnosis_requirement_met",
+        "conservative_treatment_met",
+        "imaging_requirement_met",
+        "physician_documentation_complete",
+        "no_exclusion_applies"
+      ],
+      "disposition_role": {
+        "rank": 2,
+        "when": {
+          "apparently_true": true
+        },
+        "produces": "overturn_plan_criteria_met",
+        "reasoning_template": "Plan criteria are met against the documented facts. The denial is not supported by correct application of the plan's own criteria. Some leaves may have flagged interpretive escalation warranting physician review, but no required criterion returned hard false.",
+        "critical_leaves": {
+          "self_descendants": true,
+          "exclude_descendants_of": [
+            "physician_documentation_complete"
+          ]
+        }
+      }
+    },
+    "diagnosis_requirement_met": {
+      "id": "diagnosis_requirement_met",
+      "type": "compose",
+      "op": "OR",
+      "policy_ref": "CC-SPINE-2024 \u00a7 2.1",
+      "children": [
+        "cervical_radiculopathy_diagnosed",
+        "cervical_myelopathy_diagnosed",
+        "disc_herniation_with_neurological_deficit"
+      ]
+    },
+    "cervical_radiculopathy_diagnosed": {
+      "id": "cervical_radiculopathy_diagnosed",
+      "type": "char",
+      "policy_ref": "\u00a7 2.1(a)",
+      "condition_text": "Is there a confirmed diagnosis of cervical radiculopathy \u2014 nerve root compression with radicular symptoms (pain, numbness, weakness in dermatomal distribution)?",
+      "definitions": [],
+      "expected_output_type": "boolean",
+      "tier": "moderate",
+      "inputs": [
+        "primary_diagnosis",
+        "neurological_exam_findings",
+        "imaging_findings"
+      ]
+    },
+    "cervical_myelopathy_diagnosed": {
+      "id": "cervical_myelopathy_diagnosed",
+      "type": "char",
+      "policy_ref": "\u00a7 2.1(b)",
+      "condition_text": "Is there a confirmed diagnosis of cervical myelopathy \u2014 spinal cord compression with myelopathic symptoms (gait disturbance, bilateral upper extremity weakness, hyperreflexia, positive Hoffman sign, bowel/bladder dysfunction)?",
+      "definitions": [],
+      "expected_output_type": "boolean",
+      "tier": "moderate",
+      "inputs": [
+        "primary_diagnosis",
+        "neurological_exam_findings",
+        "imaging_findings"
+      ]
+    },
+    "disc_herniation_with_neurological_deficit": {
+      "id": "disc_herniation_with_neurological_deficit",
+      "type": "char",
+      "policy_ref": "\u00a7 2.1(c)",
+      "condition_text": "Is there cervical disc herniation with objective neurological deficit (sensory loss, motor weakness, or reflex changes documented on exam)?",
+      "definitions": [],
+      "expected_output_type": "boolean",
+      "tier": "moderate",
+      "inputs": [
+        "neurological_exam_findings",
+        "imaging_findings"
+      ]
+    },
+    "conservative_treatment_met": {
+      "id": "conservative_treatment_met",
+      "type": "compose",
+      "op": "AND",
+      "policy_ref": "\u00a7 2.2 with \u00a7 2.2A myelopathy exception",
+      "children": [
+        "pt_requirement_met",
+        "pharmacotherapy_requirement_met",
+        "interventional_requirement_met_or_waived"
+      ]
+    },
+    "pt_requirement_met": {
+      "id": "pt_requirement_met",
+      "type": "char",
+      "policy_ref": "\u00a7 2.2(a) with \u00a7 2.2A modification",
+      "condition_text": "Has the PT requirement been met?\n\nTwo pathways exist; apply the one that matches the primary diagnosis:\n\nSTANDARD pathway (applies when primary diagnosis is radiculopathy or disc herniation): 6 weeks minimum supervised PT with documented functional outcomes, directed at the cervical condition.\n\nMYELOPATHY pathway under \u00a7 2.2A (applies when primary diagnosis is cervical myelopathy): 4 weeks minimum.\n\nFirst determine which pathway applies from the primary diagnosis and clinical presentation, then evaluate whether the documented PT meets the applicable threshold. Return true only if met.",
+      "definitions": [
+        {
+          "name": "primary_diagnosis_test",
+          "text": "Primary diagnosis is the principal clinical condition for which surgery is requested. Myelopathy is primary when clinical findings show myelopathic features (hyperreflexia, Hoffman, gait change) and the request is for decompression of cord compression. Radiculopathy is primary when chief complaint and findings are radicular (dermatomal pain, single nerve root distribution) even with incidental cord contact. \u00a7 2.2A applies only when myelopathy is PRIMARY."
+        }
+      ],
+      "expected_output_type": "boolean",
+      "tier": "moderate",
+      "inputs": [
+        "primary_diagnosis",
+        "neurological_exam_findings",
+        "pt_records",
+        "pt_discharge_summary"
+      ]
+    },
+    "pharmacotherapy_requirement_met": {
+      "id": "pharmacotherapy_requirement_met",
+      "type": "char",
+      "policy_ref": "\u00a7 2.2(b)",
+      "condition_text": "Has the pharmacotherapy requirement been met? Requires trial of at least TWO distinct agent classes from this list, each trialed for a minimum of 4 cumulative weeks:\n- NSAIDs or COX-2 inhibitors\n- Muscle relaxants\n- Neuropathic agents (gabapentin, pregabalin, duloxetine,   tricyclic antidepressants)\n- Oral corticosteroids (note: brief dose packs of <2 weeks do NOT   count as 4-week trial of this class)\n\nDecision criteria \u2014 return TRUE only if BOTH of the following are met:\n  (1) Documentation shows at least 2 distinct classes were trialed.\n  (2) Each trialed class meets the 4-week cumulative-duration minimum,       with dose/frequency that would constitute a therapeutic trial       (not isolated single doses or sub-therapeutic dosing).\n\nReturn FALSE if either condition is not met. Return FALSE if the documentation is ambiguous about duration or dose adequacy \u2014 the burden of demonstrating completion is on the requesting party.\n\nThis requirement applies in full under both STANDARD and MYELOPATHY pathways \u2014 \u00a7 2.2A explicitly retains the pharmacotherapy requirement.\n\nCite the specific medication records, pharmacy fills, or treating physician documentation that support the determination.",
+      "definitions": [],
+      "expected_output_type": "boolean",
+      "tier": "moderate",
+      "inputs": [
+        "pharmacotherapy_records"
+      ]
+    },
+    "interventional_requirement_met_or_waived": {
+      "id": "interventional_requirement_met_or_waived",
+      "type": "char",
+      "policy_ref": "\u00a7 2.2(c) with \u00a7 2.2A modification",
+      "condition_text": "Has the interventional treatment requirement been met or validly waived?\n\nTwo pathways exist:\n\nSTANDARD pathway (radiculopathy/disc herniation primary): requires at least one of cervical epidural steroid injection, cervical medial branch block, or trigger point injection series.\n\nMYELOPATHY pathway (\u00a7 2.2A; myelopathy primary): waived if treating physician documents that interventional treatment poses risk of neurological deterioration.\n\nDetermine which pathway applies from the primary diagnosis, then evaluate whether the applicable requirement is met. Return true if met or validly waived.",
+      "definitions": [
+        {
+          "name": "primary_diagnosis_test",
+          "text": "Myelopathy pathway applies only when myelopathy is the PRIMARY diagnosis (the principal condition for which surgery is requested), not when it is incidentally present alongside a radicular primary complaint."
+        }
+      ],
+      "expected_output_type": "boolean",
+      "tier": "moderate",
+      "inputs": [
+        "primary_diagnosis",
+        "neurological_exam_findings",
+        "interventional_records",
+        "treating_physician_documentation"
+      ]
+    },
+    "imaging_requirement_met": {
+      "id": "imaging_requirement_met",
+      "type": "char",
+      "policy_ref": "\u00a7 2.3",
+      "condition_text": "Does current imaging (MRI or CT myelogram within 6 months of the request) demonstrate structural pathology consistent with the member's symptoms and at the proposed surgical level?\n\nThe imaging must be interpreted by a radiologist or treating specialist. The pathology shown must correlate with the clinical presentation \u2014 for example, imaging showing C6-C7 pathology with documented C7 symptoms satisfies; imaging showing only C4-C5 pathology with C7 symptoms does not.\n\nReturn true only if imaging requirement is met.",
+      "definitions": [],
+      "expected_output_type": "boolean",
+      "tier": "frontier",
+      "inputs": [
+        "imaging_reports",
+        "imaging_dates",
+        "symptoms_documented",
+        "proposed_surgical_level"
+      ]
+    },
+    "physician_documentation_complete": {
+      "id": "physician_documentation_complete",
+      "type": "compose",
+      "op": "AND",
+      "policy_ref": "\u00a7 2.4",
+      "children": [
+        "attestation_conservative_treatment",
+        "clinical_rationale_for_surgery",
+        "functional_limitations_described",
+        "surgical_risks_alternatives_addressed"
+      ]
+    },
+    "attestation_conservative_treatment": {
+      "id": "attestation_conservative_treatment",
+      "type": "char",
+      "policy_ref": "\u00a7 2.4(a)",
+      "condition_text": "Has the treating physician attested that conservative treatment has been completed (or validly waived per \u00a7 2.2A)?",
+      "definitions": [],
+      "expected_output_type": "boolean",
+      "tier": "routine",
+      "inputs": [
+        "treating_physician_documentation"
+      ]
+    },
+    "clinical_rationale_for_surgery": {
+      "id": "clinical_rationale_for_surgery",
+      "type": "char",
+      "policy_ref": "\u00a7 2.4(b)",
+      "condition_text": "Has the treating physician provided clinical rationale for the specific surgical intervention being requested?",
+      "definitions": [],
+      "expected_output_type": "boolean",
+      "tier": "routine",
+      "inputs": [
+        "treating_physician_documentation"
+      ]
+    },
+    "functional_limitations_described": {
+      "id": "functional_limitations_described",
+      "type": "char",
+      "policy_ref": "\u00a7 2.4(c)",
+      "condition_text": "Has the treating physician described the member's functional limitations from the condition?",
+      "definitions": [],
+      "expected_output_type": "boolean",
+      "tier": "routine",
+      "inputs": [
+        "treating_physician_documentation"
+      ]
+    },
+    "surgical_risks_alternatives_addressed": {
+      "id": "surgical_risks_alternatives_addressed",
+      "type": "char",
+      "policy_ref": "\u00a7 2.4(d)",
+      "condition_text": "Has the treating physician documented surgical risks and considered alternatives?",
+      "definitions": [],
+      "expected_output_type": "boolean",
+      "tier": "routine",
+      "inputs": [
+        "treating_physician_documentation"
+      ]
+    },
+    "no_exclusion_applies": {
+      "id": "no_exclusion_applies",
+      "type": "compose",
+      "op": "AND",
+      "policy_ref": "CC-SPINE-2024 Section 3",
+      "children": [
+        "exclusion_3_1_axial_pain_only",
+        "exclusion_3_3_imaging_inconsistent",
+        "exclusion_3_4_experimental_procedure"
+      ]
+    },
+    "exclusion_3_1_axial_pain_only": {
+      "id": "exclusion_3_1_axial_pain_only",
+      "type": "char",
+      "policy_ref": "\u00a7 3.1",
+      "condition_text": "Plan exclusion \u00a7 3.1 disallows surgery requested solely for axial neck pain without documented radiculopathy or myelopathy. Does this case AVOID this exclusion (i.e., the patient has documented radiculopathy or myelopathy beyond axial pain only)? Return TRUE if exclusion does NOT apply (good for approval). Return FALSE if the exclusion applies.",
+      "definitions": [],
+      "expected_output_type": "boolean",
+      "tier": "routine",
+      "inputs": [
+        "primary_diagnosis",
+        "neurological_exam_findings"
+      ]
+    },
+    "exclusion_3_3_imaging_inconsistent": {
+      "id": "exclusion_3_3_imaging_inconsistent",
+      "type": "char",
+      "policy_ref": "\u00a7 3.3",
+      "condition_text": "Plan exclusion \u00a7 3.3 disallows authorization when imaging does not demonstrate pathology at the proposed surgical level consistent with clinical presentation. Does this case AVOID this exclusion (i.e., imaging is consistent with symptoms at the proposed surgical level)? Return TRUE if exclusion does NOT apply. Return FALSE if imaging-symptom mismatch.",
+      "definitions": [],
+      "expected_output_type": "boolean",
+      "tier": "moderate",
+      "inputs": [
+        "imaging_reports",
+        "symptoms_documented",
+        "proposed_surgical_level"
+      ]
+    },
+    "exclusion_3_4_experimental_procedure": {
+      "id": "exclusion_3_4_experimental_procedure",
+      "type": "char",
+      "policy_ref": "\u00a7 3.4",
+      "condition_text": "Plan exclusion \u00a7 3.4 disallows experimental procedures (cervical disc arthroplasty at more than 2 levels; cervical disc replacement combined with fusion at adjacent levels). Does this case AVOID this exclusion (i.e., the requested procedure is standard, not experimental)? Return TRUE if exclusion does NOT apply.",
+      "definitions": [],
+      "expected_output_type": "boolean",
+      "tier": "routine",
+      "inputs": [
+        "procedure_code",
+        "procedure_description"
+      ]
+    },
+    "regulatory_carve_out_applies": {
+      "id": "regulatory_carve_out_applies",
+      "type": "compose",
+      "op": "OR",
+      "policy_ref": "CIC \u00a7 10169.5, DMHC APL 22-014",
+      "children": [
+        "cic_10169_5_carve_out",
+        "apl_22_014_carve_out"
+      ],
+      "disposition_role": {
+        "rank": 4,
+        "when": {
+          "value": true
+        },
+        "produces": "overturn_regulatory_carve_out",
+        "reasoning_template": "State regulatory provision overrides plan requirement (CIC \u00a7 10169.5 or DMHC APL 22-014). The denial's reliance on the relevant plan criterion is precluded by California regulation.",
+        "critical_leaves": {
+          "self_descendants": true
+        }
+      }
+    },
+    "cic_10169_5_carve_out": {
+      "id": "cic_10169_5_carve_out",
+      "type": "compose",
+      "op": "OR",
+      "policy_ref": "CIC \u00a7 10169.5(a)",
+      "children": [
+        "pt_contraindicated_or_futile",
+        "functional_plateau_documented",
+        "structural_neurological_compromise"
+      ]
+    },
+    "pt_contraindicated_or_futile": {
+      "id": "pt_contraindicated_or_futile",
+      "type": "char",
+      "policy_ref": "CIC \u00a7 10169.5(a)(1)",
+      "condition_text": "Has physical therapy been documented as contraindicated or futile, such that CIC \u00a7 10169.5 carve-out applies (PT requirement waived)?\n\nThis is a discretionary clinical determination by the treating physician. The carve-out is intended for cases where PT genuinely cannot help or would be harmful \u2014 not for cases where PT was incomplete by member choice.\n\nDecision criteria \u2014 return TRUE only if at least ONE of the following is documented:\n  (a) Explicit contraindication: medical condition that makes PT       unsafe (e.g., acute instability, severe osteoporosis with       fracture risk, severe progressive neurological deficit).\n  (b) Documented functional plateau after substantive PT trial:       treating physician or PT clinician documents that the patient       has reached maximum medical improvement from PT and further       therapy is not expected to provide additional benefit.\n  (c) Documented progressive worsening despite PT: PT was attempted       and condition objectively worsened (e.g., progressive       neurological deficit during therapy).\n\nReturn FALSE if PT was incomplete due to patient choice without documented contraindication, plateau, or worsening.\n\nReturn FALSE if documentation is ambiguous \u2014 the carve-out requires affirmative documented evidence, not absence of evidence.\n\nCite the specific clinical documentation supporting the determination.",
+      "definitions": [],
+      "expected_output_type": "boolean",
+      "tier": "moderate",
+      "inputs": [
+        "treating_physician_documentation",
+        "pt_records"
+      ]
+    },
+    "functional_plateau_documented": {
+      "id": "functional_plateau_documented",
+      "type": "char",
+      "policy_ref": "CIC \u00a7 10169.5(a)(2)",
+      "condition_text": "Has the member completed a course of physical therapy AND the treating physician (or PT) documented that the member reached a functional plateau without adequate resolution of symptoms?\n\nFunctional plateau (clinical standard): less than 10% improvement in validated functional outcome measure (NDI, VAS, mJOA) over 3 consecutive therapy sessions, OR explicit therapist documentation that maximum therapeutic benefit was reached, OR documented failure to improve on objective functional measures over sustained therapy.",
+      "definitions": [
+        {
+          "name": "functional_plateau_definition",
+          "text": "Per clinical evidence base (Section 5): Functional plateau in PT means documented failure to achieve meaningful functional improvement. A patient who achieves partial pain reduction but no improvement in neurological symptoms after 6-8 weeks of PT has reached plateau by clinical standard, even if pain has not fully resolved."
+        }
+      ],
+      "expected_output_type": "boolean",
+      "tier": "frontier",
+      "inputs": [
+        "pt_discharge_summary",
+        "pt_progress_notes",
+        "functional_outcome_measures"
+      ]
+    },
+    "structural_neurological_compromise": {
+      "id": "structural_neurological_compromise",
+      "type": "char",
+      "policy_ref": "CIC \u00a7 10169.5(a)(3)",
+      "condition_text": "Does the condition involve objective evidence of structural neurological compromise that physical therapy cannot address? Examples include cord compression with neurological deficit, significant herniation causing radiculopathy that PT cannot decompress, myelopathy from spinal cord compression.\n\nNote: this provision is intended to capture cases where the structural pathology is the cause of symptoms and PT \u2014 which addresses functional restoration, not structural decompression \u2014 cannot reasonably be expected to resolve the underlying compression.",
+      "definitions": [],
+      "expected_output_type": "boolean",
+      "tier": "frontier",
+      "inputs": [
+        "imaging_findings",
+        "neurological_exam_findings",
+        "primary_diagnosis"
+      ]
+    },
+    "apl_22_014_carve_out": {
+      "id": "apl_22_014_carve_out",
+      "type": "compose",
+      "op": "AND",
+      "policy_ref": "DMHC APL 22-014",
+      "children": [
+        "objective_progressive_pathology",
+        "conservative_failed_to_arrest",
+        "surgery_indicated_clinically"
+      ]
+    },
+    "objective_progressive_pathology": {
+      "id": "objective_progressive_pathology",
+      "type": "char",
+      "policy_ref": "APL 22-014(a)",
+      "condition_text": "Does objective imaging demonstrate progressive pathology \u2014 cord signal change, myelomalacia, or progressive herniation on serial imaging?",
+      "definitions": [],
+      "expected_output_type": "boolean",
+      "tier": "moderate",
+      "inputs": [
+        "imaging_findings",
+        "serial_imaging_comparison"
+      ]
+    },
+    "conservative_failed_to_arrest": {
+      "id": "conservative_failed_to_arrest",
+      "type": "char",
+      "policy_ref": "APL 22-014(b)",
+      "condition_text": "Has the treating physician documented that conservative treatment has been attempted and failed to arrest progression of the condition?",
+      "definitions": [],
+      "expected_output_type": "boolean",
+      "tier": "moderate",
+      "inputs": [
+        "treating_physician_documentation",
+        "conservative_treatment_history"
+      ]
+    },
+    "surgery_indicated_clinically": {
+      "id": "surgery_indicated_clinically",
+      "type": "char",
+      "policy_ref": "APL 22-014(c)",
+      "condition_text": "Is surgical intervention indicated under generally accepted clinical guidelines for this condition?",
+      "definitions": [],
+      "expected_output_type": "boolean",
+      "tier": "moderate",
+      "inputs": [
+        "primary_diagnosis",
+        "imaging_findings",
+        "clinical_guidelines_applicability"
+      ]
+    },
+    "clinical_standard_supports_surgery": {
+      "id": "clinical_standard_supports_surgery",
+      "type": "char",
+      "policy_ref": "CIC \u00a7 1374.32(a) \u2014 IMR clinical standard",
+      "condition_text": "Under generally accepted standards of medical practice (per AANS/CNS 2023, NASS 2020, AO Spine 2021), what is the clinical indication tier for ACDF surgery for this patient's presentation?\n\nThis is the IMR clinical standard evaluation. The question is whether surgery is CLINICALLY indicated for this presentation, not whether the plan's conservative-treatment prerequisites are met. Treat clinical indication and prerequisite completion as separate questions. Whether the patient has done enough conservative care to qualify under plan criteria is a different question evaluated by other leaves.\n\nTIER 1 (strong indication, urgency):\n  - Moderate-to-severe myelopathy (mJOA \u2264 14), OR\n  - Myelomalacia / T2 cord signal change on MRI, OR\n  - Acute progressive neurological deficit, OR\n  - Severe motor deficit (\u2264 3/5) with cord compression\nSurgery is urgent; conservative-treatment prerequisites may be waived under regulatory carve-outs.\n\nTIER 2 (reasonable indication, elective surgical candidate):\n  - Mild myelopathy (mJOA 15-17), stable presentation, OR\n  - Radiculopathy with persistent symptoms and imaging-symptom correlation, OR\n  - Significant functional impairment from documented cervical pathology\nSurgery is appropriate and clinically supported but not urgent. Conservative-treatment prerequisites still apply. TIER 2 MEANS surgery IS clinically indicated.\n\nTIER 3 (not clinically indicated):\n  - Axial neck pain without radiculopathy or myelopathy, OR\n  - Imaging findings without correlating symptoms, OR\n  - Imaging-symptom mismatch (e.g., abnormality at wrong level)\nSurgery is NOT clinically indicated regardless of other factors.\n\nIMPORTANT: TIER 2 is the most common appropriate tier for elective ACDF cases with proper imaging-symptom correlation. Do NOT assign TIER 3 simply because the patient hasn't yet completed all conservative-treatment prerequisites \u2014 prerequisite completion is a separate question evaluated by other leaves. TIER 3 means surgery itself is not clinically indicated for this presentation, which is a different and stronger statement than 'prerequisites not yet met.'\n\nReturn TIER_1, TIER_2, TIER_3, or BORDERLINE. State explicitly why you chose that tier (not just why you rejected others).",
+      "definitions": [
+        {
+          "name": "tier_1_criteria",
+          "text": "Per AANS/CNS 2023 Section 2.1: TIER 1 (urgent) requires ACUTE PROGRESSIVE DEFICIT OR MYELOMALACIA. Without one of these findings, the case does not meet TIER 1 criteria regardless of treating physician's urgency assessment."
+        },
+        {
+          "name": "tier_2_criteria",
+          "text": "Per AANS/CNS 2023: TIER 2 (reasonable elective) applies to: (a) mild myelopathy stable after some conservative trial; (b) radiculopathy with persistent symptoms and imaging-symptom correlation; (c) significant functional impairment from cervical pathology. TIER 2 is the common appropriate tier for elective ACDF with proper imaging-symptom correlation. TIER 2 MEANS surgery is clinically indicated, just not urgently."
+        },
+        {
+          "name": "tier_3_criteria",
+          "text": "TIER 3 (surgery not clinically indicated) requires absence of radiculopathy and myelopathy, OR imaging-symptom mismatch. Do NOT assign TIER 3 for cases that have legitimate clinical indication but haven't completed conservative treatment prerequisites \u2014 those cases are TIER 2."
+        },
+        {
+          "name": "mJOA_interpretation",
+          "text": "Modified Japanese Orthopaedic Association: 17-18 = normal, 15-17 = mild myelopathy, 12-14 = moderate, < 12 = severe. Mild (15-17) typically Tier 2 unless progressive deficit or myelomalacia is present."
+        }
+      ],
+      "expected_output_type": "enumerated",
+      "tier": "frontier",
+      "inputs": [
+        "primary_diagnosis",
+        "neurological_exam_findings",
+        "imaging_findings",
+        "functional_status",
+        "conservative_treatment_history",
+        "treating_physician_documentation"
+      ],
+      "disposition_role": {
+        "rank": 3,
+        "when": {
+          "value": "TIER_1"
+        },
+        "produces": "overturn_clinical_standard_controls",
+        "reasoning_template": "Clinical standard strongly supports surgery (Tier 1). Per CIC \u00a7 1374.32(b), clinical standard controls when plan criteria are more restrictive than generally accepted standards of medical practice. {reasoning}",
+        "critical_leaves": {
+          "include_self": true
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "type": "or",
+  "surface_label": "ANY of seven billing error categories",
+  "provenance": "structural",
+  "source_span": "1026.13(a)(1)-(7) — enumerated definition; any one constitutes a billing error",
+  "children": [
+    {
+      "type": "and",
+      "surface_label": "ALL (a)(1) — unauthorized extension via De Morgan on 'not made to consumer or authorized person'",
+      "provenance": "inferred",
+      "source_span": "1026.13(a)(1) — 'not made to the consumer or to a person who has authority'",
+      "latent_type": "scope",
+      "confidence": 0.9,
+      "children": [
+        {"type": "leaf", "atom_id": "fcba.a1_extension"},
+        {"type": "leaf", "atom_id": "fcba.a1_not_consumer"},
+        {"type": "leaf", "atom_id": "fcba.a1_not_authorized"}
+      ]
+    },
+    {
+      "type": "and",
+      "surface_label": "ALL (a)(2) — not identified per requirements",
+      "provenance": "transcribed",
+      "source_span": "1026.13(a)(2) — '1026.7(a)(2) or (b)(2), as applicable, and 1026.8'",
+      "children": [
+        {"type": "leaf", "atom_id": "fcba.a2_extension"},
+        {"type": "leaf", "atom_id": "fcba.a2_not_per_1026_7"},
+        {"type": "leaf", "atom_id": "fcba.a2_not_per_1026_8"}
+      ]
+    },
+    {
+      "type": "and",
+      "surface_label": "ALL (a)(3) — property/services not accepted or undelivered",
+      "provenance": "structural",
+      "source_span": "1026.13(a)(3)",
+      "children": [
+        {
+          "type": "or",
+          "surface_label": "extension for property OR services",
+          "provenance": "transcribed",
+          "source_span": "1026.13(a)(3) — 'property or services'",
+          "children": [
+            {"type": "leaf", "atom_id": "fcba.a3_extension_property"},
+            {"type": "leaf", "atom_id": "fcba.a3_extension_services"}
+          ]
+        },
+        {
+          "type": "or",
+          "surface_label": "not accepted OR not delivered",
+          "provenance": "transcribed",
+          "source_span": "1026.13(a)(3) — 'not accepted ... or not delivered'",
+          "children": [
+            {"type": "leaf", "atom_id": "fcba.a3_not_accepted"},
+            {"type": "leaf", "atom_id": "fcba.a3_not_delivered"}
+          ]
+        }
+      ]
+    },
+    {"type": "leaf", "atom_id": "fcba.a4_failure_to_credit"},
+    {"type": "leaf", "atom_id": "fcba.a5_computational_error"},
+    {
+      "type": "and",
+      "surface_label": "ALL (a)(6) — clarification request",
+      "provenance": "structural",
+      "source_span": "1026.13(a)(6)",
+      "children": [
+        {"type": "leaf", "atom_id": "fcba.a6_extension"},
+        {"type": "leaf", "atom_id": "fcba.a6_clarification_requested"}
+      ]
+    },
+    {"type": "leaf", "atom_id": "fcba.a7_failure_to_deliver_statement"}
+  ]
+}

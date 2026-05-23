@@ -1,0 +1,158 @@
+{
+  "case_id": "PA-2024-D003",
+  "retrieve_facts": {
+    "case_id": "PA-2024-D003",
+    "member_id": "M-556688",
+    "member_age": 39,
+    "plan_id": "HealthFirst PPO Gold — Group Plan 77441",
+    "state": "California",
+    "plan_year": "2024",
+    "procedure_code": "22551",
+    "procedure_description": "ACDF C6-C7, one level",
+    "appeal_level": "first_level_internal",
+    "appeal_date": "2024-10-30",
+    "denial_date": "2024-10-15",
+    "denial_level": "initial"
+  },
+  "extract_facts": {
+    "denial_notice_text": [
+      {
+        "source": "denial notice 2024-10-15",
+        "statement": "Full text of denial notice reason field: 'Request denied based on peer-to-peer review. Plan medical director spoke with requesting physician on 10/12/2024. Based on that discussion, clinical criteria for surgery not met. Detailed criteria review provided verbally during peer-to-peer call.' \n\nNotably absent from the denial notice: any specific plan criterion citation (e.g., no reference to § 2.2 PT weeks, § 2.2(b) pharmacotherapy agent count, § 2.2(c) interventional requirement). The notice refers to criteria 'provided verbally' rather than reproducing them in writing.\n\nAlso notably absent: no Independent Medical Review (IMR) rights notice or information on how to request IMR is included in the written denial notice. The appeal record indicates: 'imr_notice_included: false'.",
+        "confidence": 1.0
+      }
+    ],
+    "primary_diagnosis": [
+      {
+        "source": "presenting_diagnosis field",
+        "statement": "Cervical radiculopathy C6-C7.",
+        "confidence": 1.0
+      }
+    ],
+    "imaging_findings": [
+      {
+        "source": "MRI report 2024-09-01",
+        "statement": "C6-C7 disc herniation, right C7 nerve root compression, moderate foraminal stenosis.",
+        "confidence": 1.0
+      }
+    ],
+    "imaging_reports": [
+      {
+        "source": "MRI report 2024-09-01",
+        "statement": "C6-C7 disc herniation, right C7 nerve root compression, moderate foraminal stenosis.",
+        "confidence": 1.0
+      }
+    ],
+    "imaging_dates": [
+      {
+        "source": "MRI report",
+        "statement": "MRI dated 2024-09-01 (within 6 months of appeal date 2024-10-30).",
+        "confidence": 1.0
+      }
+    ],
+    "serial_imaging_comparison": [],
+    "neurological_exam_findings": [
+      {
+        "source": "neurological exam 2024-09-05",
+        "statement": "Right C7 dermatomal numbness and tingling. Tricep reflex diminished. Grip strength 4+/5. No bilateral findings. No upper motor neuron signs.",
+        "confidence": 1.0
+      }
+    ],
+    "neurological_exam_notes": [
+      {
+        "source": "neurological exam 2024-09-05",
+        "statement": "Right C7 dermatomal numbness and tingling. Tricep reflex diminished. Grip 4+/5. Unilateral C7 distribution.",
+        "confidence": 1.0
+      }
+    ],
+    "functional_status": [
+      {
+        "source": "neurological exam",
+        "statement": "Functional status not extensively documented. Symptoms described as persistent radicular numbness and tingling with mild grip weakness. No mJOA documented (radiculopathy presentation, not myelopathy).",
+        "confidence": 0.85
+      }
+    ],
+    "functional_outcome_measures": [
+      {
+        "source": "PT records",
+        "statement": "No validated functional outcome measure trending documented in available PT records (NDI, VAS not tracked over visits).",
+        "confidence": 0.85
+      }
+    ],
+    "symptoms_documented": [
+      {
+        "source": "appeal record + neuro exam",
+        "statement": "Right C7 dermatomal numbness, tingling, mild grip weakness. Symptoms persistent. C7 distribution consistent with C6-C7 disc herniation on MRI.",
+        "confidence": 0.95
+      }
+    ],
+    "proposed_surgical_level": [
+      {
+        "source": "procedure description",
+        "statement": "ACDF C6-C7, one level. Matches imaging pathology level (C6-C7 herniation).",
+        "confidence": 1.0
+      }
+    ],
+    "clinical_guidelines_applicability": [
+      {
+        "source": "clinical evidence base",
+        "statement": "Radiculopathy presentation with imaging-symptom correlation. Per NASS 2020 / AANS/CNS 2023, surgery is reasonable after adequate conservative treatment trial (Tier 2 elective indication).",
+        "confidence": 0.9
+      }
+    ],
+    "pt_records": [
+      {
+        "source": "PT records",
+        "statement": "5 weeks supervised physical therapy completed (15 sessions). Course was concluded; treating physician declares functional plateau reached in appeal letter, but no formal PT discharge summary documenting plateau under clinical-standard definition (validated outcome trending or therapist documentation of maximum benefit).",
+        "confidence": 1.0
+      }
+    ],
+    "pt_discharge_summary": [
+      {
+        "source": "PT records",
+        "statement": "No formal PT discharge summary documenting functional plateau as defined by validated outcome measure trending (less than 10% improvement over 3 consecutive sessions) or explicit therapist documentation that maximum therapeutic benefit was reached. Treating physician separately declares plateau in the appeal letter, but this is physician attestation rather than PT documentation.",
+        "confidence": 0.9
+      }
+    ],
+    "pt_progress_notes": [
+      {
+        "source": "PT records",
+        "statement": "PT progress notes describe a 5-week course with partial symptom improvement. Notes do not document the clinical-standard plateau definition.",
+        "confidence": 0.85
+      }
+    ],
+    "pharmacotherapy_records": [
+      {
+        "source": "pharmacotherapy record",
+        "statement": "Two agent classes documented: (1) Meloxicam 15mg daily (NSAID/COX-2) for 3 months — partial relief; (2) Prednisone taper (oral corticosteroid) for 2 weeks — temporary improvement. The Prednisone trial was 2 weeks; § 2.2(b) requires 4 weeks minimum per agent.",
+        "confidence": 1.0
+      }
+    ],
+    "interventional_records": [
+      {
+        "source": "appeal record interventional field",
+        "statement": "No interventional procedures documented. No epidural steroid injection, no medial branch block, no trigger point injection.",
+        "confidence": 1.0
+      }
+    ],
+    "conservative_treatment_history": [
+      {
+        "source": "appeal record",
+        "statement": "Conservative treatment summary: 5 weeks PT (vs 6 required under standard pathway); two pharmacotherapy agents but corticosteroid trial was only 2 weeks (vs 4 required); no interventional procedure. Standard pathway requirements appear not fully met.",
+        "confidence": 0.95
+      }
+    ],
+    "treating_physician_documentation": [
+      {
+        "source": "Dr. Robert Chen appeal letter",
+        "statement": "Treating physician (Dr. Robert Chen, MD, Spine Surgery) appeal letter declares that the patient has reached functional plateau and that the plan's PT requirement should be considered met. The letter does not address the procedural defect; it argues the substantive case.",
+        "confidence": 1.0
+      },
+      {
+        "source": "appeal basis statements",
+        "statement": "Appeal basis explicitly raises procedural defect: 'Denial criteria communicated verbally only — member never received written criteria. CHSC 1374.31 requires written criteria in denial notice. Verbal peer-to-peer cannot substitute for written denial notice.'",
+        "confidence": 1.0
+      }
+    ]
+  }
+}

@@ -1,0 +1,52 @@
+case_id: pa-val-l4-001
+policy: pa
+difficulty_level: 4
+case_class: validation
+tags:
+  - partial_evidence
+  - non_load_bearing_gaps
+  - validation
+description: |
+  PA request with documentation gaps on non-critical evidence elements.
+
+  DIAGNOSIS: Cervical radiculopathy at C5-C6 with confirmed nerve root
+  compression. Member has radicular pain in C5 dermatomal distribution.
+  Whether the member also has radicular numbness or weakness is not
+  documented in the available record. No cervical myelopathy. No disc
+  herniation as separate diagnosis.
+
+  IMAGING: MRI within 6 months demonstrates pathology at C5-C6
+  consistent with the radicular symptoms and proposed surgical level.
+  Radiologist interpretation.
+
+  CONSERVATIVE TREATMENT - PT: 7 weeks of supervised PT directed at
+  cervical with documented functional outcomes.
+
+  CONSERVATIVE TREATMENT - PHARMACOTHERAPY: Trialed naproxen (NSAID)
+  for 5 weeks and gabapentin (neuropathic) for 4 weeks. Whether the
+  member also trialed pregabalin or duloxetine (other neuropathic
+  agents in the same class) is not documented; this doesn't matter
+  because two distinct pharmacotherapy classes are already met
+  (NSAID + neuropathic).
+
+  CONSERVATIVE TREATMENT - INTERVENTIONAL: One cervical epidural
+  steroid injection completed.
+
+  MYELOPATHY EXCEPTION: Not applicable.
+
+  PHYSICIAN DOCUMENTATION: All four elements provided.
+expected_outcomes:
+  pa.D1: "true"
+  pa.D2: "false"
+load_bearing_annotation:
+  - At least one radicular symptom present (pain) — OR over symptoms satisfied
+  - Imaging requirement met
+  - PT requirement met (6+ weeks supervised, cervical-directed, outcomes documented)
+  - Two pharmacotherapy classes satisfied (NSAID + neuropathic)
+  - ESI completed
+  - All physician documentation
+authoring_notes: |
+  Validation Level 4. Gaps are on non-load-bearing atoms — specific
+  symptom types (when at least one suffices via OR) and alternative
+  neuropathic agents (when the class threshold is already met).
+  Determination should remain TRUE despite the gaps.

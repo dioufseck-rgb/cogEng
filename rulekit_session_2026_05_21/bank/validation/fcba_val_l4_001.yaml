@@ -1,0 +1,42 @@
+case_id: fcba-val-l4-001
+policy: fcba
+difficulty_level: 4
+case_class: validation
+tags:
+  - partial_evidence
+  - non_load_bearing_gaps
+  - validation
+description: |
+  Credit card dispute with documentation gaps on non-critical elements.
+
+  The cardholder's periodic statement reflects a $263.40 extension of
+  credit to a merchant the cardholder does not recognize.
+
+  The cardholder did not make the transaction. Their physical card
+  was in their possession the entire statement period. The cardholder
+  is the only person who has had access to the card; no authorized
+  user has ever been added, no family member has the card number, and
+  no one has been given permission to use the card.
+
+  Whether the transaction merchant identifier appeared in the
+  expected form on the statement is not specifically documented in
+  the dispute record — but the transaction was clearly reflected in
+  amount and date on the statement (a one-line identification gap
+  doesn't change the unauthorized-use determination).
+
+  No property-or-services issue: the dispute is not about goods or
+  services not delivered. No payment-crediting issue. No computational
+  error. No request for documentary evidence as the basis. The
+  creditor did mail and deliver the periodic statement.
+expected_outcomes:
+  fcba.D1: "true"
+  fcba.D2: "false"
+load_bearing_annotation:
+  - Cardholder did not make the transaction (unauthorized-use core)
+  - No person with actual, implied, or apparent authority
+  - Statement reflects the extension of credit (despite minor identification gap)
+authoring_notes: |
+  Validation Level 4: gap on a non-load-bearing element (the precise
+  merchant identifier format), where the core facts of the
+  unauthorized-charge pathway are clear. Determination should remain
+  TRUE.

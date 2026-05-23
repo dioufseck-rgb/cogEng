@@ -1,0 +1,176 @@
+{
+  "prompt": "You are a experienced plan medical director and prior authorization reviewer reading a medical-necessity authorization for cervical spinal surgery policy.\n\nYou understand clinical documentation conventions, the distinction between radiculopathy and myelopathy, what physical therapy documentation typically contains, and how exception provisions modify base requirements.\n\nYour task is atom extraction. You will read a section of policy and produce a list of atomic propositions that the policy makes about cases.\n\nAn atom is a single claim that can be true or false about a case. Atoms MUST be atomic:\n- No logical connectives (and, or, not, either, neither, unless, except).\n- No compound claims joining multiple facts.\n- If a policy sentence contains \"X and Y\" as joint requirements, split into two atoms (X) and (Y).\n- If a policy sentence contains \"X or Y\" as alternatives, split into two atoms (X) and (Y).\n- If a sentence has \"X with Y\" where X and Y are independently evaluable, split.\n- A modifier inside a single claim (e.g., \"supervised physical therapy\") may itself need splitting if the modifier is separately evaluable (\"PT happened\" and \"PT was supervised\" are two atoms).\n\nFor each atom, produce:\n- id: a short stable identifier you choose, prefixed with the policy abbreviation. Use lowercase with dots, e.g., \"pa.diagnosis_radiculopathy\" or \"pa.pt_six_weeks\". Keep IDs descriptive but compact.\n- statement: the atomic claim as a single declarative sentence about the case, in natural language.\n- source_span: a citation to the section, subsection, or paragraph in the policy where this atom is drawn from. Use the policy's own numbering.\n\nDo NOT produce atoms for:\n- Section headings or titles.\n- Scope statements (who the policy applies to).\n- References to other policies or authorities.\n- Process or procedural requirements that don't bear on the determination outcome.\n- Examples or commentary.\n\nDO produce atoms for:\n- Each requirement that the policy specifies must hold for a case.\n- Each criterion that the policy enumerates as a possible basis for a determination.\n- Each condition that the policy attaches to a requirement or exception.\n\nOutput format: a JSON array of objects, each with keys \"id\", \"statement\", \"source_span\". Output ONLY the JSON, no other text.\n\nPOLICY TEXT:\n\nSECTION 2 \u2014 MEDICAL NECESSITY CRITERIA\n\nAuthorization for cervical spinal surgery (CPT 22551 and related codes) will\nbe approved when ALL of the following criteria are satisfied:\n\n2.1 DIAGNOSIS REQUIREMENT\n    Member must have a confirmed diagnosis of one of the following:\n    (a) Cervical radiculopathy \u2014 nerve root compression with radicular symptoms\n        (pain, numbness, weakness in dermatomal distribution)\n    (b) Cervical myelopathy \u2014 spinal cord compression with myelopathic symptoms\n        (gait disturbance, bilateral upper extremity weakness, hyperreflexia,\n        positive Hoffman sign, bowel/bladder dysfunction)\n    (c) Cervical disc herniation with objective neurological deficit\n\n    Supporting documentation required: MRI or CT myelogram within 6 months of\n    request demonstrating structural pathology consistent with symptoms.\n\n2.2 CONSERVATIVE TREATMENT REQUIREMENT\n    Member must have completed a documented course of conservative treatment\n    prior to surgical authorization, consisting of ALL of the following:\n\n    (a) Physical therapy: minimum 6 weeks of supervised physical therapy\n        with documented functional outcomes. Therapy must be directed toward\n        the cervical condition for which surgery is requested.\n\n    (b) Pharmacotherapy: trial of at least two of the following for minimum\n        4 weeks each:\n        - NSAIDs or COX-2 inhibitors\n        - Muscle relaxants\n        - Neuropathic agents (gabapentin, pregabalin, duloxetine)\n        - Oral corticosteroids\n\n    (c) One of the following interventional treatments:\n        - Cervical epidural steroid injection (minimum 1)\n        - Cervical medial branch block\n        - Trigger point injection series\n\n    EXCEPTION 2.2(A) \u2014 MYELOPATHY PATHWAY:\n    For members with confirmed cervical myelopathy (criterion 2.1(b)),\n    the conservative treatment requirement is MODIFIED as follows:\n    Physical therapy requirement is reduced to 4 weeks minimum.\n    Interventional treatment requirement (2.2(c)) is WAIVED if treating\n    physician documents that interventional treatment poses risk of\n    neurological deterioration.\n    Pharmacotherapy requirement (2.2(b)) remains in full.\n\n    NOTE: The myelopathy exception applies only when myelopathy is the\n    PRIMARY diagnosis. Cases where myelopathy is documented as a finding\n    but radiculopathy is the primary complaint are subject to standard\n    conservative treatment requirements.\n\n2.3 IMAGING REQUIREMENT\n    Current imaging (within 6 months) must demonstrate structural pathology\n    consistent with the member's symptoms and proposed surgical level.\n    Imaging must be interpreted by a radiologist or treating specialist.\n\n2.4 PHYSICIAN DOCUMENTATION\n    Treating physician must provide:\n    (a) Attestation that conservative treatment has been completed\n    (b) Clinical rationale for surgical intervention\n    (c) Description of functional limitations\n    (d) Statement of surgical risks and alternatives considered\n\n",
+  "raw_response": "[\n  {\n    \"id\": \"pa.radic.diagnosis\",\n    \"statement\": \"Member has confirmed cervical radiculopathy.\",\n    \"source_span\": \"2.1(a)\"\n  },\n  {\n    \"id\": \"pa.radic.nerve_root_compression\",\n    \"statement\": \"Nerve root compression is documented.\",\n    \"source_span\": \"2.1(a)\"\n  },\n  {\n    \"id\": \"pa.radic.symptoms_pain\",\n    \"statement\": \"Radicular pain in a dermatomal distribution is documented.\",\n    \"source_span\": \"2.1(a)\"\n  },\n  {\n    \"id\": \"pa.radic.symptoms_numbness\",\n    \"statement\": \"Numbness in a dermatomal distribution is documented.\",\n    \"source_span\": \"2.1(a)\"\n  },\n  {\n    \"id\": \"pa.radic.symptoms_weakness\",\n    \"statement\": \"Weakness in a dermatomal distribution is documented.\",\n    \"source_span\": \"2.1(a)\"\n  },\n  {\n    \"id\": \"pa.myel.diagnosis\",\n    \"statement\": \"Member has confirmed cervical myelopathy.\",\n    \"source_span\": \"2.1(b)\"\n  },\n  {\n    \"id\": \"pa.myel.cord_compression\",\n    \"statement\": \"Spinal cord compression is documented.\",\n    \"source_span\": \"2.1(b)\"\n  },\n  {\n    \"id\": \"pa.myel.symptom_gait\",\n    \"statement\": \"Gait disturbance is documented.\",\n    \"source_span\": \"2.1(b)\"\n  },\n  {\n    \"id\": \"pa.myel.symptom_bilateral_weakness\",\n    \"statement\": \"Bilateral upper extremity weakness is documented.\",\n    \"source_span\": \"2.1(b)\"\n  },\n  {\n    \"id\": \"pa.myel.symptom_hyperreflexia\",\n    \"statement\": \"Hyperreflexia is documented.\",\n    \"source_span\": \"2.1(b)\"\n  },\n  {\n    \"id\": \"pa.myel.symptom_hoffman\",\n    \"statement\": \"Positive Hoffman sign is documented.\",\n    \"source_span\": \"2.1(b)\"\n  },\n  {\n    \"id\": \"pa.myel.symptom_bowel_bladder\",\n    \"statement\": \"Bowel or bladder dysfunction is documented.\",\n    \"source_span\": \"2.1(b)\"\n  },\n  {\n    \"id\": \"pa.hern.diagnosis\",\n    \"statement\": \"Member has confirmed cervical disc herniation.\",\n    \"source_span\": \"2.1(c)\"\n  },\n  {\n    \"id\": \"pa.hern.neuro_deficit\",\n    \"statement\": \"Objective neurological deficit is documented.\",\n    \"source_span\": \"2.1(c)\"\n  },\n  {\n    \"id\": \"pa.imaging.mri\",\n    \"statement\": \"Member has an MRI within 6 months of the request.\",\n    \"source_span\": \"2.1 supporting documentation\"\n  },\n  {\n    \"id\": \"pa.imaging.ct_myelogram\",\n    \"statement\": \"Member has a CT myelogram within 6 months of the request.\",\n    \"source_span\": \"2.1 supporting documentation\"\n  },\n  {\n    \"id\": \"pa.imaging.demonstrates_pathology\",\n    \"statement\": \"The imaging demonstrates structural pathology consistent with the member's symptoms.\",\n    \"source_span\": \"2.1 supporting documentation\"\n  },\n  {\n    \"id\": \"pa.pt.completed_six_weeks\",\n    \"statement\": \"Member has completed at least 6 weeks of physical therapy.\",\n    \"source_span\": \"2.2(a)\"\n  },\n  {\n    \"id\": \"pa.pt.supervised\",\n    \"statement\": \"The physical therapy was supervised.\",\n    \"source_span\": \"2.2(a)\"\n  },\n  {\n    \"id\": \"pa.pt.functional_outcomes_documented\",\n    \"statement\": \"The physical therapy was documented with functional outcomes.\",\n    \"source_span\": \"2.2(a)\"\n  },\n  {\n    \"id\": \"pa.pt.directed_at_cervical\",\n    \"statement\": \"The physical therapy was directed at the cervical condition for which surgery is requested.\",\n    \"source_span\": \"2.2(a)\"\n  },\n  {\n    \"id\": \"pa.pharma.nsaid_trial\",\n    \"statement\": \"Member trialed NSAIDs or COX-2 inhibitors for at least 4 weeks.\",\n    \"source_span\": \"2.2(b)\"\n  },\n  {\n    \"id\": \"pa.pharma.muscle_relaxant_trial\",\n    \"statement\": \"Member trialed muscle relaxants for at least 4 weeks.\",\n    \"source_span\": \"2.2(b)\"\n  },\n  {\n    \"id\": \"pa.pharma.neuropathic_trial\",\n    \"statement\": \"Member trialed neuropathic agents for at least 4 weeks.\",\n    \"source_span\": \"2.2(b)\"\n  },\n  {\n    \"id\": \"pa.pharma.corticosteroid_trial\",\n    \"statement\": \"Member trialed oral corticosteroids for at least 4 weeks.\",\n    \"source_span\": \"2.2(b)\"\n  },\n  {\n    \"id\": \"pa.interv.esi\",\n    \"statement\": \"Member received at least one cervical epidural steroid injection.\",\n    \"source_span\": \"2.2(c)\"\n  },\n  {\n    \"id\": \"pa.interv.medial_branch_block\",\n    \"statement\": \"Member received a cervical medial branch block.\",\n    \"source_span\": \"2.2(c)\"\n  },\n  {\n    \"id\": \"pa.interv.trigger_point\",\n    \"statement\": \"Member received a trigger point injection series.\",\n    \"source_span\": \"2.2(c)\"\n  },\n  {\n    \"id\": \"pa.exc.myelopathy_confirmed\",\n    \"statement\": \"Member has confirmed cervical myelopathy per criterion 2.1(b).\",\n    \"source_span\": \"2.2A antecedent\"\n  },\n  {\n    \"id\": \"pa.exc.myelopathy_is_primary\",\n    \"statement\": \"Myelopathy is the primary diagnosis for the case.\",\n    \"source_span\": \"2.2A NOTE\"\n  },\n  {\n    \"id\": \"pa.exc.pt_completed_four_weeks\",\n    \"statement\": \"Member has completed at least 4 weeks of physical therapy.\",\n    \"source_span\": \"2.2A modified PT\"\n  },\n  {\n    \"id\": \"pa.exc.physician_documents_interv_risk\",\n    \"statement\": \"The treating physician has documented that interventional treatment poses a risk of neurological deterioration.\",\n    \"source_span\": \"2.2A interventional waiver\"\n  },\n  {\n    \"id\": \"pa.surg_imaging.demonstrates_pathology\",\n    \"statement\": \"Current imaging within 6 months demonstrates structural pathology consistent with the member's symptoms and the proposed surgical level.\",\n    \"source_span\": \"2.3\"\n  },\n  {\n    \"id\": \"pa.surg_imaging.interpreted_by_radiologist\",\n    \"statement\": \"The imaging was interpreted by a radiologist.\",\n    \"source_span\": \"2.3\"\n  },\n  {\n    \"id\": \"pa.surg_imaging.interpreted_by_specialist\",\n    \"statement\": \"The imaging was interpreted by the treating specialist.\",\n    \"source_span\": \"2.3\"\n  },\n  {\n    \"id\": \"pa.doc.attestation_conservative\",\n    \"statement\": \"The treating physician has provided attestation that conservative treatment has been completed.\",\n    \"source_span\": \"2.4(a)\"\n  },\n  {\n    \"id\": \"pa.doc.clinical_rationale\",\n    \"statement\": \"The treating physician has provided clinical rationale for surgical intervention.\",\n    \"source_span\": \"2.4(b)\"\n  },\n  {\n    \"id\": \"pa.doc.functional_limitations\",\n    \"statement\": \"The treating physician has provided a description of functional limitations.\",\n    \"source_span\": \"2.4(c)\"\n  },\n  {\n    \"id\": \"pa.doc.surgical_risks_alternatives\",\n    \"statement\": \"The treating physician has provided a statement of surgical risks and alternatives considered.\",\n    \"source_span\": \"2.4(d)\"\n  }\n]\n",
+  "extracted_atoms": {
+    "pa.radic.diagnosis": {
+      "statement": "Member has confirmed cervical radiculopathy.",
+      "source_span": "2.1(a)"
+    },
+    "pa.radic.nerve_root_compression": {
+      "statement": "Nerve root compression is documented.",
+      "source_span": "2.1(a)"
+    },
+    "pa.radic.symptoms_pain": {
+      "statement": "Radicular pain in a dermatomal distribution is documented.",
+      "source_span": "2.1(a)"
+    },
+    "pa.radic.symptoms_numbness": {
+      "statement": "Numbness in a dermatomal distribution is documented.",
+      "source_span": "2.1(a)"
+    },
+    "pa.radic.symptoms_weakness": {
+      "statement": "Weakness in a dermatomal distribution is documented.",
+      "source_span": "2.1(a)"
+    },
+    "pa.myel.diagnosis": {
+      "statement": "Member has confirmed cervical myelopathy.",
+      "source_span": "2.1(b)"
+    },
+    "pa.myel.cord_compression": {
+      "statement": "Spinal cord compression is documented.",
+      "source_span": "2.1(b)"
+    },
+    "pa.myel.symptom_gait": {
+      "statement": "Gait disturbance is documented.",
+      "source_span": "2.1(b)"
+    },
+    "pa.myel.symptom_bilateral_weakness": {
+      "statement": "Bilateral upper extremity weakness is documented.",
+      "source_span": "2.1(b)"
+    },
+    "pa.myel.symptom_hyperreflexia": {
+      "statement": "Hyperreflexia is documented.",
+      "source_span": "2.1(b)"
+    },
+    "pa.myel.symptom_hoffman": {
+      "statement": "Positive Hoffman sign is documented.",
+      "source_span": "2.1(b)"
+    },
+    "pa.myel.symptom_bowel_bladder": {
+      "statement": "Bowel or bladder dysfunction is documented.",
+      "source_span": "2.1(b)"
+    },
+    "pa.hern.diagnosis": {
+      "statement": "Member has confirmed cervical disc herniation.",
+      "source_span": "2.1(c)"
+    },
+    "pa.hern.neuro_deficit": {
+      "statement": "Objective neurological deficit is documented.",
+      "source_span": "2.1(c)"
+    },
+    "pa.imaging.mri": {
+      "statement": "Member has an MRI within 6 months of the request.",
+      "source_span": "2.1 supporting documentation"
+    },
+    "pa.imaging.ct_myelogram": {
+      "statement": "Member has a CT myelogram within 6 months of the request.",
+      "source_span": "2.1 supporting documentation"
+    },
+    "pa.imaging.demonstrates_pathology": {
+      "statement": "The imaging demonstrates structural pathology consistent with the member's symptoms.",
+      "source_span": "2.1 supporting documentation"
+    },
+    "pa.pt.completed_six_weeks": {
+      "statement": "Member has completed at least 6 weeks of physical therapy.",
+      "source_span": "2.2(a)"
+    },
+    "pa.pt.supervised": {
+      "statement": "The physical therapy was supervised.",
+      "source_span": "2.2(a)"
+    },
+    "pa.pt.functional_outcomes_documented": {
+      "statement": "The physical therapy was documented with functional outcomes.",
+      "source_span": "2.2(a)"
+    },
+    "pa.pt.directed_at_cervical": {
+      "statement": "The physical therapy was directed at the cervical condition for which surgery is requested.",
+      "source_span": "2.2(a)"
+    },
+    "pa.pharma.nsaid_trial": {
+      "statement": "Member trialed NSAIDs or COX-2 inhibitors for at least 4 weeks.",
+      "source_span": "2.2(b)"
+    },
+    "pa.pharma.muscle_relaxant_trial": {
+      "statement": "Member trialed muscle relaxants for at least 4 weeks.",
+      "source_span": "2.2(b)"
+    },
+    "pa.pharma.neuropathic_trial": {
+      "statement": "Member trialed neuropathic agents for at least 4 weeks.",
+      "source_span": "2.2(b)"
+    },
+    "pa.pharma.corticosteroid_trial": {
+      "statement": "Member trialed oral corticosteroids for at least 4 weeks.",
+      "source_span": "2.2(b)"
+    },
+    "pa.interv.esi": {
+      "statement": "Member received at least one cervical epidural steroid injection.",
+      "source_span": "2.2(c)"
+    },
+    "pa.interv.medial_branch_block": {
+      "statement": "Member received a cervical medial branch block.",
+      "source_span": "2.2(c)"
+    },
+    "pa.interv.trigger_point": {
+      "statement": "Member received a trigger point injection series.",
+      "source_span": "2.2(c)"
+    },
+    "pa.exc.myelopathy_confirmed": {
+      "statement": "Member has confirmed cervical myelopathy per criterion 2.1(b).",
+      "source_span": "2.2A antecedent"
+    },
+    "pa.exc.myelopathy_is_primary": {
+      "statement": "Myelopathy is the primary diagnosis for the case.",
+      "source_span": "2.2A NOTE"
+    },
+    "pa.exc.pt_completed_four_weeks": {
+      "statement": "Member has completed at least 4 weeks of physical therapy.",
+      "source_span": "2.2A modified PT"
+    },
+    "pa.exc.physician_documents_interv_risk": {
+      "statement": "The treating physician has documented that interventional treatment poses a risk of neurological deterioration.",
+      "source_span": "2.2A interventional waiver"
+    },
+    "pa.surg_imaging.demonstrates_pathology": {
+      "statement": "Current imaging within 6 months demonstrates structural pathology consistent with the member's symptoms and the proposed surgical level.",
+      "source_span": "2.3"
+    },
+    "pa.surg_imaging.interpreted_by_radiologist": {
+      "statement": "The imaging was interpreted by a radiologist.",
+      "source_span": "2.3"
+    },
+    "pa.surg_imaging.interpreted_by_specialist": {
+      "statement": "The imaging was interpreted by the treating specialist.",
+      "source_span": "2.3"
+    },
+    "pa.doc.attestation_conservative": {
+      "statement": "The treating physician has provided attestation that conservative treatment has been completed.",
+      "source_span": "2.4(a)"
+    },
+    "pa.doc.clinical_rationale": {
+      "statement": "The treating physician has provided clinical rationale for surgical intervention.",
+      "source_span": "2.4(b)"
+    },
+    "pa.doc.functional_limitations": {
+      "statement": "The treating physician has provided a description of functional limitations.",
+      "source_span": "2.4(c)"
+    },
+    "pa.doc.surgical_risks_alternatives": {
+      "statement": "The treating physician has provided a statement of surgical risks and alternatives considered.",
+      "source_span": "2.4(d)"
+    }
+  },
+  "atomicity_flags": {
+    "pa.myel.symptom_bowel_bladder": [
+      "or"
+    ],
+    "pa.pharma.nsaid_trial": [
+      "or"
+    ],
+    "pa.surg_imaging.demonstrates_pathology": [
+      "and"
+    ],
+    "pa.doc.surgical_risks_alternatives": [
+      "and"
+    ]
+  }
+}

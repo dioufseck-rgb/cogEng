@@ -1,0 +1,39 @@
+case_id: fcba-l1-unauth-001
+policy: fcba
+difficulty_level: 1
+case_class: main
+tags:
+  - canonical_positive
+  - unauthorized_charge
+description: |
+  Credit card billing-error dispute submitted by the cardholder.
+
+  The cardholder's periodic statement reflects a $487.32 extension of
+  credit to an online merchant the cardholder does not recognize. The
+  transaction posted during the statement period.
+
+  The cardholder did NOT make the transaction. They were not using
+  the card at the time. The physical card was in their possession;
+  they suspect the card number was compromised in a data breach.
+
+  No other person had actual, implied, or apparent authority to use
+  the card. No authorized user has been added. No family member had
+  authority. The cardholder did not lend the card or give permission.
+
+  The transaction was properly identified on the statement per
+  Regulation Z formatting requirements.
+
+  Not a property-or-services issue. No payment-crediting issue. No
+  computational error. No documentary-evidence request. Statement
+  was mailed and delivered.
+expected_outcomes:
+  fcba.D1: "true"
+  fcba.D2: "false"
+load_bearing_annotation:
+  - Extension of credit on the periodic statement
+  - Cardholder did not make the transaction (unauthorized core)
+  - No actual/implied/apparent authority by any other party
+authoring_notes: |
+  Canonical Level 1 positive — unauthorized charge under
+  § 1026.13(a)(1). Standard exemplar for the unauthorized-charge
+  category.

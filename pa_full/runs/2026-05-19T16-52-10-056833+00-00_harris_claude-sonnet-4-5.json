@@ -1,0 +1,526 @@
+{
+  "schema_version": "1.0",
+  "timestamp": "2026-05-19T16:52:10.056833+00:00",
+  "case_key": "harris",
+  "case_id": "PA-2024-E003",
+  "case_name": "George Harris",
+  "failure_mode": "factual error in denial (wrong imaging modality)",
+  "notes": "Revision ACDF. CT confirms pseudarthrosis; plan relied on MRI which has hardware artifact.",
+  "model": "claude-sonnet-4-5",
+  "tree_version": "1.0",
+  "ground_truth": {
+    "expected_disposition": "overturn_factual_error_in_denial",
+    "expected_routing": "gate",
+    "match_disposition": false,
+    "match_routing": true
+  },
+  "determination": {
+    "disposition": "overturn_plan_criteria_met",
+    "routing_tier": "gate",
+    "is_tentative": true,
+    "confidence": 0.65,
+    "primary_reasoning": "Plan criteria are met against the documented facts. The denial is not supported by correct application of the plan's own criteria. Some leaves may have flagged interpretive escalation warranting physician review, but no required criterion returned hard false.",
+    "secondary_grounds": [
+      "overturn_regulatory_carve_out",
+      "overturn_procedural_defect"
+    ],
+    "routing_reasons": [
+      {
+        "signal": "contested_reading",
+        "node_id": "denial_specifies_clinical_reason",
+        "policy_ref": "CHSC \u00a7 1374.31(a)(2)",
+        "reason": "Confidence is below 0.7 because the line between 'which criterion was applied' and 'which clinical fact pattern led to denial' may be interpretively contested. The denial identifies hardware failure as the criterion and states documentation does not confirm it, but does not explicitly address what specific clinical findings were present or absent. Reasonable reviewers could differ on whether this level of specificity satisfies the statutory requirement for 'specific clinical reason.'"
+      },
+      {
+        "signal": "low_confidence_in_value",
+        "node_id": "denial_specifies_clinical_reason",
+        "policy_ref": "CHSC \u00a7 1374.31(a)(2)",
+        "reason": "Confidence is below 0.7 because the line between 'which criterion was applied' and 'which clinical fact pattern led to denial' may be interpretively contested. The denial identifies hardware failure as the criterion and states documentation does not confirm it, but does not explicitly address what specific clinical findings were present or absent. Reasonable reviewers could differ on whether this level of specificity satisfies the statutory requirement for 'specific clinical reason.'"
+      },
+      {
+        "signal": "insufficient_facts",
+        "node_id": "attestation_conservative_treatment",
+        "policy_ref": "\u00a7 2.4(a)",
+        "reason": "The available facts do not address whether conservative treatment was completed or waived, nor whether the treating physician provided the required attestation regarding conservative treatment status."
+      },
+      {
+        "signal": "contested_reading",
+        "node_id": "functional_limitations_described",
+        "policy_ref": "\u00a7 2.4(c)",
+        "reason": "Confidence below 0.7 because the physician's statements about 'symptoms returned and worsened' and 'interval worsening on serial exam' may or may not constitute a description of functional limitations depending on how strictly that term is interpreted. This case sits at an interpretive boundary where 'functional limitations' could reasonably require explicit descriptions of activity restrictions versus accepting general statements about symptom worsening as implicitly describing functional impact."
+      },
+      {
+        "signal": "low_confidence_in_value",
+        "node_id": "functional_limitations_described",
+        "policy_ref": "\u00a7 2.4(c)",
+        "reason": "Confidence below 0.7 because the physician's statements about 'symptoms returned and worsened' and 'interval worsening on serial exam' may or may not constitute a description of functional limitations depending on how strictly that term is interpreted. This case sits at an interpretive boundary where 'functional limitations' could reasonably require explicit descriptions of activity restrictions versus accepting general statements about symptom worsening as implicitly describing functional impact."
+      },
+      {
+        "signal": "insufficient_facts",
+        "node_id": "surgical_risks_alternatives_addressed",
+        "policy_ref": "\u00a7 2.4(d)",
+        "reason": "The available facts do not include documentation of surgical risks or consideration of alternatives, which are the specific elements required by the condition. The appeal letter addresses clinical necessity but does not address these procedural documentation requirements."
+      }
+    ],
+    "tree_version": "1.0",
+    "trace": {
+      "denial_specifies_criteria": {
+        "node_id": "denial_specifies_criteria",
+        "value": true,
+        "confidence": 0.85,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The denial notice explicitly identifies the clinical criteria applied: 'Revision criteria require documentation of hardware failure, pseudarthrosis, or new pathology at previously treated level.' This directly specifies which criteria from the plan policy were used to evaluate the revision surgery request, satisfying the condition's requirement.",
+        "cited_facts": [
+          "denial notice 2024-10-30"
+        ],
+        "error": null
+      },
+      "denial_specifies_clinical_reason": {
+        "node_id": "denial_specifies_clinical_reason",
+        "value": false,
+        "confidence": 0.75,
+        "escalation_flag": true,
+        "escalation_reason": "Confidence is below 0.7 because the line between 'which criterion was applied' and 'which clinical fact pattern led to denial' may be interpretively contested. The denial identifies hardware failure as the criterion and states documentation does not confirm it, but does not explicitly address what specific clinical findings were present or absent. Reasonable reviewers could differ on whether this level of specificity satisfies the statutory requirement for 'specific clinical reason.'",
+        "escalation_signals": {
+          "low_confidence_in_value": true,
+          "contested_reading": true
+        },
+        "short_circuited": false,
+        "reasoning": "The condition requires specifying which clinical fact pattern led to denial, not just which criterion was applied. The denial notice states that 'documentation submitted does not confirm hardware failure' but does not specify which clinical facts in the actual documentation were evaluated or why the specific submitted evidence (particularly the CT scan findings) failed to meet the pseudarthrosis criterion. The notice appears to address only hardware failure and does not explain why the submitted documentation pattern was insufficient for any of the three listed criteria.",
+        "cited_facts": [
+          "denial notice 2024-10-30 (confidence 1.00)"
+        ],
+        "error": null
+      },
+      "denial_provides_imr_rights": {
+        "node_id": "denial_provides_imr_rights",
+        "value": false,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The condition asks whether the denial notice includes notice of the member's IMR rights. The extracted denial notice contains the denial reason, reviewer information, and reason code, but no mention of IMR rights or independent medical review is documented in the available facts.",
+        "cited_facts": [
+          "denial notice 2024-10-30 (confidence 1.00)"
+        ],
+        "error": null
+      },
+      "denial_procedurally_adequate": {
+        "node_id": "denial_procedurally_adequate",
+        "value": false,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "AND short-circuit: denial_provides_imr_rights is false",
+        "cited_facts": [
+          "denial notice 2024-10-30",
+          "denial notice 2024-10-30 (confidence 1.00)",
+          "denial notice 2024-10-30 (confidence 1.00)"
+        ],
+        "error": null
+      },
+      "denial_factual_basis_correct": {
+        "node_id": "denial_factual_basis_correct",
+        "value": "INACCURATE",
+        "confidence": 0.85,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The denial states 'Documentation submitted does not confirm hardware failure' and specifically cites hardware failure as a revision criterion. However, the CT report from 2024-09-15 explicitly documents 'incomplete bridging bone formation, lucency around hardware, findings consistent with pseudarthrosis,' which is a form of hardware/fusion failure meeting the revision criteria. The denial's factual assertion that documentation does not confirm hardware failure is contradicted by the CT findings in the record.",
+        "cited_facts": [
+          "denial notice 2024-10-30 (confidence 1.00)",
+          "MRI report 2024-09-01 (confidence 1.00)",
+          "CT report 2024-09-15 (confidence 1.00)"
+        ],
+        "error": null
+      },
+      "cervical_radiculopathy_diagnosed": {
+        "node_id": "cervical_radiculopathy_diagnosed",
+        "value": true,
+        "confidence": 1.0,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The condition requires a confirmed diagnosis of cervical radiculopathy with nerve root compression and radicular symptoms (pain, numbness, weakness in dermatomal distribution). The neurological exam from 2024-09-20 documents right C6 symptoms including bicep weakness (4/5), diminished bicep reflex, and C6 dermatomal numbness, which are classic radicular symptoms in a dermatomal distribution confirming cervical radiculopathy at C6.",
+        "cited_facts": [
+          "neurological exam 2024-09-20 (confidence 1.00)"
+        ],
+        "error": null
+      },
+      "diagnosis_requirement_met": {
+        "node_id": "diagnosis_requirement_met",
+        "value": true,
+        "confidence": 1.0,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "OR short-circuit: cervical_radiculopathy_diagnosed is true",
+        "cited_facts": [
+          "neurological exam 2024-09-20 (confidence 1.00)"
+        ],
+        "error": null
+      },
+      "pt_requirement_met": {
+        "node_id": "pt_requirement_met",
+        "value": true,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The primary diagnosis is pseudarthrosis with recurrent radiculopathy (C6 dermatomal symptoms, bicep weakness, reflex changes in single nerve root distribution), not myelopathy. The STANDARD pathway therefore applies, requiring 6 weeks minimum supervised PT. The facts document 8 weeks of supervised PT (24 sessions), which exceeds the 6-week minimum threshold.",
+        "cited_facts": [
+          "[extract] presenting_diagnosis field (confidence 1.00)",
+          "[extract] neurological exam 2024-09-20 (confidence 1.00)",
+          "[extract] PT records (confidence 1.00)"
+        ],
+        "error": null
+      },
+      "pharmacotherapy_requirement_met": {
+        "node_id": "pharmacotherapy_requirement_met",
+        "value": true,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The condition requires trial of at least two distinct agent classes for minimum 4 weeks each. The pharmacotherapy record documents Naproxen (NSAID) for 4 months and Gabapentin (neuropathic agent) for 3 months, both exceeding the 4-week minimum duration requirement. Two distinct qualifying agent classes have been trialed for adequate duration.",
+        "cited_facts": [
+          "pharmacotherapy record"
+        ],
+        "error": null
+      },
+      "interventional_requirement_met_or_waived": {
+        "node_id": "interventional_requirement_met_or_waived",
+        "value": true,
+        "confidence": 1.0,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The primary diagnosis is pseudarthrosis (failed fusion) with recurrent C6 radiculopathy, not myelopathy, so the STANDARD pathway applies. The epidural records explicitly document that a cervical epidural steroid injection was completed on 2024-10-10, which satisfies the interventional treatment requirement under \u00a7 2.2(c).",
+        "cited_facts": [
+          "presenting_diagnosis field",
+          "neurological exam 2024-09-20",
+          "epidural records"
+        ],
+        "error": null
+      },
+      "conservative_treatment_met": {
+        "node_id": "conservative_treatment_met",
+        "value": true,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "AND of 3 children: all true",
+        "cited_facts": [
+          "[extract] presenting_diagnosis field (confidence 1.00)",
+          "[extract] neurological exam 2024-09-20 (confidence 1.00)",
+          "[extract] PT records (confidence 1.00)",
+          "pharmacotherapy record",
+          "presenting_diagnosis field",
+          "neurological exam 2024-09-20",
+          "epidural records"
+        ],
+        "error": null
+      },
+      "imaging_requirement_met": {
+        "node_id": "imaging_requirement_met",
+        "value": true,
+        "confidence": 0.9,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The CT from 2024-09-15 is within 6 months of the request and demonstrates C5-C6 pseudarthrosis (structural pathology). The appeal record documents right C6 motor and sensory symptoms corresponding to the C5-C6 level pathology shown on imaging. The proposed revision surgery at C5-C6 matches both the imaging findings and symptom distribution, satisfying the correlation requirement.",
+        "cited_facts": [
+          "CT report 2024-09-15",
+          "imaging studies",
+          "appeal record + neuro exam",
+          "procedure description"
+        ],
+        "error": null
+      },
+      "attestation_conservative_treatment": {
+        "node_id": "attestation_conservative_treatment",
+        "value": null,
+        "confidence": 0.0,
+        "escalation_flag": true,
+        "escalation_reason": "The available facts do not address whether conservative treatment was completed or waived, nor whether the treating physician provided the required attestation regarding conservative treatment status.",
+        "escalation_signals": {
+          "insufficient_facts": true
+        },
+        "short_circuited": false,
+        "reasoning": "The condition requires attestation that conservative treatment has been completed or waived per \u00a7 2.2A. The available facts discuss pseudarthrosis, imaging findings, and symptom progression, but contain no information about whether conservative treatment was completed, waived, or whether the treating physician attested to either status.",
+        "cited_facts": [],
+        "error": null
+      },
+      "clinical_rationale_for_surgery": {
+        "node_id": "clinical_rationale_for_surgery",
+        "value": true,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "Dr. Karen Williams provided an appeal letter explicitly citing CT scan confirmation of pseudarthrosis at C5-C6, return and worsening of symptoms since 2021 fusion, interval worsening on serial exam, and explained why CT rather than MRI is the appropriate imaging modality given hardware artifact. This constitutes clinical rationale for the specific surgical intervention (revision spine surgery) being requested.",
+        "cited_facts": [
+          "[extract] Dr. Karen Williams appeal letter (confidence 1.00)",
+          "[extract] appeal basis statements (confidence 1.00)"
+        ],
+        "error": null
+      },
+      "functional_limitations_described": {
+        "node_id": "functional_limitations_described",
+        "value": true,
+        "confidence": 0.65,
+        "escalation_flag": true,
+        "escalation_reason": "Confidence below 0.7 because the physician's statements about 'symptoms returned and worsened' and 'interval worsening on serial exam' may or may not constitute a description of functional limitations depending on how strictly that term is interpreted. This case sits at an interpretive boundary where 'functional limitations' could reasonably require explicit descriptions of activity restrictions versus accepting general statements about symptom worsening as implicitly describing functional impact.",
+        "escalation_signals": {
+          "low_confidence_in_value": true,
+          "contested_reading": true
+        },
+        "short_circuited": false,
+        "reasoning": "The condition asks whether the treating physician described functional limitations. Dr. Williams' letter states that 'symptoms have returned and worsened since the 2021 fusion, with interval worsening on serial exam.' While 'symptoms' and 'worsening' imply functional impact, the letter does not explicitly describe what functional activities the member cannot perform, which creates ambiguity about whether this satisfies the requirement for describing 'functional limitations.'",
+        "cited_facts": [
+          "[extract] Dr. Karen Williams appeal letter (confidence 1.00)",
+          "[extract] appeal basis statements (confidence 1.00)"
+        ],
+        "error": null
+      },
+      "surgical_risks_alternatives_addressed": {
+        "node_id": "surgical_risks_alternatives_addressed",
+        "value": null,
+        "confidence": 0.0,
+        "escalation_flag": true,
+        "escalation_reason": "The available facts do not include documentation of surgical risks or consideration of alternatives, which are the specific elements required by the condition. The appeal letter addresses clinical necessity but does not address these procedural documentation requirements.",
+        "escalation_signals": {
+          "insufficient_facts": true
+        },
+        "short_circuited": false,
+        "reasoning": "The condition requires documentation of surgical risks and consideration of alternatives by the treating physician. While Dr. Williams' letter discusses the clinical rationale for revision surgery (pseudarthrosis, worsening symptoms), the available facts do not contain any information about documented surgical risks or consideration of alternative treatments.",
+        "cited_facts": [
+          "Dr. Karen Williams appeal letter"
+        ],
+        "error": null
+      },
+      "physician_documentation_complete": {
+        "node_id": "physician_documentation_complete",
+        "value": null,
+        "confidence": 0.0,
+        "escalation_flag": true,
+        "escalation_reason": "attestation_conservative_treatment: The available facts do not address whether conservative treatment was completed or waived, nor whether the treating physician provided the required attestation regarding conservative treatment status.; functional_limitations_described: Confidence below 0.7 because the physician's statements about 'symptoms returned and worsened' and 'interval worsening on serial exam' may or may not constitute a description of functional limitations depending on how strictly that term is interpreted. This case sits at an interpretive boundary where 'functional limitations' could reasonably require explicit descriptions of activity restrictions versus accepting general statements about symptom worsening as implicitly describing functional impact.; surgical_risks_alternatives_addressed: The available facts do not include documentation of surgical risks or consideration of alternatives, which are the specific elements required by the condition. The appeal letter addresses clinical necessity but does not address these procedural documentation requirements.",
+        "escalation_signals": {
+          "insufficient_facts": true,
+          "low_confidence_in_value": true,
+          "contested_reading": true
+        },
+        "short_circuited": false,
+        "reasoning": "AND of 4 children, one or more escalated",
+        "cited_facts": [
+          "[extract] Dr. Karen Williams appeal letter (confidence 1.00)",
+          "[extract] appeal basis statements (confidence 1.00)",
+          "[extract] Dr. Karen Williams appeal letter (confidence 1.00)",
+          "[extract] appeal basis statements (confidence 1.00)",
+          "Dr. Karen Williams appeal letter"
+        ],
+        "error": null
+      },
+      "exclusion_3_1_axial_pain_only": {
+        "node_id": "exclusion_3_1_axial_pain_only",
+        "value": true,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The condition requires documented radiculopathy or myelopathy beyond axial neck pain alone to avoid the exclusion. The neurological exam documents C6 radiculopathy with objective findings: bicep weakness 4/5, diminished reflex, and dermatomal numbness in the C6 distribution. These findings demonstrate documented radiculopathy, satisfying the condition to avoid the exclusion.",
+        "cited_facts": [
+          "presenting_diagnosis field (confidence 1.00)",
+          "neurological exam 2024-09-20 (confidence 1.00)"
+        ],
+        "error": null
+      },
+      "exclusion_3_3_imaging_inconsistent": {
+        "node_id": "exclusion_3_3_imaging_inconsistent",
+        "value": true,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The condition requires imaging to demonstrate pathology at the proposed surgical level consistent with clinical presentation. CT imaging confirmed pseudarthrosis at C5-C6, the patient exhibits C6 nerve root distribution symptoms, and the proposed revision ACDF targets C5-C6. The imaging pathology (pseudarthrosis) at the proposed level (C5-C6) is consistent with the clinical presentation (C6 symptoms), so the exclusion does NOT apply.",
+        "cited_facts": [
+          "CT report 2024-09-15",
+          "appeal record + neuro exam",
+          "procedure description"
+        ],
+        "error": null
+      },
+      "exclusion_3_4_experimental_procedure": {
+        "node_id": "exclusion_3_4_experimental_procedure",
+        "value": true,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The exclusion applies to cervical disc arthroplasty at more than 2 levels or disc replacement combined with fusion at adjacent levels. The procedure is a revision ACDF (anterior cervical discectomy and fusion) at a single level (C5-C6), which is a standard fusion procedure, not arthroplasty/disc replacement. The procedure does not meet the criteria for the experimental procedures listed in the exclusion, so the case avoids the exclusion.",
+        "cited_facts": [
+          "system of record (confidence 1.00): procedure_code = 22551",
+          "system of record (confidence 1.00): procedure_description = Revision ACDF C5-C6 (revision of prior C5-C6 fusion from 2021)"
+        ],
+        "error": null
+      },
+      "no_exclusion_applies": {
+        "node_id": "no_exclusion_applies",
+        "value": true,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "AND of 3 children: all true",
+        "cited_facts": [
+          "presenting_diagnosis field (confidence 1.00)",
+          "neurological exam 2024-09-20 (confidence 1.00)",
+          "CT report 2024-09-15",
+          "appeal record + neuro exam",
+          "procedure description",
+          "system of record (confidence 1.00): procedure_code = 22551",
+          "system of record (confidence 1.00): procedure_description = Revision ACDF C5-C6 (revision of prior C5-C6 fusion from 2021)"
+        ],
+        "error": null
+      },
+      "plan_criteria_satisfied": {
+        "node_id": "plan_criteria_satisfied",
+        "value": null,
+        "confidence": 0.0,
+        "escalation_flag": true,
+        "escalation_reason": "physician_documentation_complete: attestation_conservative_treatment: The available facts do not address whether conservative treatment was completed or waived, nor whether the treating physician provided the required attestation regarding conservative treatment status.; functional_limitations_described: Confidence below 0.7 because the physician's statements about 'symptoms returned and worsened' and 'interval worsening on serial exam' may or may not constitute a description of functional limitations depending on how strictly that term is interpreted. This case sits at an interpretive boundary where 'functional limitations' could reasonably require explicit descriptions of activity restrictions versus accepting general statements about symptom worsening as implicitly describing functional impact.; surgical_risks_alternatives_addressed: The available facts do not include documentation of surgical risks or consideration of alternatives, which are the specific elements required by the condition. The appeal letter addresses clinical necessity but does not address these procedural documentation requirements.",
+        "escalation_signals": {
+          "insufficient_facts": true,
+          "low_confidence_in_value": true,
+          "contested_reading": true
+        },
+        "short_circuited": false,
+        "reasoning": "AND of 5 children, one or more escalated",
+        "cited_facts": [
+          "neurological exam 2024-09-20 (confidence 1.00)",
+          "[extract] presenting_diagnosis field (confidence 1.00)",
+          "[extract] neurological exam 2024-09-20 (confidence 1.00)",
+          "[extract] PT records (confidence 1.00)",
+          "pharmacotherapy record",
+          "presenting_diagnosis field",
+          "neurological exam 2024-09-20",
+          "epidural records",
+          "CT report 2024-09-15",
+          "imaging studies",
+          "appeal record + neuro exam",
+          "procedure description",
+          "[extract] Dr. Karen Williams appeal letter (confidence 1.00)",
+          "[extract] appeal basis statements (confidence 1.00)",
+          "[extract] Dr. Karen Williams appeal letter (confidence 1.00)",
+          "[extract] appeal basis statements (confidence 1.00)",
+          "Dr. Karen Williams appeal letter",
+          "presenting_diagnosis field (confidence 1.00)",
+          "neurological exam 2024-09-20 (confidence 1.00)",
+          "CT report 2024-09-15",
+          "appeal record + neuro exam",
+          "procedure description",
+          "system of record (confidence 1.00): procedure_code = 22551",
+          "system of record (confidence 1.00): procedure_description = Revision ACDF C5-C6 (revision of prior C5-C6 fusion from 2021)"
+        ],
+        "error": null
+      },
+      "pt_contraindicated_or_futile": {
+        "node_id": "pt_contraindicated_or_futile",
+        "value": true,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The condition requires written documentation from the treating physician that physical therapy is contraindicated or unlikely to benefit the member. The PT records explicitly state that the treating physician notes PT cannot address structural hardware/fusion failure, which constitutes written documentation that PT is unlikely to benefit given the nature (structural fusion failure) and severity of the condition.",
+        "cited_facts": [
+          "PT records"
+        ],
+        "error": null
+      },
+      "cic_10169_5_carve_out": {
+        "node_id": "cic_10169_5_carve_out",
+        "value": true,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "OR short-circuit: pt_contraindicated_or_futile is true",
+        "cited_facts": [
+          "PT records"
+        ],
+        "error": null
+      },
+      "regulatory_carve_out_applies": {
+        "node_id": "regulatory_carve_out_applies",
+        "value": true,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "OR short-circuit: cic_10169_5_carve_out is true",
+        "cited_facts": [
+          "PT records"
+        ],
+        "error": null
+      },
+      "clinical_standard_supports_surgery": {
+        "node_id": "clinical_standard_supports_surgery",
+        "value": "TIER_2",
+        "confidence": 0.9,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The patient presents with radiculopathy (right C6 dermatomal symptoms with 4/5 motor weakness and reflex diminution) that has imaging-symptom correlation via CT-confirmed pseudarthrosis at C5-C6. Per tier_2_criteria, this constitutes 'radiculopathy with persistent symptoms and imaging-symptom correlation' and 'significant functional impairment from documented cervical pathology.' No evidence of myelomalacia, acute progressive deficit, or severe motor deficit (\u22643/5) that would elevate to TIER_1, and symptoms with imaging correlation rule out TIER_3.",
+        "cited_facts": [
+          "presenting_diagnosis field (confidence 1.00)",
+          "neurological exam 2024-09-20 (confidence 1.00)",
+          "CT report 2024-09-15 (confidence 1.00)",
+          "appeal record (confidence 0.85)"
+        ],
+        "error": null
+      },
+      "root.acdf_appeal": {
+        "node_id": "root.acdf_appeal",
+        "value": null,
+        "confidence": 1.0,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "root node \u2014 routing logic applies",
+        "cited_facts": [],
+        "error": null
+      }
+    }
+  },
+  "run_stats": {
+    "wall_clock_seconds": 95.83471322059631,
+    "substrate_calls": 18,
+    "avg_latency_ms": 5323.5,
+    "escalations": 4
+  }
+}

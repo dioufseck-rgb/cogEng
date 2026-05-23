@@ -1,0 +1,38 @@
+case_id: fcba-l10-outofscope-001
+policy: fcba
+difficulty_level: 10
+case_class: main
+tags:
+  - out_of_scope
+  - debit_card
+description: |
+  Cardholder dispute, but the underlying account is a debit card
+  drawn on a checking account, not a credit card under an open-end
+  credit plan.
+
+  The cardholder's checking account statement reflects a $250
+  withdrawal that the cardholder did not make. The withdrawal was
+  processed via the debit card on the same checking account.
+
+  The dispute is otherwise on point for unauthorized use — no
+  authority granted to anyone, card in cardholder's possession,
+  suspected card-number compromise.
+
+  HOWEVER: 12 CFR § 1026.13(a) applies only to extensions of
+  credit on credit-card accounts and open-end credit plans (per
+  Regulation Z scope). A debit-card withdrawal from a checking
+  account is governed by Regulation E (EFTA), not Regulation Z.
+
+  The statement in question is a checking-account statement, not a
+  periodic statement of an open-end credit plan.
+expected_outcomes:
+  fcba.D1: "false"
+  fcba.D2: "true"
+load_bearing_annotation:
+  - Not an extension of credit (debit transaction, not credit)
+  - Not on a periodic statement of an open-end credit plan
+authoring_notes: |
+  Level 10: out-of-scope. The dispute involves a debit card, not a
+  credit card. § 1026.13(a) does not apply. Tests that the build's
+  initial "extension of credit on periodic statement" gating
+  correctly excludes non-credit transactions.

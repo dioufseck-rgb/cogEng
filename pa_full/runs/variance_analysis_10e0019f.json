@@ -1,0 +1,358 @@
+{
+  "session_id": "10e0019f",
+  "model": "claude-sonnet-4-5",
+  "n_runs_per_case": 10,
+  "total_runs": 10,
+  "case_keys": [
+    "PA-2026-V1-001"
+  ],
+  "per_case": {
+    "PA-2026-V1-001": {
+      "n_runs": 10,
+      "disposition_distribution": {
+        "uphold": 10
+      },
+      "modal_disposition": "uphold",
+      "disposition_consistency": 1.0,
+      "routing_tier_distribution": {
+        "auto": 10
+      },
+      "modal_routing_tier": "auto",
+      "routing_consistency": 1.0,
+      "secondary_grounds_distribution": {
+        "()": 10
+      },
+      "confidence": {
+        "min": 0.9,
+        "max": 0.95,
+        "mean": 0.909
+      },
+      "substrate_calls": {
+        "min": 12,
+        "max": 12,
+        "mean": 12.0,
+        "stdev": 0.0
+      },
+      "wall_clock_seconds": {
+        "min": 73.62842106819153,
+        "max": 87.20971274375916,
+        "mean": 79.99177072048187
+      },
+      "escalations_per_run": {
+        "min": 0,
+        "max": 0,
+        "mean": 0.0
+      },
+      "per_leaf": {
+        "denial_specifies_criteria": {
+          "n_char": 10,
+          "n_short_circuited": 0,
+          "value_distribution": {
+            "True": 10
+          },
+          "modal_value": "True",
+          "value_consistency": 1.0,
+          "confidence_min": 0.95,
+          "confidence_max": 0.95,
+          "confidence_mean": 0.95,
+          "escalation_rate": 0.0,
+          "signal_counts": {}
+        },
+        "denial_specifies_clinical_reason": {
+          "n_char": 10,
+          "n_short_circuited": 0,
+          "value_distribution": {
+            "True": 10
+          },
+          "modal_value": "True",
+          "value_consistency": 1.0,
+          "confidence_min": 0.95,
+          "confidence_max": 0.95,
+          "confidence_mean": 0.95,
+          "escalation_rate": 0.0,
+          "signal_counts": {}
+        },
+        "denial_provides_imr_rights": {
+          "n_char": 10,
+          "n_short_circuited": 0,
+          "value_distribution": {
+            "True": 10
+          },
+          "modal_value": "True",
+          "value_consistency": 1.0,
+          "confidence_min": 0.95,
+          "confidence_max": 0.95,
+          "confidence_mean": 0.95,
+          "escalation_rate": 0.0,
+          "signal_counts": {}
+        },
+        "denial_factual_basis_correct": {
+          "n_char": 10,
+          "n_short_circuited": 0,
+          "value_distribution": {
+            "ACCURATE": 10
+          },
+          "modal_value": "ACCURATE",
+          "value_consistency": 1.0,
+          "confidence_min": 0.92,
+          "confidence_max": 0.95,
+          "confidence_mean": 0.938,
+          "escalation_rate": 0.0,
+          "signal_counts": {}
+        },
+        "cervical_radiculopathy_diagnosed": {
+          "n_char": 10,
+          "n_short_circuited": 0,
+          "value_distribution": {
+            "False": 10
+          },
+          "modal_value": "False",
+          "value_consistency": 1.0,
+          "confidence_min": 0.95,
+          "confidence_max": 0.95,
+          "confidence_mean": 0.95,
+          "escalation_rate": 0.0,
+          "signal_counts": {}
+        },
+        "cervical_myelopathy_diagnosed": {
+          "n_char": 10,
+          "n_short_circuited": 0,
+          "value_distribution": {
+            "False": 10
+          },
+          "modal_value": "False",
+          "value_consistency": 1.0,
+          "confidence_min": 0.95,
+          "confidence_max": 0.95,
+          "confidence_mean": 0.95,
+          "escalation_rate": 0.0,
+          "signal_counts": {}
+        },
+        "disc_herniation_with_neurological_deficit": {
+          "n_char": 10,
+          "n_short_circuited": 0,
+          "value_distribution": {
+            "False": 10
+          },
+          "modal_value": "False",
+          "value_consistency": 1.0,
+          "confidence_min": 0.95,
+          "confidence_max": 0.95,
+          "confidence_mean": 0.95,
+          "escalation_rate": 0.0,
+          "signal_counts": {}
+        },
+        "pt_contraindicated_or_futile": {
+          "n_char": 10,
+          "n_short_circuited": 0,
+          "value_distribution": {
+            "False": 10
+          },
+          "modal_value": "False",
+          "value_consistency": 1.0,
+          "confidence_min": 0.95,
+          "confidence_max": 0.95,
+          "confidence_mean": 0.95,
+          "escalation_rate": 0.0,
+          "signal_counts": {}
+        },
+        "functional_plateau_documented": {
+          "n_char": 10,
+          "n_short_circuited": 0,
+          "value_distribution": {
+            "False": 10
+          },
+          "modal_value": "False",
+          "value_consistency": 1.0,
+          "confidence_min": 0.9,
+          "confidence_max": 0.95,
+          "confidence_mean": 0.909,
+          "escalation_rate": 0.0,
+          "signal_counts": {}
+        },
+        "structural_neurological_compromise": {
+          "n_char": 10,
+          "n_short_circuited": 0,
+          "value_distribution": {
+            "False": 10
+          },
+          "modal_value": "False",
+          "value_consistency": 1.0,
+          "confidence_min": 0.95,
+          "confidence_max": 0.95,
+          "confidence_mean": 0.95,
+          "escalation_rate": 0.0,
+          "signal_counts": {}
+        },
+        "objective_progressive_pathology": {
+          "n_char": 10,
+          "n_short_circuited": 0,
+          "value_distribution": {
+            "False": 10
+          },
+          "modal_value": "False",
+          "value_consistency": 1.0,
+          "confidence_min": 0.95,
+          "confidence_max": 0.95,
+          "confidence_mean": 0.95,
+          "escalation_rate": 0.0,
+          "signal_counts": {}
+        },
+        "clinical_standard_supports_surgery": {
+          "n_char": 10,
+          "n_short_circuited": 0,
+          "value_distribution": {
+            "TIER_3": 10
+          },
+          "modal_value": "TIER_3",
+          "value_consistency": 1.0,
+          "confidence_min": 0.92,
+          "confidence_max": 0.95,
+          "confidence_mean": 0.9469999999999998,
+          "escalation_rate": 0.0,
+          "signal_counts": {}
+        }
+      }
+    }
+  },
+  "per_case_eval": {
+    "PA-2026-V1-001": {
+      "gt_disposition": "uphold",
+      "gt_routing_band": [
+        "auto"
+      ],
+      "modal_disposition_match": true,
+      "modal_routing_band_match": true,
+      "safety_failures_count": 0,
+      "per_leaf_calibration": {
+        "denial_specifies_criteria": {
+          "class": "determinable",
+          "expected": true,
+          "observed_modal_value": "True",
+          "value_consistency": 1.0,
+          "escalation_rate": 0.0,
+          "commit_rate": 1.0,
+          "value_match_count": 10,
+          "n_evaluations": 10
+        },
+        "denial_specifies_clinical_reason": {
+          "class": "determinable",
+          "expected": true,
+          "observed_modal_value": "True",
+          "value_consistency": 1.0,
+          "escalation_rate": 0.0,
+          "commit_rate": 1.0,
+          "value_match_count": 10,
+          "n_evaluations": 10
+        },
+        "denial_provides_imr_rights": {
+          "class": "determinable",
+          "expected": true,
+          "observed_modal_value": "True",
+          "value_consistency": 1.0,
+          "escalation_rate": 0.0,
+          "commit_rate": 1.0,
+          "value_match_count": 10,
+          "n_evaluations": 10
+        },
+        "denial_factual_basis_correct": {
+          "class": "determinable",
+          "expected": "ACCURATE",
+          "observed_modal_value": "ACCURATE",
+          "value_consistency": 1.0,
+          "escalation_rate": 0.0,
+          "commit_rate": 1.0,
+          "value_match_count": 10,
+          "n_evaluations": 10
+        },
+        "cervical_radiculopathy_diagnosed": {
+          "class": "determinable",
+          "expected": false,
+          "observed_modal_value": "False",
+          "value_consistency": 1.0,
+          "escalation_rate": 0.0,
+          "commit_rate": 1.0,
+          "value_match_count": 10,
+          "n_evaluations": 10
+        },
+        "cervical_myelopathy_diagnosed": {
+          "class": "determinable",
+          "expected": false,
+          "observed_modal_value": "False",
+          "value_consistency": 1.0,
+          "escalation_rate": 0.0,
+          "commit_rate": 1.0,
+          "value_match_count": 10,
+          "n_evaluations": 10
+        },
+        "disc_herniation_with_neurological_deficit": {
+          "class": "determinable",
+          "expected": false,
+          "observed_modal_value": "False",
+          "value_consistency": 1.0,
+          "escalation_rate": 0.0,
+          "commit_rate": 1.0,
+          "value_match_count": 10,
+          "n_evaluations": 10
+        },
+        "pt_contraindicated_or_futile": {
+          "class": "determinable",
+          "expected": false,
+          "observed_modal_value": "False",
+          "value_consistency": 1.0,
+          "escalation_rate": 0.0,
+          "commit_rate": 1.0,
+          "value_match_count": 10,
+          "n_evaluations": 10
+        },
+        "functional_plateau_documented": {
+          "class": "determinable",
+          "expected": false,
+          "observed_modal_value": "False",
+          "value_consistency": 1.0,
+          "escalation_rate": 0.0,
+          "commit_rate": 1.0,
+          "value_match_count": 10,
+          "n_evaluations": 10
+        },
+        "structural_neurological_compromise": {
+          "class": "determinable",
+          "expected": false,
+          "observed_modal_value": "False",
+          "value_consistency": 1.0,
+          "escalation_rate": 0.0,
+          "commit_rate": 1.0,
+          "value_match_count": 10,
+          "n_evaluations": 10
+        },
+        "objective_progressive_pathology": {
+          "class": "determinable",
+          "expected": false,
+          "observed_modal_value": "False",
+          "value_consistency": 1.0,
+          "escalation_rate": 0.0,
+          "commit_rate": 1.0,
+          "value_match_count": 10,
+          "n_evaluations": 10
+        },
+        "clinical_standard_supports_surgery": {
+          "class": "determinable",
+          "expected": "TIER_3",
+          "observed_modal_value": "TIER_3",
+          "value_consistency": 1.0,
+          "escalation_rate": 0.0,
+          "commit_rate": 1.0,
+          "value_match_count": 10,
+          "n_evaluations": 10
+        }
+      }
+    }
+  },
+  "aggregate": {
+    "n_cases_with_gt": 1,
+    "modal_disposition_match_rate": 1.0,
+    "modal_routing_band_match_rate": 1.0,
+    "safety_failure_runs": 0,
+    "safety_failure_details": []
+  }
+}

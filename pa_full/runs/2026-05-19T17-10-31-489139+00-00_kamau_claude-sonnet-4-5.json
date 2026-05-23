@@ -1,0 +1,489 @@
+{
+  "schema_version": "1.0",
+  "timestamp": "2026-05-19T17:10:31.489139+00:00",
+  "case_key": "kamau",
+  "case_id": "PA-2024-G006",
+  "case_name": "Theresa Kamau",
+  "failure_mode": "FM-6 distractor susceptibility (prior PA history)",
+  "notes": "Single-level ACDF. Plan cites prior three-level denial; prior reviewer endorsed single-level. [VARIANCE_SESSION=b56daf5f RUN=2]",
+  "model": "claude-sonnet-4-5",
+  "tree_version": "1.0",
+  "ground_truth": {
+    "expected_disposition": "overturn_plan_criteria_met",
+    "expected_routing": "gate",
+    "match_disposition": false,
+    "match_routing": true
+  },
+  "determination": {
+    "disposition": "overturn_factual_error_in_denial",
+    "routing_tier": "gate",
+    "is_tentative": true,
+    "confidence": 0.85,
+    "primary_reasoning": "Denial's stated factual basis is contradicted by the case record (substrate identified specific factual errors with high confidence): The denial asserts that 'the member's cervical pathology has not materially changed since the prior denial' and 'current request does not demonstrate sufficient change in clinical status.' However, the current MRI shows interval worsening (larger herniation with increased compression) compared to the prior MRI 6 months ago, and the neurological exam documents interval worsening. This direct contradiction of a critical factual claim in the denial\u2014regarding lack of clinical change\u2014makes the denial INACCURATE.",
+    "secondary_grounds": [
+      "overturn_plan_criteria_met",
+      "overturn_regulatory_carve_out",
+      "overturn_procedural_defect"
+    ],
+    "routing_reasons": [
+      {
+        "signal": "contested_reading",
+        "node_id": "pharmacotherapy_requirement_met",
+        "policy_ref": "\u00a7 2.2(b)",
+        "reason": "While the dose pack duration appears insufficient on its face (12 days vs 28 days required), there is interpretive ambiguity about whether 'x2' means concurrent/overlapping administration or whether the policy contemplates that certain drug classes (particularly oral corticosteroids) may be appropriately trialed through multiple shorter courses rather than one continuous 4-week period due to the clinical risks of prolonged corticosteroid use."
+      },
+      {
+        "signal": "insufficient_facts",
+        "node_id": "functional_limitations_described",
+        "policy_ref": "\u00a7 2.4(c)",
+        "reason": "The available facts reference that clinical status has worsened and mention 'worsening of motor function,' but they do not contain the actual description of functional limitations that would be needed to satisfy this condition. The extracts summarize appeal arguments and denial rationales but do not include the physician's description of how the condition functionally limits the member."
+      },
+      {
+        "signal": "insufficient_facts",
+        "node_id": "surgical_risks_alternatives_addressed",
+        "policy_ref": "\u00a7 2.4(d)",
+        "reason": "No facts are available regarding documentation of surgical risks or consideration of alternatives by the treating physician, which are the specific elements required by this condition."
+      }
+    ],
+    "tree_version": "1.0",
+    "trace": {
+      "denial_specifies_criteria": {
+        "node_id": "denial_specifies_criteria",
+        "value": false,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The condition asks whether the denial notice specifies which clinical criteria from the plan policy were applied. The denial notice cites 'prior PA history' and 'prior denial pattern' as the basis for denial, but does not cite any specific plan criterion from the policy sections (\u00a7 2.2, \u00a7 2.3, \u00a7 2.1, or \u00a7 2.4). The extract explicitly notes that the denial does NOT cite specific plan criteria and that 'prior PA denial history' is not authorized as a criterion under the CC-SPINE-2024 policy.",
+        "cited_facts": [
+          "denial notice 2024-11-20"
+        ],
+        "error": null
+      },
+      "denial_procedurally_adequate": {
+        "node_id": "denial_procedurally_adequate",
+        "value": false,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "AND short-circuit: denial_specifies_criteria is false",
+        "cited_facts": [
+          "denial notice 2024-11-20"
+        ],
+        "error": null
+      },
+      "denial_factual_basis_correct": {
+        "node_id": "denial_factual_basis_correct",
+        "value": "INACCURATE",
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The denial asserts that 'the member's cervical pathology has not materially changed since the prior denial' and 'current request does not demonstrate sufficient change in clinical status.' However, the current MRI shows interval worsening (larger herniation with increased compression) compared to the prior MRI 6 months ago, and the neurological exam documents interval worsening. This direct contradiction of a critical factual claim in the denial\u2014regarding lack of clinical change\u2014makes the denial INACCURATE.",
+        "cited_facts": [
+          "denial notice 2024-11-20",
+          "current MRI 2024-10-15",
+          "neurological exam 2024-10-20"
+        ],
+        "error": null
+      },
+      "cervical_radiculopathy_diagnosed": {
+        "node_id": "cervical_radiculopathy_diagnosed",
+        "value": true,
+        "confidence": 1.0,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The condition requires confirmed diagnosis of cervical radiculopathy with nerve root compression and radicular symptoms (pain, numbness, weakness in dermatomal distribution). The presenting diagnosis explicitly states cervical radiculopathy C5-C6, the MRI confirms C5-C6 disc herniation with moderate-severe right C6 nerve root compression, and the neurological exam documents radicular symptoms in C6 dermatomal distribution (numbness, weakness 3+/5, pain 8/10). All elements of the condition are satisfied.",
+        "cited_facts": [
+          "presenting_diagnosis field",
+          "neurological exam 2024-10-20",
+          "current MRI 2024-10-15"
+        ],
+        "error": null
+      },
+      "diagnosis_requirement_met": {
+        "node_id": "diagnosis_requirement_met",
+        "value": true,
+        "confidence": 1.0,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "OR short-circuit: cervical_radiculopathy_diagnosed is true",
+        "cited_facts": [
+          "presenting_diagnosis field",
+          "neurological exam 2024-10-20",
+          "current MRI 2024-10-15"
+        ],
+        "error": null
+      },
+      "pt_requirement_met": {
+        "node_id": "pt_requirement_met",
+        "value": true,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The primary diagnosis is cervical radiculopathy C5-C6, confirmed by dermatomal numbness, absent reflex, and weakness in C6 distribution, with no myelopathic features documented. This triggers the STANDARD pathway requiring 6 weeks minimum supervised PT. The facts document an 8-week supervised PT course (24 sessions) specific to the current request, which exceeds the 6-week threshold.",
+        "cited_facts": [
+          "presenting_diagnosis field (confidence 1.00)",
+          "neurological exam 2024-10-20 (confidence 1.00)",
+          "PT records 2024 (confidence 1.00)"
+        ],
+        "error": null
+      },
+      "pharmacotherapy_requirement_met": {
+        "node_id": "pharmacotherapy_requirement_met",
+        "value": false,
+        "confidence": 0.85,
+        "escalation_flag": true,
+        "escalation_reason": "While the dose pack duration appears insufficient on its face (12 days vs 28 days required), there is interpretive ambiguity about whether 'x2' means concurrent/overlapping administration or whether the policy contemplates that certain drug classes (particularly oral corticosteroids) may be appropriately trialed through multiple shorter courses rather than one continuous 4-week period due to the clinical risks of prolonged corticosteroid use.",
+        "escalation_signals": {
+          "contested_reading": true
+        },
+        "short_circuited": false,
+        "reasoning": "The condition requires at least two distinct agent classes trialed for a minimum of 4 weeks each. Gabapentin was trialed for 6 months (satisfies 4-week requirement). However, methylprednisolone dose pack x2 consists of two 6-day courses (approximately 12 days total), which falls short of the 4-week (28-day) minimum duration requirement for the corticosteroid class.",
+        "cited_facts": [
+          "pharmacotherapy record"
+        ],
+        "error": null
+      },
+      "interventional_requirement_met_or_waived": {
+        "node_id": "interventional_requirement_met_or_waived",
+        "value": true,
+        "confidence": 1.0,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The primary diagnosis is cervical radiculopathy C5-C6, not myelopathy, so the STANDARD pathway applies. The epidural records document that a right C6 epidural steroid injection was performed on 2024-11-05, which is one of the qualifying interventional treatments (cervical epidural steroid injection). The requirement is therefore met.",
+        "cited_facts": [
+          "presenting_diagnosis field (confidence 1.00)",
+          "epidural records (confidence 1.00)"
+        ],
+        "error": null
+      },
+      "conservative_treatment_met": {
+        "node_id": "conservative_treatment_met",
+        "value": null,
+        "confidence": 0.85,
+        "escalation_flag": true,
+        "escalation_reason": "pharmacotherapy_requirement_met: While the dose pack duration appears insufficient on its face (12 days vs 28 days required), there is interpretive ambiguity about whether 'x2' means concurrent/overlapping administration or whether the policy contemplates that certain drug classes (particularly oral corticosteroids) may be appropriately trialed through multiple shorter courses rather than one continuous 4-week period due to the clinical risks of prolonged corticosteroid use.",
+        "escalation_signals": {
+          "contested_reading": true
+        },
+        "short_circuited": false,
+        "reasoning": "AND of 3 children, one or more escalated",
+        "cited_facts": [
+          "presenting_diagnosis field (confidence 1.00)",
+          "neurological exam 2024-10-20 (confidence 1.00)",
+          "PT records 2024 (confidence 1.00)",
+          "pharmacotherapy record",
+          "presenting_diagnosis field (confidence 1.00)",
+          "epidural records (confidence 1.00)"
+        ],
+        "error": null
+      },
+      "imaging_requirement_met": {
+        "node_id": "imaging_requirement_met",
+        "value": true,
+        "confidence": 0.98,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The condition requires current imaging (within 6 months) demonstrating structural pathology consistent with symptoms at the proposed surgical level. The MRI from 2024-10-15 is within 6 months of the request date (2024-12-05), shows C5-C6 herniation with right C6 nerve compression, and the facts document strong symptom-imaging correlation with right C6 dermatomal symptoms matching the C5-C6 pathology level. The proposed single-level ACDF surgery targets C5-C6, matching both the imaging pathology and clinical presentation.",
+        "cited_facts": [
+          "current MRI 2024-10-15 (confidence 1.00)",
+          "imaging studies (confidence 1.00)",
+          "appeal record + exam + imaging (confidence 0.95)",
+          "procedure description (confidence 1.00)"
+        ],
+        "error": null
+      },
+      "attestation_conservative_treatment": {
+        "node_id": "attestation_conservative_treatment",
+        "value": true,
+        "confidence": 0.85,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The condition requires attestation from the treating physician that conservative treatment has been completed or validly waived. Dr. Osei's appeal letter explicitly documents completion of a 'new 8-week PT course with documented plateau' and a 'new injection completed,' which constitutes physician attestation that conservative treatment has been completed for the current single-level request.",
+        "cited_facts": [
+          "Dr. Victor Osei appeal letter (confidence 1.00)",
+          "appeal basis statements (confidence 1.00)"
+        ],
+        "error": null
+      },
+      "clinical_rationale_for_surgery": {
+        "node_id": "clinical_rationale_for_surgery",
+        "value": true,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "Dr. Osei's appeal letter provides detailed clinical rationale for the single-level C5-C6 ACDF, including: interval worsening of clinical status since May 2024 (new MRI showing increased C5-C6 pathology, new exam showing worsened motor function), completion of conservative treatments (8-week PT with documented plateau, injection completed), and distinction from the previously denied three-level procedure. This constitutes clinical rationale for the specific surgical intervention requested.",
+        "cited_facts": [
+          "Dr. Victor Osei appeal letter (confidence 1.00)",
+          "appeal basis statements (confidence 1.00)",
+          "prior PA denial documentation (May 2024) (confidence 1.00)"
+        ],
+        "error": null
+      },
+      "functional_limitations_described": {
+        "node_id": "functional_limitations_described",
+        "value": null,
+        "confidence": 0.0,
+        "escalation_flag": true,
+        "escalation_reason": "The available facts reference that clinical status has worsened and mention 'worsening of motor function,' but they do not contain the actual description of functional limitations that would be needed to satisfy this condition. The extracts summarize appeal arguments and denial rationales but do not include the physician's description of how the condition functionally limits the member.",
+        "escalation_signals": {
+          "insufficient_facts": true
+        },
+        "short_circuited": false,
+        "reasoning": "The condition asks whether the treating physician described the member's functional limitations from the condition. While the cited facts reference clinical status, worsening motor function, and pathology changes, none of the available extracts contain actual descriptions of functional limitations (e.g., inability to perform specific activities, restrictions in daily living, work capacity limitations). The facts discuss clinical findings and procedure details but do not provide the functional limitation descriptions themselves.",
+        "cited_facts": [
+          "Dr. Victor Osei appeal letter",
+          "appeal basis statements",
+          "prior PA denial documentation (May 2024)"
+        ],
+        "error": null
+      },
+      "surgical_risks_alternatives_addressed": {
+        "node_id": "surgical_risks_alternatives_addressed",
+        "value": null,
+        "confidence": 0.0,
+        "escalation_flag": true,
+        "escalation_reason": "No facts are available regarding documentation of surgical risks or consideration of alternatives by the treating physician, which are the specific elements required by this condition.",
+        "escalation_signals": {
+          "insufficient_facts": true
+        },
+        "short_circuited": false,
+        "reasoning": "The condition requires documentation that the treating physician has documented surgical risks and considered alternatives. The available facts discuss the appeal basis, procedure changes, and clinical worsening, but contain no information about whether surgical risks were documented or whether alternatives were considered by the treating physician.",
+        "cited_facts": [],
+        "error": null
+      },
+      "physician_documentation_complete": {
+        "node_id": "physician_documentation_complete",
+        "value": null,
+        "confidence": 0.0,
+        "escalation_flag": true,
+        "escalation_reason": "functional_limitations_described: The available facts reference that clinical status has worsened and mention 'worsening of motor function,' but they do not contain the actual description of functional limitations that would be needed to satisfy this condition. The extracts summarize appeal arguments and denial rationales but do not include the physician's description of how the condition functionally limits the member.; surgical_risks_alternatives_addressed: No facts are available regarding documentation of surgical risks or consideration of alternatives by the treating physician, which are the specific elements required by this condition.",
+        "escalation_signals": {
+          "insufficient_facts": true
+        },
+        "short_circuited": false,
+        "reasoning": "AND of 4 children, one or more escalated",
+        "cited_facts": [
+          "Dr. Victor Osei appeal letter (confidence 1.00)",
+          "appeal basis statements (confidence 1.00)",
+          "Dr. Victor Osei appeal letter (confidence 1.00)",
+          "appeal basis statements (confidence 1.00)",
+          "prior PA denial documentation (May 2024) (confidence 1.00)",
+          "Dr. Victor Osei appeal letter",
+          "appeal basis statements",
+          "prior PA denial documentation (May 2024)"
+        ],
+        "error": null
+      },
+      "exclusion_3_1_axial_pain_only": {
+        "node_id": "exclusion_3_1_axial_pain_only",
+        "value": true,
+        "confidence": 0.98,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The condition excludes surgery requested solely for axial neck pain without documented radiculopathy or myelopathy. The presenting diagnosis explicitly identifies cervical radiculopathy C5-C6, and the neurological exam documents objective findings consistent with radiculopathy (dermatomal numbness, absent reflex, progressive weakness). This case therefore avoids the exclusion because documented radiculopathy is present.",
+        "cited_facts": [
+          "presenting_diagnosis field",
+          "neurological exam 2024-10-20"
+        ],
+        "error": null
+      },
+      "exclusion_3_3_imaging_inconsistent": {
+        "node_id": "exclusion_3_3_imaging_inconsistent",
+        "value": true,
+        "confidence": 0.98,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The condition requires imaging to demonstrate pathology at the proposed surgical level consistent with clinical presentation. The facts show C5-C6 herniation with right C6 nerve compression on MRI matching right C6 dermatomal symptoms and findings, with the proposed ACDF surgery targeting the same C5-C6 level. This demonstrates clear imaging-symptom correlation at the proposed surgical level, so the exclusion does NOT apply.",
+        "cited_facts": [
+          "current MRI 2024-10-15",
+          "appeal record + exam + imaging",
+          "procedure description"
+        ],
+        "error": null
+      },
+      "exclusion_3_4_experimental_procedure": {
+        "node_id": "exclusion_3_4_experimental_procedure",
+        "value": true,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The exclusion applies to cervical disc arthroplasty at more than 2 levels or cervical disc replacement combined with fusion at adjacent levels. The procedure described is ACDF (anterior cervical discectomy and fusion) at a single level (C5-C6), which is neither arthroplasty nor involves the multi-level or combination scenarios specified in the exclusion. Therefore, this case avoids the exclusion.",
+        "cited_facts": [
+          "system of record (confidence 1.00): procedure_code = 22551",
+          "system of record (confidence 1.00): procedure_description = ACDF C5-C6, one level"
+        ],
+        "error": null
+      },
+      "no_exclusion_applies": {
+        "node_id": "no_exclusion_applies",
+        "value": true,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "AND of 3 children: all true",
+        "cited_facts": [
+          "presenting_diagnosis field",
+          "neurological exam 2024-10-20",
+          "current MRI 2024-10-15",
+          "appeal record + exam + imaging",
+          "procedure description",
+          "system of record (confidence 1.00): procedure_code = 22551",
+          "system of record (confidence 1.00): procedure_description = ACDF C5-C6, one level"
+        ],
+        "error": null
+      },
+      "plan_criteria_satisfied": {
+        "node_id": "plan_criteria_satisfied",
+        "value": null,
+        "confidence": 0.0,
+        "escalation_flag": true,
+        "escalation_reason": "conservative_treatment_met: pharmacotherapy_requirement_met: While the dose pack duration appears insufficient on its face (12 days vs 28 days required), there is interpretive ambiguity about whether 'x2' means concurrent/overlapping administration or whether the policy contemplates that certain drug classes (particularly oral corticosteroids) may be appropriately trialed through multiple shorter courses rather than one continuous 4-week period due to the clinical risks of prolonged corticosteroid use.; physician_documentation_complete: functional_limitations_described: The available facts reference that clinical status has worsened and mention 'worsening of motor function,' but they do not contain the actual description of functional limitations that would be needed to satisfy this condition. The extracts summarize appeal arguments and denial rationales but do not include the physician's description of how the condition functionally limits the member.; surgical_risks_alternatives_addressed: No facts are available regarding documentation of surgical risks or consideration of alternatives by the treating physician, which are the specific elements required by this condition.",
+        "escalation_signals": {
+          "insufficient_facts": true,
+          "contested_reading": true
+        },
+        "short_circuited": false,
+        "reasoning": "AND of 5 children, one or more escalated",
+        "cited_facts": [
+          "presenting_diagnosis field",
+          "neurological exam 2024-10-20",
+          "current MRI 2024-10-15",
+          "presenting_diagnosis field (confidence 1.00)",
+          "neurological exam 2024-10-20 (confidence 1.00)",
+          "PT records 2024 (confidence 1.00)",
+          "pharmacotherapy record",
+          "presenting_diagnosis field (confidence 1.00)",
+          "epidural records (confidence 1.00)",
+          "current MRI 2024-10-15 (confidence 1.00)",
+          "imaging studies (confidence 1.00)",
+          "appeal record + exam + imaging (confidence 0.95)",
+          "procedure description (confidence 1.00)",
+          "Dr. Victor Osei appeal letter (confidence 1.00)",
+          "appeal basis statements (confidence 1.00)",
+          "Dr. Victor Osei appeal letter (confidence 1.00)",
+          "appeal basis statements (confidence 1.00)",
+          "prior PA denial documentation (May 2024) (confidence 1.00)",
+          "Dr. Victor Osei appeal letter",
+          "appeal basis statements",
+          "prior PA denial documentation (May 2024)",
+          "presenting_diagnosis field",
+          "neurological exam 2024-10-20",
+          "current MRI 2024-10-15",
+          "appeal record + exam + imaging",
+          "procedure description",
+          "system of record (confidence 1.00): procedure_code = 22551",
+          "system of record (confidence 1.00): procedure_description = ACDF C5-C6, one level"
+        ],
+        "error": null
+      },
+      "pt_contraindicated_or_futile": {
+        "node_id": "pt_contraindicated_or_futile",
+        "value": true,
+        "confidence": 0.85,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The PT records document an 8-week supervised course (24 sessions, July-September 2024) with explicit documentation of functional plateau stating 'no further improvement expected, neurological deficit persistent and worsening.' This constitutes written documentation from the treating course that physical therapy is unlikely to benefit the member given the condition's nature and severity, satisfying the condition's requirement.",
+        "cited_facts": [
+          "[extract] PT records 2024 (confidence 1.00)",
+          "[extract] Dr. Victor Osei appeal letter (confidence 1.00)"
+        ],
+        "error": null
+      },
+      "cic_10169_5_carve_out": {
+        "node_id": "cic_10169_5_carve_out",
+        "value": true,
+        "confidence": 0.85,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "OR short-circuit: pt_contraindicated_or_futile is true",
+        "cited_facts": [
+          "[extract] PT records 2024 (confidence 1.00)",
+          "[extract] Dr. Victor Osei appeal letter (confidence 1.00)"
+        ],
+        "error": null
+      },
+      "regulatory_carve_out_applies": {
+        "node_id": "regulatory_carve_out_applies",
+        "value": true,
+        "confidence": 0.85,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "OR short-circuit: cic_10169_5_carve_out is true",
+        "cited_facts": [
+          "[extract] PT records 2024 (confidence 1.00)",
+          "[extract] Dr. Victor Osei appeal letter (confidence 1.00)"
+        ],
+        "error": null
+      },
+      "clinical_standard_supports_surgery": {
+        "node_id": "clinical_standard_supports_surgery",
+        "value": "TIER_2",
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "Patient presents with cervical radiculopathy (C5-C6) with imaging-symptom correlation: right C6 dermatomal numbness, absent bicep reflex, 3+/5 weakness matching large C5-C6 disc herniation with severe right C6 nerve root compression on MRI. Per tier_2_criteria, radiculopathy with persistent symptoms and imaging-symptom correlation plus significant functional impairment (unable to work full-time) constitutes reasonable clinical indication for elective ACDF. No myelomalacia, T2 cord signal, or acute progressive deficit documented to meet TIER_1 criteria (the motor weakness worsened gradually, not acutely progressive per TIER 1 definition).",
+        "cited_facts": [
+          "presenting_diagnosis field (confidence 1.00)",
+          "neurological exam 2024-10-20 (confidence 1.00)",
+          "current MRI 2024-10-15 (confidence 1.00)",
+          "appeal record (confidence 0.90)"
+        ],
+        "error": null
+      },
+      "root.acdf_appeal": {
+        "node_id": "root.acdf_appeal",
+        "value": null,
+        "confidence": 1.0,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "root node \u2014 routing logic applies",
+        "cited_facts": [],
+        "error": null
+      }
+    }
+  },
+  "run_stats": {
+    "wall_clock_seconds": 83.13420581817627,
+    "substrate_calls": 16,
+    "avg_latency_ms": 5195.0,
+    "escalations": 3
+  }
+}

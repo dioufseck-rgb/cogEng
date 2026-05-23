@@ -1,0 +1,157 @@
+{
+  "case_id": "PA-2026-V1-001",
+  "schema_version": "1.0",
+  "ground_truth": {
+    "disposition": "uphold",
+    "routing_tier": "auto",
+    "alternative_dispositions_acceptable": [],
+    "confidence": "high",
+    "reasoning_excerpt": "Clear uphold. Denial procedurally adequate, factual basis accurate, plan criteria not met on multiple grounds (no radiculopathy/myelopathy/disc herniation with deficit; PT 4 weeks not 6; no pharmacotherapy beyond NSAIDs; no interventional procedures; § 3.1 axial-pain-only exclusion fires), TIER_3 clinical standard, no regulatory carve-out applies."
+  },
+  "leaf_expectations": {
+    "denial_specifies_criteria": {
+      "class": "determinable",
+      "expected_value": true,
+      "expected_signal": null,
+      "rationale": "Denial cites CC-SPINE-2024 § 2.1 and § 2.2 explicitly with subsection references"
+    },
+    "denial_specifies_clinical_reason": {
+      "class": "determinable",
+      "expected_value": true,
+      "expected_signal": null,
+      "rationale": "Denial walks through each criterion with dated clinical references"
+    },
+    "denial_provides_imr_rights": {
+      "class": "determinable",
+      "expected_value": true,
+      "expected_signal": null,
+      "rationale": "Notice contains complete IMR rights section with CHSC citation, DMHC contact, 6-month filing window"
+    },
+    "denial_factual_basis_correct": {
+      "class": "determinable",
+      "expected_value": "ACCURATE",
+      "expected_signal": null,
+      "rationale": "All six factual claims in the denial are supported by the case record"
+    },
+    "cervical_radiculopathy_diagnosed": {
+      "class": "determinable",
+      "expected_value": false,
+      "expected_signal": null,
+      "rationale": "Neuro exam shows no dermatomal symptoms, no motor deficit, negative Spurling's; imaging shows no nerve root impingement"
+    },
+    "cervical_myelopathy_diagnosed": {
+      "class": "determinable",
+      "expected_value": false,
+      "expected_signal": null,
+      "rationale": "No Hoffmann sign, no clonus, no gait disturbance, no myelomalacia signal on MRI"
+    },
+    "disc_herniation_with_neurological_deficit": {
+      "class": "determinable",
+      "expected_value": false,
+      "expected_signal": null,
+      "rationale": "MRI shows small disc bulge without herniation; no neurological deficit documented"
+    },
+    "pt_requirement_met": {
+      "class": "determinable",
+      "expected_value": false,
+      "expected_signal": null,
+      "rationale": "PT was 4 weeks, below the 6-week minimum specified in § 2.2(a); patient self-discontinued"
+    },
+    "pharmacotherapy_requirement_met": {
+      "class": "determinable",
+      "expected_value": false,
+      "expected_signal": null,
+      "rationale": "Only NSAIDs documented; no trial of additional agent classes (gabapentin, tricyclics, muscle relaxants, etc)"
+    },
+    "interventional_requirement_met_or_waived": {
+      "class": "determinable",
+      "expected_value": false,
+      "expected_signal": null,
+      "rationale": "No interventional procedures attempted; no documentation of contraindication"
+    },
+    "imaging_requirement_met": {
+      "class": "determinable",
+      "expected_value": false,
+      "expected_signal": null,
+      "rationale": "MRI is recent but shows only mild degenerative changes without nerve root impingement, herniation, or cord compromise"
+    },
+    "attestation_conservative_treatment": {
+      "class": "determinable",
+      "expected_value": false,
+      "expected_signal": null,
+      "rationale": "Treating physician documentation does not include attestation that conservative treatment was completed (and could not, since it wasn't)"
+    },
+    "clinical_rationale_for_surgery": {
+      "class": "determinable",
+      "expected_value": false,
+      "expected_signal": null,
+      "rationale": "Documentation describes chronic pain without imaging-correlated nerve pathology or neurological deficit; rationale is weak"
+    },
+    "functional_limitations_described": {
+      "class": "determinable",
+      "expected_value": false,
+      "expected_signal": null,
+      "rationale": "Functional description is general (decreased tolerance for sitting, sleep disruption) without formal functional capacity evaluation"
+    },
+    "surgical_risks_alternatives_addressed": {
+      "class": "determinable",
+      "expected_value": false,
+      "expected_signal": null,
+      "rationale": "Risks mentioned in passing in consultation note, not detailed in pre-auth submission; no informed consent documentation"
+    },
+    "exclusion_3_1_axial_pain_only": {
+      "class": "determinable",
+      "expected_value": false,
+      "expected_signal": null,
+      "rationale": "Leaf prompt asks if case AVOIDS the § 3.1 axial-pain-only exclusion. This case is exactly axial pain without radiculopathy/myelopathy, so it does NOT avoid the exclusion. Expected value FALSE (exclusion fires)."
+    },
+    "exclusion_3_3_imaging_inconsistent": {
+      "class": "determinable",
+      "expected_value": true,
+      "expected_signal": null,
+      "rationale": "Leaf asks if case AVOIDS the § 3.3 imaging-clinical-inconsistency exclusion. Imaging and exam both show absence of neural compromise — they are internally consistent — so the case AVOIDS this exclusion. Expected TRUE."
+    },
+    "exclusion_3_4_experimental_procedure": {
+      "class": "determinable",
+      "expected_value": true,
+      "expected_signal": null,
+      "rationale": "Leaf asks if case AVOIDS the § 3.4 experimental procedure exclusion. Single-level ACDF is established practice; case AVOIDS this exclusion. Expected TRUE."
+    },
+    "pt_contraindicated_or_futile": {
+      "class": "determinable",
+      "expected_value": false,
+      "expected_signal": null,
+      "rationale": "Patient self-discontinued PT during ongoing improvement; no contraindication documented; no plateau"
+    },
+    "functional_plateau_documented": {
+      "class": "determinable",
+      "expected_value": false,
+      "expected_signal": null,
+      "rationale": "PT records describe ongoing improvement at time of discontinuation, not plateau"
+    },
+    "structural_neurological_compromise": {
+      "class": "determinable",
+      "expected_value": false,
+      "expected_signal": null,
+      "rationale": "No structural compromise documented on imaging or exam"
+    },
+    "objective_progressive_pathology": {
+      "class": "determinable",
+      "expected_value": false,
+      "expected_signal": null,
+      "rationale": "Imaging shows stable mild degenerative changes; no objective progressive pathology documented. First child of apl_22_014_carve_out AND, expected to short-circuit the AND."
+    },
+    "clinical_standard_supports_surgery": {
+      "class": "determinable",
+      "expected_value": "TIER_3",
+      "expected_signal": null,
+      "rationale": "AANS/CNS and NASS guidelines do not endorse ACDF for axial neck pain without radiculopathy/myelopathy/structural pathology; classic TIER_3 presentation"
+    }
+  },
+  "stability_expectation": {
+    "disposition_should_be_stable": true,
+    "routing_tier_band": ["auto"],
+    "notes": "This is an unambiguous uphold case. The disposition should be stable at 'uphold' across all runs. Routing should be AUTO since no leaves should escalate. If routing rises above AUTO (e.g. SPOT_CHECK or GATE), the most likely cause is substrate over-escalation on a leaf prompt that doesn't have a clear case-level question — worth investigating which leaf escalated."
+  },
+  "notes_for_eval": "First canonical case in cases_v2/. Establishes the format and quality bar. As the simplest disposition (uphold on clear non-indication), serves as a calibration baseline — if the engine cannot reliably produce uphold/AUTO on this case, the substrate or the leaf prompts need fundamental work before scaling case authoring. Two char leaves are intentionally unannotated: `conservative_failed_to_arrest` and `surgery_indicated_clinically`. These are siblings of `objective_progressive_pathology` under `apl_22_014_carve_out` (an AND). When the first child of that AND returns FALSE (expected here), short-circuit evaluation skips the remaining children. If the engine evaluates these leaves anyway, it indicates either a different evaluation order than expected or a different first-child result — worth investigating but not a leaf-prompt issue per se."
+}

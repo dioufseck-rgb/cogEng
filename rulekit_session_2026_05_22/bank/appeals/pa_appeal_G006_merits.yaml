@@ -1,0 +1,76 @@
+case_id: pa-appeal-G006-merits
+policy: pa
+difficulty_level: 9
+case_class: appeal_real
+tags:
+  - real_appeal
+  - merits_only
+  - no_distractors
+  - source_PA-2024-G006
+description: |
+  Member Theresa Kamau, age 52. Request: ACDF C5-C6, single level
+  (CPT 22551). Requested by Dr. Victor Osei, Spine Surgery, UCSF
+  Medical Center.
+
+  DIAGNOSIS: Cervical radiculopathy C5-C6, progressive, persistent
+  after conservative treatment. Right C6 nerve root compression.
+
+  IMAGING: MRI of cervical spine performed 2024-10-15 (within 6
+  months of request). Findings: large C5-C6 disc herniation with
+  moderate-severe right C6 nerve root compression; new foraminal
+  stenosis at C5-C6. Interval increase in size from prior MRI
+  (2024-04-20). Interpreted by radiologist. Pathology consistent
+  with symptoms and proposed surgical level (C5-C6).
+
+  NEUROLOGICAL EXAM 2024-10-20: Right C6 dermatomal numbness.
+  Bicep reflex absent on the right. Bicep weakness 3+/5 right
+  (interval worsening from prior exam). Pain 8/10 at rest. Unable
+  to continue working full-time. Objective neurological deficit
+  documented.
+
+  CONSERVATIVE TREATMENT - PHYSICAL THERAPY: 8 weeks of supervised
+  physical therapy completed July-September 2024 (24 sessions
+  total). Therapy directed at cervical condition. Functional
+  plateau explicitly documented: "no further improvement expected,
+  neurological deficit persistent and worsening."
+
+  CONSERVATIVE TREATMENT - PHARMACOTHERAPY: Two pharmacotherapy
+  agents trialed. (1) Gabapentin 600mg TID for 6 months
+  (neuropathic agent) — partial pain relief, deficit persists.
+  (2) Methylprednisolone dose pack x2 courses (oral
+  corticosteroid) — temporary relief only.
+
+  CONSERVATIVE TREATMENT - INTERVENTIONAL: Right C6 cervical
+  epidural steroid injection performed 2024-11-05. Response: 50%
+  relief for 2 weeks, returned to baseline.
+
+  MYELOPATHY EXCEPTION: Not applicable. Diagnosis is cervical
+  radiculopathy, not myelopathy. No gait disturbance, no
+  hyperreflexia documented, no bilateral upper extremity
+  weakness, no Hoffman sign, no bowel/bladder dysfunction.
+  Standard conservative treatment requirements apply.
+
+  PHYSICIAN DOCUMENTATION: Surgeon's letter affirms conservative
+  treatment completion, provides clinical rationale for surgical
+  intervention, describes functional limitations (unable to work
+  full-time), and states surgical risks and the alternative of
+  continued non-operative management considered.
+expected_outcomes:
+  pa.D1: "true"
+  pa.D2: "false"
+load_bearing_annotation:
+  - Diagnosis 2.1(a): cervical radiculopathy with C6 nerve root compression
+  - Imaging 2.3: MRI within 6 months, C5-C6 pathology consistent with proposed surgical level
+  - PT 2.2(a): 8 weeks supervised, cervical-directed, plateau documented (exceeds 6-week minimum)
+  - Pharmacotherapy 2.2(b): two classes (neuropathic + oral corticosteroid), each well over 4 weeks
+  - Interventional 2.2(c): one cervical epidural steroid injection completed
+  - Documentation 2.4: all four elements present
+authoring_notes: |
+  Real appeal case PA-2024-G006 (Cognitive Core appeals corpus),
+  flattened to MERITS ONLY — denial document, prior PA history,
+  appeal_basis, and ground_truth blocks all stripped. Tests
+  whether RuleKit reaches the correct disposition (OVERTURN, i.e.
+  D1=true) on the merits alone, given only clinical evidence.
+
+  Pair: pa-appeal-G006-fullpacket includes the distractors and
+  asks whether Map remains robust when they're present.

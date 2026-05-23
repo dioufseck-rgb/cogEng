@@ -1,0 +1,26 @@
+Read the policy and case below. Determine whether
+the case satisfies the policy. Output ONLY a JSON object with two fields:
+
+{{
+  "determination": "approved" | "denied" | "insufficient_evidence",
+  "explanation": "<one paragraph>"
+}}
+
+POLICY:
+{policy_text}
+
+CASE:
+{case_description}
+
+DETERMINATIONS TO PRODUCE (one truth value per id):
+{determination_descriptions}
+
+OUTPUT FORMAT:
+{{
+  "determinations": {{
+    "<det_id>": "true" | "false" | "undetermined"
+  }},
+  "explanation": "<one paragraph>"
+}}
+
+Output only the JSON object. No preamble.

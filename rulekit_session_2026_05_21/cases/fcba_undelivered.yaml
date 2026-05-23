@@ -1,0 +1,38 @@
+case_id: fcba-undelivered
+
+description: |
+  Credit card billing error dispute. The cardholder claims services
+  were not delivered as agreed.
+
+  The consumer's periodic credit card statement reflects an extension
+  of credit of $1,200.00 to a vacation rental company for a one-week
+  stay scheduled for the prior month.
+
+  The consumer DID make the transaction. The consumer authorized the
+  charge at the time of booking. The cardholder was the one who made
+  the booking and used their own card.
+
+  The transaction was properly identified on the periodic statement
+  per the formatting requirements of Regulation Z.
+
+  This IS a property-or-services dispute. The transaction was an
+  extension of credit for services (a vacation rental stay). The
+  services were NOT delivered as agreed: the rental property was
+  uninhabitable on arrival due to undisclosed water damage, and the
+  rental company refused to provide an alternative property or a
+  refund. The consumer did not accept the services (the consumer
+  arrived, found the property uninhabitable, and left immediately).
+  The services were not accepted by any designee of the consumer
+  either.
+
+  There is no failure-to-credit issue. There is no computational
+  error or other accounting error on the statement. The consumer
+  has not made this a request for clarification or documentary
+  evidence under § 1026.13(a)(6); the dispute is about non-delivery.
+
+  The creditor did mail and did deliver a periodic statement to the
+  consumer.
+
+expected_outcomes:
+  fcba.D1: true
+  fcba.D2: false

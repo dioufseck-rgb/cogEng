@@ -1,0 +1,27 @@
+
+================================================================
+[1m  PHASE: analyze — Section 6/7 metrics and criteria[0m
+================================================================
+
+[34m>>> Computing metrics and pre-registered criteria[0m
+    $ python harness/analyze.py
+Loading records from results/runs/...
+  Loaded 18 evaluation records
+  Loaded 6 build metadata records
+
+Analysis complete. Outputs:
+  Tables: analysis/tables
+  Criteria: analysis/criteria.json
+  Report: analysis/report.md
+
+Summary: 0/4 criteria supported
+
+  Criteria summary:
+    ✗ C1_correctness: supported=False
+    ✗ C2_consistency: supported=False
+    ✗ C3_stability: supported=False
+    ? C4_traceability: supported=None
+    ? C5_monotonicity: supported=None
+    ✗ C6_amortization: supported=False
+    Summary: 0/4 criteria supported
+    Architecture supported: False

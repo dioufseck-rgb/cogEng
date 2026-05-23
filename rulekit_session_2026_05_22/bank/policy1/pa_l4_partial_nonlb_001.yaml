@@ -1,0 +1,47 @@
+case_id: pa-l4-partial-nonlb-001
+policy: pa
+difficulty_level: 4
+case_class: main
+tags:
+  - partial_evidence
+  - non_load_bearing_gaps
+description: |
+  PA request with documentation gaps on non-critical evidence elements.
+
+  DIAGNOSIS: Cervical radiculopathy at C5-C6 with confirmed nerve
+  root compression. Member has radicular pain in C5 dermatomal
+  distribution. Whether the member also has radicular numbness or
+  weakness is not specifically documented. No cervical myelopathy.
+  No disc herniation as separate diagnosis.
+
+  IMAGING: MRI within 6 months demonstrates pathology at C5-C6
+  consistent with symptoms and surgical level. Radiologist
+  interpretation.
+
+  CONSERVATIVE TREATMENT - PT: 7 weeks of supervised PT directed at
+  cervical with documented functional outcomes.
+
+  CONSERVATIVE TREATMENT - PHARMACOTHERAPY: Trialed naproxen (NSAID)
+  for 5 weeks and gabapentin (neuropathic) for 4 weeks. Whether the
+  member also trialed pregabalin or duloxetine (other neuropathic
+  agents in the same class) is not specifically documented.
+
+  CONSERVATIVE TREATMENT - INTERVENTIONAL: One cervical epidural
+  steroid injection completed.
+
+  MYELOPATHY EXCEPTION: Not applicable.
+
+  PHYSICIAN DOCUMENTATION: All four elements provided.
+expected_outcomes:
+  pa.D1: "true"
+  pa.D2: "false"
+load_bearing_annotation:
+  - At least one radicular symptom (pain) — OR satisfied even without others
+  - Two pharmacotherapy classes satisfied — alternative neuropathic agents not load-bearing
+  - All other required elements documented
+authoring_notes: |
+  Level 4: gaps on non-load-bearing atoms (specific radicular
+  symptom types when one is present; alternative neuropathic agents
+  when the class threshold is already met). Determination should
+  remain TRUE because the gaps are in robustness-margin atoms, not
+  load-bearing ones.

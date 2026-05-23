@@ -1,0 +1,168 @@
+{
+  "case_id": "PA-2024-E003",
+  "retrieve_facts": {
+    "case_id": "PA-2024-E003",
+    "member_id": "M-889922",
+    "member_age": 48,
+    "plan_id": "HealthFirst PPO Gold — Group Plan 77441",
+    "state": "California",
+    "plan_year": "2024",
+    "procedure_code": "22551",
+    "procedure_description": "Revision ACDF C5-C6 (revision of prior C5-C6 fusion from 2021)",
+    "appeal_level": "first_level_internal",
+    "appeal_date": "2024-11-14",
+    "denial_date": "2024-10-30",
+    "denial_level": "initial"
+  },
+  "extract_facts": {
+    "denial_notice_text": [
+      {
+        "source": "denial notice 2024-10-30",
+        "statement": "Denial notice reason text: 'Revision surgery not covered under standard ACDF criteria. Member had prior C5-C6 ACDF in 2021. Revision criteria require documentation of hardware failure, pseudarthrosis, or new pathology at previously treated level. Documentation submitted does not confirm hardware failure.' Reviewer: Dr. Patricia Huang, MD. Reason code: MED-003.\n\nThe denial cites 'hardware failure' specifically and states documentation does not confirm it. The denial does not specifically address whether the submitted imaging includes BOTH the MRI (limited by hardware artifact, explicitly noted in the report) AND the CT scan (which directly confirms pseudarthrosis). The denial appears to rely on the MRI's non-confirmation rather than addressing the CT findings.",
+        "confidence": 1.0
+      }
+    ],
+    "primary_diagnosis": [
+      {
+        "source": "presenting_diagnosis field",
+        "statement": "Pseudarthrosis C5-C6 following prior ACDF 2021 — failed fusion. Surgical history: C5-C6 ACDF in 2021, initially good outcome, symptoms recurred at 18 months.",
+        "confidence": 1.0
+      }
+    ],
+    "imaging_findings": [
+      {
+        "source": "MRI report 2024-09-01",
+        "statement": "MRI 2024-09-01: 'Hardware artifact limits MRI assessment. Possible non-union at C5-C6 but cannot confirm. Residual disc material or recurrent herniation cannot be excluded.' The MRI report EXPLICITLY notes that hardware artifact limits assessment of fusion status.",
+        "confidence": 1.0
+      },
+      {
+        "source": "CT report 2024-09-15",
+        "statement": "CT 2024-09-15: 'CT without artifact limitation: C5-C6 — incomplete bridging bone formation. Lucency around hardware suggesting pseudarthrosis. Findings consistent with failed fusion/pseudarthrosis. Hardware appears intact without fracture.' The CT scan, which is the appropriate modality for assessing fusion status in the presence of metal hardware, directly confirms pseudarthrosis.",
+        "confidence": 1.0
+      }
+    ],
+    "imaging_reports": [
+      {
+        "source": "MRI report 2024-09-01",
+        "statement": "MRI: hardware artifact limits assessment, cannot confirm non-union, recurrent herniation not excluded.",
+        "confidence": 1.0
+      },
+      {
+        "source": "CT report 2024-09-15",
+        "statement": "CT (appropriate modality with hardware): incomplete bridging bone formation, lucency around hardware, findings consistent with pseudarthrosis.",
+        "confidence": 1.0
+      }
+    ],
+    "imaging_dates": [
+      {
+        "source": "imaging studies",
+        "statement": "MRI 2024-09-01 and CT 2024-09-15, both within 6 months of appeal date 2024-11-14.",
+        "confidence": 1.0
+      }
+    ],
+    "serial_imaging_comparison": [],
+    "neurological_exam_findings": [
+      {
+        "source": "neurological exam 2024-09-20",
+        "statement": "Return of right C6 symptoms: bicep weakness 4/5 right, bicep reflex diminished right, C6 dermatomal numbness. Worse than preoperative baseline (i.e., worse than before the 2021 fusion).",
+        "confidence": 1.0
+      }
+    ],
+    "neurological_exam_notes": [
+      {
+        "source": "neurological exam 2024-09-20",
+        "statement": "Right C6 weakness 4/5, diminished bicep reflex, C6 dermatomal numbness. Symptoms worse than preoperative baseline.",
+        "confidence": 1.0
+      }
+    ],
+    "functional_status": [
+      {
+        "source": "appeal record",
+        "statement": "Symptoms recurred and worsened since 2021 fusion. Current functional status: persistent radiculopathy with motor deficit. mJOA not documented (radiculopathy-predominant presentation).",
+        "confidence": 0.85
+      }
+    ],
+    "functional_outcome_measures": [
+      {
+        "source": "PT records",
+        "statement": "No validated functional outcome measure trending across PT visits documented. PT physician notes explicitly state PT cannot address structural hardware/fusion failure.",
+        "confidence": 0.85
+      }
+    ],
+    "symptoms_documented": [
+      {
+        "source": "appeal record + neuro exam",
+        "statement": "Right C6 motor and sensory symptoms, worse than preoperative baseline. Symptom-imaging correlation: C5-C6 pseudarthrosis (confirmed on CT) with C6 nerve root distribution symptoms.",
+        "confidence": 0.95
+      }
+    ],
+    "proposed_surgical_level": [
+      {
+        "source": "procedure description",
+        "statement": "Revision ACDF at C5-C6, same level as prior 2021 fusion that failed. Matches CT-confirmed pseudarthrosis level and C6 symptoms.",
+        "confidence": 1.0
+      }
+    ],
+    "clinical_guidelines_applicability": [
+      {
+        "source": "clinical evidence base",
+        "statement": "Pseudarthrosis (failed fusion) is a documented indication for revision cervical surgery per AANS/CNS and NASS guidelines. The clinical indication tier for symptomatic pseudarthrosis with recurrent radiculopathy after conservative treatment failure is Tier 2 (reasonable indication) at minimum, potentially Tier 1 (strong indication) given progressive motor deficit worse than preoperative baseline.",
+        "confidence": 0.85
+      }
+    ],
+    "pt_records": [
+      {
+        "source": "PT records",
+        "statement": "8 weeks supervised physical therapy completed (24 sessions). No improvement. Treating physician explicitly notes PT cannot address structural hardware/fusion failure.",
+        "confidence": 1.0
+      }
+    ],
+    "pt_discharge_summary": [
+      {
+        "source": "PT records",
+        "statement": "PT records document 8-week course with no improvement. Treating physician documentation states 'PT cannot address structural hardware/fusion failure' — this is physician statement, not formal PT discharge summary documenting functional plateau per the clinical-standard definition. However, the substantive content (no improvement, structural cause that PT cannot remedy) aligns with plateau under clinical standard.",
+        "confidence": 0.9
+      }
+    ],
+    "pt_progress_notes": [
+      {
+        "source": "PT records",
+        "statement": "PT progress notes document no functional or neurological improvement over the 8-week course.",
+        "confidence": 0.9
+      }
+    ],
+    "pharmacotherapy_records": [
+      {
+        "source": "pharmacotherapy record",
+        "statement": "Two agent classes documented: (1) Naproxen 500mg BID (NSAID) for 4 months — partial pain relief; (2) Gabapentin 300mg TID (neuropathic agent) for 3 months — partial neuropathic relief. Both agents trialed for ≥4 weeks at adequate doses. § 2.2(b) appears met.",
+        "confidence": 1.0
+      }
+    ],
+    "interventional_records": [
+      {
+        "source": "epidural records",
+        "statement": "Cervical epidural steroid injection 2024-10-10: minimal improvement. Treating physician notes this is expected when structural failure is present. § 2.2(c) requirement met by completion of epidural.",
+        "confidence": 1.0
+      }
+    ],
+    "conservative_treatment_history": [
+      {
+        "source": "appeal record",
+        "statement": "Conservative treatment summary: 8 weeks PT (exceeds 6-week requirement); two pharmacotherapy agents for adequate duration (NSAID 4mo, gabapentin 3mo); one interventional procedure (epidural). All Section 2.2 conservative treatment requirements appear met.",
+        "confidence": 0.95
+      }
+    ],
+    "treating_physician_documentation": [
+      {
+        "source": "Dr. Karen Williams appeal letter",
+        "statement": "Dr. Karen Williams (Revision Spine Surgery, UCSF) appeal letter cites CT scan confirming pseudarthrosis as the primary evidence that revision criteria are met. The letter states symptoms have returned and worsened since the 2021 fusion, with interval worsening on serial exam. The letter notes that the plan's denial relied on MRI findings but the MRI explicitly notes hardware artifact limits assessment — CT is the appropriate modality.",
+        "confidence": 1.0
+      },
+      {
+        "source": "appeal basis statements",
+        "statement": "Appeal basis: 'CT scan confirms pseudarthrosis (failure of fusion) at C5-C6. Symptoms have returned and worsened since 2021 fusion. Revision criteria met per treating surgeon.'",
+        "confidence": 1.0
+      }
+    ]
+  }
+}

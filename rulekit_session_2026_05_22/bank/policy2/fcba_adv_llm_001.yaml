@@ -1,0 +1,52 @@
+case_id: fcba-adv-llm-001
+policy: fcba
+difficulty_level: 5
+case_class: adversarial_llm
+tags:
+  - adversarial_llm
+  - apparent_authority
+description: |
+  Credit card dispute with a subtle apparent-authority question.
+
+  The cardholder's periodic statement reflects a $450 transaction
+  the cardholder says they did not make.
+
+  The cardholder's adult child (not an authorized user on the
+  account) had been given the credit card number "just for an
+  emergency" — the child knew the card number, expiration, and
+  security code. The cardholder never formally added the child as
+  an authorized user and never specifically authorized the
+  particular transaction.
+
+  The adult child subsequently used the card information for the
+  $450 transaction in question. The cardholder argues this was
+  unauthorized; they only meant for the child to have the number
+  "in case of emergency," not for this purchase.
+
+  Under § 1026.13(a)(1), a billing error requires that the
+  transaction NOT be made by someone with "actual, implied, or
+  apparent authority." The act of giving the child the card
+  number "for emergencies" plausibly conveys APPARENT authority,
+  even if the cardholder did not intend to authorize this specific
+  transaction. A reasonable third party (the child) could have
+  believed they were authorized to use the card.
+
+  The transaction was properly identified on the statement. No
+  property-or-services issue. No payment-crediting issue. No
+  computational error. Statement was mailed and delivered.
+expected_outcomes:
+  fcba.D1: "false"
+  fcba.D2: "true"
+load_bearing_annotation:
+  - Cardholder gave child card number → conveys apparent authority
+  - Therefore transaction was NOT unauthorized under § 1026.13(a)(1)
+  - No other billing-error category applies
+authoring_notes: |
+  Adversarial LLM: tests apparent-authority nuance. The cardholder
+  did not formally authorize the transaction and did not add the
+  child as authorized user, which sounds like unauthorized use. But
+  giving the card number for any purpose generally conveys apparent
+  authority. A direct-LLM judge that focuses on "did not authorize
+  this specific transaction" may erroneously find a billing error.
+  The correct legal reading is FALSE for the billing-error
+  determination.

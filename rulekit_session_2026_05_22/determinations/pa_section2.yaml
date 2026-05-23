@@ -1,0 +1,19 @@
+policy:
+  name: "PA Section 2 — cervical spinal surgery medical necessity"
+  source: "policy_inputs/pa_section2.txt"
+  abbreviation: "pa"
+  voice: "pa"
+
+determinations:
+  - id: "pa.D1"
+    description: "Authorization for cervical spinal surgery is approved when all Section 2 medical necessity criteria are satisfied."
+    polarity: "positive"
+    source_span: "Section 2 header"
+    composition: "derived"
+
+  - id: "pa.D2"
+    description: "Authorization for cervical spinal surgery is denied."
+    polarity: "negative"
+    linked_to: "pa.D1"
+    source_span: "Implicit complement of Section 2"
+    composition: "complement"

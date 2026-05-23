@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rulekit"
+version = "0.0.1.dev20260521"
+description = "Tree-based primitives for institutional reasoning. Snapshot from design session 2026-05-21."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    {name = "Mamadou Seck"}
+]
+license = {text = "Personal-time work; license TBD pending IP review"}
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = []
+
+[project.optional-dependencies]
+reasoning = ["z3-solver"]   # for the future reason primitive
+
+[tool.setuptools]
+packages = ["rulekit"]

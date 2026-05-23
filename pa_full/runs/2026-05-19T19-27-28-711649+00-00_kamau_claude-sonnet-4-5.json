@@ -1,0 +1,252 @@
+{
+  "schema_version": "1.0",
+  "timestamp": "2026-05-19T19:27:28.711649+00:00",
+  "case_key": "kamau",
+  "case_id": "PA-2024-G006",
+  "case_name": "Theresa Kamau",
+  "failure_mode": "FM-6 distractor susceptibility (prior PA history)",
+  "notes": "Single-level ACDF. Plan cites prior three-level denial; prior reviewer endorsed single-level. [VARIANCE_SESSION=a0974869 RUN=5]",
+  "model": "claude-sonnet-4-5",
+  "tree_version": "1.1-sharpened",
+  "ground_truth": {
+    "expected_disposition": "overturn_plan_criteria_met",
+    "expected_routing": "gate",
+    "match_disposition": false,
+    "match_routing": false
+  },
+  "determination": {
+    "disposition": "overturn_factual_error_in_denial",
+    "routing_tier": "auto",
+    "is_tentative": false,
+    "confidence": 0.95,
+    "primary_reasoning": "Denial's stated factual basis is contradicted by the case record (substrate identified specific factual errors with high confidence): The denial asserts 'the member's cervical pathology has not materially changed since the prior denial.' This factual claim is directly contradicted by the case record: the current MRI shows interval worsening (larger herniation with moderate-severe compression) from prior MRI, and the neurological exam documents interval worsening of deficits. The denial's core factual assertion about lack of clinical change is inaccurate.",
+    "secondary_grounds": [
+      "overturn_regulatory_carve_out",
+      "overturn_procedural_defect"
+    ],
+    "routing_reasons": [],
+    "tree_version": "1.1-sharpened",
+    "trace": {
+      "denial_specifies_criteria": {
+        "node_id": "denial_specifies_criteria",
+        "value": false,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The condition asks whether the denial notice specifies which clinical criteria from the plan policy were applied. The denial notice cites 'prior PA history' and 'prior denial pattern' as the basis, but explicitly does NOT cite any specific plan criterion from the policy sections (\u00a7 2.2, \u00a7 2.3, \u00a7 2.1, or \u00a7 2.4). The notice therefore fails to specify which clinical criteria from the plan policy were applied.",
+        "cited_facts": [
+          "denial notice 2024-11-20"
+        ],
+        "error": null
+      },
+      "denial_procedurally_adequate": {
+        "node_id": "denial_procedurally_adequate",
+        "value": false,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "AND short-circuit: denial_specifies_criteria is false",
+        "cited_facts": [
+          "denial notice 2024-11-20"
+        ],
+        "error": null
+      },
+      "denial_factual_basis_correct": {
+        "node_id": "denial_factual_basis_correct",
+        "value": "INACCURATE",
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The denial asserts 'the member's cervical pathology has not materially changed since the prior denial.' This factual claim is directly contradicted by the case record: the current MRI shows interval worsening (larger herniation with moderate-severe compression) from prior MRI, and the neurological exam documents interval worsening of deficits. The denial's core factual assertion about lack of clinical change is inaccurate.",
+        "cited_facts": [
+          "denial notice 2024-11-20",
+          "current MRI 2024-10-15",
+          "neurological exam 2024-10-20"
+        ],
+        "error": null
+      },
+      "cervical_radiculopathy_diagnosed": {
+        "node_id": "cervical_radiculopathy_diagnosed",
+        "value": true,
+        "confidence": 1.0,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The condition requires a confirmed diagnosis of cervical radiculopathy with nerve root compression and radicular symptoms in dermatomal distribution. The presenting diagnosis explicitly states cervical radiculopathy C5-C6, the MRI confirms C6 nerve root compression, and the neurological exam documents classic radicular symptoms (right C6 dermatomal numbness, weakness, and pain). All elements of the condition are satisfied.",
+        "cited_facts": [
+          "presenting_diagnosis field",
+          "neurological exam 2024-10-20",
+          "current MRI 2024-10-15"
+        ],
+        "error": null
+      },
+      "diagnosis_requirement_met": {
+        "node_id": "diagnosis_requirement_met",
+        "value": true,
+        "confidence": 1.0,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "OR short-circuit: cervical_radiculopathy_diagnosed is true",
+        "cited_facts": [
+          "presenting_diagnosis field",
+          "neurological exam 2024-10-20",
+          "current MRI 2024-10-15"
+        ],
+        "error": null
+      },
+      "pt_requirement_met": {
+        "node_id": "pt_requirement_met",
+        "value": true,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The primary diagnosis is cervical radiculopathy C5-C6 based on the presenting diagnosis and neurological exam showing dermatomal numbness, single nerve root pattern (C6), and radicular features. This triggers the STANDARD pathway requiring 6 weeks minimum supervised PT. The PT records document an 8-week supervised course (July-September 2024) with 24 sessions and documented functional outcomes, exceeding the 6-week minimum threshold.",
+        "cited_facts": [
+          "[extract] presenting_diagnosis field (confidence 1.00)",
+          "[extract] neurological exam 2024-10-20 (confidence 1.00)",
+          "[extract] PT records 2024 (confidence 1.00)"
+        ],
+        "error": null
+      },
+      "pharmacotherapy_requirement_met": {
+        "node_id": "pharmacotherapy_requirement_met",
+        "value": false,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The condition requires at least two distinct agent classes, each trialed for a minimum of 4 cumulative weeks. Gabapentin 600mg TID for 6 months satisfies the 4-week requirement for neuropathic agents. However, two methylprednisolone dose packs (typical duration 6 days each) total approximately 12 days, which falls short of the required 4 cumulative weeks (28 days) for the corticosteroid class. The policy explicitly notes that brief dose packs of <2 weeks do NOT count as a 4-week trial.",
+        "cited_facts": [
+          "pharmacotherapy record (confidence 1.00)"
+        ],
+        "error": null
+      },
+      "conservative_treatment_met": {
+        "node_id": "conservative_treatment_met",
+        "value": false,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "AND short-circuit: pharmacotherapy_requirement_met is false",
+        "cited_facts": [
+          "[extract] presenting_diagnosis field (confidence 1.00)",
+          "[extract] neurological exam 2024-10-20 (confidence 1.00)",
+          "[extract] PT records 2024 (confidence 1.00)",
+          "pharmacotherapy record (confidence 1.00)"
+        ],
+        "error": null
+      },
+      "plan_criteria_satisfied": {
+        "node_id": "plan_criteria_satisfied",
+        "value": false,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "AND short-circuit: conservative_treatment_met is false",
+        "cited_facts": [
+          "presenting_diagnosis field",
+          "neurological exam 2024-10-20",
+          "current MRI 2024-10-15",
+          "[extract] presenting_diagnosis field (confidence 1.00)",
+          "[extract] neurological exam 2024-10-20 (confidence 1.00)",
+          "[extract] PT records 2024 (confidence 1.00)",
+          "pharmacotherapy record (confidence 1.00)"
+        ],
+        "error": null
+      },
+      "pt_contraindicated_or_futile": {
+        "node_id": "pt_contraindicated_or_futile",
+        "value": true,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The PT records from 2024 explicitly document a 'functional plateau' after an 8-week supervised PT course (24 sessions), stating 'no further improvement expected, neurological deficit persistent and worsening.' This satisfies decision criterion (b) \u2014 documented functional plateau after substantive PT trial \u2014 and the carve-out applies.",
+        "cited_facts": [
+          "[extract] PT records 2024 (confidence 1.00)"
+        ],
+        "error": null
+      },
+      "cic_10169_5_carve_out": {
+        "node_id": "cic_10169_5_carve_out",
+        "value": true,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "OR short-circuit: pt_contraindicated_or_futile is true",
+        "cited_facts": [
+          "[extract] PT records 2024 (confidence 1.00)"
+        ],
+        "error": null
+      },
+      "regulatory_carve_out_applies": {
+        "node_id": "regulatory_carve_out_applies",
+        "value": true,
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "OR short-circuit: cic_10169_5_carve_out is true",
+        "cited_facts": [
+          "[extract] PT records 2024 (confidence 1.00)"
+        ],
+        "error": null
+      },
+      "clinical_standard_supports_surgery": {
+        "node_id": "clinical_standard_supports_surgery",
+        "value": "TIER_2",
+        "confidence": 0.95,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "The patient presents with cervical radiculopathy (C5-C6) with persistent symptoms, clear imaging-symptom correlation (C5-C6 disc herniation causing right C6 nerve root compression matching C6 dermatomal symptoms and motor deficit), and significant functional impairment (unable to work full-time). Per tier_2_criteria, this satisfies 'radiculopathy with persistent symptoms and imaging-symptom correlation' and 'significant functional impairment from cervical pathology.' The motor weakness (3+/5) and absent reflex indicate radiculopathy severity but do not meet TIER 1 criteria (which requires myelopathy, myelomalacia, or acute progressive deficit per tier_1_criteria). TIER 2 means surgery IS clinically indicated for this elective ACDF case with proper imaging-symptom correlation.",
+        "cited_facts": [
+          "presenting_diagnosis field (confidence 1.00)",
+          "neurological exam 2024-10-20 (confidence 1.00)",
+          "current MRI 2024-10-15 (confidence 1.00)",
+          "appeal record (confidence 0.90)"
+        ],
+        "error": null
+      },
+      "root.acdf_appeal": {
+        "node_id": "root.acdf_appeal",
+        "value": null,
+        "confidence": 1.0,
+        "escalation_flag": false,
+        "escalation_reason": "",
+        "escalation_signals": {},
+        "short_circuited": false,
+        "reasoning": "root node \u2014 routing logic applies",
+        "cited_facts": [],
+        "error": null
+      }
+    }
+  },
+  "run_stats": {
+    "wall_clock_seconds": 33.677980184555054,
+    "substrate_calls": 7,
+    "avg_latency_ms": 4810.428571428572,
+    "escalations": 0
+  }
+}

@@ -1,0 +1,47 @@
+case_id: pa-adv-rk-001
+policy: pa
+difficulty_level: 5
+case_class: adversarial_rulekit
+tags:
+  - adversarial_rulekit
+  - closed_world
+  - implicit_negation
+description: |
+  PA request where the description explicitly lists ALL pharmacotherapy
+  trialed, implying (by exhaustive enumeration) that no other class
+  was tried.
+
+  DIAGNOSIS: Cervical radiculopathy at C5-C6 with confirmed nerve
+  root compression. Radicular pain in C5 distribution.
+
+  IMAGING: MRI within 6 months, pathology at C5-C6, consistent with
+  symptoms and surgical level. Radiologist interpretation.
+
+  CONSERVATIVE TREATMENT - PT: 7 weeks supervised PT directed at
+  cervical with documented functional outcomes.
+
+  CONSERVATIVE TREATMENT - PHARMACOTHERAPY: The COMPLETE list of
+  medications trialed for this condition is: (1) naproxen 500mg BID
+  for 6 weeks, and (2) gabapentin 300mg TID for 5 weeks. No other
+  pharmacotherapy agents have been trialed. (Implicitly: no
+  COX-2 inhibitor, no muscle relaxant, no pregabalin, no
+  duloxetine, no oral corticosteroids — though the case does not
+  spell these out atom by atom.)
+
+  CONSERVATIVE TREATMENT - INTERVENTIONAL: One ESI completed.
+
+  PHYSICIAN DOCUMENTATION: All four elements provided.
+expected_outcomes:
+  pa.D1: "true"
+  pa.D2: "false"
+load_bearing_annotation:
+  - NSAID (naproxen) trialed ≥4 weeks
+  - Neuropathic agent (gabapentin) trialed ≥4 weeks
+  - Two of four pharmacotherapy classes satisfied
+authoring_notes: |
+  Adversarial RuleKit: tests Map's handling of closed-world implicit
+  negation. The description says "the complete list" of medications,
+  implying NO to others. A naive Map binder might mark COX-2,
+  muscle relaxant, etc. as UNDETERMINED rather than FALSE because
+  they aren't named explicitly. The "complete list" cue requires
+  inference.

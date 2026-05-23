@@ -1,0 +1,173 @@
+{
+  "case_id": "PA-2024-F002",
+  "retrieve_facts": {
+    "case_id": "PA-2024-F002",
+    "member_id": "M-101133",
+    "member_age": 46,
+    "plan_id": "HealthFirst PPO Gold — Group Plan 77441",
+    "state": "California",
+    "plan_year": "2024",
+    "procedure_code": "22551",
+    "procedure_description": "ACDF C5-C6, one level",
+    "appeal_level": "first_level_internal",
+    "appeal_date": "2024-10-25",
+    "denial_date": "2024-10-10",
+    "denial_level": "initial"
+  },
+  "extract_facts": {
+    "denial_notice_text": [
+      {
+        "source": "denial notice 2024-10-10",
+        "statement": "Denial reason text: 'Conflicting physical therapy documentation. PT provider 1 (Riverside PT) submitted records showing 6 weeks. PT provider 2 (Coastal PT) records submitted by member show 4 weeks. Records conflict on duration. Total claimed by member: 10 weeks. Total verifiable: uncertain. Plan requires verification of claimed PT duration before approval.' Reviewer: Dr. Patricia Huang, MD. Reason code: MED-003.\n\nThe denial focuses on the Coastal PT discrepancy. The denial does NOT address whether Riverside PT's verified 6 weeks alone satisfies the § 2.2(a) 6-week PT requirement independent of any Coastal PT duration.",
+        "confidence": 1.0
+      }
+    ],
+    "primary_diagnosis": [
+      {
+        "source": "presenting_diagnosis field",
+        "statement": "Cervical radiculopathy C5-C6 with functional impairment.",
+        "confidence": 1.0
+      }
+    ],
+    "imaging_findings": [
+      {
+        "source": "MRI report 2024-08-15",
+        "statement": "C5-C6 large disc herniation, severe right C6 nerve root compression, foraminal stenosis.",
+        "confidence": 1.0
+      }
+    ],
+    "imaging_reports": [
+      {
+        "source": "MRI report 2024-08-15",
+        "statement": "C5-C6 large disc herniation, severe right C6 nerve root compression, foraminal stenosis.",
+        "confidence": 1.0
+      }
+    ],
+    "imaging_dates": [
+      {
+        "source": "MRI report",
+        "statement": "MRI dated 2024-08-15 (within 6 months of appeal date 2024-10-25).",
+        "confidence": 1.0
+      }
+    ],
+    "serial_imaging_comparison": [],
+    "neurological_exam_findings": [
+      {
+        "source": "neurological exam 2024-08-20",
+        "statement": "Right C6 dermatomal numbness. Bicep weakness 4/5 right. Bicep reflex absent right. Positive Spurling test right. Clear C6 radiculopathy.",
+        "confidence": 1.0
+      }
+    ],
+    "neurological_exam_notes": [
+      {
+        "source": "neurological exam 2024-08-20",
+        "statement": "Right C6 numbness, bicep weakness 4/5, absent bicep reflex, positive Spurling. C6 distribution matches imaging level.",
+        "confidence": 1.0
+      }
+    ],
+    "functional_status": [
+      {
+        "source": "appeal record",
+        "statement": "Functional impairment from persistent radiculopathy with motor deficit (4/5 weakness, absent reflex). No mJOA documented (radiculopathy presentation).",
+        "confidence": 0.9
+      }
+    ],
+    "functional_outcome_measures": [
+      {
+        "source": "PT records (both providers)",
+        "statement": "Coastal PT discharge documents 'no improvement in neurological deficit. Therapist documents functional plateau — maximum therapeutic benefit reached.' Riverside PT discharge documents 'plateau, symptoms persist.' Both providers document plateau consistent with the clinical-standard definition.",
+        "confidence": 0.95
+      }
+    ],
+    "symptoms_documented": [
+      {
+        "source": "appeal record + neuro exam",
+        "statement": "C5-C6 disc herniation on MRI correlates with C6 radiculopathy on exam (right C6 numbness, bicep weakness, absent bicep reflex, positive Spurling). Strong symptom-imaging correlation.",
+        "confidence": 0.95
+      }
+    ],
+    "proposed_surgical_level": [
+      {
+        "source": "procedure description",
+        "statement": "ACDF C5-C6, one level. Matches imaging pathology level (C5-C6 herniation) and symptom level (right C6 distribution).",
+        "confidence": 1.0
+      }
+    ],
+    "clinical_guidelines_applicability": [
+      {
+        "source": "clinical evidence base",
+        "statement": "C5-C6 radiculopathy with motor deficit (4/5 weakness, absent reflex), strong imaging-symptom correlation, completed conservative treatment with plateau documented at both providers, failed injection. Per AANS/CNS / NASS, Tier 2 reasonable elective indication, with functional motor deficit supporting clinical necessity.",
+        "confidence": 0.9
+      }
+    ],
+    "pt_records": [
+      {
+        "source": "Riverside PT records (complete, verified)",
+        "statement": "Riverside Physical Therapy: 6 weeks (April 1 - May 10, 2024), 18 sessions. Records status: RECEIVED BY PLAN — COMPLETE. Outcome note: plateau documented, symptoms persist. This is a verified 6-week course at a single provider.",
+        "confidence": 1.0
+      },
+      {
+        "source": "Coastal PT records (now complete after supplemental submission)",
+        "statement": "Coastal Physical Therapy: 6 weeks (June 1 - July 12, 2024), 18 sessions. COMPLETE RECORDS NOW SUBMITTED — initial submission was partial (weeks 1-4 only); full 6-week records subsequently faxed and now enclosed. Outcome note: no improvement in neurological deficit. Therapist documents functional plateau — maximum therapeutic benefit reached.",
+        "confidence": 0.9
+      },
+      {
+        "source": "appeal record summary",
+        "statement": "Total documented PT: 12 weeks across two providers (Riverside 6 weeks complete + Coastal 6 weeks now complete). Note that Riverside PT alone provides 6 weeks, which independently satisfies § 2.2(a) regardless of how the Coastal PT discrepancy resolves.",
+        "confidence": 0.95
+      }
+    ],
+    "pt_discharge_summary": [
+      {
+        "source": "Riverside PT discharge",
+        "statement": "Riverside PT discharge summary: plateau documented, symptoms persist. This is formal therapist documentation.",
+        "confidence": 1.0
+      },
+      {
+        "source": "Coastal PT discharge",
+        "statement": "Coastal PT discharge summary: 'no improvement in neurological deficit. Therapist documents functional plateau — maximum therapeutic benefit reached.' This is formal therapist documentation matching the clinical-standard plateau definition.",
+        "confidence": 1.0
+      }
+    ],
+    "pt_progress_notes": [
+      {
+        "source": "PT progress notes",
+        "statement": "Both PT providers' progress notes document the course as completed without symptom resolution. Motor deficits and reflex changes persisted throughout.",
+        "confidence": 0.9
+      }
+    ],
+    "pharmacotherapy_records": [
+      {
+        "source": "pharmacotherapy record",
+        "statement": "Two agent classes documented at adequate dose and duration: (1) Gabapentin 600mg TID (neuropathic agent) for 5 months — partial relief; (2) Duloxetine 60mg daily (neuropathic agent, SNRI class) for 3 months — partial neuropathic benefit. Both ≥4 weeks. § 2.2(b) requires two agent classes; both agents here are neuropathic — substrate should evaluate whether two neuropathic agents satisfy 'at least two of the following' agent classes.",
+        "confidence": 1.0
+      }
+    ],
+    "interventional_records": [
+      {
+        "source": "epidural records",
+        "statement": "Right C6 epidural steroid injection performed 2024-08-28: 60% temporary relief, returned to baseline in 3 weeks. § 2.2(c) interventional requirement met by completed epidural.",
+        "confidence": 1.0
+      }
+    ],
+    "conservative_treatment_history": [
+      {
+        "source": "appeal record",
+        "statement": "Conservative treatment summary: Riverside PT alone provides 6 weeks meeting § 2.2(a). Coastal PT provides additional 6 weeks (records now complete) but is not required for the requirement to be met. Two pharmacotherapy agents (both neuropathic class; verify whether two same-class agents satisfy 'at least two of the following' agent CLASSES). One interventional procedure (epidural). The plan's denial focused on the Coastal PT discrepancy but did not address whether Riverside alone meets criteria.",
+        "confidence": 0.95
+      }
+    ],
+    "treating_physician_documentation": [
+      {
+        "source": "Dr. Sarah Nguyen appeal letter",
+        "statement": "Dr. Sarah Nguyen (Spine Surgery, Cedars-Sinai) appeal letter explains the Coastal PT records discrepancy: 'Coastal PT records submitted incomplete — final 2 weeks were faxed separately. Full Coastal PT records (6 weeks) now enclosed.' The letter also notes that Riverside PT alone (6 weeks complete and verified) meets the 6-week requirement independently.",
+        "confidence": 1.0
+      },
+      {
+        "source": "appeal basis statements",
+        "statement": "Appeal basis: 'Riverside PT and Coastal PT records are both authentic. Discrepancy explained: Coastal PT records submitted incomplete — final 2 weeks were faxed separately. Full Coastal PT records (6 weeks) now enclosed.'",
+        "confidence": 1.0
+      }
+    ]
+  }
+}

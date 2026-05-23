@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" font-family="Arial, sans-serif">
+  <!-- background -->
+  <rect width="900" height="480" fill="white"/>
+
+  <!-- Title -->
+  <text x="450" y="35" font-size="18" font-weight="bold" text-anchor="middle" fill="#222">The Three Institutional Requirements</text>
+
+  <!-- 3 requirement circles at top -->
+  <circle cx="225" cy="120" r="55" fill="#E8F1FB" stroke="#2E75B6" stroke-width="2"/>
+  <text x="225" y="115" font-size="13" font-weight="bold" text-anchor="middle" fill="#1f4e79">Correctness</text>
+  <text x="225" y="135" font-size="11" text-anchor="middle" fill="#444">matches qualified</text>
+  <text x="225" y="150" font-size="11" text-anchor="middle" fill="#444">reviewer</text>
+
+  <circle cx="450" cy="120" r="55" fill="#E8F1FB" stroke="#2E75B6" stroke-width="2"/>
+  <text x="450" y="115" font-size="13" font-weight="bold" text-anchor="middle" fill="#1f4e79">Explainability</text>
+  <text x="450" y="135" font-size="11" text-anchor="middle" fill="#444">traceable</text>
+  <text x="450" y="150" font-size="11" text-anchor="middle" fill="#444">reasoning</text>
+
+  <circle cx="675" cy="120" r="55" fill="#E8F1FB" stroke="#2E75B6" stroke-width="2"/>
+  <text x="675" y="115" font-size="13" font-weight="bold" text-anchor="middle" fill="#1f4e79">Consistency</text>
+  <text x="675" y="135" font-size="11" text-anchor="middle" fill="#444">same case,</text>
+  <text x="675" y="150" font-size="11" text-anchor="middle" fill="#444">same outcome</text>
+
+  <!-- Approaches and what they deliver -->
+  <text x="450" y="220" font-size="14" font-weight="bold" text-anchor="middle" fill="#222">What existing approaches deliver</text>
+
+  <!-- Approach 1: LLM-as-judge -->
+  <rect x="80" y="245" width="340" height="110" fill="#FCEFEC" stroke="#C25450" stroke-width="1.5" rx="6"/>
+  <text x="250" y="270" font-size="13" font-weight="bold" text-anchor="middle" fill="#7a2e2c">LLM-as-judge</text>
+  <text x="250" y="290" font-size="11" text-anchor="middle" fill="#444">Often correct (within model competence)</text>
+  <text x="250" y="307" font-size="11" text-anchor="middle" fill="#C25450">✗ Reasoning is not structurally auditable</text>
+  <text x="250" y="324" font-size="11" text-anchor="middle" fill="#C25450">✗ Same case may yield different outcomes</text>
+  <text x="250" y="345" font-size="10" font-style="italic" text-anchor="middle" fill="#666">scales across policies, fails on audit</text>
+
+  <!-- Approach 2: Hand-coded rule engine -->
+  <rect x="480" y="245" width="340" height="110" fill="#FCEFEC" stroke="#C25450" stroke-width="1.5" rx="6"/>
+  <text x="650" y="270" font-size="13" font-weight="bold" text-anchor="middle" fill="#7a2e2c">Hand-coded rule engines</text>
+  <text x="650" y="290" font-size="11" text-anchor="middle" fill="#444">Correct, explainable, consistent...</text>
+  <text x="650" y="307" font-size="11" text-anchor="middle" fill="#C25450">✗ For policies the authors anticipated</text>
+  <text x="650" y="324" font-size="11" text-anchor="middle" fill="#C25450">✗ Cannot scale to volume / variety</text>
+  <text x="650" y="345" font-size="10" font-style="italic" text-anchor="middle" fill="#666">fails on coverage</text>
+
+  <!-- The gap -->
+  <rect x="180" y="390" width="540" height="70" fill="#EBF5E8" stroke="#5A8C45" stroke-width="2" rx="6"/>
+  <text x="450" y="415" font-size="14" font-weight="bold" text-anchor="middle" fill="#2c5d1b">The gap</text>
+  <text x="450" y="438" font-size="12" text-anchor="middle" fill="#333">an architecture that delivers all three at scale,</text>
+  <text x="450" y="453" font-size="12" text-anchor="middle" fill="#333">using LLMs where reliable and deterministic machinery where required</text>
+</svg>

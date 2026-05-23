@@ -1,0 +1,40 @@
+case_id: pa-l2-deny-001
+policy: pa
+difficulty_level: 2
+case_class: main
+tags:
+  - canonical_negative
+  - no_diagnosis
+description: |
+  PA request denied for absent qualifying diagnosis.
+
+  DIAGNOSIS: Member presents with chronic, non-specific neck pain.
+  No cervical radiculopathy: no nerve root compression documented;
+  no radicular pain, numbness, or weakness in any dermatomal
+  distribution. No cervical myelopathy: no spinal cord compression
+  on imaging; no gait disturbance, no bilateral upper extremity
+  weakness, no hyperreflexia, no Hoffman sign, no bowel/bladder
+  dysfunction. No cervical disc herniation with objective
+  neurological deficit.
+
+  IMAGING: MRI shows mild age-related degenerative changes only, no
+  significant structural pathology. Imaging is not consistent with
+  any specific symptom pattern beyond generalized neck pain.
+  Radiologist interpretation.
+
+  CONSERVATIVE TREATMENT: 8 weeks of supervised PT directed at
+  cervical with documented outcomes. Trialed naproxen for 6 weeks
+  and gabapentin for 5 weeks. One ESI completed. (All conservative
+  measures completed but moot without qualifying diagnosis.)
+
+  PHYSICIAN DOCUMENTATION: All four elements provided.
+expected_outcomes:
+  pa.D1: "false"
+  pa.D2: "true"
+load_bearing_annotation:
+  - No qualifying diagnosis under criteria 2.1(a), (b), or (c)
+  - No qualifying structural pathology on imaging
+authoring_notes: |
+  Canonical Level 2 denial. Tests that conservative-treatment
+  completion does not by itself produce approval when diagnosis
+  is absent.

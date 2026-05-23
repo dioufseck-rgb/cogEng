@@ -1,0 +1,47 @@
+
+================================================================
+[1m  PHASE: pilot — Section 8 acceptance check[0m
+================================================================
+[33m  WARNING: results/runs already has 9 records.[0m
+
+[33mCHECKPOINT: Run pilot anyway (resume; existing records skipped)?[0m
+  Continue? (y/N) 
+[34m>>> Pilot run (1 policy, 1 build, 3 cases × 2 systems × 3 runs)[0m
+    $ python harness/run_study.py --phase run --pilot --resume
+
+########################################################################
+# RUN PHASE (k_run=3)
+#   PILOT MODE (Protocol Section 8)
+########################################################################
+
+============================================================
+Policy: pa (3 cases)
+============================================================
+  RuleKit b1 pa-adv-llm-001 r1: {'pa.D1': 'false', 'pa.D2': 'true'} (7.6s)
+  RuleKit b1 pa-adv-llm-001 r2: {'pa.D1': 'false', 'pa.D2': 'true'} (6.6s)
+  RuleKit b1 pa-adv-llm-001 r3: {'pa.D1': 'false', 'pa.D2': 'true'} (6.9s)
+  RuleKit b1 pa-adv-rk-001 r1: {'pa.D1': 'true', 'pa.D2': 'false'} (8.7s)
+  RuleKit b1 pa-adv-rk-001 r2: {'pa.D1': 'true', 'pa.D2': 'false'} (6.5s)
+  RuleKit b1 pa-adv-rk-001 r3: {'pa.D1': 'true', 'pa.D2': 'false'} (6.7s)
+  RuleKit b1 pa-l1-std-001 r1: {'pa.D1': 'true', 'pa.D2': 'false'} (6.4s)
+  RuleKit b1 pa-l1-std-001 r2: {'pa.D1': 'true', 'pa.D2': 'false'} (6.2s)
+  RuleKit b1 pa-l1-std-001 r3: {'pa.D1': 'true', 'pa.D2': 'false'} (6.1s)
+
+========================================================================
+Records written: 9
+Records skipped: 9
+Records errored: 0
+
+Summary saved to results/runs/_run_summary_20260523T034309Z.json
+
+  Pilot acceptance check:
+    Records written: 18 (target: 18)
+[32m    Pilot record count OK[0m
+
+[34m  Running analyze.py on pilot data...[0m
+  Tables: analysis/tables
+  Criteria: analysis/criteria.json
+  Report: analysis/report.md
+
+Summary: 0/4 criteria supported
+[32m    Analysis pipeline OK[0m

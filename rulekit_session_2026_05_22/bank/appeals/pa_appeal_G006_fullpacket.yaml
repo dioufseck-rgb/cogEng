@@ -1,0 +1,131 @@
+case_id: pa-appeal-G006-fullpacket
+policy: pa
+difficulty_level: 10
+case_class: appeal_real
+tags:
+  - real_appeal
+  - full_packet
+  - distractor_prior_pa_history
+  - source_PA-2024-G006
+  - FM6
+description: |
+  ADJUDICATION PACKET FOR APPEAL OF PRIOR AUTHORIZATION DENIAL.
+
+  Member: Theresa Kamau, age 52. Plan: HealthFirst PPO Gold,
+  California, 2024 plan year. Coverage effective 2017-04-01.
+
+  Current request: ACDF C5-C6, single level (CPT 22551).
+  Requested by Dr. Victor Osei, Spine Surgery, UCSF Medical
+  Center. Submitted 2024-12-05.
+
+  --------------------------------------------------------
+  ORIGINAL DENIAL DOCUMENTATION (2024-11-20)
+  --------------------------------------------------------
+  Reviewer: Dr. Alan Foster, MD, HealthFirst Utilization
+  Management. Reason code MED-003. Reason text:
+
+      "Request denied. Member has a prior authorization denial
+      history for cervical spine surgery (three-level fusion
+      denied May 2024). Review of current request in context of
+      prior denial pattern suggests the member's cervical
+      pathology has not materially changed since the prior
+      denial. Current request does not demonstrate sufficient
+      change in clinical status to warrant reconsideration."
+
+  --------------------------------------------------------
+  PRIOR PA HISTORY (PROVIDED FOR CONTEXT)
+  --------------------------------------------------------
+  Prior request (2024-05-01): Three-level ACDF C4-C5, C5-C6,
+  C6-C7. Denied 2024-05-15. Prior denial reasoning: "Three-level
+  fusion not supported. C4-C5 and C6-C7 had insufficient imaging
+  findings. Only C5-C6 met criteria. Two-level and three-level
+  requests denied; single-level C5-C6 would have been approved
+  at that time."
+
+  --------------------------------------------------------
+  CURRENT CLINICAL RECORD
+  --------------------------------------------------------
+  DIAGNOSIS: Cervical radiculopathy C5-C6, progressive, persistent
+  after conservative treatment. Right C6 nerve root compression.
+
+  IMAGING: MRI of cervical spine performed 2024-10-15 (within 6
+  months of request). Findings: large C5-C6 disc herniation with
+  moderate-severe right C6 nerve root compression; new foraminal
+  stenosis at C5-C6. Interval increase in size from prior MRI
+  (2024-04-20). Interpreted by radiologist. Pathology consistent
+  with symptoms and proposed surgical level (C5-C6).
+
+  NEUROLOGICAL EXAM 2024-10-20: Right C6 dermatomal numbness.
+  Bicep reflex absent on the right. Bicep weakness 3+/5 right
+  (interval worsening from prior exam). Pain 8/10 at rest. Unable
+  to continue working full-time. Objective neurological deficit
+  documented.
+
+  CONSERVATIVE TREATMENT - PHYSICAL THERAPY: 8 weeks of supervised
+  physical therapy completed July-September 2024 (24 sessions
+  total). Therapy directed at cervical condition. Functional
+  plateau explicitly documented: "no further improvement expected,
+  neurological deficit persistent and worsening." This is a new
+  PT course, separate from any PT preceding the May 2024 denial.
+
+  CONSERVATIVE TREATMENT - PHARMACOTHERAPY: Two pharmacotherapy
+  agents trialed. (1) Gabapentin 600mg TID for 6 months
+  (neuropathic agent) — partial pain relief, deficit persists.
+  (2) Methylprednisolone dose pack x2 courses (oral
+  corticosteroid) — temporary relief only.
+
+  CONSERVATIVE TREATMENT - INTERVENTIONAL: Right C6 cervical
+  epidural steroid injection performed 2024-11-05. Response: 50%
+  relief for 2 weeks, returned to baseline.
+
+  MYELOPATHY EXCEPTION: Not applicable. Diagnosis is cervical
+  radiculopathy, not myelopathy. Standard conservative treatment
+  requirements apply.
+
+  PHYSICIAN DOCUMENTATION: Surgeon's letter affirms conservative
+  treatment completion, provides clinical rationale for surgical
+  intervention, describes functional limitations (unable to work
+  full-time), and states surgical risks and the alternative of
+  continued non-operative management considered.
+
+  --------------------------------------------------------
+  APPELLANT'S STATED GROUNDS FOR APPEAL
+  --------------------------------------------------------
+  (1) Prior denial was for three-level fusion (a different
+      procedure); current request is single-level only.
+  (2) Clinical status has materially changed since May 2024: new
+      MRI showing interval increase, new 8-week PT course, new
+      injection.
+  (3) Current request meets all criteria independently of prior
+      PA history.
+  (4) Prior PA history is not an authorized denial basis under
+      the plan's medical necessity criteria.
+expected_outcomes:
+  pa.D1: "true"
+  pa.D2: "false"
+load_bearing_annotation:
+  - Same merits as pa-appeal-G006-merits — diagnosis, imaging, PT, pharmacotherapy, interventional, documentation all satisfied
+  - Distractor surface: original denial document + prior PA history block + appeal grounds
+  - Whether RuleKit reaches the correct disposition tests Map's resistance to binding distractor text to criterion atoms
+authoring_notes: |
+  Real appeal case PA-2024-G006 (Cognitive Core appeals corpus),
+  flattened with FULL ADJUDICATION PACKET including the original
+  denial document, prior PA history, and appellant's stated
+  grounds. The clinical record portion is identical to
+  pa-appeal-G006-merits.
+
+  Tests two questions:
+  (1) Does Map bind the distractor text to spurious atoms?
+      (e.g., does "prior PA denial history" get pulled into an
+      atom about "treatment history" or "prior surgical history"?)
+  (2) Does the determination remain correct when the case
+      description contains 60% non-criterion material?
+
+  Note: RuleKit's atoms encode CC-SPINE-2024 surgical criteria,
+  not the meta-policy "denials must cite authorized criteria."
+  RuleKit cannot, by construction, evaluate the procedural-flaw
+  question. The expected outcome here measures correctness of
+  the merits determination only. The Stage-2-narrator question
+  (does the trace + denial enable score-2 reasoning?) is
+  separate and tested by inspecting the trace, not the
+  determination.
