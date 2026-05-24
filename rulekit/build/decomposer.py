@@ -1488,7 +1488,8 @@ def build_from_spec(spec: BuildSpec,
                     voice: Optional[ReaderVoice] = None,
                     llm: Optional[LLMCaller] = None,
                     refine: bool = True,
-                    constants: Optional[dict[str, Decimal]] = None) -> DAGBuildResult:
+                    constants: Optional[dict[str, Decimal]] = None,
+                    state_dir: Optional[str] = None) -> DAGBuildResult:
     """End-to-end DAG build from institutional spec + policy text.
 
     `voice` and `constants` may be supplied either:
@@ -1500,6 +1501,14 @@ def build_from_spec(spec: BuildSpec,
     This lets test code override spec values without rewriting the spec.
 
     `llm` defaults to a fresh LLMCaller() if not provided.
+
+    If `state_dir` is provided, decompose results are streamed to disk
+    after each determination completes. On re-entry with the same
+    state_dir, previously-decomposed determinations are loaded from
+    disk and skipped, allowing resume after a crash. Only the decompose
+    stage is persisted (the expensive part). Finalize and Stage-4 run
+    fresh on each invocation; they are fast enough to not need
+    persistence.
     """
     # Lazy import to avoid circular dep
     if refine:
@@ -1527,12 +1536,31 @@ def build_from_spec(spec: BuildSpec,
         policy_text = f.read()
 
     # Decompose each determination
+    # If state_dir is provided, persist each result as soon as it's
+    # produced and skip determinations already saved on disk.
     decomposition_specs = {}
     audit = {}
+    if state_dir is not None:
+        import os
+        import pickle
+        os.makedirs(state_dir, exist_ok=True)
+
     for det_decl in spec.determinations:
         if det_decl.composition == "complement":
             # Defer — handled after the source determination is built
             continue
+
+        # Resume path: if a saved spec for this determination exists,
+        # load and skip the decompose call entirely.
+        if state_dir is not None:
+            state_path = os.path.join(state_dir, f"decompose_{det_decl.id}.pkl")
+            if os.path.exists(state_path):
+                with open(state_path, "rb") as f:
+                    saved = pickle.load(f)
+                decomposition_specs[det_decl.id] = saved["spec"]
+                audit[det_decl.id] = saved["audit"]
+                continue
+
         state = DecomposeState(
             llm=llm,
             policy_text=policy_text,
@@ -1547,6 +1575,14 @@ def build_from_spec(spec: BuildSpec,
         )
         decomposition_specs[det_decl.id] = root_spec
         audit[det_decl.id] = state.audit
+
+        # Stream this determination's result to disk before continuing
+        # to the next. A crash during the next determination's decompose
+        # leaves this one recoverable.
+        if state_dir is not None:
+            state_path = os.path.join(state_dir, f"decompose_{det_decl.id}.pkl")
+            with open(state_path, "wb") as f:
+                pickle.dump({"spec": root_spec, "audit": state.audit}, f)
 
     # Finalize: run both Boolean and numeric atom deduplication.
     # Both passes are required before Stage-4 conversion can succeed

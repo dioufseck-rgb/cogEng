@@ -38,6 +38,12 @@ def main():
     parser.add_argument("--model", default="claude-opus-4-7")
     parser.add_argument("--no-refine", action="store_true",
                         help="Skip the refinement stage (faster, less clean)")
+    parser.add_argument("--state-dir", default=None,
+                        help="Directory to stream per-determination decompose "
+                             "results to. If specified, the Build can resume "
+                             "from this directory if it crashes — existing "
+                             "per-determination saves are reused, only "
+                             "remaining determinations are decomposed.")
     args = parser.parse_args()
 
     # Load the spec. Pass the legacy voices registry so YAMLs that declare
@@ -62,10 +68,17 @@ def main():
     print(f"  Constants: {list(spec.constants.keys()) or '(none)'}")
     print(f"  Determinations declared: {[d.id for d in spec.determinations]}")
     print(f"  Refinement: {'OFF' if args.no_refine else 'ON'}")
+    if args.state_dir:
+        print(f"  State dir: {args.state_dir} (decompose results streamed; resume on crash)")
     print()
 
     llm = LLMCaller(model=args.model)
-    result = build_from_spec(spec, llm=llm, refine=not args.no_refine)
+    result = build_from_spec(
+        spec,
+        llm=llm,
+        refine=not args.no_refine,
+        state_dir=args.state_dir,
+    )
 
     total_llm_calls = sum(len(audit) for audit in result.audit.values())
     print(f"Build complete:")
