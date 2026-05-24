@@ -1,0 +1,282 @@
+# NBA CBA — Full RuleArena Coverage
+# ====================================================================
+# Institutional declaration for adjudicating NBA CBA cases at scale.
+#
+# Coverage:
+#   10 determinations
+#   43 RuleArena rule families (see ruleArena_family_aliases.yaml)
+#   42 of 47 single-op cases in comp_0 fully covered
+#   5 cases out of scope (Stepien Rule — not built this sprint)
+#
+# All architectural inputs are data. No NBA-specific Python.
+#
+# Build:
+#   python bin/build_dag.py domains/nba/cba.yaml --out built_nba.pkl --no-refine
+# ====================================================================
+
+policy:
+  name: "NBA Collective Bargaining Agreement"
+  source: "RuleArena/nba/reference_rules.txt"
+  abbreviation: "nba"
+
+voice:
+  role: "experienced NBA team-operations counsel"
+  domain: "NBA Collective Bargaining Agreement (CBA)"
+  background: |
+    You are reading the NBA CBA, applying its rules with attention to
+    the practical structure of transactions and the precise numeric
+    thresholds that govern team operations.
+
+    Maximum Annual Salary (Article II §7) decomposes by Years of Service
+    bracket (under 7, 7-9, 10+). Within the under-7 and 7-9 brackets,
+    boost pathways (Higher Max for 5th-Year Eligible players; Designated
+    Veteran for 8-9 YOS players retained by their first team) require
+    BOTH a tenure/eligibility predicate AND one of the Higher Max
+    Criteria (All-NBA, DPOY, MVP). The 10+ bracket has no boost.
+    Practitioners commonly err by granting a boost on Higher Max
+    Criteria alone without verifying the eligibility predicate.
+
+    Contract length (Article IX) defaults to 4 Seasons, with four
+    explicit exceptions: QVFA-with-Prior-Team (5), Rookie Scale Extension
+    (6), Veteran Extension (5), Designated Veteran Player Extension (6).
+
+    Annual salary changes (Article VII §5(a)) default to 5% of first-year
+    salary, with 8% for QVFA/EQVFA contracts with prior team and most
+    Extensions.
+
+    The Salary Cap basic rule (Article VII §2(b)(1)) prohibits Team
+    Salary from exceeding the Cap without one of the Section 6
+    Exceptions. The exceptions form an enumerated list, each with its
+    own preconditions.
+
+    Sign-and-trade transactions (Article VIII §8(e)(1)) are a special
+    composite: a single transaction must satisfy SEVEN distinct
+    conditions simultaneously. Any failure of any condition invalidates
+    the transaction.
+
+    Traded Player Exceptions (Article VII §6(j)) come in five variants
+    (Standard, Aggregated Standard, Transition, Expanded, Room+$250K).
+    The applicable variant gates the permissible incoming-salary
+    formula. Apron-level constraints reduce the $250,000 cushion to $0
+    when the post-trade team salary exceeds the First Apron.
+
+    Over-38 Contracts (Article VII §3(a)(2)) trigger salary
+    re-allocation when a Player Contract covers 4+ Seasons with one or
+    more Seasons commencing after the player reaches age 38. Specific
+    QVFA-with-prior-team age-35-or-36 carve-outs exist.
+
+# Named numeric constants — 2024-25 Salary Cap Year values per Article VII §2,
+# plus Section 6 exception amounts derived from the cap.
+constants:
+  # Article VII §2 — Cap, Apron, Tax levels (2024-25)
+  salary_cap: 140588000
+  first_apron_level: 178132000
+  second_apron_level: 188931000
+  tax_level: 170814000
+
+  # Article VII §6 exception amounts (2024-25). Each is a fixed dollar
+  # value derived from the cap per the formulas in the policy:
+  #   Bi-annual          §6(d)(1): 3.32% × cap
+  #   Non-Taxpayer MLE   §6(e)(1): 9.12% × cap
+  #   Taxpayer MLE       §6(f)(1): $5M × (cap_2024-25 / cap_2023-24)
+  #   Room MLE           §6(g)(1): 5.678% × cap
+  bi_annual_exception_amount: 4667522
+  non_taxpayer_mid_level_exception_amount: 12821626
+  taxpayer_mid_level_exception_amount: 5167878
+  room_mid_level_exception_amount: 7982587
+
+  # Traded Player Exception cushion
+  # §6(j)(1)(i)-(v): $250,000 added to incoming salary cap;
+  # §6(j)(3) reduces to $0 when post-trade salary > First Apron
+  traded_player_exception_cushion: 250000
+
+
+# --------------------------------------------------------------------
+# Determinations
+# --------------------------------------------------------------------
+# Ten rule-level determinations corresponding to natural CBA structure.
+# A separate file (ruleArena_family_aliases.yaml) maps RuleArena's
+# fine-grained rule families to these determinations.
+# --------------------------------------------------------------------
+
+determinations:
+
+  # -------- Universal families (built and validated in Phase 1A) --------
+
+  - id: "nba.max_salary"
+    description: "Is the first-year Salary plus Unlikely Bonuses of this Player Contract within the Maximum Annual Salary permitted under Article II, Section 7(a)?"
+    polarity: "positive"
+    source_span: "Article II, Section 7(a)"
+    composition: "derived"
+    scope_hint: |
+      The rule decomposes by Years of Service bracket (under 7, 7-9,
+      10+) and by whether a boost pathway applies. Express the bracket
+      selection and boost eligibility as engine-resident Boolean
+      structure: an OR of per-branch ANDs gating the applicable
+      bracket predicate, the boost eligibility (an AND over the
+      eligibility predicate AND the Higher-Max-Criteria predicate),
+      and a comparison of the contract salary against the branch's
+      applicable ceiling. The ceiling value for each branch (the
+      greater of X% × Salary Cap or 105% × prior salary) is fully
+      determined upstream — express it as a single Map-bound derived
+      numeric atom per branch.
+
+  - id: "nba.contract_length"
+    description: "Is the contract length within the maximum number of Seasons permitted under Article IX of the CBA?"
+    polarity: "positive"
+    source_span: "Article IX"
+    composition: "derived"
+    scope_hint: |
+      The rule decomposes by contract type — the default case (no
+      exception) or one of four explicit exceptions (QVFA-with-Prior-
+      Team, Rookie Scale Extension, Veteran Extension, Designated
+      Veteran Player Extension). Express each contract type as a
+      distinct engine-resident Boolean predicate, and the length
+      comparison as a Comparison against the type-specific Season
+      ceiling. Top-level structure: an OR over the case branches.
+
+  - id: "nba.salary_increase"
+    description: "Do the year-over-year Salary and Unlikely Bonus changes in this Contract comply with the increase/decrease ratios permitted under Article VII, Section 5(a)?"
+    polarity: "positive"
+    source_span: "Article VII, Section 5(a)"
+    composition: "derived"
+    scope_hint: |
+      The rule decomposes by contract type. The default 5% ratio
+      applies to most contracts; the 8% ratio applies to contracts
+      between Qualifying or Early-Qualifying Veteran Free Agents and
+      their Prior Team, and to most Extensions (with specific exclusions
+      for trade-related Extensions per Section 8(e)(2)). Express the
+      contract-type predicates as engine-resident Booleans and the
+      year-over-year ratio check as a Comparison against the
+      applicable percentage of first-year salary.
+
+  - id: "nba.cap_room"
+    description: "Is the Team's resulting Team Salary within the Salary Cap, or otherwise permitted via a valid Exception under Article VII, Section 6?"
+    polarity: "positive"
+    source_span: "Article VII, Section 2(b)(1) read with Section 6"
+    composition: "derived"
+    scope_hint: |
+      The Basic Rule is that Team Salary may not exceed the Salary
+      Cap UNLESS the Team uses one of the Section 6 Exceptions.
+      Express as an OR with two branches: (1) the direct cap-room
+      comparison (Team Salary post-signing ≤ Salary Cap), and (2) the
+      signing is permitted via one of the named Exceptions
+      (Bi-annual, Non-Taxpayer MLE, Taxpayer MLE, Room MLE,
+      Qualifying/Early-Qualifying/Non-Qualifying Veteran Free Agent,
+      Minimum Player Salary). Each exception pathway is its own
+      engine-resident Boolean leaf at this level — the detailed
+      requirements of each exception (per Section 6) are evaluated
+      by the respective exception determinations.
+
+  # -------- Permission paths (Section 6 exceptions) --------
+
+  - id: "nba.non_taxpayer_mle"
+    description: "Is this signing permitted via the Non-Taxpayer Mid-Level Salary Exception under Article VII, Section 6(e)?"
+    polarity: "positive"
+    source_span: "Article VII, Section 6(e)"
+    composition: "derived"
+    scope_hint: |
+      The exception has structural requirements: (1) the first-year
+      salary fits within 9.12% of the Salary Cap (the NT-MLE amount);
+      (2) the contract length does not exceed 4 Seasons; (3) the Team
+      has not already used the Mid-Level Salary Exception for Room
+      Teams in the same Salary Cap Year (a prior-use restriction);
+      (4) the Team's post-signing Team Salary does not exceed the
+      First Apron Level (the hard-cap-by-apron constraint from
+      Section 2(e)). Express as an AND over these structural
+      conditions; each is engine-resident.
+
+  - id: "nba.taxpayer_mle"
+    description: "Is this signing permitted via the Taxpayer Mid-Level Salary Exception (or the structurally similar Mid-Level Salary Exception for Room Teams) under Article VII, Section 6(f) or 6(g)?"
+    polarity: "positive"
+    source_span: "Article VII, Section 6(f) and 6(g)"
+    composition: "derived"
+    scope_hint: |
+      The Taxpayer MLE applies when the Team's pre-signing Team
+      Salary is above the First Apron Level. Structural conditions:
+      (1) the first-year salary fits within the Taxpayer MLE amount
+      (5.7% of the Salary Cap for non-Room teams; 7.5% for the Room
+      MLE structural variant); (2) the contract length does not
+      exceed 2 Seasons (TPE) or 3 Seasons (Room MLE); (3) the
+      post-signing Team Salary does not exceed the Second Apron
+      Level (hard cap). Express as an AND over these conditions,
+      with the variant selection (TPE vs Room MLE) handled by an OR
+      over the two structurally-similar paths.
+
+  - id: "nba.veteran_free_agent_exception"
+    description: "Is this signing permitted via the Veteran Free Agent Exception (Qualifying, Early Qualifying, or Non-Qualifying) under Article VII, Section 6(b)?"
+    polarity: "positive"
+    source_span: "Article VII, Section 6(b)"
+    composition: "derived"
+    scope_hint: |
+      The exception applies when a Veteran Free Agent re-signs with
+      his Prior Team. Three sub-paths gate different salary
+      formulas: (1) Qualifying VFA — first-year salary up to the
+      maximum in Article II §7; (2) Early Qualifying VFA — minimum
+      2-Season contract, first-year salary up to the greater of 175%
+      of prior salary or 105% of Average Player Salary; (3) Non-
+      Qualifying VFA — first-year salary up to the greater of 120%
+      of prior salary, 120% of Minimum Annual Salary, or (for
+      Restricted FAs) the Qualifying Offer amount. Express as an OR
+      over the three sub-paths, each an AND of the VFA-type predicate
+      (e.g., player_is_qualifying_veteran_free_agent) and the
+      applicable salary-ceiling Comparison.
+
+  - id: "nba.traded_player_exception"
+    description: "Is this trade permitted via a Traded Player Exception under Article VII, Section 6(j)?"
+    polarity: "positive"
+    source_span: "Article VII, Section 6(j)"
+    composition: "derived"
+    scope_hint: |
+      The exception has five variants: (i) Standard TPE — incoming
+      salary ≤ outgoing salary + $250K; (ii) Aggregated Standard TPE
+      — for 2+ Traded Players, aggregate incoming ≤ aggregate
+      outgoing + $250K; (iii) Transition TPE — incoming ≤ 110% of
+      outgoing + $250K (2023-24 only); (iv) Expanded TPE — more
+      complex formula (the greater of two alternatives) for high-
+      cap teams; (v) Room TPE — Team has Team Salary below the cap
+      and acquires within cap room + $250K. The $250,000 cushion
+      reduces to $0 when post-trade Team Salary exceeds the First
+      Apron Level (Section 6(j)(3)). Express as an OR over the five
+      variants, each gating its applicable Comparison; include the
+      apron-level cushion-zeroing as a conditional structural element.
+
+  - id: "nba.sign_and_trade"
+    description: "Is this sign-and-trade transaction permitted under Article VIII, Section 8(e)(1)?"
+    polarity: "positive"
+    source_span: "Article VIII, Section 8(e)(1)"
+    composition: "derived"
+    scope_hint: |
+      The rule requires SEVEN distinct conditions to be simultaneously
+      satisfied: (i) the Veteran Free Agent finished the prior Season
+      on his Prior Team's roster; (ii) the Contract is for at least
+      3 but no more than 4 Seasons (excluding any Option Year);
+      (iii) the Contract is NOT signed pursuant to the Non-Taxpayer
+      MLE or the Room MLE; (iv) the first Season is fully protected
+      for lack of skill; (v) the Contract is entered into prior to
+      the first day of the Regular Season; (vi) for any 5th Year
+      Eligible Player who met one of the Higher Max Criteria, the
+      Contract does not exceed 25% of the Salary Cap; (vii) the
+      acquiring (assignee) Team has Room for the player's first-
+      year Salary plus Unlikely Bonuses. Express as a top-level AND
+      over the seven conditions, each engine-resident; the trace
+      should make clear which condition (if any) failed.
+
+  - id: "nba.over_38_contract"
+    description: "Does this Contract comply with the Over-38 deferred-compensation rules under Article VII, Section 3(a)(2)?"
+    polarity: "positive"
+    source_span: "Article VII, Section 3(a)(2)"
+    composition: "derived"
+    scope_hint: |
+      The rule applies to any Contract that covers 4 or more Seasons
+      AND includes one or more Seasons commencing after the player
+      reaches age 38. Structurally: (1) determine whether the
+      Contract qualifies as an Over-38 Contract (the 4+ Seasons AND
+      crosses-age-38 predicate); (2) if it does, structural validity
+      requires either the re-allocation rule applies (Section
+      3(a)(2)(i)) or one of the QVFA-with-Prior-Team carve-outs
+      applies (Sections 3(a)(2)(ii)/(iv) — age 35-36 conditions).
+      A Contract that does NOT qualify as Over-38 trivially complies.
+      Express as an OR: (a) NOT an Over-38 Contract, or (b) is an
+      Over-38 Contract AND the applicable structural sub-rule is
+      satisfied.

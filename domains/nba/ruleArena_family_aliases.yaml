@@ -1,0 +1,133 @@
+# RuleArena rule-family → RuleKit determination mapping
+# ====================================================================
+# This file is part of the measurement layer: it translates RuleArena's
+# fine-grained rule-family annotations to the (smaller) set of
+# determinations our library declares.
+#
+# The architectural principle: determinations correspond to policy-level
+# rules (how a practitioner thinks). Rule families correspond to the
+# benchmark's annotation taxonomy (how the benchmark scores systems).
+# The alias table bridges the two so we can report performance at both
+# granularities.
+#
+# Naming convention: every rule family on the LHS appears verbatim from
+# the RuleArena annotation JSON. Every determination on the RHS is one
+# of the IDs declared in cba_universal_families.yaml (or the expanded
+# variant adding sign-and-trade, exception paths, etc.).
+#
+# A rule family with no determination mapping is OUT OF SCOPE — we
+# haven't built a determination for it, and a case referencing only
+# out-of-scope rules should be excluded from measurement.
+# ====================================================================
+
+ruleArena_family_to_determination:
+
+  # ---- nba.max_salary (Article II §7(a)) ----
+  # All three YOS brackets and the boost criteria roll up into one
+  # determination that decomposes by bracket internally.
+  maximum_salary_for_player_less_than_7_year_service: nba.max_salary
+  maximum_salary_for_player_under_7_year_service: nba.max_salary       # alt spelling
+  maximum_salary_for_player_7_to_9_year_service: nba.max_salary
+  maximum_salary_for_player_10_or_more_year_service: nba.max_salary
+  higher_max_criterion_for_5th_year_eligible_player: nba.max_salary
+  higher_max_criterion_for_designated_veteran: nba.max_salary
+
+  # ---- nba.contract_length (Article IX) ----
+  contract_length_at_most_4_year_except_qualifying_veteran_free_agent_5_year: nba.contract_length
+  contract_length_at_most_2_year_taxpayer_mid_level_exception: nba.contract_length
+  contract_length_at_most_4_year_non_taxpayer_mid_level_exception: nba.contract_length
+  contract_length_at_most_3_year_mid_level_exception_for_room_team: nba.contract_length
+
+  # ---- nba.salary_increase (Article VII §5(a)) ----
+  salary_increase_and_decrease_ratio_except_qualiyfing_or_early_qualifying_veteran_free_agent: nba.salary_increase
+  salary_increase_and_decrease_ratio_for_qualiyfing_or_early_qualifying_veteran_free_agent: nba.salary_increase
+  salary_increase_and_decrease_ratio_qualiyfing_or_early_qualifying_veteran_free_agent: nba.salary_increase   # alt
+
+  # ---- nba.cap_room (Article VII §2(b)(1)) ----
+  # The basic cap rule. The exception paths below are separate
+  # determinations: cap_room only checks "below cap OR uses some
+  # named exception" at the top level. The named-exception details
+  # are evaluated by the respective exception determinations.
+  salary_cap_no_exceed_without_exception: nba.cap_room
+
+  # ---- Bi-annual Exception (Article VII §6(d)) ----
+  # Not a top-level RuleArena annotated rule family; it appears
+  # only as a sub-mechanism named in cap_room. Not separately built
+  # this sprint. Adjudication of bi-annual signings relies on
+  # cap_room's Boolean leaf "permitted via Bi-annual Exception"
+  # being correctly bound by Map from case text.
+
+  # ---- nba.non_taxpayer_mle (Article VII §6(e)) ----
+  non_taxpayer_mid_level_exception: nba.non_taxpayer_mle
+  non_taxpayer_mid_level_exception_hard_cap_first_apron_level: nba.non_taxpayer_mle
+
+  # ---- nba.taxpayer_mle (Article VII §6(f)) ----
+  taxpayer_mid_level_exception: nba.taxpayer_mle
+  taxpayer_mid_level_exception_hard_cap_second_apron_level: nba.taxpayer_mle
+  mid_level_exception_for_room_team: nba.taxpayer_mle  # closest determination; room MLE is a sibling
+
+  # ---- nba.veteran_free_agent_exception (Article VII §6(b)) ----
+  # Covers QVFA, EQVFA, and NQVFA paths in §6(b)(1)/(2)/(3)
+  qualifying_veteran_free_agent_exception: nba.veteran_free_agent_exception
+  qualified_veteran_free_agent_exception: nba.veteran_free_agent_exception   # alt
+  early_qualifying_veteran_free_agent_exception: nba.veteran_free_agent_exception
+  non_qualifying_veteran_free_agent_exception: nba.veteran_free_agent_exception
+  salary_space_consumption_qualifying_veteran_free_agent: nba.veteran_free_agent_exception
+  salary_space_consumption_early_qualifying_veteran_free_agent: nba.veteran_free_agent_exception
+  salary_space_consumption_non_qualifying_veteran_free_agent: nba.veteran_free_agent_exception
+
+  # ---- nba.traded_player_exception (Article VII §6(j)) ----
+  # The 5 TPE variants plus their apron-level constraints
+  standard_traded_player_exception: nba.traded_player_exception
+  aggregated_standard_traded_player_exception: nba.traded_player_exception
+  expanded_traded_player_exception: nba.traded_player_exception
+  expanded_traded_player_exception_hard_cap_first_apron_level: nba.traded_player_exception
+  aggregated_traded_player_exception_hard_cap_second_apron_level: nba.traded_player_exception
+  traded_player_exception_for_room_team: nba.traded_player_exception
+  traded_player_exception_only_one_minimum_traded_player_under_conditions: nba.traded_player_exception
+  traded_player_exception_250k_reduced_first_apron_level: nba.traded_player_exception
+
+  # ---- nba.sign_and_trade (Article VIII §8(e)(1)) ----
+  # §8(e)(1) has 7 sub-conditions; each is a RuleArena family,
+  # they roll up to one determination.
+  sign_and_trade_3_to_4_year: nba.sign_and_trade
+  sign_and_trade_not_with_mid_level_exception: nba.sign_and_trade
+  sign_and_trade_assignee_team_has_room: nba.sign_and_trade
+  sign_and_trade_hard_cap_first_apron_level: nba.sign_and_trade
+  sign_and_trade_qualifying_free_agent_half_salary_for_traded_player_exception: nba.sign_and_trade
+  sign_and_trade_assigner_traded_player_exception_hard_cap_second_apron_level: nba.sign_and_trade
+  sign_and_trade_no_higher_than_25_percent_for_higher_max_5th_year_eligible_player: nba.sign_and_trade
+
+  # ---- nba.over_38_contract (Article III §3(a)(2)) ----
+  defer_compensation_38_year_old: nba.over_38_contract
+  defer_compensation_38_year_old_qualifying_veteran_free_agent_38_year_old: nba.over_38_contract
+
+  # ---- nba.stepien_rule (Article VIII §8(?)) — out of scope ----
+  # The Stepien Rule (no-sell, no-consecutive-first-round-pick-trade)
+  # is structurally different from cap rules. Listed here for
+  # transparency; not built in this sprint.
+  # stepien_rule_no_sell_or_no_consecutive_first_round_draft_pick_trade: nba.stepien_rule  (NOT BUILT)
+
+
+# ====================================================================
+# Coverage summary
+# ====================================================================
+# Determinations built (12 total):
+#   nba.max_salary
+#   nba.contract_length
+#   nba.salary_increase
+#   nba.cap_room
+#   nba.bi_annual_exception
+#   nba.non_taxpayer_mle
+#   nba.taxpayer_mle
+#   nba.veteran_free_agent_exception
+#   nba.traded_player_exception
+#   nba.sign_and_trade
+#   nba.over_38_contract
+#   (alias of room-MLE → taxpayer_mle for now; structurally similar)
+#
+# Out-of-scope rule families:
+#   stepien_rule_no_sell_or_no_consecutive_first_round_draft_pick_trade
+#
+# Out-of-scope cases (sprint scope): cases whose relevant_rules
+# include the Stepien Rule will be excluded from measurement.

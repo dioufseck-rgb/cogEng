@@ -40,22 +40,32 @@ def main():
                         help="Skip the refinement stage (faster, less clean)")
     args = parser.parse_args()
 
-    spec = load_spec_from_yaml(args.spec_file)
-    if spec.voice_key not in VOICES:
-        raise SystemExit(f"Unknown voice key: {spec.voice_key}. Known: {list(VOICES.keys())}")
-    voice = VOICES[spec.voice_key]()
+    # Load the spec. Pass the legacy voices registry so YAMLs that declare
+    # `policy.voice: "pa"` (registry key) continue to work alongside YAMLs
+    # that declare an inline `voice:` block (the library-native path).
+    spec = load_spec_from_yaml(args.spec_file, voices_registry=VOICES)
+
+    # If the spec still has voice_key set after loading, the registry didn't
+    # resolve it — error out with a useful message.
+    if spec.voice is None and spec.voice_key is not None:
+        raise SystemExit(
+            f"Spec uses legacy voice_key={spec.voice_key!r} but it is not "
+            f"registered in domains.voices.VOICES. Either declare an inline "
+            f"`voice:` block in the YAML, or register the voice in voices.py."
+        )
 
     out_path = args.out or args.spec_file.replace(".yaml", ".pkl")
 
     print(f"\nBuilding DAG from {args.spec_file}")
     print(f"  Policy: {spec.policy_source}")
-    print(f"  Voice: {voice.role}")
+    print(f"  Voice: {spec.voice.role}")
+    print(f"  Constants: {list(spec.constants.keys()) or '(none)'}")
     print(f"  Determinations declared: {[d.id for d in spec.determinations]}")
     print(f"  Refinement: {'OFF' if args.no_refine else 'ON'}")
     print()
 
     llm = LLMCaller(model=args.model)
-    result = build_from_spec(spec, voice, llm, refine=not args.no_refine)
+    result = build_from_spec(spec, llm=llm, refine=not args.no_refine)
 
     total_llm_calls = sum(len(audit) for audit in result.audit.values())
     print(f"Build complete:")

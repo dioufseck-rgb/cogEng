@@ -1,0 +1,144 @@
+# NBA CBA — Universal Rule Families
+# ====================================================================
+# This config is the institutional declaration for adjudicating the four
+# rule families that gate every RuleArena single-operation case:
+#   1. max_salary           (Article II §7(a))
+#   2. contract_length      (Article IX)
+#   3. salary_increase      (Article VII §5(a))
+#   4. cap_room             (Article VII §2)
+#
+# Nothing here is Python. An institution wanting to adjudicate a
+# different policy domain authors a config of identical shape — no
+# library code changes required.
+#
+# Built artifact (single pickle) produced by:
+#   python bin/build_dag.py domains/nba/cba_universal_families.yaml \
+#       --out built_nba_universal.pkl
+# ====================================================================
+
+policy:
+  name: "NBA Collective Bargaining Agreement — Universal Rule Families"
+  source: "RuleArena/nba/reference_rules.txt"
+  abbreviation: "nba"
+
+voice:
+  role: "experienced NBA team-operations counsel"
+  domain: "NBA Collective Bargaining Agreement (CBA)"
+  background: |
+    You are reading the NBA CBA, applying its rules with attention to
+    the practical structure of transactions and the precise numeric
+    thresholds that govern team operations.
+
+    For Maximum Annual Salary, the rule decomposes by Years of Service
+    bracket (under 7, 7-9, 10+) and within each bracket there may be a
+    boost pathway (Higher Max for 5th-Year Eligible players; Designated
+    Veteran for 8-9 YOS players retained by their first team). Each
+    boost requires BOTH a tenure/eligibility predicate AND one of the
+    Higher Max Criteria (All-NBA, DPOY, MVP). Practitioners commonly
+    err by granting a boost on Higher Max Criteria alone without
+    verifying the tenure/eligibility predicate.
+
+    For contract length, Article IX states a 4-Season default with four
+    explicit exceptions (QVFA-with-Prior-Team to 5, Rookie Scale
+    Extension to 6, Veteran Extension to 5, Designated Veteran Player
+    Extension to 6). Each category gates a different ceiling.
+
+    For annual salary increases/decreases, Section 5(a) sets a 5%
+    default, with an 8% pathway for contracts between Qualifying or
+    Early-Qualifying Veteran Free Agents and their Prior Team, and for
+    most Extensions. The percentage applies to the first-year salary.
+
+    For cap room, the Basic Rule (§2(b)(1)) is that Team Salary may not
+    exceed the Salary Cap unless the Team uses one of the Exceptions
+    in Section 6. Treat permitted exceptions (Bi-annual, Non-Taxpayer
+    MLE, Taxpayer MLE, Room MLE, Qualifying/Early-Qualifying/
+    Non-Qualifying Veteran Free Agent, Minimum Player Salary) as
+    alternative engine-resident paths gating "permitted."
+
+# Named numeric constants the policy text refers to.
+# Built from the 2024-25 Salary Cap Year per CBA Article VII §2.
+constants:
+  salary_cap: 140588000
+  first_apron_level: 178132000
+  second_apron_level: 188931000
+  tax_level: 170814000
+
+# --------------------------------------------------------------------
+# Determinations
+# --------------------------------------------------------------------
+#
+# Each determination is a bare question the institution wants answered.
+# scope_hint provides structural guidance — kept moderate, not
+# prescriptive. The architectural goal is for Build to produce sound
+# structure with structural-direction hints; a separate cross-validation
+# run (Phase 3D) will repeat with no scope_hint to test bare-Build
+# generality.
+# --------------------------------------------------------------------
+
+determinations:
+
+  - id: "nba.max_salary"
+    description: "Is the first-year Salary plus Unlikely Bonuses of this Player Contract within the Maximum Annual Salary permitted under Article II, Section 7(a)?"
+    polarity: "positive"
+    source_span: "Article II, Section 7(a)"
+    composition: "derived"
+    scope_hint: |
+      The rule decomposes by Years of Service bracket (under 7, 7-9,
+      10+) and by whether a boost pathway applies. Express the bracket
+      selection and boost eligibility as engine-resident Boolean
+      structure: an OR of per-branch ANDs gating the applicable
+      bracket predicate, the boost eligibility (an AND over the
+      eligibility predicate AND the Higher-Max-Criteria predicate),
+      and a comparison of the contract salary against the branch's
+      applicable ceiling. The ceiling value for each branch (the
+      greater of X% × Salary Cap or 105% × prior salary) is fully
+      determined upstream — express it as a single Map-bound derived
+      numeric atom per branch.
+
+  - id: "nba.contract_length"
+    description: "Is the contract length within the maximum number of Seasons permitted under Article IX of the CBA?"
+    polarity: "positive"
+    source_span: "Article IX"
+    composition: "derived"
+    scope_hint: |
+      The rule decomposes by contract type — the default case (no
+      exception) or one of four explicit exceptions (QVFA-with-Prior-
+      Team, Rookie Scale Extension, Veteran Extension, Designated
+      Veteran Player Extension). Express each contract type as a
+      distinct engine-resident Boolean predicate, and the length
+      comparison as a Comparison against the type-specific Season
+      ceiling. Top-level structure: an OR over the case branches.
+
+  - id: "nba.salary_increase"
+    description: "Do the year-over-year Salary and Unlikely Bonus changes in this Contract comply with the increase/decrease ratios permitted under Article VII, Section 5(a)?"
+    polarity: "positive"
+    source_span: "Article VII, Section 5(a)"
+    composition: "derived"
+    scope_hint: |
+      The rule decomposes by contract type. The default 5% ratio
+      applies to most contracts; the 8% ratio applies to contracts
+      between Qualifying or Early-Qualifying Veteran Free Agents and
+      their Prior Team, and to most Extensions (with specific exclusions
+      for trade-related Extensions per Section 8(e)(2)). Express the
+      contract-type predicates as engine-resident Booleans and the
+      year-over-year ratio check as a Comparison against the
+      applicable percentage of first-year salary.
+
+  - id: "nba.cap_room"
+    description: "Is the Team's resulting Team Salary within the Salary Cap, or otherwise permitted via a valid Exception under Article VII, Section 6?"
+    polarity: "positive"
+    source_span: "Article VII, Section 2(b)(1) read with Section 6"
+    composition: "derived"
+    scope_hint: |
+      The Basic Rule is that Team Salary may not exceed the Salary
+      Cap UNLESS the Team uses one of the Section 6 Exceptions.
+      Express as an OR with two branches: (1) the direct cap-room
+      comparison (Team Salary post-signing ≤ Salary Cap), and (2) the
+      signing is permitted via one of the named Exceptions
+      (Bi-annual, Non-Taxpayer MLE, Taxpayer MLE, Room MLE,
+      Qualifying/Early-Qualifying/Non-Qualifying Veteran Free Agent,
+      Minimum Player Salary). Each exception pathway is its own
+      engine-resident Boolean leaf at this level — the detailed
+      requirements of each exception (per Section 6) are out of
+      scope for THIS determination and would be separate
+      determinations in a future build.

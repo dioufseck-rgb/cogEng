@@ -7,7 +7,6 @@ captures the full LLM audit log (prompts + responses), attempts Stage-4
 conversion, evaluates against a synthetic case if requested, and prints a
 structured diagnostic.
 
-
 The four probes test:
   1. Conditional arithmetic (Article II §7 max salary by YOS)
   2. Rule reclassification (§6(f) including (f)(5) deemed-use rule)
