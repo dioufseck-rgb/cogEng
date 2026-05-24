@@ -130,7 +130,7 @@ def load_spec_from_yaml(path: str, voices_registry: Optional[dict] = None) -> Bu
     Uses PyYAML; install via `pip install pyyaml`.
     """
     import yaml
-    with open(path) as f:
+    with open(path, encoding="utf-8") as f:
         data = yaml.safe_load(f)
 
     # Voice resolution: inline block beats legacy registry key
@@ -1532,7 +1532,7 @@ def build_from_spec(spec: BuildSpec,
     if llm is None:
         llm = LLMCaller()
 
-    with open(spec.policy_source) as f:
+    with open(spec.policy_source, encoding="utf-8") as f:
         policy_text = f.read()
 
     # Decompose each determination

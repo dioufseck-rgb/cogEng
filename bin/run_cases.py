@@ -36,7 +36,7 @@ from rulekit.map.boolean import NarrativeLLMSubstrate, map_case_to_bundle
 
 
 def load_case(path: str) -> dict:
-    with open(path) as f:
+    with open(path, encoding="utf-8") as f:
         data = yaml.safe_load(f)
     if "description" not in data:
         raise ValueError(f"Case {path} missing 'description' field")

@@ -181,7 +181,7 @@ def load_ruleArena_cases(
     case_id format: "<basename>_<case_index>_op_<letter>"
         e.g. "comp_0_0_op_A" — comp_0.json's case index 0, operation A
     """
-    with open(json_path) as f:
+    with open(json_path, encoding="utf-8") as f:
         raw_cases = json.load(f)
 
     if not isinstance(raw_cases, list):
