@@ -1,44 +1,54 @@
 """
-typed_numeric_decompose_prompt.py — Piece 2 of the typed Build pipeline.
+typed_numeric_decompose_prompt.py - Piece 2 of the typed Build pipeline.
 
 The Stage-1 classifier (typed_classify_prompt.py) identifies that a claim is a
 numeric comparison and produces:
   - operator: the comparison operator (leq, lt, geq, gt, eq)
   - lhs_description, rhs_description: free-text descriptions of each side
-  - lhs_kind, rhs_kind: hints — "numeric_leaf", "constant", or "arithmetic"
+  - lhs_kind, rhs_kind: hints - "numeric_leaf", "constant", or "arithmetic"
 
 Piece 2 takes ONE of those (description, kind) pairs and decomposes it into a
 structured spec tree the engine conversion stage can consume.
 
-This module is intentionally separate from production decomposer.py until
-validated. Same iteration pattern as Piece 1: eval cases first, prompt drafted
-here, live LLM validation, promote when stable.
-
 ROUTING DECISIONS
 =================
 
-The prompt produces one of four output spec types:
+The prompt produces one of TEN output spec types, grouped by purpose:
 
-  - numeric_leaf  → engine NumericLeaf bound by Map's extraction
-  - constant      → engine Constant with value or named label
-  - unary_arithmetic → engine TimesConst / PlusConst / MinusConst /
-                       ConstMinus / DivByConst / ConstDivBy node
-  - derived_atom  → numeric atom whose VALUE is computed by Map, not by the
-                    engine. Used for aggregates, max-of-formulas, conditional
-                    formulas, named quantities — anything outside the engine's
-                    deliberately-bounded arithmetic vocabulary.
+  Primitive extraction (Map binds the value):
+    - numeric_leaf       -> engine NumericLeaf bound by Map's extraction
+    - constant           -> engine Constant with value or named label
 
-The fourth category (derived_atom) is the architecturally important one.
-The typed engine intentionally lacks SumNode, MaxNode, MinNode, and
-conditional operators. When the policy expresses computations that need
-those, we route them to Map: the LLM produces a single derived numeric atom
-per case, and the engine sees a NumericLeaf for that derived value.
+  Single-operand-and-constant arithmetic (engine-computed):
+    - unary_arithmetic   -> engine TimesConst / PlusConst / MinusConst /
+                            ConstMinus / DivByConst / ConstDivBy
 
-This keeps the engine small, bounded, and verifiable. The cost is that the
-trace's resolution stops at the derived atom — the engine can show "max
-salary ceiling = $42,176,400" but can't expand "= max(25% × cap, 105% ×
-prior)" inline. Acceptable trade-off: the derivation can be inspected via
-Map's audit log; the engine's job is composition, not arithmetic.
+  Multi-operand arithmetic (engine-computed; NEW as of Phase 3):
+    - plus / minus / mul -> engine PlusNode / MinusNode / MulNode (binary)
+    - sum / max / min    -> engine SumNode / MaxNode / MinNode (variadic, N>=2)
+
+  Map-evaluated quantities (engine cannot express):
+    - derived_atom       -> numeric atom whose VALUE is computed by Map.
+                            ONLY for "conditional" arithmetic (form depends
+                            on a runtime condition) and "named_quantity"
+                            (defined elsewhere in the policy).
+
+DESIGN NOTE (PHASE 3 CHANGE)
+=============================
+
+Earlier versions of this prompt routed aggregates (sum), maxes, and mins
+to derived_atom on the assumption that Map could compute them per case.
+Phase 2 empirical findings showed Map (Sonnet 4.6 and Opus 4.7) reliably
+extracts case-stated facts but does NOT reliably compute derived values
+across atom boundaries, even when explicitly permitted. The architecture
+now expresses sum/max/min via dedicated engine nodes that compose
+primitive atom bindings.
+
+The result is sharper division of labor: Map extracts case-stated
+primitive facts; the engine composes derived facts through structural
+arithmetic. The trace can show "max_salary_ceiling = max(25% x cap,
+105% x prior) = max(35147000, 31500000) = 35147000" with every step
+visible to audit.
 """
 
 from __future__ import annotations
@@ -48,8 +58,8 @@ NUMERIC_DECOMPOSE_PROMPT = """You are decomposing a numeric expression into a
 structured spec the rule engine can evaluate.
 
 You are given:
-  - A free-text DESCRIPTION of a numeric expression (e.g., "9.12% of the
-    Salary Cap" or "team salary" or "outgoing salary plus $250,000").
+  - A free-text DESCRIPTION of a numeric expression (e.g., "the greater of
+    25% of the Salary Cap or 105% of the player's prior-year salary").
   - A KIND hint from the upstream classifier: "numeric_leaf", "constant",
     or "arithmetic".
 
@@ -61,17 +71,17 @@ indicates a different category, use your judgment.
 Description: "{description}"
 Kind hint: "{kind}"
 
-YOU MUST PRODUCE ONE OF FOUR SPEC TYPES
-========================================
+YOU MUST PRODUCE ONE OF TEN SPEC TYPES
+=======================================
 
 (1) numeric_leaf
-    Used when the expression names a single numeric attribute that will be
-    extracted from case data per case (e.g., "team salary", "contract first-
-    year salary", "player Years of Service"). The Map substrate's LLM will
-    extract the value for each case.
+    The expression names a single numeric attribute that will be
+    extracted from case data per case (e.g., "team salary", "contract
+    first-year salary", "player Years of Service"). Map's LLM extracts
+    the value for each case.
 
 (2) constant
-    Used when the expression is either:
+    The expression is either:
     - A bare numeric literal (an integer, decimal, dollar amount): output
       "value" with the number.
     - A named policy constant whose value is known and stable (e.g., "the
@@ -79,63 +89,121 @@ YOU MUST PRODUCE ONE OF FOUR SPEC TYPES
       output "label" with a stable snake_case name.
 
 (3) unary_arithmetic
-    Used when the expression is one of the SIX engine-expressible unary
-    arithmetic operations:
+    The expression is one of the SIX engine unary operations
+    (child OP constant or constant OP child):
 
-      - times_const   : child × constant
+      - times_const   : child * constant
                         Examples: "9.12% of cap", "105% of prior salary",
                                   "1.25 times outgoing salary"
       - plus_const    : child + constant
                         Examples: "outgoing salary plus $250,000",
                                   "prior salary plus $1 million"
-      - minus_const   : child − constant  (constant subtracted from child)
+      - minus_const   : child - constant
                         Examples: "team salary minus $5 million"
-      - const_minus   : constant − child  (child subtracted from constant)
+      - const_minus   : constant - child
                         Examples: "salary cap minus team salary",
                                   "First Apron minus current salary"
-      - div_by_const  : child ÷ constant
+      - div_by_const  : child / constant
                         Examples: "team salary divided by 2"
-      - const_div_by  : constant ÷ child
+      - const_div_by  : constant / child
                         Examples: "12 divided by the multiplier"
 
-    Each unary_arithmetic spec has:
-      - operator: one of the six above
-      - constant: a number (if literal) OR constant_label (if named)
-      - child: a nested spec (numeric_leaf, constant, or another
-        unary_arithmetic — RECURSE if the child is itself arithmetic)
+    Use unary_arithmetic when ONE side of the operation is a constant
+    (literal or named) and the other side is a single numeric expression.
 
-(4) derived_atom
-    Used when the expression is arithmetic the engine CANNOT express:
+(4) plus / minus / mul   [binary; both operands are arbitrary expressions]
+    Use these when the expression combines TWO case-bound quantities (or
+    derived sub-expressions), neither of which is a fixed constant:
 
-      - aggregate_sum: sum over multiple instances
-        Examples: "aggregate first-year salaries of all contracts signed
-                   under MLE", "sum of outgoing players' salaries"
+      - plus  : left + right
+                Examples:
+                  "team salary plus the first-year salary of the new contract"
+                  "the team salary immediately after the signing" (= pre-
+                  signing salary + the signing's first-year salary)
+                  "the player's prior salary plus the contract's bonus pool"
 
-      - max_of / min_of: max or min over two or more terms
-        Examples: "the greater of 25% of cap or 105% of prior salary",
-                  "the lesser of $5M or 20% of cap"
+      - minus : left - right
+                Examples:
+                  "the assignee team's salary minus the incoming salaries"
+                  "post-trade team salary minus outgoing aggregate salary"
 
-      - conditional: arithmetic whose form depends on a condition
-        Examples: "25% of cap if YOS<7, otherwise 30% of cap"
+      - mul   : left * right
+                Examples:
+                  "the multiplier times the player's qualifying offer salary"
+                  (rare; most multiplicative operations are times_const)
 
-      - named_quantity: a named derived quantity defined elsewhere in the
-        policy (e.g., "the Maximum Annual Salary under Section 7")
+    Each binary spec has:
+      - "left":  nested spec for the left operand (any numeric spec type)
+      - "right": nested spec for the right operand (any numeric spec type)
 
-    derived_atom specs do NOT decompose further. They become a single
-    NumericLeaf at the engine level. Map computes the value per case.
+(5) sum / max / min   [variadic; N >= 2 children]
+    Use these when the expression aggregates over a known set of terms:
 
-CRITICAL ROUTING RULE
+      - sum : add N children together
+              Examples:
+                "the sum of player A's salary and player B's salary"
+                "team salary plus the new contract's first-year salary
+                 plus the new contract's bonus" (3-way add)
+
+      - max : the greater of N terms
+              Examples:
+                "the greater of 25% of the Salary Cap or 105% of the
+                 player's prior-year salary"
+                "the highest of $5 million, 35% of the cap, or 105% of
+                 prior salary"
+
+      - min : the lesser of N terms
+              Examples:
+                "the lesser of $5 million or 20% of the cap"
+                "the lesser of the agreed contract value and the
+                 maximum allowed under section 7"
+
+    Each variadic spec has:
+      - "children": a list of nested specs (any numeric spec types)
+
+    The engine's UNDETERMINED semantics: if any operand is unknown,
+    the entire variadic result is UNDETERMINED. This is the correct
+    architectural behavior: we cannot claim a value is the max if some
+    inputs are unknown.
+
+(6) derived_atom   [Map-evaluated; reserved for two specific cases]
+    Use derived_atom ONLY when one of these applies:
+
+      - conditional: arithmetic whose form depends on a runtime
+                     condition the engine cannot pre-compose.
+                     Example: "25% of cap if YOS < 7, otherwise 30% of
+                     cap" - the form of the computation differs by case.
+
+      - named_quantity: a named derived quantity defined elsewhere in
+                        the policy that requires document-level
+                        interpretation, OR an aggregate over an unknown-
+                        cardinality set the case does not enumerate.
+                        Example: "the Maximum Annual Salary under
+                        Section 7" - the value depends on a multi-page
+                        rule. Example: "the sum of all contracts signed
+                        under the MLE this year" - the set of contracts
+                        is not enumerated in the case.
+
+    DO NOT use derived_atom for sum / max / min over enumerable terms -
+    those have dedicated engine specs above (5).
+
+CRITICAL ROUTING RULES
 ======================
 
-The engine vocabulary is INTENTIONALLY limited to unary arithmetic with a
-constant. If you see an expression that requires SUM over multiple instances,
-MAX/MIN over multiple terms, or any conditional formula, route it to
-derived_atom — do not attempt to expand it into a tree of engine nodes.
+Rule 1: "the greater/lesser of X or Y" / "max/min/maximum/minimum of"
+        ALWAYS routes to max or min - NEVER derived_atom.
 
-If you are unsure whether arithmetic is engine-expressible: ask whether it
-can be written as one of the six unary operators with a single constant and
-a single (possibly recursive) child. If yes → unary_arithmetic. If no →
-derived_atom.
+Rule 2: A sum of NAMED quantities (case-enumerable) routes to sum.
+        An aggregate over an unspecified set routes to derived_atom
+        with computation_kind=named_quantity.
+
+Rule 3: A combination of two case-bound quantities with + or - or *
+        routes to plus, minus, or mul. If ONE side is a constant
+        (literal or named), use unary_arithmetic instead.
+
+Rule 4: Reserve derived_atom for cases where the computation truly
+        cannot be expressed as a tree of the above specs - typically
+        only "conditional" formulas and "named_quantity" references.
 
 OUTPUT FORMAT
 ==============
@@ -143,37 +211,52 @@ OUTPUT FORMAT
 For numeric_leaf:
 {{
   "spec_type": "numeric_leaf",
-  "atom_id_hint": "<snake_case identifier — e.g. 'team_salary', 'player_years_of_service'>",
+  "atom_id_hint": "<snake_case identifier>",
   "statement": "<one-sentence description of what Map should extract>"
 }}
 
-For constant (bare value):
+For constant:
 {{
   "spec_type": "constant",
-  "value": <number as integer or decimal — no quotes>
-}}
-
-For constant (named label):
-{{
-  "spec_type": "constant",
-  "label": "<snake_case label — e.g. 'salary_cap', 'first_apron_level', 'second_apron_level', 'tax_level'>"
+  "value": <number>          // EITHER a bare literal
+  // OR
+  "label": "<snake_case>"     // a named constant
 }}
 
 For unary_arithmetic:
 {{
   "spec_type": "unary_arithmetic",
   "operator": "times_const" | "plus_const" | "minus_const" | "const_minus" | "div_by_const" | "const_div_by",
-  "constant": <number as integer or decimal>,             // EITHER this
-  "constant_label": "<snake_case label>",                  // OR this (named constant)
-  "child": {{ ... nested spec — RECURSE if child is itself arithmetic ... }}
+  "constant": <number>,                // EITHER a literal
+  "constant_label": "<snake_case>",     // OR a named constant
+  "child": {{ ...nested spec... }}
 }}
 
-For derived_atom:
+For binary (plus / minus / mul):
+{{
+  "spec_type": "plus" | "minus" | "mul",
+  "left":  {{ ...nested spec... }},
+  "right": {{ ...nested spec... }},
+  "surface_label": "<optional short description for the trace>"
+}}
+
+For variadic (sum / max / min):
+{{
+  "spec_type": "sum" | "max" | "min",
+  "children": [
+    {{ ...nested spec 1... }},
+    {{ ...nested spec 2... }},
+    ...
+  ],
+  "surface_label": "<optional short description for the trace>"
+}}
+
+For derived_atom (conditional or named_quantity only):
 {{
   "spec_type": "derived_atom",
   "atom_id_hint": "<snake_case identifier>",
   "statement": "<one-sentence description of what Map should compute>",
-  "computation_kind": "aggregate_sum" | "max_of" | "min_of" | "conditional" | "named_quantity"
+  "computation_kind": "conditional" | "named_quantity"
 }}
 
 EXAMPLES
@@ -186,14 +269,6 @@ Output:
   "spec_type": "numeric_leaf",
   "atom_id_hint": "team_salary",
   "statement": "The team's current team salary in US dollars."
-}}
-
-Description: "the integer 4"
-Kind hint: constant
-Output:
-{{
-  "spec_type": "constant",
-  "value": 4
 }}
 
 Description: "the Salary Cap"
@@ -217,18 +292,74 @@ Output:
   }}
 }}
 
-Description: "outgoing aggregated salary plus $250,000"
+Description: "the team's team salary immediately after the signing"
 Kind hint: arithmetic
 Output:
 {{
-  "spec_type": "unary_arithmetic",
-  "operator": "plus_const",
-  "constant": 250000,
-  "child": {{
+  "spec_type": "plus",
+  "left": {{
     "spec_type": "numeric_leaf",
-    "atom_id_hint": "aggregated_outgoing_pre_trade_salary",
-    "statement": "Sum of pre-trade first-year salaries of all players the team is sending in the trade."
-  }}
+    "atom_id_hint": "pre_signing_team_salary",
+    "statement": "The team's team salary immediately before the signing in question."
+  }},
+  "right": {{
+    "spec_type": "numeric_leaf",
+    "atom_id_hint": "first_year_salary_plus_unlikely_bonuses",
+    "statement": "The first-year Salary plus first-year Unlikely Bonuses of the signing in question."
+  }},
+  "surface_label": "team_salary_post_signing"
+}}
+
+Description: "the greater of 25% of the Salary Cap or 105% of the player's prior-year salary"
+Kind hint: arithmetic
+Output:
+{{
+  "spec_type": "max",
+  "children": [
+    {{
+      "spec_type": "unary_arithmetic",
+      "operator": "times_const",
+      "constant": 0.25,
+      "child": {{
+        "spec_type": "constant",
+        "label": "salary_cap"
+      }}
+    }},
+    {{
+      "spec_type": "unary_arithmetic",
+      "operator": "times_const",
+      "constant": 1.05,
+      "child": {{
+        "spec_type": "numeric_leaf",
+        "atom_id_hint": "player_prior_year_salary",
+        "statement": "The player's salary in the final season of his prior contract."
+      }}
+    }}
+  ],
+  "surface_label": "max_salary_ceiling"
+}}
+
+Description: "the lesser of $5,000,000 or 20% of the Salary Cap"
+Kind hint: arithmetic
+Output:
+{{
+  "spec_type": "min",
+  "children": [
+    {{
+      "spec_type": "constant",
+      "value": 5000000
+    }},
+    {{
+      "spec_type": "unary_arithmetic",
+      "operator": "times_const",
+      "constant": 0.20,
+      "child": {{
+        "spec_type": "constant",
+        "label": "salary_cap"
+      }}
+    }}
+  ],
+  "surface_label": "mle_or_20pct_cap"
 }}
 
 Description: "the salary cap minus the team's current salary"
@@ -245,44 +376,29 @@ Output:
   }}
 }}
 
-Description: "the greater of 25% of the Salary Cap or 105% of the player's prior-year salary"
+Description: "25% of the Salary Cap if the player has fewer than 7 Years of Service, otherwise 30%"
 Kind hint: arithmetic
 Output:
 {{
   "spec_type": "derived_atom",
-  "atom_id_hint": "max_salary_ceiling",
-  "statement": "The greater of 25% of the Salary Cap or 105% of the player's prior-year salary.",
-  "computation_kind": "max_of"
+  "atom_id_hint": "max_salary_pct_by_yos_bracket",
+  "statement": "25% of the Salary Cap if YOS<7, 30% if YOS>=7.",
+  "computation_kind": "conditional"
 }}
 
-Description: "aggregate first-year Salaries of all Player Contracts signed under the MLE"
+Description: "the sum of first-year Salaries of all Player Contracts the team signs under the MLE"
 Kind hint: arithmetic
 Output:
 {{
   "spec_type": "derived_atom",
   "atom_id_hint": "aggregated_mle_first_year_salary",
-  "statement": "Sum of first-year salaries of all contracts the team has signed under the MLE in this Salary Cap Year.",
-  "computation_kind": "aggregate_sum"
+  "statement": "Sum of first-year Salaries of all Player Contracts the team has signed under the MLE in this Salary Cap Year.",
+  "computation_kind": "named_quantity"
 }}
 
-Description: "9.12% of (the Salary Cap minus the prior-year contract salary)"
-Kind hint: arithmetic
-Output:
-{{
-  "spec_type": "unary_arithmetic",
-  "operator": "times_const",
-  "constant": 0.0912,
-  "child": {{
-    "spec_type": "unary_arithmetic",
-    "operator": "const_minus",
-    "constant_label": "salary_cap",
-    "child": {{
-      "spec_type": "numeric_leaf",
-      "atom_id_hint": "player_prior_year_salary",
-      "statement": "The player's salary in the final season of his prior contract."
-    }}
-  }}
-}}
+NOTE: The aggregate above is derived_atom because the set of contracts
+is not enumerable from a single case description. If the case explicitly
+listed each contract, use sum with one child per stated contract.
 
 Output ONLY the JSON spec. No preamble, no commentary, no markdown code
 fences.
