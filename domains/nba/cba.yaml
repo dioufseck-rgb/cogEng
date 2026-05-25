@@ -101,6 +101,15 @@ constants:
   october_1_of_salary_cap_year: 0
   december_16_of_salary_cap_year: 0
 
+  # Surfaced during translation-framing experiment on 2026-05-25
+  # The CBA references "the average Salary of all Player Contracts in
+  # effect at the time" as a derived quantity. Not a true policy
+  # constant (depends on league-wide data). Placeholder of 0 allows
+  # Stage-4 conversion to succeed; the engine will propagate
+  # UNDETERMINED wherever this is referenced until proper handling
+  # is added.
+  prior_average_player_salary: 0
+
 
 # --------------------------------------------------------------------
 # Determinations

@@ -1,0 +1,190 @@
+{
+  "determination": "nba.cap_room",
+  "n_runs": 3,
+  "runs": [
+    {
+      "run": 1,
+      "elapsed_s": 308.98814368247986,
+      "n_nodes": 104,
+      "n_atoms": 37,
+      "operator_counts": {
+        "Determination": 1,
+        "OrNode": 4,
+        "LeqNode": 11,
+        "PlusNode": 5,
+        "NumericLeaf": 25,
+        "Constant": 13,
+        "Leaf": 23,
+        "AndNode": 12,
+        "GtNode": 1,
+        "GeqNode": 2,
+        "LtNode": 2,
+        "TimesConstNode": 4,
+        "MaxNode": 1
+      },
+      "phrases_found": {
+        "First Apron": [
+          [
+            "GtNode",
+            "Post-use team salary exceeds First Apron"
+          ]
+        ],
+        "Second Apron": [
+          [
+            "LeqNode",
+            "Second Apron restriction on Taxpayer MLE use"
+          ]
+        ],
+        "hard cap": [],
+        "acquiring": [],
+        "assignee": [],
+        "post-signing": [],
+        "Bird": [],
+        "Salary Cap": [
+          [
+            "GeqNode",
+            "Team Salary at or above Salary Cap (Taxpayer MLE precondition)"
+          ],
+          [
+            "LtNode",
+            "Team Salary below Salary Cap (Room Team status)"
+          ],
+          [
+            "LtNode",
+            "Team Salary fell below Salary Cap (Room Team status)"
+          ],
+          [
+            "LeqNode",
+            "EQVFA first-year salary cap (175% prior / 105% APS)"
+          ]
+        ]
+      },
+      "unique_node_types": [
+        "AndNode",
+        "Constant",
+        "Determination",
+        "GeqNode",
+        "GtNode",
+        "Leaf",
+        "LeqNode",
+        "LtNode",
+        "MaxNode",
+        "NumericLeaf",
+        "OrNode",
+        "PlusNode",
+        "TimesConstNode"
+      ]
+    },
+    {
+      "run": 2,
+      "elapsed_s": 42.88835787773132,
+      "n_nodes": 16,
+      "n_atoms": 10,
+      "operator_counts": {
+        "Determination": 1,
+        "OrNode": 2,
+        "LeqNode": 1,
+        "PlusNode": 1,
+        "NumericLeaf": 2,
+        "Constant": 1,
+        "Leaf": 8
+      },
+      "phrases_found": {
+        "First Apron": [],
+        "Second Apron": [],
+        "hard cap": [],
+        "acquiring": [],
+        "assignee": [],
+        "post-signing": [],
+        "Bird": [],
+        "Salary Cap": []
+      },
+      "unique_node_types": [
+        "Constant",
+        "Determination",
+        "Leaf",
+        "LeqNode",
+        "NumericLeaf",
+        "OrNode",
+        "PlusNode"
+      ]
+    },
+    {
+      "run": 3,
+      "elapsed_s": 210.73871684074402,
+      "n_nodes": 83,
+      "n_atoms": 39,
+      "operator_counts": {
+        "Determination": 1,
+        "OrNode": 2,
+        "LeqNode": 7,
+        "PlusNode": 4,
+        "NumericLeaf": 25,
+        "Constant": 6,
+        "Leaf": 15,
+        "AndNode": 9,
+        "LtNode": 2,
+        "TimesConstNode": 6,
+        "GeqNode": 2,
+        "MinNode": 2,
+        "MaxNode": 2
+      },
+      "phrases_found": {
+        "First Apron": [],
+        "Second Apron": [],
+        "hard cap": [],
+        "acquiring": [],
+        "assignee": [],
+        "post-signing": [
+          [
+            "LeqNode",
+            "Team has Room (post-signing Team Salary \u2264 Salary Cap)"
+          ]
+        ],
+        "Bird": [],
+        "Salary Cap": [
+          [
+            "LeqNode",
+            "Team has Room (post-signing Team Salary \u2264 Salary Cap)"
+          ],
+          [
+            "LtNode",
+            "Team under the Salary Cap (Room MLE predicate)"
+          ],
+          [
+            "LeqNode",
+            "Room MLE aggregate cap (5.678% of Salary Cap)"
+          ],
+          [
+            "LtNode",
+            "Team Salary below Salary Cap (Room Team status)"
+          ],
+          [
+            "LeqNode",
+            "EQVFA first-year salary cap"
+          ],
+          [
+            "LeqNode",
+            "Non-Qualifying Veteran FA first-year salary cap"
+          ]
+        ]
+      },
+      "unique_node_types": [
+        "AndNode",
+        "Constant",
+        "Determination",
+        "GeqNode",
+        "Leaf",
+        "LeqNode",
+        "LtNode",
+        "MaxNode",
+        "MinNode",
+        "NumericLeaf",
+        "OrNode",
+        "PlusNode",
+        "TimesConstNode"
+      ]
+    }
+  ],
+  "unique_tree_shapes": 3
+}

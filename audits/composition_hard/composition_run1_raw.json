@@ -1,0 +1,159 @@
+{
+  "node_type": "LeqNode",
+  "label": "first_year_salary <= maximum_annual_salary",
+  "left": {
+    "node_type": "NumericLeaf",
+    "label": "first_year_salary",
+    "atom_id": "first_year_salary"
+  },
+  "right": {
+    "node_type": "MaxNode",
+    "label": "greater_of(bracket_pct * salary_cap, 105% * prior_salary)",
+    "children": [
+      {
+        "node_type": "ConditionalNumericNode",
+        "label": "bracket_percentage * salary_cap (by YOS, with Higher Max boost)",
+        "condition": {
+          "node_type": "LtNode",
+          "label": "YOS < 7",
+          "left": {
+            "node_type": "NumericLeaf",
+            "label": "years_of_service",
+            "atom_id": "years_of_service"
+          },
+          "right": {
+            "node_type": "Constant",
+            "label": "7",
+            "constant_label": "seven_years"
+          }
+        },
+        "if_true": {
+          "node_type": "ConditionalNumericNode",
+          "label": "<7 YOS: Higher Max Criteria boost?",
+          "condition": {
+            "node_type": "OrNode",
+            "label": "Higher Max Criteria met",
+            "children": [
+              {
+                "node_type": "Leaf",
+                "label": "All-NBA 1/2/3 or DPOY in last season or 2 of 3 prior",
+                "atom_id": "all_nba_or_dpoy_criteria_met"
+              },
+              {
+                "node_type": "Leaf",
+                "label": "NBA MVP in one of last three seasons",
+                "atom_id": "mvp_criteria_met"
+              }
+            ]
+          },
+          "if_true": {
+            "node_type": "ConditionalNumericNode",
+            "label": "Higher Max tier: MVP > All-NBA 1st > All-NBA 2nd",
+            "condition": {
+              "node_type": "Leaf",
+              "label": "Qualifies as MVP tier",
+              "atom_id": "qualifies_mvp_tier"
+            },
+            "if_true": {
+              "node_type": "TimesConstNode",
+              "label": "30% * salary_cap",
+              "left": {
+                "node_type": "Constant",
+                "label": "salary_cap",
+                "constant_label": "salary_cap"
+              },
+              "constant": "0.30"
+            },
+            "if_false": {
+              "node_type": "ConditionalNumericNode",
+              "label": "All-NBA First Team tier vs Second Team tier",
+              "condition": {
+                "node_type": "Leaf",
+                "label": "Qualifies as All-NBA First Team tier",
+                "atom_id": "qualifies_all_nba_first_team_tier"
+              },
+              "if_true": {
+                "node_type": "TimesConstNode",
+                "label": "28% * salary_cap",
+                "left": {
+                  "node_type": "Constant",
+                  "label": "salary_cap",
+                  "constant_label": "salary_cap"
+                },
+                "constant": "0.28"
+              },
+              "if_false": {
+                "node_type": "TimesConstNode",
+                "label": "27% * salary_cap (All-NBA Second/Third Team or DPOY)",
+                "left": {
+                  "node_type": "Constant",
+                  "label": "salary_cap",
+                  "constant_label": "salary_cap"
+                },
+                "constant": "0.27"
+              }
+            }
+          },
+          "if_false": {
+            "node_type": "TimesConstNode",
+            "label": "25% * salary_cap (default <7 YOS)",
+            "left": {
+              "node_type": "Constant",
+              "label": "salary_cap",
+              "constant_label": "salary_cap"
+            },
+            "constant": "0.25"
+          }
+        },
+        "if_false": {
+          "node_type": "ConditionalNumericNode",
+          "label": "7-9 YOS vs 10+ YOS",
+          "condition": {
+            "node_type": "LtNode",
+            "label": "YOS < 10",
+            "left": {
+              "node_type": "NumericLeaf",
+              "label": "years_of_service",
+              "atom_id": "years_of_service"
+            },
+            "right": {
+              "node_type": "Constant",
+              "label": "10",
+              "constant_label": "ten_years"
+            }
+          },
+          "if_true": {
+            "node_type": "TimesConstNode",
+            "label": "30% * salary_cap (7-9 YOS)",
+            "left": {
+              "node_type": "Constant",
+              "label": "salary_cap",
+              "constant_label": "salary_cap"
+            },
+            "constant": "0.30"
+          },
+          "if_false": {
+            "node_type": "TimesConstNode",
+            "label": "35% * salary_cap (10+ YOS)",
+            "left": {
+              "node_type": "Constant",
+              "label": "salary_cap",
+              "constant_label": "salary_cap"
+            },
+            "constant": "0.35"
+          }
+        }
+      },
+      {
+        "node_type": "TimesConstNode",
+        "label": "105% * prior_contract_last_year_salary",
+        "left": {
+          "node_type": "NumericLeaf",
+          "label": "prior_contract_last_year_salary",
+          "atom_id": "prior_contract_last_year_salary"
+        },
+        "constant": "1.05"
+      }
+    ]
+  }
+}

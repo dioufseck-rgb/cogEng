@@ -1,0 +1,95 @@
+{
+  "cluster": [
+    {
+      "id": "u1",
+      "tag": "OBLIGATION",
+      "text": "A Team's Team Salary may not exceed the Salary Cap at any time unless the Team is using an Exception under Article VII Section 6."
+    },
+    {
+      "id": "u2",
+      "tag": "REFERENCE",
+      "text": "Exception \u00a76(d): Bi-annual Exception."
+    },
+    {
+      "id": "u3",
+      "tag": "REFERENCE",
+      "text": "Exception \u00a76(e): Non-Taxpayer Mid-Level Salary Exception."
+    },
+    {
+      "id": "u4",
+      "tag": "REFERENCE",
+      "text": "Exception \u00a76(f): Taxpayer Mid-Level Salary Exception."
+    },
+    {
+      "id": "u5",
+      "tag": "REFERENCE",
+      "text": "Exception \u00a76(g): Mid-Level Salary Exception for Room Teams."
+    },
+    {
+      "id": "u6",
+      "tag": "REFERENCE",
+      "text": "Exception \u00a76(b): Veteran Free Agent Exception (Qualifying, Early Qualifying, or Non-Qualifying variants)."
+    },
+    {
+      "id": "u7",
+      "tag": "REFERENCE",
+      "text": "Exception \u00a76(c): Minimum Player Salary Exception."
+    },
+    {
+      "id": "u8",
+      "tag": "REFERENCE",
+      "text": "Exception \u00a76(j): Traded Player Exception."
+    },
+    {
+      "id": "u9",
+      "tag": "THRESHOLD",
+      "text": "Salary Cap value (named constant: salary_cap)."
+    }
+  ],
+  "model": "claude-opus-4-7",
+  "n_runs": 3,
+  "runs": [
+    {
+      "run": 1,
+      "elapsed_s": 9.677201509475708,
+      "n_nodes": 12,
+      "max_depth": 2,
+      "node_type_counts": {
+        "OrNode": 2,
+        "LeqNode": 1,
+        "NumericLeaf": 1,
+        "Constant": 1,
+        "Leaf": 7
+      },
+      "root_type": "OrNode"
+    },
+    {
+      "run": 2,
+      "elapsed_s": 8.020208597183228,
+      "n_nodes": 12,
+      "max_depth": 2,
+      "node_type_counts": {
+        "OrNode": 2,
+        "LeqNode": 1,
+        "NumericLeaf": 1,
+        "Constant": 1,
+        "Leaf": 7
+      },
+      "root_type": "OrNode"
+    },
+    {
+      "run": 3,
+      "elapsed_s": 8.242786884307861,
+      "n_nodes": 12,
+      "max_depth": 2,
+      "node_type_counts": {
+        "OrNode": 2,
+        "LeqNode": 1,
+        "NumericLeaf": 1,
+        "Constant": 1,
+        "Leaf": 7
+      },
+      "root_type": "OrNode"
+    }
+  ]
+}

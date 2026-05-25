@@ -1,0 +1,155 @@
+{
+  "determination": "nba.cap_room",
+  "model": "claude-opus-4-7",
+  "framing": "translation_preamble",
+  "n_runs": 3,
+  "runs": [
+    {
+      "run": 1,
+      "elapsed_s": 253.25145411491394,
+      "n_nodes": 83,
+      "n_atoms": 40,
+      "operator_counts": {
+        "Determination": 1,
+        "OrNode": 5,
+        "LeqNode": 8,
+        "PlusNode": 5,
+        "NumericLeaf": 20,
+        "Constant": 6,
+        "Leaf": 22,
+        "AndNode": 8,
+        "LtNode": 1,
+        "TimesConstNode": 5,
+        "GeqNode": 1,
+        "MaxNode": 1
+      },
+      "phrases_found": {
+        "First Apron": [],
+        "Second Apron": [],
+        "hard cap": [],
+        "acquiring": [],
+        "assignee": [],
+        "post-signing": [],
+        "Bird": [],
+        "Salary Cap": [
+          [
+            "LeqNode",
+            "Team Salary within Salary Cap"
+          ],
+          [
+            "LtNode",
+            "Team Salary below Salary Cap (Room Team status)"
+          ],
+          [
+            "LeqNode",
+            "Room MLE aggregate cap (5.678% of Salary Cap)"
+          ],
+          [
+            "AndNode",
+            "EQVFA first-year salary cap (formula AND max salary)"
+          ]
+        ]
+      },
+      "unique_node_types": [
+        "AndNode",
+        "Constant",
+        "Determination",
+        "GeqNode",
+        "Leaf",
+        "LeqNode",
+        "LtNode",
+        "MaxNode",
+        "NumericLeaf",
+        "OrNode",
+        "PlusNode",
+        "TimesConstNode"
+      ]
+    },
+    {
+      "run": 2,
+      "elapsed_s": 53.03544616699219,
+      "n_nodes": 16,
+      "n_atoms": 10,
+      "operator_counts": {
+        "Determination": 1,
+        "OrNode": 2,
+        "LeqNode": 1,
+        "PlusNode": 1,
+        "NumericLeaf": 2,
+        "Constant": 1,
+        "Leaf": 8
+      },
+      "phrases_found": {
+        "First Apron": [],
+        "Second Apron": [],
+        "hard cap": [],
+        "acquiring": [],
+        "assignee": [],
+        "post-signing": [],
+        "Bird": [],
+        "Salary Cap": []
+      },
+      "unique_node_types": [
+        "Constant",
+        "Determination",
+        "Leaf",
+        "LeqNode",
+        "NumericLeaf",
+        "OrNode",
+        "PlusNode"
+      ]
+    },
+    {
+      "run": 3,
+      "elapsed_s": 145.20612859725952,
+      "n_nodes": 54,
+      "n_atoms": 28,
+      "operator_counts": {
+        "Determination": 1,
+        "OrNode": 4,
+        "LeqNode": 4,
+        "PlusNode": 3,
+        "NumericLeaf": 14,
+        "Constant": 2,
+        "Leaf": 14,
+        "AndNode": 3,
+        "GeqNode": 1,
+        "MinNode": 1,
+        "MaxNode": 1,
+        "TimesConstNode": 5,
+        "MinusNode": 1
+      },
+      "phrases_found": {
+        "First Apron": [],
+        "Second Apron": [],
+        "hard cap": [],
+        "acquiring": [],
+        "assignee": [],
+        "post-signing": [],
+        "Bird": [],
+        "Salary Cap": [
+          [
+            "LeqNode",
+            "Direct cap room: Team Salary \u2264 Salary Cap"
+          ]
+        ]
+      },
+      "unique_node_types": [
+        "AndNode",
+        "Constant",
+        "Determination",
+        "GeqNode",
+        "Leaf",
+        "LeqNode",
+        "MaxNode",
+        "MinNode",
+        "MinusNode",
+        "NumericLeaf",
+        "OrNode",
+        "PlusNode",
+        "TimesConstNode"
+      ]
+    }
+  ],
+  "unique_tree_shapes": 3
+}

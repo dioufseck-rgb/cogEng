@@ -1,0 +1,61 @@
+{
+  "node_type": "OrNode",
+  "label": "Team Salary within Cap OR using an Exception",
+  "children": [
+    {
+      "node_type": "LeqNode",
+      "label": "Team Salary <= Salary Cap",
+      "left": {
+        "node_type": "NumericLeaf",
+        "label": "Team Salary",
+        "atom_id": "team_salary"
+      },
+      "right": {
+        "node_type": "Constant",
+        "label": "Salary Cap",
+        "constant_label": "salary_cap"
+      }
+    },
+    {
+      "node_type": "OrNode",
+      "label": "Using an Article VII Section 6 Exception",
+      "children": [
+        {
+          "node_type": "Leaf",
+          "label": "Using Bi-annual Exception (\u00a76(d))",
+          "atom_id": "using_exception_6d_biannual"
+        },
+        {
+          "node_type": "Leaf",
+          "label": "Using Non-Taxpayer Mid-Level Exception (\u00a76(e))",
+          "atom_id": "using_exception_6e_non_taxpayer_mle"
+        },
+        {
+          "node_type": "Leaf",
+          "label": "Using Taxpayer Mid-Level Exception (\u00a76(f))",
+          "atom_id": "using_exception_6f_taxpayer_mle"
+        },
+        {
+          "node_type": "Leaf",
+          "label": "Using Room Mid-Level Exception (\u00a76(g))",
+          "atom_id": "using_exception_6g_room_mle"
+        },
+        {
+          "node_type": "Leaf",
+          "label": "Using Veteran Free Agent Exception (\u00a76(b))",
+          "atom_id": "using_exception_6b_veteran_fa"
+        },
+        {
+          "node_type": "Leaf",
+          "label": "Using Minimum Player Salary Exception (\u00a76(c))",
+          "atom_id": "using_exception_6c_minimum_salary"
+        },
+        {
+          "node_type": "Leaf",
+          "label": "Using Traded Player Exception (\u00a76(j))",
+          "atom_id": "using_exception_6j_traded_player"
+        }
+      ]
+    }
+  ]
+}

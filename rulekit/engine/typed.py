@@ -600,6 +600,88 @@ class MinNode:
         return result
 
 
+@dataclass
+class ConditionalNumericNode:
+    """Select between two numeric branches based on a Boolean condition.
+
+    Pattern: IF condition THEN if_true_value ELSE if_false_value.
+    This is the fundamental construct for bracketed selection in policy
+    adjudication — YOS-bracket maximum salary, age-bracketed thresholds,
+    tier-classified amounts, etc.
+
+    Semantics:
+      - condition is a Boolean node (returns Kleene)
+      - if_true and if_false are numeric nodes (return NumericValue)
+      - condition Kleene.TRUE  → evaluate if_true branch
+      - condition Kleene.FALSE → evaluate if_false branch
+      - condition Kleene.UNDETERMINED → result is NumericValue.undetermined()
+
+    UND-conservative: when we don't know which branch applies, we can't
+    commit to a numeric value. This matches the architectural principle
+    of not guessing.
+
+    Note: unlike And/Or where short-circuiting can resolve UND from
+    partial information, conditional numeric selection has no such
+    short-circuit. If we don't know the condition, we cannot select
+    a branch even if both branches would have the same value (that
+    would require evaluating both, which the architecture treats as
+    an unwarranted commitment under uncertainty).
+    """
+    condition: object  # Boolean node (returns Kleene)
+    if_true: object    # Numeric node (returns NumericValue)
+    if_false: object   # Numeric node (returns NumericValue)
+    surface_label: str = ""
+    source_span: str = ""
+    provenance: Provenance = Provenance.STRUCTURAL
+
+    def evaluate(self, bundle: FactBundle, trace: Optional[list] = None) -> NumericValue:
+        cond_trace = [] if trace is not None else None
+        cond_value = self.condition.evaluate(bundle, cond_trace)
+
+        # Initialize branch traces and values; only evaluate the selected branch
+        true_trace = [] if trace is not None else None
+        false_trace = [] if trace is not None else None
+        true_value = None
+        false_value = None
+
+        if cond_value == Kleene.TRUE:
+            true_value = self.if_true.evaluate(bundle, true_trace)
+            result = true_value
+        elif cond_value == Kleene.FALSE:
+            false_value = self.if_false.evaluate(bundle, false_trace)
+            result = false_value
+        else:  # Kleene.UNDETERMINED
+            result = NumericValue.undetermined()
+
+        if trace is not None:
+            entry = {
+                "type": "conditional_numeric",
+                "surface_label": self.surface_label,
+                "provenance": self.provenance.value,
+                "condition_value": (
+                    "true" if cond_value == Kleene.TRUE
+                    else "false" if cond_value == Kleene.FALSE
+                    else "undetermined"
+                ),
+                "result": str(result) if not result.is_undetermined else "undetermined",
+                "condition_trace": cond_trace,
+            }
+            # Only include the trace of the branch we actually evaluated, to
+            # avoid claiming we evaluated branches we didn't (audit honesty).
+            if cond_value == Kleene.TRUE:
+                entry["evaluated_branch"] = "if_true"
+                entry["if_true_value"] = str(true_value) if true_value and not true_value.is_undetermined else "undetermined"
+                entry["if_true_trace"] = true_trace
+            elif cond_value == Kleene.FALSE:
+                entry["evaluated_branch"] = "if_false"
+                entry["if_false_value"] = str(false_value) if false_value and not false_value.is_undetermined else "undetermined"
+                entry["if_false_trace"] = false_trace
+            else:
+                entry["evaluated_branch"] = "none (condition undetermined)"
+            trace.append(entry)
+        return result
+
+
 def _binary_trace_entry(node_kind, node, left_value, right_value, result,
                         left_trace, right_trace):
     return {
