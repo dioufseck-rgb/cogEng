@@ -30,6 +30,8 @@ from rulekit.engine.typed import (
     NumericLeaf, Constant,
     TimesConstNode, PlusConstNode, MinusConstNode, ConstMinusNode,
     DivByConstNode, ConstDivByNode,
+    PlusNode, MinusNode, MulNode,
+    SumNode, MaxNode, MinNode,
     EqNode, LtNode, LeqNode, GtNode, GeqNode,
 )
 from rulekit.schema import Atom
@@ -283,11 +285,22 @@ class UnaryArithmeticSpec:
 class DerivedAtomSpec:
     """A numeric quantity whose computation is delegated to Map.
 
-    Used for arithmetic the engine deliberately cannot express:
-      - aggregate_sum: sum over multiple instances
-      - max_of / min_of: max or min over multiple terms
-      - conditional: arithmetic whose form depends on a condition
-      - named_quantity: a derived quantity defined elsewhere in the policy
+    HISTORICAL DESIGN NOTE: This spec type was originally used for any
+    arithmetic the engine couldn't express, including aggregate_sum,
+    max_of, and min_of. Empirical Phase 2 findings showed that Map
+    (both Sonnet 4.6 and Opus 4.7) reliably extracts case-stated facts
+    but refuses to reliably compute derived values across atom
+    boundaries, even when the atom statement explicitly describes the
+    computation.
+
+    As of Phase 3, `aggregate_sum`, `max_of`, and `min_of` should be
+    expressed as engine arithmetic via the new SumSpec, MaxSpec, and
+    MinSpec types (which become engine SumNode/MaxNode/MinNode). The
+    remaining legitimate uses of DerivedAtomSpec are:
+      - conditional: arithmetic whose form depends on a runtime
+        condition the engine cannot pre-compose
+      - named_quantity: a named quantity defined elsewhere in the
+        policy that requires document-level interpretation
 
     See typed_build_decisions.md, Decisions 4 and 5. Becomes an engine
     NumericLeaf node at Stage-4 conversion; Map computes the value per
@@ -295,15 +308,103 @@ class DerivedAtomSpec:
     """
     atom_id_hint: str
     statement: str
-    computation_kind: str   # "aggregate_sum" | "max_of" | "min_of" |
-                            # "conditional" | "named_quantity"
+    computation_kind: str   # "conditional" | "named_quantity"
+                            # (aggregate_sum/max_of/min_of are deprecated;
+                            # use SumSpec/MaxSpec/MinSpec instead)
     source_span: str = ""
     # Assigned during typed-atom deduplication (Piece 6, not yet implemented)
     atom_id: Optional[str] = None
 
 
-# Union over the four numeric spec types produced by Piece 2
-NumericSpec = Union[NumericLeafSpec, ConstantSpec, UnaryArithmeticSpec, DerivedAtomSpec]
+# ---------------------------------------------------------------------------
+# Binary and variadic arithmetic spec types — added in response to
+# Phase 2 finding that Map cannot reliably compute multi-fact arithmetic.
+# Each mirrors a corresponding engine node (PlusNode, SumNode, MaxNode, etc.)
+# and converts to it at Stage-4.
+# ---------------------------------------------------------------------------
+
+@dataclass
+class PlusSpec:
+    """left + right (binary). Both operands are NumericSpecs."""
+    left: "NumericSpec"
+    right: "NumericSpec"
+    surface_label: str = ""
+    source_span: str = ""
+
+
+@dataclass
+class MinusSpec:
+    """left - right (binary). Both operands are NumericSpecs."""
+    left: "NumericSpec"
+    right: "NumericSpec"
+    surface_label: str = ""
+    source_span: str = ""
+
+
+@dataclass
+class MulSpec:
+    """left * right (binary). Both operands are NumericSpecs."""
+    left: "NumericSpec"
+    right: "NumericSpec"
+    surface_label: str = ""
+    source_span: str = ""
+
+
+@dataclass
+class SumSpec:
+    """Variadic sum over N >= 2 NumericSpec children."""
+    children: list  # list of NumericSpec
+    surface_label: str = ""
+    source_span: str = ""
+
+    def __post_init__(self):
+        if len(self.children) < 2:
+            raise ValueError(
+                f"SumSpec requires >= 2 children, got {len(self.children)}"
+            )
+
+
+@dataclass
+class MaxSpec:
+    """Variadic max over N >= 2 NumericSpec children.
+
+    Replaces DerivedAtomSpec(computation_kind="max_of"). The engine's
+    MaxNode applies UND-conservative semantics: any UND operand yields
+    UND result.
+    """
+    children: list
+    surface_label: str = ""
+    source_span: str = ""
+
+    def __post_init__(self):
+        if len(self.children) < 2:
+            raise ValueError(
+                f"MaxSpec requires >= 2 children, got {len(self.children)}"
+            )
+
+
+@dataclass
+class MinSpec:
+    """Variadic min over N >= 2 NumericSpec children.
+
+    Replaces DerivedAtomSpec(computation_kind="min_of").
+    """
+    children: list
+    surface_label: str = ""
+    source_span: str = ""
+
+    def __post_init__(self):
+        if len(self.children) < 2:
+            raise ValueError(
+                f"MinSpec requires >= 2 children, got {len(self.children)}"
+            )
+
+
+# Union over all numeric spec types produced by Piece 2
+NumericSpec = Union[
+    NumericLeafSpec, ConstantSpec, UnaryArithmeticSpec, DerivedAtomSpec,
+    PlusSpec, MinusSpec, MulSpec, SumSpec, MaxSpec, MinSpec,
+]
 
 
 @dataclass
@@ -476,33 +577,61 @@ code fences.
 # ---------------------------------------------------------------------------
 
 class LLMCaller:
+    """Anthropic-API caller wrapper with offline-response support for tests.
+
+    Parameters:
+        model: model string (e.g. "claude-opus-4-7")
+        offline_responses: dict of stage_name → canned response for tests
+        max_tokens: default max output tokens per call (default 4096)
+        timeout: request timeout in seconds (default 120)
+    """
     def __init__(self, model: str = "claude-opus-4-7",
-                 offline_responses: Optional[dict] = None):
+                 offline_responses: Optional[dict] = None,
+                 max_tokens: int = 4096,
+                 timeout: float = 120.0):
         self.model = model
         self.offline_responses = offline_responses or {}
+        self.max_tokens = max_tokens
+        self.timeout = timeout
         self._client = None
 
-    def call(self, stage_name: str, prompt: str) -> str:
+    def call(self, stage_name: str, prompt: str,
+             max_tokens: Optional[int] = None,
+             stream: bool = True) -> str:
         if stage_name in self.offline_responses:
             return self.offline_responses[stage_name]
         if self._client is None:
             import anthropic
-            self._client = anthropic.Anthropic()
-        response = self._client.messages.create(
-            model=self.model,
-            max_tokens=4096,
-            messages=[{"role": "user", "content": prompt}],
-        )
-        # response.content is a list of content blocks. With adaptive thinking
-        # enabled (default on Opus 4.7), the first block may be a thinking
-        # block — extract from the first block of type "text" instead.
-        for block in response.content:
-            block_type = getattr(block, "type", None)
-            if block_type == "text" or (block_type is None and hasattr(block, "text")):
-                return block.text
-        # No text block found — return empty so downstream parsers surface
-        # the issue clearly.
-        return ""
+            self._client = anthropic.Anthropic(timeout=self.timeout)
+        mt = max_tokens if max_tokens is not None else self.max_tokens
+        if stream:
+            # Streaming — accumulate text deltas. Gives both progress
+            # observability and avoids client-side hang on long calls.
+            collected = []
+            with self._client.messages.stream(
+                model=self.model,
+                max_tokens=mt,
+                messages=[{"role": "user", "content": prompt}],
+            ) as s:
+                for text in s.text_stream:
+                    collected.append(text)
+            return "".join(collected)
+        else:
+            response = self._client.messages.create(
+                model=self.model,
+                max_tokens=mt,
+                messages=[{"role": "user", "content": prompt}],
+            )
+            # response.content is a list of content blocks. With adaptive thinking
+            # enabled (default on Opus 4.7), the first block may be a thinking
+            # block — extract from the first block of type "text" instead.
+            for block in response.content:
+                block_type = getattr(block, "type", None)
+                if block_type == "text" or (block_type is None and hasattr(block, "text")):
+                    return block.text
+            # No text block found — return empty so downstream parsers surface
+            # the issue clearly.
+            return ""
 
 
 def _parse_json_response(text: str):
@@ -844,9 +973,44 @@ def _build_numeric_spec_from_parsed(parsed: dict,
             source_span=parsed.get("source_span", ""),
         )
 
+    # Binary arithmetic specs
+    if spec_type in ("plus", "minus", "mul"):
+        left_parsed = parsed.get("left")
+        right_parsed = parsed.get("right")
+        if left_parsed is None or right_parsed is None:
+            raise ValueError(
+                f"{spec_type} spec requires 'left' and 'right' fields."
+            )
+        left = _build_numeric_spec_from_parsed(left_parsed, state)
+        right = _build_numeric_spec_from_parsed(right_parsed, state)
+        cls = {"plus": PlusSpec, "minus": MinusSpec, "mul": MulSpec}[spec_type]
+        return cls(
+            left=left, right=right,
+            surface_label=parsed.get("surface_label", ""),
+            source_span=parsed.get("source_span", ""),
+        )
+
+    # Variadic arithmetic specs
+    if spec_type in ("sum", "max", "min"):
+        children_parsed = parsed.get("children", [])
+        if len(children_parsed) < 2:
+            raise ValueError(
+                f"{spec_type} spec requires 'children' list with >=2 entries, "
+                f"got {len(children_parsed)}."
+            )
+        children = [_build_numeric_spec_from_parsed(c, state)
+                    for c in children_parsed]
+        cls = {"sum": SumSpec, "max": MaxSpec, "min": MinSpec}[spec_type]
+        return cls(
+            children=children,
+            surface_label=parsed.get("surface_label", ""),
+            source_span=parsed.get("source_span", ""),
+        )
+
     raise ValueError(
         f"Unknown numeric spec_type {spec_type!r}. "
-        f"Expected one of: numeric_leaf, constant, unary_arithmetic, derived_atom."
+        f"Expected one of: numeric_leaf, constant, unary_arithmetic, "
+        f"derived_atom, plus, minus, mul, sum, max, min."
     )
 
 
@@ -1414,6 +1578,52 @@ def _numeric_spec_to_engine_node(
                 surface_label=spec.surface_label, source_span=spec.source_span,
             )
         raise ValueError(f"Unknown unary_arithmetic operator: {op!r}")
+
+    # Binary arithmetic specs — PlusSpec, MinusSpec, MulSpec
+    if isinstance(spec, PlusSpec):
+        left = _numeric_spec_to_engine_node(spec.left, atoms, constants)
+        right = _numeric_spec_to_engine_node(spec.right, atoms, constants)
+        return PlusNode(
+            left=left, right=right,
+            surface_label=spec.surface_label, source_span=spec.source_span,
+        )
+    if isinstance(spec, MinusSpec):
+        left = _numeric_spec_to_engine_node(spec.left, atoms, constants)
+        right = _numeric_spec_to_engine_node(spec.right, atoms, constants)
+        return MinusNode(
+            left=left, right=right,
+            surface_label=spec.surface_label, source_span=spec.source_span,
+        )
+    if isinstance(spec, MulSpec):
+        left = _numeric_spec_to_engine_node(spec.left, atoms, constants)
+        right = _numeric_spec_to_engine_node(spec.right, atoms, constants)
+        return MulNode(
+            left=left, right=right,
+            surface_label=spec.surface_label, source_span=spec.source_span,
+        )
+
+    # Variadic arithmetic specs — SumSpec, MaxSpec, MinSpec
+    if isinstance(spec, SumSpec):
+        children = [_numeric_spec_to_engine_node(c, atoms, constants)
+                    for c in spec.children]
+        return SumNode(
+            children=children,
+            surface_label=spec.surface_label, source_span=spec.source_span,
+        )
+    if isinstance(spec, MaxSpec):
+        children = [_numeric_spec_to_engine_node(c, atoms, constants)
+                    for c in spec.children]
+        return MaxNode(
+            children=children,
+            surface_label=spec.surface_label, source_span=spec.source_span,
+        )
+    if isinstance(spec, MinSpec):
+        children = [_numeric_spec_to_engine_node(c, atoms, constants)
+                    for c in spec.children]
+        return MinNode(
+            children=children,
+            surface_label=spec.surface_label, source_span=spec.source_span,
+        )
 
     raise ValueError(
         f"Unknown numeric spec class: {type(spec).__name__}"
