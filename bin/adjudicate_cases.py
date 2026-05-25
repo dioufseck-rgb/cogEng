@@ -49,6 +49,9 @@ from rulekit.map.typed import (
     TypedNarrativeLLMSubstrate, TypedAtom, AtomType,
     map_case_to_typed_bundle, NumericValue,
 )
+from rulekit.map.structured import (
+    StructuredOutputSubstrate, map_case_to_typed_bundle_structured,
+)
 from rulekit.build.decomposer import LLMCaller
 from rulekit.cases.rulearena_adapter import load_ruleArena_cases
 
@@ -155,11 +158,9 @@ def adjudicate_case(case, build, aliases, substrate, typed_atoms) -> dict:
     # Run Map — bind ALL atoms (we could subset to only atoms referenced
     # by relevant determinations, but binding all keeps the Map call
     # uniform per case and produces a complete audit).
-    bundle = map_case_to_typed_bundle(
-        evidence=case.description,
-        typed_atoms=typed_atoms,
-        substrate=substrate,
-    )
+    # Substrate's bind_typed is the same interface for both per-atom and
+    # structured-output substrates.
+    bundle = substrate.bind_typed(case.description, typed_atoms)
 
     # Evaluate each determination
     per_det_results = {}
@@ -219,9 +220,15 @@ def main():
                         help="RuleArena family → determination alias YAML")
     parser.add_argument("--model", default="claude-sonnet-4-6",
                         help="Model for Map (default: claude-sonnet-4-6)")
+    parser.add_argument("--substrate", choices=["per-atom", "structured"],
+                        default="structured",
+                        help="Map substrate: 'per-atom' (one LLM call per atom; "
+                             "slow but preserves architectural-purity claim) or "
+                             "'structured' (one LLM call per case; production-"
+                             "deployable). Default: structured.")
     parser.add_argument("--batch-size", type=int, default=1,
-                        help="Map batch_size (default: 1 — one atom per call, "
-                             "preserves per-atom focus)")
+                        help="Per-atom substrate batch size (default: 1, ignored "
+                             "for structured substrate)")
     parser.add_argument("--out-dir", default="audits",
                         help="Output directory for per-case audit JSON")
     args = parser.parse_args()
@@ -252,14 +259,20 @@ def main():
 
     # Set up Map substrate
     print(f"Model: {args.model}")
-    print(f"Batch size: {args.batch_size} "
-          f"(one-per-atom)" if args.batch_size == 1 else "")
+    print(f"Substrate: {args.substrate}")
+    if args.substrate == "per-atom":
+        print(f"Batch size: {args.batch_size} "
+              f"(one-per-atom)" if args.batch_size == 1 else "")
     print()
 
     llm = LLMCaller(model=args.model)
-    substrate = TypedNarrativeLLMSubstrate(
-        llm=llm, batch_size=args.batch_size if args.batch_size > 0 else None
-    )
+    if args.substrate == "structured":
+        substrate = StructuredOutputSubstrate(llm=llm)
+    else:
+        substrate = TypedNarrativeLLMSubstrate(
+            llm=llm,
+            batch_size=args.batch_size if args.batch_size > 0 else None,
+        )
     typed_atoms = build_typed_atoms_from_dag(build.atoms)
 
     # Run adjudication
