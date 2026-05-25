@@ -493,15 +493,75 @@ class LLMCaller:
             max_tokens=4096,
             messages=[{"role": "user", "content": prompt}],
         )
-        return response.content[0].text
+        # response.content is a list of content blocks. With adaptive thinking
+        # enabled (default on Opus 4.7), the first block may be a thinking
+        # block — extract from the first block of type "text" instead.
+        for block in response.content:
+            block_type = getattr(block, "type", None)
+            if block_type == "text" or (block_type is None and hasattr(block, "text")):
+                return block.text
+        # No text block found — return empty so downstream parsers surface
+        # the issue clearly.
+        return ""
 
 
 def _parse_json_response(text: str):
     text = text.strip()
+    # Strip markdown fences if present
     if text.startswith("```"):
         text = re.sub(r"^```(?:json)?\s*", "", text)
         text = re.sub(r"\s*```$", "", text)
-    return json.loads(text)
+    # Try to parse the whole text first (fast path)
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        pass
+    # Fallback: extract the last JSON object or array in the text.
+    # This handles responses where the model emits reasoning before
+    # the JSON, e.g. "Let me analyze... {...}". We grab the largest
+    # well-formed JSON block by scanning from each opening brace/bracket.
+    candidates = []
+    for i, ch in enumerate(text):
+        if ch in "{[":
+            # Try to find a balanced closing brace/bracket from here
+            depth = 0
+            in_str = False
+            esc = False
+            opener = ch
+            closer = "}" if ch == "{" else "]"
+            for j in range(i, len(text)):
+                c = text[j]
+                if esc:
+                    esc = False
+                    continue
+                if c == "\\":
+                    esc = True
+                    continue
+                if c == '"':
+                    in_str = not in_str
+                    continue
+                if in_str:
+                    continue
+                if c == opener:
+                    depth += 1
+                elif c == closer:
+                    depth -= 1
+                    if depth == 0:
+                        candidates.append(text[i:j+1])
+                        break
+    # Try candidates from longest to shortest (longest is most likely the
+    # full intended JSON, not a fragment inside reasoning)
+    for cand in sorted(candidates, key=len, reverse=True):
+        try:
+            return json.loads(cand)
+        except json.JSONDecodeError:
+            continue
+    # All candidates failed — raise the original error type so callers
+    # can handle it as before
+    raise json.JSONDecodeError(
+        f"No valid JSON found in response of length {len(text)}",
+        text[:200], 0
+    )
 
 
 # ---------------------------------------------------------------------------
