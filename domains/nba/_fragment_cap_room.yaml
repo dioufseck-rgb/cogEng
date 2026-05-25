@@ -1,0 +1,71 @@
+# Fragment build — nba.cap_room only
+# ====================================================================
+# Purpose: probe whether Build's new prompt elicits engine arithmetic
+# (PlusNode / MaxNode / etc.) on a single determination before doing
+# the full re-Build of cba.yaml.
+#
+# This YAML is otherwise identical to cba.yaml header but contains
+# only the nba.cap_room determination. Cost: ~$3-5 wallet vs $30-50
+# for full build.
+# ====================================================================
+
+policy:
+  name: "NBA Collective Bargaining Agreement"
+  source: "RuleArena/nba/reference_rules.txt"
+  abbreviation: "nba"
+
+voice:
+  role: "experienced NBA team-operations counsel"
+  domain: "NBA Collective Bargaining Agreement (CBA)"
+  background: |
+    You are reading the NBA CBA, applying its rules with attention to
+    the practical structure of transactions and the precise numeric
+    thresholds that govern team operations.
+
+    The Salary Cap basic rule (Article VII §2(b)(1)) prohibits Team
+    Salary from exceeding the Cap without one of the Section 6
+    Exceptions. The exceptions form an enumerated list, each with its
+    own preconditions.
+
+    Section 6 Exceptions: Bi-annual, Non-Taxpayer MLE, Taxpayer MLE,
+    Room MLE, Veteran Free Agent (QVFA / EQVFA / NQVFA), Minimum
+    Player Salary. Each exception has its own gating predicates.
+
+constants:
+  salary_cap: 140588000
+  first_apron_level: 178132000
+  second_apron_level: 188931000
+  tax_level: 170814000
+  bi_annual_exception_amount: 4667522
+  non_taxpayer_mid_level_exception_amount: 12821626
+  taxpayer_mid_level_exception_amount: 5167878
+  room_mid_level_exception_amount: 7982587
+  traded_player_exception_cushion: 250000
+  october_1_days_since_2000: 9040
+  december_16_days_since_2000: 9116
+
+determinations:
+
+  - id: "nba.cap_room"
+    description: "Is the Team's resulting Team Salary within the Salary Cap, or otherwise permitted via a valid Exception under Article VII, Section 6?"
+    polarity: "positive"
+    source_span: "Article VII, Section 2(b)(1) read with Section 6"
+    composition: "derived"
+    scope_hint: |
+      The Basic Rule is that Team Salary may not exceed the Salary
+      Cap UNLESS the Team uses one of the Section 6 Exceptions.
+      Express as an OR with two branches: (1) the direct cap-room
+      comparison (Team Salary post-signing <= Salary Cap), and (2) the
+      signing is permitted via one of the named Exceptions
+      (Bi-annual, Non-Taxpayer MLE, Taxpayer MLE, Room MLE,
+      Qualifying/Early-Qualifying/Non-Qualifying Veteran Free Agent,
+      Minimum Player Salary). Each exception pathway is its own
+      engine-resident Boolean leaf at this level - the detailed
+      requirements of each exception (per Section 6) are evaluated
+      by the respective exception determinations.
+
+      For the direct cap-room comparison, the Team Salary post-signing
+      is computed as the team's pre-signing Team Salary PLUS the
+      first-year Salary plus first-year Unlikely Bonuses of the
+      signing in question. Express this as a binary plus operation
+      between two case-bound primitive numeric facts.
