@@ -390,6 +390,242 @@ class ConstDivByNode:
 
 
 # ---------------------------------------------------------------------------
+# Binary and variadic arithmetic nodes — combine MULTIPLE atom-valued
+# operands. Distinct from the unary-vs-constant operators above, these
+# compose two-or-more bound atoms (or sub-expressions) into a single
+# numeric value.
+#
+# UNDETERMINED semantics:
+#   - Binary: UNDETERMINED in any operand → UNDETERMINED result
+#   - SumNode/MinusNode: UNDETERMINED in any operand → UNDETERMINED
+#   - MaxNode/MinNode: UNDETERMINED in any operand → UNDETERMINED
+#     (we cannot prove a value is the max if some inputs are unknown)
+#
+# These exist because Map cannot reliably compute values across atom
+# boundaries — the LLM resists multi-fact arithmetic even when prompted.
+# By moving derived quantities (sums, maxes, post-event totals) into
+# engine arithmetic, we keep Map a pure extractor of stated values.
+# ---------------------------------------------------------------------------
+
+
+# Forward-declared type alias used by the new operators' child fields.
+# Includes both the unary-vs-const operators (above) and the new
+# binary/variadic operators (below) via string forward references.
+NumericExpr = Union[
+    "NumericLeaf", "Constant",
+    "TimesConstNode", "PlusConstNode", "MinusConstNode", "ConstMinusNode",
+    "DivByConstNode", "ConstDivByNode",
+    "PlusNode", "MinusNode", "MulNode",
+    "SumNode", "MaxNode", "MinNode",
+]
+
+
+@dataclass
+class PlusNode:
+    """left + right (binary; both operands are NumericExpressions)."""
+    left: NumericExpr
+    right: NumericExpr
+    surface_label: str = ""
+    source_span: str = ""
+    provenance: Provenance = Provenance.STRUCTURAL
+
+    def evaluate(self, bundle: FactBundle, trace: Optional[list] = None) -> NumericValue:
+        left_trace = [] if trace is not None else None
+        right_trace = [] if trace is not None else None
+        l = self.left.evaluate(bundle, left_trace)
+        r = self.right.evaluate(bundle, right_trace)
+        if l.is_undetermined or r.is_undetermined:
+            result = NumericValue.undetermined()
+        else:
+            result = NumericValue(value=l.value + r.value)
+        if trace is not None:
+            trace.append(_binary_trace_entry(
+                "plus", self, l, r, result, left_trace, right_trace))
+        return result
+
+
+@dataclass
+class MinusNode:
+    """left - right (binary)."""
+    left: NumericExpr
+    right: NumericExpr
+    surface_label: str = ""
+    source_span: str = ""
+    provenance: Provenance = Provenance.STRUCTURAL
+
+    def evaluate(self, bundle: FactBundle, trace: Optional[list] = None) -> NumericValue:
+        left_trace = [] if trace is not None else None
+        right_trace = [] if trace is not None else None
+        l = self.left.evaluate(bundle, left_trace)
+        r = self.right.evaluate(bundle, right_trace)
+        if l.is_undetermined or r.is_undetermined:
+            result = NumericValue.undetermined()
+        else:
+            result = NumericValue(value=l.value - r.value)
+        if trace is not None:
+            trace.append(_binary_trace_entry(
+                "minus", self, l, r, result, left_trace, right_trace))
+        return result
+
+
+@dataclass
+class MulNode:
+    """left * right (binary)."""
+    left: NumericExpr
+    right: NumericExpr
+    surface_label: str = ""
+    source_span: str = ""
+    provenance: Provenance = Provenance.STRUCTURAL
+
+    def evaluate(self, bundle: FactBundle, trace: Optional[list] = None) -> NumericValue:
+        left_trace = [] if trace is not None else None
+        right_trace = [] if trace is not None else None
+        l = self.left.evaluate(bundle, left_trace)
+        r = self.right.evaluate(bundle, right_trace)
+        if l.is_undetermined or r.is_undetermined:
+            result = NumericValue.undetermined()
+        else:
+            result = NumericValue(value=l.value * r.value)
+        if trace is not None:
+            trace.append(_binary_trace_entry(
+                "mul", self, l, r, result, left_trace, right_trace))
+        return result
+
+
+@dataclass
+class SumNode:
+    """Variadic sum of N ≥ 2 children. Any UNDETERMINED → UNDETERMINED."""
+    children: list
+    surface_label: str = ""
+    source_span: str = ""
+    provenance: Provenance = Provenance.STRUCTURAL
+
+    def __post_init__(self):
+        if len(self.children) < 2:
+            raise ValueError(
+                f"SumNode requires ≥ 2 children, got {len(self.children)}. "
+                f"For a single child, the operand IS the sum."
+            )
+
+    def evaluate(self, bundle: FactBundle, trace: Optional[list] = None) -> NumericValue:
+        child_values = []
+        child_traces = []
+        for c in self.children:
+            ct = [] if trace is not None else None
+            cv = c.evaluate(bundle, ct)
+            child_values.append(cv)
+            child_traces.append(ct)
+        if any(cv.is_undetermined for cv in child_values):
+            result = NumericValue.undetermined()
+        else:
+            total = child_values[0].value
+            for cv in child_values[1:]:
+                total = total + cv.value
+            result = NumericValue(value=total)
+        if trace is not None:
+            trace.append(_variadic_trace_entry(
+                "sum", self, child_values, result, child_traces))
+        return result
+
+
+@dataclass
+class MaxNode:
+    """Variadic max of N ≥ 2 children. Any UNDETERMINED → UNDETERMINED.
+
+    Rationale: even if one stated value is high, we cannot conclude it's
+    the maximum if other inputs are unknown — an unknown value might be
+    higher. This conservative semantics matches the architectural
+    principle of not guessing.
+    """
+    children: list
+    surface_label: str = ""
+    source_span: str = ""
+    provenance: Provenance = Provenance.STRUCTURAL
+
+    def __post_init__(self):
+        if len(self.children) < 2:
+            raise ValueError(
+                f"MaxNode requires ≥ 2 children, got {len(self.children)}."
+            )
+
+    def evaluate(self, bundle: FactBundle, trace: Optional[list] = None) -> NumericValue:
+        child_values = []
+        child_traces = []
+        for c in self.children:
+            ct = [] if trace is not None else None
+            cv = c.evaluate(bundle, ct)
+            child_values.append(cv)
+            child_traces.append(ct)
+        if any(cv.is_undetermined for cv in child_values):
+            result = NumericValue.undetermined()
+        else:
+            max_val = max(cv.value for cv in child_values)
+            result = NumericValue(value=max_val)
+        if trace is not None:
+            trace.append(_variadic_trace_entry(
+                "max", self, child_values, result, child_traces))
+        return result
+
+
+@dataclass
+class MinNode:
+    """Variadic min of N ≥ 2 children. Any UNDETERMINED → UNDETERMINED."""
+    children: list
+    surface_label: str = ""
+    source_span: str = ""
+    provenance: Provenance = Provenance.STRUCTURAL
+
+    def __post_init__(self):
+        if len(self.children) < 2:
+            raise ValueError(
+                f"MinNode requires ≥ 2 children, got {len(self.children)}."
+            )
+
+    def evaluate(self, bundle: FactBundle, trace: Optional[list] = None) -> NumericValue:
+        child_values = []
+        child_traces = []
+        for c in self.children:
+            ct = [] if trace is not None else None
+            cv = c.evaluate(bundle, ct)
+            child_values.append(cv)
+            child_traces.append(ct)
+        if any(cv.is_undetermined for cv in child_values):
+            result = NumericValue.undetermined()
+        else:
+            min_val = min(cv.value for cv in child_values)
+            result = NumericValue(value=min_val)
+        if trace is not None:
+            trace.append(_variadic_trace_entry(
+                "min", self, child_values, result, child_traces))
+        return result
+
+
+def _binary_trace_entry(node_kind, node, left_value, right_value, result,
+                        left_trace, right_trace):
+    return {
+        "type": node_kind,
+        "surface_label": getattr(node, "surface_label", ""),
+        "provenance": node.provenance.value,
+        "left_value": str(left_value),
+        "right_value": str(right_value),
+        "result": str(result),
+        "left_trace": left_trace,
+        "right_trace": right_trace,
+    }
+
+
+def _variadic_trace_entry(node_kind, node, child_values, result, child_traces):
+    return {
+        "type": node_kind,
+        "surface_label": getattr(node, "surface_label", ""),
+        "provenance": node.provenance.value,
+        "child_values": [str(cv) for cv in child_values],
+        "result": str(result),
+        "children_trace": child_traces,
+    }
+
+
+# ---------------------------------------------------------------------------
 # Comparison nodes — the bridge from numeric to Kleene-Boolean
 #
 # Take two numeric children, produce a Kleene value. Any UNDETERMINED
@@ -417,10 +653,8 @@ def _compare(left: NumericValue, right: NumericValue, op: str) -> Kleene:
 
 @dataclass
 class _CompareNodeBase:
-    left: Union[NumericLeaf, Constant, TimesConstNode, PlusConstNode,
-                MinusConstNode, ConstMinusNode, DivByConstNode, ConstDivByNode]
-    right: Union[NumericLeaf, Constant, TimesConstNode, PlusConstNode,
-                 MinusConstNode, ConstMinusNode, DivByConstNode, ConstDivByNode]
+    left: NumericExpr
+    right: NumericExpr
     surface_label: str = ""
     source_span: str = ""
     provenance: Provenance = Provenance.STRUCTURAL
