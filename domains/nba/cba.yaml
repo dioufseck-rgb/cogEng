@@ -90,6 +90,17 @@ constants:
   # §6(j)(3) reduces to $0 when post-trade salary > First Apron
   traded_player_exception_cushion: 250000
 
+  # Date sentinels. The CBA references specific calendar dates as
+  # structural reference points (e.g., Bi-annual Exception expires
+  # December 16; Over-38 Contracts reference October 1 of the
+  # Salary Cap Year). The engine does not perform date arithmetic
+  # — Map evaluates date-relative predicates against case text and
+  # returns Boolean results. These constants are placeholders so
+  # Stage-4 conversion can succeed; their numeric values are not
+  # used in the actual evaluation logic.
+  october_1_of_salary_cap_year: 0
+  december_16_of_salary_cap_year: 0
+
 
 # --------------------------------------------------------------------
 # Determinations
