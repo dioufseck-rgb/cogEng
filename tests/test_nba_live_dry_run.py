@@ -1,5 +1,5 @@
 """
-Dry-run validation for nba_live_demo.py — substitutes a scripted LLM that
+Dry-run validation for nba_live_demo.py -- substitutes a scripted LLM that
 returns plausible extraction values, so we can verify the full plumbing
 without consuming API credits.
 
@@ -81,13 +81,13 @@ def main():
     # Load case 14 from RuleArena
     case_file = "/home/claude/work/RuleArena/nba/annotated_problems/comp_0.json"
     if not os.path.exists(case_file):
-        print(f"SKIP: {case_file} not available — run on a machine with the RuleArena clone")
+        print(f"SKIP: {case_file} not available -- run on a machine with the RuleArena clone")
         sys.exit(0)
 
     cases = json.load(open(case_file))
     case = cases[14]
     print("=" * 70)
-    print(f"CASE 14 (Level 1) — dry run with scripted LLM")
+    print(f"CASE 14 (Level 1) -- dry run with scripted LLM")
     print("=" * 70)
     print(f"  team: {case['team_situations'][0]}")
     print(f"  op:   {case['operations'][0][:120]}...")
@@ -107,18 +107,18 @@ def main():
     for op in case["operations"]:
         evidence += f"  {op}\n"
 
-    # Scripted LLM responses — what a competent extractor should return for case 14
+    # Scripted LLM responses -- what a competent extractor should return for case 14
     # Case 14: Team A salary $100M, signs Player B for 3 years at $36M/year.
     # Team A is below cap ($140.588M), so they'd use Room MLE if signing via MLE
     # (or sign with cap space directly). $36M massively exceeds Room MLE limit ($7.98M),
-    # so it's only legal if signed without using an exception — i.e. using cap space.
+    # so it's only legal if signed without using an exception -- i.e. using cap space.
     # Team A has $40.588M of room. $36M fits in room.
     # But the contract length is 3 years. Without an exception, signing with cap space
     # is fine, but the case ground truth says ILLEGAL.
     # The illegality here is actually about max salary by YOS (Player B from 2014 draft
-    # = ~10 YOS, so max-salary = 35% × cap = $49M, and $36M is under that, BUT 105% × prior
+    # = ~10 YOS, so max-salary = 35% x cap = $49M, and $36M is under that, BUT 105% x prior
     # salary = $25.2M which is the binding ceiling for an early-qualifying VFA).
-    # The MLE fragment alone won't tell us this — it only checks MLE pathways.
+    # The MLE fragment alone won't tell us this -- it only checks MLE pathways.
     # If `op_uses_mle_class_exception = FALSE`, the fragment returns FALSE on all three
     # MLE pathways (gating predicates fail), so op_permitted_via_some_mle = FALSE.
     # That's "the operation isn't permitted via any MLE." It doesn't mean illegal overall.
@@ -130,7 +130,7 @@ def main():
         "contract_length_years": 3,
     }
     scripted_boolean = {
-        # The case doesn't explicitly say "Team A uses the MLE exception" — Team A is
+        # The case doesn't explicitly say "Team A uses the MLE exception" -- Team A is
         # below cap and could sign with cap space. So the LLM might return UND or FALSE.
         # We test with FALSE here.
         "op_uses_mle_class_exception": "false",
@@ -181,7 +181,7 @@ def main():
     print(f"  ✓ TypedNarrativeLLMSubstrate routes Boolean and Numeric atoms separately")
     print(f"  ✓ Numeric atoms parse from a real-world-format LLM response")
     print(f"  ✓ The MLE fragment evaluates against a Map-produced bundle")
-    print(f"  ✓ The trace is diagnostic — you can see each atom's bound value")
+    print(f"  ✓ The trace is diagnostic -- you can see each atom's bound value")
 
 
 if __name__ == "__main__":

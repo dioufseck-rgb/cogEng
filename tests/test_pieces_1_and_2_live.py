@@ -1,5 +1,5 @@
 """
-test_pieces_1_and_2_live.py — end-to-end integration test for the typed
+test_pieces_1_and_2_live.py -- end-to-end integration test for the typed
 Build pipeline through Piece 5: Stage-1 classifier (Piece 1) + LHS/RHS
 sub-decomposer (Piece 2) + Stage-4 typed-engine conversion (Piece 5).
 
@@ -39,11 +39,11 @@ from rulekit.build.extract import ReaderVoice
 
 
 # ---------------------------------------------------------------------------
-# Test policy text — a small CBA snippet that we know contains numeric
-# comparisons. From Article VII, Section 6(e) — Non-Taxpayer MLE.
+# Test policy text -- a small CBA snippet that we know contains numeric
+# comparisons. From Article VII, Section 6(e) -- Non-Taxpayer MLE.
 # ---------------------------------------------------------------------------
 
-CBA_SNIPPET = """Article VII, Section 6(e) — Non-Taxpayer Mid-Level Salary Exception
+CBA_SNIPPET = """Article VII, Section 6(e) -- Non-Taxpayer Mid-Level Salary Exception
 
 (1) A Team may use the Non-Taxpayer Mid-Level Salary Exception to sign one
 or more Player Contracts during each Salary Cap Year that, in the aggregate,
@@ -110,7 +110,7 @@ def describe_spec(spec, indent=0):
 def describe_numeric(spec, indent=0):
     pad = "  " * indent
     if spec is None:
-        return f"{pad}<None — not expanded>"
+        return f"{pad}<None -- not expanded>"
     if isinstance(spec, NumericLeafSpec):
         return f"{pad}NumericLeafSpec(atom_id_hint={spec.atom_id_hint!r})"
     if isinstance(spec, ConstantSpec):
@@ -215,7 +215,7 @@ def main():
         print("  ✗ No ComparisonSpec produced. Either the determination was Boolean-only")
         print("    or the Stage-1 classifier missed the comparisons. Inspect the tree above.")
     else:
-        print(f"  ✓ {counts['ComparisonSpec']} ComparisonSpec(s) produced — the typed extension fired.")
+        print(f"  ✓ {counts['ComparisonSpec']} ComparisonSpec(s) produced -- the typed extension fired.")
 
     # Find all comparisons and verify their lhs_spec/rhs_spec are populated
     comparisons_found = []
@@ -229,7 +229,7 @@ def main():
 
     for i, c in enumerate(comparisons_found):
         if c.lhs_spec is None or c.rhs_spec is None:
-            print(f"  ✗ Comparison {i} has missing lhs_spec or rhs_spec — sub-decomposer DID NOT fire.")
+            print(f"  ✗ Comparison {i} has missing lhs_spec or rhs_spec -- sub-decomposer DID NOT fire.")
         else:
             lhs_t = type(c.lhs_spec).__name__
             rhs_t = type(c.rhs_spec).__name__
@@ -237,10 +237,10 @@ def main():
 
     # Stage-4 should now succeed (Piece 5 has been implemented)
     print("\n" + "=" * 70)
-    print("STAGE-4 CONVERSION (Piece 5 — now implemented)")
+    print("STAGE-4 CONVERSION (Piece 5 -- now implemented)")
     print("=" * 70)
 
-    # Constants registry for the NBA CBA — institution-declared values
+    # Constants registry for the NBA CBA -- institution-declared values
     from decimal import Decimal
     NBA_CONSTANTS = {
         "salary_cap": Decimal("140588000"),          # 2024-25 cap
@@ -323,7 +323,7 @@ def main():
         print(f"  Mapped: salary_id={salary_id!r}, length_id={length_id!r}")
 
         if salary_id and length_id:
-            # Case 1: legal MLE signing — $5.15M salary, 3 seasons
+            # Case 1: legal MLE signing -- $5.15M salary, 3 seasons
             bundle1 = FactBundle(values={
                 salary_id: NumericValue.of("5150000"),
                 length_id: NumericValue.of(3),
@@ -332,7 +332,7 @@ def main():
             print(f"\n  Case 1: $5.15M salary, 3 seasons -> {r1}  "
                   f"({'LEGAL' if str(r1) == 'true' else 'NOT LEGAL'})")
 
-            # Case 2: illegal — salary too high
+            # Case 2: illegal -- salary too high
             bundle2 = FactBundle(values={
                 salary_id: NumericValue.of("20000000"),
                 length_id: NumericValue.of(3),
@@ -341,7 +341,7 @@ def main():
             print(f"  Case 2: $20M salary, 3 seasons   -> {r2}  "
                   f"({'LEGAL' if str(r2) == 'true' else 'NOT LEGAL'})")
 
-            # Case 3: illegal — length too long
+            # Case 3: illegal -- length too long
             bundle3 = FactBundle(values={
                 salary_id: NumericValue.of("5150000"),
                 length_id: NumericValue.of(5),
@@ -350,7 +350,7 @@ def main():
             print(f"  Case 3: $5.15M salary, 5 seasons -> {r3}  "
                   f"({'LEGAL' if str(r3) == 'true' else 'NOT LEGAL'})")
 
-            # Case 4: undetermined — missing salary
+            # Case 4: undetermined -- missing salary
             bundle4 = FactBundle(values={
                 salary_id: NumericValue.undetermined(),
                 length_id: NumericValue.of(3),

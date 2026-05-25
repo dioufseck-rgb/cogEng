@@ -1,14 +1,14 @@
 """
-test_binary_variadic_arithmetic.py — tests for the new arithmetic node
+test_binary_variadic_arithmetic.py -- tests for the new arithmetic node
 types added to handle Map's "won't compute across atom boundaries"
 limitation: PlusNode, MinusNode, MulNode (binary) and SumNode, MaxNode,
 MinNode (variadic).
 
 Tests cover:
   - Basic evaluation with bound NumericValues
-  - UNDETERMINED propagation (any UND input → UND output)
+  - UNDETERMINED propagation (any UND input -> UND output)
   - Trace emission
-  - Validation (variadic nodes require ≥ 2 children)
+  - Validation (variadic nodes require >= 2 children)
   - Mixed-Decimal and integer values
   - Composition (operators feeding other operators)
 """
@@ -86,15 +86,15 @@ print("=" * 70)
 
 bundle = mkbundle(a=100, b=None)
 r = plus.evaluate(bundle)
-check(r.is_undetermined, "PlusNode(100, UND) → UND")
+check(r.is_undetermined, "PlusNode(100, UND) -> UND")
 
 bundle = mkbundle(a=None, b=25)
 r = plus.evaluate(bundle)
-check(r.is_undetermined, "PlusNode(UND, 25) → UND")
+check(r.is_undetermined, "PlusNode(UND, 25) -> UND")
 
 bundle = mkbundle(a=None, b=None)
 r = plus.evaluate(bundle)
-check(r.is_undetermined, "PlusNode(UND, UND) → UND")
+check(r.is_undetermined, "PlusNode(UND, UND) -> UND")
 
 
 # ---------------------------------------------------------------------------
@@ -155,7 +155,7 @@ check(r.value == Decimal("100"), "SumNode([10, 20, 30, 40]) = 100")
 bundle = mkbundle(a=10, b=20, c=None, d=40)
 r = sum4.evaluate(bundle)
 check(r.is_undetermined,
-      "SumNode([10, 20, UND, 40]) → UND (any UND propagates)")
+      "SumNode([10, 20, UND, 40]) -> UND (any UND propagates)")
 
 # Validation
 try:
@@ -171,7 +171,7 @@ check(failed_validation, "SumNode([a]) with only 1 child raises ValueError")
 # ---------------------------------------------------------------------------
 print()
 print("=" * 70)
-print("Test 6: MaxNode (conservative — any UND → UND)")
+print("Test 6: MaxNode (conservative -- any UND -> UND)")
 print("=" * 70)
 max2 = MaxNode(children=[a, b])
 
@@ -187,7 +187,7 @@ check(r.value == Decimal("100"), "MaxNode([25, 100]) = 100 (order independent)")
 bundle = mkbundle(a=Decimal("1000000000"), b=None)
 r = max2.evaluate(bundle)
 check(r.is_undetermined,
-      "MaxNode([1B, UND]) → UND (can't conclude max if any input unknown)")
+      "MaxNode([1B, UND]) -> UND (can't conclude max if any input unknown)")
 
 # Variadic, NBA-style "greater of 35% of cap or 105% of prior salary"
 # Computed upstream as TimesConstNode results
@@ -201,7 +201,7 @@ bundle = mkbundle(cap=140000000, prior=30000000)
 r = max_ceiling.evaluate(bundle)
 # 35% of 140M = 49M; 105% of 30M = 31.5M; max = 49M
 check(r.value == Decimal("49000000.00"),
-      "MaxNode([35% × 140M cap, 105% × 30M prior]) = 49M")
+      "MaxNode([35% x 140M cap, 105% x 30M prior]) = 49M")
 
 
 # ---------------------------------------------------------------------------
@@ -223,7 +223,7 @@ check(r.value == Decimal("25"), "MinNode([25, 100]) = 25 (order independent)")
 
 
 # ---------------------------------------------------------------------------
-# Test 8: Composition — operators feeding operators
+# Test 8: Composition -- operators feeding operators
 # ---------------------------------------------------------------------------
 print()
 print("=" * 70)
@@ -250,18 +250,18 @@ cap_check = LeqNode(left=post_signing, right=salary_cap)
 bundle = mkbundle(pre=160000000, salary=35000000, bonus=0, cap=140588000)
 r = cap_check.evaluate(bundle)
 check(r == Kleene.FALSE,
-      "Composed: 195M ≤ 140.588M cap → FALSE (correctly flags violation)")
+      "Composed: 195M <= 140.588M cap -> FALSE (correctly flags violation)")
 
 bundle = mkbundle(pre=80000000, salary=35000000, bonus=0, cap=140588000)
 r = cap_check.evaluate(bundle)
 check(r == Kleene.TRUE,
-      "Composed: 80M + 35M = 115M ≤ 140.588M cap → TRUE (no violation)")
+      "Composed: 80M + 35M = 115M <= 140.588M cap -> TRUE (no violation)")
 
 # UND in inputs propagates through composition
 bundle = mkbundle(pre=160000000, salary=None, bonus=0, cap=140588000)
 r = cap_check.evaluate(bundle)
 check(r == Kleene.UNDETERMINED,
-      "Composed UND propagation: any UND input → cap_check is UND")
+      "Composed UND propagation: any UND input -> cap_check is UND")
 
 
 # ---------------------------------------------------------------------------

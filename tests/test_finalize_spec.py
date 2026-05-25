@@ -1,5 +1,5 @@
 """
-test_finalize_spec.py — unit tests for the finalize_spec orchestration.
+test_finalize_spec.py -- unit tests for the finalize_spec orchestration.
 
 finalize_spec is the canonical entry point that runs both Boolean leaf
 deduplication and numeric atom deduplication in sequence before Stage-4
@@ -168,7 +168,7 @@ def test_mixed_stage4_succeeds_after_finalize():
 # ---------------------------------------------------------------------------
 
 def test_boolean_only_no_numeric_calls():
-    section("Boolean-only spec — numeric pass is a no-op")
+    section("Boolean-only spec -- numeric pass is a no-op")
 
     spec = OperatorSpec(
         operator="and",
@@ -192,7 +192,7 @@ def test_boolean_only_no_numeric_calls():
 
 
 def test_boolean_only_stage4_succeeds():
-    section("Boolean-only spec — Stage-4 succeeds after finalize")
+    section("Boolean-only spec -- Stage-4 succeeds after finalize")
 
     spec = OperatorSpec(
         operator="and",
@@ -220,7 +220,7 @@ def test_boolean_only_stage4_succeeds():
 # ---------------------------------------------------------------------------
 
 def test_numeric_only_no_boolean_calls():
-    section("Numeric-only spec — Boolean pass is a no-op")
+    section("Numeric-only spec -- Boolean pass is a no-op")
 
     spec = ComparisonSpec(
         operator="leq",
@@ -254,7 +254,7 @@ def test_numeric_only_no_boolean_calls():
 # ---------------------------------------------------------------------------
 
 def test_two_determinations_share_atoms():
-    section("Two determinations sharing atoms — unified after finalize")
+    section("Two determinations sharing atoms -- unified after finalize")
 
     # Two determinations, each AND of (a Boolean predicate) and (a comparison
     # on the same atom 'contract_first_year_salary'). After finalize_spec,
@@ -311,7 +311,7 @@ def test_two_determinations_share_atoms():
 # ---------------------------------------------------------------------------
 
 def test_empty_input_no_crash():
-    section("Empty input — no crash, no LLM calls")
+    section("Empty input -- no crash, no LLM calls")
 
     llm = ScriptedLLM()
     audit = finalize_spec({}, llm, abbreviation="nba")

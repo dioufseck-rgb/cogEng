@@ -20,18 +20,18 @@ from rulekit.build.extract import ReaderVoice, run_a1, check_atomicity
 from domains.pa.encoded import ATOMS as HAND_BUILT_PA_ATOMS
 
 
-# PA Section 2 source text — Section 2 only, the scope of our hand-built tree.
+# PA Section 2 source text -- Section 2 only, the scope of our hand-built tree.
 PA_SECTION_2_SOURCE = """
-SECTION 2 — MEDICAL NECESSITY CRITERIA
+SECTION 2 -- MEDICAL NECESSITY CRITERIA
 
 Authorization for cervical spinal surgery (CPT 22551 and related codes) will
 be approved when ALL of the following criteria are satisfied:
 
 2.1 DIAGNOSIS REQUIREMENT
     Member must have a confirmed diagnosis of one of the following:
-    (a) Cervical radiculopathy — nerve root compression with radicular symptoms
+    (a) Cervical radiculopathy -- nerve root compression with radicular symptoms
         (pain, numbness, weakness in dermatomal distribution)
-    (b) Cervical myelopathy — spinal cord compression with myelopathic symptoms
+    (b) Cervical myelopathy -- spinal cord compression with myelopathic symptoms
         (gait disturbance, bilateral upper extremity weakness, hyperreflexia,
         positive Hoffman sign, bowel/bladder dysfunction)
     (c) Cervical disc herniation with objective neurological deficit
@@ -59,7 +59,7 @@ be approved when ALL of the following criteria are satisfied:
         - Cervical medial branch block
         - Trigger point injection series
 
-    EXCEPTION 2.2(A) — MYELOPATHY PATHWAY:
+    EXCEPTION 2.2(A) -- MYELOPATHY PATHWAY:
     For members with confirmed cervical myelopathy (criterion 2.1(b)),
     the conservative treatment requirement is MODIFIED as follows:
     Physical therapy requirement is reduced to 4 weeks minimum.
@@ -89,7 +89,7 @@ be approved when ALL of the following criteria are satisfied:
 
 def run_test():
     print("=" * 72)
-    print("Substage A1 test — atom extraction on PA Section 2")
+    print("Substage A1 test -- atom extraction on PA Section 2")
     print("=" * 72)
 
     voice = ReaderVoice.pa_reviewer()

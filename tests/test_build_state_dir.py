@@ -1,5 +1,5 @@
 """
-test_build_state_dir.py — exercises the streaming/resume mechanism
+test_build_state_dir.py -- exercises the streaming/resume mechanism
 in build_from_spec.
 
 Uses a mock LLM that records call counts so we can verify:
@@ -148,7 +148,7 @@ with tempfile.TemporaryDirectory() as tmp_dir:
     spec = make_spec_with_two_determinations(tmp_dir)
     state_dir = os.path.join(tmp_dir, "state")
 
-    # First run — populates state_dir
+    # First run -- populates state_dir
     llm1 = MockLLM()
     result1 = build_from_spec(
         spec, llm=llm1, refine=False, state_dir=state_dir
@@ -156,13 +156,13 @@ with tempfile.TemporaryDirectory() as tmp_dir:
     first_run_decompose_calls = llm1.decompose_call_count
     print(f"  (First run: {first_run_decompose_calls} decompose calls)")
 
-    # Second run with same state_dir — should reuse saves, do 0 decompose calls
+    # Second run with same state_dir -- should reuse saves, do 0 decompose calls
     llm2 = MockLLM()
     result2 = build_from_spec(
         spec, llm=llm2, refine=False, state_dir=state_dir
     )
     second_run_decompose_calls = llm2.decompose_call_count
-    print(f"  (Second run: {second_run_decompose_calls} decompose calls — should be 0)")
+    print(f"  (Second run: {second_run_decompose_calls} decompose calls -- should be 0)")
 
     check(
         second_run_decompose_calls == 0,
@@ -196,7 +196,7 @@ with tempfile.TemporaryDirectory() as tmp_dir:
     # Delete only one save to simulate a crash mid-Build
     os.remove(os.path.join(state_dir, "decompose_test.det_two.pkl"))
 
-    # Re-run — should only decompose det_two
+    # Re-run -- should only decompose det_two
     llm2 = MockLLM()
     result = build_from_spec(
         spec, llm=llm2, refine=False, state_dir=state_dir

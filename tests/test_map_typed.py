@@ -8,11 +8,11 @@ be parameterized over a real LLMCaller, but we don't want to consume API
 credits for unit tests.
 
 Coverage:
-1. Boolean-only typed atoms — substrate routes correctly
-2. Numeric-only typed atoms — substrate extracts values correctly
-3. Mixed typed atoms — substrate handles both kinds
-4. Missing atoms — substrate fills in UNDETERMINED for both types
-5. Malformed numeric responses (strings, dollar signs, commas) — parser handles
+1. Boolean-only typed atoms -- substrate routes correctly
+2. Numeric-only typed atoms -- substrate extracts values correctly
+3. Mixed typed atoms -- substrate handles both kinds
+4. Missing atoms -- substrate fills in UNDETERMINED for both types
+5. Malformed numeric responses (strings, dollar signs, commas) -- parser handles
 6. End-to-end: typed substrate output flows through typed engine correctly
 """
 
@@ -98,7 +98,7 @@ def test_numeric_parser():
           _parse_numeric("about five million").is_undetermined)
     # bool is technically an int in Python but a categorical value, not a
     # numeric quantity. The parser rejects it via Decimal('True') failing,
-    # which is the right behavior — a categorical signal shouldn't quietly
+    # which is the right behavior -- a categorical signal shouldn't quietly
     # become 0 or 1 in a numeric atom.
     check("Parser: bool True -> UNDETERMINED (categorical, not numeric)",
           _parse_numeric(True).is_undetermined)
@@ -276,16 +276,16 @@ def test_end_to_end_substrate_to_engine():
 
     # Simulate a real RuleArena case 14-style scenario:
     #
-    # "Team A has a team salary of $100,000,000." → team_salary = 100M
+    # "Team A has a team salary of $100,000,000." -> team_salary = 100M
     # "Team A signs a 3-year contract... annual salary $36,000,000..."
     #
     # Atoms:
     #   team_salary (numeric)
     #   contract_first_year_salary (numeric)
-    #   op_uses_mle_class_exception (boolean) — Map decides via narrative
+    #   op_uses_mle_class_exception (boolean) -- Map decides via narrative
     #
     # Engine evaluates: op_permitted_via_room_mle =
-    #   team_salary < cap  AND  contract_salary ≤ 5.68% × cap
+    #   team_salary < cap  AND  contract_salary <= 5.68% x cap
     #
     # For case 14: $36M > $7.985M, so FALSE.
 
@@ -328,13 +328,13 @@ def test_end_to_end_substrate_to_engine():
     bundle = substrate.bind_typed(evidence, typed_atoms)
 
     # Build the engine DAG: room MLE applies (team below cap), but salary
-    # exceeds 5.68% × cap = $7,985,398.40
+    # exceeds 5.68% x cap = $7,985,398.40
     team_salary = NumericLeaf(atom_id="team_salary")
     contract_salary = NumericLeaf(atom_id="contract_first_year_salary")
     cap_node = Constant(value=SALARY_CAP, label="2024-25 cap")
     room_limit = TimesConstNode(
         child=cap_node, constant=ROOM_MLE_PCT,
-        surface_label="5.68% × cap = Room MLE limit",
+        surface_label="5.68% x cap = Room MLE limit",
     )
     team_below_cap = LeqNode(
         left=team_salary, right=cap_node,

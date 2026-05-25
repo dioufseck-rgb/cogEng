@@ -1,5 +1,5 @@
 """
-test_yaml_spec_loading.py — unit tests for the generic YAML config schema.
+test_yaml_spec_loading.py -- unit tests for the generic YAML config schema.
 
 The library claim is that an institution can author a config file declaring
 its policy + voice + constants + determinations, with NO Python written by
@@ -101,7 +101,7 @@ finally:
 
 
 # ---------------------------------------------------------------------------
-# Test 2: Constants block — Decimal coercion across input types
+# Test 2: Constants block -- Decimal coercion across input types
 # ---------------------------------------------------------------------------
 
 section("Test 2: Constants block, Decimal coercion")
@@ -228,7 +228,7 @@ finally:
 
 
 # ---------------------------------------------------------------------------
-# Test 5: Error case — neither voice nor voice_key set
+# Test 5: Error case -- neither voice nor voice_key set
 # ---------------------------------------------------------------------------
 
 section("Test 5: Error when no voice provided")
@@ -305,14 +305,14 @@ pa_path = os.path.join(
     "domains", "pa", "determinations.yaml"
 )
 if os.path.exists(pa_path):
-    # Without registry — voice_key preserved
+    # Without registry -- voice_key preserved
     spec_no_reg = load_spec_from_yaml(pa_path)
     check("PA legacy: voice_key='pa' preserved",
           spec_no_reg.voice_key == "pa")
     check("PA legacy: two determinations loaded",
           len(spec_no_reg.determinations) == 2)
 
-    # With the actual PA registry — voice resolved
+    # With the actual PA registry -- voice resolved
     from domains.voices import VOICES
     spec_resolved = load_spec_from_yaml(pa_path, voices_registry=VOICES)
     check("PA legacy with registry: voice resolved to pa_reviewer",

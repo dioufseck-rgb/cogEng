@@ -1,5 +1,5 @@
 """
-test_typed_atom_dedup.py — unit tests for Piece 6 (typed atom deduplication).
+test_typed_atom_dedup.py -- unit tests for Piece 6 (typed atom deduplication).
 
 Tests:
   - collect_numeric_specs walks all numeric spec types correctly
@@ -10,7 +10,7 @@ Tests:
   - Singleton classes don't trigger LLM calls
   - Boolean LeafSpec atoms are NOT collected by the numeric pass
 
-No LLM calls — uses a scripted LLM that returns canned equivalence mappings.
+No LLM calls -- uses a scripted LLM that returns canned equivalence mappings.
 
 Run: python tests/test_typed_atom_dedup.py
 """
@@ -119,7 +119,7 @@ def test_collect_walks_nested_arithmetic():
 def test_collect_walks_operator_children():
     section("collect_numeric_specs walks OperatorSpec children")
 
-    # AND(comparison_with_numeric, leaf_boolean) — only numeric atom collected
+    # AND(comparison_with_numeric, leaf_boolean) -- only numeric atom collected
     spec = OperatorSpec(
         operator="and",
         children=[
@@ -187,7 +187,7 @@ def test_collect_skips_constants_and_boolean_leaves():
 # ---------------------------------------------------------------------------
 
 def test_atom_class_key_scoping():
-    section("_atom_class_key — type and computation_kind scoping")
+    section("_atom_class_key -- type and computation_kind scoping")
 
     leaf = NumericLeafSpec(atom_id_hint="x", statement="x")
     derived_agg = DerivedAtomSpec(
@@ -310,7 +310,7 @@ def test_dedup_non_equivalent_atoms_separate():
 def test_dedup_computation_kind_scoping():
     section("DerivedAtomSpec deduplication is scoped by computation_kind")
 
-    # Two atoms with similar statements but different computation_kinds —
+    # Two atoms with similar statements but different computation_kinds --
     # they must NEVER be merged because their semantics differ.
     spec1 = ComparisonSpec(
         operator="leq", lhs_description="agg salary", rhs_description="3.32% cap",
@@ -333,7 +333,7 @@ def test_dedup_computation_kind_scoping():
         rhs_spec=ConstantSpec(label="salary_cap"),
     )
 
-    # Each atom is alone in its class — no LLM call expected
+    # Each atom is alone in its class -- no LLM call expected
     llm = ScriptedLLM()
     deduplicate_numeric_atoms({"D1": spec1, "D2": spec2}, llm, "nba")
 
@@ -421,14 +421,14 @@ def test_dedup_engine_conversion_after_dedup():
 
 
 def test_dedup_empty_input():
-    section("Empty input — no specs, no work")
+    section("Empty input -- no specs, no work")
 
     llm = ScriptedLLM()
     result = deduplicate_numeric_atoms({}, llm, "nba")
     check(len(llm.calls) == 0, "no LLM calls for empty input")
     check(result == {}, "empty mapping returned")
 
-    # Boolean-only spec — no numeric atoms to dedup
+    # Boolean-only spec -- no numeric atoms to dedup
     bool_spec = OperatorSpec(
         operator="and",
         children=[

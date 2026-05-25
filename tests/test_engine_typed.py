@@ -97,7 +97,7 @@ def test_numeric_value():
 # ---------------------------------------------------------------------------
 
 def test_arithmetic_nodes():
-    section("Arithmetic nodes — determinate inputs")
+    section("Arithmetic nodes -- determinate inputs")
 
     # Set up a bundle with one numeric atom bound to 100
     bundle = FactBundle(values={"x": NumericValue.of(100)})
@@ -148,7 +148,7 @@ def test_arithmetic_nodes():
 
 
 def test_arithmetic_undetermined_propagation():
-    section("Arithmetic nodes — UNDETERMINED propagation")
+    section("Arithmetic nodes -- UNDETERMINED propagation")
 
     bundle = FactBundle(values={"x": NumericValue.undetermined()})
     leaf = NumericLeaf(atom_id="x")
@@ -176,9 +176,9 @@ def test_constant_node():
 
 
 def test_arithmetic_chains():
-    section("Arithmetic chains — composition")
+    section("Arithmetic chains -- composition")
 
-    # Compute 9.12% × cap + 0 (just chaining for the test)
+    # Compute 9.12% x cap + 0 (just chaining for the test)
     # Then verify chain UNDETERMINED propagation
     bundle = FactBundle(values={"cap": NumericValue.of(140588000)})
     leaf = NumericLeaf(atom_id="cap")
@@ -187,9 +187,9 @@ def test_arithmetic_chains():
     pct = TimesConstNode(child=leaf, constant=Decimal("0.0912"))
     result = pct.evaluate(bundle)
     expected = Decimal("140588000") * Decimal("0.0912")
-    check("9.12% × cap", result.value == expected)
+    check("9.12% x cap", result.value == expected)
 
-    # Now chain: ((cap × 0.0912) + 1000) − 500
+    # Now chain: ((cap x 0.0912) + 1000) − 500
     chain = MinusConstNode(
         child=PlusConstNode(child=pct, constant=Decimal("1000")),
         constant=Decimal("500"),
@@ -208,7 +208,7 @@ def test_arithmetic_chains():
 # ---------------------------------------------------------------------------
 
 def test_comparison_nodes():
-    section("Comparison nodes — determinate")
+    section("Comparison nodes -- determinate")
 
     bundle = FactBundle(values={
         "a": NumericValue.of(100),
@@ -226,20 +226,20 @@ def test_comparison_nodes():
     check("Lt 100 < 100 (strict)", LtNode(left=a, right=c).evaluate(bundle) == Kleene.FALSE)
     check("Lt 200 < 100", LtNode(left=b, right=a).evaluate(bundle) == Kleene.FALSE)
 
-    check("Leq 100 ≤ 100", LeqNode(left=a, right=c).evaluate(bundle) == Kleene.TRUE)
-    check("Leq 100 ≤ 200", LeqNode(left=a, right=b).evaluate(bundle) == Kleene.TRUE)
-    check("Leq 200 ≤ 100", LeqNode(left=b, right=a).evaluate(bundle) == Kleene.FALSE)
+    check("Leq 100 <= 100", LeqNode(left=a, right=c).evaluate(bundle) == Kleene.TRUE)
+    check("Leq 100 <= 200", LeqNode(left=a, right=b).evaluate(bundle) == Kleene.TRUE)
+    check("Leq 200 <= 100", LeqNode(left=b, right=a).evaluate(bundle) == Kleene.FALSE)
 
     check("Gt 200 > 100", GtNode(left=b, right=a).evaluate(bundle) == Kleene.TRUE)
     check("Gt 100 > 100 (strict)", GtNode(left=a, right=c).evaluate(bundle) == Kleene.FALSE)
 
-    check("Geq 100 ≥ 100", GeqNode(left=a, right=c).evaluate(bundle) == Kleene.TRUE)
-    check("Geq 200 ≥ 100", GeqNode(left=b, right=a).evaluate(bundle) == Kleene.TRUE)
-    check("Geq 100 ≥ 200", GeqNode(left=a, right=b).evaluate(bundle) == Kleene.FALSE)
+    check("Geq 100 >= 100", GeqNode(left=a, right=c).evaluate(bundle) == Kleene.TRUE)
+    check("Geq 200 >= 100", GeqNode(left=b, right=a).evaluate(bundle) == Kleene.TRUE)
+    check("Geq 100 >= 200", GeqNode(left=a, right=b).evaluate(bundle) == Kleene.FALSE)
 
 
 def test_comparison_undetermined():
-    section("Comparison nodes — UNDETERMINED propagation")
+    section("Comparison nodes -- UNDETERMINED propagation")
 
     bundle = FactBundle(values={
         "known": NumericValue.of(100),
@@ -297,16 +297,16 @@ def test_end_to_end_composition():
     salary_node = NumericLeaf(atom_id="contract_first_year_salary")
     cap_node = NumericLeaf(atom_id="salary_cap")
     mle_limit = TimesConstNode(child=cap_node, constant=Decimal("0.0912"),
-                                surface_label="9.12% × cap")
+                                surface_label="9.12% x cap")
     salary_within_limit = LeqNode(left=salary_node, right=mle_limit,
-                                   surface_label="salary ≤ MLE limit")
+                                   surface_label="salary <= MLE limit")
 
     op_permitted = AndNode(children=[
         Leaf(atom_id="team_above_cap_below_first_apron"),
         salary_within_limit,
     ], surface_label="op_permitted_via_non_taxpayer_mle")
 
-    # Determinate case: should be TRUE (5.15M ≤ 12.82M, and team in bracket)
+    # Determinate case: should be TRUE (5.15M <= 12.82M, and team in bracket)
     trace = []
     result = op_permitted.evaluate(bundle_ok, trace)
     check("Mixed DAG: salary in limit AND team in bracket -> TRUE",
@@ -369,9 +369,9 @@ def test_trace_format():
     salary_node = NumericLeaf(atom_id="contract_first_year_salary")
     cap_node = NumericLeaf(atom_id="salary_cap")
     mle_limit = TimesConstNode(child=cap_node, constant=Decimal("0.0912"),
-                                surface_label="9.12% × cap")
+                                surface_label="9.12% x cap")
     salary_within_limit = LeqNode(left=salary_node, right=mle_limit,
-                                   surface_label="salary ≤ MLE limit")
+                                   surface_label="salary <= MLE limit")
     op_permitted = AndNode(children=[
         Leaf(atom_id="team_in_bracket"),
         salary_within_limit,
@@ -386,8 +386,8 @@ def test_trace_format():
 
     check("Trace contains the AND label",
           "permitted_via_non_taxpayer_mle" in formatted)
-    check("Trace contains the LEQ label", "salary ≤ MLE limit" in formatted)
-    check("Trace contains TIMES_CONST label", "9.12% × cap" in formatted)
+    check("Trace contains the LEQ label", "salary <= MLE limit" in formatted)
+    check("Trace contains TIMES_CONST label", "9.12% x cap" in formatted)
     check("Trace contains numeric values",
           "5150000" in formatted and "140588000" in formatted)
     check("Trace ends with result", result == Kleene.TRUE)
@@ -398,7 +398,7 @@ def test_trace_format():
 # ---------------------------------------------------------------------------
 
 def test_type_discipline():
-    section("Type discipline — Kleene-as-numeric raises")
+    section("Type discipline -- Kleene-as-numeric raises")
 
     bundle = FactBundle(values={
         "boolean_atom": Kleene.TRUE,  # Wrong type for a numeric leaf!

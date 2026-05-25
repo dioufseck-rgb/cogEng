@@ -1,5 +1,5 @@
 """
-test_piece7_nba_section_build.py — Piece 7 integration test.
+test_piece7_nba_section_build.py -- Piece 7 integration test.
 
 The first real scaling test of the typed Build pipeline. Takes Article VII
 Section 6 of the NBA CBA (the Exceptions section) and runs three determinations
@@ -104,7 +104,7 @@ def _extract_subsection(full: str, start_marker: str, end_marker: str) -> str:
     return full[start:end]
 
 
-# A short preamble naming the apron-level constants — needed because 6(f)
+# A short preamble naming the apron-level constants -- needed because 6(f)
 # references the First Apron Level. We don't include all of Section 2(e)
 # (that's a 5KB table of transaction restrictions); the preamble below is
 # enough context for the classifier to recognize the apron-level concept.
@@ -117,7 +117,7 @@ APRON_PREAMBLE = (
     "Team for the relevant Salary Cap Year.\n\n"
 )
 
-# Section 6(d) Bi-annual through end of 6(f) Taxpayer MLE — the three rules
+# Section 6(d) Bi-annual through end of 6(f) Taxpayer MLE -- the three rules
 # under test. Section 6(g) Room MLE is excluded; the determinations only
 # need the d/e/f sub-sections.
 SECTION_6_TRIO = _extract_subsection(
@@ -210,20 +210,20 @@ NBA_VOICE = ReaderVoice(
 
 
 # ---------------------------------------------------------------------------
-# Constants registry — the institution declares its named CBA constants
+# Constants registry -- the institution declares its named CBA constants
 # ---------------------------------------------------------------------------
 
 # Constants registry. We include multiple aliases for the Taxpayer MLE
 # amount because Opus may choose different names for it across runs
 # ('taxpayer_mle_amount', 'taxpayer_mid_level_exception_amount', etc.).
 # This is a lightweight bridge between the LLM's naming choices and the
-# institution's declared constants — a proper Build pipeline would have
+# institution's declared constants -- a proper Build pipeline would have
 # a constants-resolution stage, but for now we pre-declare the aliases.
 NBA_CONSTANTS: dict[str, Decimal] = {
     "salary_cap": Decimal("140588000"),
     "first_apron_level": Decimal("178132000"),
     "second_apron_level": Decimal("188931000"),
-    # Taxpayer MLE amount — multiple aliases for the same underlying value
+    # Taxpayer MLE amount -- multiple aliases for the same underlying value
     "taxpayer_mle_amount": Decimal("5168000"),
     "taxpayer_mid_level_exception_amount": Decimal("5168000"),
     "taxpayer_mid_level_salary_exception_amount": Decimal("5168000"),
@@ -351,7 +351,7 @@ def main():
     voice = NBA_VOICE
 
     print("=" * 70)
-    print("PIECE 7 — END-TO-END NBA SECTION BUILD")
+    print("PIECE 7 -- END-TO-END NBA SECTION BUILD")
     print("=" * 70)
     print(f"\nPolicy source: {POLICY_PATH}")
     print(f"Policy text: Section 2(e) preamble + Section 6 sub-sections d/e/f ({len(POLICY_TEXT)} chars)")
@@ -430,7 +430,7 @@ def main():
         extra = ""
         if isinstance(ns, DerivedAtomSpec):
             extra = f" [computation_kind={ns.computation_kind}]"
-        print(f"    [{det_id}] {kind}(hint={hint!r}) → atom_id={aid}{extra}")
+        print(f"    [{det_id}] {kind}(hint={hint!r}) -> atom_id={aid}{extra}")
         if ns.atom_id:
             distinct_ids.add(ns.atom_id)
     print(f"\n  DISTINCT atom_ids after dedup: {len(distinct_ids)}")
@@ -489,7 +489,7 @@ def main():
         print("\n  ! Could not map enough atoms. Inspect above and adjust.")
         return
 
-    # Identify Boolean atoms — the richer auto-built trees may include
+    # Identify Boolean atoms -- the richer auto-built trees may include
     # Boolean predicates (e.g., "team has already used Room MLE this year").
     # For evaluation we provide reasonable defaults so the cases don't
     # short-circuit to UNDETERMINED on every Boolean atom.
@@ -546,15 +546,15 @@ def main():
         print(f"\n  CASE: {case_label}")
         for det_id, node in engine_nodes.items():
             if node is None:
-                print(f"    {det_id}: <skip — node not built>")
+                print(f"    {det_id}: <skip -- node not built>")
                 continue
             try:
                 result = node.evaluate(bundle)
                 short_id = det_id.split(".")[1]
-                print(f"    {short_id:25s} → {result}")
+                print(f"    {short_id:25s} -> {result}")
             except Exception as e:
                 short_id = det_id.split(".")[1]
-                print(f"    {short_id:25s} → ERROR: {type(e).__name__}: {e}")
+                print(f"    {short_id:25s} -> ERROR: {type(e).__name__}: {e}")
 
     print("\n" + "=" * 70)
     print(f"TOTAL LLM CALLS: {total_llm_calls + len(mapping)}")

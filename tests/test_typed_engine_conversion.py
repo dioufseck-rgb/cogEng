@@ -1,5 +1,5 @@
 """
-test_typed_engine_conversion.py — unit tests for Piece 5 (Stage-4 conversion).
+test_typed_engine_conversion.py -- unit tests for Piece 5 (Stage-4 conversion).
 
 Tests _numeric_spec_to_engine_node and spec_to_engine_node for ComparisonSpec
 across every conversion path. No LLM calls; uses hand-constructed spec trees.
@@ -78,7 +78,7 @@ def test_to_decimal_constant():
           "Decimal passthrough")
 
     # The float-binary error case: 0.1 + 0.2 in float = 0.30000000000000004
-    # but our parser uses str(), which gives Decimal('0.30000000000000004') — that's still the
+    # but our parser uses str(), which gives Decimal('0.30000000000000004') -- that's still the
     # float's string representation, not 0.3. So this is a known caveat for callers.
     # What matters is that LITERALS from JSON (which Python parses directly) round-trip cleanly.
     check(_to_decimal_constant(1.05) == Decimal("1.05"),
@@ -92,7 +92,7 @@ def test_to_decimal_constant():
 
 
 # ---------------------------------------------------------------------------
-# _numeric_spec_to_engine_node — every NumericSpec type
+# _numeric_spec_to_engine_node -- every NumericSpec type
 # ---------------------------------------------------------------------------
 
 def test_numeric_leaf_spec():
@@ -112,7 +112,7 @@ def test_numeric_leaf_spec():
     check(atoms["team_salary"].statement == "The team's current team salary in USD.",
           "statement preserved")
 
-    # Idempotence — calling again shouldn't re-register
+    # Idempotence -- calling again shouldn't re-register
     n_atoms_before = len(atoms)
     _numeric_spec_to_engine_node(spec, atoms, NBA_CONSTANTS)
     check(len(atoms) == n_atoms_before, "second call doesn't duplicate")
@@ -152,11 +152,11 @@ def test_constant_spec_label():
 
 
 def test_unary_arithmetic_all_operators():
-    section("UnaryArithmeticSpec — all six operators")
+    section("UnaryArithmeticSpec -- all six operators")
 
     leaf = NumericLeafSpec(atom_id_hint="x", statement="x value")
 
-    # times_const: child × constant
+    # times_const: child x constant
     spec = UnaryArithmeticSpec(operator="times_const", constant=2.0, child=leaf)
     node = _numeric_spec_to_engine_node(spec, {}, {})
     check(isinstance(node, TimesConstNode), "times_const -> TimesConstNode")
@@ -191,9 +191,9 @@ def test_unary_arithmetic_all_operators():
 
 
 def test_nested_arithmetic():
-    section("Nested UnaryArithmeticSpec — recursion")
+    section("Nested UnaryArithmeticSpec -- recursion")
 
-    # Build: 9.12% × (salary_cap − prior_salary)
+    # Build: 9.12% x (salary_cap − prior_salary)
     inner = UnaryArithmeticSpec(
         operator="const_minus",
         constant_label="salary_cap",
@@ -236,11 +236,11 @@ def test_derived_atom_spec():
 
 
 # ---------------------------------------------------------------------------
-# spec_to_engine_node — ComparisonSpec
+# spec_to_engine_node -- ComparisonSpec
 # ---------------------------------------------------------------------------
 
 def test_comparison_all_operators():
-    section("ComparisonSpec — all five operators")
+    section("ComparisonSpec -- all five operators")
 
     operators = [
         ("leq", LeqNode),
@@ -278,7 +278,7 @@ def test_comparison_unexpanded_raises():
 
 
 def test_comparison_inside_and_boolean():
-    section("ComparisonSpec composed inside AndNode — end-to-end")
+    section("ComparisonSpec composed inside AndNode -- end-to-end")
 
     # AND of two comparisons (the exact structure from the integration test):
     # AND(
@@ -307,7 +307,7 @@ def test_comparison_inside_and_boolean():
         lhs_spec=NumericLeafSpec(atom_id_hint="contract_length_seasons",
                                  statement="contract length in seasons"),
         rhs_spec=ConstantSpec(value=4),
-        surface_label="length ≤ 4",
+        surface_label="length <= 4",
     )
     spec_and = OperatorSpec(
         operator="and",
@@ -349,7 +349,7 @@ def test_comparison_inside_and_boolean():
 
 
 # ---------------------------------------------------------------------------
-# End-to-end evaluation — produce engine nodes, feed FactBundle, get result
+# End-to-end evaluation -- produce engine nodes, feed FactBundle, get result
 # ---------------------------------------------------------------------------
 
 def test_end_to_end_evaluation():
@@ -386,7 +386,7 @@ def test_end_to_end_evaluation():
     atoms = {}
     node = spec_to_engine_node(spec_and, atoms, NBA_CONSTANTS)
 
-    # FactBundle: contract salary $5.15M (within 9.12% × 140.588M = ~12.82M),
+    # FactBundle: contract salary $5.15M (within 9.12% x 140.588M = ~12.82M),
     #             contract length 3 seasons (within 4)
     from rulekit.engine import FactBundle
     bundle = FactBundle(values={

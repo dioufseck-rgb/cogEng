@@ -233,7 +233,7 @@ class StructuredOutputSubstrate(Substrate):
             for v in cluster_values.values():
                 if isinstance(v, NumericValue):
                     distinct.add(("numeric",
-                                  "undetermined" if v.is_undetermined()
+                                  "undetermined" if v.is_undetermined
                                   else str(v.value)))
                 else:
                     distinct.add(("kleene", str(v)))
@@ -265,7 +265,7 @@ class StructuredOutputSubstrate(Substrate):
 
 def _is_undetermined(v) -> bool:
     if isinstance(v, NumericValue):
-        return v.is_undetermined()
+        return v.is_undetermined
     if isinstance(v, Kleene):
         return v == Kleene.UNDETERMINED
     return False
@@ -273,7 +273,7 @@ def _is_undetermined(v) -> bool:
 
 def _value_to_str(v) -> str:
     if isinstance(v, NumericValue):
-        return "undetermined" if v.is_undetermined() else str(v.value)
+        return "undetermined" if v.is_undetermined else str(v.value)
     if isinstance(v, Kleene):
         return str(v).replace("Kleene.", "")
     return str(v)

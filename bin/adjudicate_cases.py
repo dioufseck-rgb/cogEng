@@ -99,7 +99,7 @@ def numeric_value_to_dict(nv) -> dict:
     if isinstance(nv, Kleene):
         return {"type": "kleene", "value": kleene_to_str(nv)}
     if isinstance(nv, NumericValue):
-        if nv.is_undetermined():
+        if nv.is_undetermined:
             return {"type": "numeric", "value": "UNDETERMINED"}
         return {"type": "numeric", "value": str(nv.value)}
     return {"type": "unknown", "value": str(nv)}
