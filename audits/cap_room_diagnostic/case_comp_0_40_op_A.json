@@ -1,0 +1,337 @@
+{
+  "case_id": "comp_0_40_op_A",
+  "ground_truth": {
+    "is_illegal": false,
+    "relevant_rules": [
+      "salary_increase_and_decrease_ratio_except_qualiyfing_or_early_qualifying_veteran_free_agent",
+      "contract_length_at_most_4_year_except_qualifying_veteran_free_agent_5_year",
+      "salary_cap_no_exceed_without_exception",
+      "maximum_salary_for_player_7_to_9_year_service",
+      "maximum_salary_for_player_10_or_more_year_service",
+      "defer_compensation_38_year_old"
+    ],
+    "illegal_operation_letter": "C"
+  },
+  "rulekit": {
+    "disposition": "legal",
+    "says_illegal": false,
+    "relevant_determinations": [
+      "nba.cap_room",
+      "nba.contract_length",
+      "nba.max_salary",
+      "nba.over_38_contract",
+      "nba.salary_increase"
+    ],
+    "per_determination_kleene": {
+      "nba.cap_room": "TRUE",
+      "nba.contract_length": "MISSING",
+      "nba.max_salary": "MISSING",
+      "nba.over_38_contract": "MISSING",
+      "nba.salary_increase": "MISSING"
+    }
+  },
+  "agreement_with_ground_truth": true,
+  "atom_bindings": {
+    "pre_signing_team_salary": {
+      "type": "numeric",
+      "value": "80000000"
+    },
+    "first_year_salary_plus_unlikely_bonuses": {
+      "type": "numeric",
+      "value": "10000000"
+    },
+    "nba.a001": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a002": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a003": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a004": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a005": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a006": {
+      "type": "kleene",
+      "value": "TRUE"
+    },
+    "nba.a007": {
+      "type": "kleene",
+      "value": "FALSE"
+    },
+    "new_contract_first_year_salary": {
+      "type": "numeric",
+      "value": "10000000"
+    },
+    "new_contract_first_year_unlikely_bonuses": {
+      "type": "numeric",
+      "value": "0"
+    },
+    "nba.maximum_annual_salary_article_ii_section_7": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "nba.a008": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a009": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a010": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a011": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a012": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    }
+  },
+  "per_determination_traces": {
+    "nba.cap_room": [
+      {
+        "type": "or",
+        "k": 7,
+        "surface_label": "cap room OR Section 6 exception pathway",
+        "provenance": "transcribed",
+        "child_values": [
+          "true",
+          "undetermined",
+          "undetermined",
+          "undetermined",
+          "undetermined",
+          "undetermined",
+          "undetermined"
+        ],
+        "t": 1,
+        "f": 0,
+        "u": 6,
+        "result": "true",
+        "children_trace": [
+          {
+            "type": "compare_leq",
+            "surface_label": "post-signing Team Salary within Salary Cap",
+            "provenance": "structural",
+            "left_value": "90000000",
+            "right_value": "140588000",
+            "result": "true",
+            "left_trace": [
+              {
+                "type": "plus",
+                "surface_label": "team_salary_post_signing",
+                "provenance": "structural",
+                "left_value": "80000000",
+                "right_value": "10000000",
+                "result": "90000000",
+                "left_trace": [
+                  {
+                    "type": "numeric_leaf",
+                    "atom_id": "pre_signing_team_salary",
+                    "value": "80000000",
+                    "evidence": ""
+                  }
+                ],
+                "right_trace": [
+                  {
+                    "type": "numeric_leaf",
+                    "atom_id": "first_year_salary_plus_unlikely_bonuses",
+                    "value": "10000000",
+                    "evidence": ""
+                  }
+                ]
+              }
+            ],
+            "right_trace": [
+              {
+                "type": "constant",
+                "value": "140588000",
+                "label": "salary_cap"
+              }
+            ]
+          },
+          {
+            "type": "leaf",
+            "atom_id": "nba.a001",
+            "value": "undetermined",
+            "evidence": ""
+          },
+          {
+            "type": "leaf",
+            "atom_id": "nba.a002",
+            "value": "undetermined",
+            "evidence": ""
+          },
+          {
+            "type": "leaf",
+            "atom_id": "nba.a003",
+            "value": "undetermined",
+            "evidence": ""
+          },
+          {
+            "type": "leaf",
+            "atom_id": "nba.a004",
+            "value": "undetermined",
+            "evidence": ""
+          },
+          {
+            "type": "or",
+            "k": 3,
+            "surface_label": "Veteran Free Agent Exception pathway (QVFA / EQVFA / NQVFA)",
+            "provenance": "transcribed",
+            "child_values": [
+              "false",
+              "undetermined",
+              "undetermined"
+            ],
+            "t": 0,
+            "f": 1,
+            "u": 2,
+            "result": "undetermined",
+            "children_trace": [
+              {
+                "type": "and",
+                "k": 5,
+                "surface_label": "QVFA Exception conjunctive predicates",
+                "provenance": "transcribed",
+                "child_values": [
+                  "undetermined",
+                  "false",
+                  "undetermined",
+                  "undetermined",
+                  "undetermined"
+                ],
+                "t": 0,
+                "f": 1,
+                "u": 4,
+                "result": "false",
+                "children_trace": [
+                  {
+                    "type": "leaf",
+                    "atom_id": "nba.a005",
+                    "value": "undetermined",
+                    "evidence": ""
+                  },
+                  {
+                    "type": "and",
+                    "k": 2,
+                    "surface_label": "Prior-Team counterparty AND post-Moratorium timing",
+                    "provenance": "structural",
+                    "child_values": [
+                      "true",
+                      "false"
+                    ],
+                    "t": 1,
+                    "f": 1,
+                    "u": 0,
+                    "result": "false",
+                    "children_trace": [
+                      {
+                        "type": "leaf",
+                        "atom_id": "nba.a006",
+                        "value": "true",
+                        "evidence": ""
+                      },
+                      {
+                        "type": "leaf",
+                        "atom_id": "nba.a007",
+                        "value": "false",
+                        "evidence": ""
+                      }
+                    ]
+                  },
+                  {
+                    "type": "compare_leq",
+                    "surface_label": "First-year compensation within Maximum Annual Salary",
+                    "provenance": "structural",
+                    "left_value": "10000000",
+                    "right_value": "undetermined",
+                    "result": "undetermined",
+                    "left_trace": [
+                      {
+                        "type": "plus",
+                        "surface_label": "first_year_salary_plus_unlikely_bonuses",
+                        "provenance": "structural",
+                        "left_value": "10000000",
+                        "right_value": "0",
+                        "result": "10000000",
+                        "left_trace": [
+                          {
+                            "type": "numeric_leaf",
+                            "atom_id": "new_contract_first_year_salary",
+                            "value": "10000000",
+                            "evidence": ""
+                          }
+                        ],
+                        "right_trace": [
+                          {
+                            "type": "numeric_leaf",
+                            "atom_id": "new_contract_first_year_unlikely_bonuses",
+                            "value": "0",
+                            "evidence": ""
+                          }
+                        ]
+                      }
+                    ],
+                    "right_trace": [
+                      {
+                        "type": "numeric_leaf",
+                        "atom_id": "nba.maximum_annual_salary_article_ii_section_7",
+                        "value": "undetermined",
+                        "evidence": ""
+                      }
+                    ]
+                  },
+                  {
+                    "type": "leaf",
+                    "atom_id": "nba.a008",
+                    "value": "undetermined",
+                    "evidence": ""
+                  },
+                  {
+                    "type": "leaf",
+                    "atom_id": "nba.a009",
+                    "value": "undetermined",
+                    "evidence": ""
+                  }
+                ]
+              },
+              {
+                "type": "leaf",
+                "atom_id": "nba.a010",
+                "value": "undetermined",
+                "evidence": ""
+              },
+              {
+                "type": "leaf",
+                "atom_id": "nba.a011",
+                "value": "undetermined",
+                "evidence": ""
+              }
+            ]
+          },
+          {
+            "type": "leaf",
+            "atom_id": "nba.a012",
+            "value": "undetermined",
+            "evidence": ""
+          }
+        ]
+      }
+    ]
+  },
+  "case_description": "TEAMS:\n  - Team A has a team salary of $100,000,000;\n  - Team B has a team salary of $120,000,000;\n  - Team F has a team salary of $80,000,000.\n\nPLAYERS:\n  - Player A was the 3rd first-round pick of Team B in 2016 NBA draft when he was 19 years old.\n  - Player A signed a 4-year contract (annual salary $20,000,000, 5% increase per year) with Team A during 2020 Moratorium Period.\n  - Player B was the 12th first-round pick of Team A in 2008 NBA draft when he was 19 years old.\n  - Player B signed a 4-year contract (annual salary $39,000,000, 5% increase per year) with Team A during 2020 Moratorium Period.\n  - Player C was the 16th first-round pick of Team A in 2017 NBA draft when he was 19 years old.\n  - Player C signed a 4-year contract (annual salary $10,000,000, 5% increase per year) with Team F during 2020 Moratorium Period.\n\nALL OPERATIONS PROPOSED IN THIS CASE:\n  - A. Team F signs a 2-year contract with Player C providing annual salary $10,000,000 in the first Salary Cap Year (2024-2025) and 5% increase per year.\n  - B. Team A signs a 4-year contract with Player A providing annual salary $22,000,000 in the first Salary Cap Year (2024-2025) and 5% increase per year.\n  - C. Team B signs a 4-year contract with Player B providing annual salary $16,000,000 in the first Salary Cap Year (2024-2025) and 5% increase per year.\n\nOPERATION UNDER ADJUDICATION: A\n  A. Team F signs a 2-year contract with Player C providing annual salary $10,000,000 in the first Salary Cap Year (2024-2025) and 5% increase per year."
+}

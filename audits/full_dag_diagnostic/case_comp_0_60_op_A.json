@@ -1,0 +1,3168 @@
+{
+  "case_id": "comp_0_60_op_A",
+  "ground_truth": {
+    "is_illegal": true,
+    "relevant_rules": [
+      "salary_cap_no_exceed_without_exception",
+      "maximum_salary_for_player_7_to_9_year_service",
+      "salary_increase_and_decrease_ratio_for_qualiyfing_or_early_qualifying_veteran_free_agent",
+      "sign_and_trade_3_to_4_year",
+      "sign_and_trade_assignee_team_has_room",
+      "sign_and_trade_assigner_traded_player_exception_hard_cap_second_apron_level",
+      "sign_and_trade_hard_cap_first_apron_level",
+      "sign_and_trade_not_with_mid_level_exception"
+    ],
+    "illegal_operation_letter": "A"
+  },
+  "rulekit": {
+    "disposition": "uncertain",
+    "says_illegal": false,
+    "relevant_determinations": [
+      "nba.cap_room",
+      "nba.max_salary",
+      "nba.salary_increase",
+      "nba.sign_and_trade"
+    ],
+    "per_determination_kleene": {
+      "nba.cap_room": "TRUE",
+      "nba.max_salary": "UNDETERMINED",
+      "nba.salary_increase": "UNDETERMINED",
+      "nba.sign_and_trade": "UNDETERMINED"
+    }
+  },
+  "agreement_with_ground_truth": false,
+  "atom_bindings": {
+    "nba.player_years_of_service": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "contract_first_year_salary": {
+      "type": "numeric",
+      "value": "35000000"
+    },
+    "contract_first_year_unlikely_bonuses": {
+      "type": "numeric",
+      "value": "0"
+    },
+    "under_7_cap_pct_component": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "player_prior_year_salary": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "nba.first_year_salary_plus_unlikely_bonuses": {
+      "type": "numeric",
+      "value": "35000000"
+    },
+    "cap_pct_for_7_9_yos_ceiling": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "nba.a001": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a002": {
+      "type": "kleene",
+      "value": "FALSE"
+    },
+    "nba.a003": {
+      "type": "kleene",
+      "value": "TRUE"
+    },
+    "nba.a004": {
+      "type": "kleene",
+      "value": "TRUE"
+    },
+    "nba.a005": {
+      "type": "kleene",
+      "value": "TRUE"
+    },
+    "nba.contract_length_seasons": {
+      "type": "numeric",
+      "value": "3"
+    },
+    "nba.a006": {
+      "type": "kleene",
+      "value": "FALSE"
+    },
+    "nba.a007": {
+      "type": "kleene",
+      "value": "FALSE"
+    },
+    "nba.a008": {
+      "type": "kleene",
+      "value": "FALSE"
+    },
+    "nba.a009": {
+      "type": "kleene",
+      "value": "FALSE"
+    },
+    "nba.a010": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a011": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a012": {
+      "type": "kleene",
+      "value": "FALSE"
+    },
+    "nba.yoy_change_salary_and_unlikely_bonuses": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "nba.first_year_salary": {
+      "type": "numeric",
+      "value": "35000000"
+    },
+    "nba.a013": {
+      "type": "kleene",
+      "value": "FALSE"
+    },
+    "nba.a014": {
+      "type": "kleene",
+      "value": "FALSE"
+    },
+    "nba.a015": {
+      "type": "kleene",
+      "value": "FALSE"
+    },
+    "nba.a016": {
+      "type": "kleene",
+      "value": "FALSE"
+    },
+    "nba.a017": {
+      "type": "kleene",
+      "value": "FALSE"
+    },
+    "nba.yoy_change_salary_regular_unlikely_bonus": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "nba.first_year_salary_or_regular_salary_or_bonus": {
+      "type": "numeric",
+      "value": "35000000"
+    },
+    "nba.a018": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.yoy_change_salary_and_unlikely_bonuses_2": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "nba.extended_term_first_year_salary": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "nba.a019": {
+      "type": "kleene",
+      "value": "FALSE"
+    },
+    "current_year_salary_and_unlikely_bonuses": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "prior_year_salary_and_unlikely_bonuses": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "pre_signing_team_salary": {
+      "type": "numeric",
+      "value": "102000000"
+    },
+    "first_year_salary_plus_unlikely_bonuses": {
+      "type": "numeric",
+      "value": "35000000"
+    },
+    "nba.a020": {
+      "type": "kleene",
+      "value": "FALSE"
+    },
+    "nba.a021": {
+      "type": "kleene",
+      "value": "FALSE"
+    },
+    "nba.a022": {
+      "type": "kleene",
+      "value": "FALSE"
+    },
+    "nba.a023": {
+      "type": "kleene",
+      "value": "FALSE"
+    },
+    "nba.a024": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a025": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a026": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a027": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a028": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a029": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a030": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a031": {
+      "type": "kleene",
+      "value": "FALSE"
+    },
+    "new_contract_first_year_salary": {
+      "type": "numeric",
+      "value": "35000000"
+    },
+    "new_contract_first_year_unlikely_bonuses": {
+      "type": "numeric",
+      "value": "0"
+    },
+    "nba.maximum_annual_salary_article_ii_section_7": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "nba.annual_salary_change_between_cap_years": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "nba.first_year_salary_2": {
+      "type": "numeric",
+      "value": "35000000"
+    },
+    "nba.a032": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a033": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a034": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a035": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a036": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a037": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a038": {
+      "type": "kleene",
+      "value": "FALSE"
+    },
+    "nba.new_contract_length_seasons_excluding_option": {
+      "type": "numeric",
+      "value": "3"
+    },
+    "eqvfa_first_year_salary": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "eqvfa_first_year_unlikely_bonuses": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "prior_final_year_regular_salary": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "prior_likely_unlikely_bonuses": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "prior_average_player_salary": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "article_ii_section_7_maximum_annual_salary": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "nba.absolute_annual_salary_change": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "nba.a039": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a040": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "prior_regular_salary": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "prior_likely_and_unlikely_bonuses": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "applicable_minimum_annual_salary": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "qualifying_offer_amount_if_rfa": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "first_year_salary": {
+      "type": "numeric",
+      "value": "35000000"
+    },
+    "first_year_unlikely_bonuses": {
+      "type": "numeric",
+      "value": "0"
+    },
+    "nba.annual_change_in_salary_and_unlikely_bonuses": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "nba.contract_length_seasons_2": {
+      "type": "numeric",
+      "value": "3"
+    },
+    "nba.contract_first_season_salary": {
+      "type": "numeric",
+      "value": "35000000"
+    },
+    "nba.minimum_player_salary_applicable": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "nba.a041": {
+      "type": "kleene",
+      "value": "TRUE"
+    },
+    "nba.contract_first_year_salary": {
+      "type": "numeric",
+      "value": "35000000"
+    },
+    "nba.contract_term_seasons": {
+      "type": "numeric",
+      "value": "3"
+    },
+    "nba.a042": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.team_salary_after_taxpayer_mle_use": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "nba.taxpayer_mle_amount": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "nba.contract_term_seasons_2": {
+      "type": "numeric",
+      "value": "3"
+    },
+    "nba.pre_signing_team_salary": {
+      "type": "numeric",
+      "value": "102000000"
+    },
+    "nba.contract_first_year_salary_2": {
+      "type": "numeric",
+      "value": "35000000"
+    },
+    "nba.a043": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a044": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a045": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.contract_length_seasons_excluding_option": {
+      "type": "numeric",
+      "value": "3"
+    },
+    "average_player_salary_prior_cap_year": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "nba.a046": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "qualifying_offer_amount": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "nba.aggregate_post_assignment_replacement_player_salaries": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "nba.pre_trade_salary_plus_conditional_cushion": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "nba.num_traded_players_aggregated": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "nba.a047": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.aggregate_post_trade_replacement_player_salaries": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "aggregated_pre_trade_salaries_traded_players": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "trade_cushion_amount": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "nba.a048": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a049": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a050": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a051": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.replacement_players_acquired_count": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "nba.number_of_traded_players": {
+      "type": "numeric",
+      "value": "1"
+    },
+    "nba.num_minimum_traded_players": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "nba.a052": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.aggregate_post_trade_replacement_player_salaries_2023_24": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "aggregate_pre_trade_traded_player_salaries": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "aggregated_pre_trade_outgoing_salaries": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "scaled_7_5m_cap_ratio": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "125pct_outgoing_plus_conditional_250k": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "nba.team_salary": {
+      "type": "numeric",
+      "value": "102000000"
+    },
+    "nba.aggregate_post_assignment_salaries_acquired_players": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "team_room_under_cap": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "room_cushion": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "nba.a053": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.contract_length_seasons_excl_option": {
+      "type": "numeric",
+      "value": "3"
+    },
+    "nba.a054": {
+      "type": "kleene",
+      "value": "TRUE"
+    },
+    "nba.a055": {
+      "type": "kleene",
+      "value": "TRUE"
+    },
+    "nba.a056": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a057": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a058": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a059": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a060": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a061": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a062": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a063": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a064": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a065": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a066": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a067": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a068": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a069": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a070": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a071": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a072": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.acquiring_team_room": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "nba.contract_seasons_count": {
+      "type": "numeric",
+      "value": "3"
+    },
+    "nba.player_age_during_contract": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "nba.a073": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a074": {
+      "type": "kleene",
+      "value": "FALSE"
+    },
+    "nba.player_age_at_contract": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "nba.a075": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.date_player_turns_35": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "nba.october_1_of_relevant_salary_cap_year": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "nba.player_age_at_latest_season_commencement": {
+      "type": "numeric",
+      "value": "UNDETERMINED"
+    },
+    "nba.a076": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a077": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    },
+    "nba.a078": {
+      "type": "kleene",
+      "value": "UNDETERMINED"
+    }
+  },
+  "per_determination_traces": {
+    "nba.cap_room": [
+      {
+        "type": "or",
+        "k": 2,
+        "surface_label": "Cap room OR Section 6 Exception",
+        "provenance": "transcribed",
+        "child_values": [
+          "true",
+          "false"
+        ],
+        "t": 1,
+        "f": 1,
+        "u": 0,
+        "result": "true",
+        "children_trace": [
+          {
+            "type": "compare_leq",
+            "surface_label": "Team Salary within Salary Cap",
+            "provenance": "structural",
+            "left_value": "137000000",
+            "right_value": "140588000",
+            "result": "true",
+            "left_trace": [
+              {
+                "type": "plus",
+                "surface_label": "team_salary_post_signing",
+                "provenance": "structural",
+                "left_value": "102000000",
+                "right_value": "35000000",
+                "result": "137000000",
+                "left_trace": [
+                  {
+                    "type": "numeric_leaf",
+                    "atom_id": "pre_signing_team_salary",
+                    "value": "102000000",
+                    "evidence": ""
+                  }
+                ],
+                "right_trace": [
+                  {
+                    "type": "numeric_leaf",
+                    "atom_id": "first_year_salary_plus_unlikely_bonuses",
+                    "value": "35000000",
+                    "evidence": ""
+                  }
+                ]
+              }
+            ],
+            "right_trace": [
+              {
+                "type": "constant",
+                "value": "140588000",
+                "label": "salary_cap"
+              }
+            ]
+          },
+          {
+            "type": "or",
+            "k": 6,
+            "surface_label": "Section 6 Exception pathways",
+            "provenance": "transcribed",
+            "child_values": [
+              "false",
+              "false",
+              "false",
+              "false",
+              "false",
+              "false"
+            ],
+            "t": 0,
+            "f": 6,
+            "u": 0,
+            "result": "false",
+            "children_trace": [
+              {
+                "type": "leaf",
+                "atom_id": "nba.a020",
+                "value": "false",
+                "evidence": ""
+              },
+              {
+                "type": "leaf",
+                "atom_id": "nba.a021",
+                "value": "false",
+                "evidence": ""
+              },
+              {
+                "type": "leaf",
+                "atom_id": "nba.a022",
+                "value": "false",
+                "evidence": ""
+              },
+              {
+                "type": "leaf",
+                "atom_id": "nba.a023",
+                "value": "false",
+                "evidence": ""
+              },
+              {
+                "type": "or",
+                "k": 3,
+                "surface_label": "Veteran Free Agent Exception pathway (QVFA / EQVFA / Non-QVFA)",
+                "provenance": "transcribed",
+                "child_values": [
+                  "false",
+                  "false",
+                  "false"
+                ],
+                "t": 0,
+                "f": 3,
+                "u": 0,
+                "result": "false",
+                "children_trace": [
+                  {
+                    "type": "and",
+                    "k": 4,
+                    "surface_label": "QVFA re-signing with Prior Team under 6(b)(1)",
+                    "provenance": "structural",
+                    "child_values": [
+                      "undetermined",
+                      "false",
+                      "undetermined",
+                      "undetermined"
+                    ],
+                    "t": 0,
+                    "f": 1,
+                    "u": 3,
+                    "result": "false",
+                    "children_trace": [
+                      {
+                        "type": "and",
+                        "k": 3,
+                        "surface_label": "Qualifying Veteran Free Agent definition",
+                        "provenance": "transcribed",
+                        "child_values": [
+                          "undetermined",
+                          "undetermined",
+                          "undetermined"
+                        ],
+                        "t": 0,
+                        "f": 0,
+                        "u": 3,
+                        "result": "undetermined",
+                        "children_trace": [
+                          {
+                            "type": "leaf",
+                            "atom_id": "nba.a024",
+                            "value": "undetermined",
+                            "evidence": ""
+                          },
+                          {
+                            "type": "leaf",
+                            "atom_id": "nba.a025",
+                            "value": "undetermined",
+                            "evidence": ""
+                          },
+                          {
+                            "type": "or",
+                            "k": 2,
+                            "surface_label": "QVFA continuity-of-team requirement",
+                            "provenance": "transcribed",
+                            "child_values": [
+                              "undetermined",
+                              "undetermined"
+                            ],
+                            "t": 0,
+                            "f": 0,
+                            "u": 2,
+                            "result": "undetermined",
+                            "children_trace": [
+                              {
+                                "type": "leaf",
+                                "atom_id": "nba.a026",
+                                "value": "undetermined",
+                                "evidence": ""
+                              },
+                              {
+                                "type": "or",
+                                "k": 2,
+                                "surface_label": "QVFA continuity-of-team: single-team OR permitted-changes pathway",
+                                "provenance": "structural",
+                                "child_values": [
+                                  "undetermined",
+                                  "undetermined"
+                                ],
+                                "t": 0,
+                                "f": 0,
+                                "u": 2,
+                                "result": "undetermined",
+                                "children_trace": [
+                                  {
+                                    "type": "leaf",
+                                    "atom_id": "nba.a027",
+                                    "value": "undetermined",
+                                    "evidence": ""
+                                  },
+                                  {
+                                    "type": "or",
+                                    "k": 3,
+                                    "surface_label": "QVFA permitted-changes pathways",
+                                    "provenance": "transcribed",
+                                    "child_values": [
+                                      "undetermined",
+                                      "undetermined",
+                                      "undetermined"
+                                    ],
+                                    "t": 0,
+                                    "f": 0,
+                                    "u": 3,
+                                    "result": "undetermined",
+                                    "children_trace": [
+                                      {
+                                        "type": "leaf",
+                                        "atom_id": "nba.a028",
+                                        "value": "undetermined",
+                                        "evidence": ""
+                                      },
+                                      {
+                                        "type": "leaf",
+                                        "atom_id": "nba.a029",
+                                        "value": "undetermined",
+                                        "evidence": ""
+                                      },
+                                      {
+                                        "type": "leaf",
+                                        "atom_id": "nba.a030",
+                                        "value": "undetermined",
+                                        "evidence": ""
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "leaf",
+                        "atom_id": "nba.a031",
+                        "value": "false",
+                        "evidence": ""
+                      },
+                      {
+                        "type": "compare_leq",
+                        "surface_label": "First-year salary within Maximum Annual Salary",
+                        "provenance": "structural",
+                        "left_value": "35000000",
+                        "right_value": "undetermined",
+                        "result": "undetermined",
+                        "left_trace": [
+                          {
+                            "type": "plus",
+                            "surface_label": "first_year_salary_plus_unlikely_bonuses",
+                            "provenance": "structural",
+                            "left_value": "35000000",
+                            "right_value": "0",
+                            "result": "35000000",
+                            "left_trace": [
+                              {
+                                "type": "numeric_leaf",
+                                "atom_id": "new_contract_first_year_salary",
+                                "value": "35000000",
+                                "evidence": ""
+                              }
+                            ],
+                            "right_trace": [
+                              {
+                                "type": "numeric_leaf",
+                                "atom_id": "new_contract_first_year_unlikely_bonuses",
+                                "value": "0",
+                                "evidence": ""
+                              }
+                            ]
+                          }
+                        ],
+                        "right_trace": [
+                          {
+                            "type": "numeric_leaf",
+                            "atom_id": "nba.maximum_annual_salary_article_ii_section_7",
+                            "value": "undetermined",
+                            "evidence": ""
+                          }
+                        ]
+                      },
+                      {
+                        "type": "compare_leq",
+                        "surface_label": "8% annual change cap (QVFA/EQVFA with Prior Team)",
+                        "provenance": "structural",
+                        "left_value": "undetermined",
+                        "right_value": "2800000.00",
+                        "result": "undetermined",
+                        "left_trace": [
+                          {
+                            "type": "numeric_leaf",
+                            "atom_id": "nba.annual_salary_change_between_cap_years",
+                            "value": "undetermined",
+                            "evidence": ""
+                          }
+                        ],
+                        "right_trace": [
+                          {
+                            "type": "times_const",
+                            "surface_label": "",
+                            "provenance": "structural",
+                            "child_value": "35000000",
+                            "result": "2800000.00",
+                            "child_trace": [
+                              {
+                                "type": "numeric_leaf",
+                                "atom_id": "nba.first_year_salary_2",
+                                "value": "35000000",
+                                "evidence": ""
+                              }
+                            ],
+                            "constant": "0.08"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "and",
+                    "k": 5,
+                    "surface_label": "EQVFA re-signing with Prior Team \u2014 composite requirements",
+                    "provenance": "transcribed",
+                    "child_values": [
+                      "undetermined",
+                      "false",
+                      "true",
+                      "undetermined",
+                      "undetermined"
+                    ],
+                    "t": 1,
+                    "f": 1,
+                    "u": 3,
+                    "result": "false",
+                    "children_trace": [
+                      {
+                        "type": "and",
+                        "k": 2,
+                        "surface_label": "EQVFA definition (two-season tenure + permitted Team-change pathway)",
+                        "provenance": "transcribed",
+                        "child_values": [
+                          "undetermined",
+                          "undetermined"
+                        ],
+                        "t": 0,
+                        "f": 0,
+                        "u": 2,
+                        "result": "undetermined",
+                        "children_trace": [
+                          {
+                            "type": "and",
+                            "k": 2,
+                            "surface_label": "EQVFA two-season tenure predicate",
+                            "provenance": "transcribed",
+                            "child_values": [
+                              "undetermined",
+                              "undetermined"
+                            ],
+                            "t": 0,
+                            "f": 0,
+                            "u": 2,
+                            "result": "undetermined",
+                            "children_trace": [
+                              {
+                                "type": "leaf",
+                                "atom_id": "nba.a032",
+                                "value": "undetermined",
+                                "evidence": ""
+                              },
+                              {
+                                "type": "leaf",
+                                "atom_id": "nba.a033",
+                                "value": "undetermined",
+                                "evidence": ""
+                              }
+                            ]
+                          },
+                          {
+                            "type": "or",
+                            "k": 4,
+                            "surface_label": "EQVFA permitted Team-change pathways",
+                            "provenance": "transcribed",
+                            "child_values": [
+                              "undetermined",
+                              "undetermined",
+                              "undetermined",
+                              "undetermined"
+                            ],
+                            "t": 0,
+                            "f": 0,
+                            "u": 4,
+                            "result": "undetermined",
+                            "children_trace": [
+                              {
+                                "type": "leaf",
+                                "atom_id": "nba.a034",
+                                "value": "undetermined",
+                                "evidence": ""
+                              },
+                              {
+                                "type": "leaf",
+                                "atom_id": "nba.a035",
+                                "value": "undetermined",
+                                "evidence": ""
+                              },
+                              {
+                                "type": "leaf",
+                                "atom_id": "nba.a036",
+                                "value": "undetermined",
+                                "evidence": ""
+                              },
+                              {
+                                "type": "leaf",
+                                "atom_id": "nba.a037",
+                                "value": "undetermined",
+                                "evidence": ""
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "leaf",
+                        "atom_id": "nba.a038",
+                        "value": "false",
+                        "evidence": ""
+                      },
+                      {
+                        "type": "compare_geq",
+                        "surface_label": "EQVFA contract \u2265 2 Seasons",
+                        "provenance": "structural",
+                        "left_value": "3",
+                        "right_value": "2",
+                        "result": "true",
+                        "left_trace": [
+                          {
+                            "type": "numeric_leaf",
+                            "atom_id": "nba.new_contract_length_seasons_excluding_option",
+                            "value": "3",
+                            "evidence": ""
+                          }
+                        ],
+                        "right_trace": [
+                          {
+                            "type": "constant",
+                            "value": "2",
+                            "label": ""
+                          }
+                        ]
+                      },
+                      {
+                        "type": "compare_leq",
+                        "surface_label": "EQVFA first-year salary cap",
+                        "provenance": "structural",
+                        "left_value": "undetermined",
+                        "right_value": "undetermined",
+                        "result": "undetermined",
+                        "left_trace": [
+                          {
+                            "type": "plus",
+                            "surface_label": "eqvfa_first_year_salary_plus_unlikely_bonuses",
+                            "provenance": "structural",
+                            "left_value": "undetermined",
+                            "right_value": "undetermined",
+                            "result": "undetermined",
+                            "left_trace": [
+                              {
+                                "type": "numeric_leaf",
+                                "atom_id": "eqvfa_first_year_salary",
+                                "value": "undetermined",
+                                "evidence": ""
+                              }
+                            ],
+                            "right_trace": [
+                              {
+                                "type": "numeric_leaf",
+                                "atom_id": "eqvfa_first_year_unlikely_bonuses",
+                                "value": "undetermined",
+                                "evidence": ""
+                              }
+                            ]
+                          }
+                        ],
+                        "right_trace": [
+                          {
+                            "type": "min",
+                            "surface_label": "max_first_year_salary_capped_by_article_ii_s7",
+                            "provenance": "structural",
+                            "child_values": [
+                              "undetermined",
+                              "undetermined"
+                            ],
+                            "result": "undetermined",
+                            "children_trace": [
+                              [
+                                {
+                                  "type": "max",
+                                  "surface_label": "greater_of_175pct_prior_or_105pct_aps",
+                                  "provenance": "structural",
+                                  "child_values": [
+                                    "undetermined",
+                                    "undetermined"
+                                  ],
+                                  "result": "undetermined",
+                                  "children_trace": [
+                                    [
+                                      {
+                                        "type": "plus",
+                                        "surface_label": "175pct_prior_salary_plus_175pct_prior_bonuses",
+                                        "provenance": "structural",
+                                        "left_value": "undetermined",
+                                        "right_value": "undetermined",
+                                        "result": "undetermined",
+                                        "left_trace": [
+                                          {
+                                            "type": "times_const",
+                                            "surface_label": "",
+                                            "provenance": "structural",
+                                            "child_value": "undetermined",
+                                            "result": "undetermined",
+                                            "child_trace": [
+                                              {
+                                                "type": "numeric_leaf",
+                                                "atom_id": "prior_final_year_regular_salary",
+                                                "value": "undetermined",
+                                                "evidence": ""
+                                              }
+                                            ],
+                                            "constant": "1.75"
+                                          }
+                                        ],
+                                        "right_trace": [
+                                          {
+                                            "type": "times_const",
+                                            "surface_label": "",
+                                            "provenance": "structural",
+                                            "child_value": "undetermined",
+                                            "result": "undetermined",
+                                            "child_trace": [
+                                              {
+                                                "type": "numeric_leaf",
+                                                "atom_id": "prior_likely_unlikely_bonuses",
+                                                "value": "undetermined",
+                                                "evidence": ""
+                                              }
+                                            ],
+                                            "constant": "1.75"
+                                          }
+                                        ]
+                                      }
+                                    ],
+                                    [
+                                      {
+                                        "type": "times_const",
+                                        "surface_label": "",
+                                        "provenance": "structural",
+                                        "child_value": "undetermined",
+                                        "result": "undetermined",
+                                        "child_trace": [
+                                          {
+                                            "type": "numeric_leaf",
+                                            "atom_id": "prior_average_player_salary",
+                                            "value": "undetermined",
+                                            "evidence": ""
+                                          }
+                                        ],
+                                        "constant": "1.05"
+                                      }
+                                    ]
+                                  ]
+                                }
+                              ],
+                              [
+                                {
+                                  "type": "numeric_leaf",
+                                  "atom_id": "article_ii_section_7_maximum_annual_salary",
+                                  "value": "undetermined",
+                                  "evidence": ""
+                                }
+                              ]
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "compare_leq",
+                        "surface_label": "8% annual increase/decrease cap (EQVFA with Prior Team)",
+                        "provenance": "structural",
+                        "left_value": "undetermined",
+                        "right_value": "2800000.00",
+                        "result": "undetermined",
+                        "left_trace": [
+                          {
+                            "type": "numeric_leaf",
+                            "atom_id": "nba.absolute_annual_salary_change",
+                            "value": "undetermined",
+                            "evidence": ""
+                          }
+                        ],
+                        "right_trace": [
+                          {
+                            "type": "times_const",
+                            "surface_label": "",
+                            "provenance": "structural",
+                            "child_value": "35000000",
+                            "result": "2800000.00",
+                            "child_trace": [
+                              {
+                                "type": "numeric_leaf",
+                                "atom_id": "nba.first_year_salary_2",
+                                "value": "35000000",
+                                "evidence": ""
+                              }
+                            ],
+                            "constant": "0.08"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "and",
+                    "k": 6,
+                    "surface_label": "Non-QVFA re-signing with Prior Team exception (\u00a76(b)(2))",
+                    "provenance": "structural",
+                    "child_values": [
+                      "undetermined",
+                      "false",
+                      "undetermined",
+                      "undetermined",
+                      "undetermined",
+                      "true"
+                    ],
+                    "t": 1,
+                    "f": 1,
+                    "u": 4,
+                    "result": "false",
+                    "children_trace": [
+                      {
+                        "type": "and",
+                        "k": 3,
+                        "surface_label": "Non-QVFA status (VFA AND NOT QVFA AND NOT EQVFA)",
+                        "provenance": "transcribed",
+                        "child_values": [
+                          "undetermined",
+                          "undetermined",
+                          "undetermined"
+                        ],
+                        "t": 0,
+                        "f": 0,
+                        "u": 3,
+                        "result": "undetermined",
+                        "children_trace": [
+                          {
+                            "type": "leaf",
+                            "atom_id": "nba.a032",
+                            "value": "undetermined",
+                            "evidence": ""
+                          },
+                          {
+                            "type": "not",
+                            "provenance": "transcribed",
+                            "child_value": "undetermined",
+                            "result": "undetermined",
+                            "child_trace": [
+                              {
+                                "type": "and",
+                                "k": 3,
+                                "surface_label": "QVFA definitional elements",
+                                "provenance": "transcribed",
+                                "child_values": [
+                                  "undetermined",
+                                  "undetermined",
+                                  "undetermined"
+                                ],
+                                "t": 0,
+                                "f": 0,
+                                "u": 3,
+                                "result": "undetermined",
+                                "children_trace": [
+                                  {
+                                    "type": "leaf",
+                                    "atom_id": "nba.a032",
+                                    "value": "undetermined",
+                                    "evidence": ""
+                                  },
+                                  {
+                                    "type": "leaf",
+                                    "atom_id": "nba.a025",
+                                    "value": "undetermined",
+                                    "evidence": ""
+                                  },
+                                  {
+                                    "type": "or",
+                                    "k": 2,
+                                    "surface_label": "QVFA continuity-of-team requirement",
+                                    "provenance": "transcribed",
+                                    "child_values": [
+                                      "undetermined",
+                                      "undetermined"
+                                    ],
+                                    "t": 0,
+                                    "f": 0,
+                                    "u": 2,
+                                    "result": "undetermined",
+                                    "children_trace": [
+                                      {
+                                        "type": "leaf",
+                                        "atom_id": "nba.a026",
+                                        "value": "undetermined",
+                                        "evidence": ""
+                                      },
+                                      {
+                                        "type": "or",
+                                        "k": 3,
+                                        "surface_label": "Permissible team-change methods during three preceding Seasons",
+                                        "provenance": "transcribed",
+                                        "child_values": [
+                                          "undetermined",
+                                          "undetermined",
+                                          "undetermined"
+                                        ],
+                                        "t": 0,
+                                        "f": 0,
+                                        "u": 3,
+                                        "result": "undetermined",
+                                        "children_trace": [
+                                          {
+                                            "type": "leaf",
+                                            "atom_id": "nba.a039",
+                                            "value": "undetermined",
+                                            "evidence": ""
+                                          },
+                                          {
+                                            "type": "leaf",
+                                            "atom_id": "nba.a029",
+                                            "value": "undetermined",
+                                            "evidence": ""
+                                          },
+                                          {
+                                            "type": "leaf",
+                                            "atom_id": "nba.a030",
+                                            "value": "undetermined",
+                                            "evidence": ""
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "not",
+                            "provenance": "structural",
+                            "child_value": "undetermined",
+                            "result": "undetermined",
+                            "child_trace": [
+                              {
+                                "type": "and",
+                                "k": 3,
+                                "surface_label": "Early Qualifying Veteran Free Agent definition",
+                                "provenance": "transcribed",
+                                "child_values": [
+                                  "undetermined",
+                                  "undetermined",
+                                  "undetermined"
+                                ],
+                                "t": 0,
+                                "f": 0,
+                                "u": 3,
+                                "result": "undetermined",
+                                "children_trace": [
+                                  {
+                                    "type": "leaf",
+                                    "atom_id": "nba.a032",
+                                    "value": "undetermined",
+                                    "evidence": ""
+                                  },
+                                  {
+                                    "type": "leaf",
+                                    "atom_id": "nba.a033",
+                                    "value": "undetermined",
+                                    "evidence": ""
+                                  },
+                                  {
+                                    "type": "or",
+                                    "k": 2,
+                                    "surface_label": "EQVFA continuity-of-team predicate",
+                                    "provenance": "transcribed",
+                                    "child_values": [
+                                      "undetermined",
+                                      "undetermined"
+                                    ],
+                                    "t": 0,
+                                    "f": 0,
+                                    "u": 2,
+                                    "result": "undetermined",
+                                    "children_trace": [
+                                      {
+                                        "type": "leaf",
+                                        "atom_id": "nba.a034",
+                                        "value": "undetermined",
+                                        "evidence": ""
+                                      },
+                                      {
+                                        "type": "or",
+                                        "k": 3,
+                                        "surface_label": "EQVFA permitted method of changing teams",
+                                        "provenance": "transcribed",
+                                        "child_values": [
+                                          "undetermined",
+                                          "undetermined",
+                                          "undetermined"
+                                        ],
+                                        "t": 0,
+                                        "f": 0,
+                                        "u": 3,
+                                        "result": "undetermined",
+                                        "children_trace": [
+                                          {
+                                            "type": "leaf",
+                                            "atom_id": "nba.a039",
+                                            "value": "undetermined",
+                                            "evidence": ""
+                                          },
+                                          {
+                                            "type": "leaf",
+                                            "atom_id": "nba.a040",
+                                            "value": "undetermined",
+                                            "evidence": ""
+                                          },
+                                          {
+                                            "type": "leaf",
+                                            "atom_id": "nba.a037",
+                                            "value": "undetermined",
+                                            "evidence": ""
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "leaf",
+                        "atom_id": "nba.a031",
+                        "value": "false",
+                        "evidence": ""
+                      },
+                      {
+                        "type": "compare_leq",
+                        "surface_label": "Non-QVFA \u00a76(b)(2) first-year salary cap",
+                        "provenance": "structural",
+                        "left_value": "35000000",
+                        "right_value": "undetermined",
+                        "result": "undetermined",
+                        "left_trace": [
+                          {
+                            "type": "plus",
+                            "surface_label": "first_year_salary_plus_unlikely_bonuses",
+                            "provenance": "structural",
+                            "left_value": "35000000",
+                            "right_value": "0",
+                            "result": "35000000",
+                            "left_trace": [
+                              {
+                                "type": "numeric_leaf",
+                                "atom_id": "new_contract_first_year_salary",
+                                "value": "35000000",
+                                "evidence": ""
+                              }
+                            ],
+                            "right_trace": [
+                              {
+                                "type": "numeric_leaf",
+                                "atom_id": "new_contract_first_year_unlikely_bonuses",
+                                "value": "0",
+                                "evidence": ""
+                              }
+                            ]
+                          }
+                        ],
+                        "right_trace": [
+                          {
+                            "type": "max",
+                            "surface_label": "qualifying_veteran_max_floor",
+                            "provenance": "structural",
+                            "child_values": [
+                              "undetermined",
+                              "undetermined",
+                              "undetermined"
+                            ],
+                            "result": "undetermined",
+                            "children_trace": [
+                              [
+                                {
+                                  "type": "sum",
+                                  "surface_label": "120pct_prior_salary_plus_bonuses",
+                                  "provenance": "structural",
+                                  "child_values": [
+                                    "undetermined",
+                                    "undetermined"
+                                  ],
+                                  "result": "undetermined",
+                                  "children_trace": [
+                                    [
+                                      {
+                                        "type": "times_const",
+                                        "surface_label": "",
+                                        "provenance": "structural",
+                                        "child_value": "undetermined",
+                                        "result": "undetermined",
+                                        "child_trace": [
+                                          {
+                                            "type": "numeric_leaf",
+                                            "atom_id": "prior_regular_salary",
+                                            "value": "undetermined",
+                                            "evidence": ""
+                                          }
+                                        ],
+                                        "constant": "1.2"
+                                      }
+                                    ],
+                                    [
+                                      {
+                                        "type": "times_const",
+                                        "surface_label": "",
+                                        "provenance": "structural",
+                                        "child_value": "undetermined",
+                                        "result": "undetermined",
+                                        "child_trace": [
+                                          {
+                                            "type": "numeric_leaf",
+                                            "atom_id": "prior_likely_and_unlikely_bonuses",
+                                            "value": "undetermined",
+                                            "evidence": ""
+                                          }
+                                        ],
+                                        "constant": "1.2"
+                                      }
+                                    ]
+                                  ]
+                                }
+                              ],
+                              [
+                                {
+                                  "type": "times_const",
+                                  "surface_label": "",
+                                  "provenance": "structural",
+                                  "child_value": "undetermined",
+                                  "result": "undetermined",
+                                  "child_trace": [
+                                    {
+                                      "type": "numeric_leaf",
+                                      "atom_id": "applicable_minimum_annual_salary",
+                                      "value": "undetermined",
+                                      "evidence": ""
+                                    }
+                                  ],
+                                  "constant": "1.2"
+                                }
+                              ],
+                              [
+                                {
+                                  "type": "numeric_leaf",
+                                  "atom_id": "qualifying_offer_amount_if_rfa",
+                                  "value": "undetermined",
+                                  "evidence": ""
+                                }
+                              ]
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "compare_leq",
+                        "surface_label": "First-year compensation within Maximum Annual Salary",
+                        "provenance": "structural",
+                        "left_value": "35000000",
+                        "right_value": "undetermined",
+                        "result": "undetermined",
+                        "left_trace": [
+                          {
+                            "type": "plus",
+                            "surface_label": "first_year_salary_plus_unlikely_bonuses",
+                            "provenance": "structural",
+                            "left_value": "35000000",
+                            "right_value": "0",
+                            "result": "35000000",
+                            "left_trace": [
+                              {
+                                "type": "numeric_leaf",
+                                "atom_id": "first_year_salary",
+                                "value": "35000000",
+                                "evidence": ""
+                              }
+                            ],
+                            "right_trace": [
+                              {
+                                "type": "numeric_leaf",
+                                "atom_id": "first_year_unlikely_bonuses",
+                                "value": "0",
+                                "evidence": ""
+                              }
+                            ]
+                          }
+                        ],
+                        "right_trace": [
+                          {
+                            "type": "numeric_leaf",
+                            "atom_id": "nba.maximum_annual_salary_article_ii_section_7",
+                            "value": "undetermined",
+                            "evidence": ""
+                          }
+                        ]
+                      },
+                      {
+                        "type": "compare_leq",
+                        "surface_label": "5% annual increase/decrease cap",
+                        "provenance": "structural",
+                        "left_value": "undetermined",
+                        "right_value": "1750000.00",
+                        "result": "undetermined",
+                        "left_trace": [
+                          {
+                            "type": "numeric_leaf",
+                            "atom_id": "nba.annual_change_in_salary_and_unlikely_bonuses",
+                            "value": "undetermined",
+                            "evidence": ""
+                          }
+                        ],
+                        "right_trace": [
+                          {
+                            "type": "times_const",
+                            "surface_label": "",
+                            "provenance": "structural",
+                            "child_value": "35000000",
+                            "result": "1750000.00",
+                            "child_trace": [
+                              {
+                                "type": "numeric_leaf",
+                                "atom_id": "nba.first_year_salary_2",
+                                "value": "35000000",
+                                "evidence": ""
+                              }
+                            ],
+                            "constant": "0.05"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "compare_leq",
+                        "surface_label": "Contract length \u2264 4 Seasons",
+                        "provenance": "structural",
+                        "left_value": "3",
+                        "right_value": "4",
+                        "result": "true",
+                        "left_trace": [
+                          {
+                            "type": "numeric_leaf",
+                            "atom_id": "nba.contract_length_seasons_2",
+                            "value": "3",
+                            "evidence": ""
+                          }
+                        ],
+                        "right_trace": [
+                          {
+                            "type": "constant",
+                            "value": "4",
+                            "label": ""
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "and",
+                "k": 2,
+                "surface_label": "Minimum Player Salary Exception requirements",
+                "provenance": "transcribed",
+                "child_values": [
+                  "undetermined",
+                  "false"
+                ],
+                "t": 0,
+                "f": 1,
+                "u": 1,
+                "result": "false",
+                "children_trace": [
+                  {
+                    "type": "and",
+                    "k": 2,
+                    "surface_label": "Minimum salary contract structure requirements",
+                    "provenance": "transcribed",
+                    "child_values": [
+                      "undetermined",
+                      "true"
+                    ],
+                    "t": 1,
+                    "f": 0,
+                    "u": 1,
+                    "result": "undetermined",
+                    "children_trace": [
+                      {
+                        "type": "compare_eq",
+                        "surface_label": "First-year salary equals applicable Minimum Player Salary",
+                        "provenance": "structural",
+                        "left_value": "35000000",
+                        "right_value": "undetermined",
+                        "result": "undetermined",
+                        "left_trace": [
+                          {
+                            "type": "numeric_leaf",
+                            "atom_id": "nba.contract_first_season_salary",
+                            "value": "35000000",
+                            "evidence": ""
+                          }
+                        ],
+                        "right_trace": [
+                          {
+                            "type": "numeric_leaf",
+                            "atom_id": "nba.minimum_player_salary_applicable",
+                            "value": "undetermined",
+                            "evidence": ""
+                          }
+                        ]
+                      },
+                      {
+                        "type": "leaf",
+                        "atom_id": "nba.a041",
+                        "value": "true",
+                        "evidence": ""
+                      }
+                    ]
+                  },
+                  {
+                    "type": "compare_leq",
+                    "surface_label": "Contract term \u2264 2 Seasons",
+                    "provenance": "structural",
+                    "left_value": "3",
+                    "right_value": "2",
+                    "result": "false",
+                    "left_trace": [
+                      {
+                        "type": "numeric_leaf",
+                        "atom_id": "nba.contract_length_seasons_2",
+                        "value": "3",
+                        "evidence": ""
+                      }
+                    ],
+                    "right_trace": [
+                      {
+                        "type": "constant",
+                        "value": "2",
+                        "label": ""
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "nba.max_salary": [
+      {
+        "type": "or",
+        "k": 3,
+        "surface_label": "Max salary by YOS bracket",
+        "provenance": "structural",
+        "child_values": [
+          "undetermined",
+          "undetermined",
+          "undetermined"
+        ],
+        "t": 0,
+        "f": 0,
+        "u": 3,
+        "result": "undetermined",
+        "children_trace": [
+          {
+            "type": "and",
+            "k": 2,
+            "surface_label": "Under-7 bracket applies and salary within under-7 ceiling",
+            "provenance": "structural",
+            "child_values": [
+              "undetermined",
+              "undetermined"
+            ],
+            "t": 0,
+            "f": 0,
+            "u": 2,
+            "result": "undetermined",
+            "children_trace": [
+              {
+                "type": "compare_lt",
+                "surface_label": "Under-7 YOS bracket predicate",
+                "provenance": "structural",
+                "left_value": "undetermined",
+                "right_value": "7",
+                "result": "undetermined",
+                "left_trace": [
+                  {
+                    "type": "numeric_leaf",
+                    "atom_id": "nba.player_years_of_service",
+                    "value": "undetermined",
+                    "evidence": ""
+                  }
+                ],
+                "right_trace": [
+                  {
+                    "type": "constant",
+                    "value": "7",
+                    "label": ""
+                  }
+                ]
+              },
+              {
+                "type": "compare_leq",
+                "surface_label": "Salary within under-7 ceiling",
+                "provenance": "structural",
+                "left_value": "35000000",
+                "right_value": "undetermined",
+                "result": "undetermined",
+                "left_trace": [
+                  {
+                    "type": "plus",
+                    "surface_label": "first_year_salary_plus_unlikely_bonuses",
+                    "provenance": "structural",
+                    "left_value": "35000000",
+                    "right_value": "0",
+                    "result": "35000000",
+                    "left_trace": [
+                      {
+                        "type": "numeric_leaf",
+                        "atom_id": "contract_first_year_salary",
+                        "value": "35000000",
+                        "evidence": ""
+                      }
+                    ],
+                    "right_trace": [
+                      {
+                        "type": "numeric_leaf",
+                        "atom_id": "contract_first_year_unlikely_bonuses",
+                        "value": "0",
+                        "evidence": ""
+                      }
+                    ]
+                  }
+                ],
+                "right_trace": [
+                  {
+                    "type": "max",
+                    "surface_label": "under_7_ceiling",
+                    "provenance": "structural",
+                    "child_values": [
+                      "undetermined",
+                      "undetermined"
+                    ],
+                    "result": "undetermined",
+                    "children_trace": [
+                      [
+                        {
+                          "type": "numeric_leaf",
+                          "atom_id": "under_7_cap_pct_component",
+                          "value": "undetermined",
+                          "evidence": ""
+                        }
+                      ],
+                      [
+                        {
+                          "type": "times_const",
+                          "surface_label": "",
+                          "provenance": "structural",
+                          "child_value": "undetermined",
+                          "result": "undetermined",
+                          "child_trace": [
+                            {
+                              "type": "numeric_leaf",
+                              "atom_id": "player_prior_year_salary",
+                              "value": "undetermined",
+                              "evidence": ""
+                            }
+                          ],
+                          "constant": "1.05"
+                        }
+                      ]
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "and",
+            "k": 2,
+            "surface_label": "7-9 YOS bracket qualification and ceiling compliance",
+            "provenance": "structural",
+            "child_values": [
+              "undetermined",
+              "undetermined"
+            ],
+            "t": 0,
+            "f": 0,
+            "u": 2,
+            "result": "undetermined",
+            "children_trace": [
+              {
+                "type": "and",
+                "k": 2,
+                "surface_label": "7-9 YOS bracket membership",
+                "provenance": "transcribed",
+                "child_values": [
+                  "undetermined",
+                  "undetermined"
+                ],
+                "t": 0,
+                "f": 0,
+                "u": 2,
+                "result": "undetermined",
+                "children_trace": [
+                  {
+                    "type": "compare_geq",
+                    "surface_label": "YOS at least 7",
+                    "provenance": "structural",
+                    "left_value": "undetermined",
+                    "right_value": "7",
+                    "result": "undetermined",
+                    "left_trace": [
+                      {
+                        "type": "numeric_leaf",
+                        "atom_id": "nba.player_years_of_service",
+                        "value": "undetermined",
+                        "evidence": ""
+                      }
+                    ],
+                    "right_trace": [
+                      {
+                        "type": "constant",
+                        "value": "7",
+                        "label": ""
+                      }
+                    ]
+                  },
+                  {
+                    "type": "compare_lt",
+                    "surface_label": "YOS under 10",
+                    "provenance": "structural",
+                    "left_value": "undetermined",
+                    "right_value": "10",
+                    "result": "undetermined",
+                    "left_trace": [
+                      {
+                        "type": "numeric_leaf",
+                        "atom_id": "nba.player_years_of_service",
+                        "value": "undetermined",
+                        "evidence": ""
+                      }
+                    ],
+                    "right_trace": [
+                      {
+                        "type": "constant",
+                        "value": "10",
+                        "label": ""
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "compare_leq",
+                "surface_label": "7-9 YOS ceiling compliance",
+                "provenance": "structural",
+                "left_value": "35000000",
+                "right_value": "undetermined",
+                "result": "undetermined",
+                "left_trace": [
+                  {
+                    "type": "numeric_leaf",
+                    "atom_id": "nba.first_year_salary_plus_unlikely_bonuses",
+                    "value": "35000000",
+                    "evidence": ""
+                  }
+                ],
+                "right_trace": [
+                  {
+                    "type": "max",
+                    "surface_label": "7_9_yos_max_salary_ceiling",
+                    "provenance": "structural",
+                    "child_values": [
+                      "undetermined",
+                      "undetermined"
+                    ],
+                    "result": "undetermined",
+                    "children_trace": [
+                      [
+                        {
+                          "type": "numeric_leaf",
+                          "atom_id": "cap_pct_for_7_9_yos_ceiling",
+                          "value": "undetermined",
+                          "evidence": ""
+                        }
+                      ],
+                      [
+                        {
+                          "type": "times_const",
+                          "surface_label": "",
+                          "provenance": "structural",
+                          "child_value": "undetermined",
+                          "result": "undetermined",
+                          "child_trace": [
+                            {
+                              "type": "numeric_leaf",
+                              "atom_id": "player_prior_year_salary",
+                              "value": "undetermined",
+                              "evidence": ""
+                            }
+                          ],
+                          "constant": "1.05"
+                        }
+                      ]
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "and",
+            "k": 2,
+            "surface_label": "10+ YOS bracket branch",
+            "provenance": "transcribed",
+            "child_values": [
+              "undetermined",
+              "undetermined"
+            ],
+            "t": 0,
+            "f": 0,
+            "u": 2,
+            "result": "undetermined",
+            "children_trace": [
+              {
+                "type": "compare_geq",
+                "surface_label": "10+ YOS bracket predicate",
+                "provenance": "structural",
+                "left_value": "undetermined",
+                "right_value": "10",
+                "result": "undetermined",
+                "left_trace": [
+                  {
+                    "type": "numeric_leaf",
+                    "atom_id": "nba.player_years_of_service",
+                    "value": "undetermined",
+                    "evidence": ""
+                  }
+                ],
+                "right_trace": [
+                  {
+                    "type": "constant",
+                    "value": "10",
+                    "label": ""
+                  }
+                ]
+              },
+              {
+                "type": "compare_leq",
+                "surface_label": "first-year salary within 10+ YOS ceiling",
+                "provenance": "structural",
+                "left_value": "35000000",
+                "right_value": "undetermined",
+                "result": "undetermined",
+                "left_trace": [
+                  {
+                    "type": "numeric_leaf",
+                    "atom_id": "nba.first_year_salary_plus_unlikely_bonuses",
+                    "value": "35000000",
+                    "evidence": ""
+                  }
+                ],
+                "right_trace": [
+                  {
+                    "type": "max",
+                    "surface_label": "ten_plus_bracket_ceiling",
+                    "provenance": "structural",
+                    "child_values": [
+                      "49205800.00",
+                      "undetermined"
+                    ],
+                    "result": "undetermined",
+                    "children_trace": [
+                      [
+                        {
+                          "type": "times_const",
+                          "surface_label": "",
+                          "provenance": "structural",
+                          "child_value": "140588000",
+                          "result": "49205800.00",
+                          "child_trace": [
+                            {
+                              "type": "constant",
+                              "value": "140588000",
+                              "label": "salary_cap"
+                            }
+                          ],
+                          "constant": "0.35"
+                        }
+                      ],
+                      [
+                        {
+                          "type": "times_const",
+                          "surface_label": "",
+                          "provenance": "structural",
+                          "child_value": "undetermined",
+                          "result": "undetermined",
+                          "child_trace": [
+                            {
+                              "type": "numeric_leaf",
+                              "atom_id": "player_prior_year_salary",
+                              "value": "undetermined",
+                              "evidence": ""
+                            }
+                          ],
+                          "constant": "1.05"
+                        }
+                      ]
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "nba.salary_increase": [
+      {
+        "type": "or",
+        "k": 4,
+        "surface_label": "Section 5(a) ratio compliance by contract type",
+        "provenance": "structural",
+        "child_values": [
+          "undetermined",
+          "false",
+          "false",
+          "false"
+        ],
+        "t": 0,
+        "f": 3,
+        "u": 1,
+        "result": "undetermined",
+        "children_trace": [
+          {
+            "type": "and",
+            "k": 3,
+            "surface_label": "5% ratio branch (default contracts)",
+            "provenance": "structural",
+            "child_values": [
+              "true",
+              "true",
+              "undetermined"
+            ],
+            "t": 2,
+            "f": 0,
+            "u": 1,
+            "result": "undetermined",
+            "children_trace": [
+              {
+                "type": "not",
+                "provenance": "transcribed",
+                "child_value": "false",
+                "result": "true",
+                "child_trace": [
+                  {
+                    "type": "and",
+                    "k": 2,
+                    "surface_label": "QVFA/EQVFA-with-Prior-Team predicate",
+                    "provenance": "structural",
+                    "child_values": [
+                      "false",
+                      "undetermined"
+                    ],
+                    "t": 0,
+                    "f": 1,
+                    "u": 1,
+                    "result": "false",
+                    "children_trace": [
+                      {
+                        "type": "leaf",
+                        "atom_id": "nba.a009",
+                        "value": "false",
+                        "evidence": ""
+                      },
+                      {
+                        "type": "or",
+                        "k": 2,
+                        "surface_label": "QVFA or EQVFA status",
+                        "provenance": "transcribed",
+                        "child_values": [
+                          "undetermined",
+                          "undetermined"
+                        ],
+                        "t": 0,
+                        "f": 0,
+                        "u": 2,
+                        "result": "undetermined",
+                        "children_trace": [
+                          {
+                            "type": "leaf",
+                            "atom_id": "nba.a010",
+                            "value": "undetermined",
+                            "evidence": ""
+                          },
+                          {
+                            "type": "leaf",
+                            "atom_id": "nba.a011",
+                            "value": "undetermined",
+                            "evidence": ""
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "not",
+                "provenance": "structural",
+                "child_value": "false",
+                "result": "true",
+                "child_trace": [
+                  {
+                    "type": "leaf",
+                    "atom_id": "nba.a012",
+                    "value": "false",
+                    "evidence": ""
+                  }
+                ]
+              },
+              {
+                "type": "compare_leq",
+                "surface_label": "5% annual change cap (default)",
+                "provenance": "structural",
+                "left_value": "undetermined",
+                "right_value": "1750000.00",
+                "result": "undetermined",
+                "left_trace": [
+                  {
+                    "type": "numeric_leaf",
+                    "atom_id": "nba.yoy_change_salary_and_unlikely_bonuses",
+                    "value": "undetermined",
+                    "evidence": ""
+                  }
+                ],
+                "right_trace": [
+                  {
+                    "type": "times_const",
+                    "surface_label": "",
+                    "provenance": "structural",
+                    "child_value": "35000000",
+                    "result": "1750000.00",
+                    "child_trace": [
+                      {
+                        "type": "numeric_leaf",
+                        "atom_id": "nba.first_year_salary",
+                        "value": "35000000",
+                        "evidence": ""
+                      }
+                    ],
+                    "constant": "0.05"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "and",
+            "k": 3,
+            "surface_label": "QVFA/EQVFA-with-Prior-Team 8% ratio branch",
+            "provenance": "transcribed",
+            "child_values": [
+              "false",
+              "true",
+              "undetermined"
+            ],
+            "t": 1,
+            "f": 1,
+            "u": 1,
+            "result": "false",
+            "children_trace": [
+              {
+                "type": "and",
+                "k": 2,
+                "surface_label": "QVFA/EQVFA-with-Prior-Team predicate",
+                "provenance": "structural",
+                "child_values": [
+                  "undetermined",
+                  "false"
+                ],
+                "t": 0,
+                "f": 1,
+                "u": 1,
+                "result": "false",
+                "children_trace": [
+                  {
+                    "type": "or",
+                    "k": 2,
+                    "surface_label": "QVFA or EQVFA status",
+                    "provenance": "transcribed",
+                    "child_values": [
+                      "undetermined",
+                      "undetermined"
+                    ],
+                    "t": 0,
+                    "f": 0,
+                    "u": 2,
+                    "result": "undetermined",
+                    "children_trace": [
+                      {
+                        "type": "leaf",
+                        "atom_id": "nba.a010",
+                        "value": "undetermined",
+                        "evidence": ""
+                      },
+                      {
+                        "type": "leaf",
+                        "atom_id": "nba.a011",
+                        "value": "undetermined",
+                        "evidence": ""
+                      }
+                    ]
+                  },
+                  {
+                    "type": "leaf",
+                    "atom_id": "nba.a009",
+                    "value": "false",
+                    "evidence": ""
+                  }
+                ]
+              },
+              {
+                "type": "not",
+                "provenance": "transcribed",
+                "child_value": "false",
+                "result": "true",
+                "child_trace": [
+                  {
+                    "type": "or",
+                    "k": 5,
+                    "surface_label": "Carve-out exception contract signing authority",
+                    "provenance": "transcribed",
+                    "child_values": [
+                      "false",
+                      "false",
+                      "false",
+                      "false",
+                      "false"
+                    ],
+                    "t": 0,
+                    "f": 5,
+                    "u": 0,
+                    "result": "false",
+                    "children_trace": [
+                      {
+                        "type": "leaf",
+                        "atom_id": "nba.a013",
+                        "value": "false",
+                        "evidence": ""
+                      },
+                      {
+                        "type": "leaf",
+                        "atom_id": "nba.a014",
+                        "value": "false",
+                        "evidence": ""
+                      },
+                      {
+                        "type": "leaf",
+                        "atom_id": "nba.a015",
+                        "value": "false",
+                        "evidence": ""
+                      },
+                      {
+                        "type": "leaf",
+                        "atom_id": "nba.a016",
+                        "value": "false",
+                        "evidence": ""
+                      },
+                      {
+                        "type": "leaf",
+                        "atom_id": "nba.a017",
+                        "value": "false",
+                        "evidence": ""
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "compare_leq",
+                "surface_label": "8% annual change cap (QVFA/EQVFA with prior team)",
+                "provenance": "structural",
+                "left_value": "undetermined",
+                "right_value": "2800000.00",
+                "result": "undetermined",
+                "left_trace": [
+                  {
+                    "type": "numeric_leaf",
+                    "atom_id": "nba.yoy_change_salary_regular_unlikely_bonus",
+                    "value": "undetermined",
+                    "evidence": ""
+                  }
+                ],
+                "right_trace": [
+                  {
+                    "type": "times_const",
+                    "surface_label": "",
+                    "provenance": "structural",
+                    "child_value": "35000000",
+                    "result": "2800000.00",
+                    "child_trace": [
+                      {
+                        "type": "numeric_leaf",
+                        "atom_id": "nba.first_year_salary_or_regular_salary_or_bonus",
+                        "value": "35000000",
+                        "evidence": ""
+                      }
+                    ],
+                    "constant": "0.08"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "and",
+            "k": 3,
+            "surface_label": "Non-trade Extension 8% ratio compliance",
+            "provenance": "transcribed",
+            "child_values": [
+              "false",
+              "undetermined",
+              "undetermined"
+            ],
+            "t": 0,
+            "f": 1,
+            "u": 2,
+            "result": "false",
+            "children_trace": [
+              {
+                "type": "leaf",
+                "atom_id": "nba.a012",
+                "value": "false",
+                "evidence": ""
+              },
+              {
+                "type": "leaf",
+                "atom_id": "nba.a018",
+                "value": "undetermined",
+                "evidence": ""
+              },
+              {
+                "type": "compare_leq",
+                "surface_label": "8% extension annual change cap",
+                "provenance": "structural",
+                "left_value": "undetermined",
+                "right_value": "undetermined",
+                "result": "undetermined",
+                "left_trace": [
+                  {
+                    "type": "numeric_leaf",
+                    "atom_id": "nba.yoy_change_salary_and_unlikely_bonuses_2",
+                    "value": "undetermined",
+                    "evidence": ""
+                  }
+                ],
+                "right_trace": [
+                  {
+                    "type": "times_const",
+                    "surface_label": "",
+                    "provenance": "structural",
+                    "child_value": "undetermined",
+                    "result": "undetermined",
+                    "child_trace": [
+                      {
+                        "type": "numeric_leaf",
+                        "atom_id": "nba.extended_term_first_year_salary",
+                        "value": "undetermined",
+                        "evidence": ""
+                      }
+                    ],
+                    "constant": "0.08"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "and",
+            "k": 2,
+            "surface_label": "Trade-related Extension under 5% ratio",
+            "provenance": "transcribed",
+            "child_values": [
+              "false",
+              "undetermined"
+            ],
+            "t": 0,
+            "f": 1,
+            "u": 1,
+            "result": "false",
+            "children_trace": [
+              {
+                "type": "leaf",
+                "atom_id": "nba.a019",
+                "value": "false",
+                "evidence": ""
+              },
+              {
+                "type": "compare_leq",
+                "surface_label": "Trade-related Extension 5% annual change cap",
+                "provenance": "structural",
+                "left_value": "undetermined",
+                "right_value": "undetermined",
+                "result": "undetermined",
+                "left_trace": [
+                  {
+                    "type": "minus",
+                    "surface_label": "yoy_change_in_salary_and_unlikely_bonuses",
+                    "provenance": "structural",
+                    "left_value": "undetermined",
+                    "right_value": "undetermined",
+                    "result": "undetermined",
+                    "left_trace": [
+                      {
+                        "type": "numeric_leaf",
+                        "atom_id": "current_year_salary_and_unlikely_bonuses",
+                        "value": "undetermined",
+                        "evidence": ""
+                      }
+                    ],
+                    "right_trace": [
+                      {
+                        "type": "numeric_leaf",
+                        "atom_id": "prior_year_salary_and_unlikely_bonuses",
+                        "value": "undetermined",
+                        "evidence": ""
+                      }
+                    ]
+                  }
+                ],
+                "right_trace": [
+                  {
+                    "type": "times_const",
+                    "surface_label": "",
+                    "provenance": "structural",
+                    "child_value": "undetermined",
+                    "result": "undetermined",
+                    "child_trace": [
+                      {
+                        "type": "numeric_leaf",
+                        "atom_id": "nba.extended_term_first_year_salary",
+                        "value": "undetermined",
+                        "evidence": ""
+                      }
+                    ],
+                    "constant": "0.05"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "nba.sign_and_trade": [
+      {
+        "type": "and",
+        "k": 7,
+        "surface_label": "Sign-and-trade seven-condition conjunction",
+        "provenance": "transcribed",
+        "child_values": [
+          "undetermined",
+          "true",
+          "true",
+          "undetermined",
+          "undetermined",
+          "true",
+          "undetermined"
+        ],
+        "t": 3,
+        "f": 0,
+        "u": 4,
+        "result": "undetermined",
+        "children_trace": [
+          {
+            "type": "leaf",
+            "atom_id": "nba.a053",
+            "value": "undetermined",
+            "evidence": ""
+          },
+          {
+            "type": "and",
+            "k": 2,
+            "surface_label": "Contract length within 3-4 Season band",
+            "provenance": "transcribed",
+            "child_values": [
+              "true",
+              "true"
+            ],
+            "t": 2,
+            "f": 0,
+            "u": 0,
+            "result": "true",
+            "children_trace": [
+              {
+                "type": "compare_geq",
+                "surface_label": "Contract length at least 3 Seasons",
+                "provenance": "structural",
+                "left_value": "3",
+                "right_value": "3",
+                "result": "true",
+                "left_trace": [
+                  {
+                    "type": "numeric_leaf",
+                    "atom_id": "nba.contract_length_seasons_excl_option",
+                    "value": "3",
+                    "evidence": ""
+                  }
+                ],
+                "right_trace": [
+                  {
+                    "type": "constant",
+                    "value": "3",
+                    "label": ""
+                  }
+                ]
+              },
+              {
+                "type": "compare_leq",
+                "surface_label": "Contract length \u2264 4 Seasons",
+                "provenance": "structural",
+                "left_value": "3",
+                "right_value": "4",
+                "result": "true",
+                "left_trace": [
+                  {
+                    "type": "numeric_leaf",
+                    "atom_id": "nba.contract_length_seasons_excl_option",
+                    "value": "3",
+                    "evidence": ""
+                  }
+                ],
+                "right_trace": [
+                  {
+                    "type": "constant",
+                    "value": "4",
+                    "label": ""
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "and",
+            "k": 2,
+            "surface_label": "Neither NT-MLE nor Room MLE used (De Morgan: NOT(A or B) = NOT A AND NOT B)",
+            "provenance": "transcribed",
+            "child_values": [
+              "true",
+              "true"
+            ],
+            "t": 2,
+            "f": 0,
+            "u": 0,
+            "result": "true",
+            "children_trace": [
+              {
+                "type": "leaf",
+                "atom_id": "nba.a054",
+                "value": "true",
+                "evidence": ""
+              },
+              {
+                "type": "leaf",
+                "atom_id": "nba.a055",
+                "value": "true",
+                "evidence": ""
+              }
+            ]
+          },
+          {
+            "type": "leaf",
+            "atom_id": "nba.a056",
+            "value": "undetermined",
+            "evidence": ""
+          },
+          {
+            "type": "leaf",
+            "atom_id": "nba.a057",
+            "value": "undetermined",
+            "evidence": ""
+          },
+          {
+            "type": "or",
+            "k": 2,
+            "surface_label": "5th-year-eligible 25% cap conditional",
+            "provenance": "structural",
+            "child_values": [
+              "undetermined",
+              "true"
+            ],
+            "t": 1,
+            "f": 0,
+            "u": 1,
+            "result": "true",
+            "children_trace": [
+              {
+                "type": "not",
+                "provenance": "structural",
+                "child_value": "undetermined",
+                "result": "undetermined",
+                "child_trace": [
+                  {
+                    "type": "and",
+                    "k": 2,
+                    "surface_label": "5th-Year Eligible AND Higher Max Criteria met",
+                    "provenance": "transcribed",
+                    "child_values": [
+                      "undetermined",
+                      "undetermined"
+                    ],
+                    "t": 0,
+                    "f": 0,
+                    "u": 2,
+                    "result": "undetermined",
+                    "children_trace": [
+                      {
+                        "type": "leaf",
+                        "atom_id": "nba.a058",
+                        "value": "undetermined",
+                        "evidence": ""
+                      },
+                      {
+                        "type": "or",
+                        "k": 2,
+                        "surface_label": "Higher Max Criteria met",
+                        "provenance": "transcribed",
+                        "child_values": [
+                          "undetermined",
+                          "undetermined"
+                        ],
+                        "t": 0,
+                        "f": 0,
+                        "u": 2,
+                        "result": "undetermined",
+                        "children_trace": [
+                          {
+                            "type": "or",
+                            "k": 2,
+                            "surface_label": "All-NBA/DPOY recency disjunction",
+                            "provenance": "transcribed",
+                            "child_values": [
+                              "undetermined",
+                              "undetermined"
+                            ],
+                            "t": 0,
+                            "f": 0,
+                            "u": 2,
+                            "result": "undetermined",
+                            "children_trace": [
+                              {
+                                "type": "or",
+                                "k": 2,
+                                "surface_label": "All-NBA or DPOY in immediately preceding Season",
+                                "provenance": "transcribed",
+                                "child_values": [
+                                  "undetermined",
+                                  "undetermined"
+                                ],
+                                "t": 0,
+                                "f": 0,
+                                "u": 2,
+                                "result": "undetermined",
+                                "children_trace": [
+                                  {
+                                    "type": "leaf",
+                                    "atom_id": "nba.a059",
+                                    "value": "undetermined",
+                                    "evidence": ""
+                                  },
+                                  {
+                                    "type": "leaf",
+                                    "atom_id": "nba.a060",
+                                    "value": "undetermined",
+                                    "evidence": ""
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "at_least",
+                                "k": 3,
+                                "surface_label": "Two of last three Seasons All-NBA/DPOY",
+                                "provenance": "transcribed",
+                                "child_values": [
+                                  "undetermined",
+                                  "undetermined",
+                                  "undetermined"
+                                ],
+                                "t": 0,
+                                "f": 0,
+                                "u": 3,
+                                "result": "undetermined",
+                                "children_trace": [
+                                  {
+                                    "type": "or",
+                                    "k": 2,
+                                    "surface_label": "All-NBA or DPOY in prior Season",
+                                    "provenance": "transcribed",
+                                    "child_values": [
+                                      "undetermined",
+                                      "undetermined"
+                                    ],
+                                    "t": 0,
+                                    "f": 0,
+                                    "u": 2,
+                                    "result": "undetermined",
+                                    "children_trace": [
+                                      {
+                                        "type": "or",
+                                        "k": 3,
+                                        "surface_label": "All-NBA selection (any team) in prior Season",
+                                        "provenance": "transcribed",
+                                        "child_values": [
+                                          "undetermined",
+                                          "undetermined",
+                                          "undetermined"
+                                        ],
+                                        "t": 0,
+                                        "f": 0,
+                                        "u": 3,
+                                        "result": "undetermined",
+                                        "children_trace": [
+                                          {
+                                            "type": "leaf",
+                                            "atom_id": "nba.a061",
+                                            "value": "undetermined",
+                                            "evidence": ""
+                                          },
+                                          {
+                                            "type": "leaf",
+                                            "atom_id": "nba.a062",
+                                            "value": "undetermined",
+                                            "evidence": ""
+                                          },
+                                          {
+                                            "type": "leaf",
+                                            "atom_id": "nba.a063",
+                                            "value": "undetermined",
+                                            "evidence": ""
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "leaf",
+                                        "atom_id": "nba.a060",
+                                        "value": "undetermined",
+                                        "evidence": ""
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "or",
+                                    "k": 2,
+                                    "surface_label": "All-NBA or DPOY in season t-2",
+                                    "provenance": "transcribed",
+                                    "child_values": [
+                                      "undetermined",
+                                      "undetermined"
+                                    ],
+                                    "t": 0,
+                                    "f": 0,
+                                    "u": 2,
+                                    "result": "undetermined",
+                                    "children_trace": [
+                                      {
+                                        "type": "or",
+                                        "k": 3,
+                                        "surface_label": "All-NBA selection (any team) in season t-2",
+                                        "provenance": "transcribed",
+                                        "child_values": [
+                                          "undetermined",
+                                          "undetermined",
+                                          "undetermined"
+                                        ],
+                                        "t": 0,
+                                        "f": 0,
+                                        "u": 3,
+                                        "result": "undetermined",
+                                        "children_trace": [
+                                          {
+                                            "type": "leaf",
+                                            "atom_id": "nba.a064",
+                                            "value": "undetermined",
+                                            "evidence": ""
+                                          },
+                                          {
+                                            "type": "leaf",
+                                            "atom_id": "nba.a065",
+                                            "value": "undetermined",
+                                            "evidence": ""
+                                          },
+                                          {
+                                            "type": "leaf",
+                                            "atom_id": "nba.a066",
+                                            "value": "undetermined",
+                                            "evidence": ""
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "leaf",
+                                        "atom_id": "nba.a067",
+                                        "value": "undetermined",
+                                        "evidence": ""
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "or",
+                                    "k": 2,
+                                    "surface_label": "All-NBA or DPOY in Season t-3",
+                                    "provenance": "transcribed",
+                                    "child_values": [
+                                      "undetermined",
+                                      "undetermined"
+                                    ],
+                                    "t": 0,
+                                    "f": 0,
+                                    "u": 2,
+                                    "result": "undetermined",
+                                    "children_trace": [
+                                      {
+                                        "type": "or",
+                                        "k": 3,
+                                        "surface_label": "All-NBA selection (any team) in Season t-3",
+                                        "provenance": "transcribed",
+                                        "child_values": [
+                                          "undetermined",
+                                          "undetermined",
+                                          "undetermined"
+                                        ],
+                                        "t": 0,
+                                        "f": 0,
+                                        "u": 3,
+                                        "result": "undetermined",
+                                        "children_trace": [
+                                          {
+                                            "type": "leaf",
+                                            "atom_id": "nba.a068",
+                                            "value": "undetermined",
+                                            "evidence": ""
+                                          },
+                                          {
+                                            "type": "leaf",
+                                            "atom_id": "nba.a069",
+                                            "value": "undetermined",
+                                            "evidence": ""
+                                          },
+                                          {
+                                            "type": "leaf",
+                                            "atom_id": "nba.a070",
+                                            "value": "undetermined",
+                                            "evidence": ""
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "leaf",
+                                        "atom_id": "nba.a071",
+                                        "value": "undetermined",
+                                        "evidence": ""
+                                      }
+                                    ]
+                                  }
+                                ],
+                                "n": 2
+                              }
+                            ]
+                          },
+                          {
+                            "type": "leaf",
+                            "atom_id": "nba.a072",
+                            "value": "undetermined",
+                            "evidence": ""
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "compare_leq",
+                "surface_label": "5th-year-eligible 25% cap ceiling",
+                "provenance": "structural",
+                "left_value": "35000000",
+                "right_value": "35147000.00",
+                "result": "true",
+                "left_trace": [
+                  {
+                    "type": "plus",
+                    "surface_label": "first_year_salary_plus_unlikely_bonuses",
+                    "provenance": "structural",
+                    "left_value": "35000000",
+                    "right_value": "0",
+                    "result": "35000000",
+                    "left_trace": [
+                      {
+                        "type": "numeric_leaf",
+                        "atom_id": "contract_first_year_salary",
+                        "value": "35000000",
+                        "evidence": ""
+                      }
+                    ],
+                    "right_trace": [
+                      {
+                        "type": "numeric_leaf",
+                        "atom_id": "contract_first_year_unlikely_bonuses",
+                        "value": "0",
+                        "evidence": ""
+                      }
+                    ]
+                  }
+                ],
+                "right_trace": [
+                  {
+                    "type": "times_const",
+                    "surface_label": "",
+                    "provenance": "structural",
+                    "child_value": "140588000",
+                    "result": "35147000.00",
+                    "child_trace": [
+                      {
+                        "type": "constant",
+                        "value": "140588000",
+                        "label": "salary_cap"
+                      }
+                    ],
+                    "constant": "0.25"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "compare_geq",
+            "surface_label": "Assignee Team has Room for first-year Salary + Unlikely Bonuses",
+            "provenance": "structural",
+            "left_value": "undetermined",
+            "right_value": "35000000",
+            "result": "undetermined",
+            "left_trace": [
+              {
+                "type": "numeric_leaf",
+                "atom_id": "nba.acquiring_team_room",
+                "value": "undetermined",
+                "evidence": ""
+              }
+            ],
+            "right_trace": [
+              {
+                "type": "plus",
+                "surface_label": "first_year_salary_plus_unlikely_bonuses",
+                "provenance": "structural",
+                "left_value": "35000000",
+                "right_value": "0",
+                "result": "35000000",
+                "left_trace": [
+                  {
+                    "type": "numeric_leaf",
+                    "atom_id": "first_year_salary",
+                    "value": "35000000",
+                    "evidence": ""
+                  }
+                ],
+                "right_trace": [
+                  {
+                    "type": "numeric_leaf",
+                    "atom_id": "first_year_unlikely_bonuses",
+                    "value": "0",
+                    "evidence": ""
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "case_description": "TEAMS:\n  - Team E has a team salary of $102,000,000.\n  - Team G has a team salary of $120,000,000.\n\nPLAYERS:\n  - Player A was the 7th first-round pick of Team C in 2015 NBA draft when he was 21 years old.\n  - Player A signed a 3-year contract (annual salary $24,000,000, 5% increase per year) with Team E during 2021 Moratorium Period.\n  - Player B was the 15th first-round pick of Team D in 2014 NBA draft when he was 19 years old.\n  - Player B signed a 3-year contract (annual salary $20,000,000, 5% increase per year) with Team G during 2022 Moratorium Period.\n\nOPERATION UNDER ADJUDICATION: A\n  A. Team E signs a 3-year contract with Player A providing annual salary $35,000,000 in the first Salary Cap Year (2024-2025) and 6% increase per year, and immediately trades Player A to Team G for Player B."
+}

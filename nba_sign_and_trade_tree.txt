@@ -1,0 +1,58 @@
+Determination: nba.sign_and_trade
+Description: Is this sign-and-trade transaction permitted under Article VIII, Section 8(e)(1)?
+======================================================================
+Determination: 
+  AndNode: Sign-and-trade seven-condition conjunction
+    Leaf: nba.a053
+    AndNode: Contract length within 3-4 Season band
+      GeqNode: Contract length at least 3 Seasons
+        NumericLeaf: nba.contract_length_seasons_excl_option
+        Constant:  value=3 label=
+      LeqNode: Contract length ≤ 4 Seasons
+        NumericLeaf: nba.contract_length_seasons_excl_option
+        Constant:  value=4 label=
+    AndNode: Neither NT-MLE nor Room MLE used (De Morgan: NOT(A or B) = NOT A AND NOT B)
+      Leaf: nba.a054
+      Leaf: nba.a055
+    Leaf: nba.a056
+    Leaf: nba.a057
+    OrNode: 5th-year-eligible 25% cap conditional
+      NotNode: 
+        AndNode: 5th-Year Eligible AND Higher Max Criteria met
+          Leaf: nba.a058
+          OrNode: Higher Max Criteria met
+            OrNode: All-NBA/DPOY recency disjunction
+              OrNode: All-NBA or DPOY in immediately preceding Season
+                Leaf: nba.a059
+                Leaf: nba.a060
+              AtLeastNode: Two of last three Seasons All-NBA/DPOY
+                OrNode: All-NBA or DPOY in prior Season
+                  OrNode: All-NBA selection (any team) in prior Season
+                    Leaf: nba.a061
+                    Leaf: nba.a062
+                    Leaf: nba.a063
+                  Leaf: nba.a060
+                OrNode: All-NBA or DPOY in season t-2
+                  OrNode: All-NBA selection (any team) in season t-2
+                    Leaf: nba.a064
+                    Leaf: nba.a065
+                    Leaf: nba.a066
+                  Leaf: nba.a067
+                OrNode: All-NBA or DPOY in Season t-3
+                  OrNode: All-NBA selection (any team) in Season t-3
+                    Leaf: nba.a068
+                    Leaf: nba.a069
+                    Leaf: nba.a070
+                  Leaf: nba.a071
+            Leaf: nba.a072
+      LeqNode: 5th-year-eligible 25% cap ceiling
+        PlusNode: first_year_salary_plus_unlikely_bonuses
+          NumericLeaf: contract_first_year_salary
+          NumericLeaf: contract_first_year_unlikely_bonuses
+        TimesConstNode:  const=0.25
+          Constant:  value=140588000 label=salary_cap
+    GeqNode: Assignee Team has Room for first-year Salary + Unlikely Bonuses
+      NumericLeaf: nba.acquiring_team_room
+      PlusNode: first_year_salary_plus_unlikely_bonuses
+        NumericLeaf: first_year_salary
+        NumericLeaf: first_year_unlikely_bonuses
