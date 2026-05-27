@@ -1,0 +1,63 @@
+[
+  {
+    "case_id": "SARA-S1-A-1-POS",
+    "status": "completed",
+    "narrative": "Alice is married under section 7703 for the year 2017. Alice files a joint return with her spouse for 2017. Alice's and her husband's taxable income for the year 2017 is $17330.",
+    "question": "Alice and her husband have to pay $2600 in taxes for the year 2017 under section 1(a)",
+    "ground_truth": "Entailment",
+    "atoms_extracted": {
+      "taxable_income": 17330
+    },
+    "engine_result": "2599.50",
+    "disposition": "Entailment",
+    "correct": true,
+    "map_latency_s": 4.913073539733887,
+    "engine_latency_ms": 0.6933212280273438
+  },
+  {
+    "case_id": "SARA-S63-C-1-NEG",
+    "status": "completed",
+    "narrative": "In 2017, Alice was paid $33200. For the year 2017, Alice is allowed a basic standard deduction under section 63(c)(2) of $2000 and an additional standard deduction of $3000 under section 63(c)(3) for the year 2017.",
+    "question": "Under section 63(c)(1), Alice's standard deduction in 2017 is equal to $4000",
+    "ground_truth": "Contradiction",
+    "atoms_extracted": {
+      "basic_standard_deduction": 2000,
+      "additional_standard_deduction": 3000
+    },
+    "engine_result": "5000",
+    "disposition": "Contradiction",
+    "correct": true,
+    "map_latency_s": 1.313208818435669,
+    "engine_latency_ms": 0.049114227294921875
+  },
+  {
+    "case_id": "SARA-S63-C-2-C-POS",
+    "status": "completed",
+    "narrative": "In 2017, Alice was paid $33200. Alice and Bob have been married since Feb 3rd, 2017. Alice and Bob file separate returns.",
+    "question": "Under section 63(c)(2)(C), Alice's basic standard deduction in 2017 is equal to $3000",
+    "ground_truth": "Entailment",
+    "atoms_extracted": {
+      "taxable_year": 2017
+    },
+    "engine_result": "3000",
+    "disposition": "Entailment",
+    "correct": true,
+    "map_latency_s": 1.2228658199310303,
+    "engine_latency_ms": 0.13256072998046875
+  },
+  {
+    "case_id": "SARA-S63-D-2-POS",
+    "status": "completed",
+    "narrative": "In 2017, Alice was paid $33200 in remuneration. She is allowed a deduction for herself under section 151 of $2000 for the year 2017.",
+    "question": "Alice's deduction for 2017 falls under section 63(d)(2)",
+    "ground_truth": "Entailment",
+    "atoms_extracted": {
+      "deduction_is_section_151": true
+    },
+    "engine_result": "true",
+    "disposition": "Entailment",
+    "correct": true,
+    "map_latency_s": 1.3180475234985352,
+    "engine_latency_ms": 0.029325485229492188
+  }
+]

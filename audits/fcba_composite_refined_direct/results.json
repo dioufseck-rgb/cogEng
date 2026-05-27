@@ -1,0 +1,135 @@
+{
+  "model": "claude-sonnet-4-6",
+  "results": [
+    {
+      "label": "C1_fully_compliant_no_error",
+      "status": "completed",
+      "expected": "TRUE",
+      "disposition": "TRUE",
+      "correct": true,
+      "latency_s": 18.03669762611389,
+      "response_chars": 2883,
+      "response": null
+    },
+    {
+      "label": "C2_untimely_acknowledgment_and_resolution",
+      "status": "completed",
+      "expected": "FALSE",
+      "disposition": "FALSE",
+      "correct": true,
+      "latency_s": 16.580212593078613,
+      "response_chars": 2733,
+      "response": null
+    },
+    {
+      "label": "C3_resolution_exceeds_90_days",
+      "status": "completed",
+      "expected": "FALSE",
+      "disposition": "FALSE",
+      "correct": true,
+      "latency_s": 16.899142265319824,
+      "response_chars": 2628,
+      "response": null
+    },
+    {
+      "label": "C4_creditor_reported_delinquent_during_resolution",
+      "status": "completed",
+      "expected": "FALSE",
+      "disposition": "FALSE",
+      "correct": true,
+      "latency_s": 11.770225524902344,
+      "response_chars": 2101,
+      "response": null
+    },
+    {
+      "label": "C5_no_error_consumer_requested_evidence_not_provided",
+      "status": "completed",
+      "expected": "FALSE",
+      "disposition": "FALSE",
+      "correct": true,
+      "latency_s": 13.618245124816895,
+      "response_chars": 2540,
+      "response": null
+    },
+    {
+      "label": "C6_error_asserted_procedure_missing_finance_charges",
+      "status": "completed",
+      "expected": "FALSE",
+      "disposition": "FALSE",
+      "correct": true,
+      "latency_s": 14.333069324493408,
+      "response_chars": 2792,
+      "response": null
+    },
+    {
+      "label": "C7_borderline_30_and_90",
+      "status": "completed",
+      "expected": "TRUE",
+      "disposition": "TRUE",
+      "correct": true,
+      "latency_s": 13.3125741481781,
+      "response_chars": 2374,
+      "response": null
+    },
+    {
+      "label": "C8_underspecified_resolution_data_missing",
+      "status": "completed",
+      "expected": "UND",
+      "disposition": "UND",
+      "correct": true,
+      "latency_s": 20.090872526168823,
+      "response_chars": 2746,
+      "response": null
+    },
+    {
+      "label": "C9_subtle_compound_failure",
+      "status": "completed",
+      "expected": "FALSE",
+      "disposition": "FALSE",
+      "correct": true,
+      "latency_s": 13.903927564620972,
+      "response_chars": 2430,
+      "response": null
+    },
+    {
+      "label": "C10_acknowledgment_waiver_valid",
+      "status": "completed",
+      "expected": "TRUE",
+      "disposition": "TRUE",
+      "correct": true,
+      "latency_s": 15.255527257919312,
+      "response_chars": 2938,
+      "response": null
+    },
+    {
+      "label": "C11_acknowledgment_waiver_invalid_procedure_incomplete",
+      "status": "completed",
+      "expected": "FALSE",
+      "disposition": "FALSE",
+      "correct": true,
+      "latency_s": 12.797760248184204,
+      "response_chars": 2531,
+      "response": null
+    },
+    {
+      "label": "C12_two_billing_cycle_deadline_binding",
+      "status": "completed",
+      "expected": "FALSE",
+      "disposition": "FALSE",
+      "correct": true,
+      "latency_s": 14.848127841949463,
+      "response_chars": 2512,
+      "response": null
+    },
+    {
+      "label": "C13_collection_of_finance_charges_only",
+      "status": "completed",
+      "expected": "FALSE",
+      "disposition": "FALSE",
+      "correct": true,
+      "latency_s": 17.10006880760193,
+      "response_chars": 3457,
+      "response": null
+    }
+  ]
+}

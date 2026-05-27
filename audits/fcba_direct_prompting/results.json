@@ -1,0 +1,85 @@
+{
+  "model": "claude-sonnet-4-6",
+  "results": [
+    {
+      "label": "T1_clean_valid_notice",
+      "status": "completed",
+      "expected": "TRUE",
+      "disposition": "TRUE",
+      "correct": true,
+      "latency_s": 12.935270547866821,
+      "response_chars": 2242,
+      "response": null
+    },
+    {
+      "label": "T2_untimely_notice_75_days",
+      "status": "completed",
+      "expected": "FALSE",
+      "disposition": "FALSE",
+      "correct": true,
+      "latency_s": 9.30121922492981,
+      "response_chars": 1906,
+      "response": null
+    },
+    {
+      "label": "T3_oral_notice_phone_only",
+      "status": "completed",
+      "expected": "FALSE",
+      "disposition": "FALSE",
+      "correct": true,
+      "latency_s": 14.015557765960693,
+      "response_chars": 2599,
+      "response": null
+    },
+    {
+      "label": "T4_missing_dollar_amount",
+      "status": "completed",
+      "expected": "FALSE",
+      "disposition": "TRUE",
+      "correct": false,
+      "latency_s": 22.117226123809814,
+      "response_chars": 4588,
+      "response": null
+    },
+    {
+      "label": "T5_wrong_address",
+      "status": "completed",
+      "expected": "FALSE",
+      "disposition": "FALSE",
+      "correct": true,
+      "latency_s": 13.197376489639282,
+      "response_chars": 2593,
+      "response": null
+    },
+    {
+      "label": "T6_incomplete_no_reason",
+      "status": "completed",
+      "expected": "FALSE",
+      "disposition": "FALSE",
+      "correct": true,
+      "latency_s": 14.487526893615723,
+      "response_chars": 2575,
+      "response": null
+    },
+    {
+      "label": "T7_underspecified_partial_case",
+      "status": "completed",
+      "expected": "UND",
+      "disposition": "UND",
+      "correct": true,
+      "latency_s": 11.973743677139282,
+      "response_chars": 2605,
+      "response": null
+    },
+    {
+      "label": "T8_borderline_timely_day_60",
+      "status": "completed",
+      "expected": "TRUE",
+      "disposition": "TRUE",
+      "correct": true,
+      "latency_s": 9.732742309570312,
+      "response_chars": 1973,
+      "response": null
+    }
+  ]
+}

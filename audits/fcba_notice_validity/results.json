@@ -1,0 +1,162 @@
+[
+  {
+    "label": "T1_clean_valid_notice",
+    "status": "completed",
+    "expected": "TRUE",
+    "disposition": "TRUE",
+    "correct": true,
+    "atoms_extracted": {
+      "days_between_first_statement_and_notice": 18,
+      "notice_received_at_designated_address": true,
+      "notice_is_written": true,
+      "notice_identifies_consumer": true,
+      "notice_indicates_belief_of_error": true,
+      "notice_states_dollar_amount": true,
+      "notice_states_reason_for_belief": true,
+      "notice_states_type_of_error": true,
+      "notice_states_date_of_error": true
+    },
+    "map_latency_s": 5.554444789886475,
+    "engine_latency_ms": 0.13685226440429688
+  },
+  {
+    "label": "T2_untimely_notice_75_days",
+    "status": "completed",
+    "expected": "FALSE",
+    "disposition": "FALSE",
+    "correct": true,
+    "atoms_extracted": {
+      "days_between_first_statement_and_notice": 75,
+      "notice_received_at_designated_address": true,
+      "notice_is_written": true,
+      "notice_identifies_consumer": true,
+      "notice_indicate_belief_of_error": true,
+      "notice_states_dollar_amount": true,
+      "notice_states_reason_for_belief": true,
+      "notice_states_type_of_error": true,
+      "notice_states_date_of_error": true
+    },
+    "map_latency_s": 1.6802783012390137,
+    "engine_latency_ms": 0.07319450378417969
+  },
+  {
+    "label": "T3_oral_notice_phone_only",
+    "status": "completed",
+    "expected": "FALSE",
+    "disposition": "FALSE",
+    "correct": true,
+    "atoms_extracted": {
+      "days_between_first_statement_and_notice": 14,
+      "notice_received_at_designated_address": null,
+      "notice_is_written": false,
+      "notice_identifies_consumer": true,
+      "notice_indicates_belief_of_error": true,
+      "notice_states_dollar_amount": true,
+      "notice_states_reason_for_belief": true,
+      "notice_states_type_of_error": true,
+      "notice_states_date_of_error": true
+    },
+    "map_latency_s": 1.6789324283599854,
+    "engine_latency_ms": 0.09322166442871094
+  },
+  {
+    "label": "T4_missing_dollar_amount",
+    "status": "completed",
+    "expected": "FALSE",
+    "disposition": "FALSE",
+    "correct": true,
+    "atoms_extracted": {
+      "days_between_first_statement_and_notice": 16,
+      "notice_received_at_designated_address": true,
+      "notice_is_written": true,
+      "notice_identifies_consumer": true,
+      "notice_indicates_belief_of_error": true,
+      "notice_states_dollar_amount": false,
+      "notice_states_reason_for_belief": true,
+      "notice_states_type_of_error": true,
+      "notice_states_date_of_error": false
+    },
+    "map_latency_s": 1.6956229209899902,
+    "engine_latency_ms": 0.1251697540283203
+  },
+  {
+    "label": "T5_wrong_address",
+    "status": "completed",
+    "expected": "FALSE",
+    "disposition": "FALSE",
+    "correct": true,
+    "atoms_extracted": {
+      "days_between_first_statement_and_notice": 17,
+      "notice_received_at_designated_address": false,
+      "notice_is_written": true,
+      "notice_identifies_consumer": true,
+      "notice_indicate_belief_of_error": true,
+      "notice_states_dollar_amount": true,
+      "notice_states_reason_for_belief": true,
+      "notice_states_type_of_error": true,
+      "notice_states_date_of_error": true
+    },
+    "map_latency_s": 1.7148730754852295,
+    "engine_latency_ms": 0.12683868408203125
+  },
+  {
+    "label": "T6_incomplete_no_reason",
+    "status": "completed",
+    "expected": "FALSE",
+    "disposition": "FALSE",
+    "correct": true,
+    "atoms_extracted": {
+      "days_between_first_statement_and_notice": 11,
+      "notice_received_at_designated_address": true,
+      "notice_is_written": true,
+      "notice_identifies_consumer": true,
+      "notice_indicates_belief_of_error": true,
+      "notice_states_dollar_amount": true,
+      "notice_states_reason_for_belief": false,
+      "notice_states_type_of_error": true,
+      "notice_states_date_of_error": true
+    },
+    "map_latency_s": 1.6898818016052246,
+    "engine_latency_ms": 0.14591217041015625
+  },
+  {
+    "label": "T7_underspecified_partial_case",
+    "status": "completed",
+    "expected": "UND",
+    "disposition": "UND",
+    "correct": true,
+    "atoms_extracted": {
+      "days_between_first_statement_and_notice": null,
+      "notice_received_at_designated_address": null,
+      "notice_is_written": null,
+      "notice_identifies_consumer": true,
+      "notice_indicates_belief_of_error": true,
+      "notice_states_dollar_amount": true,
+      "notice_states_reason_for_belief": true,
+      "notice_states_type_of_error": true,
+      "notice_states_date_of_error": true
+    },
+    "map_latency_s": 1.7350244522094727,
+    "engine_latency_ms": 0.1380443572998047
+  },
+  {
+    "label": "T8_borderline_timely_day_60",
+    "status": "completed",
+    "expected": "TRUE",
+    "disposition": "UND",
+    "correct": false,
+    "atoms_extracted": {
+      "days_between_first_statement_and_notice": 60,
+      "notice_received_at_designated_address": true,
+      "notice_is_written": true,
+      "notice_identifies_consumer": true,
+      "notice_indicate_belief_of_error": true,
+      "notice_states_dollar_amount": true,
+      "notice_states_reason_for_belief": true,
+      "notice_states_type_of_error": true,
+      "notice_states_date_of_error": true
+    },
+    "map_latency_s": 1.543649673461914,
+    "engine_latency_ms": 0.13113021850585938
+  }
+]

@@ -1,0 +1,95 @@
+{
+  "model": "claude-sonnet-4-6",
+  "results": [
+    {
+      "label": "C1_fully_compliant_no_error",
+      "status": "completed",
+      "expected": "TRUE",
+      "disposition": "TRUE",
+      "correct": true,
+      "latency_s": 22.181082010269165,
+      "response_chars": 3978,
+      "response": null
+    },
+    {
+      "label": "C2_untimely_acknowledgment_and_resolution",
+      "status": "completed",
+      "expected": "FALSE",
+      "disposition": "FALSE",
+      "correct": true,
+      "latency_s": 16.373631715774536,
+      "response_chars": 2996,
+      "response": null
+    },
+    {
+      "label": "C3_resolution_exceeds_90_days",
+      "status": "completed",
+      "expected": "FALSE",
+      "disposition": "FALSE",
+      "correct": true,
+      "latency_s": 18.840782403945923,
+      "response_chars": 3657,
+      "response": null
+    },
+    {
+      "label": "C4_creditor_reported_delinquent_during_resolution",
+      "status": "completed",
+      "expected": "FALSE",
+      "disposition": "FALSE",
+      "correct": true,
+      "latency_s": 21.292709589004517,
+      "response_chars": 4009,
+      "response": null
+    },
+    {
+      "label": "C5_no_error_consumer_requested_evidence_not_provided",
+      "status": "completed",
+      "expected": "FALSE",
+      "disposition": "FALSE",
+      "correct": true,
+      "latency_s": 17.305789709091187,
+      "response_chars": 3307,
+      "response": null
+    },
+    {
+      "label": "C6_error_asserted_procedure_missing_finance_charges",
+      "status": "completed",
+      "expected": "FALSE",
+      "disposition": "FALSE",
+      "correct": true,
+      "latency_s": 14.333308458328247,
+      "response_chars": 2794,
+      "response": null
+    },
+    {
+      "label": "C7_borderline_30_and_90",
+      "status": "completed",
+      "expected": "TRUE",
+      "disposition": "TRUE",
+      "correct": true,
+      "latency_s": 15.15849232673645,
+      "response_chars": 2973,
+      "response": null
+    },
+    {
+      "label": "C8_underspecified_resolution_data_missing",
+      "status": "completed",
+      "expected": "UND",
+      "disposition": "FALSE",
+      "correct": false,
+      "latency_s": 16.688218593597412,
+      "response_chars": 3106,
+      "response": null
+    },
+    {
+      "label": "C9_subtle_compound_failure",
+      "status": "completed",
+      "expected": "FALSE",
+      "disposition": "FALSE",
+      "correct": true,
+      "latency_s": 16.587318897247314,
+      "response_chars": 3033,
+      "response": null
+    }
+  ]
+}
