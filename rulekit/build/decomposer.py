@@ -39,152 +39,20 @@ from rulekit.build.extract import ReaderVoice
 
 
 # ---------------------------------------------------------------------------
-# Determination spec — the institution's input
+# Build-side spec types (re-exports from build.spec)
 # ---------------------------------------------------------------------------
+# These types were extracted into rulekit/build/spec.py in Phase 2 of
+# the contract migration. They describe the institution's *input* to the
+# build process — distinct from the contract module (rulekit/contract/)
+# which describes what producers EMIT. Re-exported here for backward
+# compatibility with existing consumers. New code should import from
+# rulekit.build.spec directly.
 
-@dataclass
-class DeterminationDeclaration:
-    """Institution-declared determination — what the build must produce."""
-    id: str
-    description: str
-    polarity: str = "neutral"  # positive / negative / neutral
-    linked_to: Optional[str] = None
-    source_span: str = ""
-    composition: str = "derived"  # "derived" (LLM composes) or "complement" (NOT of linked)
-    scope_hint: Optional[str] = None  # natural-language hint to focus the LLM
-
-
-@dataclass
-class BuildSpec:
-    """Full institutional spec for a build.
-
-    The spec is the institution's declarative input. It carries everything
-    a domain-agnostic library needs to produce a runnable adjudicator from
-    policy text:
-
-      - policy metadata (name, source path, short abbreviation)
-      - the reader voice (role/domain/background) — either inline as a
-        ``voice`` field, or as a ``voice_key`` referencing a registered
-        named voice (legacy/example use)
-      - named numeric constants used by the policy (e.g. salary cap,
-        threshold values), as a dict from snake_case label to Decimal
-      - the list of declared determinations the build must produce
-
-    The library is policy-domain-agnostic — NBA, FINRA, FCBA, PA, tax,
-    insurance, healthcare adjudication all express the same shape here.
-    """
-    policy_name: str
-    policy_source: str
-    abbreviation: str
-    determinations: list[DeterminationDeclaration]
-    # Voice: either inline (preferred for library use) or registry key (legacy).
-    # Exactly one of `voice` and `voice_key` must be set.
-    voice: Optional["ReaderVoice"] = None
-    voice_key: Optional[str] = None
-    # Named numeric constants (e.g., {"salary_cap": Decimal("140588000")}).
-    # Threaded into Stage-4 engine conversion so ConstantSpec(label=...) and
-    # UnaryArithmeticSpec(constant_label=...) resolve to real values.
-    constants: dict[str, Decimal] = field(default_factory=dict)
-
-    def __post_init__(self):
-        if self.voice is None and self.voice_key is None:
-            raise ValueError(
-                f"BuildSpec requires either a `voice` (inline ReaderVoice) "
-                f"or a `voice_key` (registered name). Got neither for "
-                f"policy {self.policy_name!r}."
-            )
-        if self.voice is not None and self.voice_key is not None:
-            raise ValueError(
-                f"BuildSpec requires exactly one of `voice` or `voice_key`, "
-                f"not both. Got both for policy {self.policy_name!r}."
-            )
-
-
-def load_spec_from_yaml(path: str, voices_registry: Optional[dict] = None) -> BuildSpec:
-    """Load a YAML build spec from a path.
-
-    The YAML may declare the voice in either of two ways:
-
-      1. INLINE (preferred, domain-agnostic):
-         voice:
-           role: "experienced adjudicator at ..."
-           domain: "..."
-           background: |
-             Multi-line background...
-
-      2. REGISTRY LOOKUP (legacy / built-in examples):
-         policy:
-           voice: "pa"        # key into voices_registry
-
-    Constants may be declared inline:
-         constants:
-           some_named_value: 140588000
-
-    Values are coerced to Decimal at load time so the engine's arithmetic
-    is precision-preserving.
-
-    Backward-compat: existing PA/FCBA YAMLs that use ``policy.voice``
-    as a registry key continue to work as long as ``voices_registry``
-    is passed (typically ``domains.voices.VOICES``). If both inline
-    ``voice`` block and ``policy.voice`` key are present, the inline
-    block takes precedence.
-
-    Uses PyYAML; install via `pip install pyyaml`.
-    """
-    import yaml
-    with open(path, encoding="utf-8") as f:
-        data = yaml.safe_load(f)
-
-    # Voice resolution: inline block beats legacy registry key
-    voice: Optional[ReaderVoice] = None
-    voice_key: Optional[str] = None
-    if "voice" in data:
-        # Inline voice block — preferred path
-        v = data["voice"]
-        voice = ReaderVoice(
-            role=v["role"],
-            domain=v["domain"],
-            background=v["background"],
-        )
-    elif "voice" in data.get("policy", {}):
-        # Legacy: policy.voice is a registry key
-        voice_key = data["policy"]["voice"]
-        if voices_registry is not None and voice_key in voices_registry:
-            voice = voices_registry[voice_key]()
-            voice_key = None  # consumed
-        # If no registry passed in, BuildSpec stores voice_key and the
-        # caller is responsible for resolution.
-
-    # Constants block: optional, coerced to Decimal via str() to avoid
-    # float-binary representation errors (Decimal(0.0912) is bad;
-    # Decimal('0.0912') is good).
-    constants: dict[str, Decimal] = {}
-    for label, value in (data.get("constants") or {}).items():
-        if isinstance(value, str):
-            # Strip $ and commas if user wrote "$140,588,000"
-            cleaned = value.replace("$", "").replace(",", "").strip()
-            constants[label] = Decimal(cleaned)
-        elif isinstance(value, int):
-            constants[label] = Decimal(value)
-        elif isinstance(value, float):
-            constants[label] = Decimal(str(value))
-        else:
-            raise ValueError(
-                f"Constants value for {label!r} must be int/float/str, "
-                f"got {type(value).__name__}: {value!r}"
-            )
-
-    return BuildSpec(
-        policy_name=data["policy"]["name"],
-        policy_source=data["policy"]["source"],
-        abbreviation=data["policy"]["abbreviation"],
-        voice=voice,
-        voice_key=voice_key,
-        constants=constants,
-        determinations=[
-            DeterminationDeclaration(**d) for d in data["determinations"]
-        ],
-    )
+from rulekit.build.spec import (  # noqa: E402, F401
+    BuildSpec,
+    DeterminationDeclaration,
+    load_spec_from_yaml,
+)
 
 
 # ---------------------------------------------------------------------------
