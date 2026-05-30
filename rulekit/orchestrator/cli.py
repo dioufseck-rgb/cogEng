@@ -16,6 +16,7 @@ from rulekit.orchestrator.factory import (
 from rulekit.orchestrator.examples.prior_auth_typed import prior_auth_typed_seed
 from rulekit.orchestrator.workflow import (
     apply_persisted_program_edits,
+    add_persisted_case,
     export_builder_ui,
     export_review_bundle,
     inspect_persisted_run,
@@ -49,6 +50,8 @@ def main(argv: list[str] | None = None) -> int:
             return _reexercise(args)
         if args.command == "hint":
             return _hint(args)
+        if args.command == "case":
+            return _case(args)
         if args.command == "branches":
             return _branches(args)
         if args.command == "serve":
@@ -142,6 +145,29 @@ def _parser() -> argparse.ArgumentParser:
     hint.add_argument("--reexercise", action="store_true", help="rerun latest snapshot after recording")
     hint.add_argument("--snapshot-id", default=None, help="snapshot to rerun when --reexercise is set")
     hint.add_argument("--json", action="store_true", help="print JSON summary")
+
+    case = subcommands.add_parser("case", help="add reviewer-authored cases")
+    case_subcommands = case.add_subparsers(dest="case_command")
+    case_add = case_subcommands.add_parser("add", help="add a case to a persisted workspace")
+    case_add.add_argument("--root", default=".rulekit_workspaces")
+    case_add.add_argument("--workspace-id", required=True)
+    case_add.add_argument("--trajectory-id", required=True)
+    case_add.add_argument("--suite-id", default=None)
+    case_add.add_argument("--case-id", default=None)
+    case_add.add_argument("--title", required=True)
+    case_add.add_argument("--narrative", required=True)
+    case_add.add_argument("--fact", action="append", default=[], help="fact as atom_id=value; may repeat")
+    case_add.add_argument(
+        "--expected",
+        action="append",
+        default=[],
+        help="expected outcome as determination_id=value; may repeat",
+    )
+    case_add.add_argument("--reviewer-id", default=None)
+    case_add.add_argument("--reason", default=None)
+    case_add.add_argument("--reexercise", action="store_true", help="rerun latest snapshot after adding")
+    case_add.add_argument("--snapshot-id", default=None, help="snapshot to rerun when --reexercise is set")
+    case_add.add_argument("--json", action="store_true", help="print JSON summary")
 
     branches = subcommands.add_parser("branches", help="list or mark trajectory branches")
     branches_subcommands = branches.add_subparsers(dest="branch_command")
@@ -275,6 +301,37 @@ def _hint(args: argparse.Namespace) -> int:
     return 0 if exit_ok else 1
 
 
+def _case(args: argparse.Namespace) -> int:
+    if args.case_command == "add":
+        case_result = add_persisted_case(
+            args.root,
+            args.workspace_id,
+            args.trajectory_id,
+            suite_id=args.suite_id,
+            case_id=args.case_id,
+            title=args.title,
+            narrative=args.narrative,
+            facts=_parse_key_values(args.fact),
+            expected_outcomes=_parse_expected_values(args.expected),
+            reviewer_id=args.reviewer_id,
+            reason=args.reason,
+        )
+        payload = {"ok": case_result.validation.ok, **case_result.summary()}
+        exit_ok = case_result.validation.ok
+        if args.reexercise:
+            rerun = reexercise_latest_snapshot(
+                args.root,
+                args.workspace_id,
+                args.trajectory_id,
+                snapshot_id=args.snapshot_id,
+            )
+            payload["reexercise"] = {"ok": rerun.validation.ok, **rerun.summary()}
+            exit_ok = exit_ok and rerun.validation.ok
+        _print(payload, args.json)
+        return 0 if exit_ok else 1
+    raise ValueError("case command requires 'add'")
+
+
 def _branches(args: argparse.Namespace) -> int:
     if args.branch_command == "list":
         branches = list_branches(args.root, args.workspace_id, args.trajectory_id)
@@ -326,6 +383,37 @@ def _print(payload: dict[str, Any], as_json: bool) -> None:
         return
     for key, value in payload.items():
         print(f"{key}: {value}")
+
+
+def _parse_key_values(items: list[str]) -> dict[str, Any]:
+    parsed: dict[str, Any] = {}
+    for item in items:
+        if "=" not in item:
+            raise ValueError(f"expected KEY=VALUE, got {item!r}")
+        key, value = item.split("=", 1)
+        key = key.strip()
+        if not key:
+            raise ValueError(f"expected non-empty key in {item!r}")
+        parsed[key] = _parse_scalar(value.strip())
+    return parsed
+
+
+def _parse_scalar(value: str) -> Any:
+    lower = value.lower()
+    if lower == "true":
+        return True
+    if lower == "false":
+        return False
+    if lower in {"undetermined", "none", "null"}:
+        return "undetermined"
+    return value
+
+
+def _parse_expected_values(items: list[str]) -> dict[str, str]:
+    return {
+        key: str(value).lower() if isinstance(value, bool) else str(value)
+        for key, value in _parse_key_values(items).items()
+    }
 
 
 def sample_seed() -> PolicyWorkspaceSeed:

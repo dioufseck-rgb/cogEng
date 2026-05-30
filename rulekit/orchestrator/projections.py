@@ -213,6 +213,8 @@ def _event_title(kind: TrajectoryEventKind, payload: dict[str, Any]) -> str:
         if payload.get("kind") == "reviewer_natural_hint":
             hint = payload.get("payload", {}).get("hint", {})
             return f"Reviewer hint: {hint.get('case_id') or payload.get('step_id') or 'general'}"
+        if payload.get("kind") == "reviewer_added_case":
+            return f"Added case: {payload.get('payload', {}).get('case_id', 'unknown')}"
         return f"Intervention: {payload.get('kind', 'unknown')}"
     return kind.value.replace("_", " ").title()
 

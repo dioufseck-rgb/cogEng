@@ -5,6 +5,7 @@ import json
 from rulekit.orchestrator import (
     ProgramEditKind,
     ProgramEditOperation,
+    add_persisted_case,
     apply_persisted_program_edits,
     export_review_bundle,
     inspect_persisted_run,
@@ -134,6 +135,30 @@ def test_run_policy_seed_file_persists_and_inspects(tmp_path):
     )
     assert case_yes_map.metadata["reviewer_hint_count"] == 1
     assert case_yes_map.metadata["reviewer_hints"][0]["hint_id"] == hint_result.hint.hint_id
+
+    case_result = add_persisted_case(
+        root,
+        result.workspace.workspace_id,
+        result.trajectory.trajectory_id,
+        case_id="case_added",
+        title="Reviewer-added eligible case",
+        narrative="Requirement A and requirement B are both met.",
+        facts={"sample.requirement_a": True, "sample.requirement_b": True},
+        expected_outcomes={"sample.eligible": "true"},
+        reviewer_id="reviewer_1",
+    )
+    assert case_result.validation.ok
+    case_reexercise = reexercise_latest_snapshot(
+        root,
+        result.workspace.workspace_id,
+        result.trajectory.trajectory_id,
+    )
+    assert case_reexercise.validation.ok
+    assert {record.case_id for record in case_reexercise.dispositions} == {
+        "case_added",
+        "case_no",
+        "case_yes",
+    }
 
 
 def test_cli_template_run_and_inspect(tmp_path, capsys):
@@ -324,6 +349,43 @@ def test_cli_template_run_and_inspect(tmp_path, capsys):
     assert hint_payload["hint_id"].startswith("hint_")
     assert hint_payload["reexercise"]["ok"] is True
     assert hint_payload["reexercise"]["mismatch_count"] == 0
+
+    assert (
+        main(
+            [
+                "case",
+                "add",
+                "--root",
+                str(root),
+                "--workspace-id",
+                run_payload["workspace_id"],
+                "--trajectory-id",
+                run_payload["trajectory_id"],
+                "--case-id",
+                "case_cli_added",
+                "--title",
+                "CLI added case",
+                "--narrative",
+                "Requirement A is met and requirement B is met.",
+                "--fact",
+                "sample.requirement_a=true",
+                "--fact",
+                "sample.requirement_b=true",
+                "--expected",
+                "sample.eligible=true",
+                "--reviewer-id",
+                "reviewer_1",
+                "--reexercise",
+                "--json",
+            ]
+        )
+        == 0
+    )
+    case_payload = json.loads(capsys.readouterr().out)
+    assert case_payload["ok"] is True
+    assert case_payload["case_id"] == "case_cli_added"
+    assert case_payload["reexercise"]["ok"] is True
+    assert case_payload["reexercise"]["case_count"] == 3
 
     export_dir_after_edit = tmp_path / "exported_after_edit"
     assert (

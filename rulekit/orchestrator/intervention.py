@@ -20,6 +20,7 @@ class InterventionKind(str, Enum):
     REVIEWER_DIALOGUE_TURN = "reviewer_dialogue_turn"
     REVIEWER_EXTENDED_DIALOGUE_BUDGET = "reviewer_extended_dialogue_budget"
     REVIEWER_NATURAL_HINT = "reviewer_natural_hint"
+    REVIEWER_ADDED_CASE = "reviewer_added_case"
     MARK_BRANCH_SETTLED = "mark_branch_settled"
     MARK_BRANCH_ABANDONED = "mark_branch_abandoned"
 

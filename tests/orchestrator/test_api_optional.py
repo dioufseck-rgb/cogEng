@@ -15,6 +15,7 @@ def test_create_app_reports_missing_optional_dependency():
         assert "/projection" in routes
         assert "/workspaces/{workspace_id}/trajectories/{trajectory_id}/projection" in routes
         assert "/workspaces/{workspace_id}/trajectories/{trajectory_id}/hints" in routes
+        assert "/workspaces/{workspace_id}/trajectories/{trajectory_id}/cases" in routes
         return
 
     with pytest.raises(RuntimeError, match=r"rulekit\[api\]"):

@@ -10,6 +10,7 @@ from pydantic import BaseModel, ConfigDict, Field
 from pydantic_core import to_jsonable_python
 
 from rulekit.contract import DeterminationProgram
+from rulekit.orchestrator.cases import CaseExample, ExpectedOutcome
 from rulekit.orchestrator.config import load_policy_workspace_seed
 from rulekit.orchestrator.diagnostics import CaseDiagnostic, diagnose_dispositions
 from rulekit.orchestrator.disposition import DispositionRecord
@@ -22,6 +23,7 @@ from rulekit.orchestrator.hints import (
 )
 from rulekit.orchestrator.ids import event_id as new_event_id
 from rulekit.orchestrator.ids import intervention_id as new_intervention_id
+from rulekit.orchestrator.ids import new_id
 from rulekit.orchestrator.intervention import Intervention, InterventionKind
 from rulekit.orchestrator.map_record import MapExtractionRecord
 from rulekit.orchestrator.map_step import PreboundFactsMapStep
@@ -143,6 +145,7 @@ class ReexerciseResult(BaseModel):
             "workspace_id": self.workspace_id,
             "trajectory_id": self.trajectory_id,
             "snapshot_id": self.snapshot_id,
+            "case_count": len({record.case_id for record in self.map_records}),
             "map_record_count": len(self.map_records),
             "disposition_count": len(self.dispositions),
             "matched_disposition_count": sum(
@@ -178,6 +181,32 @@ class PersistedReviewerHintResult(BaseModel):
             "case_id": self.hint.case_id,
             "target_step_id": self.hint.target_step_id,
             "atom_ids": self.hint.atom_ids,
+            "validation_ok": self.validation.ok,
+            "validation_summary": self.validation.summary(),
+            "root": self.root,
+        }
+
+
+class PersistedCaseResult(BaseModel):
+    model_config = ConfigDict(arbitrary_types_allowed=True)
+
+    workspace_id: str
+    trajectory_id: str
+    suite_id: str
+    branch_id: str
+    case: CaseExample
+    validation: OrchestratorValidationReport
+    root: str
+
+    def summary(self) -> dict[str, Any]:
+        return {
+            "workspace_id": self.workspace_id,
+            "trajectory_id": self.trajectory_id,
+            "suite_id": self.suite_id,
+            "branch_id": self.branch_id,
+            "case_id": self.case.case_id,
+            "title": self.case.title,
+            "expected_outcome_count": len(self.case.expected_outcomes),
             "validation_ok": self.validation.ok,
             "validation_summary": self.validation.summary(),
             "root": self.root,
@@ -919,6 +948,83 @@ def record_persisted_reviewer_hint(
     )
 
 
+def add_persisted_case(
+    root: str | Path,
+    workspace_id: str,
+    trajectory_id: str,
+    *,
+    title: str,
+    narrative: str,
+    case_id: str | None = None,
+    suite_id: str | None = None,
+    facts: dict[str, Any] | None = None,
+    expected_outcomes: dict[str, str] | None = None,
+    reviewer_id: str | None = None,
+    branch_id: str | None = None,
+    reason: str | None = None,
+    metadata: dict[str, Any] | None = None,
+) -> PersistedCaseResult:
+    """Add a reviewer-authored case to a persisted workspace case suite."""
+    root = Path(root)
+    workspace = load_workspace(root, workspace_id)
+    trajectory = load_trajectory(root, workspace_id, trajectory_id)
+    selected_suite_id = suite_id or next(iter(workspace.case_suites))
+    if selected_suite_id not in workspace.case_suites:
+        raise ValueError(f"case suite {selected_suite_id!r} does not exist")
+    suite = workspace.case_suites[selected_suite_id]
+    new_case_id = case_id or new_id("case")
+    if new_case_id in suite.cases:
+        raise ValueError(f"case {new_case_id!r} already exists in suite {selected_suite_id!r}")
+    structured_fields = {"facts": facts or {}} if facts is not None else {}
+    case = CaseExample(
+        case_id=new_case_id,
+        title=title,
+        narrative=narrative,
+        structured_fields=structured_fields,
+        expected_outcomes=[
+            ExpectedOutcome(determination_id=det_id, expected_value=value)
+            for det_id, value in (expected_outcomes or {}).items()
+        ],
+        metadata=metadata or {},
+    )
+    suite.cases[case.case_id] = case
+    branch_id = branch_id or trajectory.active_branch_id
+    intervention = Intervention(
+        intervention_id=new_intervention_id(),
+        kind=InterventionKind.REVIEWER_ADDED_CASE,
+        branch_id=branch_id,
+        reviewer_id=reviewer_id,
+        payload={
+            "suite_id": selected_suite_id,
+            "case_id": case.case_id,
+            "expected_outcome_count": len(case.expected_outcomes),
+            "fact_count": len(facts or {}),
+        },
+        reason=reason,
+    )
+    trajectory.append_event(
+        TrajectoryEvent(
+            event_id=new_event_id(),
+            branch_id=branch_id,
+            kind=TrajectoryEventKind.INTERVENTION,
+            payload=intervention.model_dump(mode="json"),
+        )
+    )
+    workspace.case_suites[selected_suite_id] = suite
+    workspace.trajectories[trajectory.trajectory_id] = trajectory
+    save_workspace(workspace, root)
+    validation = validate_persisted_trajectory(root, trajectory)
+    return PersistedCaseResult(
+        workspace_id=workspace_id,
+        trajectory_id=trajectory_id,
+        suite_id=selected_suite_id,
+        branch_id=branch_id,
+        case=case,
+        validation=validation,
+        root=str(root),
+    )
+
+
 def load_program_edit_operations(path: str | Path) -> list[ProgramEditOperation]:
     path = Path(path)
     if path.suffix.lower() in (".yaml", ".yml"):
@@ -981,6 +1087,7 @@ __all__ = [
     "PolicyRunResult",
     "PersistedProgramEditResult",
     "PersistedReviewerHintResult",
+    "PersistedCaseResult",
     "ReexerciseResult",
     "run_policy_seed",
     "run_policy_seed_file",
@@ -989,6 +1096,7 @@ __all__ = [
     "export_review_bundle",
     "export_builder_ui",
     "apply_persisted_program_edits",
+    "add_persisted_case",
     "list_branches",
     "mark_branch_status",
     "record_persisted_reviewer_hint",

@@ -6,6 +6,7 @@ from typing import Any
 
 from rulekit.orchestrator.workflow import (
     apply_persisted_program_edits,
+    add_persisted_case,
     export_review_bundle,
     inspect_persisted_run,
     list_branches,
@@ -55,6 +56,18 @@ def create_app(root: str | Path = ".rulekit_workspaces"):
         target_step_id: str | None = None
         case_id: str | None = None
         atom_ids: list[str] = Field(default_factory=list)
+        reviewer_id: str | None = None
+        reason: str | None = None
+        reexercise: bool = False
+        snapshot_id: str | None = None
+
+    class AddCaseRequest(BaseModel):
+        title: str = Field(min_length=1)
+        narrative: str = Field(min_length=1)
+        case_id: str | None = None
+        suite_id: str | None = None
+        facts: dict[str, Any] = Field(default_factory=dict)
+        expected_outcomes: dict[str, str] = Field(default_factory=dict)
         reviewer_id: str | None = None
         reason: str | None = None
         reexercise: bool = False
@@ -166,6 +179,37 @@ def create_app(root: str | Path = ".rulekit_workspaces"):
             target_step_id=request.target_step_id,
             case_id=request.case_id,
             atom_ids=request.atom_ids,
+            reviewer_id=request.reviewer_id,
+            reason=request.reason,
+        )
+        payload: dict[str, Any] = {"ok": result.validation.ok, **result.summary()}
+        if request.reexercise:
+            rerun = reexercise_latest_snapshot(
+                root_path,
+                workspace_id,
+                trajectory_id,
+                snapshot_id=request.snapshot_id,
+            )
+            payload["reexercise"] = {"ok": rerun.validation.ok, **rerun.summary()}
+            payload["ok"] = payload["ok"] and rerun.validation.ok
+        return payload
+
+    @app.post("/workspaces/{workspace_id}/trajectories/{trajectory_id}/cases")
+    def add_case(
+        workspace_id: str,
+        trajectory_id: str,
+        request: AddCaseRequest,
+    ) -> dict[str, Any]:
+        result = add_persisted_case(
+            root_path,
+            workspace_id,
+            trajectory_id,
+            suite_id=request.suite_id,
+            case_id=request.case_id,
+            title=request.title,
+            narrative=request.narrative,
+            facts=request.facts,
+            expected_outcomes=request.expected_outcomes,
             reviewer_id=request.reviewer_id,
             reason=request.reason,
         )
