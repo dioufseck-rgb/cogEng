@@ -1,5 +1,4 @@
 """Optional FastAPI surface for RuleKit Orchestrator workflows."""
-from __future__ import annotations
 
 from pathlib import Path
 from typing import Any

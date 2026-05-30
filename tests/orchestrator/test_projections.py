@@ -72,6 +72,8 @@ def test_workspace_and_trajectory_projections_are_ui_ready(tmp_path):
     assert len(projection["program"]["atoms"]) == 2
     assert projection["program"]["nodes"]
     assert any(node.get("children") for node in projection["program"]["nodes"])
+    assert {case["case_id"] for case in projection["cases"]} == {"case_no", "case_yes"}
+    assert all("outcomes" in case for case in projection["cases"])
     assert len(projection["branches"]) == 2
     assert any(branch["is_active"] for branch in projection["branches"])
     assert any(event["kind"] == "program_edit_applied" for event in projection["timeline"])

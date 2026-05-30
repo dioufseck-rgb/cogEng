@@ -62,3 +62,45 @@ def test_live_ui_routes_resolve_latest_and_placeholders(tmp_path):
     assert placeholder_projection.json()["workspace"]["workspace_id"] == (
         result.workspace.workspace_id
     )
+
+
+def test_add_case_api_updates_projection_case_list(tmp_path):
+    if importlib.util.find_spec("fastapi") is None:
+        pytest.skip("FastAPI optional dependency is not installed")
+
+    from fastapi.testclient import TestClient
+
+    seed_path = tmp_path / "seed.yaml"
+    root = tmp_path / "workspaces"
+    save_policy_workspace_seed(sample_seed(), seed_path)
+    result = run_policy_seed_file(seed_path, root, program_id="prog_sample")
+    client = TestClient(create_app(root))
+
+    added = client.post(
+        (
+            f"/workspaces/{result.workspace.workspace_id}"
+            f"/trajectories/{result.trajectory.trajectory_id}/cases"
+        ),
+        json={
+            "title": "New narrative case",
+            "narrative": "Requirement A and B are both met.",
+            "facts": {
+                "sample.requirement_a": True,
+                "sample.requirement_b": True,
+            },
+            "expected_outcomes": {"sample.eligible": "true"},
+            "reexercise": True,
+        },
+    )
+    assert added.status_code == 200, added.text
+    assert added.json()["ok"] is True
+    case_id = added.json()["case_id"]
+
+    projection = client.get(
+        f"/ui/{result.workspace.workspace_id}/{result.trajectory.trajectory_id}/projection.json"
+    )
+    assert projection.status_code == 200
+    cases = {case["case_id"]: case for case in projection.json()["cases"]}
+    assert case_id in cases
+    assert cases[case_id]["result_count"] >= 1
+    assert cases[case_id]["expected_outcomes"] == {"sample.eligible": "true"}

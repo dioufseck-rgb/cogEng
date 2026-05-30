@@ -150,6 +150,7 @@ def build_trajectory_projection(
         "timeline": [_event_projection(event) for event in trajectory.events],
         "program": program_summary,
         "snapshots": [_snapshot_summary(snapshot) for snapshot in snapshots],
+        "cases": _case_examples(workspace, dispositions),
         "case_results": _case_result_rows(dispositions, diagnostics),
         "reports": [_report_summary(report) for report in reports],
         "diagnostics": [_diagnostic_summary(diagnostic) for diagnostic in diagnostics],
@@ -265,6 +266,57 @@ def _case_result_rows(
                 "diagnostic_kind": diagnostic.get("kind") if diagnostic else None,
             }
         )
+    return rows
+
+
+def _case_examples(workspace, dispositions: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    latest_by_case: dict[str, dict[str, dict[str, Any]]] = {}
+    for disposition in sorted(dispositions, key=lambda item: item.get("created_at", "")):
+        case_results = latest_by_case.setdefault(disposition["case_id"], {})
+        case_results[disposition["determination_id"]] = disposition
+
+    rows: list[dict[str, Any]] = []
+    for suite_id, suite in sorted(workspace.case_suites.items()):
+        for case_id, case in sorted(suite.cases.items()):
+            outcomes = [
+                {
+                    "determination_id": disposition["determination_id"],
+                    "outcome": disposition["outcome"],
+                    "expected_outcome": disposition.get("expected_outcome"),
+                    "matched_expected": disposition.get("matched_expected"),
+                    "disposition_id": disposition.get("disposition_id"),
+                    "load_bearing_path": disposition.get("load_bearing_path", []),
+                }
+                for disposition in sorted(
+                    latest_by_case.get(case_id, {}).values(),
+                    key=lambda item: item.get("determination_id", ""),
+                )
+            ]
+            matched_values = [
+                outcome["matched_expected"]
+                for outcome in outcomes
+                if outcome["matched_expected"] is not None
+            ]
+            rows.append(
+                {
+                    "suite_id": suite_id,
+                    "case_id": case.case_id,
+                    "title": case.title,
+                    "narrative": case.narrative,
+                    "structured_fields": case.structured_fields,
+                    "expected_outcomes": {
+                        expected.determination_id: expected.expected_value
+                        for expected in case.expected_outcomes
+                    },
+                    "provenance": case.provenance.value,
+                    "metadata": case.metadata,
+                    "result_count": len(outcomes),
+                    "outcomes": outcomes,
+                    "matched_expected": (
+                        None if not matched_values else all(matched_values)
+                    ),
+                }
+            )
     return rows
 
 

@@ -43,7 +43,7 @@ function renderShell() {
   byId("active-branch").textContent = `Active ${projection.trajectory.active_branch_id}`;
   byId("metric-events").textContent = projection.trajectory.event_count;
   byId("metric-branches").textContent = projection.branches.length;
-  byId("metric-cases").textContent = projection.case_results.length;
+  byId("metric-cases").textContent = projection.cases?.length || projection.case_results.length;
   byId("metric-reports").textContent = projection.reports.length;
 }
 
@@ -139,16 +139,15 @@ function renderGraph() {
 }
 
 function renderCases() {
-  const rows = state.projection.case_results || [];
+  const rows = state.projection.cases || state.projection.case_results || [];
   byId("primary-panel").innerHTML = panel(
-    "Case Results",
+    "Cases",
     `<div class="table-wrap">
       <table>
         <thead>
           <tr>
             <th>Case</th>
-            <th>Determination</th>
-            <th>Outcome</th>
+            <th>Results</th>
             <th>Expected</th>
             <th>Status</th>
           </tr>
@@ -244,15 +243,40 @@ function renderDetail(item) {
 }
 
 function caseRow(row) {
-  const status = row.matched_expected ? "ok" : "fail";
-  const label = row.matched_expected ? "Matched" : "Mismatch";
+  const status = caseStatus(row);
   return `<tr>
-    <td><button class="row-button" onclick='selectItem(${jsonAttr(row)})'>${escapeHtml(row.case_title || row.case_id)}</button></td>
-    <td>${escapeHtml(row.determination_id)}</td>
-    <td>${escapeHtml(row.outcome)}</td>
-    <td>${escapeHtml(row.expected_outcome || "")}</td>
-    <td><span class="tag ${status}">${label}</span></td>
+    <td><button class="row-button" onclick='selectItem(${jsonAttr(row)})'>${escapeHtml(row.title || row.case_title || row.case_id)}</button></td>
+    <td>${escapeHtml(caseResultSummary(row))}</td>
+    <td>${escapeHtml(expectedSummary(row))}</td>
+    <td><span class="tag ${status.className}">${status.label}</span></td>
   </tr>`;
+}
+
+function caseResultSummary(row) {
+  if (Array.isArray(row.outcomes)) {
+    if (!row.outcomes.length) return "Not run";
+    return row.outcomes
+      .map((outcome) => `${outcome.determination_id}: ${outcome.outcome}`)
+      .join("; ");
+  }
+  return row.determination_id ? `${row.determination_id}: ${row.outcome}` : "Not run";
+}
+
+function expectedSummary(row) {
+  if (row.expected_outcomes && !Array.isArray(row.expected_outcomes)) {
+    const entries = Object.entries(row.expected_outcomes);
+    return entries.length ? entries.map(([key, value]) => `${key}: ${value}`).join("; ") : "";
+  }
+  return row.expected_outcome || "";
+}
+
+function caseStatus(row) {
+  if (Array.isArray(row.outcomes) && !row.outcomes.length) {
+    return {className: "neutral", label: "Not run"};
+  }
+  if (row.matched_expected === true) return {className: "ok", label: "Matched"};
+  if (row.matched_expected === false) return {className: "fail", label: "Mismatch"};
+  return {className: "neutral", label: "No expected"};
 }
 
 function atomRow(atom) {
@@ -500,7 +524,32 @@ async function postAction(apiBase, action, payload) {
     renderDetail({error: "Action failed", status: response.status, body});
     return;
   }
+  await refreshProjection();
+  if (action === "cases") {
+    state.view = "cases";
+    state.selected = selectCaseFromProjection(body.case_id) || defaultSelection("cases");
+    setActiveRail("cases");
+  }
+  render();
   renderDetail(body);
+}
+
+async function refreshProjection() {
+  const response = await fetch("./projection.json", {cache: "no-store"});
+  if (!response.ok) throw new Error(`projection refresh failed: ${response.status}`);
+  state.projection = await response.json();
+  renderShell();
+}
+
+function selectCaseFromProjection(caseId) {
+  if (!caseId) return null;
+  return (state.projection.cases || []).find((row) => row.case_id === caseId) || null;
+}
+
+function setActiveRail(view) {
+  document.querySelectorAll(".rail-item").forEach((item) => {
+    item.classList.toggle("active", item.dataset.view === view);
+  });
 }
 
 function parseJsonObject(value, label) {
@@ -516,7 +565,7 @@ function defaultSelection(view) {
   const projection = state.projection;
   if (view === "program") return projection.program?.atoms?.[0] || projection.program || null;
   if (view === "graph") return projection.program?.determinations?.[0] || null;
-  if (view === "cases") return projection.case_results?.[0] || null;
+  if (view === "cases") return projection.cases?.[0] || projection.case_results?.[0] || null;
   if (view === "map") return projection.map_records?.[0] || projection.reviewer_hints?.[0] || null;
   if (view === "actions") return null;
   if (view === "timeline") return projection.timeline?.[0] || null;
