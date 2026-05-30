@@ -30,7 +30,8 @@ def create_app(root: str | Path = ".rulekit_workspaces"):
     lazy so the core orchestrator package has no mandatory web dependency.
     """
     try:
-        from fastapi import FastAPI
+        from fastapi import FastAPI, Response
+        from fastapi.responses import HTMLResponse, RedirectResponse
         from pydantic import BaseModel, Field
     except ImportError as exc:  # pragma: no cover - depends on optional extra
         raise RuntimeError("Install rulekit[api] to use the orchestrator API") from exc
@@ -112,6 +113,38 @@ def create_app(root: str | Path = ".rulekit_workspaces"):
     @app.get("/workspaces/{workspace_id}/trajectories/{trajectory_id}/projection")
     def trajectory_projection(workspace_id: str, trajectory_id: str) -> dict[str, Any]:
         return build_trajectory_projection(root_path, workspace_id, trajectory_id)
+
+    @app.get("/ui/{workspace_id}/{trajectory_id}")
+    def builder_ui_redirect(workspace_id: str, trajectory_id: str) -> RedirectResponse:
+        return RedirectResponse(url=f"/ui/{workspace_id}/{trajectory_id}/")
+
+    @app.get("/ui/{workspace_id}/{trajectory_id}/")
+    def builder_ui(workspace_id: str, trajectory_id: str) -> HTMLResponse:
+        del workspace_id, trajectory_id
+        web_dir = Path(__file__).parent / "web"
+        return HTMLResponse((web_dir / "index.html").read_text(encoding="utf-8"))
+
+    @app.get("/ui/{workspace_id}/{trajectory_id}/projection.json")
+    def builder_ui_projection(workspace_id: str, trajectory_id: str) -> dict[str, Any]:
+        return build_trajectory_projection(root_path, workspace_id, trajectory_id)
+
+    @app.get("/ui/{workspace_id}/{trajectory_id}/app.js")
+    def builder_ui_js(workspace_id: str, trajectory_id: str) -> Response:
+        del workspace_id, trajectory_id
+        web_dir = Path(__file__).parent / "web"
+        return Response(
+            (web_dir / "app.js").read_text(encoding="utf-8"),
+            media_type="application/javascript",
+        )
+
+    @app.get("/ui/{workspace_id}/{trajectory_id}/styles.css")
+    def builder_ui_css(workspace_id: str, trajectory_id: str) -> Response:
+        del workspace_id, trajectory_id
+        web_dir = Path(__file__).parent / "web"
+        return Response(
+            (web_dir / "styles.css").read_text(encoding="utf-8"),
+            media_type="text/css",
+        )
 
     @app.get("/workspaces/{workspace_id}/trajectories/{trajectory_id}/branches")
     def branches(workspace_id: str, trajectory_id: str) -> dict[str, Any]:
