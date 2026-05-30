@@ -51,6 +51,7 @@ function render() {
   const titles = {
     overview: "Overview",
     program: "Program",
+    graph: "DAG",
     cases: "Cases",
     map: "Map",
     actions: "Actions",
@@ -61,6 +62,7 @@ function render() {
   const viewRenderers = {
     overview: renderOverview,
     program: renderProgram,
+    graph: renderGraph,
     cases: renderCases,
     map: renderMap,
     actions: renderActions,
@@ -114,6 +116,25 @@ function renderProgram() {
   byId("detail-panel").innerHTML = panel(
     "DAG Nodes",
     `<div class="panel-body"><div class="list">${nodes.map(nodeItem).join("")}</div></div>`
+  );
+}
+
+function renderGraph() {
+  const program = state.projection.program || {};
+  const determinations = program.determinations || [];
+  const selected = state.selected || determinations[0] || null;
+  state.selected = selected;
+  const rootNodeId = selected ? determinationRootNode(selected, determinations) : null;
+  byId("primary-panel").innerHTML = panel(
+    "Determinations",
+    `<div class="graph-layout">
+      <div class="det-list">${determinations.map(detItem).join("")}</div>
+      <div class="dag-tree">${rootNodeId ? renderDagTree(rootNodeId) : `<span class="meta">No determination selected</span>`}</div>
+    </div>`
+  );
+  byId("detail-panel").innerHTML = panel(
+    selected?.composition === "complement" ? "Complement Detail" : "Node Detail",
+    `<div class="panel-body"><pre>${escapeHtml(JSON.stringify(selected, null, 2))}</pre></div>`
   );
 }
 
@@ -243,6 +264,54 @@ function atomRow(atom) {
   </tr>`;
 }
 
+function detItem(det) {
+  return `<button class="det-item ${state.selected?.determination_id === det.determination_id ? "active" : ""}" onclick='selectDetermination(${jsonAttr(det)})'>
+    <span class="det-title">${escapeHtml(det.determination_id)}</span>
+    <span class="meta">${escapeHtml(det.composition)}${det.root_node ? ` - ${escapeHtml(det.root_node)}` : ""}</span>
+  </button>`;
+}
+
+function renderDagTree(rootNodeId) {
+  const program = state.projection.program || {};
+  const nodes = Object.fromEntries((program.nodes || []).map((node) => [node.node_id, node]));
+  const atoms = Object.fromEntries((program.atoms || []).map((atom) => [atom.atom_id, atom]));
+  const counts = childRefCounts(nodes);
+  const seen = new Set();
+  const lines = [];
+
+  function emit(nodeId, prefix, isLast, isRoot) {
+    const node = nodes[nodeId];
+    if (!node) {
+      lines.push(`<div class="dag-row"><span class="guides">${escapeHtml(prefix)}</span><span class="meta">Missing node ${escapeHtml(nodeId || "")}</span></div>`);
+      return;
+    }
+    const already = seen.has(nodeId);
+    seen.add(nodeId);
+    const guide = isRoot ? "" : `${prefix}${isLast ? "`- " : "|- "}`;
+    const childPrefix = isRoot ? "" : `${prefix}${isLast ? "   " : "|  "}`;
+    const children = nodeChildren(node);
+    const label = nodeLabel(node, atoms);
+    const shared = counts[nodeId] > 1;
+    lines.push(`<div class="dag-row">
+      <span class="guides">${escapeHtml(guide)}</span>
+      <button class="dag-node" onclick='selectNode(${jsonAttr(node)})'>
+        <span class="op ${opClass(node.kind)}">${escapeHtml(opLabel(node))}</span>
+        <span class="dag-label">${escapeHtml(label)}</span>
+        ${shared ? `<span class="shared-tag">shared</span>` : ""}
+        <span class="node-id">${escapeHtml(nodeId)}</span>
+      </button>
+    </div>`);
+    if (already && !isRoot) {
+      lines.push(`<div class="dag-row dim"><span class="guides">${escapeHtml(childPrefix)}   </span><span class="meta">expanded above</span></div>`);
+      return;
+    }
+    children.forEach((childId, index) => emit(childId, childPrefix, index === children.length - 1, false));
+  }
+
+  emit(rootNodeId, "", true, true);
+  return lines.join("");
+}
+
 function mapRecordRow(record) {
   const statuses = Object.entries(record.status_counts || {})
     .map(([status, count]) => `${status}:${count}`)
@@ -280,6 +349,82 @@ function nodeItem(node) {
       <div class="meta">${escapeHtml(node.kind)}${node.surface_label ? ` - ${escapeHtml(node.surface_label)}` : ""}</div>
     </button>
   </div>`;
+}
+
+function selectDetermination(det) {
+  state.selected = det;
+  renderGraph();
+}
+
+function selectNode(node) {
+  byId("detail-panel").innerHTML = panel(
+    "Node Detail",
+    `<div class="panel-body"><pre>${escapeHtml(JSON.stringify(node, null, 2))}</pre></div>`
+  );
+}
+
+function determinationRootNode(det, determinations) {
+  if (det.root_node) return det.root_node;
+  if (!det.linked_to) return null;
+  const linked = determinations.find((item) => item.determination_id === det.linked_to);
+  return linked?.root_node || null;
+}
+
+function nodeChildren(node) {
+  const children = [];
+  if (Array.isArray(node.children)) children.push(...node.children);
+  ["child", "left", "right", "condition", "if_true", "if_false"].forEach((key) => {
+    if (node[key]) children.push(node[key]);
+  });
+  return children;
+}
+
+function childRefCounts(nodes) {
+  const counts = {};
+  Object.values(nodes).forEach((node) => {
+    nodeChildren(node).forEach((childId) => {
+      counts[childId] = (counts[childId] || 0) + 1;
+    });
+  });
+  return counts;
+}
+
+function opLabel(node) {
+  if (node.kind === "comparison") return cmpSymbol(node.operator);
+  if (node.kind === "atom_ref") return "ATOM";
+  if (node.kind === "numeric_atom_ref") return "NUM";
+  if (node.kind === "constant") return "CONST";
+  if (node.kind === "named_quantity") return "QTY";
+  if (node.kind === "binary_arithmetic") return node.operator || "BIN";
+  if (node.kind === "unary_arithmetic") return node.operator || "UN";
+  if (node.kind === "variadic_arithmetic") return node.operator || "VAR";
+  return String(node.kind || "").replace("_", " ").toUpperCase();
+}
+
+function opClass(kind) {
+  if (kind === "and" || kind === "at_least") return "and";
+  if (kind === "or") return "or";
+  if (kind === "not") return "not";
+  if (kind === "comparison") return "cmp";
+  if (kind === "atom_ref" || kind === "numeric_atom_ref") return "atom";
+  return "other";
+}
+
+function nodeLabel(node, atoms) {
+  if (node.surface_label) return node.surface_label;
+  if (node.atom_id) return atoms[node.atom_id]?.statement || human(node.atom_id);
+  if (node.kind === "constant") return node.literal_value ?? node.constant_label ?? "constant";
+  if (node.kind === "comparison") return `${node.left} ${cmpSymbol(node.operator)} ${node.right}`;
+  if (node.kind === "conditional_numeric") return `if ${node.condition}`;
+  return node.kind || node.node_id;
+}
+
+function cmpSymbol(operator) {
+  return {eq: "=", lt: "<", leq: "<=", gt: ">", geq: ">="}[operator] || operator || "CMP";
+}
+
+function human(value) {
+  return String(value || "").replaceAll("_", " ").replaceAll(".", " ");
 }
 
 function hintItem(hint) {
@@ -370,6 +515,7 @@ function parseJsonObject(value, label) {
 function defaultSelection(view) {
   const projection = state.projection;
   if (view === "program") return projection.program?.atoms?.[0] || projection.program || null;
+  if (view === "graph") return projection.program?.determinations?.[0] || null;
   if (view === "cases") return projection.case_results?.[0] || null;
   if (view === "map") return projection.map_records?.[0] || projection.reviewer_hints?.[0] || null;
   if (view === "actions") return null;

@@ -285,6 +285,150 @@ th {
   margin-bottom: 4px;
 }
 
+.graph-layout {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  min-height: 520px;
+}
+
+.det-list {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  border-right: 1px solid var(--line);
+  background: #fafbfc;
+  padding: 12px;
+}
+
+.det-item {
+  display: grid;
+  gap: 4px;
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #ffffff;
+  color: var(--ink);
+  cursor: pointer;
+  padding: 10px;
+  text-align: left;
+}
+
+.det-item.active,
+.det-item:hover {
+  border-color: #8090a3;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04);
+}
+
+.det-title {
+  font-weight: 650;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.dag-tree {
+  padding: 12px;
+  overflow: auto;
+  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+.dag-row {
+  display: flex;
+  align-items: flex-start;
+  min-height: 28px;
+}
+
+.dag-row.dim {
+  opacity: 0.58;
+}
+
+.guides {
+  flex: 0 0 auto;
+  white-space: pre;
+  color: #aab4c0;
+  padding-top: 6px;
+}
+
+.dag-node {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+  width: 100%;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  padding: 4px 6px;
+  text-align: left;
+}
+
+.dag-node:hover {
+  background: #f1f5f9;
+}
+
+.op {
+  flex: 0 0 auto;
+  min-width: 38px;
+  border-radius: 4px;
+  background: #e8edf3;
+  color: #3b4654;
+  padding: 2px 6px;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 750;
+}
+
+.op.and {
+  background: #e7f5ef;
+  color: var(--ok);
+}
+
+.op.or {
+  background: #eef3ff;
+  color: #2f56a6;
+}
+
+.op.not {
+  background: #fff0eb;
+  color: var(--danger);
+}
+
+.op.cmp {
+  background: #fff7dd;
+  color: #7a5a12;
+}
+
+.op.atom {
+  background: #eef3f8;
+  color: #3b4654;
+}
+
+.dag-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.node-id {
+  flex: 0 0 auto;
+  color: var(--muted);
+  font-size: 11px;
+  margin-left: auto;
+}
+
+.shared-tag {
+  flex: 0 0 auto;
+  border: 1px dashed #9a7b29;
+  border-radius: 4px;
+  color: #7a5a12;
+  padding: 0 5px;
+  font-size: 10px;
+}
+
 .meta {
   color: var(--muted);
   font-size: 12px;
@@ -405,8 +549,14 @@ pre {
 
   .metrics,
   .content-grid,
+  .graph-layout,
   .form-grid {
     grid-template-columns: 1fr;
+  }
+
+  .det-list {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
   }
 }
 

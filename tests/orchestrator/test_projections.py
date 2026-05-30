@@ -71,6 +71,7 @@ def test_workspace_and_trajectory_projections_are_ui_ready(tmp_path):
     assert projection["program"]["atom_count"] == 2
     assert len(projection["program"]["atoms"]) == 2
     assert projection["program"]["nodes"]
+    assert any(node.get("children") for node in projection["program"]["nodes"])
     assert len(projection["branches"]) == 2
     assert any(branch["is_active"] for branch in projection["branches"])
     assert any(event["kind"] == "program_edit_applied" for event in projection["timeline"])
@@ -100,5 +101,7 @@ def test_workspace_and_trajectory_projections_are_ui_ready(tmp_path):
     html = (tmp_path / "builder_ui" / "index.html").read_text(encoding="utf-8")
     app_js = (tmp_path / "builder_ui" / "app.js").read_text(encoding="utf-8")
     assert 'data-view="actions"' in html
+    assert 'data-view="graph"' in html
+    assert "renderDagTree" in app_js
     assert 'postAction(data.apiBase, "hints"' in app_js
     assert 'postAction(apiBase, "cases"' in app_js

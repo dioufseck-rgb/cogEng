@@ -118,6 +118,7 @@ def build_trajectory_projection(
             ],
             "nodes": [
                 {
+                    **node.model_dump(mode="json"),
                     "node_id": node_id,
                     "kind": node.kind,
                     "surface_label": getattr(node, "surface_label", ""),
