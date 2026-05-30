@@ -53,6 +53,7 @@ function render() {
     program: "Program",
     cases: "Cases",
     map: "Map",
+    actions: "Actions",
     timeline: "Timeline",
     reports: "Reports",
   };
@@ -62,6 +63,7 @@ function render() {
     program: renderProgram,
     cases: renderCases,
     map: renderMap,
+    actions: renderActions,
     timeline: renderTimeline,
     reports: renderReports,
   };
@@ -159,6 +161,34 @@ function renderMap() {
   byId("detail-panel").innerHTML = panel(
     "Reviewer Hints",
     `<div class="panel-body"><div class="list">${hints.length ? hints.map(hintItem).join("") : `<span class="meta">No reviewer hints recorded</span>`}</div></div>`
+  );
+}
+
+function renderActions() {
+  const apiBase = localStorage.getItem("rulekitApiBase") || window.location.origin;
+  byId("primary-panel").innerHTML = panel(
+    "Reviewer Hint",
+    `<form class="action-form" onsubmit="submitHint(event)">
+      <label>API base<input name="apiBase" value="${escapeHtml(apiBase)}" /></label>
+      <label>Message<textarea name="message" rows="4" required></textarea></label>
+      <div class="form-grid">
+        <label>Case ID<input name="caseId" /></label>
+        <label>Atom ID<input name="atomId" /></label>
+      </div>
+      <label class="checkline"><input type="checkbox" name="reexercise" checked /> Reexercise after recording</label>
+      <button class="primary-action" type="submit">Record hint</button>
+    </form>`
+  );
+  byId("detail-panel").innerHTML = panel(
+    "Add Case",
+    `<form class="action-form" onsubmit="submitCase(event)">
+      <label>Title<input name="title" required /></label>
+      <label>Narrative<textarea name="narrative" rows="5" required></textarea></label>
+      <label>Facts JSON<textarea name="facts" rows="4" placeholder='{"atom.id": true}'></textarea></label>
+      <label>Expected JSON<textarea name="expected" rows="3" placeholder='{"determination.id": "true"}'></textarea></label>
+      <label class="checkline"><input type="checkbox" name="reexercise" checked /> Reexercise after adding</label>
+      <button class="primary-action" type="submit">Add case</button>
+    </form>`
   );
 }
 
@@ -272,11 +302,77 @@ function selectItem(item) {
   renderDetail(item);
 }
 
+async function submitHint(event) {
+  event.preventDefault();
+  try {
+    const form = event.currentTarget;
+    const data = Object.fromEntries(new FormData(form).entries());
+    const atomIds = data.atomId ? [data.atomId] : [];
+    const payload = {
+      message: data.message,
+      target_step_id: "map_prebound_facts",
+      case_id: data.caseId || null,
+      atom_ids: atomIds,
+      reexercise: form.reexercise.checked,
+    };
+    await postAction(data.apiBase, "hints", payload);
+  } catch (error) {
+    renderDetail({error: error.message});
+  }
+}
+
+async function submitCase(event) {
+  event.preventDefault();
+  try {
+    const form = event.currentTarget;
+    const data = Object.fromEntries(new FormData(form).entries());
+    const payload = {
+      title: data.title,
+      narrative: data.narrative,
+      facts: parseJsonObject(data.facts, "Facts JSON"),
+      expected_outcomes: parseJsonObject(data.expected, "Expected JSON"),
+      reexercise: form.reexercise.checked,
+    };
+    const apiBase = localStorage.getItem("rulekitApiBase") || window.location.origin;
+    await postAction(apiBase, "cases", payload);
+  } catch (error) {
+    renderDetail({error: error.message});
+  }
+}
+
+async function postAction(apiBase, action, payload) {
+  localStorage.setItem("rulekitApiBase", apiBase);
+  const projection = state.projection;
+  const base = apiBase.replace(/\/$/, "");
+  const url = `${base}/workspaces/${projection.workspace.workspace_id}/trajectories/${projection.trajectory.trajectory_id}/${action}`;
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(payload),
+  });
+  const body = await response.json();
+  if (!response.ok || body.ok === false) {
+    renderDetail({error: "Action failed", status: response.status, body});
+    return;
+  }
+  renderDetail(body);
+}
+
+function parseJsonObject(value, label) {
+  if (!value || !value.trim()) return {};
+  const parsed = JSON.parse(value);
+  if (!parsed || Array.isArray(parsed) || typeof parsed !== "object") {
+    throw new Error(`${label} must be a JSON object`);
+  }
+  return parsed;
+}
+
 function defaultSelection(view) {
   const projection = state.projection;
   if (view === "program") return projection.program?.atoms?.[0] || projection.program || null;
   if (view === "cases") return projection.case_results?.[0] || null;
   if (view === "map") return projection.map_records?.[0] || projection.reviewer_hints?.[0] || null;
+  if (view === "actions") return null;
   if (view === "timeline") return projection.timeline?.[0] || null;
   if (view === "reports") return projection.reports?.[0] || null;
   return projection.program || null;

@@ -97,3 +97,8 @@ def test_workspace_and_trajectory_projections_are_ui_ready(tmp_path):
     assert (tmp_path / "builder_ui" / "styles.css").exists()
     assert (tmp_path / "builder_ui" / "app.js").exists()
     assert (tmp_path / "builder_ui" / "projection.json").exists()
+    html = (tmp_path / "builder_ui" / "index.html").read_text(encoding="utf-8")
+    app_js = (tmp_path / "builder_ui" / "app.js").read_text(encoding="utf-8")
+    assert 'data-view="actions"' in html
+    assert 'postAction(data.apiBase, "hints"' in app_js
+    assert 'postAction(apiBase, "cases"' in app_js

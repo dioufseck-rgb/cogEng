@@ -26,7 +26,8 @@ body {
 
 button,
 input,
-select {
+select,
+textarea {
   font: inherit;
 }
 
@@ -314,6 +315,68 @@ th {
   color: var(--danger);
 }
 
+.action-form {
+  display: grid;
+  gap: 12px;
+  padding: 12px 14px;
+}
+
+.action-form label {
+  display: grid;
+  gap: 5px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.action-form input,
+.action-form textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #ffffff;
+  color: var(--ink);
+  padding: 8px 9px;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.action-form textarea {
+  resize: vertical;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.checkline {
+  display: flex !important;
+  grid-template-columns: none;
+  align-items: center;
+  gap: 8px !important;
+}
+
+.checkline input {
+  width: auto;
+}
+
+.primary-action {
+  min-height: 36px;
+  border: 1px solid #155e54;
+  border-radius: 6px;
+  background: var(--accent);
+  color: #ffffff;
+  cursor: pointer;
+  padding: 8px 12px;
+  font-weight: 650;
+}
+
+.primary-action:hover {
+  background: #17665b;
+}
+
 pre {
   margin: 0;
   white-space: pre-wrap;
@@ -341,7 +404,8 @@ pre {
   }
 
   .metrics,
-  .content-grid {
+  .content-grid,
+  .form-grid {
     grid-template-columns: 1fr;
   }
 }
