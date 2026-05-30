@@ -54,6 +54,7 @@ from __future__ import annotations
 
 import json
 import re
+import time
 from decimal import Decimal
 from typing import Optional
 
@@ -80,11 +81,17 @@ class LLMCaller:
     def __init__(self, model: str = "claude-opus-4-7",
                  offline_responses: Optional[dict] = None,
                  max_tokens: int = 4096,
-                 timeout: float = 120.0):
+                 timeout: float = 120.0,
+                 provider: str | None = None,
+                 max_retries: int = 2,
+                 retry_base_delay_s: float = 1.0):
         self.model = model
         self.offline_responses = offline_responses or {}
         self.max_tokens = max_tokens
         self.timeout = timeout
+        self.provider = provider or _infer_provider(model)
+        self.max_retries = max(0, max_retries)
+        self.retry_base_delay_s = max(0.0, retry_base_delay_s)
         self._client = None
 
     def call(self, stage_name: str, prompt: str,
@@ -102,6 +109,30 @@ class LLMCaller:
         """
         if stage_name in self.offline_responses:
             return self.offline_responses[stage_name]
+        last_exc = None
+        for attempt in range(self.max_retries + 1):
+            try:
+                return self._call_once(prompt, max_tokens=max_tokens, stream=stream)
+            except Exception as exc:  # pragma: no cover - provider SDK dependent
+                last_exc = exc
+                if attempt >= self.max_retries:
+                    break
+                if self.retry_base_delay_s:
+                    time.sleep(self.retry_base_delay_s * (2 ** attempt))
+        raise last_exc
+
+    def _call_once(self, prompt: str,
+                   max_tokens: Optional[int] = None,
+                   stream: bool = True) -> str:
+        if self.provider == "anthropic":
+            return self._call_anthropic(prompt, max_tokens=max_tokens, stream=stream)
+        if self.provider == "openai":
+            return self._call_openai(prompt, max_tokens=max_tokens, stream=stream)
+        raise ValueError(f"unsupported LLM provider {self.provider!r}")
+
+    def _call_anthropic(self, prompt: str,
+                        max_tokens: Optional[int] = None,
+                        stream: bool = True) -> str:
         if self._client is None:
             import anthropic
             self._client = anthropic.Anthropic(timeout=self.timeout)
@@ -137,6 +168,41 @@ class LLMCaller:
             # No text block found — return empty so downstream parsers
             # surface the issue clearly.
             return ""
+
+    def _call_openai(self, prompt: str,
+                     max_tokens: Optional[int] = None,
+                     stream: bool = True) -> str:
+        if self._client is None:
+            from openai import OpenAI
+            self._client = OpenAI(timeout=self.timeout)
+        mt = max_tokens if max_tokens is not None else self.max_tokens
+        if stream:
+            collected = []
+            events = self._client.responses.create(
+                model=self.model,
+                input=prompt,
+                max_output_tokens=mt,
+                stream=True,
+            )
+            for event in events:
+                if getattr(event, "type", None) == "response.output_text.delta":
+                    collected.append(getattr(event, "delta", ""))
+            return "".join(collected)
+        response = self._client.responses.create(
+            model=self.model,
+            input=prompt,
+            max_output_tokens=mt,
+        )
+        return getattr(response, "output_text", "")
+
+
+def _infer_provider(model: str) -> str:
+    normalized = model.lower()
+    if normalized.startswith(("claude", "anthropic.")):
+        return "anthropic"
+    if normalized.startswith(("gpt-", "gpt5", "gpt-5", "o1", "o3", "o4")):
+        return "openai"
+    return "anthropic"
 
 
 # ---------------------------------------------------------------------------

@@ -86,6 +86,7 @@ from rulekit.orchestrator.map_step import (
     TypedNarrativeMapStep,
     facts_from_case_fields,
 )
+from rulekit.orchestrator.llm_config import create_llm_caller, create_map_step
 from rulekit.orchestrator.step import (
     BuildStep,
     BuildStepSpec,
@@ -260,6 +261,8 @@ __all__ = [
     "PreboundFactsMapStep",
     "TypedNarrativeMapStep",
     "facts_from_case_fields",
+    "create_llm_caller",
+    "create_map_step",
     "BuildStep",
     "BuildStepSpec",
     "DialogueCapability",

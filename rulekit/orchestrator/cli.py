@@ -14,6 +14,7 @@ from rulekit.orchestrator.factory import (
     PolicyWorkspaceSeed,
 )
 from rulekit.orchestrator.examples.prior_auth_typed import prior_auth_typed_seed
+from rulekit.orchestrator.llm_config import create_map_step
 from rulekit.orchestrator.workflow import (
     apply_persisted_program_edits,
     add_persisted_case,
@@ -130,6 +131,7 @@ def _parser() -> argparse.ArgumentParser:
     reexercise.add_argument("--workspace-id", required=True)
     reexercise.add_argument("--trajectory-id", required=True)
     reexercise.add_argument("--snapshot-id", default=None, help="snapshot to run; defaults to latest")
+    _add_map_args(reexercise)
     reexercise.add_argument("--json", action="store_true", help="print JSON summary")
 
     hint = subcommands.add_parser("hint", help="record a natural-language reviewer hint")
@@ -144,6 +146,7 @@ def _parser() -> argparse.ArgumentParser:
     hint.add_argument("--reason", default=None)
     hint.add_argument("--reexercise", action="store_true", help="rerun latest snapshot after recording")
     hint.add_argument("--snapshot-id", default=None, help="snapshot to rerun when --reexercise is set")
+    _add_map_args(hint)
     hint.add_argument("--json", action="store_true", help="print JSON summary")
 
     case = subcommands.add_parser("case", help="add reviewer-authored cases")
@@ -167,6 +170,7 @@ def _parser() -> argparse.ArgumentParser:
     case_add.add_argument("--reason", default=None)
     case_add.add_argument("--reexercise", action="store_true", help="rerun latest snapshot after adding")
     case_add.add_argument("--snapshot-id", default=None, help="snapshot to rerun when --reexercise is set")
+    _add_map_args(case_add)
     case_add.add_argument("--json", action="store_true", help="print JSON summary")
 
     branches = subcommands.add_parser("branches", help="list or mark trajectory branches")
@@ -190,6 +194,7 @@ def _parser() -> argparse.ArgumentParser:
     serve.add_argument("--root", default=".rulekit_workspaces")
     serve.add_argument("--host", default="127.0.0.1")
     serve.add_argument("--port", type=int, default=8000)
+    _add_map_args(serve)
     serve.add_argument("--json", action="store_true", help="print JSON errors")
 
     ui = subcommands.add_parser("ui", help="export a static Builder UI")
@@ -275,6 +280,7 @@ def _reexercise(args: argparse.Namespace) -> int:
         args.workspace_id,
         args.trajectory_id,
         snapshot_id=args.snapshot_id,
+        map_step=_map_step_from_args(args),
     )
     payload = {"ok": result.validation.ok, **result.summary()}
     _print(payload, args.json)
@@ -301,6 +307,7 @@ def _hint(args: argparse.Namespace) -> int:
             args.workspace_id,
             args.trajectory_id,
             snapshot_id=args.snapshot_id,
+            map_step=_map_step_from_args(args),
         )
         payload["reexercise"] = {"ok": rerun.validation.ok, **rerun.summary()}
         exit_ok = exit_ok and rerun.validation.ok
@@ -331,6 +338,7 @@ def _case(args: argparse.Namespace) -> int:
                 args.workspace_id,
                 args.trajectory_id,
                 snapshot_id=args.snapshot_id,
+                map_step=_map_step_from_args(args),
             )
             payload["reexercise"] = {"ok": rerun.validation.ok, **rerun.summary()}
             exit_ok = exit_ok and rerun.validation.ok
@@ -368,7 +376,19 @@ def _serve(args: argparse.Namespace) -> int:
         raise RuntimeError("Install rulekit[api] to use 'serve'") from exc
     from rulekit.orchestrator.api import create_app
 
-    uvicorn.run(create_app(args.root), host=args.host, port=args.port)
+    uvicorn.run(
+        create_app(
+            args.root,
+            map_mode=args.map_mode,
+            llm_provider=args.llm_provider,
+            llm_model=args.llm_model,
+            llm_max_tokens=args.llm_max_tokens,
+            llm_timeout=args.llm_timeout,
+            llm_max_retries=args.llm_max_retries,
+        ),
+        host=args.host,
+        port=args.port,
+    )
     return 0
 
 
@@ -394,6 +414,36 @@ def _print(payload: dict[str, Any], as_json: bool) -> None:
 
 def _local_ui_url(workspace_id: str, trajectory_id: str) -> str:
     return f"http://127.0.0.1:8000/ui/{workspace_id}/{trajectory_id}/"
+
+
+def _add_map_args(parser: argparse.ArgumentParser) -> None:
+    parser.add_argument(
+        "--map-mode",
+        choices=["prebound", "narrative"],
+        default="prebound",
+        help="Map substrate for reexercise (default: prebound facts)",
+    )
+    parser.add_argument(
+        "--llm-provider",
+        choices=["anthropic", "openai"],
+        default="anthropic",
+        help="LLM provider when --map-mode narrative is used",
+    )
+    parser.add_argument("--llm-model", default=None, help="LLM model override")
+    parser.add_argument("--llm-max-tokens", type=int, default=4096)
+    parser.add_argument("--llm-timeout", type=float, default=120.0)
+    parser.add_argument("--llm-max-retries", type=int, default=2)
+
+
+def _map_step_from_args(args: argparse.Namespace):
+    return create_map_step(
+        map_mode=args.map_mode,
+        llm_provider=args.llm_provider,
+        llm_model=args.llm_model,
+        llm_max_tokens=args.llm_max_tokens,
+        llm_timeout=args.llm_timeout,
+        llm_max_retries=args.llm_max_retries,
+    )
 
 
 def _parse_key_values(items: list[str]) -> dict[str, Any]:

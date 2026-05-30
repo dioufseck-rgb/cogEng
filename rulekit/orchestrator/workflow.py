@@ -26,7 +26,7 @@ from rulekit.orchestrator.ids import intervention_id as new_intervention_id
 from rulekit.orchestrator.ids import new_id
 from rulekit.orchestrator.intervention import Intervention, InterventionKind
 from rulekit.orchestrator.map_record import MapExtractionRecord
-from rulekit.orchestrator.map_step import PreboundFactsMapStep
+from rulekit.orchestrator.map_step import MapStep, PreboundFactsMapStep
 from rulekit.orchestrator.persistence import (
     load_program_snapshot,
     load_trajectory,
@@ -769,6 +769,7 @@ def reexercise_latest_snapshot(
     *,
     snapshot_id: str | None = None,
     reviewer_hints: list[ReviewerHint] | None = None,
+    map_step: MapStep | None = None,
 ) -> ReexerciseResult:
     """Exercise a persisted snapshot against the workspace's case suite."""
     root = Path(root)
@@ -792,7 +793,7 @@ def reexercise_latest_snapshot(
     map_records, dispositions = exercise_program_on_suite_with_map_step(
         snapshot.program,
         cases,
-        PreboundFactsMapStep(),
+        map_step or PreboundFactsMapStep(),
         program_id=snapshot.program_id,
         program_version=snapshot.program_version,
         workspace_id=workspace_id,

@@ -3,6 +3,7 @@
 from pathlib import Path
 from typing import Any
 
+from rulekit.orchestrator.llm_config import create_map_step
 from rulekit.orchestrator.workflow import (
     apply_persisted_program_edits,
     add_persisted_case,
@@ -22,7 +23,16 @@ from rulekit.orchestrator.projections import (
 )
 
 
-def create_app(root: str | Path = ".rulekit_workspaces"):
+def create_app(
+    root: str | Path = ".rulekit_workspaces",
+    *,
+    map_mode: str = "prebound",
+    llm_provider: str = "anthropic",
+    llm_model: str | None = None,
+    llm_max_tokens: int = 4096,
+    llm_timeout: float = 120.0,
+    llm_max_retries: int = 2,
+):
     """Create the optional FastAPI app.
 
     Install `rulekit[api]` to use this surface. Imports are intentionally
@@ -50,6 +60,7 @@ def create_app(root: str | Path = ".rulekit_workspaces"):
 
     class ReexerciseRequest(BaseModel):
         snapshot_id: str | None = None
+        map_mode: str | None = None
 
     class HintRequest(BaseModel):
         message: str = Field(min_length=1)
@@ -60,6 +71,7 @@ def create_app(root: str | Path = ".rulekit_workspaces"):
         reason: str | None = None
         reexercise: bool = False
         snapshot_id: str | None = None
+        map_mode: str | None = None
 
     class AddCaseRequest(BaseModel):
         title: str = Field(min_length=1)
@@ -72,6 +84,7 @@ def create_app(root: str | Path = ".rulekit_workspaces"):
         reason: str | None = None
         reexercise: bool = False
         snapshot_id: str | None = None
+        map_mode: str | None = None
 
     class ExportRequest(BaseModel):
         output_dir: str
@@ -216,6 +229,7 @@ def create_app(root: str | Path = ".rulekit_workspaces"):
             workspace_id,
             trajectory_id,
             snapshot_id=request.snapshot_id,
+            map_step=_request_map_step(request.map_mode),
         )
         return {"ok": result.validation.ok, **result.summary()}
 
@@ -243,6 +257,7 @@ def create_app(root: str | Path = ".rulekit_workspaces"):
                 workspace_id,
                 trajectory_id,
                 snapshot_id=request.snapshot_id,
+                map_step=_request_map_step(request.map_mode),
             )
             payload["reexercise"] = {"ok": rerun.validation.ok, **rerun.summary()}
             payload["ok"] = payload["ok"] and rerun.validation.ok
@@ -274,6 +289,7 @@ def create_app(root: str | Path = ".rulekit_workspaces"):
                 workspace_id,
                 trajectory_id,
                 snapshot_id=request.snapshot_id,
+                map_step=_request_map_step(request.map_mode),
             )
             payload["reexercise"] = {"ok": rerun.validation.ok, **rerun.summary()}
             payload["ok"] = payload["ok"] and rerun.validation.ok
@@ -319,6 +335,16 @@ def create_app(root: str | Path = ".rulekit_workspaces"):
 
     def _ui_url(workspace_id: str, trajectory_id: str) -> str:
         return f"/ui/{workspace_id}/{trajectory_id}/"
+
+    def _request_map_step(request_map_mode: str | None = None):
+        return create_map_step(
+            map_mode=request_map_mode or map_mode,
+            llm_provider=llm_provider,
+            llm_model=llm_model,
+            llm_max_tokens=llm_max_tokens,
+            llm_timeout=llm_timeout,
+            llm_max_retries=llm_max_retries,
+        )
 
     return app
 

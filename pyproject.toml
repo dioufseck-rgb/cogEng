@@ -32,6 +32,7 @@ rulekit-orchestrator = "rulekit.orchestrator.cli:main"
 [project.optional-dependencies]
 reasoning = ["z3-solver"]   # for the future reason primitive
 api = ["fastapi", "uvicorn"]
+llm = ["anthropic>=0.40.0", "openai>=1.0.0"]
 
 [tool.setuptools]
 
