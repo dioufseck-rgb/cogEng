@@ -78,4 +78,23 @@ def record_reviewer_hint(
     return hint, intervention
 
 
-__all__ = ["ReviewerHint", "record_reviewer_hint"]
+def reviewer_hints_from_trajectory(trajectory: Trajectory) -> list[ReviewerHint]:
+    """Rehydrate reviewer hints recorded as trajectory interventions."""
+    hints: list[ReviewerHint] = []
+    for event in trajectory.events:
+        if event.kind != TrajectoryEventKind.INTERVENTION:
+            continue
+        payload = event.payload
+        if payload.get("kind") != InterventionKind.REVIEWER_NATURAL_HINT.value:
+            continue
+        hint_payload = payload.get("payload", {}).get("hint")
+        if isinstance(hint_payload, dict):
+            hints.append(ReviewerHint.model_validate(hint_payload))
+    return hints
+
+
+__all__ = [
+    "ReviewerHint",
+    "record_reviewer_hint",
+    "reviewer_hints_from_trajectory",
+]

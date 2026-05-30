@@ -65,7 +65,11 @@ from rulekit.orchestrator.factory import (
     create_policy_workspace,
 )
 from rulekit.orchestrator.graph import BuildGraph, BuildGraphNode
-from rulekit.orchestrator.hints import ReviewerHint, record_reviewer_hint
+from rulekit.orchestrator.hints import (
+    ReviewerHint,
+    record_reviewer_hint,
+    reviewer_hints_from_trajectory,
+)
 from rulekit.orchestrator.intervention import Intervention, InterventionKind
 from rulekit.orchestrator.map_record import (
     AtomBindingRecord,
@@ -167,6 +171,7 @@ from rulekit.orchestrator.validation import (
 )
 from rulekit.orchestrator.workflow import (
     PersistedProgramEditResult,
+    PersistedReviewerHintResult,
     PolicyRunResult,
     ReexerciseResult,
     apply_persisted_program_edits,
@@ -177,6 +182,7 @@ from rulekit.orchestrator.workflow import (
     list_persisted_runs,
     load_program_edit_operations,
     mark_branch_status,
+    record_persisted_reviewer_hint,
     reexercise_latest_snapshot,
     run_policy_seed,
     run_policy_seed_file,
@@ -238,6 +244,7 @@ __all__ = [
     "BuildGraphNode",
     "ReviewerHint",
     "record_reviewer_hint",
+    "reviewer_hints_from_trajectory",
     "Intervention",
     "InterventionKind",
     "AtomBindingRecord",
@@ -318,6 +325,7 @@ __all__ = [
     "validate_trajectory",
     "PolicyRunResult",
     "PersistedProgramEditResult",
+    "PersistedReviewerHintResult",
     "ReexerciseResult",
     "apply_persisted_program_edits",
     "export_review_bundle",
@@ -327,6 +335,7 @@ __all__ = [
     "list_persisted_runs",
     "load_program_edit_operations",
     "mark_branch_status",
+    "record_persisted_reviewer_hint",
     "reexercise_latest_snapshot",
     "run_policy_seed",
     "run_policy_seed_file",

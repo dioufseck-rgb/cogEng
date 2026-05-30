@@ -10,6 +10,7 @@ from rulekit.engine.boolean import FactBundle, Kleene
 from rulekit.engine.typed import NumericValue
 from rulekit.orchestrator.cases import CaseExample
 from rulekit.orchestrator.disposition import DispositionRecord
+from rulekit.orchestrator.hints import ReviewerHint
 from rulekit.orchestrator.ids import new_id
 from rulekit.orchestrator.map_step import MapStep, MapStepContext
 from rulekit.orchestrator.map_record import (
@@ -272,6 +273,7 @@ def exercise_program_on_suite_with_map_step(
     program_version: str | None = None,
     workspace_id: str | None = None,
     trajectory_id: str | None = None,
+    reviewer_hints: list[ReviewerHint] | None = None,
 ) -> tuple[list[MapExtractionRecord], list[DispositionRecord]]:
     map_records: list[MapExtractionRecord] = []
     dispositions: list[DispositionRecord] = []
@@ -281,6 +283,7 @@ def exercise_program_on_suite_with_map_step(
         program_id=program_id,
         program_version=program_version,
         substrate_id=map_step.spec.map_step_id,
+        reviewer_hints=reviewer_hints or [],
     )
     for case in cases:
         result = map_step.run(program, case, context)

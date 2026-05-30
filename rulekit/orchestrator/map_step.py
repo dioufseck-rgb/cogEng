@@ -89,6 +89,9 @@ class PreboundFactsMapStep:
     ) -> MapStepResult:
         started = perf_counter()
         facts = facts_from_case_fields(case.structured_fields)
+        reviewer_hints = [
+            hint for hint in context.reviewer_hints if hint.applies_to_case(case.case_id)
+        ]
         bindings: dict[str, AtomBindingRecord] = {}
         for atom_id, atom in program.map_spec.atoms.items():
             raw = facts.get(atom_id)
@@ -117,6 +120,10 @@ class PreboundFactsMapStep:
                 metadata={
                     "map_step_id": self.spec.map_step_id,
                     "fact_count": len(facts),
+                    "reviewer_hint_count": len(reviewer_hints),
+                    "reviewer_hints": [
+                        hint.model_dump(mode="json") for hint in reviewer_hints
+                    ],
                 },
             )
         )

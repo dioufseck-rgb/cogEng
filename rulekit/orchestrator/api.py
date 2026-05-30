@@ -12,6 +12,7 @@ from rulekit.orchestrator.workflow import (
     list_persisted_runs,
     load_program_edit_operations,
     mark_branch_status,
+    record_persisted_reviewer_hint,
     reexercise_latest_snapshot,
     run_policy_seed_file,
 )
@@ -47,6 +48,16 @@ def create_app(root: str | Path = ".rulekit_workspaces"):
         snapshot_id: str | None = None
 
     class ReexerciseRequest(BaseModel):
+        snapshot_id: str | None = None
+
+    class HintRequest(BaseModel):
+        message: str = Field(min_length=1)
+        target_step_id: str | None = None
+        case_id: str | None = None
+        atom_ids: list[str] = Field(default_factory=list)
+        reviewer_id: str | None = None
+        reason: str | None = None
+        reexercise: bool = False
         snapshot_id: str | None = None
 
     class ExportRequest(BaseModel):
@@ -140,6 +151,35 @@ def create_app(root: str | Path = ".rulekit_workspaces"):
             snapshot_id=request.snapshot_id,
         )
         return {"ok": result.validation.ok, **result.summary()}
+
+    @app.post("/workspaces/{workspace_id}/trajectories/{trajectory_id}/hints")
+    def hint(
+        workspace_id: str,
+        trajectory_id: str,
+        request: HintRequest,
+    ) -> dict[str, Any]:
+        result = record_persisted_reviewer_hint(
+            root_path,
+            workspace_id,
+            trajectory_id,
+            message=request.message,
+            target_step_id=request.target_step_id,
+            case_id=request.case_id,
+            atom_ids=request.atom_ids,
+            reviewer_id=request.reviewer_id,
+            reason=request.reason,
+        )
+        payload: dict[str, Any] = {"ok": result.validation.ok, **result.summary()}
+        if request.reexercise:
+            rerun = reexercise_latest_snapshot(
+                root_path,
+                workspace_id,
+                trajectory_id,
+                snapshot_id=request.snapshot_id,
+            )
+            payload["reexercise"] = {"ok": rerun.validation.ok, **rerun.summary()}
+            payload["ok"] = payload["ok"] and rerun.validation.ok
+        return payload
 
     @app.post("/workspaces/{workspace_id}/trajectories/{trajectory_id}/export")
     def export(

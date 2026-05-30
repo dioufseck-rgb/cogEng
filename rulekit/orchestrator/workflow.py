@@ -15,6 +15,11 @@ from rulekit.orchestrator.diagnostics import CaseDiagnostic, diagnose_dispositio
 from rulekit.orchestrator.disposition import DispositionRecord
 from rulekit.orchestrator.exercise import exercise_program_on_suite_with_map_step
 from rulekit.orchestrator.factory import PolicyWorkspaceSeed, create_candidate_program, create_policy_workspace
+from rulekit.orchestrator.hints import (
+    ReviewerHint,
+    record_reviewer_hint,
+    reviewer_hints_from_trajectory,
+)
 from rulekit.orchestrator.ids import event_id as new_event_id
 from rulekit.orchestrator.ids import intervention_id as new_intervention_id
 from rulekit.orchestrator.intervention import Intervention, InterventionKind
@@ -148,6 +153,31 @@ class ReexerciseResult(BaseModel):
             ),
             "diagnostic_count": len(self.diagnostics),
             "report_kinds": [report.kind.value for report in self.reports],
+            "validation_ok": self.validation.ok,
+            "validation_summary": self.validation.summary(),
+            "root": self.root,
+        }
+
+
+class PersistedReviewerHintResult(BaseModel):
+    model_config = ConfigDict(arbitrary_types_allowed=True)
+
+    workspace_id: str
+    trajectory_id: str
+    branch_id: str
+    hint: ReviewerHint
+    validation: OrchestratorValidationReport
+    root: str
+
+    def summary(self) -> dict[str, Any]:
+        return {
+            "workspace_id": self.workspace_id,
+            "trajectory_id": self.trajectory_id,
+            "branch_id": self.branch_id,
+            "hint_id": self.hint.hint_id,
+            "case_id": self.hint.case_id,
+            "target_step_id": self.hint.target_step_id,
+            "atom_ids": self.hint.atom_ids,
             "validation_ok": self.validation.ok,
             "validation_summary": self.validation.summary(),
             "root": self.root,
@@ -709,6 +739,7 @@ def reexercise_latest_snapshot(
     trajectory_id: str,
     *,
     snapshot_id: str | None = None,
+    reviewer_hints: list[ReviewerHint] | None = None,
 ) -> ReexerciseResult:
     """Exercise a persisted snapshot against the workspace's case suite."""
     root = Path(root)
@@ -724,6 +755,10 @@ def reexercise_latest_snapshot(
         DispositionRecord.model_validate(payload)
         for payload in _read_json_files(base / "dispositions")
     ]
+    hints = [
+        *reviewer_hints_from_trajectory(trajectory),
+        *(reviewer_hints or []),
+    ]
 
     map_records, dispositions = exercise_program_on_suite_with_map_step(
         snapshot.program,
@@ -733,6 +768,7 @@ def reexercise_latest_snapshot(
         program_version=snapshot.program_version,
         workspace_id=workspace_id,
         trajectory_id=trajectory_id,
+        reviewer_hints=hints,
     )
     for map_record in map_records:
         save_map_record(root, workspace_id, trajectory_id, map_record)
@@ -841,6 +877,48 @@ def reexercise_latest_snapshot(
     )
 
 
+def record_persisted_reviewer_hint(
+    root: str | Path,
+    workspace_id: str,
+    trajectory_id: str,
+    *,
+    message: str,
+    target_step_id: str | None = None,
+    case_id: str | None = None,
+    atom_ids: list[str] | None = None,
+    reviewer_id: str | None = None,
+    branch_id: str | None = None,
+    reason: str | None = None,
+    metadata: dict[str, Any] | None = None,
+) -> PersistedReviewerHintResult:
+    """Record a reviewer natural-language hint on a persisted trajectory."""
+    root = Path(root)
+    workspace = load_workspace(root, workspace_id)
+    trajectory = load_trajectory(root, workspace_id, trajectory_id)
+    hint, _intervention = record_reviewer_hint(
+        trajectory,
+        message=message,
+        target_step_id=target_step_id,
+        case_id=case_id,
+        atom_ids=atom_ids,
+        reviewer_id=reviewer_id,
+        branch_id=branch_id,
+        reason=reason,
+        metadata=metadata,
+    )
+    workspace.trajectories[trajectory.trajectory_id] = trajectory
+    save_workspace(workspace, root)
+    validation = validate_persisted_trajectory(root, trajectory)
+    return PersistedReviewerHintResult(
+        workspace_id=workspace_id,
+        trajectory_id=trajectory_id,
+        branch_id=branch_id or trajectory.active_branch_id,
+        hint=hint,
+        validation=validation,
+        root=str(root),
+    )
+
+
 def load_program_edit_operations(path: str | Path) -> list[ProgramEditOperation]:
     path = Path(path)
     if path.suffix.lower() in (".yaml", ".yml"):
@@ -902,6 +980,7 @@ def _latest_snapshot_id(trajectory: Trajectory) -> str:
 __all__ = [
     "PolicyRunResult",
     "PersistedProgramEditResult",
+    "PersistedReviewerHintResult",
     "ReexerciseResult",
     "run_policy_seed",
     "run_policy_seed_file",
@@ -912,6 +991,7 @@ __all__ = [
     "apply_persisted_program_edits",
     "list_branches",
     "mark_branch_status",
+    "record_persisted_reviewer_hint",
     "reexercise_latest_snapshot",
     "load_program_edit_operations",
 ]

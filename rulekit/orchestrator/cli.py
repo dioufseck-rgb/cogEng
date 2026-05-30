@@ -23,6 +23,7 @@ from rulekit.orchestrator.workflow import (
     list_persisted_runs,
     load_program_edit_operations,
     mark_branch_status,
+    record_persisted_reviewer_hint,
     reexercise_latest_snapshot,
     run_policy_seed_file,
 )
@@ -46,6 +47,8 @@ def main(argv: list[str] | None = None) -> int:
             return _edit(args)
         if args.command == "reexercise":
             return _reexercise(args)
+        if args.command == "hint":
+            return _hint(args)
         if args.command == "branches":
             return _branches(args)
         if args.command == "serve":
@@ -125,6 +128,20 @@ def _parser() -> argparse.ArgumentParser:
     reexercise.add_argument("--trajectory-id", required=True)
     reexercise.add_argument("--snapshot-id", default=None, help="snapshot to run; defaults to latest")
     reexercise.add_argument("--json", action="store_true", help="print JSON summary")
+
+    hint = subcommands.add_parser("hint", help="record a natural-language reviewer hint")
+    hint.add_argument("message", help="reviewer hint text")
+    hint.add_argument("--root", default=".rulekit_workspaces")
+    hint.add_argument("--workspace-id", required=True)
+    hint.add_argument("--trajectory-id", required=True)
+    hint.add_argument("--target-step-id", default=None)
+    hint.add_argument("--case-id", default=None)
+    hint.add_argument("--atom-id", action="append", default=[], help="atom the hint concerns; may repeat")
+    hint.add_argument("--reviewer-id", default=None)
+    hint.add_argument("--reason", default=None)
+    hint.add_argument("--reexercise", action="store_true", help="rerun latest snapshot after recording")
+    hint.add_argument("--snapshot-id", default=None, help="snapshot to rerun when --reexercise is set")
+    hint.add_argument("--json", action="store_true", help="print JSON summary")
 
     branches = subcommands.add_parser("branches", help="list or mark trajectory branches")
     branches_subcommands = branches.add_subparsers(dest="branch_command")
@@ -229,6 +246,33 @@ def _reexercise(args: argparse.Namespace) -> int:
     payload = {"ok": result.validation.ok, **result.summary()}
     _print(payload, args.json)
     return 0 if result.validation.ok else 1
+
+
+def _hint(args: argparse.Namespace) -> int:
+    hint_result = record_persisted_reviewer_hint(
+        args.root,
+        args.workspace_id,
+        args.trajectory_id,
+        message=args.message,
+        target_step_id=args.target_step_id,
+        case_id=args.case_id,
+        atom_ids=args.atom_id,
+        reviewer_id=args.reviewer_id,
+        reason=args.reason,
+    )
+    payload = {"ok": hint_result.validation.ok, **hint_result.summary()}
+    exit_ok = hint_result.validation.ok
+    if args.reexercise:
+        rerun = reexercise_latest_snapshot(
+            args.root,
+            args.workspace_id,
+            args.trajectory_id,
+            snapshot_id=args.snapshot_id,
+        )
+        payload["reexercise"] = {"ok": rerun.validation.ok, **rerun.summary()}
+        exit_ok = exit_ok and rerun.validation.ok
+    _print(payload, args.json)
+    return 0 if exit_ok else 1
 
 
 def _branches(args: argparse.Namespace) -> int:

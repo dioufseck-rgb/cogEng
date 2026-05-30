@@ -11,6 +11,7 @@ from rulekit.orchestrator import (
     list_branches,
     list_persisted_runs,
     mark_branch_status,
+    record_persisted_reviewer_hint,
     reexercise_latest_snapshot,
     run_policy_seed_file,
 )
@@ -108,6 +109,31 @@ def test_run_policy_seed_file_persists_and_inspects(tmp_path):
     )
     assert inspected_after_reexercise["sidecars"]["dispositions"] == 4
     assert inspected_after_reexercise["sidecars"]["reports"] == 8
+
+    hint_result = record_persisted_reviewer_hint(
+        root,
+        result.workspace.workspace_id,
+        result.trajectory.trajectory_id,
+        message="Requirement B was missed in the narrative; rerun with this hint.",
+        target_step_id="map_prebound_facts",
+        case_id="case_yes",
+        atom_ids=["sample.requirement_b"],
+        reviewer_id="reviewer_1",
+    )
+    assert hint_result.validation.ok
+    hinted_reexercise = reexercise_latest_snapshot(
+        root,
+        result.workspace.workspace_id,
+        result.trajectory.trajectory_id,
+    )
+    assert hinted_reexercise.validation.ok
+    case_yes_map = next(
+        record
+        for record in hinted_reexercise.map_records
+        if record.case_id == "case_yes"
+    )
+    assert case_yes_map.metadata["reviewer_hint_count"] == 1
+    assert case_yes_map.metadata["reviewer_hints"][0]["hint_id"] == hint_result.hint.hint_id
 
 
 def test_cli_template_run_and_inspect(tmp_path, capsys):
@@ -267,6 +293,37 @@ def test_cli_template_run_and_inspect(tmp_path, capsys):
     assert reexercise_payload["ok"] is True
     assert reexercise_payload["disposition_count"] == 2
     assert "regression" in reexercise_payload["report_kinds"]
+
+    assert (
+        main(
+            [
+                "hint",
+                "Requirement B was missed; rerun Map with this hint.",
+                "--root",
+                str(root),
+                "--workspace-id",
+                run_payload["workspace_id"],
+                "--trajectory-id",
+                run_payload["trajectory_id"],
+                "--target-step-id",
+                "map_prebound_facts",
+                "--case-id",
+                "case_yes",
+                "--atom-id",
+                "sample.requirement_b",
+                "--reviewer-id",
+                "reviewer_1",
+                "--reexercise",
+                "--json",
+            ]
+        )
+        == 0
+    )
+    hint_payload = json.loads(capsys.readouterr().out)
+    assert hint_payload["ok"] is True
+    assert hint_payload["hint_id"].startswith("hint_")
+    assert hint_payload["reexercise"]["ok"] is True
+    assert hint_payload["reexercise"]["mismatch_count"] == 0
 
     export_dir_after_edit = tmp_path / "exported_after_edit"
     assert (
