@@ -7,6 +7,7 @@ from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field
 
+from rulekit.contract import BindingBasis
 from rulekit.orchestrator.step import RunCost, utc_now
 
 
@@ -24,6 +25,9 @@ class AtomBindingRecord(BaseModel):
     value: Any = None
     status: AtomBindingStatus
     evidence: str | None = None
+    basis: BindingBasis | None = None
+    source_ids: list[str] = Field(default_factory=list)
+    explanation: str | None = None
     confidence: float | None = Field(default=None, ge=0.0, le=1.0)
     source: str | None = None
     metadata: dict[str, Any] = Field(default_factory=dict)

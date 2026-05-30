@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from rulekit.orchestrator.config import save_policy_workspace_seed
+from rulekit.orchestrator.config import load_policy_workspace_seed, save_policy_workspace_seed
 from rulekit.orchestrator.factory import (
     AtomDeclaration,
     CaseDeclaration,
@@ -16,6 +16,7 @@ from rulekit.orchestrator.factory import (
 from rulekit.orchestrator.examples.prior_auth_typed import prior_auth_typed_seed
 from rulekit.orchestrator.examples.fcra_dispute import fcra_dispute_seed
 from rulekit.orchestrator.llm_config import create_map_step
+from rulekit.orchestrator.map_governance_eval import run_map_governance_eval
 from rulekit.orchestrator.workflow import (
     apply_persisted_program_edits,
     add_persisted_case,
@@ -68,6 +69,8 @@ def main(argv: list[str] | None = None) -> int:
             return _ui(args)
         if args.command == "adjudicate":
             return _adjudicate(args)
+        if args.command == "map-eval":
+            return _map_eval(args)
     except Exception as exc:  # pragma: no cover - exercised through return behavior
         if args.json:
             print(json.dumps({"ok": False, "error": str(exc)}, indent=2, sort_keys=True))
@@ -89,7 +92,7 @@ def _parser() -> argparse.ArgumentParser:
     template.add_argument("path", help="output .json/.yaml/.yml path")
     template.add_argument(
         "--example",
-        choices=["sample", "prior-auth-typed", "fcra-dispute"],
+        choices=["sample", "prior-auth-typed", "fcra-dispute", "uscis-n400"],
         default="sample",
         help="seed example to write (default: sample)",
     )
@@ -228,6 +231,32 @@ def _parser() -> argparse.ArgumentParser:
     adjudicate.add_argument("--out", default=None, help="optional output directory")
     _add_map_args(adjudicate)
     adjudicate.add_argument("--json", action="store_true", help="print JSON result")
+
+    map_eval = subcommands.add_parser(
+        "map-eval",
+        help="run governed Map prompts across multiple LLM providers",
+    )
+    map_eval.add_argument("--program", required=True, help="program.json path")
+    map_eval.add_argument("--cases", required=True, help="JSON/YAML runtime cases file")
+    map_eval.add_argument("--out", required=True, help="output evidence directory")
+    map_eval.add_argument(
+        "--model",
+        action="append",
+        required=True,
+        help="provider:model, e.g. anthropic:claude-opus-4-7; may repeat",
+    )
+    map_eval.add_argument(
+        "--determination",
+        action="append",
+        default=[],
+        help="determination id to evaluate; may repeat; defaults to all",
+    )
+    map_eval.add_argument("--atom", action="append", default=[], help="atom id to bind; may repeat")
+    map_eval.add_argument("--max-atoms", type=int, default=None)
+    map_eval.add_argument("--llm-max-tokens", type=int, default=4096)
+    map_eval.add_argument("--llm-timeout", type=float, default=120.0)
+    map_eval.add_argument("--llm-max-retries", type=int, default=2)
+    map_eval.add_argument("--json", action="store_true", help="print JSON summary")
     return parser
 
 
@@ -459,6 +488,24 @@ def _adjudicate(args: argparse.Namespace) -> int:
     return 0 if result["ok"] else 1
 
 
+def _map_eval(args: argparse.Namespace) -> int:
+    result = run_map_governance_eval(
+        program_path=args.program,
+        cases_path=args.cases,
+        model_specs=args.model,
+        output_dir=args.out,
+        determinations=args.determination or None,
+        atom_ids=args.atom or None,
+        max_atoms=args.max_atoms,
+        max_tokens=args.llm_max_tokens,
+        timeout=args.llm_timeout,
+        max_retries=args.llm_max_retries,
+    )
+    payload = {"ok": True, **result}
+    _print(payload, args.json)
+    return 0
+
+
 def _print(payload: dict[str, Any], as_json: bool) -> None:
     if as_json:
         print(json.dumps(payload, indent=2, sort_keys=True))
@@ -480,7 +527,7 @@ def _add_map_args(parser: argparse.ArgumentParser) -> None:
     )
     parser.add_argument(
         "--llm-provider",
-        choices=["anthropic", "openai"],
+        choices=["anthropic", "openai", "gemini"],
         default="anthropic",
         help="LLM provider when --map-mode narrative is used",
     )
@@ -597,6 +644,10 @@ def template_seed(example: str) -> PolicyWorkspaceSeed:
         return prior_auth_typed_seed()
     if example == "fcra-dispute":
         return fcra_dispute_seed()
+    if example == "uscis-n400":
+        return load_policy_workspace_seed(
+            Path(__file__).parent / "example_seeds" / "uscis_n400_selected.json"
+        )
     raise ValueError(f"unknown template example {example!r}")
 
 

@@ -67,7 +67,9 @@ def _default_model(provider: str) -> str:
         return "claude-opus-4-7"
     if provider == "openai":
         return "gpt-5"
-    raise ValueError("llm_provider must be 'anthropic' or 'openai'")
+    if provider == "gemini":
+        return "gemini-2.5-pro"
+    raise ValueError("llm_provider must be 'anthropic', 'openai', or 'gemini'")
 
 
 __all__ = ["MapMode", "create_llm_caller", "create_map_step"]

@@ -32,9 +32,15 @@ rulekit-orchestrator = "rulekit.orchestrator.cli:main"
 [project.optional-dependencies]
 reasoning = ["z3-solver"]   # for the future reason primitive
 api = ["fastapi", "uvicorn"]
-llm = ["anthropic>=0.40.0", "openai>=1.0.0"]
+llm = ["anthropic>=0.40.0", "openai>=1.0.0", "google-genai>=1.0.0"]
 
 [tool.setuptools]
+
+[tool.setuptools.package-data]
+rulekit = [
+    "orchestrator/example_cases/*.json",
+    "orchestrator/example_seeds/*.json",
+]
 
 [tool.setuptools.packages.find]
 include = ["rulekit*"]

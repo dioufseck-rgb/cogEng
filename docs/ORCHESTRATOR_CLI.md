@@ -17,6 +17,17 @@ Write a starter seed:
 rulekit-orchestrator template sample_policy.yaml
 ```
 
+Write a packaged benchmark seed without adding domain-specific Python:
+
+```powershell
+rulekit-orchestrator template uscis_n400.json --example uscis-n400 --json
+```
+
+New policy domains should enter the builder as policy text, declared atoms,
+typed nodes, determinations, cases, and expected outcomes. The artifact-backed
+USCIS N-400 benchmark is intentionally loaded through the same generic seed
+factory as smaller examples; it is not a Python adapter for the USCIS domain.
+
 Run a seed:
 
 ```powershell
@@ -143,7 +154,24 @@ rulekit-orchestrator adjudicate `
 The adjudication runner consumes the same `DeterminationProgram` object the
 engine consumes. It maps each runtime case to atom bindings, evaluates the
 requested determinations, and writes `summary.json`, `map_records.json`,
-`dispositions.json`, and `results.json`.
+`map_validation_reports.json`, `dispositions.json`, and `results.json`.
+
+Run governed Map prompts across multiple LLM providers:
+
+```powershell
+rulekit-orchestrator map-eval `
+  --program review_bundle/program.json `
+  --cases evidence_packet_cases.json `
+  --model anthropic:claude-opus-4-7 `
+  --model openai:gpt-5 `
+  --model gemini:gemini-2.5-pro `
+  --out audits/map_governance_eval `
+  --json
+```
+
+The governed Map harness writes prompts, raw responses, parsed bindings, Map
+validation reports, dispositions, and per-model summary metrics. See
+`docs/MAP_GOVERNANCE.md`.
 
 ## Optional API Server
 
@@ -200,5 +228,7 @@ cases:
       sample.eligible: "true"
 ```
 
-Supported factory operators are the RuleKit boolean engine operators:
-`and`, `or`, `not`, and `at_least`.
+Supported factory nodes mirror the RuleKit contract consumed by the engine:
+Boolean atom refs, numeric atom refs, constants, `and`, `or`, `not`,
+`at_least`, comparisons, unary arithmetic, binary arithmetic, variadic
+arithmetic, conditional numeric selection, and named quantities.

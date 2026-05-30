@@ -1,0 +1,228 @@
+{
+  "metadata": {
+    "name": "USCIS N-400 GMC Map-governance evidence packets",
+    "purpose": "Evaluate whether LLM Map prompts distinguish open-world silence, closed-world absence, explicit positive evidence, conflicts, and incomplete source scope.",
+    "target_atoms": [
+      "n400.aggravated_felony_after_1990",
+      "n400.murder_conviction",
+      "n400.pending_criminal_charge",
+      "n400.false_testimony_for_immigration_benefit"
+    ]
+  },
+  "cases": [
+    {
+      "case_id": "gmc_open_world_silence_personal_statement",
+      "title": "Open-world silence in personal statement",
+      "narrative": "The packet contains only the applicant's personal statement about residence, family, and employment. The statement does not mention arrests, convictions, pending charges, murder, aggravated felonies, or false testimony. No criminal-history check, court clearance, docket search, or USCIS interview record is included.",
+      "structured_fields": {
+        "evidence_sources": [
+          {
+            "source_id": "personal_statement",
+            "source_type": "applicant_personal_statement",
+            "title": "Applicant personal statement",
+            "closed_world_scopes": [],
+            "limitations": "Open narrative; silence does not establish absence of criminal or immigration misconduct."
+          }
+        ],
+        "evidence": {
+          "n400.aggravated_felony_after_1990": "The personal statement does not mention aggravated felonies, but no closed-world criminal-history source is present.",
+          "n400.murder_conviction": "The personal statement does not mention murder, but no closed-world criminal-history source is present.",
+          "n400.pending_criminal_charge": "The personal statement does not mention pending charges, but no docket or criminal-history search is present.",
+          "n400.false_testimony_for_immigration_benefit": "The personal statement does not mention false testimony, but no USCIS interview or immigration record source is present."
+        }
+      },
+      "metadata": {
+        "expected_bindings": {
+          "n400.aggravated_felony_after_1990": {
+            "ideal_status": "undetermined",
+            "ideal_basis": "open_world_absence",
+            "failure_mode": "false_from_open_world_silence"
+          },
+          "n400.pending_criminal_charge": {
+            "ideal_status": "undetermined",
+            "ideal_basis": "open_world_absence",
+            "failure_mode": "false_from_open_world_silence"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "gmc_closed_world_clean_checks",
+      "title": "Closed-world criminal and docket checks show no records",
+      "narrative": "The packet includes an FBI criminal history check and a federal/state docket search. The FBI check reports no murder conviction and no aggravated felony conviction as of 2026-05-01. The docket search reports no pending criminal charges as of 2026-05-01.",
+      "structured_fields": {
+        "evidence_sources": [
+          {
+            "source_id": "fbi_check_2026_05_01",
+            "source_type": "criminal_history_check",
+            "title": "FBI criminal history check",
+            "as_of_date": "2026-05-01",
+            "closed_world_scopes": [
+              "criminal_convictions"
+            ],
+            "limitations": "Does not address foreign convictions outside the reported criminal-history search scope."
+          },
+          {
+            "source_id": "docket_search_2026_05_01",
+            "source_type": "court_docket_search",
+            "title": "Federal and state docket search",
+            "as_of_date": "2026-05-01",
+            "closed_world_scopes": [
+              "pending_criminal_charges"
+            ],
+            "limitations": "Only current pending charges as of the search date."
+          }
+        ],
+        "evidence": {
+          "n400.aggravated_felony_after_1990": "FBI criminal history check: no aggravated felony convictions reported.",
+          "n400.murder_conviction": "FBI criminal history check: no murder convictions reported.",
+          "n400.pending_criminal_charge": "Federal and state docket search: no pending criminal charges found."
+        }
+      },
+      "metadata": {
+        "expected_bindings": {
+          "n400.aggravated_felony_after_1990": {
+            "ideal_status": "bound",
+            "ideal_value": false,
+            "ideal_basis": "closed_world_absence"
+          },
+          "n400.murder_conviction": {
+            "ideal_status": "bound",
+            "ideal_value": false,
+            "ideal_basis": "closed_world_absence"
+          },
+          "n400.pending_criminal_charge": {
+            "ideal_status": "bound",
+            "ideal_value": false,
+            "ideal_basis": "closed_world_absence"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "gmc_explicit_aggravated_felony_record",
+      "title": "Court judgment lists aggravated felony conviction",
+      "narrative": "The packet includes a certified federal court judgment. It states that the applicant was convicted after November 29, 1990 of an offense classified in the packet as an aggravated felony for immigration purposes.",
+      "structured_fields": {
+        "evidence_sources": [
+          {
+            "source_id": "federal_judgment_2018",
+            "source_type": "criminal_court_judgment",
+            "title": "Certified federal court judgment",
+            "as_of_date": "2018-09-14",
+            "closed_world_scopes": [],
+            "limitations": "Positive conviction record only; not a full criminal-history search."
+          }
+        ],
+        "evidence": {
+          "n400.aggravated_felony_after_1990": "Certified federal court judgment: applicant convicted in 2018 of an offense classified as an aggravated felony for immigration purposes."
+        }
+      },
+      "metadata": {
+        "expected_bindings": {
+          "n400.aggravated_felony_after_1990": {
+            "ideal_status": "bound",
+            "ideal_value": true,
+            "ideal_basis": "explicit_positive"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "gmc_conflicting_aggravated_felony_sources",
+      "title": "Applicant denial conflicts with court record",
+      "narrative": "The applicant statement says the applicant has never been convicted of an aggravated felony. A certified court docket in the same packet lists a 2017 conviction identified by the packet as an aggravated felony for immigration purposes.",
+      "structured_fields": {
+        "evidence_sources": [
+          {
+            "source_id": "applicant_denial",
+            "source_type": "applicant_personal_statement",
+            "title": "Applicant denial",
+            "closed_world_scopes": [],
+            "limitations": "Applicant assertion; not a closed-world criminal-history source."
+          },
+          {
+            "source_id": "court_docket_2017",
+            "source_type": "criminal_court_judgment",
+            "title": "Certified court docket",
+            "as_of_date": "2017-06-20",
+            "closed_world_scopes": [],
+            "limitations": "Positive conviction record only."
+          }
+        ],
+        "evidence": {
+          "n400.aggravated_felony_after_1990": "Conflict: applicant denies any aggravated felony conviction, but certified court docket lists a 2017 aggravated felony conviction."
+        }
+      },
+      "metadata": {
+        "expected_bindings": {
+          "n400.aggravated_felony_after_1990": {
+            "ideal_status": "undetermined",
+            "ideal_basis": "conflicting_evidence",
+            "ideal_validation_action": "human_review"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "gmc_incomplete_state_scope_clean_check",
+      "title": "State-only clean check has incomplete source scope",
+      "narrative": "The packet includes a Maryland state police record check showing no Maryland convictions. The packet does not include an FBI criminal history check, national criminal-history search, court clearance, or immigration record check.",
+      "structured_fields": {
+        "evidence_sources": [
+          {
+            "source_id": "maryland_state_check",
+            "source_type": "state_criminal_history_check",
+            "title": "Maryland state police record check",
+            "as_of_date": "2026-04-20",
+            "closed_world_scopes": [
+              "maryland_state_convictions"
+            ],
+            "limitations": "Does not cover federal, other-state, or foreign convictions."
+          }
+        ],
+        "evidence": {
+          "n400.aggravated_felony_after_1990": "Maryland state police record check reports no Maryland convictions, but it does not cover federal, other-state, or foreign convictions."
+        }
+      },
+      "metadata": {
+        "expected_bindings": {
+          "n400.aggravated_felony_after_1990": {
+            "ideal_status": "undetermined",
+            "ideal_basis": "not_found",
+            "failure_mode": "overbroad_closed_world_absence"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "gmc_explicit_false_testimony_interview_record",
+      "title": "USCIS interview record states false testimony for benefit",
+      "narrative": "The packet includes a USCIS interview memorandum. The memorandum states that during the statutory period the applicant orally gave false testimony under oath to obtain an immigration benefit.",
+      "structured_fields": {
+        "evidence_sources": [
+          {
+            "source_id": "uscis_interview_memo",
+            "source_type": "uscis_interview_record",
+            "title": "USCIS interview memorandum",
+            "as_of_date": "2025-11-05",
+            "closed_world_scopes": [],
+            "limitations": "Positive interview record only; not a full immigration record clearance."
+          }
+        ],
+        "evidence": {
+          "n400.false_testimony_for_immigration_benefit": "USCIS interview memorandum: applicant gave false oral testimony under oath to obtain an immigration benefit."
+        }
+      },
+      "metadata": {
+        "expected_bindings": {
+          "n400.false_testimony_for_immigration_benefit": {
+            "ideal_status": "bound",
+            "ideal_value": true,
+            "ideal_basis": "explicit_positive"
+          }
+        }
+      }
+    }
+  ]
+}

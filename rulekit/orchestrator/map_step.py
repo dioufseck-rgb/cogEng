@@ -7,6 +7,7 @@ from typing import Any, Protocol
 
 from pydantic import BaseModel, ConfigDict, Field
 
+from rulekit.contract import BindingBasis
 from rulekit.contract import DeterminationProgram
 from rulekit.engine.boolean import Kleene
 from rulekit.engine.typed import AtomType, NumericValue
@@ -89,6 +90,12 @@ class PreboundFactsMapStep:
     ) -> MapStepResult:
         started = perf_counter()
         facts = facts_from_case_fields(case.structured_fields)
+        binding_bases = _dict_from_structured(case.structured_fields, "binding_bases")
+        binding_source_ids = _dict_from_structured(case.structured_fields, "binding_source_ids")
+        binding_explanations = _dict_from_structured(
+            case.structured_fields,
+            "binding_explanations",
+        )
         reviewer_hints = [
             hint for hint in context.reviewer_hints if hint.applies_to_case(case.case_id)
         ]
@@ -106,6 +113,13 @@ class PreboundFactsMapStep:
                 value=raw,
                 status=status,
                 evidence=_evidence_for(case.structured_fields, atom_id),
+                basis=_basis_for(raw, status, binding_bases.get(atom_id)),
+                source_ids=_source_ids_for(binding_source_ids.get(atom_id)),
+                explanation=(
+                    str(binding_explanations[atom_id])
+                    if atom_id in binding_explanations
+                    else None
+                ),
                 source=context.substrate_id,
             )
         return MapStepResult(
@@ -177,6 +191,11 @@ class TypedNarrativeMapStep:
                 atom_type=atom.atom_type,
                 value=_jsonable_binding_value(raw),
                 status=status,
+                basis=(
+                    BindingBasis.INFERRED_FROM_RECORD
+                    if status == AtomBindingStatus.BOUND
+                    else BindingBasis.NOT_FOUND
+                ),
                 evidence=evidence if status == AtomBindingStatus.BOUND else None,
                 source=context.substrate_id,
             )
@@ -215,6 +234,37 @@ def _evidence_for(structured_fields: dict[str, Any], atom_id: str) -> str | None
         value = evidence.get(atom_id)
         return str(value) if value is not None else None
     return None
+
+
+def _dict_from_structured(structured_fields: dict[str, Any], key: str) -> dict[str, Any]:
+    value = structured_fields.get(key)
+    return dict(value) if isinstance(value, dict) else {}
+
+
+def _basis_for(
+    raw: Any,
+    status: AtomBindingStatus,
+    declared_basis: Any,
+) -> BindingBasis | None:
+    if declared_basis:
+        return BindingBasis(str(declared_basis))
+    if status == AtomBindingStatus.UNDETERMINED:
+        return BindingBasis.NOT_FOUND
+    if isinstance(raw, bool):
+        return BindingBasis.EXPLICIT_POSITIVE if raw else BindingBasis.EXPLICIT_NEGATIVE
+    if str(raw).lower() == "true":
+        return BindingBasis.EXPLICIT_POSITIVE
+    if str(raw).lower() == "false":
+        return BindingBasis.EXPLICIT_NEGATIVE
+    return BindingBasis.EXPLICIT_POSITIVE
+
+
+def _source_ids_for(value: Any) -> list[str]:
+    if value is None:
+        return []
+    if isinstance(value, list):
+        return [str(item) for item in value]
+    return [str(value)]
 
 
 def _typed_atoms_from_program(program: DeterminationProgram) -> dict[str, TypedAtom]:

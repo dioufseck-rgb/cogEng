@@ -32,6 +32,13 @@ def test_llm_caller_infers_openai_provider_from_model():
     assert llm.call("stage", "prompt") == "{}"
 
 
+def test_llm_caller_infers_gemini_provider_from_model():
+    llm = LLMCaller(model="gemini-2.5-pro", offline_responses={"stage": "{}"})
+
+    assert llm.provider == "gemini"
+    assert llm.call("stage", "prompt") == "{}"
+
+
 def test_create_map_step_selects_prebound_or_narrative():
     assert isinstance(create_map_step(map_mode="prebound"), PreboundFactsMapStep)
     step = create_map_step(

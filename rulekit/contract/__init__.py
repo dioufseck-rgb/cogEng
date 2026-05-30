@@ -56,6 +56,8 @@ Public API:
 """
 from rulekit.contract.atoms import (
     AnyAtomSpec,
+    AtomBindingPolicy,
+    BindingBasis,
     BooleanAtom,
     NumericAtom,
 )
@@ -117,6 +119,8 @@ __all__ = [
     "DeterminationSpec",
     # Map
     "MapSpec",
+    "BindingBasis",
+    "AtomBindingPolicy",
     "BooleanAtom",
     "NumericAtom",
     "AnyAtomSpec",

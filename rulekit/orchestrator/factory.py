@@ -16,6 +16,7 @@ from pydantic import BaseModel, ConfigDict, Field
 from rulekit.contract import (
     AndNodeSpec,
     AtLeastNodeSpec,
+    AtomBindingPolicy,
     AtomRef,
     BinaryArithmeticSpec,
     BooleanAtom,
@@ -68,6 +69,7 @@ class AtomDeclaration(BaseModel):
     undetermined_rule: str = ""
     notes: str = ""
     numeric_unit: str | None = None
+    binding_policy: AtomBindingPolicy | None = None
 
 
 class BooleanOperator(str, Enum):
@@ -335,6 +337,7 @@ def _atom_from_decl(atom: AtomDeclaration):
         extraction_template=atom.extraction_template,
         undetermined_rule=atom.undetermined_rule,
         notes=atom.notes,
+        binding_policy=atom.binding_policy,
     )
     if atom.atom_type == "boolean":
         return BooleanAtom(**common)

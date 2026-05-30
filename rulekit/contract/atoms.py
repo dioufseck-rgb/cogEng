@@ -19,11 +19,72 @@ imports.
 """
 from __future__ import annotations
 
+from enum import Enum
 from typing import Annotated, Literal, Optional, Union
 
 from pydantic import BaseModel, ConfigDict, Field
 
 from rulekit.contract.base import AtomId, EvaluationMode
+
+
+class BindingBasis(str, Enum):
+    """Epistemic basis for a Map atom binding."""
+
+    EXPLICIT_POSITIVE = "explicit_positive"
+    EXPLICIT_NEGATIVE = "explicit_negative"
+    CLOSED_WORLD_ABSENCE = "closed_world_absence"
+    OPEN_WORLD_ABSENCE = "open_world_absence"
+    INFERRED_FROM_RECORD = "inferred_from_record"
+    CONFLICTING_EVIDENCE = "conflicting_evidence"
+    COMPUTED = "computed"
+    LOOKED_UP = "looked_up"
+    NOT_FOUND = "not_found"
+
+
+class AtomBindingPolicy(BaseModel):
+    """Rules for which Map bindings are epistemically acceptable.
+
+    This is deliberately policy-level metadata, not engine logic. Map can
+    propose a value and basis; the deterministic Map validator decides
+    whether that basis is allowed for the atom before the engine consumes it.
+    """
+
+    model_config = ConfigDict(extra="forbid")
+
+    allowed_bases_for_true: list[BindingBasis] = Field(
+        default_factory=lambda: [
+            BindingBasis.EXPLICIT_POSITIVE,
+            BindingBasis.INFERRED_FROM_RECORD,
+            BindingBasis.COMPUTED,
+            BindingBasis.LOOKED_UP,
+        ]
+    )
+    allowed_bases_for_false: list[BindingBasis] = Field(
+        default_factory=lambda: [
+            BindingBasis.EXPLICIT_NEGATIVE,
+            BindingBasis.CLOSED_WORLD_ABSENCE,
+            BindingBasis.COMPUTED,
+            BindingBasis.LOOKED_UP,
+        ]
+    )
+    required_source_types_for_true: list[str] = Field(default_factory=list)
+    required_source_types_for_false: list[str] = Field(default_factory=list)
+    open_world_absence_behavior: Literal[
+        "undetermined",
+        "human_review",
+        "accept",
+    ] = "undetermined"
+    conflicting_evidence_behavior: Literal[
+        "undetermined",
+        "human_review",
+        "accept",
+    ] = "human_review"
+    invalid_binding_behavior: Literal[
+        "undetermined",
+        "human_review",
+        "error",
+    ] = "undetermined"
+    notes: str = ""
 
 
 class _AtomBase(BaseModel):
@@ -57,6 +118,7 @@ class _AtomBase(BaseModel):
     extraction_template: Optional[str] = None
     undetermined_rule: str = ""
     notes: str = ""
+    binding_policy: Optional[AtomBindingPolicy] = None
 
 
 class BooleanAtom(_AtomBase):
@@ -91,6 +153,8 @@ AnyAtomSpec = Annotated[
 
 
 __all__ = [
+    "BindingBasis",
+    "AtomBindingPolicy",
     "BooleanAtom",
     "NumericAtom",
     "AnyAtomSpec",

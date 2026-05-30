@@ -21,6 +21,11 @@ from rulekit.orchestrator.ids import new_id
 from rulekit.orchestrator.llm_config import create_map_step
 from rulekit.orchestrator.map_record import MapExtractionRecord
 from rulekit.orchestrator.map_step import MapStep, MapStepContext
+from rulekit.orchestrator.map_validation import (
+    MapValidationReport,
+    apply_map_validation,
+    evidence_sources_from_case_fields,
+)
 
 
 def load_program(path: str | Path) -> DeterminationProgram:
@@ -80,12 +85,18 @@ def adjudicate_cases(
         substrate_id=active_map_step.spec.map_step_id,
     )
     map_records: list[MapExtractionRecord] = []
+    map_validation_reports: list[MapValidationReport] = []
     dispositions: list[DispositionRecord] = []
 
     for case in cases:
         map_result = active_map_step.run(program, case, context)
-        map_record = map_result.map_record
+        map_record, map_validation = apply_map_validation(
+            program,
+            map_result.map_record,
+            evidence_sources=evidence_sources_from_case_fields(case.structured_fields),
+        )
         map_records.append(map_record)
+        map_validation_reports.append(map_validation)
         bundle = fact_bundle_from_values(
             program,
             fact_values_from_map_record(map_record),
@@ -122,6 +133,7 @@ def adjudicate_cases(
                     metadata={
                         "case_title": case.title,
                         "map_record_id": map_record.map_record_id,
+                        "map_validation": map_validation.summary(),
                     },
                 )
             )
@@ -144,6 +156,9 @@ def adjudicate_cases(
             1 for disposition in dispositions if disposition.matched_expected is False
         ),
         "map_records": [record.model_dump(mode="json") for record in map_records],
+        "map_validation_reports": [
+            report.model_dump(mode="json") for report in map_validation_reports
+        ],
         "dispositions": [record.model_dump(mode="json") for record in dispositions],
     }
 
@@ -154,17 +169,22 @@ def write_runtime_result(result: dict[str, Any], output_dir: str | Path) -> dict
     summary = {
         key: value
         for key, value in result.items()
-        if key not in {"map_records", "dispositions"}
+        if key not in {"map_records", "map_validation_reports", "dispositions"}
     }
     files = {
         "summary": output_dir / "summary.json",
         "map_records": output_dir / "map_records.json",
         "dispositions": output_dir / "dispositions.json",
+        "map_validation_reports": output_dir / "map_validation_reports.json",
         "results": output_dir / "results.json",
     }
     files["summary"].write_text(_json(summary), encoding="utf-8")
     files["map_records"].write_text(_json(result["map_records"]), encoding="utf-8")
     files["dispositions"].write_text(_json(result["dispositions"]), encoding="utf-8")
+    files["map_validation_reports"].write_text(
+        _json(result["map_validation_reports"]),
+        encoding="utf-8",
+    )
     files["results"].write_text(_json(result), encoding="utf-8")
     return {key: str(path) for key, path in files.items()}
 

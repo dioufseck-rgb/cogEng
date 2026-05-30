@@ -340,10 +340,14 @@ function mapRecordRow(record) {
   const statuses = Object.entries(record.status_counts || {})
     .map(([status, count]) => `${status}:${count}`)
     .join(", ");
+  const bases = Object.entries(record.basis_counts || {})
+    .map(([basis, count]) => `${basis}:${count}`)
+    .join(", ");
+  const review = record.human_review_required ? " review" : "";
   return `<tr>
     <td><button class="row-button" onclick='selectItem(${jsonAttr(record)})'>${escapeHtml(record.case_id)}</button></td>
     <td>${escapeHtml(record.substrate_id)}</td>
-    <td>${escapeHtml(statuses || String(record.binding_count || 0))}</td>
+    <td>${escapeHtml(`${statuses || String(record.binding_count || 0)}${bases ? ` | ${bases}` : ""}${review}`)}</td>
     <td>${escapeHtml(record.reviewer_hint_count || 0)}</td>
   </tr>`;
 }

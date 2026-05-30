@@ -13,6 +13,10 @@ from rulekit.orchestrator.disposition import DispositionRecord
 from rulekit.orchestrator.hints import ReviewerHint
 from rulekit.orchestrator.ids import new_id
 from rulekit.orchestrator.map_step import MapStep, MapStepContext
+from rulekit.orchestrator.map_validation import (
+    apply_map_validation,
+    evidence_sources_from_case_fields,
+)
 from rulekit.orchestrator.map_record import (
     AtomBindingRecord,
     AtomBindingStatus,
@@ -287,16 +291,24 @@ def exercise_program_on_suite_with_map_step(
     )
     for case in cases:
         result = map_step.run(program, case, context)
-        map_records.append(result.map_record)
+        map_record, validation_report = apply_map_validation(
+            program,
+            result.map_record,
+            evidence_sources=evidence_sources_from_case_fields(case.structured_fields),
+        )
+        map_records.append(map_record)
         dispositions.extend(
             exercise_program_on_case_with_map_record(
                 program,
                 case,
-                result.map_record,
+                map_record,
                 program_id=program_id,
                 program_version=program_version,
             )
         )
+        if case.expected_outcomes:
+            for disposition in dispositions[-len(case.expected_outcomes):]:
+                disposition.metadata["map_validation"] = validation_report.summary()
     return map_records, dispositions
 
 

@@ -128,6 +128,8 @@ class LLMCaller:
             return self._call_anthropic(prompt, max_tokens=max_tokens, stream=stream)
         if self.provider == "openai":
             return self._call_openai(prompt, max_tokens=max_tokens, stream=stream)
+        if self.provider == "gemini":
+            return self._call_gemini(prompt, max_tokens=max_tokens)
         raise ValueError(f"unsupported LLM provider {self.provider!r}")
 
     def _call_anthropic(self, prompt: str,
@@ -195,6 +197,30 @@ class LLMCaller:
         )
         return getattr(response, "output_text", "")
 
+    def _call_gemini(self, prompt: str,
+                     max_tokens: Optional[int] = None) -> str:
+        if self._client is None:
+            try:
+                from google import genai
+                from google.genai import types
+            except ImportError as exc:  # pragma: no cover - optional dependency
+                raise ImportError(
+                    "Install rulekit[llm] with google-genai to use Gemini"
+                ) from exc
+            self._client = genai.Client()
+            self._gemini_types = types
+        mt = max_tokens if max_tokens is not None else self.max_tokens
+        config = self._gemini_types.GenerateContentConfig(
+            max_output_tokens=mt,
+            temperature=0,
+        )
+        response = self._client.models.generate_content(
+            model=self.model,
+            contents=prompt,
+            config=config,
+        )
+        return getattr(response, "text", "") or ""
+
 
 def _infer_provider(model: str) -> str:
     normalized = model.lower()
@@ -202,6 +228,8 @@ def _infer_provider(model: str) -> str:
         return "anthropic"
     if normalized.startswith(("gpt-", "gpt5", "gpt-5", "o1", "o3", "o4")):
         return "openai"
+    if normalized.startswith(("gemini", "google.")):
+        return "gemini"
     return "anthropic"
 
 

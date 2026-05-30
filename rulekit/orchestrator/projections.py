@@ -360,9 +360,13 @@ def _diagnostic_summary(diagnostic: dict[str, Any]) -> dict[str, Any]:
 def _map_record_summary(record: dict[str, Any]) -> dict[str, Any]:
     bindings = record.get("bindings", {})
     status_counts: dict[str, int] = {}
+    basis_counts: dict[str, int] = {}
     for binding in bindings.values():
         status = binding.get("status", "unknown")
         status_counts[status] = status_counts.get(status, 0) + 1
+        basis = binding.get("basis")
+        if basis:
+            basis_counts[basis] = basis_counts.get(basis, 0) + 1
     return {
         "map_record_id": record.get("map_record_id"),
         "case_id": record.get("case_id"),
@@ -370,6 +374,10 @@ def _map_record_summary(record: dict[str, Any]) -> dict[str, Any]:
         "substrate_id": record.get("substrate_id"),
         "binding_count": len(bindings),
         "status_counts": status_counts,
+        "basis_counts": basis_counts,
+        "map_validation": record.get("metadata", {}).get("map_validation", {}),
+        "human_review_required": record.get("metadata", {}).get("human_review_required", False),
+        "human_review_atoms": record.get("metadata", {}).get("human_review_atoms", []),
         "reviewer_hint_count": record.get("metadata", {}).get("reviewer_hint_count", 0),
         "reviewer_hints": record.get("metadata", {}).get("reviewer_hints", []),
         "latency_s": record.get("latency_s"),
