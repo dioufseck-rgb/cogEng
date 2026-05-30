@@ -1,4 +1,5 @@
 """RuleKit Orchestrator data-model layer."""
+from rulekit.orchestrator.api import create_app
 from rulekit.orchestrator.cases import (
     CaseExample,
     CaseProvenance,
@@ -34,9 +35,12 @@ from rulekit.orchestrator.disposition import DispositionRecord
 from rulekit.orchestrator.exercise import (
     exercise_program_on_case,
     exercise_program_on_case_with_map,
+    exercise_program_on_case_with_map_record,
     exercise_program_on_suite,
     exercise_program_on_suite_with_map,
+    exercise_program_on_suite_with_map_step,
     extract_leaf_path,
+    fact_values_from_map_record,
     fact_bundle_from_values,
     map_record_from_values,
 )
@@ -63,6 +67,15 @@ from rulekit.orchestrator.map_record import (
     AtomBindingRecord,
     AtomBindingStatus,
     MapExtractionRecord,
+)
+from rulekit.orchestrator.map_step import (
+    MapStep,
+    MapStepContext,
+    MapStepKind,
+    MapStepResult,
+    MapStepSpec,
+    PreboundFactsMapStep,
+    facts_from_case_fields,
 )
 from rulekit.orchestrator.step import (
     BuildStep,
@@ -123,6 +136,10 @@ from rulekit.orchestrator.program_edit import (
     apply_program_edits,
     program_hash,
 )
+from rulekit.orchestrator.projections import (
+    build_trajectory_projection,
+    build_workspace_index_projection,
+)
 from rulekit.orchestrator.runner import (
     run_step_and_record,
     run_stochastic_step_and_record,
@@ -149,6 +166,7 @@ from rulekit.orchestrator.workflow import (
     ReexerciseResult,
     apply_persisted_program_edits,
     export_review_bundle,
+    export_builder_ui,
     inspect_persisted_run,
     list_branches,
     list_persisted_runs,
@@ -161,6 +179,7 @@ from rulekit.orchestrator.workflow import (
 
 __all__ = [
     "CaseExample",
+    "create_app",
     "CaseProvenance",
     "CaseSuite",
     "ExpectedOutcome",
@@ -186,9 +205,12 @@ __all__ = [
     "DispositionRecord",
     "exercise_program_on_case",
     "exercise_program_on_case_with_map",
+    "exercise_program_on_case_with_map_record",
     "exercise_program_on_suite",
     "exercise_program_on_suite_with_map",
+    "exercise_program_on_suite_with_map_step",
     "extract_leaf_path",
+    "fact_values_from_map_record",
     "fact_bundle_from_values",
     "map_record_from_values",
     "BranchError",
@@ -211,6 +233,13 @@ __all__ = [
     "AtomBindingRecord",
     "AtomBindingStatus",
     "MapExtractionRecord",
+    "MapStep",
+    "MapStepContext",
+    "MapStepKind",
+    "MapStepResult",
+    "MapStepSpec",
+    "PreboundFactsMapStep",
+    "facts_from_case_fields",
     "BuildStep",
     "BuildStepSpec",
     "DialogueCapability",
@@ -260,6 +289,8 @@ __all__ = [
     "ProgramEditResult",
     "apply_program_edits",
     "program_hash",
+    "build_trajectory_projection",
+    "build_workspace_index_projection",
     "GovernanceReport",
     "GovernanceReportKind",
     "ProgramSnapshot",
@@ -279,6 +310,7 @@ __all__ = [
     "ReexerciseResult",
     "apply_persisted_program_edits",
     "export_review_bundle",
+    "export_builder_ui",
     "inspect_persisted_run",
     "list_branches",
     "list_persisted_runs",

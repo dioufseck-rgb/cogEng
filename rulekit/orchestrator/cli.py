@@ -15,6 +15,7 @@ from rulekit.orchestrator.factory import (
 )
 from rulekit.orchestrator.workflow import (
     apply_persisted_program_edits,
+    export_builder_ui,
     export_review_bundle,
     inspect_persisted_run,
     list_branches,
@@ -46,6 +47,10 @@ def main(argv: list[str] | None = None) -> int:
             return _reexercise(args)
         if args.command == "branches":
             return _branches(args)
+        if args.command == "serve":
+            return _serve(args)
+        if args.command == "ui":
+            return _ui(args)
     except Exception as exc:  # pragma: no cover - exercised through return behavior
         if args.json:
             print(json.dumps({"ok": False, "error": str(exc)}, indent=2, sort_keys=True))
@@ -130,6 +135,19 @@ def _parser() -> argparse.ArgumentParser:
     branches_mark.add_argument("--reviewer-id", default=None)
     branches_mark.add_argument("--reason", default=None)
     branches_mark.add_argument("--json", action="store_true", help="print JSON summary")
+
+    serve = subcommands.add_parser("serve", help="run the optional API server")
+    serve.add_argument("--root", default=".rulekit_workspaces")
+    serve.add_argument("--host", default="127.0.0.1")
+    serve.add_argument("--port", type=int, default=8000)
+    serve.add_argument("--json", action="store_true", help="print JSON errors")
+
+    ui = subcommands.add_parser("ui", help="export a static Builder UI")
+    ui.add_argument("--root", default=".rulekit_workspaces")
+    ui.add_argument("--workspace-id", required=True)
+    ui.add_argument("--trajectory-id", required=True)
+    ui.add_argument("--out", required=True, help="output directory")
+    ui.add_argument("--json", action="store_true", help="print JSON summary")
     return parser
 
 
@@ -225,6 +243,29 @@ def _branches(args: argparse.Namespace) -> int:
         _print(payload, args.json)
         return 0 if payload["validation_ok"] else 1
     raise ValueError("branches command requires 'list' or 'mark'")
+
+
+def _serve(args: argparse.Namespace) -> int:
+    try:
+        import uvicorn
+    except ImportError as exc:
+        raise RuntimeError("Install rulekit[api] to use 'serve'") from exc
+    from rulekit.orchestrator.api import create_app
+
+    uvicorn.run(create_app(args.root), host=args.host, port=args.port)
+    return 0
+
+
+def _ui(args: argparse.Namespace) -> int:
+    payload = export_builder_ui(
+        args.root,
+        args.workspace_id,
+        args.trajectory_id,
+        args.out,
+    )
+    payload = {"ok": payload["validation_ok"], **payload}
+    _print(payload, args.json)
+    return 0 if payload["validation_ok"] else 1
 
 
 def _print(payload: dict[str, Any], as_json: bool) -> None:

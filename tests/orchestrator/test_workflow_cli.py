@@ -290,3 +290,26 @@ def test_cli_template_run_and_inspect(tmp_path, capsys):
     assert edited_program["map_spec"]["atoms"]["sample.requirement_b"]["notes"] == (
         "CLI reviewer note."
     )
+
+    ui_dir = tmp_path / "ui"
+    assert (
+        main(
+            [
+                "ui",
+                "--root",
+                str(root),
+                "--workspace-id",
+                run_payload["workspace_id"],
+                "--trajectory-id",
+                run_payload["trajectory_id"],
+                "--out",
+                str(ui_dir),
+                "--json",
+            ]
+        )
+        == 0
+    )
+    ui_payload = json.loads(capsys.readouterr().out)
+    assert ui_payload["ok"] is True
+    assert (ui_dir / "index.html").exists()
+    assert (ui_dir / "projection.json").exists()

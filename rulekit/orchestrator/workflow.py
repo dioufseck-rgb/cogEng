@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import shutil
 from pathlib import Path
 from typing import Any
 
@@ -12,12 +13,13 @@ from rulekit.contract import DeterminationProgram
 from rulekit.orchestrator.config import load_policy_workspace_seed
 from rulekit.orchestrator.diagnostics import CaseDiagnostic, diagnose_dispositions
 from rulekit.orchestrator.disposition import DispositionRecord
-from rulekit.orchestrator.exercise import exercise_program_on_suite_with_map
+from rulekit.orchestrator.exercise import exercise_program_on_suite_with_map_step
 from rulekit.orchestrator.factory import PolicyWorkspaceSeed, create_boolean_candidate_program, create_policy_workspace
 from rulekit.orchestrator.ids import event_id as new_event_id
 from rulekit.orchestrator.ids import intervention_id as new_intervention_id
 from rulekit.orchestrator.intervention import Intervention, InterventionKind
 from rulekit.orchestrator.map_record import MapExtractionRecord
+from rulekit.orchestrator.map_step import PreboundFactsMapStep
 from rulekit.orchestrator.persistence import (
     load_program_snapshot,
     load_trajectory,
@@ -35,6 +37,7 @@ from rulekit.orchestrator.persistence import (
     workspace_dir,
 )
 from rulekit.orchestrator.program_edit import ProgramEditOperation, ProgramEditResult, apply_program_edits
+from rulekit.orchestrator.projections import build_trajectory_projection
 from rulekit.orchestrator.reports import (
     GovernanceReport,
     generate_coverage_report,
@@ -258,13 +261,14 @@ def run_policy_seed(
     )
 
     cases = list(suite.cases.values())
-    facts_by_case = {case.case_id: _facts_from_case(case.structured_fields) for case in cases}
-    map_records, dispositions = exercise_program_on_suite_with_map(
+    map_records, dispositions = exercise_program_on_suite_with_map_step(
         program,
         cases,
-        facts_by_case,
+        PreboundFactsMapStep(),
         program_id=program_id,
         program_version=program_version,
+        workspace_id=workspace.workspace_id,
+        trajectory_id=trajectory.trajectory_id,
     )
     for map_record in map_records:
         trajectory.append_event(
@@ -510,6 +514,35 @@ def export_review_bundle(
     }
 
 
+def export_builder_ui(
+    root: str | Path,
+    workspace_id: str,
+    trajectory_id: str,
+    output_dir: str | Path,
+) -> dict[str, Any]:
+    """Export a static Builder UI for one persisted trajectory."""
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    web_dir = Path(__file__).parent / "web"
+    for name in ("index.html", "styles.css", "app.js"):
+        shutil.copyfile(web_dir / name, output_dir / name)
+    projection = build_trajectory_projection(root, workspace_id, trajectory_id)
+    projection_path = output_dir / "projection.json"
+    projection_path.write_text(
+        json.dumps(to_jsonable_python(projection), indent=2, sort_keys=True),
+        encoding="utf-8",
+    )
+    return {
+        "workspace_id": workspace_id,
+        "trajectory_id": trajectory_id,
+        "output_dir": str(output_dir),
+        "index": str(output_dir / "index.html"),
+        "projection": str(projection_path),
+        "validation_ok": projection["trajectory"]["validation_ok"],
+        "validation_summary": projection["trajectory"]["validation_summary"],
+    }
+
+
 def apply_persisted_program_edits(
     root: str | Path,
     workspace_id: str,
@@ -684,19 +717,20 @@ def reexercise_latest_snapshot(
     policy = next(iter(workspace.policies.values()))
     suite = next(iter(workspace.case_suites.values()))
     cases = list(suite.cases.values())
-    facts_by_case = {case.case_id: _facts_from_case(case.structured_fields) for case in cases}
     base = trajectory_dir(root, workspace_id, trajectory_id)
     prior_dispositions = [
         DispositionRecord.model_validate(payload)
         for payload in _read_json_files(base / "dispositions")
     ]
 
-    map_records, dispositions = exercise_program_on_suite_with_map(
+    map_records, dispositions = exercise_program_on_suite_with_map_step(
         snapshot.program,
         cases,
-        facts_by_case,
+        PreboundFactsMapStep(),
         program_id=snapshot.program_id,
         program_version=snapshot.program_version,
+        workspace_id=workspace_id,
+        trajectory_id=trajectory_id,
     )
     for map_record in map_records:
         save_map_record(root, workspace_id, trajectory_id, map_record)
@@ -831,13 +865,6 @@ def _append_step_event(trajectory: Trajectory, run: StepRunResult) -> None:
     )
 
 
-def _facts_from_case(structured_fields: dict[str, Any]) -> dict[str, Any]:
-    facts = structured_fields.get("facts")
-    if isinstance(facts, dict):
-        return dict(facts)
-    return dict(structured_fields)
-
-
 def _count_json(path: Path) -> int:
     if not path.exists():
         return 0
@@ -879,6 +906,7 @@ __all__ = [
     "inspect_persisted_run",
     "list_persisted_runs",
     "export_review_bundle",
+    "export_builder_ui",
     "apply_persisted_program_edits",
     "list_branches",
     "mark_branch_status",

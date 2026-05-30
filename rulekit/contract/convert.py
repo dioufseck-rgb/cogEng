@@ -117,6 +117,15 @@ from rulekit.contract.numeric import (
     VariadicArithmeticSpec,
 )
 from rulekit.contract.program import DeterminationProgram
+from rulekit.contract.validators import ValidationReport, validate_program
+
+
+class ProgramValidationError(ValueError):
+    """Raised when a program fails validation before engine conversion."""
+
+    def __init__(self, report: ValidationReport):
+        self.report = report
+        super().__init__(report.summary())
 
 
 # ---------------------------------------------------------------------------
@@ -245,6 +254,18 @@ def program_to_engine(program: DeterminationProgram) -> EngineRuntime:
         test_cases=list(program.test_cases),
         program=program,
     )
+
+
+def safe_program_to_engine(
+    program: DeterminationProgram,
+    *,
+    orphans_are_errors: bool = True,
+) -> EngineRuntime:
+    """Validate a DeterminationProgram before converting it to engine objects."""
+    report = validate_program(program, orphans_are_errors=orphans_are_errors)
+    if not report.ok:
+        raise ProgramValidationError(report)
+    return program_to_engine(program)
 
 
 def _atom_spec_to_engine_atom(spec) -> Atom:
@@ -734,6 +755,8 @@ def engine_to_program(
 
 __all__ = [
     "EngineRuntime",
+    "ProgramValidationError",
     "program_to_engine",
+    "safe_program_to_engine",
     "engine_to_program",
 ]

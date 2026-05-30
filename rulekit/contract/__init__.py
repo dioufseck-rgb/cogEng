@@ -103,6 +103,11 @@ from rulekit.contract.validators import (
     ValidationReport,
     validate_program,
 )
+from rulekit.contract.convert import (
+    EngineRuntime,
+    ProgramValidationError,
+    safe_program_to_engine,
+)
 
 __all__ = [
     # Top-level
@@ -148,4 +153,7 @@ __all__ = [
     # Validation
     "validate_program",
     "ValidationReport",
+    "EngineRuntime",
+    "ProgramValidationError",
+    "safe_program_to_engine",
 ]
