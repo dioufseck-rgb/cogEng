@@ -174,6 +174,11 @@ def test_cli_template_run_and_inspect(tmp_path, capsys):
     run_payload = json.loads(capsys.readouterr().out)
     assert run_payload["ok"] is True
     assert run_payload["disposition_count"] == 2
+    assert run_payload["ui_url"].endswith(
+        f"/ui/{run_payload['workspace_id']}/{run_payload['trajectory_id']}/"
+    )
+    assert run_payload["latest_ui_url"] == "http://127.0.0.1:8000/ui/latest/"
+    assert "rulekit-orchestrator serve" in run_payload["serve_command"]
 
     assert (
         main(
@@ -495,3 +500,6 @@ def test_cli_can_write_and_run_typed_prior_auth_template(tmp_path, capsys):
     assert run_payload["case_count"] == 4
     assert run_payload["disposition_count"] == 8
     assert run_payload["mismatch_count"] == 0
+    assert run_payload["ui_url"].endswith(
+        f"/ui/{run_payload['workspace_id']}/{run_payload['trajectory_id']}/"
+    )

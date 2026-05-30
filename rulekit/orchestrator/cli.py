@@ -217,7 +217,14 @@ def _run(args: argparse.Namespace) -> int:
         program_id=args.program_id,
         program_version=args.program_version,
     )
-    payload = {"ok": result.validation.ok, **result.summary()}
+    ui_url = _local_ui_url(result.workspace.workspace_id, result.trajectory.trajectory_id)
+    payload = {
+        "ok": result.validation.ok,
+        **result.summary(),
+        "ui_url": ui_url,
+        "latest_ui_url": "http://127.0.0.1:8000/ui/latest/",
+        "serve_command": f"rulekit-orchestrator serve --root {args.root} --port 8000",
+    }
     _print(payload, args.json)
     return 0 if result.validation.ok else 1
 
@@ -383,6 +390,10 @@ def _print(payload: dict[str, Any], as_json: bool) -> None:
         return
     for key, value in payload.items():
         print(f"{key}: {value}")
+
+
+def _local_ui_url(workspace_id: str, trajectory_id: str) -> str:
+    return f"http://127.0.0.1:8000/ui/{workspace_id}/{trajectory_id}/"
 
 
 def _parse_key_values(items: list[str]) -> dict[str, Any]:

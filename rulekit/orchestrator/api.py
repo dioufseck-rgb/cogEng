@@ -30,7 +30,7 @@ def create_app(root: str | Path = ".rulekit_workspaces"):
     lazy so the core orchestrator package has no mandatory web dependency.
     """
     try:
-        from fastapi import FastAPI, Response
+        from fastapi import FastAPI, HTTPException, Response
         from fastapi.responses import HTMLResponse, RedirectResponse
         from pydantic import BaseModel, Field
     except ImportError as exc:  # pragma: no cover - depends on optional extra
@@ -86,6 +86,11 @@ def create_app(root: str | Path = ".rulekit_workspaces"):
     def health() -> dict[str, Any]:
         return {"ok": True}
 
+    @app.get("/")
+    def root() -> RedirectResponse:
+        workspace_id, trajectory_id = _latest_ui_ids()
+        return RedirectResponse(url=_ui_url(workspace_id, trajectory_id))
+
     @app.get("/runs")
     def runs() -> dict[str, Any]:
         items = list_persisted_runs(root_path)
@@ -114,18 +119,35 @@ def create_app(root: str | Path = ".rulekit_workspaces"):
     def trajectory_projection(workspace_id: str, trajectory_id: str) -> dict[str, Any]:
         return build_trajectory_projection(root_path, workspace_id, trajectory_id)
 
+    @app.get("/ui/latest")
+    def builder_ui_latest_redirect_no_slash() -> RedirectResponse:
+        workspace_id, trajectory_id = _latest_ui_ids()
+        return RedirectResponse(url=_ui_url(workspace_id, trajectory_id))
+
+    @app.get("/ui/latest/")
+    def builder_ui_latest_redirect() -> RedirectResponse:
+        workspace_id, trajectory_id = _latest_ui_ids()
+        return RedirectResponse(url=_ui_url(workspace_id, trajectory_id))
+
     @app.get("/ui/{workspace_id}/{trajectory_id}")
     def builder_ui_redirect(workspace_id: str, trajectory_id: str) -> RedirectResponse:
+        workspace_id, trajectory_id = _resolve_ui_ids(workspace_id, trajectory_id)
         return RedirectResponse(url=f"/ui/{workspace_id}/{trajectory_id}/")
 
     @app.get("/ui/{workspace_id}/{trajectory_id}/")
-    def builder_ui(workspace_id: str, trajectory_id: str) -> HTMLResponse:
-        del workspace_id, trajectory_id
+    def builder_ui(workspace_id: str, trajectory_id: str):
+        resolved_workspace_id, resolved_trajectory_id = _resolve_ui_ids(
+            workspace_id,
+            trajectory_id,
+        )
+        if (resolved_workspace_id, resolved_trajectory_id) != (workspace_id, trajectory_id):
+            return RedirectResponse(url=_ui_url(resolved_workspace_id, resolved_trajectory_id))
         web_dir = Path(__file__).parent / "web"
         return HTMLResponse((web_dir / "index.html").read_text(encoding="utf-8"))
 
     @app.get("/ui/{workspace_id}/{trajectory_id}/projection.json")
     def builder_ui_projection(workspace_id: str, trajectory_id: str) -> dict[str, Any]:
+        workspace_id, trajectory_id = _resolve_ui_ids(workspace_id, trajectory_id)
         return build_trajectory_projection(root_path, workspace_id, trajectory_id)
 
     @app.get("/ui/{workspace_id}/{trajectory_id}/app.js")
@@ -271,6 +293,33 @@ def create_app(root: str | Path = ".rulekit_workspaces"):
             request.output_dir,
         )
         return {"ok": result["validation_ok"], **result}
+
+    def _latest_ui_ids() -> tuple[str, str]:
+        runs = list_persisted_runs(root_path)
+        if not runs:
+            raise HTTPException(
+                status_code=404,
+                detail="No RuleKit runs found. Run a seed first.",
+            )
+        latest = runs[-1]
+        return latest["workspace_id"], latest["trajectory_id"]
+
+    def _resolve_ui_ids(workspace_id: str, trajectory_id: str) -> tuple[str, str]:
+        if _is_placeholder(workspace_id) or _is_placeholder(trajectory_id):
+            return _latest_ui_ids()
+        return workspace_id, trajectory_id
+
+    def _is_placeholder(value: str) -> bool:
+        return value in {
+            "latest",
+            "{workspace_id}",
+            "{trajectory_id}",
+            "workspace_id",
+            "trajectory_id",
+        }
+
+    def _ui_url(workspace_id: str, trajectory_id: str) -> str:
+        return f"/ui/{workspace_id}/{trajectory_id}/"
 
     return app
 
