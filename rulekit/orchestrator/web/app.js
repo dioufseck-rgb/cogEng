@@ -50,14 +50,18 @@ function renderShell() {
 function render() {
   const titles = {
     overview: "Overview",
+    program: "Program",
     cases: "Cases",
+    map: "Map",
     timeline: "Timeline",
     reports: "Reports",
   };
   byId("page-title").textContent = titles[state.view] || "Overview";
   const viewRenderers = {
     overview: renderOverview,
+    program: renderProgram,
     cases: renderCases,
+    map: renderMap,
     timeline: renderTimeline,
     reports: renderReports,
   };
@@ -85,6 +89,32 @@ function renderOverview() {
   );
 }
 
+function renderProgram() {
+  const program = state.projection.program || {};
+  const atoms = program.atoms || [];
+  const nodes = program.nodes || [];
+  byId("primary-panel").innerHTML = panel(
+    "Atoms",
+    `<div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Atom</th>
+            <th>Type</th>
+            <th>Mode</th>
+            <th>Statement</th>
+          </tr>
+        </thead>
+        <tbody>${atoms.map(atomRow).join("")}</tbody>
+      </table>
+    </div>`
+  );
+  byId("detail-panel").innerHTML = panel(
+    "DAG Nodes",
+    `<div class="panel-body"><div class="list">${nodes.map(nodeItem).join("")}</div></div>`
+  );
+}
+
 function renderCases() {
   const rows = state.projection.case_results || [];
   byId("primary-panel").innerHTML = panel(
@@ -100,13 +130,36 @@ function renderCases() {
             <th>Status</th>
           </tr>
         </thead>
-        <tbody>
-          ${rows.map(caseRow).join("")}
-        </tbody>
+        <tbody>${rows.map(caseRow).join("")}</tbody>
       </table>
     </div>`
   );
   renderDetail(state.selected || rows[0]);
+}
+
+function renderMap() {
+  const records = state.projection.map_records || [];
+  const hints = state.projection.reviewer_hints || [];
+  byId("primary-panel").innerHTML = panel(
+    "Map Records",
+    `<div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Case</th>
+            <th>Substrate</th>
+            <th>Bindings</th>
+            <th>Hints</th>
+          </tr>
+        </thead>
+        <tbody>${records.map(mapRecordRow).join("")}</tbody>
+      </table>
+    </div>`
+  );
+  byId("detail-panel").innerHTML = panel(
+    "Reviewer Hints",
+    `<div class="panel-body"><div class="list">${hints.length ? hints.map(hintItem).join("") : `<span class="meta">No reviewer hints recorded</span>`}</div></div>`
+  );
 }
 
 function renderTimeline() {
@@ -151,11 +204,32 @@ function caseRow(row) {
   </tr>`;
 }
 
+function atomRow(atom) {
+  return `<tr>
+    <td><button class="row-button" onclick='selectItem(${jsonAttr(atom)})'>${escapeHtml(atom.atom_id)}</button></td>
+    <td>${escapeHtml(atom.atom_type)}</td>
+    <td>${escapeHtml(atom.evaluation_mode || "")}</td>
+    <td>${escapeHtml(atom.statement)}</td>
+  </tr>`;
+}
+
+function mapRecordRow(record) {
+  const statuses = Object.entries(record.status_counts || {})
+    .map(([status, count]) => `${status}:${count}`)
+    .join(", ");
+  return `<tr>
+    <td><button class="row-button" onclick='selectItem(${jsonAttr(record)})'>${escapeHtml(record.case_id)}</button></td>
+    <td>${escapeHtml(record.substrate_id)}</td>
+    <td>${escapeHtml(statuses || String(record.binding_count || 0))}</td>
+    <td>${escapeHtml(record.reviewer_hint_count || 0)}</td>
+  </tr>`;
+}
+
 function eventItem(event) {
   return `<div class="list-item">
     <button onclick='selectItem(${jsonAttr(event)})'>
       <div class="list-title">${escapeHtml(event.title)}</div>
-      <div class="meta">${escapeHtml(event.kind)} · ${escapeHtml(event.branch_id)}</div>
+      <div class="meta">${escapeHtml(event.kind)} - ${escapeHtml(event.branch_id)}</div>
     </button>
   </div>`;
 }
@@ -164,7 +238,25 @@ function reportItem(report) {
   return `<div class="list-item">
     <button onclick='selectItem(${jsonAttr(report)})'>
       <div class="list-title">${escapeHtml(report.headline)}</div>
-      <div class="meta">${escapeHtml(report.kind)} · ${escapeHtml(report.report_id)}</div>
+      <div class="meta">${escapeHtml(report.kind)} - ${escapeHtml(report.report_id)}</div>
+    </button>
+  </div>`;
+}
+
+function nodeItem(node) {
+  return `<div class="list-item">
+    <button onclick='selectItem(${jsonAttr(node)})'>
+      <div class="list-title">${escapeHtml(node.node_id)}</div>
+      <div class="meta">${escapeHtml(node.kind)}${node.surface_label ? ` - ${escapeHtml(node.surface_label)}` : ""}</div>
+    </button>
+  </div>`;
+}
+
+function hintItem(hint) {
+  return `<div class="list-item">
+    <button onclick='selectItem(${jsonAttr(hint)})'>
+      <div class="list-title">${escapeHtml(hint.case_id || hint.target_step_id || "General hint")}</div>
+      <div class="meta">${escapeHtml(hint.message)}</div>
     </button>
   </div>`;
 }
@@ -172,7 +264,7 @@ function reportItem(report) {
 function branchItem(branch) {
   return `<div class="list-item">
     <div class="list-title">${escapeHtml(branch.branch_id)}</div>
-    <div class="meta">${escapeHtml(branch.status)}${branch.is_active ? " · active" : ""}</div>
+    <div class="meta">${escapeHtml(branch.status)}${branch.is_active ? " - active" : ""}</div>
   </div>`;
 }
 
@@ -182,7 +274,9 @@ function selectItem(item) {
 
 function defaultSelection(view) {
   const projection = state.projection;
+  if (view === "program") return projection.program?.atoms?.[0] || projection.program || null;
   if (view === "cases") return projection.case_results?.[0] || null;
+  if (view === "map") return projection.map_records?.[0] || projection.reviewer_hints?.[0] || null;
   if (view === "timeline") return projection.timeline?.[0] || null;
   if (view === "reports") return projection.reports?.[0] || null;
   return projection.program || null;

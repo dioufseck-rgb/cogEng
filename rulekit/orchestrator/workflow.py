@@ -14,7 +14,7 @@ from rulekit.orchestrator.config import load_policy_workspace_seed
 from rulekit.orchestrator.diagnostics import CaseDiagnostic, diagnose_dispositions
 from rulekit.orchestrator.disposition import DispositionRecord
 from rulekit.orchestrator.exercise import exercise_program_on_suite_with_map_step
-from rulekit.orchestrator.factory import PolicyWorkspaceSeed, create_boolean_candidate_program, create_policy_workspace
+from rulekit.orchestrator.factory import PolicyWorkspaceSeed, create_candidate_program, create_policy_workspace
 from rulekit.orchestrator.ids import event_id as new_event_id
 from rulekit.orchestrator.ids import intervention_id as new_intervention_id
 from rulekit.orchestrator.intervention import Intervention, InterventionKind
@@ -233,12 +233,14 @@ def run_policy_seed(
         )
     )
 
-    program = create_boolean_candidate_program(
+    program = create_candidate_program(
         program_id=program_id,
         program_name=f"{seed.policy_title} candidate",
         version=program_version,
         determinations=seed.determinations,
         atoms=seed.atoms,
+        nodes=seed.nodes,
+        constants=seed.constants,
     )
     snapshot = ProgramSnapshot(
         snapshot_id=f"snap_{program_id}_{program_version.replace('.', '_')}",

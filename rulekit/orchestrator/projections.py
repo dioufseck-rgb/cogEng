@@ -92,6 +92,39 @@ def build_trajectory_projection(
             "determination_count": len(snapshot.program.determinations),
             "atom_count": len(snapshot.program.map_spec.atoms),
             "node_count": len(snapshot.program.nodes),
+            "determinations": [
+                {
+                    "determination_id": det_id,
+                    "description": det.description,
+                    "composition": det.composition,
+                    "root_node": det.root_node,
+                    "linked_to": det.linked_to,
+                    "polarity": det.polarity,
+                }
+                for det_id, det in sorted(snapshot.program.determinations.items())
+            ],
+            "atoms": [
+                {
+                    "atom_id": atom_id,
+                    "atom_type": atom.atom_type,
+                    "statement": atom.statement,
+                    "source_span": atom.source_span,
+                    "evaluation_mode": atom.evaluation_mode,
+                    "extraction_template": atom.extraction_template,
+                    "undetermined_rule": atom.undetermined_rule,
+                    "numeric_unit": getattr(atom, "numeric_unit", None),
+                }
+                for atom_id, atom in sorted(snapshot.program.map_spec.atoms.items())
+            ],
+            "nodes": [
+                {
+                    "node_id": node_id,
+                    "kind": node.kind,
+                    "surface_label": getattr(node, "surface_label", ""),
+                    "source_span": getattr(node, "source_span", ""),
+                }
+                for node_id, node in sorted(snapshot.program.nodes.items())
+            ],
             "validation_summary": snapshot.validation_summary,
             "metadata": snapshot.metadata,
         }
@@ -120,6 +153,7 @@ def build_trajectory_projection(
         "reports": [_report_summary(report) for report in reports],
         "diagnostics": [_diagnostic_summary(diagnostic) for diagnostic in diagnostics],
         "map_records": [_map_record_summary(record) for record in map_records],
+        "reviewer_hints": _reviewer_hints(trajectory),
         "paths": {
             "workspace": str(workspace_dir(root, workspace_id)),
             "trajectory": str(base),
@@ -175,6 +209,11 @@ def _event_title(kind: TrajectoryEventKind, payload: dict[str, Any]) -> str:
         return f"Map: {payload.get('case_id', 'unknown')}"
     if kind == TrajectoryEventKind.BRANCH_CREATED:
         return f"Branch: {payload.get('branch_id', 'unknown')}"
+    if kind == TrajectoryEventKind.INTERVENTION:
+        if payload.get("kind") == "reviewer_natural_hint":
+            hint = payload.get("payload", {}).get("hint", {})
+            return f"Reviewer hint: {hint.get('case_id') or payload.get('step_id') or 'general'}"
+        return f"Intervention: {payload.get('kind', 'unknown')}"
     return kind.value.replace("_", " ").title()
 
 
@@ -276,8 +315,30 @@ def _map_record_summary(record: dict[str, Any]) -> dict[str, Any]:
         "substrate_id": record.get("substrate_id"),
         "binding_count": len(bindings),
         "status_counts": status_counts,
+        "reviewer_hint_count": record.get("metadata", {}).get("reviewer_hint_count", 0),
+        "reviewer_hints": record.get("metadata", {}).get("reviewer_hints", []),
         "latency_s": record.get("latency_s"),
     }
+
+
+def _reviewer_hints(trajectory: Trajectory) -> list[dict[str, Any]]:
+    hints: list[dict[str, Any]] = []
+    for event in trajectory.events:
+        if event.kind != TrajectoryEventKind.INTERVENTION:
+            continue
+        payload = event.payload
+        if payload.get("kind") != "reviewer_natural_hint":
+            continue
+        hint = payload.get("payload", {}).get("hint")
+        if isinstance(hint, dict):
+            hints.append(
+                {
+                    **hint,
+                    "event_id": event.event_id,
+                    "branch_id": event.branch_id,
+                }
+            )
+    return hints
 
 
 def _read_json_files(path: Path) -> list[dict[str, Any]]:

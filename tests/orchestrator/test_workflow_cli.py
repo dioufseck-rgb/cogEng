@@ -16,6 +16,7 @@ from rulekit.orchestrator import (
 )
 from rulekit.orchestrator.cli import main, sample_seed
 from rulekit.orchestrator.config import save_policy_workspace_seed
+from rulekit.orchestrator.examples import prior_auth_typed_seed
 
 
 def test_run_policy_seed_file_persists_and_inspects(tmp_path):
@@ -313,3 +314,65 @@ def test_cli_template_run_and_inspect(tmp_path, capsys):
     assert ui_payload["ok"] is True
     assert (ui_dir / "index.html").exists()
     assert (ui_dir / "projection.json").exists()
+
+
+def test_typed_prior_auth_seed_runs_full_workflow(tmp_path):
+    seed_path = tmp_path / "prior_auth.yaml"
+    root = tmp_path / "workspaces"
+    save_policy_workspace_seed(prior_auth_typed_seed(), seed_path)
+
+    result = run_policy_seed_file(seed_path, root, program_id="prog_prior_auth")
+    outcomes = {
+        (disposition.case_id, disposition.determination_id): disposition.outcome
+        for disposition in result.dispositions
+    }
+
+    assert result.validation.ok
+    assert result.summary()["mismatch_count"] == 0
+    assert result.summary()["case_count"] == 4
+    assert result.summary()["disposition_count"] == 8
+    assert result.program.map_spec.atoms["pa.prior_therapy_weeks"].atom_type == "numeric"
+    assert result.program.nodes["n_pain_improvement"].kind == "binary_arithmetic"
+    assert outcomes[("case_standard_approved", "pa.approved")] == "true"
+    assert outcomes[("case_materially_improved_denied", "pa.denied")] == "true"
+    assert outcomes[("case_exception_approved", "pa.approved")] == "true"
+    assert outcomes[("case_missing_duration_review", "pa.approved")] == "undetermined"
+    assert outcomes[("case_missing_duration_review", "pa.denied")] == "undetermined"
+
+    standard = next(
+        disposition
+        for disposition in result.dispositions
+        if disposition.case_id == "case_standard_approved"
+        and disposition.determination_id == "pa.approved"
+    )
+    assert "pa.prior_therapy_weeks" in standard.load_bearing_path
+    assert "pa.baseline_pain_score" in standard.load_bearing_path
+    assert "pa.current_pain_score" in standard.load_bearing_path
+
+
+def test_cli_can_write_and_run_typed_prior_auth_template(tmp_path, capsys):
+    seed_path = tmp_path / "prior_auth.yaml"
+    root = tmp_path / "workspaces"
+
+    assert (
+        main(
+            [
+                "template",
+                str(seed_path),
+                "--example",
+                "prior-auth-typed",
+                "--json",
+            ]
+        )
+        == 0
+    )
+    template_payload = json.loads(capsys.readouterr().out)
+    assert template_payload["ok"] is True
+    assert template_payload["example"] == "prior-auth-typed"
+
+    assert main(["run", str(seed_path), "--root", str(root), "--json"]) == 0
+    run_payload = json.loads(capsys.readouterr().out)
+    assert run_payload["ok"] is True
+    assert run_payload["case_count"] == 4
+    assert run_payload["disposition_count"] == 8
+    assert run_payload["mismatch_count"] == 0

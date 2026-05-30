@@ -7,9 +7,12 @@ from rulekit.orchestrator import (
     AtomDeclaration,
     BooleanOperator,
     CaseDeclaration,
+    NodeDeclaration,
+    NodeKind,
     OrchestratorDeterminationDeclaration,
     PolicyWorkspaceSeed,
     create_boolean_candidate_program,
+    create_candidate_program,
     create_policy_workspace,
     load_policy_workspace_seed,
     save_policy_workspace_seed,
@@ -258,3 +261,155 @@ def test_policy_workspace_seed_rejects_non_engine_operator():
             ],
             atoms=[AtomDeclaration(atom_id="bad.a", statement="A")],
         )
+
+
+def test_create_candidate_program_supports_typed_nodes_and_arithmetic():
+    program = create_candidate_program(
+        program_id="prog_typed",
+        program_name="Typed Policy Candidate",
+        version="0.1",
+        atoms=[
+            AtomDeclaration(
+                atom_id="pa.functional_limitation",
+                statement="The patient has a documented functional limitation.",
+            ),
+            AtomDeclaration(
+                atom_id="pa.requested_amount",
+                statement="The requested amount in dollars.",
+                atom_type="numeric",
+                numeric_unit="usd",
+            ),
+            AtomDeclaration(
+                atom_id="pa.annual_income",
+                statement="The patient's annual income in dollars.",
+                atom_type="numeric",
+                numeric_unit="usd",
+            ),
+            AtomDeclaration(
+                atom_id="pa.bonus_amount",
+                statement="A supplemental requested amount in dollars.",
+                atom_type="numeric",
+                numeric_unit="usd",
+            ),
+            AtomDeclaration(
+                atom_id="pa.floor_amount",
+                statement="The looked-up minimum allowed amount.",
+                atom_type="numeric",
+                evaluation_mode="looked_up",
+                numeric_unit="usd",
+            ),
+        ],
+        nodes=[
+            NodeDeclaration(
+                node_id="n_function",
+                kind=NodeKind.ATOM_REF,
+                atom_id="pa.functional_limitation",
+            ),
+            NodeDeclaration(
+                node_id="n_requested",
+                kind=NodeKind.NUMERIC_ATOM_REF,
+                atom_id="pa.requested_amount",
+            ),
+            NodeDeclaration(
+                node_id="n_income",
+                kind=NodeKind.NUMERIC_ATOM_REF,
+                atom_id="pa.annual_income",
+            ),
+            NodeDeclaration(
+                node_id="n_bonus",
+                kind=NodeKind.NUMERIC_ATOM_REF,
+                atom_id="pa.bonus_amount",
+            ),
+            NodeDeclaration(
+                node_id="n_requested_total",
+                kind=NodeKind.BINARY_ARITHMETIC,
+                operator="plus",
+                left="n_requested",
+                right="n_bonus",
+            ),
+            NodeDeclaration(
+                node_id="n_income_pct",
+                kind=NodeKind.UNARY_ARITHMETIC,
+                operator="times_const",
+                literal_constant="0.2",
+                child="n_income",
+            ),
+            NodeDeclaration(
+                node_id="n_floor",
+                kind=NodeKind.NAMED_QUANTITY,
+                atom_id="pa.floor_amount",
+            ),
+            NodeDeclaration(
+                node_id="n_allowed_cap",
+                kind=NodeKind.VARIADIC_ARITHMETIC,
+                operator="max",
+                children=["n_income_pct", "n_floor"],
+            ),
+            NodeDeclaration(
+                node_id="n_zero",
+                kind=NodeKind.CONSTANT,
+                literal_value="0",
+            ),
+            NodeDeclaration(
+                node_id="n_selected_cap",
+                kind=NodeKind.CONDITIONAL_NUMERIC,
+                condition="n_function",
+                if_true="n_allowed_cap",
+                if_false="n_zero",
+            ),
+            NodeDeclaration(
+                node_id="n_within_cap",
+                kind=NodeKind.COMPARISON,
+                operator="leq",
+                left="n_requested_total",
+                right="n_selected_cap",
+            ),
+            NodeDeclaration(
+                node_id="n_root",
+                kind=NodeKind.AND,
+                children=["n_function", "n_within_cap"],
+            ),
+        ],
+        determinations=[
+            OrchestratorDeterminationDeclaration(
+                determination_id="pa.approved",
+                description="The request is approved.",
+                root_node="n_root",
+            )
+        ],
+    )
+
+    assert validate_program(program).ok
+    seed = PolicyWorkspaceSeed(
+        workspace_name="Typed Workspace",
+        policy_title="Typed Policy",
+        policy_text="Approve if functional limitation exists and amount is within cap.",
+        atoms=[],
+        nodes=[],
+        determinations=[],
+        cases=[
+            CaseDeclaration(
+                case_id="case_typed",
+                title="Typed case",
+                narrative="Functional limitation and amount within cap.",
+                expected_outcomes={"pa.approved": "true"},
+            )
+        ],
+    )
+    cases = list(create_policy_workspace(seed).workspace.case_suites.values())[0].cases
+    records = exercise_program_on_suite(
+        program,
+        list(cases.values()),
+        {
+            "case_typed": {
+                "pa.functional_limitation": True,
+                "pa.requested_amount": 19000,
+                "pa.bonus_amount": 500,
+                "pa.annual_income": 100000,
+                "pa.floor_amount": 10000,
+            }
+        },
+        program_id="prog_typed",
+    )
+
+    assert records[0].outcome == "true"

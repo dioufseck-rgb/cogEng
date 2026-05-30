@@ -7,6 +7,7 @@ objects and a basic build graph/trajectory.
 """
 from __future__ import annotations
 
+from decimal import Decimal
 from enum import Enum
 from typing import Any, Literal
 
@@ -16,16 +17,25 @@ from rulekit.contract import (
     AndNodeSpec,
     AtLeastNodeSpec,
     AtomRef,
+    BinaryArithmeticSpec,
     BooleanAtom,
     CaseInputSchema,
+    ComparisonSpec,
+    ConditionalNumericSpec,
+    ConstantSpec,
     DeterminationProgram,
     DeterminationSpec,
     EvaluationMode,
     MapSpec,
+    NamedQuantitySpec,
     NotNodeSpec,
+    NumericAtom,
+    NumericAtomRef,
     OrNodeSpec,
     ProgramMetadata,
     Provenance,
+    UnaryArithmeticSpec,
+    VariadicArithmeticSpec,
 )
 from rulekit.orchestrator.cases import CaseExample, CaseSuite, ExpectedOutcome
 from rulekit.orchestrator.graph import BuildGraph, BuildGraphNode
@@ -52,9 +62,12 @@ class AtomDeclaration(BaseModel):
     atom_id: str
     statement: str
     source_span: str = ""
-    atom_type: Literal["boolean"] = "boolean"
+    atom_type: Literal["boolean", "numeric"] = "boolean"
     evaluation_mode: EvaluationMode = EvaluationMode.CHARACTERIZED
+    extraction_template: str | None = None
+    undetermined_rule: str = ""
     notes: str = ""
+    numeric_unit: str | None = None
 
 
 class BooleanOperator(str, Enum):
@@ -64,6 +77,55 @@ class BooleanOperator(str, Enum):
     OR = "or"
     NOT = "not"
     AT_LEAST = "at_least"
+
+
+class NodeKind(str, Enum):
+    """Contract node kinds that can be authored by the generic factory."""
+
+    ATOM_REF = "atom_ref"
+    NUMERIC_ATOM_REF = "numeric_atom_ref"
+    CONSTANT = "constant"
+    AND = "and"
+    OR = "or"
+    NOT = "not"
+    AT_LEAST = "at_least"
+    COMPARISON = "comparison"
+    UNARY_ARITHMETIC = "unary_arithmetic"
+    BINARY_ARITHMETIC = "binary_arithmetic"
+    VARIADIC_ARITHMETIC = "variadic_arithmetic"
+    CONDITIONAL_NUMERIC = "conditional_numeric"
+    NAMED_QUANTITY = "named_quantity"
+
+
+class NodeDeclaration(BaseModel):
+    """Domain-neutral declaration for any DeterminationProgram node.
+
+    The field set intentionally mirrors the contract vocabulary. Only the
+    fields relevant to the selected `kind` are consumed.
+    """
+
+    model_config = ConfigDict(extra="forbid")
+
+    node_id: str
+    kind: NodeKind
+    provenance: Provenance = Provenance.STRUCTURAL
+    surface_label: str = ""
+    source_span: str = ""
+    confidence: float | None = None
+    latent_type: str | None = None
+    atom_id: str | None = None
+    operator: str | None = None
+    children: list[str] = Field(default_factory=list)
+    child: str | None = None
+    n: int | None = None
+    left: str | None = None
+    right: str | None = None
+    literal_value: Decimal | None = None
+    constant_label: str | None = None
+    literal_constant: Decimal | None = None
+    condition: str | None = None
+    if_true: str | None = None
+    if_false: str | None = None
 
 
 class DeterminationDeclaration(BaseModel):
@@ -76,6 +138,9 @@ class DeterminationDeclaration(BaseModel):
     n: int | None = None
     source_span: str = ""
     polarity: str = "neutral"
+    composition: Literal["derived", "complement"] = "derived"
+    root_node: str | None = None
+    linked_to: str | None = None
 
 
 class PolicyWorkspaceSeed(BaseModel):
@@ -89,6 +154,8 @@ class PolicyWorkspaceSeed(BaseModel):
     determinations: list[DeterminationDeclaration]
     cases: list[CaseDeclaration] = Field(default_factory=list)
     atoms: list[AtomDeclaration] = Field(default_factory=list)
+    nodes: list[NodeDeclaration] = Field(default_factory=list)
+    constants: dict[str, Decimal] = Field(default_factory=dict)
     metadata: dict[str, Any] = Field(default_factory=dict)
 
 
@@ -194,34 +261,54 @@ def create_boolean_candidate_program(
     determination-to-atom shape. Operators intentionally mirror the
     Boolean engine/contract vocabulary: and, or, not, at_least.
     """
+    return create_candidate_program(
+        program_id=program_id,
+        program_name=program_name,
+        version=version,
+        determinations=determinations,
+        atoms=atoms,
+    )
+
+
+def create_candidate_program(
+    *,
+    program_id: str,
+    program_name: str,
+    version: str,
+    determinations: list[DeterminationDeclaration],
+    atoms: list[AtomDeclaration],
+    nodes: list[NodeDeclaration] | None = None,
+    constants: dict[str, Decimal] | None = None,
+) -> DeterminationProgram:
+    """Create a candidate DeterminationProgram using the full contract vocabulary.
+
+    If `nodes` is omitted, determinations fall back to the legacy
+    determination-to-boolean-atoms shape used by v0.1 seeds. If `nodes` is
+    supplied, determinations should provide `root_node` or `linked_to`.
+    """
     atom_specs = {
-        atom.atom_id: BooleanAtom(
-            id=atom.atom_id,
-            statement=atom.statement,
-            source_span=atom.source_span or atom.statement,
-            evaluation_mode=atom.evaluation_mode,
-            notes=atom.notes,
-        )
+        atom.atom_id: _atom_from_decl(atom)
         for atom in atoms
     }
-    nodes = {}
+    node_specs: dict[str, object] = {}
+    if nodes:
+        node_specs.update(_node_from_decl(node) for node in nodes)
     det_specs = {}
     for det_index, det in enumerate(determinations):
-        child_ids: list[str] = []
-        for atom_index, atom_id in enumerate(det.atom_ids):
-            node_id = f"n_{det_index}_{atom_index}_{_safe_suffix(atom_id)}"
-            nodes[node_id] = AtomRef(
-                node_id=node_id,
-                provenance=Provenance.TRANSCRIBED,
-                source_span=atom_specs[atom_id].source_span,
-                atom_id=atom_id,
+        if det.composition == "complement":
+            det_specs[det.determination_id] = DeterminationSpec(
+                id=det.determination_id,
+                description=det.description,
+                polarity=det.polarity,
+                source_span=det.source_span,
+                composition="complement",
+                linked_to=_required_det_field(det, "linked_to"),
             )
-            child_ids.append(node_id)
-        if not child_ids:
-            raise ValueError(
-                f"determination {det.determination_id!r} must reference at least one atom"
-            )
-        root_node = _make_root_node(det, det_index, child_ids, nodes)
+            continue
+        if det.root_node is not None:
+            root_node = det.root_node
+        else:
+            root_node = _legacy_boolean_root(det, det_index, atom_specs, node_specs)
         det_specs[det.determination_id] = DeterminationSpec(
             id=det.determination_id,
             description=det.description,
@@ -231,11 +318,129 @@ def create_boolean_candidate_program(
         )
     return DeterminationProgram(
         metadata=ProgramMetadata(name=program_name, version=version),
-        nodes=nodes,
+        constants=constants or {},
+        nodes=node_specs,
         map_spec=MapSpec(atoms=atom_specs),
         determinations=det_specs,
         case_input_schema=CaseInputSchema(has_narrative=True),
     )
+
+
+def _atom_from_decl(atom: AtomDeclaration):
+    common = dict(
+        id=atom.atom_id,
+        statement=atom.statement,
+        source_span=atom.source_span or atom.statement,
+        evaluation_mode=atom.evaluation_mode,
+        extraction_template=atom.extraction_template,
+        undetermined_rule=atom.undetermined_rule,
+        notes=atom.notes,
+    )
+    if atom.atom_type == "boolean":
+        return BooleanAtom(**common)
+    return NumericAtom(numeric_unit=atom.numeric_unit, **common)
+
+
+def _node_from_decl(node: NodeDeclaration) -> tuple[str, object]:
+    common = dict(
+        node_id=node.node_id,
+        provenance=node.provenance,
+        surface_label=node.surface_label,
+        source_span=node.source_span,
+        confidence=node.confidence,
+        latent_type=node.latent_type,
+    )
+    if node.kind == NodeKind.ATOM_REF:
+        return node.node_id, AtomRef(atom_id=_required_node_field(node, "atom_id"), **common)
+    if node.kind == NodeKind.NUMERIC_ATOM_REF:
+        return node.node_id, NumericAtomRef(atom_id=_required_node_field(node, "atom_id"), **common)
+    if node.kind == NodeKind.CONSTANT:
+        return node.node_id, ConstantSpec(
+            literal_value=node.literal_value,
+            constant_label=node.constant_label,
+            **common,
+        )
+    if node.kind == NodeKind.AND:
+        return node.node_id, AndNodeSpec(children=node.children, **common)
+    if node.kind == NodeKind.OR:
+        return node.node_id, OrNodeSpec(children=node.children, **common)
+    if node.kind == NodeKind.NOT:
+        return node.node_id, NotNodeSpec(child=_required_node_field(node, "child"), **common)
+    if node.kind == NodeKind.AT_LEAST:
+        if node.n is None:
+            raise ValueError(f"node {node.node_id!r}: at_least requires n")
+        return node.node_id, AtLeastNodeSpec(n=node.n, children=node.children, **common)
+    if node.kind == NodeKind.COMPARISON:
+        return node.node_id, ComparisonSpec(
+            operator=_required_node_field(node, "operator"),
+            left=_required_node_field(node, "left"),
+            right=_required_node_field(node, "right"),
+            **common,
+        )
+    if node.kind == NodeKind.UNARY_ARITHMETIC:
+        return node.node_id, UnaryArithmeticSpec(
+            operator=_required_node_field(node, "operator"),
+            literal_constant=node.literal_constant,
+            constant_label=node.constant_label,
+            child=_required_node_field(node, "child"),
+            **common,
+        )
+    if node.kind == NodeKind.BINARY_ARITHMETIC:
+        return node.node_id, BinaryArithmeticSpec(
+            operator=_required_node_field(node, "operator"),
+            left=_required_node_field(node, "left"),
+            right=_required_node_field(node, "right"),
+            **common,
+        )
+    if node.kind == NodeKind.VARIADIC_ARITHMETIC:
+        return node.node_id, VariadicArithmeticSpec(
+            operator=_required_node_field(node, "operator"),
+            children=node.children,
+            **common,
+        )
+    if node.kind == NodeKind.CONDITIONAL_NUMERIC:
+        return node.node_id, ConditionalNumericSpec(
+            condition=_required_node_field(node, "condition"),
+            if_true=_required_node_field(node, "if_true"),
+            if_false=_required_node_field(node, "if_false"),
+            **common,
+        )
+    if node.kind == NodeKind.NAMED_QUANTITY:
+        return node.node_id, NamedQuantitySpec(
+            atom_id=_required_node_field(node, "atom_id"),
+            **common,
+        )
+    raise ValueError(f"unsupported node kind {node.kind!r}")
+
+
+def _legacy_boolean_root(
+    det: DeterminationDeclaration,
+    det_index: int,
+    atom_specs: dict[str, object],
+    nodes: dict[str, object],
+) -> str:
+    child_ids: list[str] = []
+    for atom_index, atom_id in enumerate(det.atom_ids):
+        atom = atom_specs[atom_id]
+        if atom.atom_type != "boolean":
+            raise ValueError(
+                f"determination {det.determination_id!r} legacy atom_ids may "
+                f"only reference boolean atoms; {atom_id!r} is {atom.atom_type}"
+            )
+        node_id = f"n_{det_index}_{atom_index}_{_safe_suffix(atom_id)}"
+        nodes[node_id] = AtomRef(
+            node_id=node_id,
+            provenance=Provenance.TRANSCRIBED,
+            source_span=atom.source_span,
+            atom_id=atom_id,
+        )
+        child_ids.append(node_id)
+    if not child_ids:
+        raise ValueError(
+            f"determination {det.determination_id!r} must reference at least "
+            f"one atom or declare root_node"
+        )
+    return _make_root_node(det, det_index, child_ids, nodes)
 
 
 def _make_root_node(
@@ -287,6 +492,22 @@ def _make_root_node(
     return root_node
 
 
+def _required_node_field(node: NodeDeclaration, field_name: str) -> Any:
+    value = getattr(node, field_name)
+    if value is None or value == "":
+        raise ValueError(f"node {node.node_id!r}: {node.kind.value} requires {field_name}")
+    return value
+
+
+def _required_det_field(det: DeterminationDeclaration, field_name: str) -> Any:
+    value = getattr(det, field_name)
+    if value is None or value == "":
+        raise ValueError(
+            f"determination {det.determination_id!r}: {det.composition} requires {field_name}"
+        )
+    return value
+
+
 def _case_from_decl(decl: CaseDeclaration) -> CaseExample:
     case_id = decl.case_id or new_id("case")
     return CaseExample(
@@ -310,10 +531,13 @@ __all__ = [
     "CaseDeclaration",
     "AtomDeclaration",
     "BooleanOperator",
+    "NodeKind",
+    "NodeDeclaration",
     "DeterminationDeclaration",
     "PolicyWorkspaceSeed",
     "PolicyWorkspaceBundle",
     "create_policy_workspace",
     "create_default_build_graph",
+    "create_candidate_program",
     "create_boolean_candidate_program",
 ]

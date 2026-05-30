@@ -140,6 +140,104 @@ def test_apply_program_edits_rejects_invalid_not_arity():
         )
 
 
+def test_apply_program_edits_adds_typed_numeric_comparison():
+    result = apply_program_edits(
+        _program(),
+        [
+            ProgramEditOperation(
+                kind=ProgramEditKind.ADD_NUMERIC_ATOM,
+                payload={
+                    "atom_id": "fcba.days_since_notice",
+                    "statement": "Days between billing statement and consumer notice.",
+                    "source_span": "1026.13(b)",
+                    "numeric_unit": "days",
+                },
+            ),
+            ProgramEditOperation(
+                kind=ProgramEditKind.ADD_NUMERIC_ATOM_REF_NODE,
+                payload={
+                    "node_id": "n_days",
+                    "atom_id": "fcba.days_since_notice",
+                },
+            ),
+            ProgramEditOperation(
+                kind=ProgramEditKind.ADD_CONSTANT_NODE,
+                payload={
+                    "node_id": "n_sixty",
+                    "literal_value": 60,
+                },
+            ),
+            ProgramEditOperation(
+                kind=ProgramEditKind.ADD_COMPARISON_NODE,
+                payload={
+                    "node_id": "n_timely",
+                    "operator": "leq",
+                    "left": "n_days",
+                    "right": "n_sixty",
+                    "surface_label": "notice within 60 days",
+                },
+            ),
+            ProgramEditOperation(
+                kind=ProgramEditKind.ADD_BOOLEAN_OPERATOR_NODE,
+                payload={
+                    "node_id": "n_revised_root",
+                    "operator": "and",
+                    "children": ["n_root", "n_timely"],
+                    "surface_label": "billing error with timely notice",
+                },
+            ),
+            ProgramEditOperation(
+                kind=ProgramEditKind.SET_DETERMINATION_ROOT,
+                payload={
+                    "determination_id": "fcba.billing_error",
+                    "root_node": "n_revised_root",
+                },
+            ),
+        ],
+    )
+
+    assert validate_program(result.program).ok
+    records = exercise_program_on_case(
+        result.program,
+        _case("case_timely", "true"),
+        {
+            "fcba.credit_extended": True,
+            "fcba.unauthorized": True,
+            "fcba.days_since_notice": 30,
+        },
+        program_id="prog_fcba",
+    )
+    assert records[0].outcome == "true"
+
+    records = exercise_program_on_case(
+        result.program,
+        _case("case_late", "false"),
+        {
+            "fcba.credit_extended": True,
+            "fcba.unauthorized": True,
+            "fcba.days_since_notice": 90,
+        },
+        program_id="prog_fcba",
+    )
+    assert records[0].outcome == "false"
+
+
+def test_apply_program_edits_rejects_numeric_ref_for_boolean_atom():
+    with pytest.raises(ValueError, match="is not numeric"):
+        apply_program_edits(
+            _program(),
+            [
+                ProgramEditOperation(
+                    kind=ProgramEditKind.ADD_NUMERIC_ATOM_REF_NODE,
+                    payload={
+                        "node_id": "n_bad_numeric",
+                        "atom_id": "fcba.unauthorized",
+                    },
+                )
+            ],
+        )
+
+
 def test_program_edit_result_roundtrips_and_validates_event(tmp_path):
     edit = apply_program_edits(
         _program(),

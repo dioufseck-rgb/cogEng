@@ -11,6 +11,7 @@ from rulekit.orchestrator.examples.generic_policy_stub import (
     build_generic_workspace,
     run_generic_stub,
 )
+from rulekit.orchestrator.examples.prior_auth_typed import prior_auth_typed_seed
 
 __all__ = [
     "build_fcba_stub_graph",
@@ -21,4 +22,5 @@ __all__ = [
     "build_generic_workspace",
     "build_generic_candidate_program",
     "run_generic_stub",
+    "prior_auth_typed_seed",
 ]

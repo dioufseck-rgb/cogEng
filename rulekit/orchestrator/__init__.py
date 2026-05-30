@@ -55,13 +55,17 @@ from rulekit.orchestrator.factory import (
     BooleanOperator,
     CaseDeclaration,
     DeterminationDeclaration as OrchestratorDeterminationDeclaration,
+    NodeDeclaration,
+    NodeKind,
     PolicyWorkspaceBundle,
     PolicyWorkspaceSeed,
     create_boolean_candidate_program,
+    create_candidate_program,
     create_default_build_graph,
     create_policy_workspace,
 )
 from rulekit.orchestrator.graph import BuildGraph, BuildGraphNode
+from rulekit.orchestrator.hints import ReviewerHint, record_reviewer_hint
 from rulekit.orchestrator.intervention import Intervention, InterventionKind
 from rulekit.orchestrator.map_record import (
     AtomBindingRecord,
@@ -75,6 +79,7 @@ from rulekit.orchestrator.map_step import (
     MapStepResult,
     MapStepSpec,
     PreboundFactsMapStep,
+    TypedNarrativeMapStep,
     facts_from_case_fields,
 )
 from rulekit.orchestrator.step import (
@@ -220,14 +225,19 @@ __all__ = [
     "AtomDeclaration",
     "BooleanOperator",
     "CaseDeclaration",
+    "NodeDeclaration",
+    "NodeKind",
     "OrchestratorDeterminationDeclaration",
     "PolicyWorkspaceBundle",
     "PolicyWorkspaceSeed",
     "create_boolean_candidate_program",
+    "create_candidate_program",
     "create_default_build_graph",
     "create_policy_workspace",
     "BuildGraph",
     "BuildGraphNode",
+    "ReviewerHint",
+    "record_reviewer_hint",
     "Intervention",
     "InterventionKind",
     "AtomBindingRecord",
@@ -239,6 +249,7 @@ __all__ = [
     "MapStepResult",
     "MapStepSpec",
     "PreboundFactsMapStep",
+    "TypedNarrativeMapStep",
     "facts_from_case_fields",
     "BuildStep",
     "BuildStepSpec",

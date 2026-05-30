@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import hashlib
+from decimal import Decimal
 from enum import Enum
 from typing import Any
 
@@ -11,13 +12,22 @@ from rulekit.contract import (
     AndNodeSpec,
     AtLeastNodeSpec,
     AtomRef,
+    BinaryArithmeticSpec,
     BooleanAtom,
+    ComparisonSpec,
+    ConditionalNumericSpec,
+    ConstantSpec,
     DeterminationProgram,
     DeterminationSpec,
     EvaluationMode,
+    NamedQuantitySpec,
     NotNodeSpec,
+    NumericAtom,
+    NumericAtomRef,
     OrNodeSpec,
     Provenance,
+    UnaryArithmeticSpec,
+    VariadicArithmeticSpec,
     validate_program,
 )
 from rulekit.orchestrator.factory import BooleanOperator
@@ -26,9 +36,20 @@ from rulekit.orchestrator.ids import new_id
 
 class ProgramEditKind(str, Enum):
     ADD_BOOLEAN_ATOM = "add_boolean_atom"
+    ADD_NUMERIC_ATOM = "add_numeric_atom"
     UPDATE_BOOLEAN_ATOM = "update_boolean_atom"
+    UPDATE_NUMERIC_ATOM = "update_numeric_atom"
+    SET_CONSTANT = "set_constant"
     ADD_ATOM_REF_NODE = "add_atom_ref_node"
+    ADD_NUMERIC_ATOM_REF_NODE = "add_numeric_atom_ref_node"
+    ADD_CONSTANT_NODE = "add_constant_node"
     ADD_BOOLEAN_OPERATOR_NODE = "add_boolean_operator_node"
+    ADD_COMPARISON_NODE = "add_comparison_node"
+    ADD_UNARY_ARITHMETIC_NODE = "add_unary_arithmetic_node"
+    ADD_BINARY_ARITHMETIC_NODE = "add_binary_arithmetic_node"
+    ADD_VARIADIC_ARITHMETIC_NODE = "add_variadic_arithmetic_node"
+    ADD_CONDITIONAL_NUMERIC_NODE = "add_conditional_numeric_node"
+    ADD_NAMED_QUANTITY_NODE = "add_named_quantity_node"
     ADD_DETERMINATION = "add_determination"
     SET_DETERMINATION_ROOT = "set_determination_root"
 
@@ -101,6 +122,21 @@ def _apply_operation(
             undetermined_rule=payload.get("undetermined_rule", ""),
             notes=payload.get("notes", ""),
         )
+    elif operation.kind == ProgramEditKind.ADD_NUMERIC_ATOM:
+        atom_id = _required(payload, "atom_id")
+        if atom_id in program.map_spec.atoms:
+            raise ValueError(f"atom {atom_id!r} already exists")
+        statement = _required(payload, "statement")
+        program.map_spec.atoms[atom_id] = NumericAtom(
+            id=atom_id,
+            statement=statement,
+            source_span=payload.get("source_span") or statement,
+            evaluation_mode=EvaluationMode(payload.get("evaluation_mode", "characterized")),
+            extraction_template=payload.get("extraction_template"),
+            undetermined_rule=payload.get("undetermined_rule", ""),
+            notes=payload.get("notes", ""),
+            numeric_unit=payload.get("numeric_unit"),
+        )
     elif operation.kind == ProgramEditKind.UPDATE_BOOLEAN_ATOM:
         atom_id = _required(payload, "atom_id")
         atom = program.map_spec.atoms.get(atom_id)
@@ -124,6 +160,33 @@ def _apply_operation(
         if "evaluation_mode" in updates:
             updates["evaluation_mode"] = EvaluationMode(updates["evaluation_mode"])
         program.map_spec.atoms[atom_id] = atom.model_copy(update=updates)
+    elif operation.kind == ProgramEditKind.UPDATE_NUMERIC_ATOM:
+        atom_id = _required(payload, "atom_id")
+        atom = program.map_spec.atoms.get(atom_id)
+        if atom is None:
+            raise ValueError(f"atom {atom_id!r} does not exist")
+        if atom.atom_type != "numeric":
+            raise ValueError(f"atom {atom_id!r} is not numeric")
+        updates = {
+            key: value
+            for key, value in payload.items()
+            if key
+            in {
+                "statement",
+                "source_span",
+                "evaluation_mode",
+                "extraction_template",
+                "undetermined_rule",
+                "notes",
+                "numeric_unit",
+            }
+        }
+        if "evaluation_mode" in updates:
+            updates["evaluation_mode"] = EvaluationMode(updates["evaluation_mode"])
+        program.map_spec.atoms[atom_id] = atom.model_copy(update=updates)
+    elif operation.kind == ProgramEditKind.SET_CONSTANT:
+        label = _required(payload, "label")
+        program.constants[label] = Decimal(str(_required(payload, "value")))
     elif operation.kind == ProgramEditKind.ADD_ATOM_REF_NODE:
         node_id = _required(payload, "node_id")
         atom_id = _required(payload, "atom_id")
@@ -131,12 +194,41 @@ def _apply_operation(
         atom = program.map_spec.atoms.get(atom_id)
         if atom is None:
             raise ValueError(f"atom {atom_id!r} does not exist")
+        if atom.atom_type != "boolean":
+            raise ValueError(f"atom {atom_id!r} is not boolean")
         program.nodes[node_id] = AtomRef(
             node_id=node_id,
             provenance=Provenance(payload.get("provenance", Provenance.TRANSCRIBED.value)),
             source_span=payload.get("source_span") or atom.source_span,
             surface_label=payload.get("surface_label", ""),
             atom_id=atom_id,
+        )
+    elif operation.kind == ProgramEditKind.ADD_NUMERIC_ATOM_REF_NODE:
+        node_id = _required(payload, "node_id")
+        atom_id = _required(payload, "atom_id")
+        _ensure_new_node(program, node_id)
+        atom = program.map_spec.atoms.get(atom_id)
+        if atom is None:
+            raise ValueError(f"atom {atom_id!r} does not exist")
+        if atom.atom_type != "numeric":
+            raise ValueError(f"atom {atom_id!r} is not numeric")
+        program.nodes[node_id] = NumericAtomRef(
+            node_id=node_id,
+            provenance=Provenance(payload.get("provenance", Provenance.TRANSCRIBED.value)),
+            source_span=payload.get("source_span") or atom.source_span,
+            surface_label=payload.get("surface_label", ""),
+            atom_id=atom_id,
+        )
+    elif operation.kind == ProgramEditKind.ADD_CONSTANT_NODE:
+        node_id = _required(payload, "node_id")
+        _ensure_new_node(program, node_id)
+        program.nodes[node_id] = ConstantSpec(
+            node_id=node_id,
+            provenance=Provenance(payload.get("provenance", Provenance.STRUCTURAL.value)),
+            source_span=payload.get("source_span", ""),
+            surface_label=payload.get("surface_label", ""),
+            literal_value=payload.get("literal_value"),
+            constant_label=payload.get("constant_label"),
         )
     elif operation.kind == ProgramEditKind.ADD_BOOLEAN_OPERATOR_NODE:
         node_id = _required(payload, "node_id")
@@ -165,6 +257,58 @@ def _apply_operation(
             if n is None:
                 raise ValueError("at_least requires n")
             program.nodes[node_id] = AtLeastNodeSpec(n=n, children=children, **common)
+    elif operation.kind == ProgramEditKind.ADD_COMPARISON_NODE:
+        node_id = _required(payload, "node_id")
+        _ensure_new_node(program, node_id)
+        program.nodes[node_id] = ComparisonSpec(
+            operator=_required(payload, "operator"),
+            left=_required(payload, "left"),
+            right=_required(payload, "right"),
+            **_node_common(node_id, payload),
+        )
+    elif operation.kind == ProgramEditKind.ADD_UNARY_ARITHMETIC_NODE:
+        node_id = _required(payload, "node_id")
+        _ensure_new_node(program, node_id)
+        program.nodes[node_id] = UnaryArithmeticSpec(
+            operator=_required(payload, "operator"),
+            literal_constant=payload.get("literal_constant"),
+            constant_label=payload.get("constant_label"),
+            child=_required(payload, "child"),
+            **_node_common(node_id, payload),
+        )
+    elif operation.kind == ProgramEditKind.ADD_BINARY_ARITHMETIC_NODE:
+        node_id = _required(payload, "node_id")
+        _ensure_new_node(program, node_id)
+        program.nodes[node_id] = BinaryArithmeticSpec(
+            operator=_required(payload, "operator"),
+            left=_required(payload, "left"),
+            right=_required(payload, "right"),
+            **_node_common(node_id, payload),
+        )
+    elif operation.kind == ProgramEditKind.ADD_VARIADIC_ARITHMETIC_NODE:
+        node_id = _required(payload, "node_id")
+        _ensure_new_node(program, node_id)
+        program.nodes[node_id] = VariadicArithmeticSpec(
+            operator=_required(payload, "operator"),
+            children=list(payload.get("children", [])),
+            **_node_common(node_id, payload),
+        )
+    elif operation.kind == ProgramEditKind.ADD_CONDITIONAL_NUMERIC_NODE:
+        node_id = _required(payload, "node_id")
+        _ensure_new_node(program, node_id)
+        program.nodes[node_id] = ConditionalNumericSpec(
+            condition=_required(payload, "condition"),
+            if_true=_required(payload, "if_true"),
+            if_false=_required(payload, "if_false"),
+            **_node_common(node_id, payload),
+        )
+    elif operation.kind == ProgramEditKind.ADD_NAMED_QUANTITY_NODE:
+        node_id = _required(payload, "node_id")
+        _ensure_new_node(program, node_id)
+        program.nodes[node_id] = NamedQuantitySpec(
+            atom_id=_required(payload, "atom_id"),
+            **_node_common(node_id, payload),
+        )
     elif operation.kind == ProgramEditKind.ADD_DETERMINATION:
         det_id = _required(payload, "determination_id")
         if det_id in program.determinations:
@@ -208,6 +352,17 @@ def _required(payload: dict[str, Any], key: str) -> Any:
 def _ensure_new_node(program: DeterminationProgram, node_id: str) -> None:
     if node_id in program.nodes:
         raise ValueError(f"node {node_id!r} already exists")
+
+
+def _node_common(node_id: str, payload: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "node_id": node_id,
+        "provenance": Provenance(payload.get("provenance", Provenance.STRUCTURAL.value)),
+        "source_span": payload.get("source_span", ""),
+        "surface_label": payload.get("surface_label", ""),
+        "confidence": payload.get("confidence"),
+        "latent_type": payload.get("latent_type"),
+    }
 
 
 __all__ = [

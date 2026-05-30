@@ -13,6 +13,7 @@ from rulekit.orchestrator.factory import (
     DeterminationDeclaration,
     PolicyWorkspaceSeed,
 )
+from rulekit.orchestrator.examples.prior_auth_typed import prior_auth_typed_seed
 from rulekit.orchestrator.workflow import (
     apply_persisted_program_edits,
     export_builder_ui,
@@ -70,6 +71,12 @@ def _parser() -> argparse.ArgumentParser:
 
     template = subcommands.add_parser("template", help="write a generic seed template")
     template.add_argument("path", help="output .json/.yaml/.yml path")
+    template.add_argument(
+        "--example",
+        choices=["sample", "prior-auth-typed"],
+        default="sample",
+        help="seed example to write (default: sample)",
+    )
     template.add_argument("--json", action="store_true", help="print JSON status")
 
     run = subcommands.add_parser("run", help="run a generic policy seed")
@@ -152,8 +159,9 @@ def _parser() -> argparse.ArgumentParser:
 
 
 def _template(args: argparse.Namespace) -> int:
-    path = save_policy_workspace_seed(sample_seed(), args.path)
-    payload = {"ok": True, "path": str(path)}
+    seed = template_seed(args.example)
+    path = save_policy_workspace_seed(seed, args.path)
+    payload = {"ok": True, "path": str(path), "example": args.example}
     _print(payload, args.json)
     return 0
 
@@ -334,8 +342,16 @@ def sample_seed() -> PolicyWorkspaceSeed:
     )
 
 
+def template_seed(example: str) -> PolicyWorkspaceSeed:
+    if example == "sample":
+        return sample_seed()
+    if example == "prior-auth-typed":
+        return prior_auth_typed_seed()
+    raise ValueError(f"unknown template example {example!r}")
+
+
 if __name__ == "__main__":  # pragma: no cover
     raise SystemExit(main())
 
 
-__all__ = ["main", "sample_seed"]
+__all__ = ["main", "sample_seed", "template_seed"]

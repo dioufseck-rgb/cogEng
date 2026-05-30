@@ -298,15 +298,34 @@ def exercise_program_on_suite_with_map_step(
 
 
 def extract_leaf_path(trace: list[dict[str, Any]]) -> list[str]:
-    """Extract leaf atom IDs present in an engine trace."""
+    """Extract atom IDs present in an engine trace.
+
+    Mixed typed traces can place numeric leaves under comparison
+    `left_trace` / `right_trace`, arithmetic `child_trace`, and
+    conditional numeric branch traces. Walk all known trace containers so
+    appeal/review records include both boolean and numeric load-bearing
+    facts.
+    """
     leaves: list[str] = []
 
     def walk(entries):
         for entry in entries or []:
-            if entry.get("type") == "leaf":
+            if isinstance(entry, list):
+                walk(entry)
+                continue
+            if entry.get("type") in {"leaf", "numeric_leaf"}:
                 leaves.append(entry.get("atom_id", ""))
-            walk(entry.get("children_trace"))
-            walk(entry.get("child_trace"))
+            for key in (
+                "children_trace",
+                "children_traces",
+                "child_trace",
+                "left_trace",
+                "right_trace",
+                "condition_trace",
+                "if_true_trace",
+                "if_false_trace",
+            ):
+                walk(entry.get(key))
 
     walk(trace)
     return [leaf for leaf in leaves if leaf]

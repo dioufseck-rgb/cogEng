@@ -60,6 +60,10 @@ def intervention_id() -> str:
     return new_id("int")
 
 
+def hint_id() -> str:
+    return new_id("hint")
+
+
 def report_id() -> str:
     return new_id("rep")
 
@@ -82,6 +86,7 @@ __all__ = [
     "dialogue_id",
     "turn_id",
     "intervention_id",
+    "hint_id",
     "report_id",
     "multi_run_id",
 ]

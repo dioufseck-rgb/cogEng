@@ -7,8 +7,11 @@ from rulekit.orchestrator import (
     export_builder_ui,
     build_trajectory_projection,
     build_workspace_index_projection,
+    load_trajectory,
+    record_reviewer_hint,
     reexercise_latest_snapshot,
     run_policy_seed_file,
+    save_trajectory,
 )
 from rulekit.orchestrator.cli import sample_seed
 from rulekit.orchestrator.config import save_policy_workspace_seed
@@ -38,6 +41,20 @@ def test_workspace_and_trajectory_projections_are_ui_ready(tmp_path):
         result.workspace.workspace_id,
         result.trajectory.trajectory_id,
     )
+    trajectory = load_trajectory(
+        root,
+        result.workspace.workspace_id,
+        result.trajectory.trajectory_id,
+    )
+    record_reviewer_hint(
+        trajectory,
+        message="Reviewer hint for projection display.",
+        target_step_id="map_prebound_facts",
+        case_id="case_yes",
+        atom_ids=["sample.requirement_a"],
+        reviewer_id="reviewer_1",
+    )
+    save_trajectory(trajectory, root)
 
     index = build_workspace_index_projection(root)
     projection = build_trajectory_projection(
@@ -52,9 +69,13 @@ def test_workspace_and_trajectory_projections_are_ui_ready(tmp_path):
     assert projection["trajectory"]["validation_ok"] is True
     assert projection["program"]["snapshot_id"] == edit_result.new_snapshot.snapshot_id
     assert projection["program"]["atom_count"] == 2
+    assert len(projection["program"]["atoms"]) == 2
+    assert projection["program"]["nodes"]
     assert len(projection["branches"]) == 2
     assert any(branch["is_active"] for branch in projection["branches"])
     assert any(event["kind"] == "program_edit_applied" for event in projection["timeline"])
+    assert any(event["title"].startswith("Reviewer hint:") for event in projection["timeline"])
+    assert projection["reviewer_hints"][0]["case_id"] == "case_yes"
     assert {row["case_id"] for row in projection["case_results"]} == {
         "case_no",
         "case_yes",
