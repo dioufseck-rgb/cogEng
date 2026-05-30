@@ -58,6 +58,52 @@ At request time, the agent orchestration layer should:
 The LLM, when used, belongs in step 2 only. It extracts atom values from case
 text. The engine performs the actual policy disposition.
 
+## CLI Runner
+
+For end-to-end runtime checks without writing Python:
+
+```powershell
+rulekit-orchestrator adjudicate `
+  --program exported_rulekit_bundle/program.json `
+  --cases runtime_cases.json `
+  --determination prior_auth.approved `
+  --out runtime_results `
+  --json
+```
+
+`runtime_cases.json` can be a list or an object with a `cases` list:
+
+```json
+{
+  "cases": [
+    {
+      "case_id": "case_001",
+      "title": "Appeal packet",
+      "narrative": "The patient completed eight weeks of therapy...",
+      "facts": {
+        "prior_auth.functional_limitation": true,
+        "prior_auth.therapy_weeks": 8
+      },
+      "expected_outcomes": {
+        "prior_auth.approved": "true"
+      }
+    }
+  ]
+}
+```
+
+For real runtime cases without known answers, omit `expected_outcomes`. The
+runner still emits dispositions; `matched_expected` will be `null`.
+
+The output directory contains:
+
+```text
+summary.json
+map_records.json
+dispositions.json
+results.json
+```
+
 ## Narrative Map
 
 For natural case text:

@@ -129,6 +129,22 @@ Open `builder_ui/index.html` from a local static server. The UI reads
 `projection.json` and renders overview, case results, timeline, reports, and
 branch state.
 
+Run exported policy artifacts as an agent-runtime check:
+
+```powershell
+rulekit-orchestrator adjudicate `
+  --program review_bundle/program.json `
+  --cases runtime_cases.json `
+  --determination sample.eligible `
+  --out runtime_results `
+  --json
+```
+
+The adjudication runner consumes the same `DeterminationProgram` object the
+engine consumes. It maps each runtime case to atom bindings, evaluates the
+requested determinations, and writes `summary.json`, `map_records.json`,
+`dispositions.json`, and `results.json`.
+
 ## Optional API Server
 
 Install the optional API extra to run the HTTP surface:

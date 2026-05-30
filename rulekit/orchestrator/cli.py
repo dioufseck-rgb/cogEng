@@ -29,6 +29,12 @@ from rulekit.orchestrator.workflow import (
     reexercise_latest_snapshot,
     run_policy_seed_file,
 )
+from rulekit.runtime import (
+    adjudicate_cases,
+    load_program,
+    load_runtime_cases,
+    write_runtime_result,
+)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -59,6 +65,8 @@ def main(argv: list[str] | None = None) -> int:
             return _serve(args)
         if args.command == "ui":
             return _ui(args)
+        if args.command == "adjudicate":
+            return _adjudicate(args)
     except Exception as exc:  # pragma: no cover - exercised through return behavior
         if args.json:
             print(json.dumps({"ok": False, "error": str(exc)}, indent=2, sort_keys=True))
@@ -203,6 +211,22 @@ def _parser() -> argparse.ArgumentParser:
     ui.add_argument("--trajectory-id", required=True)
     ui.add_argument("--out", required=True, help="output directory")
     ui.add_argument("--json", action="store_true", help="print JSON summary")
+
+    adjudicate = subcommands.add_parser(
+        "adjudicate",
+        help="run runtime cases against an exported DeterminationProgram",
+    )
+    adjudicate.add_argument("--program", required=True, help="program.json path")
+    adjudicate.add_argument("--cases", required=True, help="JSON/YAML runtime cases file")
+    adjudicate.add_argument(
+        "--determination",
+        action="append",
+        default=[],
+        help="determination id to evaluate; may repeat; defaults to all",
+    )
+    adjudicate.add_argument("--out", default=None, help="optional output directory")
+    _add_map_args(adjudicate)
+    adjudicate.add_argument("--json", action="store_true", help="print JSON result")
     return parser
 
 
@@ -402,6 +426,36 @@ def _ui(args: argparse.Namespace) -> int:
     payload = {"ok": payload["validation_ok"], **payload}
     _print(payload, args.json)
     return 0 if payload["validation_ok"] else 1
+
+
+def _adjudicate(args: argparse.Namespace) -> int:
+    program = load_program(args.program)
+    cases = load_runtime_cases(args.cases)
+    result = adjudicate_cases(
+        program,
+        cases,
+        determinations=args.determination or None,
+        map_step=_map_step_from_args(args),
+    )
+    if args.out:
+        result["files"] = write_runtime_result(result, args.out)
+    result = {"ok": result["mismatch_count"] == 0, **result}
+    if args.json:
+        print(json.dumps(result, indent=2, sort_keys=True))
+    else:
+        _print(
+            {
+                "ok": result["ok"],
+                "case_count": result["case_count"],
+                "disposition_count": result["disposition_count"],
+                "matched_disposition_count": result["matched_disposition_count"],
+                "mismatch_count": result["mismatch_count"],
+                "map_mode": result["map_mode"],
+                "files": result.get("files", {}),
+            },
+            False,
+        )
+    return 0 if result["ok"] else 1
 
 
 def _print(payload: dict[str, Any], as_json: bool) -> None:
