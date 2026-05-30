@@ -14,6 +14,7 @@ from rulekit.orchestrator.factory import (
     PolicyWorkspaceSeed,
 )
 from rulekit.orchestrator.examples.prior_auth_typed import prior_auth_typed_seed
+from rulekit.orchestrator.examples.fcra_dispute import fcra_dispute_seed
 from rulekit.orchestrator.llm_config import create_map_step
 from rulekit.orchestrator.workflow import (
     apply_persisted_program_edits,
@@ -88,7 +89,7 @@ def _parser() -> argparse.ArgumentParser:
     template.add_argument("path", help="output .json/.yaml/.yml path")
     template.add_argument(
         "--example",
-        choices=["sample", "prior-auth-typed"],
+        choices=["sample", "prior-auth-typed", "fcra-dispute"],
         default="sample",
         help="seed example to write (default: sample)",
     )
@@ -594,6 +595,8 @@ def template_seed(example: str) -> PolicyWorkspaceSeed:
         return sample_seed()
     if example == "prior-auth-typed":
         return prior_auth_typed_seed()
+    if example == "fcra-dispute":
+        return fcra_dispute_seed()
     raise ValueError(f"unknown template example {example!r}")
 
 
