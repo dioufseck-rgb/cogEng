@@ -21,10 +21,18 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
-dependencies = []
+dependencies = [
+    "pydantic>=2.0",
+    "PyYAML>=6.0",
+]
+
+[project.scripts]
+rulekit-orchestrator = "rulekit.orchestrator.cli:main"
 
 [project.optional-dependencies]
 reasoning = ["z3-solver"]   # for the future reason primitive
 
 [tool.setuptools]
-packages = ["rulekit"]
+
+[tool.setuptools.packages.find]
+include = ["rulekit*"]

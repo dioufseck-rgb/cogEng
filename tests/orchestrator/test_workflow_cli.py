@@ -1,0 +1,292 @@
+from __future__ import annotations
+
+import json
+
+from rulekit.orchestrator import (
+    ProgramEditKind,
+    ProgramEditOperation,
+    apply_persisted_program_edits,
+    export_review_bundle,
+    inspect_persisted_run,
+    list_branches,
+    list_persisted_runs,
+    mark_branch_status,
+    reexercise_latest_snapshot,
+    run_policy_seed_file,
+)
+from rulekit.orchestrator.cli import main, sample_seed
+from rulekit.orchestrator.config import save_policy_workspace_seed
+
+
+def test_run_policy_seed_file_persists_and_inspects(tmp_path):
+    seed_path = tmp_path / "seed.yaml"
+    root = tmp_path / "workspaces"
+    save_policy_workspace_seed(sample_seed(), seed_path)
+
+    result = run_policy_seed_file(seed_path, root, program_id="prog_sample")
+    inspected = inspect_persisted_run(
+        root,
+        result.workspace.workspace_id,
+        result.trajectory.trajectory_id,
+    )
+
+    assert result.validation.ok
+    assert result.summary()["mismatch_count"] == 0
+    assert inspected["validation_ok"] is True
+    assert inspected["sidecars"]["snapshots"] == 1
+    assert inspected["sidecars"]["dispositions"] == 2
+    assert inspected["sidecars"]["reports"] == 4
+    listed = list_persisted_runs(root)
+    assert listed[0]["workspace_id"] == result.workspace.workspace_id
+
+    exported = export_review_bundle(
+        root,
+        result.workspace.workspace_id,
+        result.trajectory.trajectory_id,
+        tmp_path / "review_bundle",
+    )
+    assert exported["validation_ok"] is True
+    program = json.loads((tmp_path / "review_bundle" / "program.json").read_text())
+    reports = json.loads((tmp_path / "review_bundle" / "reports.json").read_text())
+    diagnostics = json.loads((tmp_path / "review_bundle" / "diagnostics.json").read_text())
+    events = json.loads((tmp_path / "review_bundle" / "trajectory_events.json").read_text())
+    assert program["metadata"]["name"] == "Sample eligibility policy candidate"
+    assert len(reports) == 4
+    assert len(diagnostics) == 2
+    assert len(events) == result.summary()["event_count"]
+
+    edit_result = apply_persisted_program_edits(
+        root,
+        result.workspace.workspace_id,
+        result.trajectory.trajectory_id,
+        [
+            ProgramEditOperation(
+                kind=ProgramEditKind.UPDATE_BOOLEAN_ATOM,
+                payload={
+                    "atom_id": "sample.requirement_b",
+                    "notes": "Reviewer clarified this requirement.",
+                },
+            )
+        ],
+    )
+    assert edit_result.validation.ok
+    assert edit_result.branch_id != "br_main"
+    inspected_after_edit = inspect_persisted_run(
+        root,
+        result.workspace.workspace_id,
+        result.trajectory.trajectory_id,
+    )
+    branches = list_branches(root, result.workspace.workspace_id, result.trajectory.trajectory_id)
+    assert len(branches) == 2
+    assert any(branch["branch_id"] == edit_result.branch_id for branch in branches)
+    settled = mark_branch_status(
+        root,
+        result.workspace.workspace_id,
+        result.trajectory.trajectory_id,
+        edit_result.branch_id,
+        "settled",
+        reviewer_id="reviewer_1",
+        reason="Reviewed edit branch.",
+    )
+    assert settled["validation_ok"] is True
+    assert settled["status"] == "settled"
+    assert inspected_after_edit["sidecars"]["program_edits"] == 1
+    assert inspected_after_edit["sidecars"]["snapshots"] == 2
+    reexercise_result = reexercise_latest_snapshot(
+        root,
+        result.workspace.workspace_id,
+        result.trajectory.trajectory_id,
+    )
+    assert reexercise_result.validation.ok
+    assert reexercise_result.summary()["mismatch_count"] == 0
+    assert "regression" in reexercise_result.summary()["report_kinds"]
+    inspected_after_reexercise = inspect_persisted_run(
+        root,
+        result.workspace.workspace_id,
+        result.trajectory.trajectory_id,
+    )
+    assert inspected_after_reexercise["sidecars"]["dispositions"] == 4
+    assert inspected_after_reexercise["sidecars"]["reports"] == 8
+
+
+def test_cli_template_run_and_inspect(tmp_path, capsys):
+    seed_path = tmp_path / "seed.yaml"
+    root = tmp_path / "workspaces"
+
+    assert main(["template", str(seed_path), "--json"]) == 0
+    template_payload = json.loads(capsys.readouterr().out)
+    assert template_payload["ok"] is True
+    assert seed_path.exists()
+
+    assert main(["run", str(seed_path), "--root", str(root), "--json"]) == 0
+    run_payload = json.loads(capsys.readouterr().out)
+    assert run_payload["ok"] is True
+    assert run_payload["disposition_count"] == 2
+
+    assert (
+        main(
+            [
+                "inspect",
+                "--root",
+                str(root),
+                "--workspace-id",
+                run_payload["workspace_id"],
+                "--trajectory-id",
+                run_payload["trajectory_id"],
+                "--json",
+            ]
+        )
+        == 0
+    )
+    inspect_payload = json.loads(capsys.readouterr().out)
+    assert inspect_payload["ok"] is True
+    assert inspect_payload["event_count"] == run_payload["event_count"]
+
+    assert main(["list", "--root", str(root), "--json"]) == 0
+    list_payload = json.loads(capsys.readouterr().out)
+    assert list_payload["count"] == 1
+
+    export_dir = tmp_path / "exported"
+    assert (
+        main(
+            [
+                "export",
+                "--root",
+                str(root),
+                "--workspace-id",
+                run_payload["workspace_id"],
+                "--trajectory-id",
+                run_payload["trajectory_id"],
+                "--out",
+                str(export_dir),
+                "--json",
+            ]
+        )
+        == 0
+    )
+    export_payload = json.loads(capsys.readouterr().out)
+    assert export_payload["ok"] is True
+    assert (export_dir / "summary.json").exists()
+    assert (export_dir / "program.json").exists()
+
+    ops_path = tmp_path / "ops.json"
+    ops_path.write_text(
+        json.dumps(
+            [
+                {
+                    "kind": "update_boolean_atom",
+                    "payload": {
+                        "atom_id": "sample.requirement_b",
+                        "notes": "CLI reviewer note.",
+                    },
+                }
+            ]
+        ),
+        encoding="utf-8",
+    )
+    assert (
+        main(
+            [
+                "edit",
+                str(ops_path),
+                "--root",
+                str(root),
+                "--workspace-id",
+                run_payload["workspace_id"],
+                "--trajectory-id",
+                run_payload["trajectory_id"],
+                "--json",
+            ]
+        )
+        == 0
+    )
+    edit_payload = json.loads(capsys.readouterr().out)
+    assert edit_payload["ok"] is True
+    assert edit_payload["operation_count"] == 1
+    assert edit_payload["branch_id"] != "br_main"
+
+    assert (
+        main(
+            [
+                "branches",
+                "list",
+                "--root",
+                str(root),
+                "--workspace-id",
+                run_payload["workspace_id"],
+                "--trajectory-id",
+                run_payload["trajectory_id"],
+                "--json",
+            ]
+        )
+        == 0
+    )
+    branches_payload = json.loads(capsys.readouterr().out)
+    assert branches_payload["count"] == 2
+
+    assert (
+        main(
+            [
+                "branches",
+                "mark",
+                "--root",
+                str(root),
+                "--workspace-id",
+                run_payload["workspace_id"],
+                "--trajectory-id",
+                run_payload["trajectory_id"],
+                "--branch-id",
+                edit_payload["branch_id"],
+                "--status",
+                "settled",
+                "--json",
+            ]
+        )
+        == 0
+    )
+    branch_mark_payload = json.loads(capsys.readouterr().out)
+    assert branch_mark_payload["status"] == "settled"
+
+    assert (
+        main(
+            [
+                "reexercise",
+                "--root",
+                str(root),
+                "--workspace-id",
+                run_payload["workspace_id"],
+                "--trajectory-id",
+                run_payload["trajectory_id"],
+                "--json",
+            ]
+        )
+        == 0
+    )
+    reexercise_payload = json.loads(capsys.readouterr().out)
+    assert reexercise_payload["ok"] is True
+    assert reexercise_payload["disposition_count"] == 2
+    assert "regression" in reexercise_payload["report_kinds"]
+
+    export_dir_after_edit = tmp_path / "exported_after_edit"
+    assert (
+        main(
+            [
+                "export",
+                "--root",
+                str(root),
+                "--workspace-id",
+                run_payload["workspace_id"],
+                "--trajectory-id",
+                run_payload["trajectory_id"],
+                "--out",
+                str(export_dir_after_edit),
+                "--json",
+            ]
+        )
+        == 0
+    )
+    capsys.readouterr()
+    edited_program = json.loads((export_dir_after_edit / "program.json").read_text())
+    assert edited_program["map_spec"]["atoms"]["sample.requirement_b"]["notes"] == (
+        "CLI reviewer note."
+    )
