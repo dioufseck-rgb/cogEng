@@ -9,8 +9,18 @@ from typing import Any
 from pydantic_core import to_jsonable_python
 
 from rulekit.build.llm import LLMCaller, parse_json_response
-from rulekit.contract import BindingBasis, DeterminationProgram
+from rulekit.contract import (
+    BindingBasis,
+    DeterminationProgram,
+    safe_program_to_engine,
+)
 from rulekit.orchestrator.cases import CaseExample
+from rulekit.orchestrator.evaluation import evaluate_determination_with_map_record
+from rulekit.orchestrator.exercise import (
+    extract_leaf_path,
+    fact_bundle_from_values,
+    fact_values_from_map_record,
+)
 from rulekit.orchestrator.ids import new_id
 from rulekit.orchestrator.map_record import (
     AtomBindingRecord,
@@ -23,6 +33,7 @@ from rulekit.orchestrator.map_step import (
     MapStepKind,
     MapStepResult,
     MapStepSpec,
+    PreboundFactsMapStep,
 )
 from rulekit.orchestrator.map_validation import (
     EvidenceSource,
@@ -355,13 +366,36 @@ class GovernedEvidenceMapStep:
         artifacts: dict[str, Any] = {"atoms": {}}
         call_metrics: list[dict[str, Any]] = []
         evidence_by_atom = _evidence_by_atom(case.structured_fields)
-        bindings: dict[str, AtomBindingRecord] = {}
+        prebound_result = PreboundFactsMapStep(
+            map_step_id=f"{self.spec.map_step_id}_prebind"
+        ).run(program, case, context)
+        bindings: dict[str, AtomBindingRecord] = {
+            atom_id: binding.model_copy(deep=True)
+            for atom_id, binding in prebound_result.map_record.bindings.items()
+        }
         selected_atoms = self._selected_atom_ids(program)
+        llm_atoms, llm_atom_selection = _initial_llm_atom_selection(
+            program,
+            context,
+            prebound_result.map_record,
+            selected_atoms,
+        )
+        artifacts["prebinding"] = {
+            "llm_atom_ids": llm_atoms,
+            "llm_atom_selection": llm_atom_selection,
+            "selected_atom_count": len(selected_atoms),
+            "prebound_skip_count": len(selected_atoms) - len(llm_atoms),
+            "prebound_map_record_id": prebound_result.map_record.map_record_id,
+            "default_binding_count": prebound_result.map_record.metadata.get(
+                "default_binding_count",
+                0,
+            ),
+        }
         if self.single_map_call:
             sources = self._bind_single_map_call(
                 program,
                 case,
-                selected_atoms,
+                llm_atoms,
                 declared_sources,
                 evidence_by_atom,
                 artifacts,
@@ -369,12 +403,24 @@ class GovernedEvidenceMapStep:
                 bindings,
             )
         else:
-            sources, source_artifacts = self._inventory_sources(
-                case,
-                declared_sources,
-                call_metrics,
-            )
-            artifacts["source_inventory"] = source_artifacts
+            if llm_atoms:
+                sources, source_artifacts = self._inventory_sources(
+                    case,
+                    declared_sources,
+                    call_metrics,
+                )
+                artifacts["source_inventory"] = source_artifacts
+            else:
+                sources = declared_sources
+                artifacts["source_inventory"] = {
+                    "skipped": True,
+                    "reason": "all selected atoms were prebound",
+                    "parsed": {
+                        "sources": [
+                            source.model_dump(mode="json") for source in declared_sources
+                        ]
+                    },
+                }
         if self.single_map_call:
             pass
         elif self.batch_size == 1:
@@ -386,12 +432,13 @@ class GovernedEvidenceMapStep:
                 artifacts,
                 call_metrics,
                 bindings,
+                atom_ids=llm_atoms,
             )
         else:
             self._bind_atoms_in_batches(
                 program,
                 case,
-                selected_atoms,
+                llm_atoms,
                 sources,
                 evidence_by_atom,
                 artifacts,
@@ -414,6 +461,10 @@ class GovernedEvidenceMapStep:
             bindings,
             source=context.substrate_id,
         )
+        total_default_count = (
+            int(prebound_result.map_record.metadata.get("default_binding_count", 0))
+            + default_count
+        )
         return MapStepResult(
             map_record=MapExtractionRecord(
                 map_record_id=new_id("map"),
@@ -429,7 +480,16 @@ class GovernedEvidenceMapStep:
                     "source_inventory": [
                         source.model_dump(mode="json") for source in sources
                     ],
-                    "default_binding_count": default_count,
+                    "default_binding_count": total_default_count,
+                    "prebound_default_binding_count": prebound_result.map_record.metadata.get(
+                        "default_binding_count",
+                        0,
+                    ),
+                    "post_llm_default_binding_count": default_count,
+                    "selected_atom_count": len(selected_atoms),
+                    "llm_atom_count": len(llm_atoms),
+                    "prebound_skip_count": len(selected_atoms) - len(llm_atoms),
+                    "llm_atom_selection": llm_atom_selection,
                     "llm_call_metrics": call_metrics,
                     "prompt_artifacts": artifacts,
                     "single_map_call": self.single_map_call,
@@ -514,6 +574,23 @@ class GovernedEvidenceMapStep:
         call_metrics: list[dict[str, Any]],
         bindings: dict[str, AtomBindingRecord],
     ) -> list[EvidenceSource]:
+        if not selected_atoms:
+            artifacts["single_map"] = {
+                "atom_ids": [],
+                "skipped": True,
+                "reason": "all selected atoms were prebound",
+            }
+            artifacts["source_inventory"] = {
+                "skipped": True,
+                "reason": "all selected atoms were prebound",
+                "parsed": {
+                    "sources": [
+                        source.model_dump(mode="json") for source in declared_sources
+                    ]
+                },
+                "from_single_map_call": True,
+            }
+            return declared_sources
         prompt = build_single_map_prompt(
             program,
             selected_atoms,
@@ -569,8 +646,10 @@ class GovernedEvidenceMapStep:
         artifacts: dict[str, Any],
         call_metrics: list[dict[str, Any]],
         bindings: dict[str, AtomBindingRecord],
+        atom_ids: list[str] | None = None,
     ) -> None:
-        for atom_id in self._selected_atom_ids(program):
+        selected = atom_ids if atom_ids is not None else self._selected_atom_ids(program)
+        for atom_id in selected:
             atom = program.map_spec.atoms[atom_id]
             prompt = build_atom_binding_prompt(
                 program,
@@ -988,6 +1067,115 @@ def _sources_from_map_record(map_record: MapExtractionRecord) -> list[EvidenceSo
         if isinstance(item, dict):
             sources.append(EvidenceSource.model_validate(item))
     return sources
+
+
+def _binding_needs_llm_mapping(binding: AtomBindingRecord | None) -> bool:
+    if binding is None:
+        return True
+    default_kind = binding.metadata.get("default_kind")
+    if default_kind in {"evidence_gap", "out_of_scope", "branch_not_applicable"}:
+        return False
+    if binding.status == AtomBindingStatus.ERROR:
+        return True
+    value = binding.value
+    if binding.status == AtomBindingStatus.BOUND and str(value).lower() != "undetermined":
+        return False
+    if binding.metadata.get("case_default"):
+        return False
+    if value is None or str(value).lower() == "undetermined":
+        return True
+    return binding.basis in {
+        BindingBasis.CONFLICTING_EVIDENCE,
+        BindingBasis.OPEN_WORLD_ABSENCE,
+        BindingBasis.NOT_FOUND,
+    }
+
+
+def _initial_llm_atom_selection(
+    program: DeterminationProgram,
+    context: MapStepContext,
+    prebound_map_record: MapExtractionRecord,
+    selected_atoms: list[str],
+) -> tuple[list[str], dict[str, Any]]:
+    static_atoms = [
+        atom_id
+        for atom_id in selected_atoms
+        if _binding_needs_llm_mapping(prebound_map_record.bindings.get(atom_id))
+    ]
+    determinations = context.metadata.get("determinations")
+    if not isinstance(determinations, list) or not determinations:
+        return static_atoms, {
+            "mode": "static_unresolved",
+            "reason": "no requested determinations in Map context",
+            "static_unresolved_count": len(static_atoms),
+        }
+
+    try:
+        runtime = safe_program_to_engine(program)
+        bundle = fact_bundle_from_values(
+            program,
+            fact_values_from_map_record(prebound_map_record),
+            evidence={
+                atom_id: binding.evidence
+                for atom_id, binding in prebound_map_record.bindings.items()
+                if binding.evidence
+            },
+        )
+    except Exception as exc:
+        return static_atoms, {
+            "mode": "static_unresolved",
+            "reason": f"prebound sufficiency evaluation failed: {exc}",
+            "static_unresolved_count": len(static_atoms),
+        }
+
+    selected_set = set(selected_atoms)
+    trace_atoms: list[str] = []
+    disposition_summaries: list[dict[str, Any]] = []
+    for det_id in [str(item) for item in determinations]:
+        if det_id not in program.determinations:
+            continue
+        try:
+            evaluation = evaluate_determination_with_map_record(
+                program,
+                runtime,
+                det_id,
+                bundle,
+                prebound_map_record,
+            )
+        except Exception as exc:
+            disposition_summaries.append(
+                {
+                    "determination_id": det_id,
+                    "outcome": "error",
+                    "reason": str(exc),
+                }
+            )
+            continue
+        outcome = str(evaluation.outcome)
+        load_bearing = extract_leaf_path(evaluation.trace)
+        disposition_summaries.append(
+            {
+                "determination_id": det_id,
+                "outcome": outcome,
+                "load_bearing_count": len(load_bearing),
+            }
+        )
+        if outcome != "undetermined":
+            continue
+        for atom_id in load_bearing:
+            if atom_id not in selected_set:
+                continue
+            if atom_id in trace_atoms:
+                continue
+            if _binding_needs_llm_mapping(prebound_map_record.bindings.get(atom_id)):
+                trace_atoms.append(atom_id)
+
+    return trace_atoms, {
+        "mode": "trace_guided_unresolved",
+        "static_unresolved_count": len(static_atoms),
+        "trace_unresolved_count": len(trace_atoms),
+        "dispositions": disposition_summaries,
+    }
 
 
 def _evidence_by_atom(structured_fields: dict[str, Any]) -> dict[str, str]:

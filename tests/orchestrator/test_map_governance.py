@@ -352,6 +352,45 @@ def test_runtime_repair_unresolved_uses_load_bearing_trace():
     assert binding["metadata"]["repaired"] is True
 
 
+def test_governed_map_prunes_atoms_already_bound_by_packet_directives():
+    program = _program()
+    case = CaseExample(
+        case_id="prebound_packet",
+        title="Prebound packet",
+        narrative="FBI check reports no aggravated felony convictions.",
+        structured_fields={
+            "binding_directives": [
+                {
+                    "kind": "closed_world_absence",
+                    "atom_ids": ["n400.aggravated_felony_after_1990"],
+                    "source_ids": ["fbi_check"],
+                    "evidence": "FBI check reports no aggravated felony convictions.",
+                }
+            ]
+        },
+    )
+    step = GovernedEvidenceMapStep(
+        LLMCaller(offline_responses={}),
+        atom_ids=["n400.aggravated_felony_after_1990"],
+        single_map_call=True,
+    )
+
+    result = step.run(
+        program,
+        case,
+        MapStepContext(program_id="prog", substrate_id=step.spec.map_step_id),
+    )
+
+    binding = result.map_record.bindings["n400.aggravated_felony_after_1990"]
+    artifacts = result.map_record.metadata["prompt_artifacts"]
+    assert binding.value is False
+    assert binding.basis == BindingBasis.CLOSED_WORLD_ABSENCE
+    assert result.map_record.metadata["llm_atom_count"] == 0
+    assert result.map_record.metadata["prebound_skip_count"] == 1
+    assert result.map_record.metadata["llm_call_metrics"] == []
+    assert artifacts["single_map"]["skipped"] is True
+
+
 def test_governed_map_step_applies_case_default_bindings_to_undetermined_atoms():
     program = _program()
     case = CaseExample(

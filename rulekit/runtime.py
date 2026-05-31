@@ -86,6 +86,7 @@ def adjudicate_cases(
         program_id=resolved_program_id,
         program_version=resolved_program_version,
         substrate_id=active_map_step.spec.map_step_id,
+        metadata={"determinations": selected_determinations},
     )
     map_records: list[MapExtractionRecord] = []
     map_validation_reports: list[MapValidationReport] = []

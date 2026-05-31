@@ -199,6 +199,15 @@ asks one targeted repair prompt for those atoms, validates the repaired Map
 record, and re-evaluates the determinations. Atoms intentionally marked as
 `evidence_gap`, `out_of_scope`, or `branch_not_applicable` are not repaired.
 
+Before any LLM binding call, governed Map now performs a deterministic
+prebinding pass. Explicit `structured_fields.facts`, packet defaults, and
+`binding_directives` are applied first. Atoms already resolved by that pass are
+pruned from the LLM workload. When requested determinations are available in
+runtime context, RuleKit also evaluates the prebound record and sends only
+unresolved atoms from undetermined load-bearing traces to the first Map call.
+This uses the microsecond engine path to keep the LLM focused on facts that are
+both unresolved and currently material.
+
 ## Case-Packet Binding Directives
 
 Evidence packets should prefer `structured_fields.binding_directives` when
