@@ -335,6 +335,12 @@ def _parser() -> argparse.ArgumentParser:
     direct_eval.add_argument("--llm-timeout", type=float, default=120.0)
     direct_eval.add_argument("--llm-max-retries", type=int, default=2)
     direct_eval.add_argument(
+        "--prompt-style",
+        choices=["terse", "governed"],
+        default="terse",
+        help="direct-disposition prompt style",
+    )
+    direct_eval.add_argument(
         "--price",
         action="append",
         default=[],
@@ -612,6 +618,7 @@ def _direct_eval(args: argparse.Namespace) -> int:
         timeout=args.llm_timeout,
         max_retries=args.llm_max_retries,
         pricing=pricing_from_specs(args.price),
+        prompt_style=args.prompt_style,
     )
     payload = {"ok": True, **result}
     _print(payload, args.json)

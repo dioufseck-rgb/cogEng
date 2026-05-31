@@ -208,6 +208,18 @@ unresolved atoms from undetermined load-bearing traces to the first Map call.
 This uses the microsecond engine path to keep the LLM focused on facts that are
 both unresolved and currently material.
 
+Direct-LLM baselines can also be run with a governed-style prompt:
+
+```powershell
+rulekit-orchestrator direct-eval ... --prompt-style governed
+```
+
+This direct baseline still asks the LLM to decide outcomes, but it also asks for
+material facts, uncertainty flags, source-scope checks, human-review
+consideration, and an anti-overclaim explanation. It is useful for measuring how
+much of RuleKit's conservative behavior can be recovered with prompt discipline
+alone, without deterministic DAG execution.
+
 ## Case-Packet Binding Directives
 
 Evidence packets should prefer `structured_fields.binding_directives` when

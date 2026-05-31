@@ -31,9 +31,34 @@ def test_direct_disposition_prompt_contains_case_and_determinations():
     assert "The record contains no aggravated felony conviction." in prompt
 
 
+def test_governed_direct_prompt_requests_uncertainty_and_source_checks():
+    program = _program()
+    case = CaseExample(
+        case_id="case_1",
+        title="Example",
+        narrative="The record contains no aggravated felony conviction.",
+        structured_fields={},
+        expected_outcomes=[],
+    )
+
+    prompt = build_direct_disposition_prompt(
+        program=program,
+        policy_text="Naturalization benchmark policy.",
+        case=case,
+        determinations=["n400.no_aggravated_felony_bar"],
+        prompt_style="governed",
+    )
+
+    assert "governed-style direct baseline" in prompt
+    assert "uncertainty_flags" in prompt
+    assert "anti_overclaim_check" in prompt
+    assert "closed-world scope" in prompt
+
+
 def test_direct_summary_reports_reference_agreement_and_costs():
     result = {
         "case_count": 1,
+        "prompt_style": "governed",
         "case_runs": [
             {
                 "cost": {
@@ -62,6 +87,7 @@ def test_direct_summary_reports_reference_agreement_and_costs():
     assert summary["reference_agreement"]["reference_agree_count"] == 1
     assert summary["reference_agreement"]["reference_disagree_count"] == 1
     assert summary["reference_agreement"]["agreement_rate"] == 0.5
+    assert summary["prompt_style"] == "governed"
     assert summary["cost_metrics"]["llm_call_count"] == 1
     assert summary["cost_metrics"]["estimated_cost_usd"] == 0.003
 

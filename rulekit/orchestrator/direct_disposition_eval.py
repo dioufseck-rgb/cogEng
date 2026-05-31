@@ -62,6 +62,67 @@ Return ONLY this JSON shape:
 """
 
 
+GOVERNED_DIRECT_DISPOSITION_PROMPT = """You are adjudicating a policy case directly.
+
+This is a governed-style direct baseline for research. Unlike RuleKit, you are
+still deciding the policy dispositions yourself, but you must apply conservative
+evidence discipline similar to a governed Map + engine flow.
+
+Important:
+- Return only JSON.
+- Do not invent facts not in the case packet.
+- Do not infer a satisfied determination merely because the packet looks clean.
+- Use "undetermined" when required facts are missing, conflicting, approximate,
+  source-limited, or outside the case packet's natural scope.
+- Treat source-scope carefully: absence from an open narrative is not proof of
+  absence; absence from an official/checking source may matter only within its
+  closed-world scope.
+- If a case has pending, inconsistent, missing, source-limited, or complex facts,
+  preserve that uncertainty or mark human-review-related determinations
+  accordingly.
+- For each determination, identify the material facts relied on, uncertainty
+  flags, and whether human review should be considered.
+- Use "true" when the determination is satisfied.
+- Use "false" when the determination is not satisfied.
+
+POLICY SUMMARY
+==============
+{policy_text}
+
+SELECTED DETERMINATIONS
+=======================
+{determinations_json}
+
+CASE PACKET
+===========
+{case_json}
+
+Return ONLY this JSON shape:
+{{
+  "case_id": "{case_id}",
+  "determinations": [
+    {{
+      "determination_id": "id from SELECTED DETERMINATIONS",
+      "outcome": "true|false|undetermined",
+      "rationale": "brief reason based on the case packet",
+      "confidence": 0.0,
+      "material_facts": [
+        {{
+          "fact": "short fact",
+          "source": "source title/id or narrative",
+          "basis": "explicit|closed_world_absence|open_world_absence|inferred|missing|conflicting"
+        }}
+      ],
+      "uncertainty_flags": ["missing fact, source limitation, conflict, or empty"],
+      "human_review_considered": true,
+      "anti_overclaim_check": "why this is not overclaiming beyond the packet"
+    }}
+  ],
+  "case_level_notes": "brief note or empty string"
+}}
+"""
+
+
 def run_direct_disposition_eval(
     *,
     program_path: str | Path,
@@ -75,6 +136,7 @@ def run_direct_disposition_eval(
     timeout: float = 120.0,
     max_retries: int = 2,
     pricing: dict[tuple[str, str], tuple[float, float]] | None = None,
+    prompt_style: str = "terse",
 ) -> dict[str, Any]:
     """Run one direct adjudication prompt per case for each provider/model."""
     program = load_program(program_path)
@@ -105,6 +167,7 @@ def run_direct_disposition_eval(
             determinations=selected_determinations,
             references=references,
             pricing=pricing or {},
+            prompt_style=prompt_style,
         )
         _write_run_artifacts(run_dir, result)
         summary = summarize_direct_run(provider, model, result)
@@ -118,6 +181,7 @@ def run_direct_disposition_eval(
             str(reference_dispositions_path) if reference_dispositions_path else None
         ),
         "model_count": len(model_specs),
+        "prompt_style": prompt_style,
         "runs": runs,
     }
     (output_dir / "summary.json").write_text(_json(aggregate), encoding="utf-8")
@@ -148,6 +212,7 @@ def summarize_direct_run(
         "provider": provider,
         "model": model,
         "case_count": result["case_count"],
+        "prompt_style": result.get("prompt_style", "terse"),
         "disposition_count": len(result["dispositions"]),
         "outcome_counts": dict(sorted(outcome_counts.items())),
         "reference_agreement": {
@@ -172,6 +237,7 @@ def _run_direct_for_model(
     determinations: list[str],
     references: dict[tuple[str, str], str],
     pricing: dict[tuple[str, str], tuple[float, float]],
+    prompt_style: str,
 ) -> dict[str, Any]:
     dispositions: list[dict[str, Any]] = []
     case_runs: list[dict[str, Any]] = []
@@ -181,6 +247,7 @@ def _run_direct_for_model(
             policy_text=policy_text,
             case=case,
             determinations=determinations,
+            prompt_style=prompt_style,
         )
         started = perf_counter()
         raw = llm.call(f"direct_disposition:{case.case_id}", prompt, stream=True)
@@ -239,6 +306,7 @@ def _run_direct_for_model(
         },
         "case_count": len(cases),
         "map_mode": "direct_llm_disposition",
+        "prompt_style": prompt_style,
         "case_runs": case_runs,
         "dispositions": dispositions,
     }
@@ -250,6 +318,7 @@ def build_direct_disposition_prompt(
     policy_text: str,
     case: CaseExample,
     determinations: list[str],
+    prompt_style: str = "terse",
 ) -> str:
     determination_payload = [
         {
@@ -265,7 +334,12 @@ def build_direct_disposition_prompt(
         "narrative": case.narrative,
         "structured_fields": case.structured_fields,
     }
-    return DIRECT_DISPOSITION_PROMPT.format(
+    template = (
+        GOVERNED_DIRECT_DISPOSITION_PROMPT
+        if prompt_style == "governed"
+        else DIRECT_DISPOSITION_PROMPT
+    )
+    return template.format(
         policy_text=policy_text,
         determinations_json=json.dumps(
             determination_payload,
