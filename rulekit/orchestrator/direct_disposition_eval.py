@@ -81,7 +81,8 @@ def run_direct_disposition_eval(
     cases = load_runtime_cases(cases_path)
     selected_determinations = determinations or list(program.determinations)
     policy_text = _policy_text(program, seed_path)
-    references = _load_reference_dispositions(reference_dispositions_path)
+    references = _expected_outcomes_from_cases(cases)
+    references.update(_load_reference_dispositions(reference_dispositions_path))
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
     runs: list[dict[str, Any]] = []
@@ -318,6 +319,16 @@ def _load_reference_dispositions(
     for item in payload:
         if isinstance(item, dict):
             references[(item["case_id"], item["determination_id"])] = str(item["outcome"])
+    return references
+
+
+def _expected_outcomes_from_cases(
+    cases: list[CaseExample],
+) -> dict[tuple[str, str], str]:
+    references: dict[tuple[str, str], str] = {}
+    for case in cases:
+        for expected in case.expected_outcomes:
+            references[(case.case_id, expected.determination_id)] = expected.expected_value
     return references
 
 

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from rulekit.orchestrator.cases import CaseExample
 from rulekit.orchestrator.direct_disposition_eval import (
+    _expected_outcomes_from_cases,
     build_direct_disposition_prompt,
     summarize_direct_run,
 )
@@ -63,3 +64,22 @@ def test_direct_summary_reports_reference_agreement_and_costs():
     assert summary["reference_agreement"]["agreement_rate"] == 0.5
     assert summary["cost_metrics"]["llm_call_count"] == 1
     assert summary["cost_metrics"]["estimated_cost_usd"] == 0.003
+
+
+def test_direct_eval_can_use_case_expected_outcomes_as_references():
+    case = CaseExample(
+        case_id="case_1",
+        title="Example",
+        narrative="Example narrative.",
+        structured_fields={},
+        expected_outcomes=[
+            {
+                "determination_id": "sample.eligible",
+                "expected_value": "true",
+            }
+        ],
+    )
+
+    references = _expected_outcomes_from_cases([case])
+
+    assert references == {("case_1", "sample.eligible"): "true"}

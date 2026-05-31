@@ -49,6 +49,7 @@ def test_uscis_tier1_broad_evidence_packet_suite_loads_and_targets_policy_atoms(
         expected = case.metadata.get("expected_bindings", {})
         assert expected, case.case_id
         assert set(expected).issubset(atom_ids)
+        assert len(case.expected_outcomes) == 8
 
 
 def test_uscis_n400_seed_declares_strict_gmc_binding_policies():

@@ -29,6 +29,16 @@
       "case_id": "tier1_clean_general_track_packet",
       "title": "Clean general five-year packet",
       "narrative": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue.",
+      "expected_outcomes": {
+        "n400.civics_requirement_satisfied": "true",
+        "n400.continuous_residence_satisfied": "true",
+        "n400.english_requirement_satisfied": "true",
+        "n400.good_moral_character_satisfied": "true",
+        "n400.human_review_required": "false",
+        "n400.oath_attachment_satisfied": "true",
+        "n400.physical_presence_satisfied": "true",
+        "n400.state_residence_satisfied": "true"
+      },
       "structured_fields": {
         "evidence_sources": [
           {
@@ -146,6 +156,16 @@
       "case_id": "tier1_travel_conflict_six_month_absence",
       "title": "Travel conflict creates six-month absence issue",
       "narrative": "The applicant applies under the general five-year track. The N-400 travel table lists a trip from March 1, 2022 to August 20, 2022, described as 172 days. The applicant's personal statement says they never stayed outside the United States for more than six months. Passport stamps and a CBP travel-history printout both show departure on March 1, 2022 and re-entry on September 15, 2022. The packet includes lease records and U.S. bank statements for the period abroad, plus family residence records showing spouse and children remained in the United States.",
+      "expected_outcomes": {
+        "n400.civics_requirement_satisfied": "undetermined",
+        "n400.continuous_residence_satisfied": "undetermined",
+        "n400.english_requirement_satisfied": "undetermined",
+        "n400.good_moral_character_satisfied": "undetermined",
+        "n400.human_review_required": "true",
+        "n400.oath_attachment_satisfied": "undetermined",
+        "n400.physical_presence_satisfied": "undetermined",
+        "n400.state_residence_satisfied": "undetermined"
+      },
       "structured_fields": {
         "evidence_sources": [
           {
@@ -219,6 +239,16 @@
       "case_id": "tier1_one_year_absence_no_exception",
       "title": "One-year absence with no preservation exception",
       "narrative": "The passport and CBP travel-history printout show departure from the United States on January 4, 2021 and re-entry on February 10, 2022. The packet contains no N-470 preservation approval, no qualifying employment-abroad approval, no military service exception, and no religious-vocation exception. The applicant statement says the trip was for family reasons.",
+      "expected_outcomes": {
+        "n400.civics_requirement_satisfied": "undetermined",
+        "n400.continuous_residence_satisfied": "false",
+        "n400.english_requirement_satisfied": "undetermined",
+        "n400.good_moral_character_satisfied": "undetermined",
+        "n400.human_review_required": "false",
+        "n400.oath_attachment_satisfied": "undetermined",
+        "n400.physical_presence_satisfied": "undetermined",
+        "n400.state_residence_satisfied": "undetermined"
+      },
       "structured_fields": {
         "evidence_sources": [
           {
@@ -266,6 +296,16 @@
       "case_id": "tier1_physical_presence_short_by_worksheet",
       "title": "Physical presence shortfall",
       "narrative": "The physical presence worksheet totals 24 months physically present in the United States during the five-year statutory period. The applicant is applying under the general five-year track. The worksheet lists dates and total days but no alternative spouse-track claim.",
+      "expected_outcomes": {
+        "n400.civics_requirement_satisfied": "undetermined",
+        "n400.continuous_residence_satisfied": "undetermined",
+        "n400.english_requirement_satisfied": "undetermined",
+        "n400.good_moral_character_satisfied": "undetermined",
+        "n400.human_review_required": "false",
+        "n400.oath_attachment_satisfied": "undetermined",
+        "n400.physical_presence_satisfied": "false",
+        "n400.state_residence_satisfied": "undetermined"
+      },
       "structured_fields": {
         "evidence_sources": [
           {
@@ -293,6 +333,16 @@
       "case_id": "tier1_state_residence_short",
       "title": "State residence only two months",
       "narrative": "The residence worksheet states that the applicant moved into the current USCIS district two months before filing. The lease start date and utility bill confirm two months of residence in the district before the filing date.",
+      "expected_outcomes": {
+        "n400.civics_requirement_satisfied": "undetermined",
+        "n400.continuous_residence_satisfied": "undetermined",
+        "n400.english_requirement_satisfied": "undetermined",
+        "n400.good_moral_character_satisfied": "undetermined",
+        "n400.human_review_required": "false",
+        "n400.oath_attachment_satisfied": "undetermined",
+        "n400.physical_presence_satisfied": "undetermined",
+        "n400.state_residence_satisfied": "false"
+      },
       "structured_fields": {
         "evidence_sources": [
           {
@@ -320,6 +370,16 @@
       "case_id": "tier1_english_failed_civics_passed_no_exception",
       "title": "English failed, civics passed, no exception",
       "narrative": "The naturalization test record states that the applicant failed the English reading and writing components. The same record states that the applicant passed the civics test. The packet does not include an approved medical disability exception and does not claim an age-and-LPR English exception.",
+      "expected_outcomes": {
+        "n400.civics_requirement_satisfied": "true",
+        "n400.continuous_residence_satisfied": "undetermined",
+        "n400.english_requirement_satisfied": "false",
+        "n400.good_moral_character_satisfied": "undetermined",
+        "n400.human_review_required": "false",
+        "n400.oath_attachment_satisfied": "undetermined",
+        "n400.physical_presence_satisfied": "undetermined",
+        "n400.state_residence_satisfied": "undetermined"
+      },
       "structured_fields": {
         "evidence_sources": [
           {
@@ -369,6 +429,16 @@
       "case_id": "tier1_medical_disability_exception_approved",
       "title": "Medical disability exception approved",
       "narrative": "The packet includes an approved Form N-648 medical disability exception. The naturalization test record shows the applicant did not pass English and did not pass civics, but the N-648 approval states the English and civics requirements are excepted.",
+      "expected_outcomes": {
+        "n400.civics_requirement_satisfied": "true",
+        "n400.continuous_residence_satisfied": "undetermined",
+        "n400.english_requirement_satisfied": "true",
+        "n400.good_moral_character_satisfied": "undetermined",
+        "n400.human_review_required": "false",
+        "n400.oath_attachment_satisfied": "undetermined",
+        "n400.physical_presence_satisfied": "undetermined",
+        "n400.state_residence_satisfied": "undetermined"
+      },
       "structured_fields": {
         "evidence_sources": [
           {
@@ -414,6 +484,16 @@
       "case_id": "tier1_oath_attachment_refusal",
       "title": "Oath worksheet records refusal",
       "narrative": "The oath and attachment worksheet says the applicant refuses to take the Oath of Allegiance and does not agree to the oath-related commitments. The worksheet also states that attachment to the Constitution was not established at interview.",
+      "expected_outcomes": {
+        "n400.civics_requirement_satisfied": "undetermined",
+        "n400.continuous_residence_satisfied": "undetermined",
+        "n400.english_requirement_satisfied": "undetermined",
+        "n400.good_moral_character_satisfied": "undetermined",
+        "n400.human_review_required": "false",
+        "n400.oath_attachment_satisfied": "false",
+        "n400.physical_presence_satisfied": "undetermined",
+        "n400.state_residence_satisfied": "undetermined"
+      },
       "structured_fields": {
         "evidence_sources": [
           {
@@ -446,6 +526,16 @@
       "case_id": "tier1_pending_charge_with_clean_conviction_check",
       "title": "Clean conviction check but pending charge exists",
       "narrative": "The FBI criminal history check reports no aggravated felony convictions. A county docket search included in the same packet lists a pending felony charge with a next hearing date after the N-400 interview. The applicant statement says the charge will be dismissed, but no dismissal order is included.",
+      "expected_outcomes": {
+        "n400.civics_requirement_satisfied": "undetermined",
+        "n400.continuous_residence_satisfied": "undetermined",
+        "n400.english_requirement_satisfied": "undetermined",
+        "n400.good_moral_character_satisfied": "false",
+        "n400.human_review_required": "true",
+        "n400.oath_attachment_satisfied": "undetermined",
+        "n400.physical_presence_satisfied": "undetermined",
+        "n400.state_residence_satisfied": "undetermined"
+      },
       "structured_fields": {
         "evidence_sources": [
           {
@@ -491,6 +581,16 @@
       "case_id": "tier1_missing_travel_dates",
       "title": "Travel narrative missing exact dates",
       "narrative": "The applicant statement says they spent about seven months abroad sometime in 2021. The packet does not include passport stamps, CBP travel history, flight records, or a completed N-400 travel table. The physical presence worksheet is blank for 2021.",
+      "expected_outcomes": {
+        "n400.civics_requirement_satisfied": "undetermined",
+        "n400.continuous_residence_satisfied": "undetermined",
+        "n400.english_requirement_satisfied": "undetermined",
+        "n400.good_moral_character_satisfied": "undetermined",
+        "n400.human_review_required": "true",
+        "n400.oath_attachment_satisfied": "undetermined",
+        "n400.physical_presence_satisfied": "undetermined",
+        "n400.state_residence_satisfied": "undetermined"
+      },
       "structured_fields": {
         "evidence_sources": [
           {
