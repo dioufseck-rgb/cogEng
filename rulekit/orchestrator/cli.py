@@ -16,7 +16,10 @@ from rulekit.orchestrator.factory import (
 from rulekit.orchestrator.examples.prior_auth_typed import prior_auth_typed_seed
 from rulekit.orchestrator.examples.fcra_dispute import fcra_dispute_seed
 from rulekit.orchestrator.llm_config import create_map_step
-from rulekit.orchestrator.map_governance_eval import run_map_governance_eval
+from rulekit.orchestrator.map_governance_eval import (
+    parse_price_spec,
+    run_map_governance_eval,
+)
 from rulekit.orchestrator.workflow import (
     apply_persisted_program_edits,
     add_persisted_case,
@@ -256,6 +259,15 @@ def _parser() -> argparse.ArgumentParser:
     map_eval.add_argument("--llm-max-tokens", type=int, default=4096)
     map_eval.add_argument("--llm-timeout", type=float, default=120.0)
     map_eval.add_argument("--llm-max-retries", type=int, default=2)
+    map_eval.add_argument(
+        "--price",
+        action="append",
+        default=[],
+        help=(
+            "optional estimated pricing as "
+            "provider:model=input_usd_per_million,output_usd_per_million; may repeat"
+        ),
+    )
     map_eval.add_argument("--json", action="store_true", help="print JSON summary")
     return parser
 
@@ -500,6 +512,7 @@ def _map_eval(args: argparse.Namespace) -> int:
         max_tokens=args.llm_max_tokens,
         timeout=args.llm_timeout,
         max_retries=args.llm_max_retries,
+        pricing=dict(parse_price_spec(item) for item in args.price),
     )
     payload = {"ok": True, **result}
     _print(payload, args.json)

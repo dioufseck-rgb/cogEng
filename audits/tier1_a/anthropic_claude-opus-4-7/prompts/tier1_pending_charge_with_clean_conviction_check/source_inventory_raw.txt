@@ -1,0 +1,20 @@
+{
+  "sources": [
+    {
+      "source_id": "fbi_check",
+      "source_type": "criminal_history_check",
+      "title": "FBI criminal history check",
+      "as_of_date": null,
+      "closed_world_scopes": ["criminal_convictions"],
+      "limitations": "Reports conviction history only within FBI-indexed records; does not establish the status or disposition of currently pending charges, and does not cover non-conviction events or matters not reported to the FBI."
+    },
+    {
+      "source_id": "county_docket",
+      "source_type": "court_docket_search",
+      "title": "County docket search",
+      "as_of_date": null,
+      "closed_world_scopes": ["pending_criminal_charges_in_that_county"],
+      "limitations": "Limited to the single county's docket system as of the search date; cannot support absence of charges in other jurisdictions, and does not contain dismissal orders not yet entered on the docket. Lists a pending felony charge with next hearing after the N-400 interview; no dismissal order is on record."
+    }
+  ]
+}

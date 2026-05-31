@@ -165,9 +165,17 @@ def test_governed_map_step_records_prompts_basis_and_raw_responses():
     binding = result.map_record.bindings["n400.aggravated_felony_after_1990"]
     assert binding.value is False
     assert binding.basis == BindingBasis.CLOSED_WORLD_ABSENCE
+    assert result.map_record.cost is not None
+    assert result.map_record.cost.input_tokens > 0
+    assert result.map_record.cost.output_tokens > 0
+    assert result.map_record.cost.latency_s >= 0
     artifacts = result.map_record.metadata["prompt_artifacts"]
     assert "source_inventory" in artifacts
     assert "n400.aggravated_felony_after_1990" in artifacts["atoms"]
+    assert artifacts["source_inventory"]["metrics"]["input_tokens"] > 0
+    assert artifacts["atoms"]["n400.aggravated_felony_after_1990"]["metrics"][
+        "output_tokens"
+    ] > 0
 
 
 def _program() -> DeterminationProgram:

@@ -1,0 +1,10 @@
+{
+  "atom_id": "n400.absence_over_one_year",
+  "status": "bound",
+  "value": false,
+  "basis": "closed_world_absence",
+  "source_ids": ["travel_table"],
+  "evidence": "The travel table lists one 21-day trip and no other travel.",
+  "explanation": "The travel_table source has a closed-world scope over declared_travel_history. Within that declared scope, the only absence is 21 days, which is far less than one year. Therefore, within the closed-world declared travel, no absence of one year or more occurred.",
+  "confidence": 0.95
+}

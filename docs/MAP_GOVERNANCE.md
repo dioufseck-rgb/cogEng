@@ -73,6 +73,7 @@ rulekit-orchestrator map-eval `
   --model anthropic:claude-opus-4-7 `
   --model openai:gpt-5 `
   --model gemini:gemini-2.5-pro `
+  --price anthropic:claude-opus-4-7=15,75 `
   --determination n400.selected_n400_requirements_satisfied `
   --atom n400.aggravated_felony_after_1990 `
   --out audits/map_governance_n400 `
@@ -96,3 +97,24 @@ The harness writes, per provider/model:
 Those files are the evidence needed to compare models: valid binding rate,
 invalid-binding rejection, false-from-silence failures, conflict preservation,
 schema failures, and downstream disposition effects.
+
+## Cost And Latency Tracking
+
+Governed Map records now include per-call and per-case cost metrics:
+
+- estimated input tokens
+- estimated output tokens
+- estimated total tokens
+- estimated cost in USD when a `--price` entry is provided
+- per-call latency
+- aggregate LLM latency per case and per run
+
+Pricing is supplied explicitly as USD per million input/output tokens:
+
+```powershell
+--price provider:model=input_usd_per_million,output_usd_per_million
+```
+
+Token counts are currently estimated from character length. They are useful for
+provider/model comparisons and budget planning, but should be replaced with
+exact SDK usage metadata when provider wrappers expose it consistently.

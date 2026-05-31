@@ -1,0 +1,534 @@
+{
+  "metadata": {
+    "name": "USCIS N-400 Tier 1 broad evidence packets",
+    "purpose": "Controlled broad-scope evidence packets for governed Map evaluation across residence, physical presence, English/civics, oath, GMC, and review-trigger atom families.",
+    "target_atoms": [
+      "n400.age_years",
+      "n400.years_as_lpr",
+      "n400.days_absent_trip_1",
+      "n400.absence_6_to_12_months",
+      "n400.absence_over_one_year",
+      "n400.maintained_us_home",
+      "n400.maintained_us_family_ties",
+      "n400.months_physical_presence_5yr",
+      "n400.months_state_or_district_residence",
+      "n400.english_test_passed",
+      "n400.civics_test_passed",
+      "n400.medical_disability_exception_approved",
+      "n400.willing_to_take_oath",
+      "n400.attachment_to_constitution",
+      "n400.pending_criminal_charge",
+      "n400.aggravated_felony_after_1990",
+      "n400.false_testimony_for_immigration_benefit",
+      "n400.inconsistent_travel_history",
+      "n400.evidence_missing_critical_dates"
+    ]
+  },
+  "cases": [
+    {
+      "case_id": "tier1_clean_general_track_packet",
+      "title": "Clean general five-year packet",
+      "narrative": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue.",
+      "structured_fields": {
+        "evidence_sources": [
+          {
+            "source_id": "intake_summary",
+            "source_type": "n400_intake_summary",
+            "title": "N-400 intake summary",
+            "closed_world_scopes": [],
+            "limitations": "Applicant and preparer supplied summary."
+          },
+          {
+            "source_id": "travel_table",
+            "source_type": "travel_history_table",
+            "title": "N-400 travel table",
+            "closed_world_scopes": [
+              "declared_travel_history"
+            ],
+            "limitations": "Applicant-declared travel table."
+          },
+          {
+            "source_id": "presence_worksheet",
+            "source_type": "physical_presence_worksheet",
+            "title": "Physical presence worksheet",
+            "closed_world_scopes": [],
+            "limitations": "Structured worksheet in packet."
+          },
+          {
+            "source_id": "test_results",
+            "source_type": "naturalization_test_record",
+            "title": "English and civics test result",
+            "closed_world_scopes": [],
+            "limitations": "Current test result only."
+          },
+          {
+            "source_id": "oath_worksheet",
+            "source_type": "oath_attachment_worksheet",
+            "title": "Oath and attachment worksheet",
+            "closed_world_scopes": [],
+            "limitations": "Current oath worksheet only."
+          },
+          {
+            "source_id": "fbi_check",
+            "source_type": "criminal_history_check",
+            "title": "FBI criminal history check",
+            "closed_world_scopes": [
+              "criminal_convictions"
+            ],
+            "limitations": "Synthetic benchmark source."
+          },
+          {
+            "source_id": "docket_search",
+            "source_type": "court_docket_search",
+            "title": "Court docket search",
+            "closed_world_scopes": [
+              "pending_criminal_charges"
+            ],
+            "limitations": "Synthetic benchmark source."
+          },
+          {
+            "source_id": "interview_worksheet",
+            "source_type": "uscis_interview_record",
+            "title": "USCIS interview worksheet",
+            "closed_world_scopes": [
+              "false_testimony_for_immigration_benefit"
+            ],
+            "limitations": "Synthetic benchmark source."
+          }
+        ],
+        "evidence": {
+          "n400.age_years": "Intake summary: applicant age is 37.",
+          "n400.years_as_lpr": "Intake summary: applicant has been an LPR for 6 years.",
+          "n400.days_absent_trip_1": "Travel table: one trip lasted 21 days.",
+          "n400.months_physical_presence_5yr": "Physical presence worksheet: 41 months physically present.",
+          "n400.months_state_or_district_residence": "Residence worksheet: 9 months in same USCIS district.",
+          "n400.english_test_passed": "Naturalization test record: English test passed.",
+          "n400.civics_test_passed": "Naturalization test record: civics test passed.",
+          "n400.willing_to_take_oath": "Oath worksheet: applicant willing to take the oath.",
+          "n400.attachment_to_constitution": "Oath worksheet: attachment to the Constitution recorded.",
+          "n400.aggravated_felony_after_1990": "FBI check: no aggravated felony convictions.",
+          "n400.pending_criminal_charge": "Docket search: no pending criminal charges.",
+          "n400.false_testimony_for_immigration_benefit": "USCIS interview worksheet: no false testimony issue."
+        }
+      },
+      "metadata": {
+        "expected_bindings": {
+          "n400.age_years": {
+            "ideal_status": "bound",
+            "ideal_value": 37
+          },
+          "n400.years_as_lpr": {
+            "ideal_status": "bound",
+            "ideal_value": 6
+          },
+          "n400.days_absent_trip_1": {
+            "ideal_status": "bound",
+            "ideal_value": 21
+          },
+          "n400.months_physical_presence_5yr": {
+            "ideal_status": "bound",
+            "ideal_value": 41
+          },
+          "n400.english_test_passed": {
+            "ideal_status": "bound",
+            "ideal_value": true,
+            "ideal_basis": "explicit_positive"
+          },
+          "n400.aggravated_felony_after_1990": {
+            "ideal_status": "bound",
+            "ideal_value": false,
+            "ideal_basis": "closed_world_absence"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "tier1_travel_conflict_six_month_absence",
+      "title": "Travel conflict creates six-month absence issue",
+      "narrative": "The applicant applies under the general five-year track. The N-400 travel table lists a trip from March 1, 2022 to August 20, 2022, described as 172 days. The applicant's personal statement says they never stayed outside the United States for more than six months. Passport stamps and a CBP travel-history printout both show departure on March 1, 2022 and re-entry on September 15, 2022. The packet includes lease records and U.S. bank statements for the period abroad, plus family residence records showing spouse and children remained in the United States.",
+      "structured_fields": {
+        "evidence_sources": [
+          {
+            "source_id": "n400_travel_table",
+            "source_type": "travel_history_table",
+            "title": "Applicant travel table",
+            "closed_world_scopes": [
+              "declared_travel_history"
+            ],
+            "limitations": "Applicant-declared table conflicts with passport and CBP dates."
+          },
+          {
+            "source_id": "passport_stamps",
+            "source_type": "passport_record",
+            "title": "Passport stamps",
+            "closed_world_scopes": [],
+            "limitations": "Shows relevant departure and re-entry stamps."
+          },
+          {
+            "source_id": "cbp_history",
+            "source_type": "cbp_travel_history",
+            "title": "CBP travel-history printout",
+            "closed_world_scopes": [
+              "us_entry_exit_events"
+            ],
+            "limitations": "Synthetic benchmark travel-history source."
+          },
+          {
+            "source_id": "residence_evidence",
+            "source_type": "residence_records",
+            "title": "Lease, bank, and family residence records",
+            "closed_world_scopes": [],
+            "limitations": "Supports ties during absence but does not itself establish continuous residence."
+          }
+        ],
+        "evidence": {
+          "n400.days_absent_trip_1": "CBP and passport records show March 1, 2022 to September 15, 2022, approximately 198 days.",
+          "n400.absence_6_to_12_months": "Objective travel records show an absence over six months and under one year.",
+          "n400.maintained_us_home": "Lease records and bank statements cover the period abroad.",
+          "n400.maintained_us_family_ties": "Family residence records show spouse and children remained in the United States.",
+          "n400.inconsistent_travel_history": "N-400 travel table says 172 days ending August 20; passport/CBP show re-entry September 15."
+        }
+      },
+      "metadata": {
+        "expected_bindings": {
+          "n400.days_absent_trip_1": {
+            "ideal_status": "bound",
+            "ideal_value": 198
+          },
+          "n400.absence_6_to_12_months": {
+            "ideal_status": "bound",
+            "ideal_value": true,
+            "ideal_basis": "inferred_from_record"
+          },
+          "n400.maintained_us_home": {
+            "ideal_status": "bound",
+            "ideal_value": true
+          },
+          "n400.maintained_us_family_ties": {
+            "ideal_status": "bound",
+            "ideal_value": true
+          },
+          "n400.inconsistent_travel_history": {
+            "ideal_status": "bound",
+            "ideal_value": true
+          }
+        }
+      }
+    },
+    {
+      "case_id": "tier1_one_year_absence_no_exception",
+      "title": "One-year absence with no preservation exception",
+      "narrative": "The passport and CBP travel-history printout show departure from the United States on January 4, 2021 and re-entry on February 10, 2022. The packet contains no N-470 preservation approval, no qualifying employment-abroad approval, no military service exception, and no religious-vocation exception. The applicant statement says the trip was for family reasons.",
+      "structured_fields": {
+        "evidence_sources": [
+          {
+            "source_id": "cbp_history",
+            "source_type": "cbp_travel_history",
+            "title": "CBP travel-history printout",
+            "closed_world_scopes": [
+              "us_entry_exit_events"
+            ],
+            "limitations": "Synthetic benchmark travel-history source."
+          },
+          {
+            "source_id": "packet_index",
+            "source_type": "case_packet_index",
+            "title": "Case packet index",
+            "closed_world_scopes": [
+              "submitted_exception_documents"
+            ],
+            "limitations": "Shows no exception document included."
+          }
+        ],
+        "evidence": {
+          "n400.days_absent_trip_1": "CBP travel history: January 4, 2021 to February 10, 2022, more than one year.",
+          "n400.absence_over_one_year": "Travel history shows an absence exceeding one year.",
+          "n400.absence_6_to_12_months": "The absence exceeded one year, not merely six to twelve months."
+        }
+      },
+      "metadata": {
+        "expected_bindings": {
+          "n400.days_absent_trip_1": {
+            "ideal_status": "bound"
+          },
+          "n400.absence_over_one_year": {
+            "ideal_status": "bound",
+            "ideal_value": true
+          },
+          "n400.absence_6_to_12_months": {
+            "ideal_status": "bound",
+            "ideal_value": false
+          }
+        }
+      }
+    },
+    {
+      "case_id": "tier1_physical_presence_short_by_worksheet",
+      "title": "Physical presence shortfall",
+      "narrative": "The physical presence worksheet totals 24 months physically present in the United States during the five-year statutory period. The applicant is applying under the general five-year track. The worksheet lists dates and total days but no alternative spouse-track claim.",
+      "structured_fields": {
+        "evidence_sources": [
+          {
+            "source_id": "presence_worksheet",
+            "source_type": "physical_presence_worksheet",
+            "title": "Physical presence worksheet",
+            "closed_world_scopes": [],
+            "limitations": "Structured worksheet in packet."
+          }
+        ],
+        "evidence": {
+          "n400.months_physical_presence_5yr": "Physical presence worksheet: 24 months physically present during the five-year period."
+        }
+      },
+      "metadata": {
+        "expected_bindings": {
+          "n400.months_physical_presence_5yr": {
+            "ideal_status": "bound",
+            "ideal_value": 24
+          }
+        }
+      }
+    },
+    {
+      "case_id": "tier1_state_residence_short",
+      "title": "State residence only two months",
+      "narrative": "The residence worksheet states that the applicant moved into the current USCIS district two months before filing. The lease start date and utility bill confirm two months of residence in the district before the filing date.",
+      "structured_fields": {
+        "evidence_sources": [
+          {
+            "source_id": "residence_worksheet",
+            "source_type": "residence_worksheet",
+            "title": "Residence worksheet",
+            "closed_world_scopes": [],
+            "limitations": "Current district residence calculation."
+          }
+        ],
+        "evidence": {
+          "n400.months_state_or_district_residence": "Residence worksheet, lease, and utility bill show two months in the current USCIS district before filing."
+        }
+      },
+      "metadata": {
+        "expected_bindings": {
+          "n400.months_state_or_district_residence": {
+            "ideal_status": "bound",
+            "ideal_value": 2
+          }
+        }
+      }
+    },
+    {
+      "case_id": "tier1_english_failed_civics_passed_no_exception",
+      "title": "English failed, civics passed, no exception",
+      "narrative": "The naturalization test record states that the applicant failed the English reading and writing components. The same record states that the applicant passed the civics test. The packet does not include an approved medical disability exception and does not claim an age-and-LPR English exception.",
+      "structured_fields": {
+        "evidence_sources": [
+          {
+            "source_id": "test_results",
+            "source_type": "naturalization_test_record",
+            "title": "Naturalization test result",
+            "closed_world_scopes": [
+              "english_civics_test_results"
+            ],
+            "limitations": "Current test result only."
+          },
+          {
+            "source_id": "packet_index",
+            "source_type": "case_packet_index",
+            "title": "Case packet index",
+            "closed_world_scopes": [
+              "submitted_exception_documents"
+            ],
+            "limitations": "Shows no medical exception document included."
+          }
+        ],
+        "evidence": {
+          "n400.english_test_passed": "Naturalization test result: English reading and writing components failed.",
+          "n400.civics_test_passed": "Naturalization test result: civics test passed.",
+          "n400.medical_disability_exception_approved": "Packet index: no approved medical disability exception included."
+        }
+      },
+      "metadata": {
+        "expected_bindings": {
+          "n400.english_test_passed": {
+            "ideal_status": "bound",
+            "ideal_value": false
+          },
+          "n400.civics_test_passed": {
+            "ideal_status": "bound",
+            "ideal_value": true
+          },
+          "n400.medical_disability_exception_approved": {
+            "ideal_status": "bound",
+            "ideal_value": false,
+            "ideal_basis": "closed_world_absence"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "tier1_medical_disability_exception_approved",
+      "title": "Medical disability exception approved",
+      "narrative": "The packet includes an approved Form N-648 medical disability exception. The naturalization test record shows the applicant did not pass English and did not pass civics, but the N-648 approval states the English and civics requirements are excepted.",
+      "structured_fields": {
+        "evidence_sources": [
+          {
+            "source_id": "n648_approval",
+            "source_type": "medical_disability_exception_approval",
+            "title": "Approved Form N-648",
+            "closed_world_scopes": [],
+            "limitations": "Approval for this application packet."
+          },
+          {
+            "source_id": "test_results",
+            "source_type": "naturalization_test_record",
+            "title": "Naturalization test result",
+            "closed_world_scopes": [],
+            "limitations": "Current test result only."
+          }
+        ],
+        "evidence": {
+          "n400.medical_disability_exception_approved": "Approved Form N-648 states English and civics requirements are excepted.",
+          "n400.english_test_passed": "Naturalization test result: English not passed.",
+          "n400.civics_test_passed": "Naturalization test result: civics not passed."
+        }
+      },
+      "metadata": {
+        "expected_bindings": {
+          "n400.medical_disability_exception_approved": {
+            "ideal_status": "bound",
+            "ideal_value": true,
+            "ideal_basis": "explicit_positive"
+          },
+          "n400.english_test_passed": {
+            "ideal_status": "bound",
+            "ideal_value": false
+          },
+          "n400.civics_test_passed": {
+            "ideal_status": "bound",
+            "ideal_value": false
+          }
+        }
+      }
+    },
+    {
+      "case_id": "tier1_oath_attachment_refusal",
+      "title": "Oath worksheet records refusal",
+      "narrative": "The oath and attachment worksheet says the applicant refuses to take the Oath of Allegiance and does not agree to the oath-related commitments. The worksheet also states that attachment to the Constitution was not established at interview.",
+      "structured_fields": {
+        "evidence_sources": [
+          {
+            "source_id": "oath_worksheet",
+            "source_type": "oath_attachment_worksheet",
+            "title": "Oath and attachment worksheet",
+            "closed_world_scopes": [],
+            "limitations": "Current interview worksheet only."
+          }
+        ],
+        "evidence": {
+          "n400.willing_to_take_oath": "Oath worksheet: applicant refuses to take the Oath of Allegiance.",
+          "n400.attachment_to_constitution": "Oath worksheet: attachment to the Constitution not established."
+        }
+      },
+      "metadata": {
+        "expected_bindings": {
+          "n400.willing_to_take_oath": {
+            "ideal_status": "bound",
+            "ideal_value": false
+          },
+          "n400.attachment_to_constitution": {
+            "ideal_status": "bound",
+            "ideal_value": false
+          }
+        }
+      }
+    },
+    {
+      "case_id": "tier1_pending_charge_with_clean_conviction_check",
+      "title": "Clean conviction check but pending charge exists",
+      "narrative": "The FBI criminal history check reports no aggravated felony convictions. A county docket search included in the same packet lists a pending felony charge with a next hearing date after the N-400 interview. The applicant statement says the charge will be dismissed, but no dismissal order is included.",
+      "structured_fields": {
+        "evidence_sources": [
+          {
+            "source_id": "fbi_check",
+            "source_type": "criminal_history_check",
+            "title": "FBI criminal history check",
+            "closed_world_scopes": [
+              "criminal_convictions"
+            ],
+            "limitations": "Conviction history, not dispositive of currently pending charges."
+          },
+          {
+            "source_id": "county_docket",
+            "source_type": "court_docket_search",
+            "title": "County docket search",
+            "closed_world_scopes": [
+              "pending_criminal_charges"
+            ],
+            "limitations": "Current county docket record."
+          }
+        ],
+        "evidence": {
+          "n400.aggravated_felony_after_1990": "FBI check: no aggravated felony convictions.",
+          "n400.pending_criminal_charge": "County docket search: pending felony charge with future hearing date."
+        }
+      },
+      "metadata": {
+        "expected_bindings": {
+          "n400.aggravated_felony_after_1990": {
+            "ideal_status": "bound",
+            "ideal_value": false,
+            "ideal_basis": "closed_world_absence"
+          },
+          "n400.pending_criminal_charge": {
+            "ideal_status": "bound",
+            "ideal_value": true,
+            "ideal_basis": "explicit_positive"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "tier1_missing_travel_dates",
+      "title": "Travel narrative missing exact dates",
+      "narrative": "The applicant statement says they spent about seven months abroad sometime in 2021. The packet does not include passport stamps, CBP travel history, flight records, or a completed N-400 travel table. The physical presence worksheet is blank for 2021.",
+      "structured_fields": {
+        "evidence_sources": [
+          {
+            "source_id": "applicant_statement",
+            "source_type": "applicant_personal_statement",
+            "title": "Applicant personal statement",
+            "closed_world_scopes": [],
+            "limitations": "Open narrative with approximate timing only."
+          },
+          {
+            "source_id": "blank_presence_worksheet",
+            "source_type": "physical_presence_worksheet",
+            "title": "Blank physical presence worksheet",
+            "closed_world_scopes": [],
+            "limitations": "Does not provide exact dates."
+          }
+        ],
+        "evidence": {
+          "n400.days_absent_trip_1": "Applicant says about seven months abroad sometime in 2021, but no exact dates are provided.",
+          "n400.absence_6_to_12_months": "Approximate narrative suggests about seven months abroad, but no exact dates are provided.",
+          "n400.evidence_missing_critical_dates": "Passport, CBP, flight records, and completed travel table are missing."
+        }
+      },
+      "metadata": {
+        "expected_bindings": {
+          "n400.days_absent_trip_1": {
+            "ideal_status": "undetermined",
+            "ideal_basis": "not_found"
+          },
+          "n400.absence_6_to_12_months": {
+            "ideal_status": "undetermined"
+          },
+          "n400.evidence_missing_critical_dates": {
+            "ideal_status": "bound",
+            "ideal_value": true
+          }
+        }
+      }
+    }
+  ]
+}

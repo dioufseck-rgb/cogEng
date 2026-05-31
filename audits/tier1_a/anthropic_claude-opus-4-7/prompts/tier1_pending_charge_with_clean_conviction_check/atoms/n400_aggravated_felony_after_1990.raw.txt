@@ -1,0 +1,10 @@
+{
+  "atom_id": "n400.aggravated_felony_after_1990",
+  "status": "bound",
+  "value": false,
+  "basis": "closed_world_absence",
+  "source_ids": ["fbi_check"],
+  "evidence": "FBI criminal history check reports no aggravated felony convictions.",
+  "explanation": "The FBI criminal history check is a criminal_history_check source with a closed-world scope over criminal_convictions and affirmatively reports no aggravated felony convictions. The pending county charge concerns charges, not convictions, so it does not conflict with the conviction-scoped finding. This satisfies the policy's required source type and closed-world basis for a false binding.",
+  "confidence": 0.85
+}

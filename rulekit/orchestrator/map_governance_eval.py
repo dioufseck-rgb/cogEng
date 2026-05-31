@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 from collections import Counter
 from pathlib import Path
 from typing import Any
@@ -26,6 +27,7 @@ def run_map_governance_eval(
     max_tokens: int = 4096,
     timeout: float = 120.0,
     max_retries: int = 2,
+    pricing: dict[tuple[str, str], tuple[float, float]] | None = None,
 ) -> dict[str, Any]:
     """Run governed Map over the same packet suite for each provider/model."""
     program = load_program(program_path)
@@ -49,6 +51,7 @@ def run_map_governance_eval(
             llm,
             atom_ids=atom_ids,
             max_atoms=max_atoms,
+            pricing=pricing,
         )
         result = adjudicate_cases(
             program,
@@ -83,6 +86,22 @@ def parse_model_spec(spec: str) -> tuple[str, str]:
     return provider, model
 
 
+def parse_price_spec(spec: str) -> tuple[tuple[str, str], tuple[float, float]]:
+    """Parse PROVIDER:MODEL=INPUT_PER_MTOK,OUTPUT_PER_MTOK."""
+    if "=" not in spec:
+        raise ValueError(
+            "price spec must be PROVIDER:MODEL=INPUT_PER_MTOK,OUTPUT_PER_MTOK"
+        )
+    model_spec, prices = spec.split("=", 1)
+    provider, model = parse_model_spec(model_spec)
+    if "," not in prices:
+        raise ValueError(
+            "price spec must include input and output prices separated by comma"
+        )
+    input_price, output_price = prices.split(",", 1)
+    return (provider, model), (float(input_price), float(output_price))
+
+
 def summarize_governed_run(
     provider: str,
     model: str,
@@ -111,6 +130,7 @@ def summarize_governed_run(
         reports,
         expected_by_case,
     )
+    cost_metrics = _cost_metrics(result.get("map_records", []))
     return {
         "provider": provider,
         "model": model,
@@ -122,8 +142,45 @@ def summarize_governed_run(
         "validation_action_counts": dict(sorted(action_counts.items())),
         "basis_counts": dict(sorted(basis_counts.items())),
         "expected_binding_metrics": expected_metrics,
+        "cost_metrics": cost_metrics,
         "map_mode": result["map_mode"],
     }
+
+
+def _cost_metrics(map_records: list[dict[str, Any]]) -> dict[str, Any]:
+    costs = [record.get("cost") or {} for record in map_records]
+    call_metrics = [
+        metric
+        for record in map_records
+        for metric in record.get("metadata", {}).get("llm_call_metrics", [])
+    ]
+    configured_costs = [
+        metric["estimated_cost_usd"]
+        for metric in call_metrics
+        if metric.get("estimated_cost_usd") is not None
+    ]
+    total_latency = sum(cost.get("latency_s") or 0.0 for cost in costs)
+    call_latency = sum(metric.get("latency_s") or 0.0 for metric in call_metrics)
+    payload = {
+        "case_count": len(map_records),
+        "llm_call_count": len(call_metrics),
+        "estimated_input_tokens": sum(cost.get("input_tokens") or 0 for cost in costs),
+        "estimated_output_tokens": sum(cost.get("output_tokens") or 0 for cost in costs),
+        "estimated_total_tokens": sum(cost.get("total_tokens") or 0 for cost in costs),
+        "llm_latency_s": call_latency,
+        "map_latency_s": total_latency,
+        "avg_llm_call_latency_s": call_latency / len(call_metrics)
+        if call_metrics
+        else 0.0,
+        "estimated_cost_usd": sum(configured_costs) if configured_costs else None,
+        "pricing_basis": (
+            "configured_usd_per_million_tokens"
+            if configured_costs
+            else "not_configured"
+        ),
+        "token_count_basis": "estimated_from_character_count",
+    }
+    return payload
 
 
 def _expected_binding_metrics(
@@ -263,11 +320,16 @@ def _json(payload: Any) -> str:
 
 
 def _safe_name(value: str) -> str:
-    return "".join(ch if ch.isalnum() or ch in {"-", "_"} else "_" for ch in value)[:120]
+    safe = "".join(ch if ch.isalnum() or ch in {"-", "_"} else "_" for ch in value)
+    if len(safe) <= 48:
+        return safe
+    digest = hashlib.sha1(value.encode("utf-8")).hexdigest()[:8]
+    return f"{safe[:39]}_{digest}"
 
 
 __all__ = [
     "run_map_governance_eval",
     "parse_model_spec",
+    "parse_price_spec",
     "summarize_governed_run",
 ]

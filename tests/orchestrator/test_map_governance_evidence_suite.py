@@ -4,11 +4,17 @@ from pathlib import Path
 
 from rulekit.contract import BindingBasis
 from rulekit.orchestrator.cli import template_seed
-from rulekit.orchestrator.map_governance_eval import summarize_governed_run
+from rulekit.orchestrator.map_governance_eval import (
+    parse_price_spec,
+    summarize_governed_run,
+)
 from rulekit.runtime import load_runtime_cases
 
 
 SUITE_PATH = Path("rulekit/orchestrator/example_cases/uscis_n400_gmc_evidence_packets.json")
+BROAD_SUITE_PATH = Path(
+    "rulekit/orchestrator/example_cases/uscis_n400_tier1_broad_evidence_packets.json"
+)
 
 
 def test_uscis_gmc_evidence_packet_suite_loads_and_targets_policy_atoms():
@@ -21,6 +27,23 @@ def test_uscis_gmc_evidence_packet_suite_loads_and_targets_policy_atoms():
         "gmc_open_world_silence_personal_statement",
         "gmc_closed_world_clean_checks",
         "gmc_conflicting_aggravated_felony_sources",
+    }
+    for case in cases:
+        expected = case.metadata.get("expected_bindings", {})
+        assert expected, case.case_id
+        assert set(expected).issubset(atom_ids)
+
+
+def test_uscis_tier1_broad_evidence_packet_suite_loads_and_targets_policy_atoms():
+    seed = template_seed("uscis-n400")
+    cases = load_runtime_cases(BROAD_SUITE_PATH)
+    atom_ids = {atom.atom_id for atom in seed.atoms}
+
+    assert len(cases) == 10
+    assert {case.case_id for case in cases} >= {
+        "tier1_clean_general_track_packet",
+        "tier1_travel_conflict_six_month_absence",
+        "tier1_missing_travel_dates",
     }
     for case in cases:
         expected = case.metadata.get("expected_bindings", {})
@@ -58,7 +81,36 @@ def test_map_governance_summary_reports_expected_binding_metrics():
                         "basis": "open_world_absence",
                     }
                 },
+                "cost": {
+                    "input_tokens": 100,
+                    "output_tokens": 20,
+                    "total_tokens": 120,
+                    "estimated_cost_usd": 0.003,
+                    "latency_s": 1.5,
+                },
                 "metadata": {
+                    "llm_call_metrics": [
+                        {
+                            "stage_name": "map_governed_source_inventory",
+                            "provider": "anthropic",
+                            "model": "fake",
+                            "input_tokens": 50,
+                            "output_tokens": 10,
+                            "total_tokens": 60,
+                            "estimated_cost_usd": 0.0015,
+                            "latency_s": 0.5,
+                        },
+                        {
+                            "stage_name": "map_governed_atom:n400.aggravated_felony_after_1990",
+                            "provider": "anthropic",
+                            "model": "fake",
+                            "input_tokens": 50,
+                            "output_tokens": 10,
+                            "total_tokens": 60,
+                            "estimated_cost_usd": 0.0015,
+                            "latency_s": 1.0,
+                        },
+                    ],
                     "prompt_artifacts": {
                         "atoms": {
                             "n400.aggravated_felony_after_1990": {
@@ -98,3 +150,13 @@ def test_map_governance_summary_reports_expected_binding_metrics():
     assert metrics["expected_binding_count"] >= 1
     assert metrics["raw_status_match_count"] >= 1
     assert metrics["raw_basis_match_count"] >= 1
+    assert summary["cost_metrics"]["llm_call_count"] == 2
+    assert summary["cost_metrics"]["estimated_total_tokens"] == 120
+    assert summary["cost_metrics"]["estimated_cost_usd"] == 0.003
+
+
+def test_map_eval_price_specs_parse_provider_model_prices():
+    key, prices = parse_price_spec("anthropic:claude-opus-4-7=15,75")
+
+    assert key == ("anthropic", "claude-opus-4-7")
+    assert prices == (15.0, 75.0)

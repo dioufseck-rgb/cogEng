@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+from math import ceil
 from time import perf_counter
 from typing import Any
 
@@ -26,6 +27,7 @@ from rulekit.orchestrator.map_validation import (
     EvidenceSource,
     evidence_sources_from_case_fields,
 )
+from rulekit.orchestrator.step import RunCost
 
 
 SOURCE_INVENTORY_PROMPT = """You are preparing evidence for a governed policy Map step.
@@ -138,11 +140,13 @@ class GovernedEvidenceMapStep:
         atom_ids: list[str] | None = None,
         max_atoms: int | None = None,
         stream: bool = True,
+        pricing: dict[tuple[str, str], tuple[float, float]] | None = None,
     ):
         self.llm = llm
         self.atom_ids = atom_ids
         self.max_atoms = max_atoms
         self.stream = stream
+        self.pricing = pricing or {}
         self.spec = MapStepSpec(
             map_step_id=map_step_id,
             name="Governed evidence Map step",
@@ -161,7 +165,12 @@ class GovernedEvidenceMapStep:
         started = perf_counter()
         declared_sources = evidence_sources_from_case_fields(case.structured_fields)
         artifacts: dict[str, Any] = {"atoms": {}}
-        sources, source_artifacts = self._inventory_sources(case, declared_sources)
+        call_metrics: list[dict[str, Any]] = []
+        sources, source_artifacts = self._inventory_sources(
+            case,
+            declared_sources,
+            call_metrics,
+        )
         artifacts["source_inventory"] = source_artifacts
         evidence_by_atom = _evidence_by_atom(case.structured_fields)
         bindings: dict[str, AtomBindingRecord] = {}
@@ -175,16 +184,17 @@ class GovernedEvidenceMapStep:
                 sources,
                 evidence_text=evidence_by_atom.get(atom_id) or case.narrative,
             )
-            raw = self.llm.call(
+            raw, cost, metrics = self._call_llm(
                 f"map_governed_atom:{atom_id}",
                 prompt,
-                stream=self.stream,
             )
+            call_metrics.append(metrics)
             parsed = _parse_binding_payload(atom_id, raw)
             artifacts["atoms"][atom_id] = {
                 "prompt": prompt,
                 "raw_response": raw,
                 "parsed": parsed,
+                "metrics": cost.model_dump(mode="json"),
             }
             bindings[atom_id] = _binding_from_payload(atom_id, atom.atom_type, parsed)
         for atom_id, atom in program.map_spec.atoms.items():
@@ -206,11 +216,13 @@ class GovernedEvidenceMapStep:
                 bindings=bindings,
                 substrate_id=context.substrate_id,
                 latency_s=perf_counter() - started,
+                cost=_aggregate_call_metrics(call_metrics),
                 metadata={
                     "map_step_id": self.spec.map_step_id,
                     "source_inventory": [
                         source.model_dump(mode="json") for source in sources
                     ],
+                    "llm_call_metrics": call_metrics,
                     "prompt_artifacts": artifacts,
                 },
             )
@@ -220,9 +232,11 @@ class GovernedEvidenceMapStep:
         self,
         case: CaseExample,
         declared_sources: list[EvidenceSource],
+        call_metrics: list[dict[str, Any]],
     ) -> tuple[list[EvidenceSource], dict[str, Any]]:
         prompt = build_source_inventory_prompt(case, declared_sources)
-        raw = self.llm.call("map_governed_source_inventory", prompt, stream=self.stream)
+        raw, cost, metrics = self._call_llm("map_governed_source_inventory", prompt)
+        call_metrics.append(metrics)
         parsed = parse_json_response(raw)
         sources_payload = parsed.get("sources", []) if isinstance(parsed, dict) else []
         sources = [
@@ -232,7 +246,12 @@ class GovernedEvidenceMapStep:
         ]
         if not sources:
             sources = declared_sources
-        return sources, {"prompt": prompt, "raw_response": raw, "parsed": parsed}
+        return sources, {
+            "prompt": prompt,
+            "raw_response": raw,
+            "parsed": parsed,
+            "metrics": cost.model_dump(mode="json"),
+        }
 
     def _selected_atom_ids(self, program: DeterminationProgram) -> list[str]:
         if self.atom_ids:
@@ -242,6 +261,35 @@ class GovernedEvidenceMapStep:
         if self.max_atoms is not None:
             selected = selected[: self.max_atoms]
         return selected
+
+    def _call_llm(
+        self,
+        stage_name: str,
+        prompt: str,
+    ) -> tuple[str, RunCost, dict[str, Any]]:
+        started = perf_counter()
+        raw = self.llm.call(stage_name, prompt, stream=self.stream)
+        latency_s = perf_counter() - started
+        cost = _estimate_run_cost(
+            provider=self.llm.provider,
+            model=self.llm.model,
+            prompt=prompt,
+            response=raw,
+            latency_s=latency_s,
+            pricing=self.pricing,
+        )
+        metrics = {
+            "stage_name": stage_name,
+            "provider": self.llm.provider,
+            "model": self.llm.model,
+            "pricing_basis": (
+                "configured_usd_per_million_tokens"
+                if cost.estimated_cost_usd is not None
+                else "not_configured"
+            ),
+            **cost.model_dump(mode="json"),
+        }
+        return raw, cost, metrics
 
 
 def build_source_inventory_prompt(
@@ -336,6 +384,64 @@ def _evidence_by_atom(structured_fields: dict[str, Any]) -> dict[str, str]:
     if not isinstance(evidence, dict):
         return {}
     return {str(key): str(value) for key, value in evidence.items()}
+
+
+def _estimate_run_cost(
+    *,
+    provider: str,
+    model: str,
+    prompt: str,
+    response: str,
+    latency_s: float,
+    pricing: dict[tuple[str, str], tuple[float, float]],
+) -> RunCost:
+    input_tokens = _estimate_tokens(prompt)
+    output_tokens = _estimate_tokens(response)
+    estimated_cost_usd = None
+    price = _lookup_price(pricing, provider, model)
+    if price is not None:
+        input_price, output_price = price
+        estimated_cost_usd = (
+            input_tokens * input_price + output_tokens * output_price
+        ) / 1_000_000
+    return RunCost(
+        input_tokens=input_tokens,
+        output_tokens=output_tokens,
+        total_tokens=input_tokens + output_tokens,
+        estimated_cost_usd=estimated_cost_usd,
+        latency_s=latency_s,
+    )
+
+
+def _lookup_price(
+    pricing: dict[tuple[str, str], tuple[float, float]],
+    provider: str,
+    model: str,
+) -> tuple[float, float] | None:
+    return pricing.get((provider, model)) or pricing.get((provider, "*"))
+
+
+def _estimate_tokens(text: str) -> int:
+    if not text:
+        return 0
+    return max(1, ceil(len(text) / 4))
+
+
+def _aggregate_call_metrics(call_metrics: list[dict[str, Any]]) -> RunCost:
+    input_tokens = sum(metric.get("input_tokens") or 0 for metric in call_metrics)
+    output_tokens = sum(metric.get("output_tokens") or 0 for metric in call_metrics)
+    costs = [
+        metric["estimated_cost_usd"]
+        for metric in call_metrics
+        if metric.get("estimated_cost_usd") is not None
+    ]
+    return RunCost(
+        input_tokens=input_tokens,
+        output_tokens=output_tokens,
+        total_tokens=input_tokens + output_tokens,
+        estimated_cost_usd=sum(costs) if costs else None,
+        latency_s=sum(metric.get("latency_s") or 0.0 for metric in call_metrics),
+    )
 
 
 __all__ = [

@@ -1,0 +1,76 @@
+{
+  "sources": [
+    {
+      "as_of_date": null,
+      "closed_world_scopes": [],
+      "limitations": "Applicant and preparer supplied summary; narrative intake does not support closed-world absence for any factual universe.",
+      "source_id": "intake_summary",
+      "source_type": "n400_intake_summary",
+      "title": "N-400 intake summary"
+    },
+    {
+      "as_of_date": null,
+      "closed_world_scopes": [
+        "declared_travel_history"
+      ],
+      "limitations": "Applicant-declared travel table; closed-world absence is limited to what the applicant declared and cannot rule out undeclared or unrecorded trips.",
+      "source_id": "travel_table",
+      "source_type": "travel_history_table",
+      "title": "N-400 travel table"
+    },
+    {
+      "as_of_date": null,
+      "closed_world_scopes": [],
+      "limitations": "Structured worksheet derived from applicant-declared data; reports computed months present and in-district but does not independently verify presence or rule out unreported absences.",
+      "source_id": "presence_worksheet",
+      "source_type": "physical_presence_worksheet",
+      "title": "Physical presence worksheet"
+    },
+    {
+      "as_of_date": null,
+      "closed_world_scopes": [],
+      "limitations": "Current test result only; supports positive pass facts but does not support closed-world absence of other issues.",
+      "source_id": "test_results",
+      "source_type": "naturalization_test_record",
+      "title": "English and civics test result"
+    },
+    {
+      "as_of_date": null,
+      "closed_world_scopes": [],
+      "limitations": "Current oath worksheet only; records willingness and attachment statements but does not support closed-world absence of disqualifying conduct or beliefs.",
+      "source_id": "oath_worksheet",
+      "source_type": "oath_attachment_worksheet",
+      "title": "Oath and attachment worksheet"
+    },
+    {
+      "as_of_date": null,
+      "closed_world_scopes": [
+        "criminal_convictions"
+      ],
+      "limitations": "Synthetic benchmark source; closed-world absence limited to convictions reportable in the FBI criminal history system and does not cover charges, foreign convictions, or non-conviction conduct.",
+      "source_id": "fbi_check",
+      "source_type": "criminal_history_check",
+      "title": "FBI criminal history check"
+    },
+    {
+      "as_of_date": null,
+      "closed_world_scopes": [
+        "pending_criminal_charges"
+      ],
+      "limitations": "Synthetic benchmark source; closed-world absence limited to pending criminal charges within the searched dockets and does not cover sealed, foreign, or unsearched jurisdictions.",
+      "source_id": "docket_search",
+      "source_type": "court_docket_search",
+      "title": "Court docket search"
+    },
+    {
+      "as_of_date": null,
+      "closed_world_scopes": [
+        "false_testimony_for_immigration_benefit"
+      ],
+      "limitations": "Synthetic benchmark source; closed-world absence limited to false testimony observations recorded at the USCIS interview and does not cover misrepresentations made outside the interview.",
+      "source_id": "interview_worksheet",
+      "source_type": "uscis_interview_record",
+      "title": "USCIS interview worksheet"
+    }
+  ]
+}

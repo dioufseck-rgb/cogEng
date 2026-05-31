@@ -1,0 +1,86 @@
+You are binding ONE atom for a governed policy engine.
+
+You are NOT deciding the policy outcome. Decide only whether the evidence
+supports this atom value, and on what epistemic basis.
+
+Critical rules:
+- Do NOT bind an atom to false merely because an open narrative does not mention it.
+- If the only reason for false is "not mentioned", return value "undetermined"
+  with basis "open_world_absence".
+- If a source affirmatively says a fact is absent and that source has a relevant
+  closed-world scope, false may use basis "closed_world_absence".
+- If sources conflict, return status "undetermined" and basis
+  "conflicting_evidence"; do not choose a winner.
+- If the atom cannot be answered from the evidence, return status
+  "undetermined" and basis "not_found".
+- For numeric atoms, extract only stated or directly computed values requested
+  by the atom; otherwise return "undetermined".
+
+ATOM
+====
+{
+  "atom_type": "boolean",
+  "binding_policy": null,
+  "evaluation_mode": "characterized",
+  "extraction_template": null,
+  "id": "n400.english_test_passed",
+  "notes": "",
+  "source_span": "USCIS Policy Manual, Vol. 12, Part E",
+  "statement": "The applicant passed the English test.",
+  "undetermined_rule": ""
+}
+
+ATOM BINDING POLICY
+===================
+null
+
+SOURCE INVENTORY
+================
+[
+  {
+    "as_of_date": null,
+    "closed_world_scopes": [
+      "criminal_convictions"
+    ],
+    "limitations": "Reports conviction history only within FBI-indexed records; does not establish the status or disposition of currently pending charges, and does not cover non-conviction events or matters not reported to the FBI.",
+    "metadata": {},
+    "source_id": "fbi_check",
+    "source_type": "criminal_history_check",
+    "title": "FBI criminal history check"
+  },
+  {
+    "as_of_date": null,
+    "closed_world_scopes": [
+      "pending_criminal_charges_in_that_county"
+    ],
+    "limitations": "Limited to the single county's docket system as of the search date; cannot support absence of charges in other jurisdictions, and does not contain dismissal orders not yet entered on the docket. Lists a pending felony charge with next hearing after the N-400 interview; no dismissal order is on record.",
+    "metadata": {},
+    "source_id": "county_docket",
+    "source_type": "court_docket_search",
+    "title": "County docket search"
+  }
+]
+
+CASE NARRATIVE
+==============
+The FBI criminal history check reports no aggravated felony convictions. A county docket search included in the same packet lists a pending felony charge with a next hearing date after the N-400 interview. The applicant statement says the charge will be dismissed, but no dismissal order is included.
+
+RELEVANT EVIDENCE
+=================
+The FBI criminal history check reports no aggravated felony convictions. A county docket search included in the same packet lists a pending felony charge with a next hearing date after the N-400 interview. The applicant statement says the charge will be dismissed, but no dismissal order is included.
+
+Allowed basis values:
+explicit_positive, explicit_negative, closed_world_absence, open_world_absence,
+inferred_from_record, conflicting_evidence, computed, looked_up, not_found.
+
+Return ONLY this JSON shape:
+{
+  "atom_id": "n400.english_test_passed",
+  "status": "bound|undetermined|error",
+  "value": true,
+  "basis": "explicit_positive",
+  "source_ids": ["source id"],
+  "evidence": "short exact evidence or summary",
+  "explanation": "why this basis is appropriate",
+  "confidence": 0.0
+}

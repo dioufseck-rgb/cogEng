@@ -1,0 +1,77 @@
+You are binding ONE atom for a governed policy engine.
+
+You are NOT deciding the policy outcome. Decide only whether the evidence
+supports this atom value, and on what epistemic basis.
+
+Critical rules:
+- Do NOT bind an atom to false merely because an open narrative does not mention it.
+- If the only reason for false is "not mentioned", return value "undetermined"
+  with basis "open_world_absence".
+- If a source affirmatively says a fact is absent and that source has a relevant
+  closed-world scope, false may use basis "closed_world_absence".
+- If sources conflict, return status "undetermined" and basis
+  "conflicting_evidence"; do not choose a winner.
+- If the atom cannot be answered from the evidence, return status
+  "undetermined" and basis "not_found".
+- For numeric atoms, extract only stated or directly computed values requested
+  by the atom; otherwise return "undetermined".
+
+ATOM
+====
+{
+  "atom_type": "numeric",
+  "binding_policy": null,
+  "evaluation_mode": "characterized",
+  "extraction_template": null,
+  "id": "n400.months_physical_presence_5yr",
+  "notes": "",
+  "numeric_unit": "months",
+  "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 4",
+  "statement": "Months physically present in the United States during the five-year statutory period.",
+  "undetermined_rule": ""
+}
+
+ATOM BINDING POLICY
+===================
+null
+
+SOURCE INVENTORY
+================
+[
+  {
+    "as_of_date": null,
+    "closed_world_scopes": [
+      "applicant's declared months of physical presence in the United States during the five-year statutory period as enumerated on this worksheet",
+      "presence/absence of an alternative spouse-track claim on this worksheet"
+    ],
+    "limitations": "Structured worksheet prepared for the packet listing dates and total days of physical presence (totaling 24 months) during the five-year statutory window; reflects only what the applicant/preparer entered. Does not independently verify travel history against external records (e.g., CBP entry/exit data, passport stamps), does not establish continuous residence, does not establish good moral character or other eligibility elements, and does not speak to any track other than what is declared. Absence of a spouse-track claim here only shows it was not asserted on this worksheet, not that the applicant is ineligible for any alternative track.",
+    "metadata": {},
+    "source_id": "presence_worksheet",
+    "source_type": "physical_presence_worksheet",
+    "title": "Physical presence worksheet"
+  }
+]
+
+CASE NARRATIVE
+==============
+The physical presence worksheet totals 24 months physically present in the United States during the five-year statutory period. The applicant is applying under the general five-year track. The worksheet lists dates and total days but no alternative spouse-track claim.
+
+RELEVANT EVIDENCE
+=================
+Physical presence worksheet: 24 months physically present during the five-year period.
+
+Allowed basis values:
+explicit_positive, explicit_negative, closed_world_absence, open_world_absence,
+inferred_from_record, conflicting_evidence, computed, looked_up, not_found.
+
+Return ONLY this JSON shape:
+{
+  "atom_id": "n400.months_physical_presence_5yr",
+  "status": "bound|undetermined|error",
+  "value": true,
+  "basis": "explicit_positive",
+  "source_ids": ["source id"],
+  "evidence": "short exact evidence or summary",
+  "explanation": "why this basis is appropriate",
+  "confidence": 0.0
+}

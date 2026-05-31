@@ -1,0 +1,10 @@
+{
+  "atom_id": "n400.medical_disability_exception_approved",
+  "status": "bound",
+  "value": false,
+  "basis": "closed_world_absence",
+  "source_ids": ["packet_index"],
+  "evidence": "Packet index: no approved medical disability exception included.",
+  "explanation": "The packet index has a closed-world scope over submitted exception documents and affirmatively indicates that no approved medical disability exception is in the packet. Within that scope, absence supports a false binding via closed_world_absence.",
+  "confidence": 0.9
+}

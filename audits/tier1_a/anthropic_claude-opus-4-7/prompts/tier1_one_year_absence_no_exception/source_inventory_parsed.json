@@ -1,0 +1,24 @@
+{
+  "sources": [
+    {
+      "as_of_date": null,
+      "closed_world_scopes": [
+        "us_entry_exit_events"
+      ],
+      "limitations": "Synthetic benchmark travel-history source. Supports closed-world absence only for US entry/exit events recorded by CBP within its coverage window; does not support absence of exception approvals, employment status, or purpose of travel.",
+      "source_id": "cbp_history",
+      "source_type": "cbp_travel_history",
+      "title": "CBP travel-history printout"
+    },
+    {
+      "as_of_date": null,
+      "closed_world_scopes": [
+        "submitted_exception_documents"
+      ],
+      "limitations": "Shows no exception document included in the submitted packet. Supports closed-world absence only for documents submitted in this packet (e.g., N-470 approval, qualifying employment-abroad approval, military service exception, religious-vocation exception). Does not establish whether such approvals exist outside the packet, nor does it support facts about the trip's purpose or the applicant's circumstances.",
+      "source_id": "packet_index",
+      "source_type": "case_packet_index",
+      "title": "Case packet index"
+    }
+  ]
+}

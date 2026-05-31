@@ -1,0 +1,36 @@
+{
+  "sources": [
+    {
+      "source_id": "n400_travel_table",
+      "source_type": "travel_history_table",
+      "title": "Applicant N-400 travel table",
+      "as_of_date": null,
+      "closed_world_scopes": ["declared_travel_history"],
+      "limitations": "Applicant-declared table; the listed dates (March 1, 2022 to August 20, 2022, 172 days) conflict with passport stamps and CBP records showing re-entry on September 15, 2022. Can support closed-world absence only within the universe of trips the applicant declared, not within the universe of trips that actually occurred."
+    },
+    {
+      "source_id": "passport_stamps",
+      "source_type": "passport_record",
+      "title": "Passport stamps",
+      "as_of_date": null,
+      "closed_world_scopes": [],
+      "limitations": "Shows the specific departure (March 1, 2022) and re-entry (September 15, 2022) stamps for this trip. Passport stamping is incomplete by nature (not all countries stamp, stamps can be missed), so absence of a stamp does not support a negative atom binding about travel."
+    },
+    {
+      "source_id": "cbp_history",
+      "source_type": "cbp_travel_history",
+      "title": "CBP travel-history printout",
+      "as_of_date": null,
+      "closed_world_scopes": ["us_entry_exit_events"],
+      "limitations": "Synthetic benchmark travel-history source. Within its stated scope of U.S. entry/exit events, absence of a record can support a negative atom binding (e.g., that no re-entry occurred before September 15, 2022). Does not cover travel between third countries or non-CBP-recorded movements."
+    },
+    {
+      "source_id": "residence_evidence",
+      "source_type": "residence_records",
+      "title": "Lease, bank, and family residence records",
+      "as_of_date": null,
+      "closed_world_scopes": [],
+      "limitations": "Supports U.S. ties (ongoing lease, bank activity, spouse and children remaining in U.S.) during the period abroad but does not itself establish continuous residence or physical presence. These are corroborating documents, not complete structured extracts; absence of an entry does not support a negative atom binding."
+    }
+  ]
+}
