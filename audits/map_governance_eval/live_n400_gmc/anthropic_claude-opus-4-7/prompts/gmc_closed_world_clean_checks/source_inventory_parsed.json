@@ -1,0 +1,24 @@
+{
+  "sources": [
+    {
+      "as_of_date": "2026-05-01",
+      "closed_world_scopes": [
+        "criminal_convictions"
+      ],
+      "limitations": "Does not address foreign convictions outside the reported criminal-history search scope. Closed-world absence is limited to convictions recorded within the FBI criminal-history database as of the stated date; does not cover sealed, expunged, foreign, or non-reporting jurisdiction records.",
+      "source_id": "fbi_check_2026_05_01",
+      "source_type": "criminal_history_check",
+      "title": "FBI criminal history check"
+    },
+    {
+      "as_of_date": "2026-05-01",
+      "closed_world_scopes": [
+        "pending_criminal_charges"
+      ],
+      "limitations": "Only current pending charges as of the search date. Limited to federal and state dockets covered by the search; does not cover local/municipal courts, tribal courts, foreign charges, or sealed matters.",
+      "source_id": "docket_search_2026_05_01",
+      "source_type": "court_docket_search",
+      "title": "Federal and state docket search"
+    }
+  ]
+}

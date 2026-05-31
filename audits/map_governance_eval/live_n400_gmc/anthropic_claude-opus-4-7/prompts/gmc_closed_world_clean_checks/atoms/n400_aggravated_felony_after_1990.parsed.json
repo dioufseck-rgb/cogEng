@@ -1,0 +1,12 @@
+{
+  "atom_id": "n400.aggravated_felony_after_1990",
+  "basis": "closed_world_absence",
+  "confidence": 0.85,
+  "evidence": "FBI criminal history check: no aggravated felony convictions reported as of 2026-05-01.",
+  "explanation": "The FBI criminal history check is a required closed-world source type with a closed-world scope of criminal_convictions, and it affirmatively reports no aggravated felony conviction. This satisfies the policy requirement for a false binding via closed_world_absence, subject to the source's stated limitations (no foreign/sealed/expunged records).",
+  "source_ids": [
+    "fbi_check_2026_05_01"
+  ],
+  "status": "bound",
+  "value": false
+}

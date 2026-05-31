@@ -1,0 +1,109 @@
+You are binding ONE atom for a governed policy engine.
+
+You are NOT deciding the policy outcome. Decide only whether the evidence
+supports this atom value, and on what epistemic basis.
+
+Critical rules:
+- Do NOT bind an atom to false merely because an open narrative does not mention it.
+- If the only reason for false is "not mentioned", return value "undetermined"
+  with basis "open_world_absence".
+- If a source affirmatively says a fact is absent and that source has a relevant
+  closed-world scope, false may use basis "closed_world_absence".
+- If sources conflict, return status "undetermined" and basis
+  "conflicting_evidence"; do not choose a winner.
+- If the atom cannot be answered from the evidence, return status
+  "undetermined" and basis "not_found".
+- For numeric atoms, extract only stated or directly computed values requested
+  by the atom; otherwise return "undetermined".
+
+ATOM
+====
+{
+  "atom_type": "boolean",
+  "binding_policy": {
+    "allowed_bases_for_false": [
+      "closed_world_absence"
+    ],
+    "allowed_bases_for_true": [
+      "explicit_positive",
+      "inferred_from_record",
+      "looked_up"
+    ],
+    "conflicting_evidence_behavior": "human_review",
+    "invalid_binding_behavior": "undetermined",
+    "notes": "A false pending-charge binding requires a closed-world criminal-history or docket search source.",
+    "open_world_absence_behavior": "undetermined",
+    "required_source_types_for_false": [
+      "criminal_history_check",
+      "court_docket_search"
+    ],
+    "required_source_types_for_true": []
+  },
+  "evaluation_mode": "characterized",
+  "extraction_template": null,
+  "id": "n400.pending_criminal_charge",
+  "notes": "",
+  "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+  "statement": "The applicant has a pending criminal charge.",
+  "undetermined_rule": ""
+}
+
+ATOM BINDING POLICY
+===================
+{
+  "allowed_bases_for_false": [
+    "closed_world_absence"
+  ],
+  "allowed_bases_for_true": [
+    "explicit_positive",
+    "inferred_from_record",
+    "looked_up"
+  ],
+  "conflicting_evidence_behavior": "human_review",
+  "invalid_binding_behavior": "undetermined",
+  "notes": "A false pending-charge binding requires a closed-world criminal-history or docket search source.",
+  "open_world_absence_behavior": "undetermined",
+  "required_source_types_for_false": [
+    "criminal_history_check",
+    "court_docket_search"
+  ],
+  "required_source_types_for_true": []
+}
+
+SOURCE INVENTORY
+================
+[
+  {
+    "as_of_date": null,
+    "closed_world_scopes": [],
+    "limitations": "Open narrative; self-reported and unverified; not a comprehensive record check; silence cannot establish absence of arrests, convictions, pending charges, murder, aggravated felonies, false testimony, or immigration violations; cannot substitute for official criminal-history checks, court records, docket searches, or USCIS interview records.",
+    "metadata": {},
+    "source_id": "personal_statement",
+    "source_type": "applicant_personal_statement",
+    "title": "Applicant personal statement"
+  }
+]
+
+CASE NARRATIVE
+==============
+The packet contains only the applicant's personal statement about residence, family, and employment. The statement does not mention arrests, convictions, pending charges, murder, aggravated felonies, or false testimony. No criminal-history check, court clearance, docket search, or USCIS interview record is included.
+
+RELEVANT EVIDENCE
+=================
+The personal statement does not mention pending charges, but no docket or criminal-history search is present.
+
+Allowed basis values:
+explicit_positive, explicit_negative, closed_world_absence, open_world_absence,
+inferred_from_record, conflicting_evidence, computed, looked_up, not_found.
+
+Return ONLY this JSON shape:
+{
+  "atom_id": "n400.pending_criminal_charge",
+  "status": "bound|undetermined|error",
+  "value": true,
+  "basis": "explicit_positive",
+  "source_ids": ["source id"],
+  "evidence": "short exact evidence or summary",
+  "explanation": "why this basis is appropriate",
+  "confidence": 0.0
+}

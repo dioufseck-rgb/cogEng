@@ -1,0 +1,63 @@
+You are preparing evidence for a governed policy Map step.
+
+Your job is NOT to decide the policy outcome. Your job is to inventory the
+evidence sources and identify what each source can and cannot support.
+
+For each source, return:
+- source_id
+- source_type
+- title
+- as_of_date if stated
+- closed_world_scopes: factual universes where absence from this source can
+  support a negative atom binding
+- limitations
+
+Closed-world absence is narrow. A personal statement or open narrative usually
+does NOT support closed-world absence. Official checks, search results,
+agency records, court records, or complete structured extracts may support it
+only within their stated scope.
+
+CASE NARRATIVE
+==============
+The packet includes an FBI criminal history check and a federal/state docket search. The FBI check reports no murder conviction and no aggravated felony conviction as of 2026-05-01. The docket search reports no pending criminal charges as of 2026-05-01.
+
+DECLARED SOURCES
+================
+[
+  {
+    "as_of_date": "2026-05-01",
+    "closed_world_scopes": [
+      "criminal_convictions"
+    ],
+    "limitations": "Does not address foreign convictions outside the reported criminal-history search scope.",
+    "metadata": {},
+    "source_id": "fbi_check_2026_05_01",
+    "source_type": "criminal_history_check",
+    "title": "FBI criminal history check"
+  },
+  {
+    "as_of_date": "2026-05-01",
+    "closed_world_scopes": [
+      "pending_criminal_charges"
+    ],
+    "limitations": "Only current pending charges as of the search date.",
+    "metadata": {},
+    "source_id": "docket_search_2026_05_01",
+    "source_type": "court_docket_search",
+    "title": "Federal and state docket search"
+  }
+]
+
+Return ONLY this JSON shape:
+{
+  "sources": [
+    {
+      "source_id": "source id",
+      "source_type": "source type",
+      "title": "short title",
+      "as_of_date": "YYYY-MM-DD or null",
+      "closed_world_scopes": ["scope"],
+      "limitations": "limitations"
+    }
+  ]
+}

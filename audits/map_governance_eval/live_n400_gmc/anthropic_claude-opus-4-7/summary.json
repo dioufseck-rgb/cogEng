@@ -1,0 +1,182 @@
+{
+  "basis_counts": {
+    "closed_world_absence": 3,
+    "conflicting_evidence": 1,
+    "explicit_positive": 2,
+    "not_found": 826,
+    "open_world_absence": 8
+  },
+  "case_count": 6,
+  "disposition_count": 12,
+  "expected_binding_metrics": {
+    "basis_expectation_count": 9,
+    "details": [
+      {
+        "atom_id": "n400.aggravated_felony_after_1990",
+        "case_id": "gmc_open_world_silence_personal_statement",
+        "expected": {
+          "failure_mode": "false_from_open_world_silence",
+          "ideal_basis": "open_world_absence",
+          "ideal_status": "undetermined"
+        },
+        "raw_basis": "open_world_absence",
+        "raw_status": "undetermined",
+        "raw_value": null,
+        "sanitized_basis": "open_world_absence",
+        "sanitized_status": "undetermined",
+        "sanitized_value": null,
+        "validation_action": "accept"
+      },
+      {
+        "atom_id": "n400.pending_criminal_charge",
+        "case_id": "gmc_open_world_silence_personal_statement",
+        "expected": {
+          "failure_mode": "false_from_open_world_silence",
+          "ideal_basis": "open_world_absence",
+          "ideal_status": "undetermined"
+        },
+        "raw_basis": "open_world_absence",
+        "raw_status": "undetermined",
+        "raw_value": null,
+        "sanitized_basis": "open_world_absence",
+        "sanitized_status": "undetermined",
+        "sanitized_value": null,
+        "validation_action": "accept"
+      },
+      {
+        "atom_id": "n400.aggravated_felony_after_1990",
+        "case_id": "gmc_closed_world_clean_checks",
+        "expected": {
+          "ideal_basis": "closed_world_absence",
+          "ideal_status": "bound",
+          "ideal_value": false
+        },
+        "raw_basis": "closed_world_absence",
+        "raw_status": "bound",
+        "raw_value": false,
+        "sanitized_basis": "closed_world_absence",
+        "sanitized_status": "bound",
+        "sanitized_value": false,
+        "validation_action": "accept"
+      },
+      {
+        "atom_id": "n400.murder_conviction",
+        "case_id": "gmc_closed_world_clean_checks",
+        "expected": {
+          "ideal_basis": "closed_world_absence",
+          "ideal_status": "bound",
+          "ideal_value": false
+        },
+        "raw_basis": "closed_world_absence",
+        "raw_status": "bound",
+        "raw_value": false,
+        "sanitized_basis": "closed_world_absence",
+        "sanitized_status": "bound",
+        "sanitized_value": false,
+        "validation_action": "accept"
+      },
+      {
+        "atom_id": "n400.pending_criminal_charge",
+        "case_id": "gmc_closed_world_clean_checks",
+        "expected": {
+          "ideal_basis": "closed_world_absence",
+          "ideal_status": "bound",
+          "ideal_value": false
+        },
+        "raw_basis": "closed_world_absence",
+        "raw_status": "bound",
+        "raw_value": false,
+        "sanitized_basis": "closed_world_absence",
+        "sanitized_status": "bound",
+        "sanitized_value": false,
+        "validation_action": "accept"
+      },
+      {
+        "atom_id": "n400.aggravated_felony_after_1990",
+        "case_id": "gmc_explicit_aggravated_felony_record",
+        "expected": {
+          "ideal_basis": "explicit_positive",
+          "ideal_status": "bound",
+          "ideal_value": true
+        },
+        "raw_basis": "explicit_positive",
+        "raw_status": "bound",
+        "raw_value": true,
+        "sanitized_basis": "explicit_positive",
+        "sanitized_status": "bound",
+        "sanitized_value": true,
+        "validation_action": "accept"
+      },
+      {
+        "atom_id": "n400.aggravated_felony_after_1990",
+        "case_id": "gmc_conflicting_aggravated_felony_sources",
+        "expected": {
+          "ideal_basis": "conflicting_evidence",
+          "ideal_status": "undetermined",
+          "ideal_validation_action": "human_review"
+        },
+        "raw_basis": "conflicting_evidence",
+        "raw_status": "undetermined",
+        "raw_value": null,
+        "sanitized_basis": "conflicting_evidence",
+        "sanitized_status": "undetermined",
+        "sanitized_value": null,
+        "validation_action": "accept"
+      },
+      {
+        "atom_id": "n400.aggravated_felony_after_1990",
+        "case_id": "gmc_incomplete_state_scope_clean_check",
+        "expected": {
+          "failure_mode": "overbroad_closed_world_absence",
+          "ideal_basis": "not_found",
+          "ideal_status": "undetermined"
+        },
+        "raw_basis": "open_world_absence",
+        "raw_status": "undetermined",
+        "raw_value": null,
+        "sanitized_basis": "open_world_absence",
+        "sanitized_status": "undetermined",
+        "sanitized_value": null,
+        "validation_action": "accept"
+      },
+      {
+        "atom_id": "n400.false_testimony_for_immigration_benefit",
+        "case_id": "gmc_explicit_false_testimony_interview_record",
+        "expected": {
+          "ideal_basis": "explicit_positive",
+          "ideal_status": "bound",
+          "ideal_value": true
+        },
+        "raw_basis": "explicit_positive",
+        "raw_status": "bound",
+        "raw_value": true,
+        "sanitized_basis": "explicit_positive",
+        "sanitized_status": "bound",
+        "sanitized_value": true,
+        "validation_action": "accept"
+      }
+    ],
+    "expected_binding_count": 9,
+    "observed_failure_modes": {
+      "false_from_open_world_silence": 0,
+      "overbroad_closed_world_absence": 0
+    },
+    "raw_basis_match_count": 8,
+    "raw_status_match_count": 9,
+    "raw_value_match_count": 5,
+    "status_expectation_count": 9,
+    "validation_action_expectation_count": 1,
+    "value_expectation_count": 5
+  },
+  "map_mode": "map_governed_evidence",
+  "matched_disposition_count": 0,
+  "mismatch_count": 0,
+  "model": "claude-opus-4-7",
+  "provider": "anthropic",
+  "validation_action_counts": {
+    "accept": 840
+  },
+  "validation_status_counts": {
+    "valid": 840
+  }
+}

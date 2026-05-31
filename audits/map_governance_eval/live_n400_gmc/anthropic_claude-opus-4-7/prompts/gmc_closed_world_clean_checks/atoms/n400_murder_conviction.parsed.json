@@ -1,0 +1,12 @@
+{
+  "atom_id": "n400.murder_conviction",
+  "basis": "closed_world_absence",
+  "confidence": 0.9,
+  "evidence": "FBI criminal history check: no murder convictions reported as of 2026-05-01.",
+  "explanation": "The FBI criminal history check is a criminal_history_check source with a closed-world scope over criminal_convictions, and it affirmatively reports no murder conviction. This satisfies the policy's requirement for a false binding via closed_world_absence, within the source's stated scope limitations.",
+  "source_ids": [
+    "fbi_check_2026_05_01"
+  ],
+  "status": "bound",
+  "value": false
+}
