@@ -282,6 +282,12 @@ def _parser() -> argparse.ArgumentParser:
         action="store_true",
         help="bind sources and all selected atoms in one governed Map LLM call",
     )
+    map_eval.add_argument(
+        "--repair-unresolved",
+        action="store_true",
+        help="run a trace-guided repair call for unresolved load-bearing atoms",
+    )
+    map_eval.add_argument("--max-repair-atoms", type=int, default=12)
     map_eval.add_argument("--llm-max-tokens", type=int, default=4096)
     map_eval.add_argument("--llm-timeout", type=float, default=120.0)
     map_eval.add_argument("--llm-max-retries", type=int, default=2)
@@ -581,6 +587,8 @@ def _map_eval(args: argparse.Namespace) -> int:
         max_atoms=args.max_atoms,
         batch_size=args.batch_size,
         single_map_call=args.single_map_call,
+        repair_unresolved=args.repair_unresolved,
+        max_repair_atoms=args.max_repair_atoms,
         max_tokens=args.llm_max_tokens,
         timeout=args.llm_timeout,
         max_retries=args.llm_max_retries,

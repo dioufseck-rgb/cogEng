@@ -28,6 +28,8 @@ def run_map_governance_eval(
     max_atoms: int | None = None,
     batch_size: int = 1,
     single_map_call: bool = False,
+    repair_unresolved: bool = False,
+    max_repair_atoms: int = 12,
     max_tokens: int = 4096,
     timeout: float = 120.0,
     max_retries: int = 2,
@@ -72,6 +74,8 @@ def run_map_governance_eval(
             map_step=map_step,
             program_id=program.metadata.name,
             program_version=program.metadata.version,
+            repair_unresolved=repair_unresolved,
+            max_repair_atoms=max_repair_atoms,
         )
         _write_run_artifacts(run_dir, result)
         summary = summarize_governed_run(provider, model, result, cases)
@@ -85,6 +89,8 @@ def run_map_governance_eval(
         "selected_atom_count": len(resolved_atom_ids),
         "batch_size": batch_size,
         "single_map_call": single_map_call,
+        "repair_unresolved": repair_unresolved,
+        "max_repair_atoms": max_repair_atoms,
         "runs": runs,
     }
     (output_dir / "summary.json").write_text(_json(aggregate), encoding="utf-8")
@@ -417,20 +423,39 @@ def _write_run_artifacts(output_dir: Path, result: dict[str, Any]) -> None:
                 _json(single.get("parsed")),
                 encoding="utf-8",
             )
+        repairs = artifacts.get("repairs", [])
+        if isinstance(repairs, list) and repairs:
+            repair_dir = case_dir / "repairs"
+            repair_dir.mkdir(exist_ok=True)
+            for index, repair in enumerate(repairs, start=1):
+                stem = f"repair_{index}"
+                (repair_dir / f"{stem}.prompt.txt").write_text(
+                    repair.get("prompt", ""),
+                    encoding="utf-8",
+                )
+                (repair_dir / f"{stem}.raw.txt").write_text(
+                    repair.get("raw_response", ""),
+                    encoding="utf-8",
+                )
+                (repair_dir / f"{stem}.parsed.json").write_text(
+                    _json(repair.get("parsed")),
+                    encoding="utf-8",
+                )
         atoms = artifacts.get("atoms", {})
         atom_dir = case_dir / "atoms"
         atom_dir.mkdir(exist_ok=True)
         for atom_id, artifact in atoms.items():
+            if artifact.get("single_map"):
+                continue
             stem = _safe_name(atom_id)
-            if not artifact.get("single_map"):
-                (atom_dir / f"{stem}.prompt.txt").write_text(
-                    artifact.get("prompt", ""),
-                    encoding="utf-8",
-                )
-                (atom_dir / f"{stem}.raw.txt").write_text(
-                    artifact.get("raw_response", ""),
-                    encoding="utf-8",
-                )
+            (atom_dir / f"{stem}.prompt.txt").write_text(
+                artifact.get("prompt", ""),
+                encoding="utf-8",
+            )
+            (atom_dir / f"{stem}.raw.txt").write_text(
+                artifact.get("raw_response", ""),
+                encoding="utf-8",
+            )
             (atom_dir / f"{stem}.parsed.json").write_text(
                 _json(artifact.get("parsed")),
                 encoding="utf-8",

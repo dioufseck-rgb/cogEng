@@ -9,7 +9,7 @@ from typing import Any
 
 from pydantic_core import to_jsonable_python
 
-from rulekit.contract import DeterminationProgram, safe_program_to_engine, validate_program
+from rulekit.contract import BindingBasis, DeterminationProgram, safe_program_to_engine, validate_program
 from rulekit.orchestrator.cases import CaseExample, ExpectedOutcome
 from rulekit.orchestrator.disposition import DispositionRecord
 from rulekit.orchestrator.evaluation import evaluate_determination_with_map_record
@@ -20,7 +20,7 @@ from rulekit.orchestrator.exercise import (
 )
 from rulekit.orchestrator.ids import new_id
 from rulekit.orchestrator.llm_config import create_map_step
-from rulekit.orchestrator.map_record import MapExtractionRecord
+from rulekit.orchestrator.map_record import AtomBindingStatus, MapExtractionRecord
 from rulekit.orchestrator.map_step import MapStep, MapStepContext
 from rulekit.orchestrator.map_validation import (
     MapValidationReport,
@@ -66,6 +66,8 @@ def adjudicate_cases(
     map_step: MapStep | None = None,
     program_id: str | None = None,
     program_version: str | None = None,
+    repair_unresolved: bool = False,
+    max_repair_atoms: int = 12,
 ) -> dict[str, Any]:
     """Run cases through Map and the deterministic RuleKit engine."""
     report = validate_program(program)
@@ -91,62 +93,67 @@ def adjudicate_cases(
 
     for case in cases:
         map_result = active_map_step.run(program, case, context)
+        evidence_sources = evidence_sources_from_case_fields(case.structured_fields)
         map_record, map_validation = apply_map_validation(
             program,
             map_result.map_record,
-            evidence_sources=evidence_sources_from_case_fields(case.structured_fields),
-        )
-        map_records.append(map_record)
-        map_validation_reports.append(map_validation)
-        bundle = fact_bundle_from_values(
-            program,
-            fact_values_from_map_record(map_record),
-            evidence={
-                atom_id: binding.evidence
-                for atom_id, binding in map_record.bindings.items()
-                if binding.evidence
-            },
+            evidence_sources=evidence_sources,
         )
         expected = {
             item.determination_id: item.expected_value
             for item in case.expected_outcomes
         }
-        for det_id in selected_determinations:
-            started = perf_counter()
-            evaluation = evaluate_determination_with_map_record(
-                program,
-                runtime,
-                det_id,
-                bundle,
+        case_dispositions = _evaluate_case_dispositions(
+            program,
+            runtime,
+            case,
+            selected_determinations,
+            map_record,
+            map_validation,
+            resolved_program_id,
+            resolved_program_version,
+            expected,
+        )
+        repair_atoms: list[str] = []
+        if repair_unresolved and hasattr(active_map_step, "repair_bindings"):
+            repair_atoms, repair_reasons = _select_trace_guided_repair_atoms(
                 map_record,
+                map_validation,
+                case_dispositions,
+                max_atoms=max_repair_atoms,
             )
-            outcome = evaluation.outcome
-            trace = evaluation.trace
-            expected_value = expected.get(det_id)
-            dispositions.append(
-                DispositionRecord(
-                    disposition_id=new_id("disp"),
-                    program_id=resolved_program_id,
-                    program_version=resolved_program_version,
-                    case_id=case.case_id,
-                    determination_id=det_id,
-                    outcome=str(outcome),
-                    expected_outcome=expected_value,
-                    matched_expected=(
-                        None if expected_value is None else str(outcome) == expected_value
-                    ),
-                    trace={"trace": trace},
-                    load_bearing_path=extract_leaf_path(trace),
-                    map_latency_s=map_record.latency_s,
-                    engine_latency_ms=(perf_counter() - started) * 1000,
-                    metadata={
-                        "case_title": case.title,
-                        "map_record_id": map_record.map_record_id,
-                        "map_validation": map_validation.summary(),
-                        **evaluation.metadata,
-                    },
+            if repair_atoms:
+                repaired_raw = active_map_step.repair_bindings(
+                    program,
+                    case,
+                    map_record,
+                    repair_atoms,
+                    reasons=repair_reasons,
                 )
-            )
+                map_record, map_validation = apply_map_validation(
+                    program,
+                    repaired_raw,
+                    evidence_sources=evidence_sources,
+                )
+                case_dispositions = _evaluate_case_dispositions(
+                    program,
+                    runtime,
+                    case,
+                    selected_determinations,
+                    map_record,
+                    map_validation,
+                    resolved_program_id,
+                    resolved_program_version,
+                    expected,
+                )
+                for disposition in case_dispositions:
+                    disposition.metadata["repair"] = {
+                        "attempted": True,
+                        "atom_ids": repair_atoms,
+                    }
+        map_records.append(map_record)
+        map_validation_reports.append(map_validation)
+        dispositions.extend(case_dispositions)
 
     return {
         "program": {
@@ -171,6 +178,125 @@ def adjudicate_cases(
         ],
         "dispositions": [record.model_dump(mode="json") for record in dispositions],
     }
+
+
+def _evaluate_case_dispositions(
+    program: DeterminationProgram,
+    runtime: Any,
+    case: CaseExample,
+    selected_determinations: list[str],
+    map_record: MapExtractionRecord,
+    map_validation: MapValidationReport,
+    program_id: str,
+    program_version: str | None,
+    expected: dict[str, str],
+) -> list[DispositionRecord]:
+    bundle = fact_bundle_from_values(
+        program,
+        fact_values_from_map_record(map_record),
+        evidence={
+            atom_id: binding.evidence
+            for atom_id, binding in map_record.bindings.items()
+            if binding.evidence
+        },
+    )
+    records: list[DispositionRecord] = []
+    for det_id in selected_determinations:
+        started = perf_counter()
+        evaluation = evaluate_determination_with_map_record(
+            program,
+            runtime,
+            det_id,
+            bundle,
+            map_record,
+        )
+        outcome = evaluation.outcome
+        trace = evaluation.trace
+        expected_value = expected.get(det_id)
+        records.append(
+            DispositionRecord(
+                disposition_id=new_id("disp"),
+                program_id=program_id,
+                program_version=program_version,
+                case_id=case.case_id,
+                determination_id=det_id,
+                outcome=str(outcome),
+                expected_outcome=expected_value,
+                matched_expected=(
+                    None if expected_value is None else str(outcome) == expected_value
+                ),
+                trace={"trace": trace},
+                load_bearing_path=extract_leaf_path(trace),
+                map_latency_s=map_record.latency_s,
+                engine_latency_ms=(perf_counter() - started) * 1000,
+                metadata={
+                    "case_title": case.title,
+                    "map_record_id": map_record.map_record_id,
+                    "map_validation": map_validation.summary(),
+                    **evaluation.metadata,
+                },
+            )
+        )
+    return records
+
+
+def _select_trace_guided_repair_atoms(
+    map_record: MapExtractionRecord,
+    map_validation: MapValidationReport,
+    dispositions: list[DispositionRecord],
+    *,
+    max_atoms: int,
+) -> tuple[list[str], dict[str, list[str]]]:
+    selected: list[str] = []
+    reasons: dict[str, list[str]] = {}
+
+    def add(atom_id: str, reason: str) -> None:
+        if atom_id not in map_record.bindings:
+            return
+        if not _binding_needs_repair(map_record.bindings[atom_id]):
+            return
+        if atom_id not in selected:
+            selected.append(atom_id)
+        reasons.setdefault(atom_id, []).append(reason)
+
+    for disposition in dispositions:
+        if disposition.outcome != "undetermined":
+            continue
+        for atom_id in disposition.load_bearing_path:
+            add(
+                atom_id,
+                (
+                    f"{disposition.determination_id} evaluated to undetermined "
+                    "and this atom appears in its load-bearing trace"
+                ),
+            )
+
+    for entry in map_validation.entries:
+        if str(entry.action.value) == "accept":
+            continue
+        add(entry.atom_id, f"Map validation action was {entry.action.value}: {entry.reason}")
+
+    return selected[:max_atoms], {
+        atom_id: reasons[atom_id] for atom_id in selected[:max_atoms]
+    }
+
+
+def _binding_needs_repair(binding: Any) -> bool:
+    default_kind = binding.metadata.get("default_kind")
+    if default_kind in {"evidence_gap", "out_of_scope", "branch_not_applicable"}:
+        return False
+    if binding.status == AtomBindingStatus.ERROR:
+        return True
+    if binding.status != AtomBindingStatus.BOUND:
+        return True
+    if binding.basis in {
+        BindingBasis.CONFLICTING_EVIDENCE,
+        BindingBasis.OPEN_WORLD_ABSENCE,
+        BindingBasis.NOT_FOUND,
+    }:
+        return True
+    value = binding.value
+    return value is None or str(value).lower() == "undetermined"
 
 
 def write_runtime_result(result: dict[str, Any], output_dir: str | Path) -> dict[str, str]:

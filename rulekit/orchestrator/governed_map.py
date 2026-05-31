@@ -262,6 +262,57 @@ Return ONLY this JSON shape:
 """
 
 
+REPAIR_ATOM_BINDING_PROMPT = """You are repairing selected atom bindings for a governed policy engine.
+
+You are NOT deciding policy outcomes. The deterministic engine has already
+identified these atoms as unresolved on a load-bearing trace. Your job is only
+to revisit the listed atom bindings from the case packet and return improved
+bindings where the evidence supports them.
+
+Rules:
+- Treat each atom independently.
+- Do not change an atom just to make a determination true or false.
+- If the case packet still does not support a value, keep it undetermined.
+- If a conditional support atom is phrased like "if needed", "if applicable",
+  "if initial fail", or "when applicable", and the triggering condition is
+  clearly absent, it may bind true with basis "inferred_from_record" because the
+  branch is not applicable.
+- Return one binding object for every atom in REPAIR_ATOMS.
+
+Allowed basis values:
+explicit_positive, explicit_negative, closed_world_absence, open_world_absence,
+inferred_from_record, conflicting_evidence, computed, looked_up, not_found.
+
+CASE NARRATIVE
+==============
+{narrative}
+
+SOURCE INVENTORY
+================
+{sources_json}
+
+REPAIR_ATOMS
+============
+{repair_atoms_json}
+
+Return ONLY this JSON shape:
+{{
+  "bindings": [
+    {{
+      "atom_id": "atom id from REPAIR_ATOMS",
+      "status": "bound|undetermined|error",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["source id"],
+      "evidence": "short exact evidence or summary",
+      "explanation": "why this basis is appropriate",
+      "confidence": 0.0
+    }}
+  ]
+}}
+"""
+
+
 class GovernedEvidenceMapStep:
     """Map step that asks the LLM for evidence basis, then records it."""
 
@@ -385,6 +436,72 @@ class GovernedEvidenceMapStep:
                 },
             )
         )
+
+    def repair_bindings(
+        self,
+        program: DeterminationProgram,
+        case: CaseExample,
+        map_record: MapExtractionRecord,
+        atom_ids: list[str],
+        *,
+        reasons: dict[str, list[str]] | None = None,
+    ) -> MapExtractionRecord:
+        selected = [atom_id for atom_id in atom_ids if atom_id in program.map_spec.atoms]
+        if not selected:
+            return map_record
+        repaired = map_record.model_copy(deep=True)
+        sources = _sources_from_map_record(repaired)
+        if not sources:
+            sources = evidence_sources_from_case_fields(case.structured_fields)
+        evidence_by_atom = _evidence_by_atom(case.structured_fields)
+        prompt = build_repair_atom_binding_prompt(
+            program,
+            selected,
+            case,
+            sources,
+            repaired,
+            evidence_by_atom=evidence_by_atom,
+            reasons=reasons or {},
+        )
+        raw, cost, metrics = self._call_llm("map_governed_repair", prompt)
+        parsed_by_atom = _parse_batch_binding_payloads(selected, raw)
+        artifacts = repaired.metadata.setdefault("prompt_artifacts", {})
+        repair_artifacts = artifacts.setdefault("repairs", [])
+        repair_artifacts.append(
+            {
+                "atom_ids": selected,
+                "prompt": prompt,
+                "raw_response": raw,
+                "parsed": parsed_by_atom,
+                "metrics": cost.model_dump(mode="json"),
+            }
+        )
+        atoms_artifacts = artifacts.setdefault("atoms", {})
+        for atom_id in selected:
+            atom = program.map_spec.atoms[atom_id]
+            parsed = parsed_by_atom.get(atom_id) or _error_payload(
+                atom_id,
+                "repair response did not include this atom",
+            )
+            repaired.bindings[atom_id] = _binding_from_payload(
+                atom_id,
+                atom.atom_type,
+                parsed,
+            )
+            repaired.bindings[atom_id].metadata["repaired"] = True
+            atoms_artifacts.setdefault(atom_id, {})["repair"] = {
+                "parsed": parsed,
+                "metrics": cost.model_dump(mode="json"),
+            }
+        call_metrics = repaired.metadata.setdefault("llm_call_metrics", [])
+        call_metrics.append(metrics)
+        repaired.cost = _aggregate_call_metrics(call_metrics)
+        repaired.latency_s = (repaired.latency_s or 0.0) + (cost.latency_s or 0.0)
+        repaired.metadata["repair_count"] = repaired.metadata.get("repair_count", 0) + 1
+        repaired.metadata["repaired_atoms"] = sorted(
+            set(repaired.metadata.get("repaired_atoms", [])) | set(selected)
+        )
+        return repaired
 
     def _bind_single_map_call(
         self,
@@ -696,6 +813,44 @@ def build_single_map_prompt(
     )
 
 
+def build_repair_atom_binding_prompt(
+    program: DeterminationProgram,
+    atom_ids: list[str],
+    case: CaseExample,
+    sources: list[EvidenceSource],
+    map_record: MapExtractionRecord,
+    *,
+    evidence_by_atom: dict[str, str],
+    reasons: dict[str, list[str]],
+) -> str:
+    atoms_payload = []
+    for atom_id in atom_ids:
+        atom = program.map_spec.atoms[atom_id]
+        current = map_record.bindings.get(atom_id)
+        atoms_payload.append(
+            {
+                "atom": to_jsonable_python(atom),
+                "binding_policy": to_jsonable_python(
+                    getattr(atom, "binding_policy", None)
+                ),
+                "current_binding": (
+                    current.model_dump(mode="json") if current is not None else None
+                ),
+                "repair_reasons": reasons.get(atom_id, []),
+                "relevant_evidence": evidence_by_atom.get(atom_id) or case.narrative,
+            }
+        )
+    return REPAIR_ATOM_BINDING_PROMPT.format(
+        narrative=case.narrative,
+        sources_json=json.dumps(
+            [source.model_dump(mode="json") for source in sources],
+            indent=2,
+            sort_keys=True,
+        ),
+        repair_atoms_json=json.dumps(atoms_payload, indent=2, sort_keys=True),
+    )
+
+
 def _parse_binding_payload(atom_id: str, raw: str) -> dict[str, Any]:
     try:
         parsed = parse_json_response(raw)
@@ -824,6 +979,17 @@ def _binding_from_payload(
     )
 
 
+def _sources_from_map_record(map_record: MapExtractionRecord) -> list[EvidenceSource]:
+    payload = map_record.metadata.get("source_inventory", [])
+    if not isinstance(payload, list):
+        return []
+    sources: list[EvidenceSource] = []
+    for item in payload:
+        if isinstance(item, dict):
+            sources.append(EvidenceSource.model_validate(item))
+    return sources
+
+
 def _evidence_by_atom(structured_fields: dict[str, Any]) -> dict[str, str]:
     evidence = structured_fields.get("evidence")
     if not isinstance(evidence, dict):
@@ -899,8 +1065,10 @@ __all__ = [
     "ATOM_BINDING_PROMPT",
     "BATCH_ATOM_BINDING_PROMPT",
     "SINGLE_MAP_PROMPT",
+    "REPAIR_ATOM_BINDING_PROMPT",
     "build_source_inventory_prompt",
     "build_atom_binding_prompt",
     "build_batch_atom_binding_prompt",
     "build_single_map_prompt",
+    "build_repair_atom_binding_prompt",
 ]

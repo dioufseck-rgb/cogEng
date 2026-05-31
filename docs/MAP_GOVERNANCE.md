@@ -186,6 +186,19 @@ produce dispositions. This mode is faster and cheaper on large slices, but it
 must be evaluated separately because a compressed prompt can change binding
 quality, especially around conditional or branch-closing atoms.
 
+Single-call mode can be paired with trace-guided repair:
+
+```powershell
+--single-map-call --repair-unresolved --llm-max-tokens 16000
+```
+
+Repair does not use ground truth. It runs only when deterministic evaluation
+produces an unresolved disposition or Map validation flags a binding. The
+runtime inspects the engine trace, selects only unresolved load-bearing atoms,
+asks one targeted repair prompt for those atoms, validates the repaired Map
+record, and re-evaluates the determinations. Atoms intentionally marked as
+`evidence_gap`, `out_of_scope`, or `branch_not_applicable` are not repaired.
+
 ## Case-Packet Binding Directives
 
 Evidence packets should prefer `structured_fields.binding_directives` when

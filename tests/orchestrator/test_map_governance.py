@@ -285,6 +285,73 @@ def test_governed_map_step_can_bind_single_map_call():
     assert artifacts["atoms"]["n400.aggravated_felony_after_1990"]["single_map"] is True
 
 
+def test_runtime_repair_unresolved_uses_load_bearing_trace():
+    program = _program()
+    case = CaseExample(
+        case_id="repair_packet",
+        title="Repair packet",
+        narrative="The packet includes an FBI criminal history check showing no felony convictions.",
+        structured_fields={
+            "evidence_sources": [
+                {
+                    "source_id": "fbi_check",
+                    "source_type": "criminal_history_check",
+                    "title": "FBI criminal history check",
+                    "closed_world_scopes": ["criminal_convictions"],
+                }
+            ],
+        },
+        expected_outcomes=[
+            ExpectedOutcome(
+                determination_id="n400.no_aggravated_felony_bar",
+                expected_value="true",
+            )
+        ],
+    )
+    llm = LLMCaller(
+        offline_responses={
+            "map_governed_single_map": (
+                '{"sources":[{"source_id":"fbi_check","source_type":"criminal_history_check",'
+                '"title":"FBI check","as_of_date":null,'
+                '"closed_world_scopes":["criminal_convictions"],"limitations":""}],'
+                '"bindings":[{"atom_id":"n400.aggravated_felony_after_1990",'
+                '"status":"undetermined","value":"undetermined","basis":"not_found",'
+                '"source_ids":[],"evidence":null,"explanation":"not found",'
+                '"confidence":0.2}]}'
+            ),
+            "map_governed_repair": (
+                '{"bindings":[{"atom_id":"n400.aggravated_felony_after_1990",'
+                '"status":"bound","value":false,"basis":"closed_world_absence",'
+                '"source_ids":["fbi_check"],"evidence":"no felony convictions found",'
+                '"explanation":"official check","confidence":0.95}]}'
+            ),
+        }
+    )
+    step = GovernedEvidenceMapStep(
+        llm,
+        atom_ids=["n400.aggravated_felony_after_1990"],
+        single_map_call=True,
+    )
+
+    result = adjudicate_cases(
+        program,
+        [case],
+        determinations=["n400.no_aggravated_felony_bar"],
+        map_step=step,
+        repair_unresolved=True,
+    )
+
+    disposition = result["dispositions"][0]
+    binding = result["map_records"][0]["bindings"]["n400.aggravated_felony_after_1990"]
+    assert disposition["outcome"] == "true"
+    assert disposition["matched_expected"] is True
+    assert disposition["metadata"]["repair"]["atom_ids"] == [
+        "n400.aggravated_felony_after_1990"
+    ]
+    assert binding["value"] is False
+    assert binding["metadata"]["repaired"] is True
+
+
 def test_governed_map_step_applies_case_default_bindings_to_undetermined_atoms():
     program = _program()
     case = CaseExample(

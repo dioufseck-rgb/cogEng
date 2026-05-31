@@ -3,6 +3,7 @@ param(
     [string] $KeysFile = "$HOME\.rulekit\llm_keys.ps1",
     [string] $Python = "python",
     [switch] $SingleMapCall,
+    [switch] $RepairUnresolved,
     [int] $MaxTokens = 4096,
     [switch] $SkipPull,
     [string[]] $Models = @(
@@ -103,6 +104,10 @@ $ArgsList = @(
 
 if ($SingleMapCall) {
     $ArgsList += @("--single-map-call")
+}
+
+if ($RepairUnresolved) {
+    $ArgsList += @("--repair-unresolved")
 }
 
 foreach ($Model in $Models) {
