@@ -18,6 +18,7 @@ from rulekit.orchestrator.map_record import (
     MapExtractionRecord,
 )
 from rulekit.orchestrator.map_step import (
+    apply_case_default_bindings,
     MapStepContext,
     MapStepKind,
     MapStepResult,
@@ -262,6 +263,12 @@ class GovernedEvidenceMapStep:
                     basis=BindingBasis.NOT_FOUND,
                     source=context.substrate_id,
                 )
+        default_count = apply_case_default_bindings(
+            program,
+            case,
+            bindings,
+            source=context.substrate_id,
+        )
         return MapStepResult(
             map_record=MapExtractionRecord(
                 map_record_id=new_id("map"),
@@ -277,6 +284,7 @@ class GovernedEvidenceMapStep:
                     "source_inventory": [
                         source.model_dump(mode="json") for source in sources
                     ],
+                    "default_binding_count": default_count,
                     "llm_call_metrics": call_metrics,
                     "prompt_artifacts": artifacts,
                 },

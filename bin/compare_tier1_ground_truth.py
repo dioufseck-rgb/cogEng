@@ -5,7 +5,14 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
-from rulekit.runtime import load_runtime_cases
+from rulekit.orchestrator.exercise import exercise_program_on_case_with_map_record
+from rulekit.orchestrator.map_record import MapExtractionRecord
+from rulekit.orchestrator.map_step import apply_case_default_bindings
+from rulekit.orchestrator.map_validation import (
+    apply_map_validation,
+    evidence_sources_from_case_fields,
+)
+from rulekit.runtime import load_program, load_runtime_cases
 
 
 CASES_PATH = Path(
@@ -13,6 +20,9 @@ CASES_PATH = Path(
 )
 RULEKIT_DISPOSITIONS = Path(
     "audits/tier1_slice_batch_a/anthropic_claude-opus-4-7/dispositions.json"
+)
+RULEKIT_MAP_RECORDS = Path(
+    "audits/tier1_slice_batch_a/anthropic_claude-opus-4-7/map_records.json"
 )
 DIRECT_DISPOSITIONS = Path(
     "audits/tier1_direct_a/anthropic_claude-opus-4-7/dispositions.json"
@@ -34,6 +44,12 @@ def main() -> None:
             RULEKIT_DISPOSITIONS,
             expected=expected,
             case_titles=case_titles,
+        ),
+        "rulekit_with_case_defaults": compare_rows(
+            replay_rulekit_with_case_defaults(cases),
+            expected=expected,
+            case_titles=case_titles,
+            source_path=str(RULEKIT_MAP_RECORDS),
         ),
         "direct_anthropic": compare_dispositions(
             DIRECT_DISPOSITIONS,
@@ -65,7 +81,11 @@ def main() -> None:
                     "match_count": comparisons[name]["match_count"],
                     "mismatch_count": comparisons[name]["mismatch_count"],
                 }
-                for name in ("rulekit_expanded_batched", "direct_anthropic")
+                for name in (
+                    "rulekit_expanded_batched",
+                    "rulekit_with_case_defaults",
+                    "direct_anthropic",
+                )
             },
             indent=2,
             sort_keys=True,
@@ -80,6 +100,21 @@ def compare_dispositions(
     case_titles: dict[str, str],
 ) -> dict[str, Any]:
     rows = json.loads(path.read_text(encoding="utf-8"))
+    return compare_rows(
+        rows,
+        expected=expected,
+        case_titles=case_titles,
+        source_path=str(path),
+    )
+
+
+def compare_rows(
+    rows: list[dict[str, Any]],
+    *,
+    expected: dict[tuple[str, str], str],
+    case_titles: dict[str, str],
+    source_path: str,
+) -> dict[str, Any]:
     pattern: Counter[tuple[str, str]] = Counter()
     by_determination: Counter[str] = Counter()
     by_case: Counter[str] = Counter()
@@ -125,7 +160,7 @@ def compare_dispositions(
         )
 
     return {
-        "source_path": str(path),
+        "source_path": source_path,
         "compared_count": compared_count,
         "match_count": match_count,
         "mismatch_count": compared_count - match_count,
@@ -141,6 +176,38 @@ def compare_dispositions(
         "missing_expected": missing_expected,
         "mismatches": mismatches,
     }
+
+
+def replay_rulekit_with_case_defaults(cases: list[Any]) -> list[dict[str, Any]]:
+    program = load_program("build/uscis_n400_tier1_bundle/program.json")
+    case_by_id = {case.case_id: case for case in cases}
+    rows: list[dict[str, Any]] = []
+    payload = json.loads(RULEKIT_MAP_RECORDS.read_text(encoding="utf-8"))
+    for item in payload:
+        record = MapExtractionRecord.model_validate(item)
+        case = case_by_id[record.case_id]
+        apply_case_default_bindings(
+            program,
+            case,
+            record.bindings,
+            source="case_default_replay",
+        )
+        record, _report = apply_map_validation(
+            program,
+            record,
+            evidence_sources=evidence_sources_from_case_fields(case.structured_fields),
+        )
+        rows.extend(
+            disposition.model_dump(mode="json")
+            for disposition in exercise_program_on_case_with_map_record(
+                program,
+                case,
+                record,
+                program_id=program.metadata.name,
+                program_version=program.metadata.version,
+            )
+        )
+    return rows
 
 
 def side_by_side(
@@ -209,7 +276,11 @@ def build_report(comparisons: dict[str, Any]) -> str:
         "| System | Compared | Matches | Mismatches | Accuracy |",
         "|---|---:|---:|---:|---:|",
     ]
-    for name in ("rulekit_expanded_batched", "direct_anthropic"):
+    for name in (
+        "rulekit_expanded_batched",
+        "rulekit_with_case_defaults",
+        "direct_anthropic",
+    ):
         summary = comparisons[name]
         lines.append(
             "| {name} | {compared} | {matched} | {mismatched} | {accuracy:.2%} |".format(
@@ -233,7 +304,11 @@ def build_report(comparisons: dict[str, Any]) -> str:
     for key, value in comparisons["side_by_side"]["counts"].items():
         lines.append(f"| {key} | {value} |")
 
-    for name in ("rulekit_expanded_batched", "direct_anthropic"):
+    for name in (
+        "rulekit_expanded_batched",
+        "rulekit_with_case_defaults",
+        "direct_anthropic",
+    ):
         summary = comparisons[name]
         lines.extend(
             [

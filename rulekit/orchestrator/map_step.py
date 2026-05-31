@@ -122,6 +122,12 @@ class PreboundFactsMapStep:
                 ),
                 source=context.substrate_id,
             )
+        default_count = apply_case_default_bindings(
+            program,
+            case,
+            bindings,
+            source=context.substrate_id,
+        )
         return MapStepResult(
             map_record=MapExtractionRecord(
                 map_record_id=new_id("map"),
@@ -134,6 +140,7 @@ class PreboundFactsMapStep:
                 metadata={
                     "map_step_id": self.spec.map_step_id,
                     "fact_count": len(facts),
+                    "default_binding_count": default_count,
                     "reviewer_hint_count": len(reviewer_hints),
                     "reviewer_hints": [
                         hint.model_dump(mode="json") for hint in reviewer_hints
@@ -226,6 +233,108 @@ def facts_from_case_fields(structured_fields: dict[str, Any]) -> dict[str, Any]:
     if isinstance(facts, dict):
         return dict(facts)
     return dict(structured_fields)
+
+
+def apply_case_default_bindings(
+    program: DeterminationProgram,
+    case: CaseExample,
+    bindings: dict[str, AtomBindingRecord],
+    *,
+    source: str | None = None,
+) -> int:
+    """Apply audited case-packet defaults to missing or undetermined bindings.
+
+    The default mechanism is intentionally data-driven: domains can enrich case
+    packets with `structured_fields.default_bindings` instead of adding Python.
+    Defaults still pass through normal Map validation downstream.
+    """
+    defaults = _case_default_binding_payloads(case.structured_fields)
+    applied = 0
+    for atom_id, payload in defaults.items():
+        if atom_id not in program.map_spec.atoms:
+            continue
+        default = payload if isinstance(payload, dict) else {"value": payload}
+        apply_when = str(default.get("apply_when", "missing_or_undetermined"))
+        existing = bindings.get(atom_id)
+        if not _should_apply_default(existing, apply_when):
+            continue
+        atom = program.map_spec.atoms[atom_id]
+        value = default.get("value", "undetermined")
+        status = _binding_status_from_value(value)
+        basis = _basis_for(value, status, default.get("basis"))
+        bindings[atom_id] = AtomBindingRecord(
+            atom_id=atom_id,
+            atom_type=atom.atom_type,
+            value=value,
+            status=status,
+            evidence=(
+                str(default["evidence"])
+                if default.get("evidence") is not None
+                else _evidence_for(case.structured_fields, atom_id)
+            ),
+            basis=basis,
+            source_ids=_source_ids_for(default.get("source_ids")),
+            explanation=(
+                str(default["explanation"])
+                if default.get("explanation") is not None
+                else "case packet default binding"
+            ),
+            confidence=float(default["confidence"])
+            if default.get("confidence") is not None
+            else None,
+            source=source or "case_default",
+            metadata={
+                "case_default": True,
+                "default_apply_when": apply_when,
+                "replaced_status": existing.status.value if existing else None,
+                "replaced_basis": existing.basis.value if existing and existing.basis else None,
+            },
+        )
+        applied += 1
+    return applied
+
+
+def _case_default_binding_payloads(structured_fields: dict[str, Any]) -> dict[str, Any]:
+    defaults: dict[str, Any] = {}
+    groups = structured_fields.get("default_binding_groups")
+    if isinstance(groups, list):
+        for group in groups:
+            if not isinstance(group, dict):
+                continue
+            atom_ids = group.get("atom_ids")
+            if not isinstance(atom_ids, list):
+                continue
+            payload = {key: value for key, value in group.items() if key != "atom_ids"}
+            for atom_id in atom_ids:
+                defaults[str(atom_id)] = dict(payload)
+    defaults.update(_dict_from_structured(structured_fields, "default_bindings"))
+    return defaults
+
+
+def _should_apply_default(
+    existing: AtomBindingRecord | None,
+    apply_when: str,
+) -> bool:
+    if apply_when == "always":
+        return True
+    if existing is None:
+        return True
+    if apply_when == "missing":
+        return False
+    if apply_when == "missing_or_not_found":
+        return existing.basis == BindingBasis.NOT_FOUND
+    if existing.status != AtomBindingStatus.BOUND:
+        return True
+    return existing.basis in {
+        BindingBasis.NOT_FOUND,
+        BindingBasis.OPEN_WORLD_ABSENCE,
+    }
+
+
+def _binding_status_from_value(value: Any) -> AtomBindingStatus:
+    if value is None or str(value).lower() == "undetermined":
+        return AtomBindingStatus.UNDETERMINED
+    return AtomBindingStatus.BOUND
 
 
 def _evidence_for(structured_fields: dict[str, Any], atom_id: str) -> str | None:
@@ -329,5 +438,6 @@ __all__ = [
     "MapStep",
     "PreboundFactsMapStep",
     "TypedNarrativeMapStep",
+    "apply_case_default_bindings",
     "facts_from_case_fields",
 ]

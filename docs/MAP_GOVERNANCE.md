@@ -138,3 +138,16 @@ When explicit `--atom` values are omitted, `--atom-scope` controls coverage:
 `determination-slice` is the preferred comparison mode for direct-LLM
 baselines because it gives RuleKit coverage over the whole relevant policy
 surface without binding unrelated atoms.
+
+## Case-Packet Defaults
+
+Evidence packets may include `structured_fields.default_bindings` or
+`structured_fields.default_binding_groups`. These are audited bindings supplied
+by the packet, not Python domain logic. They apply after stochastic Map when an
+atom is missing, undetermined, `not_found`, or `open_world_absence`, unless the
+packet explicitly sets `apply_when: "always"`.
+
+The intended use is source-scope/default semantics: non-load-bearing scope
+facts and absent review triggers can be resolved from the packet when the packet
+itself establishes that they are not relevant. Defaults still pass through the
+same deterministic Map validation layer before the engine consumes them.

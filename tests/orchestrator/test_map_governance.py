@@ -232,6 +232,102 @@ def test_governed_map_step_can_bind_atoms_in_batches():
     assert artifacts["atoms"]["n400.aggravated_felony_after_1990"]["batch_index"] == 1
 
 
+def test_governed_map_step_applies_case_default_bindings_to_undetermined_atoms():
+    program = _program()
+    case = CaseExample(
+        case_id="default_packet",
+        title="Default packet",
+        narrative="The packet contains a clean FBI criminal history check.",
+        structured_fields={
+            "evidence_sources": [
+                {
+                    "source_id": "fbi_check",
+                    "source_type": "criminal_history_check",
+                    "title": "FBI criminal history check",
+                    "closed_world_scopes": ["criminal_convictions"],
+                }
+            ],
+            "default_bindings": {
+                "n400.aggravated_felony_after_1990": {
+                    "value": False,
+                    "basis": "closed_world_absence",
+                    "source_ids": ["fbi_check"],
+                    "evidence": "FBI check reports no aggravated felony conviction.",
+                }
+            },
+        },
+        expected_outcomes=[],
+    )
+    llm = LLMCaller(
+        offline_responses={
+            "map_governed_source_inventory": (
+                '{"sources":[{"source_id":"fbi_check","source_type":"criminal_history_check",'
+                '"title":"FBI check","as_of_date":null,'
+                '"closed_world_scopes":["criminal_convictions"],"limitations":""}]}'
+            ),
+            "map_governed_atom:n400.aggravated_felony_after_1990": (
+                '{"atom_id":"n400.aggravated_felony_after_1990","status":"undetermined",'
+                '"value":"undetermined","basis":"not_found","source_ids":[],'
+                '"evidence":null,"explanation":"not found","confidence":0.4}'
+            ),
+        }
+    )
+    step = GovernedEvidenceMapStep(llm, atom_ids=["n400.aggravated_felony_after_1990"])
+
+    result = step.run(
+        program,
+        case,
+        MapStepContext(program_id="prog", substrate_id=step.spec.map_step_id),
+    )
+
+    binding = result.map_record.bindings["n400.aggravated_felony_after_1990"]
+    assert binding.value is False
+    assert binding.basis == BindingBasis.CLOSED_WORLD_ABSENCE
+    assert binding.metadata["case_default"] is True
+    assert result.map_record.metadata["default_binding_count"] == 1
+
+
+def test_case_default_binding_groups_apply_to_multiple_atoms():
+    program = _program()
+    case = CaseExample(
+        case_id="default_group_packet",
+        title="Default group packet",
+        narrative="The packet contains a clean FBI criminal history check.",
+        structured_fields={
+            "default_binding_groups": [
+                {
+                    "atom_ids": ["n400.aggravated_felony_after_1990"],
+                    "value": False,
+                    "basis": "explicit_negative",
+                    "evidence": "No aggravated felony issue is present.",
+                }
+            ]
+        },
+        expected_outcomes=[],
+    )
+    llm = LLMCaller(
+        offline_responses={
+            "map_governed_source_inventory": '{"sources":[]}',
+            "map_governed_atom:n400.aggravated_felony_after_1990": (
+                '{"atom_id":"n400.aggravated_felony_after_1990","status":"undetermined",'
+                '"value":"undetermined","basis":"not_found","source_ids":[],'
+                '"evidence":null,"explanation":"not found","confidence":0.4}'
+            ),
+        }
+    )
+    step = GovernedEvidenceMapStep(llm, atom_ids=["n400.aggravated_felony_after_1990"])
+
+    result = step.run(
+        program,
+        case,
+        MapStepContext(program_id="prog", substrate_id=step.spec.map_step_id),
+    )
+
+    binding = result.map_record.bindings["n400.aggravated_felony_after_1990"]
+    assert binding.value is False
+    assert binding.basis == BindingBasis.EXPLICIT_NEGATIVE
+
+
 def test_atoms_for_determinations_returns_reachable_atoms():
     atoms = atoms_for_determinations(
         _program(),

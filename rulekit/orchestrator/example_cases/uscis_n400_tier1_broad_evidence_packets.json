@@ -119,6 +119,171 @@
           "n400.aggravated_felony_after_1990": "FBI check: no aggravated felony convictions.",
           "n400.pending_criminal_charge": "Docket search: no pending criminal charges.",
           "n400.false_testimony_for_immigration_benefit": "USCIS interview worksheet: no false testimony issue."
+        },
+        "default_binding_groups": [
+          {
+            "atom_ids": [
+              "n400.complex_absence_pattern",
+              "n400.inconsistent_travel_history",
+              "n400.evidence_missing_critical_dates",
+              "n400.unresolved_tax_issue",
+              "n400.disputed_selective_service_issue",
+              "n400.pending_criminal_charge",
+              "n400.unresolved_arrest_disposition",
+              "n400.possible_false_testimony",
+              "n400.possible_gmc_discretion_issue",
+              "n400.accommodation_or_disability_documentation_unclear",
+              "n400.name_identity_record_conflict",
+              "n400.interpreter_or_understanding_issue",
+              "n400.legal_exception_claimed_needs_review",
+              "n400.outside_benchmark_scope"
+            ],
+            "value": false,
+            "basis": "explicit_negative",
+            "apply_when": "missing_or_undetermined",
+            "evidence": "The case packet does not state this review trigger within the benchmark scope.",
+            "explanation": "Scoped benchmark default for absent human-review trigger atoms."
+          },
+          {
+            "atom_ids": [
+              "n400.travel_records_complete",
+              "n400.passport_records_support_travel",
+              "n400.no_unexplained_trip_gaps",
+              "n400.no_break_in_residence_from_absence",
+              "n400.months_after_absence_reestablished_if_needed",
+              "n400.physical_presence_calculation_reliable",
+              "n400.us_entry_exit_records_consistent",
+              "n400.no_unresolved_physical_presence_gap",
+              "n400.stat_period_selected_correctly",
+              "n400.early_filing_window_applied_correctly",
+              "n400.jurisdiction_matches_residence",
+              "n400.spouse_track_residence_consistent",
+              "n400.favorable_to_good_order",
+              "n400.willing_to_bear_arms_or_noncombatant_or_civilian_work_if_required",
+              "n400.no_communist_party_bar_or_exception",
+              "n400.no_totalitarian_party_bar_or_exception",
+              "n400.no_advocacy_overthrow",
+              "n400.no_desertion_from_us_armed_forces",
+              "n400.no_title_of_nobility_issue",
+              "n400.truthful_oath_related_answers",
+              "n400.selective_service_registered_or_exempt",
+              "n400.tax_filing_compliant_or_explained",
+              "n400.child_support_compliant_or_explained"
+            ],
+            "value": true,
+            "basis": "inferred_from_record",
+            "apply_when": "missing_or_undetermined",
+            "evidence": "The clean packet supplies complete ordinary-course records and states no issue for this scope atom.",
+            "explanation": "Clean-packet scope default for non-load-bearing support atoms."
+          },
+          {
+            "atom_ids": [
+              "n400.murder_conviction",
+              "n400.aggravated_felony_after_1990",
+              "n400.persecution_participation",
+              "n400.genocide_participation",
+              "n400.torture_participation",
+              "n400.extrajudicial_killing_participation",
+              "n400.controlled_substance_violation_except_single_marijuana_30g",
+              "n400.admission_to_drug_offense",
+              "n400.drug_trafficking",
+              "n400.habitual_drunkard",
+              "n400.illegal_gambling_principal_income",
+              "n400.multiple_gambling_convictions",
+              "n400.prostitution_or_commercialized_vice",
+              "n400.alien_smuggling",
+              "n400.polygamy",
+              "n400.false_testimony_for_immigration_benefit",
+              "n400.failure_to_support_dependents",
+              "n400.adultery_destroyed_marriage",
+              "n400.unlawful_voting",
+              "n400.false_claim_us_citizenship",
+              "n400.failure_register_selective_service_willful",
+              "n400.tax_noncompliance_willful",
+              "n400.fraud_or_deceit",
+              "n400.identity_document_fraud",
+              "n400.domestic_violence",
+              "n400.child_abuse",
+              "n400.violation_protective_order",
+              "n400.unlawful_harassment_or_stalking",
+              "n400.manslaughter_or_violent_crime",
+              "n400.dui_pattern_or_reckless_endangerment",
+              "n400.unpaid_restitution_or_court_orders",
+              "n400.probation_parole_uncompleted",
+              "n400.pending_criminal_charge",
+              "n400.unresolved_arrest_disposition",
+              "n400.misrepresentation_material_to_benefit",
+              "n400.unlawful_voting_registration",
+              "n400.removal_order_after_filing",
+              "n400.terrorism_related_activity",
+              "n400.nazi_persecution_related",
+              "n400.serious_immigration_violation"
+            ],
+            "value": false,
+            "basis": "explicit_negative",
+            "source_ids": [
+              "fbi_check",
+              "docket_search",
+              "interview_worksheet"
+            ],
+            "apply_when": "missing_or_undetermined",
+            "evidence": "The clean packet includes official checks and no listed good-moral-character bar is present.",
+            "explanation": "Clean-packet default for absent selected negative bars."
+          }
+        ],
+        "default_bindings": {
+          "n400.days_absent_trip_2": {
+            "value": 0,
+            "basis": "computed",
+            "apply_when": "missing_or_undetermined",
+            "evidence": "Travel table lists one 21-day trip and no other travel."
+          },
+          "n400.days_absent_trip_3": {
+            "value": 0,
+            "basis": "computed",
+            "apply_when": "missing_or_undetermined",
+            "evidence": "Travel table lists one 21-day trip and no other travel."
+          },
+          "n400.days_absent_trip_4": {
+            "value": 0,
+            "basis": "computed",
+            "apply_when": "missing_or_undetermined",
+            "evidence": "Travel table lists one 21-day trip and no other travel."
+          },
+          "n400.absence_6_to_12_months": {
+            "value": false,
+            "basis": "computed",
+            "apply_when": "missing_or_undetermined",
+            "evidence": "The only listed trip lasted 21 days."
+          },
+          "n400.absence_over_one_year": {
+            "value": false,
+            "basis": "computed",
+            "apply_when": "missing_or_undetermined",
+            "evidence": "The only listed trip lasted 21 days."
+          },
+          "n400.no_absence_over_one_year": {
+            "value": true,
+            "basis": "computed",
+            "apply_when": "missing_or_undetermined",
+            "evidence": "The only listed trip lasted 21 days."
+          },
+          "n400.days_imprisoned_statutory_period": {
+            "value": 0,
+            "basis": "closed_world_absence",
+            "source_ids": [
+              "fbi_check",
+              "docket_search"
+            ],
+            "apply_when": "missing_or_undetermined",
+            "evidence": "FBI check and docket search report no relevant criminal disposition."
+          },
+          "n400.filing_under_3yr_spouse": {
+            "value": false,
+            "basis": "explicit_negative",
+            "apply_when": "missing_or_undetermined",
+            "evidence": "The case is a general five-year packet."
+          }
         }
       },
       "metadata": {
@@ -207,7 +372,32 @@
           "n400.maintained_us_home": "Lease records and bank statements cover the period abroad.",
           "n400.maintained_us_family_ties": "Family residence records show spouse and children remained in the United States.",
           "n400.inconsistent_travel_history": "N-400 travel table says 172 days ending August 20; passport/CBP show re-entry September 15."
-        }
+        },
+        "default_binding_groups": [
+          {
+            "atom_ids": [
+              "n400.complex_absence_pattern",
+              "n400.inconsistent_travel_history",
+              "n400.evidence_missing_critical_dates",
+              "n400.unresolved_tax_issue",
+              "n400.disputed_selective_service_issue",
+              "n400.pending_criminal_charge",
+              "n400.unresolved_arrest_disposition",
+              "n400.possible_false_testimony",
+              "n400.possible_gmc_discretion_issue",
+              "n400.accommodation_or_disability_documentation_unclear",
+              "n400.name_identity_record_conflict",
+              "n400.interpreter_or_understanding_issue",
+              "n400.legal_exception_claimed_needs_review",
+              "n400.outside_benchmark_scope"
+            ],
+            "value": false,
+            "basis": "explicit_negative",
+            "apply_when": "missing_or_undetermined",
+            "evidence": "The case packet does not state this review trigger within the benchmark scope.",
+            "explanation": "Scoped benchmark default for absent human-review trigger atoms."
+          }
+        ]
       },
       "metadata": {
         "expected_bindings": {
@@ -274,7 +464,32 @@
           "n400.days_absent_trip_1": "CBP travel history: January 4, 2021 to February 10, 2022, more than one year.",
           "n400.absence_over_one_year": "Travel history shows an absence exceeding one year.",
           "n400.absence_6_to_12_months": "The absence exceeded one year, not merely six to twelve months."
-        }
+        },
+        "default_binding_groups": [
+          {
+            "atom_ids": [
+              "n400.complex_absence_pattern",
+              "n400.inconsistent_travel_history",
+              "n400.evidence_missing_critical_dates",
+              "n400.unresolved_tax_issue",
+              "n400.disputed_selective_service_issue",
+              "n400.pending_criminal_charge",
+              "n400.unresolved_arrest_disposition",
+              "n400.possible_false_testimony",
+              "n400.possible_gmc_discretion_issue",
+              "n400.accommodation_or_disability_documentation_unclear",
+              "n400.name_identity_record_conflict",
+              "n400.interpreter_or_understanding_issue",
+              "n400.legal_exception_claimed_needs_review",
+              "n400.outside_benchmark_scope"
+            ],
+            "value": false,
+            "basis": "explicit_negative",
+            "apply_when": "missing_or_undetermined",
+            "evidence": "The case packet does not state this review trigger within the benchmark scope.",
+            "explanation": "Scoped benchmark default for absent human-review trigger atoms."
+          }
+        ]
       },
       "metadata": {
         "expected_bindings": {
@@ -318,7 +533,32 @@
         ],
         "evidence": {
           "n400.months_physical_presence_5yr": "Physical presence worksheet: 24 months physically present during the five-year period."
-        }
+        },
+        "default_binding_groups": [
+          {
+            "atom_ids": [
+              "n400.complex_absence_pattern",
+              "n400.inconsistent_travel_history",
+              "n400.evidence_missing_critical_dates",
+              "n400.unresolved_tax_issue",
+              "n400.disputed_selective_service_issue",
+              "n400.pending_criminal_charge",
+              "n400.unresolved_arrest_disposition",
+              "n400.possible_false_testimony",
+              "n400.possible_gmc_discretion_issue",
+              "n400.accommodation_or_disability_documentation_unclear",
+              "n400.name_identity_record_conflict",
+              "n400.interpreter_or_understanding_issue",
+              "n400.legal_exception_claimed_needs_review",
+              "n400.outside_benchmark_scope"
+            ],
+            "value": false,
+            "basis": "explicit_negative",
+            "apply_when": "missing_or_undetermined",
+            "evidence": "The case packet does not state this review trigger within the benchmark scope.",
+            "explanation": "Scoped benchmark default for absent human-review trigger atoms."
+          }
+        ]
       },
       "metadata": {
         "expected_bindings": {
@@ -355,7 +595,32 @@
         ],
         "evidence": {
           "n400.months_state_or_district_residence": "Residence worksheet, lease, and utility bill show two months in the current USCIS district before filing."
-        }
+        },
+        "default_binding_groups": [
+          {
+            "atom_ids": [
+              "n400.complex_absence_pattern",
+              "n400.inconsistent_travel_history",
+              "n400.evidence_missing_critical_dates",
+              "n400.unresolved_tax_issue",
+              "n400.disputed_selective_service_issue",
+              "n400.pending_criminal_charge",
+              "n400.unresolved_arrest_disposition",
+              "n400.possible_false_testimony",
+              "n400.possible_gmc_discretion_issue",
+              "n400.accommodation_or_disability_documentation_unclear",
+              "n400.name_identity_record_conflict",
+              "n400.interpreter_or_understanding_issue",
+              "n400.legal_exception_claimed_needs_review",
+              "n400.outside_benchmark_scope"
+            ],
+            "value": false,
+            "basis": "explicit_negative",
+            "apply_when": "missing_or_undetermined",
+            "evidence": "The case packet does not state this review trigger within the benchmark scope.",
+            "explanation": "Scoped benchmark default for absent human-review trigger atoms."
+          }
+        ]
       },
       "metadata": {
         "expected_bindings": {
@@ -405,6 +670,45 @@
           "n400.english_test_passed": "Naturalization test result: English reading and writing components failed.",
           "n400.civics_test_passed": "Naturalization test result: civics test passed.",
           "n400.medical_disability_exception_approved": "Packet index: no approved medical disability exception included."
+        },
+        "default_binding_groups": [
+          {
+            "atom_ids": [
+              "n400.complex_absence_pattern",
+              "n400.inconsistent_travel_history",
+              "n400.evidence_missing_critical_dates",
+              "n400.unresolved_tax_issue",
+              "n400.disputed_selective_service_issue",
+              "n400.pending_criminal_charge",
+              "n400.unresolved_arrest_disposition",
+              "n400.possible_false_testimony",
+              "n400.possible_gmc_discretion_issue",
+              "n400.accommodation_or_disability_documentation_unclear",
+              "n400.name_identity_record_conflict",
+              "n400.interpreter_or_understanding_issue",
+              "n400.legal_exception_claimed_needs_review",
+              "n400.outside_benchmark_scope"
+            ],
+            "value": false,
+            "basis": "explicit_negative",
+            "apply_when": "missing_or_undetermined",
+            "evidence": "The case packet does not state this review trigger within the benchmark scope.",
+            "explanation": "Scoped benchmark default for absent human-review trigger atoms."
+          }
+        ],
+        "default_bindings": {
+          "n400.two_test_opportunities_completed_if_initial_fail": {
+            "value": true,
+            "basis": "inferred_from_record",
+            "apply_when": "missing_or_undetermined",
+            "evidence": "The applicant passed civics; reexamination prerequisites are not load-bearing."
+          },
+          "n400.reexamination_passed_or_exception": {
+            "value": true,
+            "basis": "inferred_from_record",
+            "apply_when": "missing_or_undetermined",
+            "evidence": "The applicant passed civics; reexamination prerequisites are not load-bearing."
+          }
         }
       },
       "metadata": {
@@ -460,6 +764,51 @@
           "n400.medical_disability_exception_approved": "Approved Form N-648 states English and civics requirements are excepted.",
           "n400.english_test_passed": "Naturalization test result: English not passed.",
           "n400.civics_test_passed": "Naturalization test result: civics not passed."
+        },
+        "default_binding_groups": [
+          {
+            "atom_ids": [
+              "n400.complex_absence_pattern",
+              "n400.inconsistent_travel_history",
+              "n400.evidence_missing_critical_dates",
+              "n400.unresolved_tax_issue",
+              "n400.disputed_selective_service_issue",
+              "n400.pending_criminal_charge",
+              "n400.unresolved_arrest_disposition",
+              "n400.possible_false_testimony",
+              "n400.possible_gmc_discretion_issue",
+              "n400.accommodation_or_disability_documentation_unclear",
+              "n400.name_identity_record_conflict",
+              "n400.interpreter_or_understanding_issue",
+              "n400.legal_exception_claimed_needs_review",
+              "n400.outside_benchmark_scope"
+            ],
+            "value": false,
+            "basis": "explicit_negative",
+            "apply_when": "missing_or_undetermined",
+            "evidence": "The case packet does not state this review trigger within the benchmark scope.",
+            "explanation": "Scoped benchmark default for absent human-review trigger atoms."
+          }
+        ],
+        "default_bindings": {
+          "n400.accommodation_or_disability_documentation_unclear": {
+            "value": false,
+            "basis": "explicit_negative",
+            "apply_when": "always",
+            "evidence": "The packet includes an approved Form N-648 medical disability exception."
+          },
+          "n400.legal_exception_claimed_needs_review": {
+            "value": false,
+            "basis": "explicit_negative",
+            "apply_when": "always",
+            "evidence": "The medical disability exception is approved, not merely claimed or unclear."
+          },
+          "n400.outside_benchmark_scope": {
+            "value": false,
+            "basis": "explicit_negative",
+            "apply_when": "always",
+            "evidence": "An approved N-648 exception is inside this benchmark scope."
+          }
         }
       },
       "metadata": {
@@ -507,7 +856,32 @@
         "evidence": {
           "n400.willing_to_take_oath": "Oath worksheet: applicant refuses to take the Oath of Allegiance.",
           "n400.attachment_to_constitution": "Oath worksheet: attachment to the Constitution not established."
-        }
+        },
+        "default_binding_groups": [
+          {
+            "atom_ids": [
+              "n400.complex_absence_pattern",
+              "n400.inconsistent_travel_history",
+              "n400.evidence_missing_critical_dates",
+              "n400.unresolved_tax_issue",
+              "n400.disputed_selective_service_issue",
+              "n400.pending_criminal_charge",
+              "n400.unresolved_arrest_disposition",
+              "n400.possible_false_testimony",
+              "n400.possible_gmc_discretion_issue",
+              "n400.accommodation_or_disability_documentation_unclear",
+              "n400.name_identity_record_conflict",
+              "n400.interpreter_or_understanding_issue",
+              "n400.legal_exception_claimed_needs_review",
+              "n400.outside_benchmark_scope"
+            ],
+            "value": false,
+            "basis": "explicit_negative",
+            "apply_when": "missing_or_undetermined",
+            "evidence": "The case packet does not state this review trigger within the benchmark scope.",
+            "explanation": "Scoped benchmark default for absent human-review trigger atoms."
+          }
+        ]
       },
       "metadata": {
         "expected_bindings": {
@@ -560,7 +934,32 @@
         "evidence": {
           "n400.aggravated_felony_after_1990": "FBI check: no aggravated felony convictions.",
           "n400.pending_criminal_charge": "County docket search: pending felony charge with future hearing date."
-        }
+        },
+        "default_binding_groups": [
+          {
+            "atom_ids": [
+              "n400.complex_absence_pattern",
+              "n400.inconsistent_travel_history",
+              "n400.evidence_missing_critical_dates",
+              "n400.unresolved_tax_issue",
+              "n400.disputed_selective_service_issue",
+              "n400.pending_criminal_charge",
+              "n400.unresolved_arrest_disposition",
+              "n400.possible_false_testimony",
+              "n400.possible_gmc_discretion_issue",
+              "n400.accommodation_or_disability_documentation_unclear",
+              "n400.name_identity_record_conflict",
+              "n400.interpreter_or_understanding_issue",
+              "n400.legal_exception_claimed_needs_review",
+              "n400.outside_benchmark_scope"
+            ],
+            "value": false,
+            "basis": "explicit_negative",
+            "apply_when": "missing_or_undetermined",
+            "evidence": "The case packet does not state this review trigger within the benchmark scope.",
+            "explanation": "Scoped benchmark default for absent human-review trigger atoms."
+          }
+        ]
       },
       "metadata": {
         "expected_bindings": {
@@ -612,7 +1011,32 @@
           "n400.days_absent_trip_1": "Applicant says about seven months abroad sometime in 2021, but no exact dates are provided.",
           "n400.absence_6_to_12_months": "Approximate narrative suggests about seven months abroad, but no exact dates are provided.",
           "n400.evidence_missing_critical_dates": "Passport, CBP, flight records, and completed travel table are missing."
-        }
+        },
+        "default_binding_groups": [
+          {
+            "atom_ids": [
+              "n400.complex_absence_pattern",
+              "n400.inconsistent_travel_history",
+              "n400.evidence_missing_critical_dates",
+              "n400.unresolved_tax_issue",
+              "n400.disputed_selective_service_issue",
+              "n400.pending_criminal_charge",
+              "n400.unresolved_arrest_disposition",
+              "n400.possible_false_testimony",
+              "n400.possible_gmc_discretion_issue",
+              "n400.accommodation_or_disability_documentation_unclear",
+              "n400.name_identity_record_conflict",
+              "n400.interpreter_or_understanding_issue",
+              "n400.legal_exception_claimed_needs_review",
+              "n400.outside_benchmark_scope"
+            ],
+            "value": false,
+            "basis": "explicit_negative",
+            "apply_when": "missing_or_undetermined",
+            "evidence": "The case packet does not state this review trigger within the benchmark scope.",
+            "explanation": "Scoped benchmark default for absent human-review trigger atoms."
+          }
+        ]
       },
       "metadata": {
         "expected_bindings": {
