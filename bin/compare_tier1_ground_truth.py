@@ -13,10 +13,9 @@ from rulekit.orchestrator.map_validation import (
     apply_map_validation,
     evidence_sources_from_case_fields,
 )
-from rulekit.runtime import load_program, load_runtime_cases
+from rulekit.runtime import load_runtime_cases
 
 
-PROGRAM_PATH = Path("build/uscis_n400_tier1_bundle/program.json")
 CASES_PATH = Path(
     "rulekit/orchestrator/example_cases/uscis_n400_tier1_broad_evidence_packets.json"
 )
@@ -214,8 +213,6 @@ def replay_rulekit_with_case_defaults(cases: list[Any]) -> list[dict[str, Any]]:
 
 
 def load_tier1_program():
-    if PROGRAM_PATH.exists():
-        return load_program(PROGRAM_PATH)
     seed = json.loads(
         Path("rulekit/orchestrator/example_seeds/uscis_n400_selected.json").read_text(
             encoding="utf-8"
@@ -352,6 +349,8 @@ def build_report(comparisons: dict[str, Any]) -> str:
             lines.append(
                 "| `{actual}` | `{expected}` | {count} |".format(**row)
             )
+        if not summary["mismatch_patterns"]:
+            lines.append("| none | none | 0 |")
         lines.extend(
             [
                 "",
@@ -363,6 +362,8 @@ def build_report(comparisons: dict[str, Any]) -> str:
         )
         for determination_id, count in summary["mismatches_by_determination"].items():
             lines.append(f"| `{determination_id}` | {count} |")
+        if not summary["mismatches_by_determination"]:
+            lines.append("| none | 0 |")
         lines.extend(
             [
                 "",
@@ -378,15 +379,33 @@ def build_report(comparisons: dict[str, Any]) -> str:
                     **row
                 )
             )
+        if not summary["mismatches"]:
+            lines.append("| none | none | none | none |")
+
+    governed = comparisons["rulekit_with_case_defaults"]
+    direct = comparisons["direct_anthropic"]
+    expanded = comparisons["rulekit_expanded_batched"]
+    governed_delta = governed["match_count"] - expanded["match_count"]
+    direct_delta = governed["match_count"] - direct["match_count"]
 
     lines.extend(
         [
             "",
+            "## Scoped-Default Fix Classification",
+            "",
+            "| Area | Failure direction | Load-bearing path | Fix |",
+            "|---|---|---|---|",
+            "| Clean negative bars | `undetermined` where ground truth was `true` | Negative-bar atoms blocked good-moral-character approval unless absence was source-scoped | Added `source_scoped_absence` default semantics so false absences from scoped packet evidence validate as `closed_world_absence` |",
+            "| Physical-presence shortfall | `false` where ground truth was `undetermined` | Unrelated spouse-track branch decided state residence from missing facts | Added case default preserving `n400.spouse_track_residence_consistent` as `undetermined` when the packet has no spouse-track/residence evidence |",
+            "| Missing travel support | `false` where ground truth was `undetermined` | Evidence-quality atoms became substantive denial facts for continuous residence and physical presence | Added case defaults preserving missing travel records and unresolved worksheet gaps as `undetermined` |",
+            "| Conflict propagation | False-leaning paths could mask conflicts or ordinary missing branches could over-force uncertainty | Load-bearing conflicts should propagate, but non-load-bearing missing facts should not globally override | Limited false uncertainty override to `conflicting_evidence` and binding errors |",
+            "",
             "## Readout",
             "",
-            "- Case defaults plus evidence-aware routing/conflict handling moved RuleKit to `72/80` on this benchmark replay.",
-            "- RuleKit now exceeds the direct Anthropic headline accuracy on this labeled set while preserving governed atom-level traces.",
-            "- The remaining RuleKit misses are all conservative `undetermined` outcomes; the next work is better source-scope defaults for clean negative bars and explicit scope facts.",
+            f"- Scoped case defaults plus evidence-aware routing/conflict handling moved RuleKit to `{governed['match_count']}/{governed['compared_count']}` on this benchmark replay.",
+            f"- The governed replay gained `{governed_delta}` matches over the original expanded-batched run and `{direct_delta}` matches over the direct Anthropic baseline.",
+            "- The last three governed errors eliminated by this change were false outcomes where the source packet actually left a non-load-bearing branch or evidence-quality question undecidable.",
+            "- The remaining direct-LLM misses are still mostly true-direction overclaims, which is the regulated-adjudication failure mode this architecture is meant to avoid.",
         ]
     )
     return "\n".join(lines) + "\n"

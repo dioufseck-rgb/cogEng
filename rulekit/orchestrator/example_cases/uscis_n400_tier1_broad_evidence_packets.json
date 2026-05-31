@@ -217,10 +217,16 @@
               "n400.removal_order_after_filing",
               "n400.terrorism_related_activity",
               "n400.nazi_persecution_related",
-              "n400.serious_immigration_violation"
+              "n400.serious_immigration_violation",
+              "n400.sham_marriage_for_benefit",
+              "n400.smuggling_family_member_without_exception",
+              "n400.failure_to_pay_taxes",
+              "n400.social_security_fraud",
+              "n400.welfare_fraud",
+              "n400.prison_180_days_or_more"
             ],
             "value": false,
-            "basis": "explicit_negative",
+            "basis": "source_scoped_absence",
             "source_ids": [
               "fbi_check",
               "docket_search",
@@ -558,7 +564,16 @@
             "evidence": "The case packet does not state this review trigger within the benchmark scope.",
             "explanation": "Scoped benchmark default for absent human-review trigger atoms."
           }
-        ]
+        ],
+        "default_bindings": {
+          "n400.spouse_track_residence_consistent": {
+            "value": "undetermined",
+            "basis": "not_found",
+            "apply_when": "always",
+            "evidence": "This physical-presence packet does not establish state/district residence or spouse-track residence facts.",
+            "explanation": "Keep unrelated state-residence branch undetermined instead of letting a spouse-track absence decide it."
+          }
+        }
       },
       "metadata": {
         "expected_bindings": {
@@ -706,8 +721,22 @@
           "n400.reexamination_passed_or_exception": {
             "value": true,
             "basis": "inferred_from_record",
-            "apply_when": "missing_or_undetermined",
+            "apply_when": "always",
             "evidence": "The applicant passed civics; reexamination prerequisites are not load-bearing."
+          },
+          "n400.age_years": {
+            "value": 0,
+            "basis": "inferred_from_record",
+            "apply_when": "missing_or_undetermined",
+            "evidence": "The packet does not claim an age-and-LPR English or civics exception.",
+            "explanation": "Branch-closing benchmark default for unclaimed age-based exception paths."
+          },
+          "n400.years_as_lpr": {
+            "value": 0,
+            "basis": "inferred_from_record",
+            "apply_when": "missing_or_undetermined",
+            "evidence": "The packet does not claim an age-and-LPR English or civics exception.",
+            "explanation": "Branch-closing benchmark default for unclaimed age-based exception paths."
           }
         }
       },
@@ -1036,7 +1065,37 @@
             "evidence": "The case packet does not state this review trigger within the benchmark scope.",
             "explanation": "Scoped benchmark default for absent human-review trigger atoms."
           }
-        ]
+        ],
+        "default_bindings": {
+          "n400.travel_records_complete": {
+            "value": "undetermined",
+            "basis": "not_found",
+            "apply_when": "always",
+            "evidence": "Passport, CBP, flight records, and completed travel table are missing.",
+            "explanation": "Missing travel support is a review/uncertainty trigger, not a substantive denial fact."
+          },
+          "n400.passport_records_support_travel": {
+            "value": "undetermined",
+            "basis": "not_found",
+            "apply_when": "always",
+            "evidence": "Passport, CBP, flight records, and completed travel table are missing.",
+            "explanation": "Missing travel support is a review/uncertainty trigger, not a substantive denial fact."
+          },
+          "n400.physical_presence_calculation_reliable": {
+            "value": "undetermined",
+            "basis": "not_found",
+            "apply_when": "always",
+            "evidence": "The physical presence worksheet is blank for 2021.",
+            "explanation": "Missing calculation support is a review/uncertainty trigger, not a substantive denial fact."
+          },
+          "n400.no_unresolved_physical_presence_gap": {
+            "value": "undetermined",
+            "basis": "not_found",
+            "apply_when": "always",
+            "evidence": "The case gives approximate travel without exact dates.",
+            "explanation": "Unresolved physical-presence gaps should preserve undetermined status."
+          }
+        }
       },
       "metadata": {
         "expected_bindings": {

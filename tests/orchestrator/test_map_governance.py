@@ -328,6 +328,35 @@ def test_case_default_binding_groups_apply_to_multiple_atoms():
     assert binding.basis == BindingBasis.EXPLICIT_NEGATIVE
 
 
+def test_case_default_source_scoped_absence_resolves_to_closed_world_basis():
+    program = _program()
+    case = CaseExample(
+        case_id="case_default_source_scope",
+        title="source scoped default",
+        narrative="FBI check reports no aggravated felony convictions.",
+        structured_fields={
+            "default_bindings": {
+                "n400.aggravated_felony_after_1990": {
+                    "value": False,
+                    "basis": "source_scoped_absence",
+                    "source_ids": ["fbi_check"],
+                    "evidence": "FBI check reports no aggravated felony convictions.",
+                }
+            }
+        },
+    )
+
+    result = PreboundFactsMapStep().run(
+        program,
+        case,
+        MapStepContext(program_id="prog_n400"),
+    )
+
+    binding = result.map_record.bindings["n400.aggravated_felony_after_1990"]
+    assert binding.value is False
+    assert binding.basis == BindingBasis.CLOSED_WORLD_ABSENCE
+
+
 def test_atoms_for_determinations_returns_reachable_atoms():
     atoms = atoms_for_determinations(
         _program(),

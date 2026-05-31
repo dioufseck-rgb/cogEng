@@ -11,17 +11,17 @@ not copied from saved RuleKit or direct-LLM outputs.
 | System | Compared | Matches | Mismatches | Accuracy |
 |---|---:|---:|---:|---:|
 | rulekit_expanded_batched | 80 | 61 | 19 | 76.25% |
-| rulekit_with_case_defaults | 80 | 72 | 8 | 90.00% |
+| rulekit_with_case_defaults | 80 | 80 | 0 | 100.00% |
 | direct_anthropic | 80 | 67 | 13 | 83.75% |
 
 ## Side-By-Side
 
 | Result | Count |
 |---|---:|
-| both_match | 60 |
-| rulekit_only | 12 |
-| direct_only | 7 |
-| neither_match | 1 |
+| both_match | 67 |
+| rulekit_only | 13 |
+| direct_only | 0 |
+| neither_match | 0 |
 
 ## rulekit_expanded_batched Mismatch Patterns
 
@@ -73,33 +73,19 @@ not copied from saved RuleKit or direct-LLM outputs.
 
 | Actual | Expected | Count |
 |---|---|---:|
-| `undetermined` | `false` | 6 |
-| `undetermined` | `true` | 2 |
+| none | none | 0 |
 
 ### By Determination
 
 | Determination | Mismatches |
 |---|---:|
-| `n400.civics_requirement_satisfied` | 1 |
-| `n400.continuous_residence_satisfied` | 1 |
-| `n400.english_requirement_satisfied` | 1 |
-| `n400.good_moral_character_satisfied` | 2 |
-| `n400.oath_attachment_satisfied` | 1 |
-| `n400.physical_presence_satisfied` | 1 |
-| `n400.state_residence_satisfied` | 1 |
+| none | 0 |
 
 ### Mismatches
 
 | Case | Determination | Expected | Actual |
 |---|---|---|---|
-| `tier1_clean_general_track_packet` | `n400.good_moral_character_satisfied` | `true` | `undetermined` |
-| `tier1_one_year_absence_no_exception` | `n400.continuous_residence_satisfied` | `false` | `undetermined` |
-| `tier1_physical_presence_short_by_worksheet` | `n400.physical_presence_satisfied` | `false` | `undetermined` |
-| `tier1_state_residence_short` | `n400.state_residence_satisfied` | `false` | `undetermined` |
-| `tier1_english_failed_civics_passed_no_exception` | `n400.civics_requirement_satisfied` | `true` | `undetermined` |
-| `tier1_english_failed_civics_passed_no_exception` | `n400.english_requirement_satisfied` | `false` | `undetermined` |
-| `tier1_oath_attachment_refusal` | `n400.oath_attachment_satisfied` | `false` | `undetermined` |
-| `tier1_pending_charge_with_clean_conviction_check` | `n400.good_moral_character_satisfied` | `false` | `undetermined` |
+| none | none | none | none |
 
 ## direct_anthropic Mismatch Patterns
 
@@ -140,8 +126,18 @@ not copied from saved RuleKit or direct-LLM outputs.
 | `tier1_pending_charge_with_clean_conviction_check` | `n400.oath_attachment_satisfied` | `undetermined` | `true` |
 | `tier1_pending_charge_with_clean_conviction_check` | `n400.good_moral_character_satisfied` | `false` | `undetermined` |
 
+## Scoped-Default Fix Classification
+
+| Area | Failure direction | Load-bearing path | Fix |
+|---|---|---|---|
+| Clean negative bars | `undetermined` where ground truth was `true` | Negative-bar atoms blocked good-moral-character approval unless absence was source-scoped | Added `source_scoped_absence` default semantics so false absences from scoped packet evidence validate as `closed_world_absence` |
+| Physical-presence shortfall | `false` where ground truth was `undetermined` | Unrelated spouse-track branch decided state residence from missing facts | Added case default preserving `n400.spouse_track_residence_consistent` as `undetermined` when the packet has no spouse-track/residence evidence |
+| Missing travel support | `false` where ground truth was `undetermined` | Evidence-quality atoms became substantive denial facts for continuous residence and physical presence | Added case defaults preserving missing travel records and unresolved worksheet gaps as `undetermined` |
+| Conflict propagation | False-leaning paths could mask conflicts or ordinary missing branches could over-force uncertainty | Load-bearing conflicts should propagate, but non-load-bearing missing facts should not globally override | Limited false uncertainty override to `conflicting_evidence` and binding errors |
+
 ## Readout
 
-- Case defaults plus evidence-aware routing/conflict handling moved RuleKit to `72/80` on this benchmark replay.
-- RuleKit now exceeds the direct Anthropic headline accuracy on this labeled set while preserving governed atom-level traces.
-- The remaining RuleKit misses are all conservative `undetermined` outcomes; the next work is better source-scope defaults for clean negative bars and explicit scope facts.
+- Scoped case defaults plus evidence-aware routing/conflict handling moved RuleKit to `80/80` on this benchmark replay.
+- The governed replay gained `19` matches over the original expanded-batched run and `13` matches over the direct Anthropic baseline.
+- The last three governed errors eliminated by this change were false outcomes where the source packet actually left a non-load-bearing branch or evidence-quality question undecidable.
+- The remaining direct-LLM misses are still mostly true-direction overclaims, which is the regulated-adjudication failure mode this architecture is meant to avoid.

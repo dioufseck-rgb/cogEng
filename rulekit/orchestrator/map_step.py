@@ -356,6 +356,13 @@ def _basis_for(
     declared_basis: Any,
 ) -> BindingBasis | None:
     if declared_basis:
+        if str(declared_basis) == "source_scoped_absence":
+            return (
+                BindingBasis.CLOSED_WORLD_ABSENCE
+                if status == AtomBindingStatus.BOUND
+                and (raw is False or str(raw).lower() == "false")
+                else BindingBasis.INFERRED_FROM_RECORD
+            )
         return BindingBasis(str(declared_basis))
     if status == AtomBindingStatus.UNDETERMINED:
         return BindingBasis.NOT_FOUND
