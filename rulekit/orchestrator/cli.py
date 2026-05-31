@@ -7,6 +7,10 @@ from pathlib import Path
 from typing import Any
 
 from rulekit.orchestrator.config import load_policy_workspace_seed, save_policy_workspace_seed
+from rulekit.orchestrator.direct_disposition_eval import (
+    pricing_from_specs,
+    run_direct_disposition_eval,
+)
 from rulekit.orchestrator.factory import (
     AtomDeclaration,
     CaseDeclaration,
@@ -74,6 +78,8 @@ def main(argv: list[str] | None = None) -> int:
             return _adjudicate(args)
         if args.command == "map-eval":
             return _map_eval(args)
+        if args.command == "direct-eval":
+            return _direct_eval(args)
     except Exception as exc:  # pragma: no cover - exercised through return behavior
         if args.json:
             print(json.dumps({"ok": False, "error": str(exc)}, indent=2, sort_keys=True))
@@ -269,6 +275,49 @@ def _parser() -> argparse.ArgumentParser:
         ),
     )
     map_eval.add_argument("--json", action="store_true", help="print JSON summary")
+
+    direct_eval = subcommands.add_parser(
+        "direct-eval",
+        help="run direct-LLM disposition prompts for comparison",
+    )
+    direct_eval.add_argument("--program", required=True, help="program.json path")
+    direct_eval.add_argument("--cases", required=True, help="JSON/YAML runtime cases file")
+    direct_eval.add_argument("--out", required=True, help="output evidence directory")
+    direct_eval.add_argument(
+        "--model",
+        action="append",
+        required=True,
+        help="provider:model, e.g. anthropic:claude-opus-4-7; may repeat",
+    )
+    direct_eval.add_argument(
+        "--seed",
+        default=None,
+        help="optional policy workspace seed containing benchmark policy text",
+    )
+    direct_eval.add_argument(
+        "--reference-dispositions",
+        default=None,
+        help="optional RuleKit dispositions.json to compare against",
+    )
+    direct_eval.add_argument(
+        "--determination",
+        action="append",
+        default=[],
+        help="determination id to evaluate; may repeat; defaults to all",
+    )
+    direct_eval.add_argument("--llm-max-tokens", type=int, default=4096)
+    direct_eval.add_argument("--llm-timeout", type=float, default=120.0)
+    direct_eval.add_argument("--llm-max-retries", type=int, default=2)
+    direct_eval.add_argument(
+        "--price",
+        action="append",
+        default=[],
+        help=(
+            "optional estimated pricing as "
+            "provider:model=input_usd_per_million,output_usd_per_million; may repeat"
+        ),
+    )
+    direct_eval.add_argument("--json", action="store_true", help="print JSON summary")
     return parser
 
 
@@ -513,6 +562,25 @@ def _map_eval(args: argparse.Namespace) -> int:
         timeout=args.llm_timeout,
         max_retries=args.llm_max_retries,
         pricing=dict(parse_price_spec(item) for item in args.price),
+    )
+    payload = {"ok": True, **result}
+    _print(payload, args.json)
+    return 0
+
+
+def _direct_eval(args: argparse.Namespace) -> int:
+    result = run_direct_disposition_eval(
+        program_path=args.program,
+        cases_path=args.cases,
+        model_specs=args.model,
+        output_dir=args.out,
+        seed_path=args.seed,
+        determinations=args.determination or None,
+        reference_dispositions_path=args.reference_dispositions,
+        max_tokens=args.llm_max_tokens,
+        timeout=args.llm_timeout,
+        max_retries=args.llm_max_retries,
+        pricing=pricing_from_specs(args.price),
     )
     payload = {"ok": True, **result}
     _print(payload, args.json)

@@ -1,0 +1,108 @@
+You are adjudicating a policy case directly.
+
+This is a baseline for research. Unlike RuleKit, you are being asked to decide
+the policy dispositions yourself from the policy summary and case packet.
+
+Important:
+- Return only JSON.
+- Do not invent facts not in the case packet.
+- Use "undetermined" when required facts are missing, conflicting, or too
+  approximate for a policy determination.
+- Use "true" when the determination is satisfied.
+- Use "false" when the determination is not satisfied.
+- If the case has missing, inconsistent, pending, or complex facts, mark
+  human-review-related determinations accordingly.
+
+POLICY SUMMARY
+==============
+Selected N-400 naturalization eligibility benchmark. The applicant must satisfy core threshold requirements, an applicable residence track, continuous residence, physical presence, state or USCIS district residence, good moral character, English and civics requirements or accepted exceptions, and oath/attachment requirements. Certain missing, inconsistent, pending, or complex facts require human review. Numeric requirements are represented with typed arithmetic and comparison nodes where possible.
+
+SELECTED DETERMINATIONS
+=======================
+[
+  {
+    "description": "Continuous residence is satisfied for this benchmark scope.",
+    "determination_id": "n400.continuous_residence_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 3"
+  },
+  {
+    "description": "Physical presence is satisfied under the selected track.",
+    "determination_id": "n400.physical_presence_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 4"
+  },
+  {
+    "description": "State or USCIS district residence is satisfied.",
+    "determination_id": "n400.state_residence_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 2-4"
+  },
+  {
+    "description": "English requirement is met or an accepted exception applies.",
+    "determination_id": "n400.english_requirement_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part E"
+  },
+  {
+    "description": "Civics requirement is met or an accepted exception applies.",
+    "determination_id": "n400.civics_requirement_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part E"
+  },
+  {
+    "description": "Attachment to the Constitution and oath-related requirements are satisfied.",
+    "determination_id": "n400.oath_attachment_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part J"
+  },
+  {
+    "description": "Selected good moral character bars and review triggers do not defeat eligibility.",
+    "determination_id": "n400.good_moral_character_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part F"
+  },
+  {
+    "description": "The case contains a benchmark human-review trigger.",
+    "determination_id": "n400.human_review_required",
+    "source_span": "RuleKit benchmark governance trigger"
+  }
+]
+
+CASE PACKET
+===========
+{
+  "case_id": "tier1_missing_travel_dates",
+  "narrative": "The applicant statement says they spent about seven months abroad sometime in 2021. The packet does not include passport stamps, CBP travel history, flight records, or a completed N-400 travel table. The physical presence worksheet is blank for 2021.",
+  "structured_fields": {
+    "evidence": {
+      "n400.absence_6_to_12_months": "Approximate narrative suggests about seven months abroad, but no exact dates are provided.",
+      "n400.days_absent_trip_1": "Applicant says about seven months abroad sometime in 2021, but no exact dates are provided.",
+      "n400.evidence_missing_critical_dates": "Passport, CBP, flight records, and completed travel table are missing."
+    },
+    "evidence_sources": [
+      {
+        "closed_world_scopes": [],
+        "limitations": "Open narrative with approximate timing only.",
+        "source_id": "applicant_statement",
+        "source_type": "applicant_personal_statement",
+        "title": "Applicant personal statement"
+      },
+      {
+        "closed_world_scopes": [],
+        "limitations": "Does not provide exact dates.",
+        "source_id": "blank_presence_worksheet",
+        "source_type": "physical_presence_worksheet",
+        "title": "Blank physical presence worksheet"
+      }
+    ]
+  },
+  "title": "Travel narrative missing exact dates"
+}
+
+Return ONLY this JSON shape:
+{
+  "case_id": "tier1_missing_travel_dates",
+  "determinations": [
+    {
+      "determination_id": "id from SELECTED DETERMINATIONS",
+      "outcome": "true|false|undetermined",
+      "rationale": "brief reason based on the case packet",
+      "confidence": 0.0
+    }
+  ],
+  "case_level_notes": "brief note or empty string"
+}

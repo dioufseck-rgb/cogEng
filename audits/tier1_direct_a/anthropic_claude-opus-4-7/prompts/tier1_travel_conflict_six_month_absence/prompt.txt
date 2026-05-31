@@ -1,0 +1,128 @@
+You are adjudicating a policy case directly.
+
+This is a baseline for research. Unlike RuleKit, you are being asked to decide
+the policy dispositions yourself from the policy summary and case packet.
+
+Important:
+- Return only JSON.
+- Do not invent facts not in the case packet.
+- Use "undetermined" when required facts are missing, conflicting, or too
+  approximate for a policy determination.
+- Use "true" when the determination is satisfied.
+- Use "false" when the determination is not satisfied.
+- If the case has missing, inconsistent, pending, or complex facts, mark
+  human-review-related determinations accordingly.
+
+POLICY SUMMARY
+==============
+Selected N-400 naturalization eligibility benchmark. The applicant must satisfy core threshold requirements, an applicable residence track, continuous residence, physical presence, state or USCIS district residence, good moral character, English and civics requirements or accepted exceptions, and oath/attachment requirements. Certain missing, inconsistent, pending, or complex facts require human review. Numeric requirements are represented with typed arithmetic and comparison nodes where possible.
+
+SELECTED DETERMINATIONS
+=======================
+[
+  {
+    "description": "Continuous residence is satisfied for this benchmark scope.",
+    "determination_id": "n400.continuous_residence_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 3"
+  },
+  {
+    "description": "Physical presence is satisfied under the selected track.",
+    "determination_id": "n400.physical_presence_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 4"
+  },
+  {
+    "description": "State or USCIS district residence is satisfied.",
+    "determination_id": "n400.state_residence_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 2-4"
+  },
+  {
+    "description": "English requirement is met or an accepted exception applies.",
+    "determination_id": "n400.english_requirement_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part E"
+  },
+  {
+    "description": "Civics requirement is met or an accepted exception applies.",
+    "determination_id": "n400.civics_requirement_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part E"
+  },
+  {
+    "description": "Attachment to the Constitution and oath-related requirements are satisfied.",
+    "determination_id": "n400.oath_attachment_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part J"
+  },
+  {
+    "description": "Selected good moral character bars and review triggers do not defeat eligibility.",
+    "determination_id": "n400.good_moral_character_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part F"
+  },
+  {
+    "description": "The case contains a benchmark human-review trigger.",
+    "determination_id": "n400.human_review_required",
+    "source_span": "RuleKit benchmark governance trigger"
+  }
+]
+
+CASE PACKET
+===========
+{
+  "case_id": "tier1_travel_conflict_six_month_absence",
+  "narrative": "The applicant applies under the general five-year track. The N-400 travel table lists a trip from March 1, 2022 to August 20, 2022, described as 172 days. The applicant's personal statement says they never stayed outside the United States for more than six months. Passport stamps and a CBP travel-history printout both show departure on March 1, 2022 and re-entry on September 15, 2022. The packet includes lease records and U.S. bank statements for the period abroad, plus family residence records showing spouse and children remained in the United States.",
+  "structured_fields": {
+    "evidence": {
+      "n400.absence_6_to_12_months": "Objective travel records show an absence over six months and under one year.",
+      "n400.days_absent_trip_1": "CBP and passport records show March 1, 2022 to September 15, 2022, approximately 198 days.",
+      "n400.inconsistent_travel_history": "N-400 travel table says 172 days ending August 20; passport/CBP show re-entry September 15.",
+      "n400.maintained_us_family_ties": "Family residence records show spouse and children remained in the United States.",
+      "n400.maintained_us_home": "Lease records and bank statements cover the period abroad."
+    },
+    "evidence_sources": [
+      {
+        "closed_world_scopes": [
+          "declared_travel_history"
+        ],
+        "limitations": "Applicant-declared table conflicts with passport and CBP dates.",
+        "source_id": "n400_travel_table",
+        "source_type": "travel_history_table",
+        "title": "Applicant travel table"
+      },
+      {
+        "closed_world_scopes": [],
+        "limitations": "Shows relevant departure and re-entry stamps.",
+        "source_id": "passport_stamps",
+        "source_type": "passport_record",
+        "title": "Passport stamps"
+      },
+      {
+        "closed_world_scopes": [
+          "us_entry_exit_events"
+        ],
+        "limitations": "Synthetic benchmark travel-history source.",
+        "source_id": "cbp_history",
+        "source_type": "cbp_travel_history",
+        "title": "CBP travel-history printout"
+      },
+      {
+        "closed_world_scopes": [],
+        "limitations": "Supports ties during absence but does not itself establish continuous residence.",
+        "source_id": "residence_evidence",
+        "source_type": "residence_records",
+        "title": "Lease, bank, and family residence records"
+      }
+    ]
+  },
+  "title": "Travel conflict creates six-month absence issue"
+}
+
+Return ONLY this JSON shape:
+{
+  "case_id": "tier1_travel_conflict_six_month_absence",
+  "determinations": [
+    {
+      "determination_id": "id from SELECTED DETERMINATIONS",
+      "outcome": "true|false|undetermined",
+      "rationale": "brief reason based on the case packet",
+      "confidence": 0.0
+    }
+  ],
+  "case_level_notes": "brief note or empty string"
+}

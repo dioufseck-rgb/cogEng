@@ -1,0 +1,2115 @@
+{
+  "case_count": 10,
+  "case_runs": [
+    {
+      "case_id": "tier1_clean_general_track_packet",
+      "cost": {
+        "estimated_cost_usd": 0.064395,
+        "input_tokens": 1878,
+        "latency_s": 9.21257419999165,
+        "output_tokens": 483,
+        "total_tokens": 2361
+      },
+      "parsed": {
+        "case_id": "tier1_clean_general_track_packet",
+        "case_level_notes": "Clean general 5-year track packet; all eligibility criteria satisfied.",
+        "determinations": [
+          {
+            "confidence": 0.95,
+            "determination_id": "n400.continuous_residence_satisfied",
+            "outcome": "true",
+            "rationale": "LPR for 6 years with only one 21-day trip, well under the 6-month break threshold."
+          },
+          {
+            "confidence": 0.95,
+            "determination_id": "n400.physical_presence_satisfied",
+            "outcome": "true",
+            "rationale": "41 months physical presence exceeds the 30-month requirement for the 5-year track."
+          },
+          {
+            "confidence": 0.95,
+            "determination_id": "n400.state_residence_satisfied",
+            "outcome": "true",
+            "rationale": "9 months in same USCIS district exceeds the 3-month requirement."
+          },
+          {
+            "confidence": 0.98,
+            "determination_id": "n400.english_requirement_satisfied",
+            "outcome": "true",
+            "rationale": "English test passed per naturalization test record."
+          },
+          {
+            "confidence": 0.98,
+            "determination_id": "n400.civics_requirement_satisfied",
+            "outcome": "true",
+            "rationale": "Civics test passed per naturalization test record."
+          },
+          {
+            "confidence": 0.97,
+            "determination_id": "n400.oath_attachment_satisfied",
+            "outcome": "true",
+            "rationale": "Applicant willing to take oath and attachment to Constitution recorded."
+          },
+          {
+            "confidence": 0.95,
+            "determination_id": "n400.good_moral_character_satisfied",
+            "outcome": "true",
+            "rationale": "No aggravated felony, no pending charges, no false testimony issues reported."
+          },
+          {
+            "confidence": 0.9,
+            "determination_id": "n400.human_review_required",
+            "outcome": "false",
+            "rationale": "No missing, inconsistent, or pending facts triggering human review; all requirements clearly met."
+          }
+        ]
+      },
+      "prompt": "You are adjudicating a policy case directly.\n\nThis is a baseline for research. Unlike RuleKit, you are being asked to decide\nthe policy dispositions yourself from the policy summary and case packet.\n\nImportant:\n- Return only JSON.\n- Do not invent facts not in the case packet.\n- Use \"undetermined\" when required facts are missing, conflicting, or too\n  approximate for a policy determination.\n- Use \"true\" when the determination is satisfied.\n- Use \"false\" when the determination is not satisfied.\n- If the case has missing, inconsistent, pending, or complex facts, mark\n  human-review-related determinations accordingly.\n\nPOLICY SUMMARY\n==============\nSelected N-400 naturalization eligibility benchmark. The applicant must satisfy core threshold requirements, an applicable residence track, continuous residence, physical presence, state or USCIS district residence, good moral character, English and civics requirements or accepted exceptions, and oath/attachment requirements. Certain missing, inconsistent, pending, or complex facts require human review. Numeric requirements are represented with typed arithmetic and comparison nodes where possible.\n\nSELECTED DETERMINATIONS\n=======================\n[\n  {\n    \"description\": \"Continuous residence is satisfied for this benchmark scope.\",\n    \"determination_id\": \"n400.continuous_residence_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part D, Ch. 3\"\n  },\n  {\n    \"description\": \"Physical presence is satisfied under the selected track.\",\n    \"determination_id\": \"n400.physical_presence_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part D, Ch. 4\"\n  },\n  {\n    \"description\": \"State or USCIS district residence is satisfied.\",\n    \"determination_id\": \"n400.state_residence_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part D, Ch. 2-4\"\n  },\n  {\n    \"description\": \"English requirement is met or an accepted exception applies.\",\n    \"determination_id\": \"n400.english_requirement_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part E\"\n  },\n  {\n    \"description\": \"Civics requirement is met or an accepted exception applies.\",\n    \"determination_id\": \"n400.civics_requirement_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part E\"\n  },\n  {\n    \"description\": \"Attachment to the Constitution and oath-related requirements are satisfied.\",\n    \"determination_id\": \"n400.oath_attachment_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part J\"\n  },\n  {\n    \"description\": \"Selected good moral character bars and review triggers do not defeat eligibility.\",\n    \"determination_id\": \"n400.good_moral_character_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part F\"\n  },\n  {\n    \"description\": \"The case contains a benchmark human-review trigger.\",\n    \"determination_id\": \"n400.human_review_required\",\n    \"source_span\": \"RuleKit benchmark governance trigger\"\n  }\n]\n\nCASE PACKET\n===========\n{\n  \"case_id\": \"tier1_clean_general_track_packet\",\n  \"narrative\": \"The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue.\",\n  \"structured_fields\": {\n    \"evidence\": {\n      \"n400.age_years\": \"Intake summary: applicant age is 37.\",\n      \"n400.aggravated_felony_after_1990\": \"FBI check: no aggravated felony convictions.\",\n      \"n400.attachment_to_constitution\": \"Oath worksheet: attachment to the Constitution recorded.\",\n      \"n400.civics_test_passed\": \"Naturalization test record: civics test passed.\",\n      \"n400.days_absent_trip_1\": \"Travel table: one trip lasted 21 days.\",\n      \"n400.english_test_passed\": \"Naturalization test record: English test passed.\",\n      \"n400.false_testimony_for_immigration_benefit\": \"USCIS interview worksheet: no false testimony issue.\",\n      \"n400.months_physical_presence_5yr\": \"Physical presence worksheet: 41 months physically present.\",\n      \"n400.months_state_or_district_residence\": \"Residence worksheet: 9 months in same USCIS district.\",\n      \"n400.pending_criminal_charge\": \"Docket search: no pending criminal charges.\",\n      \"n400.willing_to_take_oath\": \"Oath worksheet: applicant willing to take the oath.\",\n      \"n400.years_as_lpr\": \"Intake summary: applicant has been an LPR for 6 years.\"\n    },\n    \"evidence_sources\": [\n      {\n        \"closed_world_scopes\": [],\n        \"limitations\": \"Applicant and preparer supplied summary.\",\n        \"source_id\": \"intake_summary\",\n        \"source_type\": \"n400_intake_summary\",\n        \"title\": \"N-400 intake summary\"\n      },\n      {\n        \"closed_world_scopes\": [\n          \"declared_travel_history\"\n        ],\n        \"limitations\": \"Applicant-declared travel table.\",\n        \"source_id\": \"travel_table\",\n        \"source_type\": \"travel_history_table\",\n        \"title\": \"N-400 travel table\"\n      },\n      {\n        \"closed_world_scopes\": [],\n        \"limitations\": \"Structured worksheet in packet.\",\n        \"source_id\": \"presence_worksheet\",\n        \"source_type\": \"physical_presence_worksheet\",\n        \"title\": \"Physical presence worksheet\"\n      },\n      {\n        \"closed_world_scopes\": [],\n        \"limitations\": \"Current test result only.\",\n        \"source_id\": \"test_results\",\n        \"source_type\": \"naturalization_test_record\",\n        \"title\": \"English and civics test result\"\n      },\n      {\n        \"closed_world_scopes\": [],\n        \"limitations\": \"Current oath worksheet only.\",\n        \"source_id\": \"oath_worksheet\",\n        \"source_type\": \"oath_attachment_worksheet\",\n        \"title\": \"Oath and attachment worksheet\"\n      },\n      {\n        \"closed_world_scopes\": [\n          \"criminal_convictions\"\n        ],\n        \"limitations\": \"Synthetic benchmark source.\",\n        \"source_id\": \"fbi_check\",\n        \"source_type\": \"criminal_history_check\",\n        \"title\": \"FBI criminal history check\"\n      },\n      {\n        \"closed_world_scopes\": [\n          \"pending_criminal_charges\"\n        ],\n        \"limitations\": \"Synthetic benchmark source.\",\n        \"source_id\": \"docket_search\",\n        \"source_type\": \"court_docket_search\",\n        \"title\": \"Court docket search\"\n      },\n      {\n        \"closed_world_scopes\": [\n          \"false_testimony_for_immigration_benefit\"\n        ],\n        \"limitations\": \"Synthetic benchmark source.\",\n        \"source_id\": \"interview_worksheet\",\n        \"source_type\": \"uscis_interview_record\",\n        \"title\": \"USCIS interview worksheet\"\n      }\n    ]\n  },\n  \"title\": \"Clean general five-year packet\"\n}\n\nReturn ONLY this JSON shape:\n{\n  \"case_id\": \"tier1_clean_general_track_packet\",\n  \"determinations\": [\n    {\n      \"determination_id\": \"id from SELECTED DETERMINATIONS\",\n      \"outcome\": \"true|false|undetermined\",\n      \"rationale\": \"brief reason based on the case packet\",\n      \"confidence\": 0.0\n    }\n  ],\n  \"case_level_notes\": \"brief note or empty string\"\n}\n",
+      "raw_response": "{\n  \"case_id\": \"tier1_clean_general_track_packet\",\n  \"determinations\": [\n    {\n      \"determination_id\": \"n400.continuous_residence_satisfied\",\n      \"outcome\": \"true\",\n      \"rationale\": \"LPR for 6 years with only one 21-day trip, well under the 6-month break threshold.\",\n      \"confidence\": 0.95\n    },\n    {\n      \"determination_id\": \"n400.physical_presence_satisfied\",\n      \"outcome\": \"true\",\n      \"rationale\": \"41 months physical presence exceeds the 30-month requirement for the 5-year track.\",\n      \"confidence\": 0.95\n    },\n    {\n      \"determination_id\": \"n400.state_residence_satisfied\",\n      \"outcome\": \"true\",\n      \"rationale\": \"9 months in same USCIS district exceeds the 3-month requirement.\",\n      \"confidence\": 0.95\n    },\n    {\n      \"determination_id\": \"n400.english_requirement_satisfied\",\n      \"outcome\": \"true\",\n      \"rationale\": \"English test passed per naturalization test record.\",\n      \"confidence\": 0.98\n    },\n    {\n      \"determination_id\": \"n400.civics_requirement_satisfied\",\n      \"outcome\": \"true\",\n      \"rationale\": \"Civics test passed per naturalization test record.\",\n      \"confidence\": 0.98\n    },\n    {\n      \"determination_id\": \"n400.oath_attachment_satisfied\",\n      \"outcome\": \"true\",\n      \"rationale\": \"Applicant willing to take oath and attachment to Constitution recorded.\",\n      \"confidence\": 0.97\n    },\n    {\n      \"determination_id\": \"n400.good_moral_character_satisfied\",\n      \"outcome\": \"true\",\n      \"rationale\": \"No aggravated felony, no pending charges, no false testimony issues reported.\",\n      \"confidence\": 0.95\n    },\n    {\n      \"determination_id\": \"n400.human_review_required\",\n      \"outcome\": \"false\",\n      \"rationale\": \"No missing, inconsistent, or pending facts triggering human review; all requirements clearly met.\",\n      \"confidence\": 0.9\n    }\n  ],\n  \"case_level_notes\": \"Clean general 5-year track packet; all eligibility criteria satisfied.\"\n}"
+    },
+    {
+      "case_id": "tier1_travel_conflict_six_month_absence",
+      "cost": {
+        "estimated_cost_usd": 0.07332,
+        "input_tokens": 1463,
+        "latency_s": 11.812805900000967,
+        "output_tokens": 685,
+        "total_tokens": 2148
+      },
+      "parsed": {
+        "case_id": "tier1_travel_conflict_six_month_absence",
+        "case_level_notes": "Conflicting travel evidence and a ~198-day absence require adjudicator review of continuous residence rebuttal and applicant credibility.",
+        "determinations": [
+          {
+            "confidence": 0.85,
+            "determination_id": "n400.continuous_residence_satisfied",
+            "outcome": "undetermined",
+            "rationale": "Objective records show an absence of approximately 198 days (over six months, under one year), which creates a rebuttable presumption of broken continuous residence. Although the applicant has lease, bank, and family ties evidence that may rebut the presumption, the travel table conflicts with passport/CBP records, requiring adjudicator review."
+          },
+          {
+            "confidence": 0.8,
+            "determination_id": "n400.physical_presence_satisfied",
+            "outcome": "undetermined",
+            "rationale": "The packet does not provide total physical presence days across the five-year period; only one trip is documented with conflicting durations. Insufficient facts to compute the 30-month threshold."
+          },
+          {
+            "confidence": 0.7,
+            "determination_id": "n400.state_residence_satisfied",
+            "outcome": "undetermined",
+            "rationale": "No facts in the packet address state or USCIS district residence duration."
+          },
+          {
+            "confidence": 0.8,
+            "determination_id": "n400.english_requirement_satisfied",
+            "outcome": "undetermined",
+            "rationale": "Packet contains no facts about English proficiency or exceptions."
+          },
+          {
+            "confidence": 0.8,
+            "determination_id": "n400.civics_requirement_satisfied",
+            "outcome": "undetermined",
+            "rationale": "Packet contains no facts about civics knowledge or exceptions."
+          },
+          {
+            "confidence": 0.8,
+            "determination_id": "n400.oath_attachment_satisfied",
+            "outcome": "undetermined",
+            "rationale": "No facts about attachment to the Constitution or oath are provided."
+          },
+          {
+            "confidence": 0.7,
+            "determination_id": "n400.good_moral_character_satisfied",
+            "outcome": "undetermined",
+            "rationale": "The inconsistency between the applicant's travel table/personal statement and objective passport/CBP records raises a potential candor/GMC issue requiring adjudicator review. No other GMC bars discussed."
+          },
+          {
+            "confidence": 0.95,
+            "determination_id": "n400.human_review_required",
+            "outcome": "true",
+            "rationale": "Inconsistent travel history between the N-400 table, personal statement, and passport/CBP records, plus an absence between six and twelve months, trigger human review for continuous residence rebuttal and possible misrepresentation/GMC concerns."
+          }
+        ]
+      },
+      "prompt": "You are adjudicating a policy case directly.\n\nThis is a baseline for research. Unlike RuleKit, you are being asked to decide\nthe policy dispositions yourself from the policy summary and case packet.\n\nImportant:\n- Return only JSON.\n- Do not invent facts not in the case packet.\n- Use \"undetermined\" when required facts are missing, conflicting, or too\n  approximate for a policy determination.\n- Use \"true\" when the determination is satisfied.\n- Use \"false\" when the determination is not satisfied.\n- If the case has missing, inconsistent, pending, or complex facts, mark\n  human-review-related determinations accordingly.\n\nPOLICY SUMMARY\n==============\nSelected N-400 naturalization eligibility benchmark. The applicant must satisfy core threshold requirements, an applicable residence track, continuous residence, physical presence, state or USCIS district residence, good moral character, English and civics requirements or accepted exceptions, and oath/attachment requirements. Certain missing, inconsistent, pending, or complex facts require human review. Numeric requirements are represented with typed arithmetic and comparison nodes where possible.\n\nSELECTED DETERMINATIONS\n=======================\n[\n  {\n    \"description\": \"Continuous residence is satisfied for this benchmark scope.\",\n    \"determination_id\": \"n400.continuous_residence_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part D, Ch. 3\"\n  },\n  {\n    \"description\": \"Physical presence is satisfied under the selected track.\",\n    \"determination_id\": \"n400.physical_presence_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part D, Ch. 4\"\n  },\n  {\n    \"description\": \"State or USCIS district residence is satisfied.\",\n    \"determination_id\": \"n400.state_residence_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part D, Ch. 2-4\"\n  },\n  {\n    \"description\": \"English requirement is met or an accepted exception applies.\",\n    \"determination_id\": \"n400.english_requirement_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part E\"\n  },\n  {\n    \"description\": \"Civics requirement is met or an accepted exception applies.\",\n    \"determination_id\": \"n400.civics_requirement_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part E\"\n  },\n  {\n    \"description\": \"Attachment to the Constitution and oath-related requirements are satisfied.\",\n    \"determination_id\": \"n400.oath_attachment_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part J\"\n  },\n  {\n    \"description\": \"Selected good moral character bars and review triggers do not defeat eligibility.\",\n    \"determination_id\": \"n400.good_moral_character_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part F\"\n  },\n  {\n    \"description\": \"The case contains a benchmark human-review trigger.\",\n    \"determination_id\": \"n400.human_review_required\",\n    \"source_span\": \"RuleKit benchmark governance trigger\"\n  }\n]\n\nCASE PACKET\n===========\n{\n  \"case_id\": \"tier1_travel_conflict_six_month_absence\",\n  \"narrative\": \"The applicant applies under the general five-year track. The N-400 travel table lists a trip from March 1, 2022 to August 20, 2022, described as 172 days. The applicant's personal statement says they never stayed outside the United States for more than six months. Passport stamps and a CBP travel-history printout both show departure on March 1, 2022 and re-entry on September 15, 2022. The packet includes lease records and U.S. bank statements for the period abroad, plus family residence records showing spouse and children remained in the United States.\",\n  \"structured_fields\": {\n    \"evidence\": {\n      \"n400.absence_6_to_12_months\": \"Objective travel records show an absence over six months and under one year.\",\n      \"n400.days_absent_trip_1\": \"CBP and passport records show March 1, 2022 to September 15, 2022, approximately 198 days.\",\n      \"n400.inconsistent_travel_history\": \"N-400 travel table says 172 days ending August 20; passport/CBP show re-entry September 15.\",\n      \"n400.maintained_us_family_ties\": \"Family residence records show spouse and children remained in the United States.\",\n      \"n400.maintained_us_home\": \"Lease records and bank statements cover the period abroad.\"\n    },\n    \"evidence_sources\": [\n      {\n        \"closed_world_scopes\": [\n          \"declared_travel_history\"\n        ],\n        \"limitations\": \"Applicant-declared table conflicts with passport and CBP dates.\",\n        \"source_id\": \"n400_travel_table\",\n        \"source_type\": \"travel_history_table\",\n        \"title\": \"Applicant travel table\"\n      },\n      {\n        \"closed_world_scopes\": [],\n        \"limitations\": \"Shows relevant departure and re-entry stamps.\",\n        \"source_id\": \"passport_stamps\",\n        \"source_type\": \"passport_record\",\n        \"title\": \"Passport stamps\"\n      },\n      {\n        \"closed_world_scopes\": [\n          \"us_entry_exit_events\"\n        ],\n        \"limitations\": \"Synthetic benchmark travel-history source.\",\n        \"source_id\": \"cbp_history\",\n        \"source_type\": \"cbp_travel_history\",\n        \"title\": \"CBP travel-history printout\"\n      },\n      {\n        \"closed_world_scopes\": [],\n        \"limitations\": \"Supports ties during absence but does not itself establish continuous residence.\",\n        \"source_id\": \"residence_evidence\",\n        \"source_type\": \"residence_records\",\n        \"title\": \"Lease, bank, and family residence records\"\n      }\n    ]\n  },\n  \"title\": \"Travel conflict creates six-month absence issue\"\n}\n\nReturn ONLY this JSON shape:\n{\n  \"case_id\": \"tier1_travel_conflict_six_month_absence\",\n  \"determinations\": [\n    {\n      \"determination_id\": \"id from SELECTED DETERMINATIONS\",\n      \"outcome\": \"true|false|undetermined\",\n      \"rationale\": \"brief reason based on the case packet\",\n      \"confidence\": 0.0\n    }\n  ],\n  \"case_level_notes\": \"brief note or empty string\"\n}\n",
+      "raw_response": "{\n  \"case_id\": \"tier1_travel_conflict_six_month_absence\",\n  \"determinations\": [\n    {\n      \"determination_id\": \"n400.continuous_residence_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"Objective records show an absence of approximately 198 days (over six months, under one year), which creates a rebuttable presumption of broken continuous residence. Although the applicant has lease, bank, and family ties evidence that may rebut the presumption, the travel table conflicts with passport/CBP records, requiring adjudicator review.\",\n      \"confidence\": 0.85\n    },\n    {\n      \"determination_id\": \"n400.physical_presence_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"The packet does not provide total physical presence days across the five-year period; only one trip is documented with conflicting durations. Insufficient facts to compute the 30-month threshold.\",\n      \"confidence\": 0.8\n    },\n    {\n      \"determination_id\": \"n400.state_residence_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No facts in the packet address state or USCIS district residence duration.\",\n      \"confidence\": 0.7\n    },\n    {\n      \"determination_id\": \"n400.english_requirement_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"Packet contains no facts about English proficiency or exceptions.\",\n      \"confidence\": 0.8\n    },\n    {\n      \"determination_id\": \"n400.civics_requirement_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"Packet contains no facts about civics knowledge or exceptions.\",\n      \"confidence\": 0.8\n    },\n    {\n      \"determination_id\": \"n400.oath_attachment_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No facts about attachment to the Constitution or oath are provided.\",\n      \"confidence\": 0.8\n    },\n    {\n      \"determination_id\": \"n400.good_moral_character_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"The inconsistency between the applicant's travel table/personal statement and objective passport/CBP records raises a potential candor/GMC issue requiring adjudicator review. No other GMC bars discussed.\",\n      \"confidence\": 0.7\n    },\n    {\n      \"determination_id\": \"n400.human_review_required\",\n      \"outcome\": \"true\",\n      \"rationale\": \"Inconsistent travel history between the N-400 table, personal statement, and passport/CBP records, plus an absence between six and twelve months, trigger human review for continuous residence rebuttal and possible misrepresentation/GMC concerns.\",\n      \"confidence\": 0.95\n    }\n  ],\n  \"case_level_notes\": \"Conflicting travel evidence and a ~198-day absence require adjudicator review of continuous residence rebuttal and applicant credibility.\"\n}"
+    },
+    {
+      "case_id": "tier1_one_year_absence_no_exception",
+      "cost": {
+        "estimated_cost_usd": 0.061335,
+        "input_tokens": 1194,
+        "latency_s": 8.988964899996063,
+        "output_tokens": 579,
+        "total_tokens": 1773
+      },
+      "parsed": {
+        "case_id": "tier1_one_year_absence_no_exception",
+        "case_level_notes": "Continuous residence is broken by an absence exceeding one year (Jan 4, 2021 to Feb 10, 2022) with no N-470, employment-abroad, military, or religious-vocation exception. Other eligibility elements are not addressed in the packet.",
+        "determinations": [
+          {
+            "confidence": 0.95,
+            "determination_id": "n400.continuous_residence_satisfied",
+            "outcome": "false",
+            "rationale": "Absence from January 4, 2021 to February 10, 2022 exceeds one year, breaking continuous residence, with no N-470 or other preservation exception in the packet."
+          },
+          {
+            "confidence": 0.7,
+            "determination_id": "n400.physical_presence_satisfied",
+            "outcome": "undetermined",
+            "rationale": "Packet does not provide total physical presence days within the statutory period; only one absence is documented."
+          },
+          {
+            "confidence": 0.7,
+            "determination_id": "n400.state_residence_satisfied",
+            "outcome": "undetermined",
+            "rationale": "No information about state or USCIS district residence provided in the packet."
+          },
+          {
+            "confidence": 0.7,
+            "determination_id": "n400.english_requirement_satisfied",
+            "outcome": "undetermined",
+            "rationale": "No facts in the packet address English proficiency or exceptions."
+          },
+          {
+            "confidence": 0.7,
+            "determination_id": "n400.civics_requirement_satisfied",
+            "outcome": "undetermined",
+            "rationale": "No facts in the packet address civics knowledge or exceptions."
+          },
+          {
+            "confidence": 0.7,
+            "determination_id": "n400.oath_attachment_satisfied",
+            "outcome": "undetermined",
+            "rationale": "Packet contains no information on oath or attachment to the Constitution."
+          },
+          {
+            "confidence": 0.7,
+            "determination_id": "n400.good_moral_character_satisfied",
+            "outcome": "undetermined",
+            "rationale": "Packet contains no GMC-related facts to evaluate."
+          },
+          {
+            "confidence": 0.9,
+            "determination_id": "n400.human_review_required",
+            "outcome": "true",
+            "rationale": "Absence exceeding one year with no preservation exception is a benchmark trigger; case should be reviewed and likely denied for broken continuous residence."
+          }
+        ]
+      },
+      "prompt": "You are adjudicating a policy case directly.\n\nThis is a baseline for research. Unlike RuleKit, you are being asked to decide\nthe policy dispositions yourself from the policy summary and case packet.\n\nImportant:\n- Return only JSON.\n- Do not invent facts not in the case packet.\n- Use \"undetermined\" when required facts are missing, conflicting, or too\n  approximate for a policy determination.\n- Use \"true\" when the determination is satisfied.\n- Use \"false\" when the determination is not satisfied.\n- If the case has missing, inconsistent, pending, or complex facts, mark\n  human-review-related determinations accordingly.\n\nPOLICY SUMMARY\n==============\nSelected N-400 naturalization eligibility benchmark. The applicant must satisfy core threshold requirements, an applicable residence track, continuous residence, physical presence, state or USCIS district residence, good moral character, English and civics requirements or accepted exceptions, and oath/attachment requirements. Certain missing, inconsistent, pending, or complex facts require human review. Numeric requirements are represented with typed arithmetic and comparison nodes where possible.\n\nSELECTED DETERMINATIONS\n=======================\n[\n  {\n    \"description\": \"Continuous residence is satisfied for this benchmark scope.\",\n    \"determination_id\": \"n400.continuous_residence_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part D, Ch. 3\"\n  },\n  {\n    \"description\": \"Physical presence is satisfied under the selected track.\",\n    \"determination_id\": \"n400.physical_presence_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part D, Ch. 4\"\n  },\n  {\n    \"description\": \"State or USCIS district residence is satisfied.\",\n    \"determination_id\": \"n400.state_residence_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part D, Ch. 2-4\"\n  },\n  {\n    \"description\": \"English requirement is met or an accepted exception applies.\",\n    \"determination_id\": \"n400.english_requirement_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part E\"\n  },\n  {\n    \"description\": \"Civics requirement is met or an accepted exception applies.\",\n    \"determination_id\": \"n400.civics_requirement_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part E\"\n  },\n  {\n    \"description\": \"Attachment to the Constitution and oath-related requirements are satisfied.\",\n    \"determination_id\": \"n400.oath_attachment_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part J\"\n  },\n  {\n    \"description\": \"Selected good moral character bars and review triggers do not defeat eligibility.\",\n    \"determination_id\": \"n400.good_moral_character_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part F\"\n  },\n  {\n    \"description\": \"The case contains a benchmark human-review trigger.\",\n    \"determination_id\": \"n400.human_review_required\",\n    \"source_span\": \"RuleKit benchmark governance trigger\"\n  }\n]\n\nCASE PACKET\n===========\n{\n  \"case_id\": \"tier1_one_year_absence_no_exception\",\n  \"narrative\": \"The passport and CBP travel-history printout show departure from the United States on January 4, 2021 and re-entry on February 10, 2022. The packet contains no N-470 preservation approval, no qualifying employment-abroad approval, no military service exception, and no religious-vocation exception. The applicant statement says the trip was for family reasons.\",\n  \"structured_fields\": {\n    \"evidence\": {\n      \"n400.absence_6_to_12_months\": \"The absence exceeded one year, not merely six to twelve months.\",\n      \"n400.absence_over_one_year\": \"Travel history shows an absence exceeding one year.\",\n      \"n400.days_absent_trip_1\": \"CBP travel history: January 4, 2021 to February 10, 2022, more than one year.\"\n    },\n    \"evidence_sources\": [\n      {\n        \"closed_world_scopes\": [\n          \"us_entry_exit_events\"\n        ],\n        \"limitations\": \"Synthetic benchmark travel-history source.\",\n        \"source_id\": \"cbp_history\",\n        \"source_type\": \"cbp_travel_history\",\n        \"title\": \"CBP travel-history printout\"\n      },\n      {\n        \"closed_world_scopes\": [\n          \"submitted_exception_documents\"\n        ],\n        \"limitations\": \"Shows no exception document included.\",\n        \"source_id\": \"packet_index\",\n        \"source_type\": \"case_packet_index\",\n        \"title\": \"Case packet index\"\n      }\n    ]\n  },\n  \"title\": \"One-year absence with no preservation exception\"\n}\n\nReturn ONLY this JSON shape:\n{\n  \"case_id\": \"tier1_one_year_absence_no_exception\",\n  \"determinations\": [\n    {\n      \"determination_id\": \"id from SELECTED DETERMINATIONS\",\n      \"outcome\": \"true|false|undetermined\",\n      \"rationale\": \"brief reason based on the case packet\",\n      \"confidence\": 0.0\n    }\n  ],\n  \"case_level_notes\": \"brief note or empty string\"\n}\n",
+      "raw_response": "{\n  \"case_id\": \"tier1_one_year_absence_no_exception\",\n  \"determinations\": [\n    {\n      \"determination_id\": \"n400.continuous_residence_satisfied\",\n      \"outcome\": \"false\",\n      \"rationale\": \"Absence from January 4, 2021 to February 10, 2022 exceeds one year, breaking continuous residence, with no N-470 or other preservation exception in the packet.\",\n      \"confidence\": 0.95\n    },\n    {\n      \"determination_id\": \"n400.physical_presence_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"Packet does not provide total physical presence days within the statutory period; only one absence is documented.\",\n      \"confidence\": 0.7\n    },\n    {\n      \"determination_id\": \"n400.state_residence_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No information about state or USCIS district residence provided in the packet.\",\n      \"confidence\": 0.7\n    },\n    {\n      \"determination_id\": \"n400.english_requirement_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No facts in the packet address English proficiency or exceptions.\",\n      \"confidence\": 0.7\n    },\n    {\n      \"determination_id\": \"n400.civics_requirement_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No facts in the packet address civics knowledge or exceptions.\",\n      \"confidence\": 0.7\n    },\n    {\n      \"determination_id\": \"n400.oath_attachment_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"Packet contains no information on oath or attachment to the Constitution.\",\n      \"confidence\": 0.7\n    },\n    {\n      \"determination_id\": \"n400.good_moral_character_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"Packet contains no GMC-related facts to evaluate.\",\n      \"confidence\": 0.7\n    },\n    {\n      \"determination_id\": \"n400.human_review_required\",\n      \"outcome\": \"true\",\n      \"rationale\": \"Absence exceeding one year with no preservation exception is a benchmark trigger; case should be reviewed and likely denied for broken continuous residence.\",\n      \"confidence\": 0.9\n    }\n  ],\n  \"case_level_notes\": \"Continuous residence is broken by an absence exceeding one year (Jan 4, 2021 to Feb 10, 2022) with no N-470, employment-abroad, military, or religious-vocation exception. Other eligibility elements are not addressed in the packet.\"\n}"
+    },
+    {
+      "case_id": "tier1_physical_presence_short_by_worksheet",
+      "cost": {
+        "estimated_cost_usd": 0.054,
+        "input_tokens": 1045,
+        "latency_s": 8.256795300010708,
+        "output_tokens": 511,
+        "total_tokens": 1556
+      },
+      "parsed": {
+        "case_id": "tier1_physical_presence_short_by_worksheet",
+        "case_level_notes": "Applicant fails physical presence under the five-year track per worksheet (24 < 30 months). Other eligibility prongs lack facts in packet.",
+        "determinations": [
+          {
+            "confidence": 0.6,
+            "determination_id": "n400.continuous_residence_satisfied",
+            "outcome": "undetermined",
+            "rationale": "No facts provided regarding continuous residence absences or breaks."
+          },
+          {
+            "confidence": 0.95,
+            "determination_id": "n400.physical_presence_satisfied",
+            "outcome": "false",
+            "rationale": "Worksheet shows 24 months physically present during the five-year period; general track requires at least 30 months."
+          },
+          {
+            "confidence": 0.6,
+            "determination_id": "n400.state_residence_satisfied",
+            "outcome": "undetermined",
+            "rationale": "No facts provided about state or USCIS district residence."
+          },
+          {
+            "confidence": 0.6,
+            "determination_id": "n400.english_requirement_satisfied",
+            "outcome": "undetermined",
+            "rationale": "No facts provided about English ability or exceptions."
+          },
+          {
+            "confidence": 0.6,
+            "determination_id": "n400.civics_requirement_satisfied",
+            "outcome": "undetermined",
+            "rationale": "No facts provided about civics knowledge or exceptions."
+          },
+          {
+            "confidence": 0.6,
+            "determination_id": "n400.oath_attachment_satisfied",
+            "outcome": "undetermined",
+            "rationale": "No facts provided about attachment to the Constitution or oath."
+          },
+          {
+            "confidence": 0.6,
+            "determination_id": "n400.good_moral_character_satisfied",
+            "outcome": "undetermined",
+            "rationale": "No facts provided regarding GMC bars or conduct."
+          },
+          {
+            "confidence": 0.9,
+            "determination_id": "n400.human_review_required",
+            "outcome": "true",
+            "rationale": "Physical presence shortfall (24 of required 30 months) and multiple missing facts warrant human review."
+          }
+        ]
+      },
+      "prompt": "You are adjudicating a policy case directly.\n\nThis is a baseline for research. Unlike RuleKit, you are being asked to decide\nthe policy dispositions yourself from the policy summary and case packet.\n\nImportant:\n- Return only JSON.\n- Do not invent facts not in the case packet.\n- Use \"undetermined\" when required facts are missing, conflicting, or too\n  approximate for a policy determination.\n- Use \"true\" when the determination is satisfied.\n- Use \"false\" when the determination is not satisfied.\n- If the case has missing, inconsistent, pending, or complex facts, mark\n  human-review-related determinations accordingly.\n\nPOLICY SUMMARY\n==============\nSelected N-400 naturalization eligibility benchmark. The applicant must satisfy core threshold requirements, an applicable residence track, continuous residence, physical presence, state or USCIS district residence, good moral character, English and civics requirements or accepted exceptions, and oath/attachment requirements. Certain missing, inconsistent, pending, or complex facts require human review. Numeric requirements are represented with typed arithmetic and comparison nodes where possible.\n\nSELECTED DETERMINATIONS\n=======================\n[\n  {\n    \"description\": \"Continuous residence is satisfied for this benchmark scope.\",\n    \"determination_id\": \"n400.continuous_residence_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part D, Ch. 3\"\n  },\n  {\n    \"description\": \"Physical presence is satisfied under the selected track.\",\n    \"determination_id\": \"n400.physical_presence_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part D, Ch. 4\"\n  },\n  {\n    \"description\": \"State or USCIS district residence is satisfied.\",\n    \"determination_id\": \"n400.state_residence_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part D, Ch. 2-4\"\n  },\n  {\n    \"description\": \"English requirement is met or an accepted exception applies.\",\n    \"determination_id\": \"n400.english_requirement_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part E\"\n  },\n  {\n    \"description\": \"Civics requirement is met or an accepted exception applies.\",\n    \"determination_id\": \"n400.civics_requirement_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part E\"\n  },\n  {\n    \"description\": \"Attachment to the Constitution and oath-related requirements are satisfied.\",\n    \"determination_id\": \"n400.oath_attachment_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part J\"\n  },\n  {\n    \"description\": \"Selected good moral character bars and review triggers do not defeat eligibility.\",\n    \"determination_id\": \"n400.good_moral_character_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part F\"\n  },\n  {\n    \"description\": \"The case contains a benchmark human-review trigger.\",\n    \"determination_id\": \"n400.human_review_required\",\n    \"source_span\": \"RuleKit benchmark governance trigger\"\n  }\n]\n\nCASE PACKET\n===========\n{\n  \"case_id\": \"tier1_physical_presence_short_by_worksheet\",\n  \"narrative\": \"The physical presence worksheet totals 24 months physically present in the United States during the five-year statutory period. The applicant is applying under the general five-year track. The worksheet lists dates and total days but no alternative spouse-track claim.\",\n  \"structured_fields\": {\n    \"evidence\": {\n      \"n400.months_physical_presence_5yr\": \"Physical presence worksheet: 24 months physically present during the five-year period.\"\n    },\n    \"evidence_sources\": [\n      {\n        \"closed_world_scopes\": [],\n        \"limitations\": \"Structured worksheet in packet.\",\n        \"source_id\": \"presence_worksheet\",\n        \"source_type\": \"physical_presence_worksheet\",\n        \"title\": \"Physical presence worksheet\"\n      }\n    ]\n  },\n  \"title\": \"Physical presence shortfall\"\n}\n\nReturn ONLY this JSON shape:\n{\n  \"case_id\": \"tier1_physical_presence_short_by_worksheet\",\n  \"determinations\": [\n    {\n      \"determination_id\": \"id from SELECTED DETERMINATIONS\",\n      \"outcome\": \"true|false|undetermined\",\n      \"rationale\": \"brief reason based on the case packet\",\n      \"confidence\": 0.0\n    }\n  ],\n  \"case_level_notes\": \"brief note or empty string\"\n}\n",
+      "raw_response": "{\n  \"case_id\": \"tier1_physical_presence_short_by_worksheet\",\n  \"determinations\": [\n    {\n      \"determination_id\": \"n400.continuous_residence_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No facts provided regarding continuous residence absences or breaks.\",\n      \"confidence\": 0.6\n    },\n    {\n      \"determination_id\": \"n400.physical_presence_satisfied\",\n      \"outcome\": \"false\",\n      \"rationale\": \"Worksheet shows 24 months physically present during the five-year period; general track requires at least 30 months.\",\n      \"confidence\": 0.95\n    },\n    {\n      \"determination_id\": \"n400.state_residence_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No facts provided about state or USCIS district residence.\",\n      \"confidence\": 0.6\n    },\n    {\n      \"determination_id\": \"n400.english_requirement_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No facts provided about English ability or exceptions.\",\n      \"confidence\": 0.6\n    },\n    {\n      \"determination_id\": \"n400.civics_requirement_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No facts provided about civics knowledge or exceptions.\",\n      \"confidence\": 0.6\n    },\n    {\n      \"determination_id\": \"n400.oath_attachment_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No facts provided about attachment to the Constitution or oath.\",\n      \"confidence\": 0.6\n    },\n    {\n      \"determination_id\": \"n400.good_moral_character_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No facts provided regarding GMC bars or conduct.\",\n      \"confidence\": 0.6\n    },\n    {\n      \"determination_id\": \"n400.human_review_required\",\n      \"outcome\": \"true\",\n      \"rationale\": \"Physical presence shortfall (24 of required 30 months) and multiple missing facts warrant human review.\",\n      \"confidence\": 0.9\n    }\n  ],\n  \"case_level_notes\": \"Applicant fails physical presence under the five-year track per worksheet (24 < 30 months). Other eligibility prongs lack facts in packet.\"\n}"
+    },
+    {
+      "case_id": "tier1_state_residence_short",
+      "cost": {
+        "estimated_cost_usd": 0.05343,
+        "input_tokens": 1032,
+        "latency_s": 8.19150709999667,
+        "output_tokens": 506,
+        "total_tokens": 1538
+      },
+      "parsed": {
+        "case_id": "tier1_state_residence_short",
+        "case_level_notes": "Case focused on short district residence (two months); other eligibility facts not provided.",
+        "determinations": [
+          {
+            "confidence": 0.6,
+            "determination_id": "n400.continuous_residence_satisfied",
+            "outcome": "undetermined",
+            "rationale": "Case packet does not provide facts about continuous residence over the statutory period."
+          },
+          {
+            "confidence": 0.6,
+            "determination_id": "n400.physical_presence_satisfied",
+            "outcome": "undetermined",
+            "rationale": "No physical presence data provided in the case packet."
+          },
+          {
+            "confidence": 0.9,
+            "determination_id": "n400.state_residence_satisfied",
+            "outcome": "false",
+            "rationale": "Applicant has only two months of residence in the current USCIS district before filing, which is less than the three-month requirement."
+          },
+          {
+            "confidence": 0.6,
+            "determination_id": "n400.english_requirement_satisfied",
+            "outcome": "undetermined",
+            "rationale": "No information about English proficiency or exceptions provided."
+          },
+          {
+            "confidence": 0.6,
+            "determination_id": "n400.civics_requirement_satisfied",
+            "outcome": "undetermined",
+            "rationale": "No information about civics knowledge or exceptions provided."
+          },
+          {
+            "confidence": 0.6,
+            "determination_id": "n400.oath_attachment_satisfied",
+            "outcome": "undetermined",
+            "rationale": "No facts about oath or attachment to the Constitution provided."
+          },
+          {
+            "confidence": 0.6,
+            "determination_id": "n400.good_moral_character_satisfied",
+            "outcome": "undetermined",
+            "rationale": "No GMC-related facts provided in the case packet."
+          },
+          {
+            "confidence": 0.85,
+            "determination_id": "n400.human_review_required",
+            "outcome": "true",
+            "rationale": "State/district residence appears to fall short of statutory minimum, warranting human review."
+          }
+        ]
+      },
+      "prompt": "You are adjudicating a policy case directly.\n\nThis is a baseline for research. Unlike RuleKit, you are being asked to decide\nthe policy dispositions yourself from the policy summary and case packet.\n\nImportant:\n- Return only JSON.\n- Do not invent facts not in the case packet.\n- Use \"undetermined\" when required facts are missing, conflicting, or too\n  approximate for a policy determination.\n- Use \"true\" when the determination is satisfied.\n- Use \"false\" when the determination is not satisfied.\n- If the case has missing, inconsistent, pending, or complex facts, mark\n  human-review-related determinations accordingly.\n\nPOLICY SUMMARY\n==============\nSelected N-400 naturalization eligibility benchmark. The applicant must satisfy core threshold requirements, an applicable residence track, continuous residence, physical presence, state or USCIS district residence, good moral character, English and civics requirements or accepted exceptions, and oath/attachment requirements. Certain missing, inconsistent, pending, or complex facts require human review. Numeric requirements are represented with typed arithmetic and comparison nodes where possible.\n\nSELECTED DETERMINATIONS\n=======================\n[\n  {\n    \"description\": \"Continuous residence is satisfied for this benchmark scope.\",\n    \"determination_id\": \"n400.continuous_residence_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part D, Ch. 3\"\n  },\n  {\n    \"description\": \"Physical presence is satisfied under the selected track.\",\n    \"determination_id\": \"n400.physical_presence_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part D, Ch. 4\"\n  },\n  {\n    \"description\": \"State or USCIS district residence is satisfied.\",\n    \"determination_id\": \"n400.state_residence_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part D, Ch. 2-4\"\n  },\n  {\n    \"description\": \"English requirement is met or an accepted exception applies.\",\n    \"determination_id\": \"n400.english_requirement_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part E\"\n  },\n  {\n    \"description\": \"Civics requirement is met or an accepted exception applies.\",\n    \"determination_id\": \"n400.civics_requirement_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part E\"\n  },\n  {\n    \"description\": \"Attachment to the Constitution and oath-related requirements are satisfied.\",\n    \"determination_id\": \"n400.oath_attachment_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part J\"\n  },\n  {\n    \"description\": \"Selected good moral character bars and review triggers do not defeat eligibility.\",\n    \"determination_id\": \"n400.good_moral_character_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part F\"\n  },\n  {\n    \"description\": \"The case contains a benchmark human-review trigger.\",\n    \"determination_id\": \"n400.human_review_required\",\n    \"source_span\": \"RuleKit benchmark governance trigger\"\n  }\n]\n\nCASE PACKET\n===========\n{\n  \"case_id\": \"tier1_state_residence_short\",\n  \"narrative\": \"The residence worksheet states that the applicant moved into the current USCIS district two months before filing. The lease start date and utility bill confirm two months of residence in the district before the filing date.\",\n  \"structured_fields\": {\n    \"evidence\": {\n      \"n400.months_state_or_district_residence\": \"Residence worksheet, lease, and utility bill show two months in the current USCIS district before filing.\"\n    },\n    \"evidence_sources\": [\n      {\n        \"closed_world_scopes\": [],\n        \"limitations\": \"Current district residence calculation.\",\n        \"source_id\": \"residence_worksheet\",\n        \"source_type\": \"residence_worksheet\",\n        \"title\": \"Residence worksheet\"\n      }\n    ]\n  },\n  \"title\": \"State residence only two months\"\n}\n\nReturn ONLY this JSON shape:\n{\n  \"case_id\": \"tier1_state_residence_short\",\n  \"determinations\": [\n    {\n      \"determination_id\": \"id from SELECTED DETERMINATIONS\",\n      \"outcome\": \"true|false|undetermined\",\n      \"rationale\": \"brief reason based on the case packet\",\n      \"confidence\": 0.0\n    }\n  ],\n  \"case_level_notes\": \"brief note or empty string\"\n}\n",
+      "raw_response": "{\n  \"case_id\": \"tier1_state_residence_short\",\n  \"determinations\": [\n    {\n      \"determination_id\": \"n400.continuous_residence_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"Case packet does not provide facts about continuous residence over the statutory period.\",\n      \"confidence\": 0.6\n    },\n    {\n      \"determination_id\": \"n400.physical_presence_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No physical presence data provided in the case packet.\",\n      \"confidence\": 0.6\n    },\n    {\n      \"determination_id\": \"n400.state_residence_satisfied\",\n      \"outcome\": \"false\",\n      \"rationale\": \"Applicant has only two months of residence in the current USCIS district before filing, which is less than the three-month requirement.\",\n      \"confidence\": 0.9\n    },\n    {\n      \"determination_id\": \"n400.english_requirement_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No information about English proficiency or exceptions provided.\",\n      \"confidence\": 0.6\n    },\n    {\n      \"determination_id\": \"n400.civics_requirement_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No information about civics knowledge or exceptions provided.\",\n      \"confidence\": 0.6\n    },\n    {\n      \"determination_id\": \"n400.oath_attachment_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No facts about oath or attachment to the Constitution provided.\",\n      \"confidence\": 0.6\n    },\n    {\n      \"determination_id\": \"n400.good_moral_character_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No GMC-related facts provided in the case packet.\",\n      \"confidence\": 0.6\n    },\n    {\n      \"determination_id\": \"n400.human_review_required\",\n      \"outcome\": \"true\",\n      \"rationale\": \"State/district residence appears to fall short of statutory minimum, warranting human review.\",\n      \"confidence\": 0.85\n    }\n  ],\n  \"case_level_notes\": \"Case focused on short district residence (two months); other eligibility facts not provided.\"\n}"
+    },
+    {
+      "case_id": "tier1_english_failed_civics_passed_no_exception",
+      "cost": {
+        "estimated_cost_usd": 0.05814,
+        "input_tokens": 1186,
+        "latency_s": 8.057177800001227,
+        "output_tokens": 538,
+        "total_tokens": 1724
+      },
+      "parsed": {
+        "case_id": "tier1_english_failed_civics_passed_no_exception",
+        "case_level_notes": "Case focuses on English/civics; English requirement is not satisfied because applicant failed English components and no exception applies. Other eligibility prongs are not addressed in the packet.",
+        "determinations": [
+          {
+            "confidence": 0.6,
+            "determination_id": "n400.continuous_residence_satisfied",
+            "outcome": "undetermined",
+            "rationale": "Case packet does not provide continuous residence facts."
+          },
+          {
+            "confidence": 0.6,
+            "determination_id": "n400.physical_presence_satisfied",
+            "outcome": "undetermined",
+            "rationale": "Case packet does not provide physical presence facts."
+          },
+          {
+            "confidence": 0.6,
+            "determination_id": "n400.state_residence_satisfied",
+            "outcome": "undetermined",
+            "rationale": "Case packet does not provide state/district residence facts."
+          },
+          {
+            "confidence": 0.95,
+            "determination_id": "n400.english_requirement_satisfied",
+            "outcome": "false",
+            "rationale": "Applicant failed English reading and writing; no medical disability exception approved and no age-and-LPR exception claimed."
+          },
+          {
+            "confidence": 0.95,
+            "determination_id": "n400.civics_requirement_satisfied",
+            "outcome": "true",
+            "rationale": "Naturalization test record states applicant passed the civics test."
+          },
+          {
+            "confidence": 0.6,
+            "determination_id": "n400.oath_attachment_satisfied",
+            "outcome": "undetermined",
+            "rationale": "Case packet does not address oath or attachment to the Constitution."
+          },
+          {
+            "confidence": 0.6,
+            "determination_id": "n400.good_moral_character_satisfied",
+            "outcome": "undetermined",
+            "rationale": "Case packet does not provide GMC facts."
+          },
+          {
+            "confidence": 0.8,
+            "determination_id": "n400.human_review_required",
+            "outcome": "true",
+            "rationale": "Failed English component without an accepted exception is a substantive eligibility issue warranting human review; many required facts are also missing."
+          }
+        ]
+      },
+      "prompt": "You are adjudicating a policy case directly.\n\nThis is a baseline for research. Unlike RuleKit, you are being asked to decide\nthe policy dispositions yourself from the policy summary and case packet.\n\nImportant:\n- Return only JSON.\n- Do not invent facts not in the case packet.\n- Use \"undetermined\" when required facts are missing, conflicting, or too\n  approximate for a policy determination.\n- Use \"true\" when the determination is satisfied.\n- Use \"false\" when the determination is not satisfied.\n- If the case has missing, inconsistent, pending, or complex facts, mark\n  human-review-related determinations accordingly.\n\nPOLICY SUMMARY\n==============\nSelected N-400 naturalization eligibility benchmark. The applicant must satisfy core threshold requirements, an applicable residence track, continuous residence, physical presence, state or USCIS district residence, good moral character, English and civics requirements or accepted exceptions, and oath/attachment requirements. Certain missing, inconsistent, pending, or complex facts require human review. Numeric requirements are represented with typed arithmetic and comparison nodes where possible.\n\nSELECTED DETERMINATIONS\n=======================\n[\n  {\n    \"description\": \"Continuous residence is satisfied for this benchmark scope.\",\n    \"determination_id\": \"n400.continuous_residence_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part D, Ch. 3\"\n  },\n  {\n    \"description\": \"Physical presence is satisfied under the selected track.\",\n    \"determination_id\": \"n400.physical_presence_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part D, Ch. 4\"\n  },\n  {\n    \"description\": \"State or USCIS district residence is satisfied.\",\n    \"determination_id\": \"n400.state_residence_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part D, Ch. 2-4\"\n  },\n  {\n    \"description\": \"English requirement is met or an accepted exception applies.\",\n    \"determination_id\": \"n400.english_requirement_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part E\"\n  },\n  {\n    \"description\": \"Civics requirement is met or an accepted exception applies.\",\n    \"determination_id\": \"n400.civics_requirement_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part E\"\n  },\n  {\n    \"description\": \"Attachment to the Constitution and oath-related requirements are satisfied.\",\n    \"determination_id\": \"n400.oath_attachment_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part J\"\n  },\n  {\n    \"description\": \"Selected good moral character bars and review triggers do not defeat eligibility.\",\n    \"determination_id\": \"n400.good_moral_character_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part F\"\n  },\n  {\n    \"description\": \"The case contains a benchmark human-review trigger.\",\n    \"determination_id\": \"n400.human_review_required\",\n    \"source_span\": \"RuleKit benchmark governance trigger\"\n  }\n]\n\nCASE PACKET\n===========\n{\n  \"case_id\": \"tier1_english_failed_civics_passed_no_exception\",\n  \"narrative\": \"The naturalization test record states that the applicant failed the English reading and writing components. The same record states that the applicant passed the civics test. The packet does not include an approved medical disability exception and does not claim an age-and-LPR English exception.\",\n  \"structured_fields\": {\n    \"evidence\": {\n      \"n400.civics_test_passed\": \"Naturalization test result: civics test passed.\",\n      \"n400.english_test_passed\": \"Naturalization test result: English reading and writing components failed.\",\n      \"n400.medical_disability_exception_approved\": \"Packet index: no approved medical disability exception included.\"\n    },\n    \"evidence_sources\": [\n      {\n        \"closed_world_scopes\": [\n          \"english_civics_test_results\"\n        ],\n        \"limitations\": \"Current test result only.\",\n        \"source_id\": \"test_results\",\n        \"source_type\": \"naturalization_test_record\",\n        \"title\": \"Naturalization test result\"\n      },\n      {\n        \"closed_world_scopes\": [\n          \"submitted_exception_documents\"\n        ],\n        \"limitations\": \"Shows no medical exception document included.\",\n        \"source_id\": \"packet_index\",\n        \"source_type\": \"case_packet_index\",\n        \"title\": \"Case packet index\"\n      }\n    ]\n  },\n  \"title\": \"English failed, civics passed, no exception\"\n}\n\nReturn ONLY this JSON shape:\n{\n  \"case_id\": \"tier1_english_failed_civics_passed_no_exception\",\n  \"determinations\": [\n    {\n      \"determination_id\": \"id from SELECTED DETERMINATIONS\",\n      \"outcome\": \"true|false|undetermined\",\n      \"rationale\": \"brief reason based on the case packet\",\n      \"confidence\": 0.0\n    }\n  ],\n  \"case_level_notes\": \"brief note or empty string\"\n}\n",
+      "raw_response": "{\n  \"case_id\": \"tier1_english_failed_civics_passed_no_exception\",\n  \"determinations\": [\n    {\n      \"determination_id\": \"n400.continuous_residence_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"Case packet does not provide continuous residence facts.\",\n      \"confidence\": 0.6\n    },\n    {\n      \"determination_id\": \"n400.physical_presence_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"Case packet does not provide physical presence facts.\",\n      \"confidence\": 0.6\n    },\n    {\n      \"determination_id\": \"n400.state_residence_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"Case packet does not provide state/district residence facts.\",\n      \"confidence\": 0.6\n    },\n    {\n      \"determination_id\": \"n400.english_requirement_satisfied\",\n      \"outcome\": \"false\",\n      \"rationale\": \"Applicant failed English reading and writing; no medical disability exception approved and no age-and-LPR exception claimed.\",\n      \"confidence\": 0.95\n    },\n    {\n      \"determination_id\": \"n400.civics_requirement_satisfied\",\n      \"outcome\": \"true\",\n      \"rationale\": \"Naturalization test record states applicant passed the civics test.\",\n      \"confidence\": 0.95\n    },\n    {\n      \"determination_id\": \"n400.oath_attachment_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"Case packet does not address oath or attachment to the Constitution.\",\n      \"confidence\": 0.6\n    },\n    {\n      \"determination_id\": \"n400.good_moral_character_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"Case packet does not provide GMC facts.\",\n      \"confidence\": 0.6\n    },\n    {\n      \"determination_id\": \"n400.human_review_required\",\n      \"outcome\": \"true\",\n      \"rationale\": \"Failed English component without an accepted exception is a substantive eligibility issue warranting human review; many required facts are also missing.\",\n      \"confidence\": 0.8\n    }\n  ],\n  \"case_level_notes\": \"Case focuses on English/civics; English requirement is not satisfied because applicant failed English components and no exception applies. Other eligibility prongs are not addressed in the packet.\"\n}"
+    },
+    {
+      "case_id": "tier1_medical_disability_exception_approved",
+      "cost": {
+        "estimated_cost_usd": 0.054975,
+        "input_tokens": 1145,
+        "latency_s": 8.143927500001155,
+        "output_tokens": 504,
+        "total_tokens": 1649
+      },
+      "parsed": {
+        "case_id": "tier1_medical_disability_exception_approved",
+        "case_level_notes": "Approved N-648 covers both English and civics exceptions; other eligibility prongs are not addressed in the packet.",
+        "determinations": [
+          {
+            "confidence": 0.6,
+            "determination_id": "n400.continuous_residence_satisfied",
+            "outcome": "undetermined",
+            "rationale": "Case packet does not provide facts on continuous residence."
+          },
+          {
+            "confidence": 0.6,
+            "determination_id": "n400.physical_presence_satisfied",
+            "outcome": "undetermined",
+            "rationale": "No physical presence facts in the packet."
+          },
+          {
+            "confidence": 0.6,
+            "determination_id": "n400.state_residence_satisfied",
+            "outcome": "undetermined",
+            "rationale": "No state/USCIS district residence facts provided."
+          },
+          {
+            "confidence": 0.9,
+            "determination_id": "n400.english_requirement_satisfied",
+            "outcome": "true",
+            "rationale": "Approved Form N-648 states English requirement is excepted, satisfying the accepted exception path."
+          },
+          {
+            "confidence": 0.9,
+            "determination_id": "n400.civics_requirement_satisfied",
+            "outcome": "true",
+            "rationale": "Approved Form N-648 states civics requirement is excepted, satisfying the accepted exception path."
+          },
+          {
+            "confidence": 0.6,
+            "determination_id": "n400.oath_attachment_satisfied",
+            "outcome": "undetermined",
+            "rationale": "No facts on oath/attachment in the packet."
+          },
+          {
+            "confidence": 0.6,
+            "determination_id": "n400.good_moral_character_satisfied",
+            "outcome": "undetermined",
+            "rationale": "No GMC-related facts provided in the packet."
+          },
+          {
+            "confidence": 0.8,
+            "determination_id": "n400.human_review_required",
+            "outcome": "true",
+            "rationale": "N-648 medical disability exception with failed test results is a benchmark human-review trigger warranting verification of the exception."
+          }
+        ]
+      },
+      "prompt": "You are adjudicating a policy case directly.\n\nThis is a baseline for research. Unlike RuleKit, you are being asked to decide\nthe policy dispositions yourself from the policy summary and case packet.\n\nImportant:\n- Return only JSON.\n- Do not invent facts not in the case packet.\n- Use \"undetermined\" when required facts are missing, conflicting, or too\n  approximate for a policy determination.\n- Use \"true\" when the determination is satisfied.\n- Use \"false\" when the determination is not satisfied.\n- If the case has missing, inconsistent, pending, or complex facts, mark\n  human-review-related determinations accordingly.\n\nPOLICY SUMMARY\n==============\nSelected N-400 naturalization eligibility benchmark. The applicant must satisfy core threshold requirements, an applicable residence track, continuous residence, physical presence, state or USCIS district residence, good moral character, English and civics requirements or accepted exceptions, and oath/attachment requirements. Certain missing, inconsistent, pending, or complex facts require human review. Numeric requirements are represented with typed arithmetic and comparison nodes where possible.\n\nSELECTED DETERMINATIONS\n=======================\n[\n  {\n    \"description\": \"Continuous residence is satisfied for this benchmark scope.\",\n    \"determination_id\": \"n400.continuous_residence_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part D, Ch. 3\"\n  },\n  {\n    \"description\": \"Physical presence is satisfied under the selected track.\",\n    \"determination_id\": \"n400.physical_presence_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part D, Ch. 4\"\n  },\n  {\n    \"description\": \"State or USCIS district residence is satisfied.\",\n    \"determination_id\": \"n400.state_residence_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part D, Ch. 2-4\"\n  },\n  {\n    \"description\": \"English requirement is met or an accepted exception applies.\",\n    \"determination_id\": \"n400.english_requirement_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part E\"\n  },\n  {\n    \"description\": \"Civics requirement is met or an accepted exception applies.\",\n    \"determination_id\": \"n400.civics_requirement_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part E\"\n  },\n  {\n    \"description\": \"Attachment to the Constitution and oath-related requirements are satisfied.\",\n    \"determination_id\": \"n400.oath_attachment_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part J\"\n  },\n  {\n    \"description\": \"Selected good moral character bars and review triggers do not defeat eligibility.\",\n    \"determination_id\": \"n400.good_moral_character_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part F\"\n  },\n  {\n    \"description\": \"The case contains a benchmark human-review trigger.\",\n    \"determination_id\": \"n400.human_review_required\",\n    \"source_span\": \"RuleKit benchmark governance trigger\"\n  }\n]\n\nCASE PACKET\n===========\n{\n  \"case_id\": \"tier1_medical_disability_exception_approved\",\n  \"narrative\": \"The packet includes an approved Form N-648 medical disability exception. The naturalization test record shows the applicant did not pass English and did not pass civics, but the N-648 approval states the English and civics requirements are excepted.\",\n  \"structured_fields\": {\n    \"evidence\": {\n      \"n400.civics_test_passed\": \"Naturalization test result: civics not passed.\",\n      \"n400.english_test_passed\": \"Naturalization test result: English not passed.\",\n      \"n400.medical_disability_exception_approved\": \"Approved Form N-648 states English and civics requirements are excepted.\"\n    },\n    \"evidence_sources\": [\n      {\n        \"closed_world_scopes\": [],\n        \"limitations\": \"Approval for this application packet.\",\n        \"source_id\": \"n648_approval\",\n        \"source_type\": \"medical_disability_exception_approval\",\n        \"title\": \"Approved Form N-648\"\n      },\n      {\n        \"closed_world_scopes\": [],\n        \"limitations\": \"Current test result only.\",\n        \"source_id\": \"test_results\",\n        \"source_type\": \"naturalization_test_record\",\n        \"title\": \"Naturalization test result\"\n      }\n    ]\n  },\n  \"title\": \"Medical disability exception approved\"\n}\n\nReturn ONLY this JSON shape:\n{\n  \"case_id\": \"tier1_medical_disability_exception_approved\",\n  \"determinations\": [\n    {\n      \"determination_id\": \"id from SELECTED DETERMINATIONS\",\n      \"outcome\": \"true|false|undetermined\",\n      \"rationale\": \"brief reason based on the case packet\",\n      \"confidence\": 0.0\n    }\n  ],\n  \"case_level_notes\": \"brief note or empty string\"\n}\n",
+      "raw_response": "{\n  \"case_id\": \"tier1_medical_disability_exception_approved\",\n  \"determinations\": [\n    {\n      \"determination_id\": \"n400.continuous_residence_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"Case packet does not provide facts on continuous residence.\",\n      \"confidence\": 0.6\n    },\n    {\n      \"determination_id\": \"n400.physical_presence_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No physical presence facts in the packet.\",\n      \"confidence\": 0.6\n    },\n    {\n      \"determination_id\": \"n400.state_residence_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No state/USCIS district residence facts provided.\",\n      \"confidence\": 0.6\n    },\n    {\n      \"determination_id\": \"n400.english_requirement_satisfied\",\n      \"outcome\": \"true\",\n      \"rationale\": \"Approved Form N-648 states English requirement is excepted, satisfying the accepted exception path.\",\n      \"confidence\": 0.9\n    },\n    {\n      \"determination_id\": \"n400.civics_requirement_satisfied\",\n      \"outcome\": \"true\",\n      \"rationale\": \"Approved Form N-648 states civics requirement is excepted, satisfying the accepted exception path.\",\n      \"confidence\": 0.9\n    },\n    {\n      \"determination_id\": \"n400.oath_attachment_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No facts on oath/attachment in the packet.\",\n      \"confidence\": 0.6\n    },\n    {\n      \"determination_id\": \"n400.good_moral_character_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No GMC-related facts provided in the packet.\",\n      \"confidence\": 0.6\n    },\n    {\n      \"determination_id\": \"n400.human_review_required\",\n      \"outcome\": \"true\",\n      \"rationale\": \"N-648 medical disability exception with failed test results is a benchmark human-review trigger warranting verification of the exception.\",\n      \"confidence\": 0.8\n    }\n  ],\n  \"case_level_notes\": \"Approved N-648 covers both English and civics exceptions; other eligibility prongs are not addressed in the packet.\"\n}"
+    },
+    {
+      "case_id": "tier1_oath_attachment_refusal",
+      "cost": {
+        "estimated_cost_usd": 0.053865,
+        "input_tokens": 1051,
+        "latency_s": 7.669451699999627,
+        "output_tokens": 508,
+        "total_tokens": 1559
+      },
+      "parsed": {
+        "case_id": "tier1_oath_attachment_refusal",
+        "case_level_notes": "Oath refusal and lack of attachment defeat oath/attachment requirement; other eligibility prongs are not addressed in the packet.",
+        "determinations": [
+          {
+            "confidence": 0.9,
+            "determination_id": "n400.continuous_residence_satisfied",
+            "outcome": "undetermined",
+            "rationale": "No facts in packet regarding continuous residence."
+          },
+          {
+            "confidence": 0.9,
+            "determination_id": "n400.physical_presence_satisfied",
+            "outcome": "undetermined",
+            "rationale": "No facts in packet regarding physical presence."
+          },
+          {
+            "confidence": 0.9,
+            "determination_id": "n400.state_residence_satisfied",
+            "outcome": "undetermined",
+            "rationale": "No facts in packet regarding state/district residence."
+          },
+          {
+            "confidence": 0.9,
+            "determination_id": "n400.english_requirement_satisfied",
+            "outcome": "undetermined",
+            "rationale": "No facts in packet regarding English ability or exceptions."
+          },
+          {
+            "confidence": 0.9,
+            "determination_id": "n400.civics_requirement_satisfied",
+            "outcome": "undetermined",
+            "rationale": "No facts in packet regarding civics test or exceptions."
+          },
+          {
+            "confidence": 0.97,
+            "determination_id": "n400.oath_attachment_satisfied",
+            "outcome": "false",
+            "rationale": "Worksheet documents refusal to take the Oath of Allegiance and that attachment to the Constitution was not established at interview."
+          },
+          {
+            "confidence": 0.9,
+            "determination_id": "n400.good_moral_character_satisfied",
+            "outcome": "undetermined",
+            "rationale": "No facts in packet regarding GMC bars or triggers."
+          },
+          {
+            "confidence": 0.9,
+            "determination_id": "n400.human_review_required",
+            "outcome": "true",
+            "rationale": "Refusal of oath and failure to establish attachment to the Constitution are significant adverse findings warranting human review."
+          }
+        ]
+      },
+      "prompt": "You are adjudicating a policy case directly.\n\nThis is a baseline for research. Unlike RuleKit, you are being asked to decide\nthe policy dispositions yourself from the policy summary and case packet.\n\nImportant:\n- Return only JSON.\n- Do not invent facts not in the case packet.\n- Use \"undetermined\" when required facts are missing, conflicting, or too\n  approximate for a policy determination.\n- Use \"true\" when the determination is satisfied.\n- Use \"false\" when the determination is not satisfied.\n- If the case has missing, inconsistent, pending, or complex facts, mark\n  human-review-related determinations accordingly.\n\nPOLICY SUMMARY\n==============\nSelected N-400 naturalization eligibility benchmark. The applicant must satisfy core threshold requirements, an applicable residence track, continuous residence, physical presence, state or USCIS district residence, good moral character, English and civics requirements or accepted exceptions, and oath/attachment requirements. Certain missing, inconsistent, pending, or complex facts require human review. Numeric requirements are represented with typed arithmetic and comparison nodes where possible.\n\nSELECTED DETERMINATIONS\n=======================\n[\n  {\n    \"description\": \"Continuous residence is satisfied for this benchmark scope.\",\n    \"determination_id\": \"n400.continuous_residence_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part D, Ch. 3\"\n  },\n  {\n    \"description\": \"Physical presence is satisfied under the selected track.\",\n    \"determination_id\": \"n400.physical_presence_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part D, Ch. 4\"\n  },\n  {\n    \"description\": \"State or USCIS district residence is satisfied.\",\n    \"determination_id\": \"n400.state_residence_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part D, Ch. 2-4\"\n  },\n  {\n    \"description\": \"English requirement is met or an accepted exception applies.\",\n    \"determination_id\": \"n400.english_requirement_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part E\"\n  },\n  {\n    \"description\": \"Civics requirement is met or an accepted exception applies.\",\n    \"determination_id\": \"n400.civics_requirement_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part E\"\n  },\n  {\n    \"description\": \"Attachment to the Constitution and oath-related requirements are satisfied.\",\n    \"determination_id\": \"n400.oath_attachment_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part J\"\n  },\n  {\n    \"description\": \"Selected good moral character bars and review triggers do not defeat eligibility.\",\n    \"determination_id\": \"n400.good_moral_character_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part F\"\n  },\n  {\n    \"description\": \"The case contains a benchmark human-review trigger.\",\n    \"determination_id\": \"n400.human_review_required\",\n    \"source_span\": \"RuleKit benchmark governance trigger\"\n  }\n]\n\nCASE PACKET\n===========\n{\n  \"case_id\": \"tier1_oath_attachment_refusal\",\n  \"narrative\": \"The oath and attachment worksheet says the applicant refuses to take the Oath of Allegiance and does not agree to the oath-related commitments. The worksheet also states that attachment to the Constitution was not established at interview.\",\n  \"structured_fields\": {\n    \"evidence\": {\n      \"n400.attachment_to_constitution\": \"Oath worksheet: attachment to the Constitution not established.\",\n      \"n400.willing_to_take_oath\": \"Oath worksheet: applicant refuses to take the Oath of Allegiance.\"\n    },\n    \"evidence_sources\": [\n      {\n        \"closed_world_scopes\": [],\n        \"limitations\": \"Current interview worksheet only.\",\n        \"source_id\": \"oath_worksheet\",\n        \"source_type\": \"oath_attachment_worksheet\",\n        \"title\": \"Oath and attachment worksheet\"\n      }\n    ]\n  },\n  \"title\": \"Oath worksheet records refusal\"\n}\n\nReturn ONLY this JSON shape:\n{\n  \"case_id\": \"tier1_oath_attachment_refusal\",\n  \"determinations\": [\n    {\n      \"determination_id\": \"id from SELECTED DETERMINATIONS\",\n      \"outcome\": \"true|false|undetermined\",\n      \"rationale\": \"brief reason based on the case packet\",\n      \"confidence\": 0.0\n    }\n  ],\n  \"case_level_notes\": \"brief note or empty string\"\n}\n",
+      "raw_response": "{\n  \"case_id\": \"tier1_oath_attachment_refusal\",\n  \"determinations\": [\n    {\n      \"determination_id\": \"n400.continuous_residence_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No facts in packet regarding continuous residence.\",\n      \"confidence\": 0.9\n    },\n    {\n      \"determination_id\": \"n400.physical_presence_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No facts in packet regarding physical presence.\",\n      \"confidence\": 0.9\n    },\n    {\n      \"determination_id\": \"n400.state_residence_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No facts in packet regarding state/district residence.\",\n      \"confidence\": 0.9\n    },\n    {\n      \"determination_id\": \"n400.english_requirement_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No facts in packet regarding English ability or exceptions.\",\n      \"confidence\": 0.9\n    },\n    {\n      \"determination_id\": \"n400.civics_requirement_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No facts in packet regarding civics test or exceptions.\",\n      \"confidence\": 0.9\n    },\n    {\n      \"determination_id\": \"n400.oath_attachment_satisfied\",\n      \"outcome\": \"false\",\n      \"rationale\": \"Worksheet documents refusal to take the Oath of Allegiance and that attachment to the Constitution was not established at interview.\",\n      \"confidence\": 0.97\n    },\n    {\n      \"determination_id\": \"n400.good_moral_character_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No facts in packet regarding GMC bars or triggers.\",\n      \"confidence\": 0.9\n    },\n    {\n      \"determination_id\": \"n400.human_review_required\",\n      \"outcome\": \"true\",\n      \"rationale\": \"Refusal of oath and failure to establish attachment to the Constitution are significant adverse findings warranting human review.\",\n      \"confidence\": 0.9\n    }\n  ],\n  \"case_level_notes\": \"Oath refusal and lack of attachment defeat oath/attachment requirement; other eligibility prongs are not addressed in the packet.\"\n}"
+    },
+    {
+      "case_id": "tier1_pending_charge_with_clean_conviction_check",
+      "cost": {
+        "estimated_cost_usd": 0.05817,
+        "input_tokens": 1163,
+        "latency_s": 9.409505300005549,
+        "output_tokens": 543,
+        "total_tokens": 1706
+      },
+      "parsed": {
+        "case_id": "tier1_pending_charge_with_clean_conviction_check",
+        "case_level_notes": "Pending felony charge requires adjudicator review and likely continuance until disposition; clean conviction history does not resolve GMC while charges are pending.",
+        "determinations": [
+          {
+            "confidence": 0.7,
+            "determination_id": "n400.continuous_residence_satisfied",
+            "outcome": "true",
+            "rationale": "Within benchmark scope; no facts indicate a continuous residence problem."
+          },
+          {
+            "confidence": 0.7,
+            "determination_id": "n400.physical_presence_satisfied",
+            "outcome": "true",
+            "rationale": "Within benchmark scope; no facts indicate a physical presence shortfall."
+          },
+          {
+            "confidence": 0.7,
+            "determination_id": "n400.state_residence_satisfied",
+            "outcome": "true",
+            "rationale": "No facts in packet contradict state/district residence."
+          },
+          {
+            "confidence": 0.6,
+            "determination_id": "n400.english_requirement_satisfied",
+            "outcome": "true",
+            "rationale": "No facts indicate failure or exception issue."
+          },
+          {
+            "confidence": 0.6,
+            "determination_id": "n400.civics_requirement_satisfied",
+            "outcome": "true",
+            "rationale": "No facts indicate failure or exception issue."
+          },
+          {
+            "confidence": 0.7,
+            "determination_id": "n400.oath_attachment_satisfied",
+            "outcome": "true",
+            "rationale": "No facts in packet contradict attachment/oath requirements."
+          },
+          {
+            "confidence": 0.85,
+            "determination_id": "n400.good_moral_character_satisfied",
+            "outcome": "undetermined",
+            "rationale": "FBI check shows no aggravated felony convictions, but a pending felony charge appears on the county docket with no disposition. GMC cannot be conclusively determined while a felony charge is pending."
+          },
+          {
+            "confidence": 0.95,
+            "determination_id": "n400.human_review_required",
+            "outcome": "true",
+            "rationale": "Pending felony charge with hearing after the N-400 interview and an unsupported claim of forthcoming dismissal constitutes a benchmark human-review trigger."
+          }
+        ]
+      },
+      "prompt": "You are adjudicating a policy case directly.\n\nThis is a baseline for research. Unlike RuleKit, you are being asked to decide\nthe policy dispositions yourself from the policy summary and case packet.\n\nImportant:\n- Return only JSON.\n- Do not invent facts not in the case packet.\n- Use \"undetermined\" when required facts are missing, conflicting, or too\n  approximate for a policy determination.\n- Use \"true\" when the determination is satisfied.\n- Use \"false\" when the determination is not satisfied.\n- If the case has missing, inconsistent, pending, or complex facts, mark\n  human-review-related determinations accordingly.\n\nPOLICY SUMMARY\n==============\nSelected N-400 naturalization eligibility benchmark. The applicant must satisfy core threshold requirements, an applicable residence track, continuous residence, physical presence, state or USCIS district residence, good moral character, English and civics requirements or accepted exceptions, and oath/attachment requirements. Certain missing, inconsistent, pending, or complex facts require human review. Numeric requirements are represented with typed arithmetic and comparison nodes where possible.\n\nSELECTED DETERMINATIONS\n=======================\n[\n  {\n    \"description\": \"Continuous residence is satisfied for this benchmark scope.\",\n    \"determination_id\": \"n400.continuous_residence_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part D, Ch. 3\"\n  },\n  {\n    \"description\": \"Physical presence is satisfied under the selected track.\",\n    \"determination_id\": \"n400.physical_presence_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part D, Ch. 4\"\n  },\n  {\n    \"description\": \"State or USCIS district residence is satisfied.\",\n    \"determination_id\": \"n400.state_residence_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part D, Ch. 2-4\"\n  },\n  {\n    \"description\": \"English requirement is met or an accepted exception applies.\",\n    \"determination_id\": \"n400.english_requirement_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part E\"\n  },\n  {\n    \"description\": \"Civics requirement is met or an accepted exception applies.\",\n    \"determination_id\": \"n400.civics_requirement_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part E\"\n  },\n  {\n    \"description\": \"Attachment to the Constitution and oath-related requirements are satisfied.\",\n    \"determination_id\": \"n400.oath_attachment_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part J\"\n  },\n  {\n    \"description\": \"Selected good moral character bars and review triggers do not defeat eligibility.\",\n    \"determination_id\": \"n400.good_moral_character_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part F\"\n  },\n  {\n    \"description\": \"The case contains a benchmark human-review trigger.\",\n    \"determination_id\": \"n400.human_review_required\",\n    \"source_span\": \"RuleKit benchmark governance trigger\"\n  }\n]\n\nCASE PACKET\n===========\n{\n  \"case_id\": \"tier1_pending_charge_with_clean_conviction_check\",\n  \"narrative\": \"The FBI criminal history check reports no aggravated felony convictions. A county docket search included in the same packet lists a pending felony charge with a next hearing date after the N-400 interview. The applicant statement says the charge will be dismissed, but no dismissal order is included.\",\n  \"structured_fields\": {\n    \"evidence\": {\n      \"n400.aggravated_felony_after_1990\": \"FBI check: no aggravated felony convictions.\",\n      \"n400.pending_criminal_charge\": \"County docket search: pending felony charge with future hearing date.\"\n    },\n    \"evidence_sources\": [\n      {\n        \"closed_world_scopes\": [\n          \"criminal_convictions\"\n        ],\n        \"limitations\": \"Conviction history, not dispositive of currently pending charges.\",\n        \"source_id\": \"fbi_check\",\n        \"source_type\": \"criminal_history_check\",\n        \"title\": \"FBI criminal history check\"\n      },\n      {\n        \"closed_world_scopes\": [\n          \"pending_criminal_charges\"\n        ],\n        \"limitations\": \"Current county docket record.\",\n        \"source_id\": \"county_docket\",\n        \"source_type\": \"court_docket_search\",\n        \"title\": \"County docket search\"\n      }\n    ]\n  },\n  \"title\": \"Clean conviction check but pending charge exists\"\n}\n\nReturn ONLY this JSON shape:\n{\n  \"case_id\": \"tier1_pending_charge_with_clean_conviction_check\",\n  \"determinations\": [\n    {\n      \"determination_id\": \"id from SELECTED DETERMINATIONS\",\n      \"outcome\": \"true|false|undetermined\",\n      \"rationale\": \"brief reason based on the case packet\",\n      \"confidence\": 0.0\n    }\n  ],\n  \"case_level_notes\": \"brief note or empty string\"\n}\n",
+      "raw_response": "{\n  \"case_id\": \"tier1_pending_charge_with_clean_conviction_check\",\n  \"determinations\": [\n    {\n      \"determination_id\": \"n400.continuous_residence_satisfied\",\n      \"outcome\": \"true\",\n      \"rationale\": \"Within benchmark scope; no facts indicate a continuous residence problem.\",\n      \"confidence\": 0.7\n    },\n    {\n      \"determination_id\": \"n400.physical_presence_satisfied\",\n      \"outcome\": \"true\",\n      \"rationale\": \"Within benchmark scope; no facts indicate a physical presence shortfall.\",\n      \"confidence\": 0.7\n    },\n    {\n      \"determination_id\": \"n400.state_residence_satisfied\",\n      \"outcome\": \"true\",\n      \"rationale\": \"No facts in packet contradict state/district residence.\",\n      \"confidence\": 0.7\n    },\n    {\n      \"determination_id\": \"n400.english_requirement_satisfied\",\n      \"outcome\": \"true\",\n      \"rationale\": \"No facts indicate failure or exception issue.\",\n      \"confidence\": 0.6\n    },\n    {\n      \"determination_id\": \"n400.civics_requirement_satisfied\",\n      \"outcome\": \"true\",\n      \"rationale\": \"No facts indicate failure or exception issue.\",\n      \"confidence\": 0.6\n    },\n    {\n      \"determination_id\": \"n400.oath_attachment_satisfied\",\n      \"outcome\": \"true\",\n      \"rationale\": \"No facts in packet contradict attachment/oath requirements.\",\n      \"confidence\": 0.7\n    },\n    {\n      \"determination_id\": \"n400.good_moral_character_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"FBI check shows no aggravated felony convictions, but a pending felony charge appears on the county docket with no disposition. GMC cannot be conclusively determined while a felony charge is pending.\",\n      \"confidence\": 0.85\n    },\n    {\n      \"determination_id\": \"n400.human_review_required\",\n      \"outcome\": \"true\",\n      \"rationale\": \"Pending felony charge with hearing after the N-400 interview and an unsupported claim of forthcoming dismissal constitutes a benchmark human-review trigger.\",\n      \"confidence\": 0.95\n    }\n  ],\n  \"case_level_notes\": \"Pending felony charge requires adjudicator review and likely continuance until disposition; clean conviction history does not resolve GMC while charges are pending.\"\n}"
+    },
+    {
+      "case_id": "tier1_missing_travel_dates",
+      "cost": {
+        "estimated_cost_usd": 0.061365,
+        "input_tokens": 1166,
+        "latency_s": 12.592682000002242,
+        "output_tokens": 585,
+        "total_tokens": 1751
+      },
+      "parsed": {
+        "case_id": "tier1_missing_travel_dates",
+        "case_level_notes": "Critical evidence (passport, CBP travel history, flight records, travel table) is missing; only an approximate narrative exists. Human review required to obtain exact travel dates before adjudicating continuous residence and physical presence.",
+        "determinations": [
+          {
+            "confidence": 0.85,
+            "determination_id": "n400.continuous_residence_satisfied",
+            "outcome": "undetermined",
+            "rationale": "Approximate seven-month absence in 2021 raises a potential continuous residence break (6+ months), but exact dates are missing to evaluate."
+          },
+          {
+            "confidence": 0.9,
+            "determination_id": "n400.physical_presence_satisfied",
+            "outcome": "undetermined",
+            "rationale": "No exact travel dates, blank presence worksheet, and missing passport/CBP/flight records prevent calculation of physical presence days."
+          },
+          {
+            "confidence": 0.7,
+            "determination_id": "n400.state_residence_satisfied",
+            "outcome": "undetermined",
+            "rationale": "Case packet contains no information about state or USCIS district residence."
+          },
+          {
+            "confidence": 0.7,
+            "determination_id": "n400.english_requirement_satisfied",
+            "outcome": "undetermined",
+            "rationale": "No facts provided about English ability or applicable exceptions."
+          },
+          {
+            "confidence": 0.7,
+            "determination_id": "n400.civics_requirement_satisfied",
+            "outcome": "undetermined",
+            "rationale": "No facts provided about civics knowledge or applicable exceptions."
+          },
+          {
+            "confidence": 0.7,
+            "determination_id": "n400.oath_attachment_satisfied",
+            "outcome": "undetermined",
+            "rationale": "No facts in the packet address oath or attachment to the Constitution."
+          },
+          {
+            "confidence": 0.7,
+            "determination_id": "n400.good_moral_character_satisfied",
+            "outcome": "undetermined",
+            "rationale": "No GMC-related facts are provided in the packet."
+          },
+          {
+            "confidence": 0.95,
+            "determination_id": "n400.human_review_required",
+            "outcome": "true",
+            "rationale": "Missing critical travel dates, blank presence worksheet, and approximate ~7-month absence trigger benchmark human review for continuous residence and physical presence."
+          }
+        ]
+      },
+      "prompt": "You are adjudicating a policy case directly.\n\nThis is a baseline for research. Unlike RuleKit, you are being asked to decide\nthe policy dispositions yourself from the policy summary and case packet.\n\nImportant:\n- Return only JSON.\n- Do not invent facts not in the case packet.\n- Use \"undetermined\" when required facts are missing, conflicting, or too\n  approximate for a policy determination.\n- Use \"true\" when the determination is satisfied.\n- Use \"false\" when the determination is not satisfied.\n- If the case has missing, inconsistent, pending, or complex facts, mark\n  human-review-related determinations accordingly.\n\nPOLICY SUMMARY\n==============\nSelected N-400 naturalization eligibility benchmark. The applicant must satisfy core threshold requirements, an applicable residence track, continuous residence, physical presence, state or USCIS district residence, good moral character, English and civics requirements or accepted exceptions, and oath/attachment requirements. Certain missing, inconsistent, pending, or complex facts require human review. Numeric requirements are represented with typed arithmetic and comparison nodes where possible.\n\nSELECTED DETERMINATIONS\n=======================\n[\n  {\n    \"description\": \"Continuous residence is satisfied for this benchmark scope.\",\n    \"determination_id\": \"n400.continuous_residence_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part D, Ch. 3\"\n  },\n  {\n    \"description\": \"Physical presence is satisfied under the selected track.\",\n    \"determination_id\": \"n400.physical_presence_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part D, Ch. 4\"\n  },\n  {\n    \"description\": \"State or USCIS district residence is satisfied.\",\n    \"determination_id\": \"n400.state_residence_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part D, Ch. 2-4\"\n  },\n  {\n    \"description\": \"English requirement is met or an accepted exception applies.\",\n    \"determination_id\": \"n400.english_requirement_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part E\"\n  },\n  {\n    \"description\": \"Civics requirement is met or an accepted exception applies.\",\n    \"determination_id\": \"n400.civics_requirement_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part E\"\n  },\n  {\n    \"description\": \"Attachment to the Constitution and oath-related requirements are satisfied.\",\n    \"determination_id\": \"n400.oath_attachment_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part J\"\n  },\n  {\n    \"description\": \"Selected good moral character bars and review triggers do not defeat eligibility.\",\n    \"determination_id\": \"n400.good_moral_character_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part F\"\n  },\n  {\n    \"description\": \"The case contains a benchmark human-review trigger.\",\n    \"determination_id\": \"n400.human_review_required\",\n    \"source_span\": \"RuleKit benchmark governance trigger\"\n  }\n]\n\nCASE PACKET\n===========\n{\n  \"case_id\": \"tier1_missing_travel_dates\",\n  \"narrative\": \"The applicant statement says they spent about seven months abroad sometime in 2021. The packet does not include passport stamps, CBP travel history, flight records, or a completed N-400 travel table. The physical presence worksheet is blank for 2021.\",\n  \"structured_fields\": {\n    \"evidence\": {\n      \"n400.absence_6_to_12_months\": \"Approximate narrative suggests about seven months abroad, but no exact dates are provided.\",\n      \"n400.days_absent_trip_1\": \"Applicant says about seven months abroad sometime in 2021, but no exact dates are provided.\",\n      \"n400.evidence_missing_critical_dates\": \"Passport, CBP, flight records, and completed travel table are missing.\"\n    },\n    \"evidence_sources\": [\n      {\n        \"closed_world_scopes\": [],\n        \"limitations\": \"Open narrative with approximate timing only.\",\n        \"source_id\": \"applicant_statement\",\n        \"source_type\": \"applicant_personal_statement\",\n        \"title\": \"Applicant personal statement\"\n      },\n      {\n        \"closed_world_scopes\": [],\n        \"limitations\": \"Does not provide exact dates.\",\n        \"source_id\": \"blank_presence_worksheet\",\n        \"source_type\": \"physical_presence_worksheet\",\n        \"title\": \"Blank physical presence worksheet\"\n      }\n    ]\n  },\n  \"title\": \"Travel narrative missing exact dates\"\n}\n\nReturn ONLY this JSON shape:\n{\n  \"case_id\": \"tier1_missing_travel_dates\",\n  \"determinations\": [\n    {\n      \"determination_id\": \"id from SELECTED DETERMINATIONS\",\n      \"outcome\": \"true|false|undetermined\",\n      \"rationale\": \"brief reason based on the case packet\",\n      \"confidence\": 0.0\n    }\n  ],\n  \"case_level_notes\": \"brief note or empty string\"\n}\n",
+      "raw_response": "{\n  \"case_id\": \"tier1_missing_travel_dates\",\n  \"determinations\": [\n    {\n      \"determination_id\": \"n400.continuous_residence_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"Approximate seven-month absence in 2021 raises a potential continuous residence break (6+ months), but exact dates are missing to evaluate.\",\n      \"confidence\": 0.85\n    },\n    {\n      \"determination_id\": \"n400.physical_presence_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No exact travel dates, blank presence worksheet, and missing passport/CBP/flight records prevent calculation of physical presence days.\",\n      \"confidence\": 0.9\n    },\n    {\n      \"determination_id\": \"n400.state_residence_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"Case packet contains no information about state or USCIS district residence.\",\n      \"confidence\": 0.7\n    },\n    {\n      \"determination_id\": \"n400.english_requirement_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No facts provided about English ability or applicable exceptions.\",\n      \"confidence\": 0.7\n    },\n    {\n      \"determination_id\": \"n400.civics_requirement_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No facts provided about civics knowledge or applicable exceptions.\",\n      \"confidence\": 0.7\n    },\n    {\n      \"determination_id\": \"n400.oath_attachment_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No facts in the packet address oath or attachment to the Constitution.\",\n      \"confidence\": 0.7\n    },\n    {\n      \"determination_id\": \"n400.good_moral_character_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No GMC-related facts are provided in the packet.\",\n      \"confidence\": 0.7\n    },\n    {\n      \"determination_id\": \"n400.human_review_required\",\n      \"outcome\": \"true\",\n      \"rationale\": \"Missing critical travel dates, blank presence worksheet, and approximate ~7-month absence trigger benchmark human review for continuous residence and physical presence.\",\n      \"confidence\": 0.95\n    }\n  ],\n  \"case_level_notes\": \"Critical evidence (passport, CBP travel history, flight records, travel table) is missing; only an approximate narrative exists. Human review required to obtain exact travel dates before adjudicating continuous residence and physical presence.\"\n}"
+    }
+  ],
+  "dispositions": [
+    {
+      "case_id": "tier1_clean_general_track_packet",
+      "case_title": "Clean general five-year packet",
+      "confidence": 0.95,
+      "cost": {
+        "estimated_cost_usd": 0.064395,
+        "input_tokens": 1878,
+        "latency_s": 9.21257419999165,
+        "output_tokens": 483,
+        "total_tokens": 2361
+      },
+      "determination_id": "n400.continuous_residence_satisfied",
+      "disposition_id": "direct_disp_d4e4717f0eab4764801872ef9b93cbe3",
+      "matches_reference": false,
+      "outcome": "true",
+      "rationale": "LPR for 6 years with only one 21-day trip, well under the 6-month break threshold.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_clean_general_track_packet",
+      "case_title": "Clean general five-year packet",
+      "confidence": 0.95,
+      "cost": {
+        "estimated_cost_usd": 0.064395,
+        "input_tokens": 1878,
+        "latency_s": 9.21257419999165,
+        "output_tokens": 483,
+        "total_tokens": 2361
+      },
+      "determination_id": "n400.physical_presence_satisfied",
+      "disposition_id": "direct_disp_4db28de8a0a04892a85a084668c7590b",
+      "matches_reference": false,
+      "outcome": "true",
+      "rationale": "41 months physical presence exceeds the 30-month requirement for the 5-year track.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_clean_general_track_packet",
+      "case_title": "Clean general five-year packet",
+      "confidence": 0.95,
+      "cost": {
+        "estimated_cost_usd": 0.064395,
+        "input_tokens": 1878,
+        "latency_s": 9.21257419999165,
+        "output_tokens": 483,
+        "total_tokens": 2361
+      },
+      "determination_id": "n400.state_residence_satisfied",
+      "disposition_id": "direct_disp_c4429b94c9ec441981cd4883c00327eb",
+      "matches_reference": false,
+      "outcome": "true",
+      "rationale": "9 months in same USCIS district exceeds the 3-month requirement.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_clean_general_track_packet",
+      "case_title": "Clean general five-year packet",
+      "confidence": 0.98,
+      "cost": {
+        "estimated_cost_usd": 0.064395,
+        "input_tokens": 1878,
+        "latency_s": 9.21257419999165,
+        "output_tokens": 483,
+        "total_tokens": 2361
+      },
+      "determination_id": "n400.english_requirement_satisfied",
+      "disposition_id": "direct_disp_8a8bd555f3bc49598152ed95c64d2809",
+      "matches_reference": false,
+      "outcome": "true",
+      "rationale": "English test passed per naturalization test record.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_clean_general_track_packet",
+      "case_title": "Clean general five-year packet",
+      "confidence": 0.98,
+      "cost": {
+        "estimated_cost_usd": 0.064395,
+        "input_tokens": 1878,
+        "latency_s": 9.21257419999165,
+        "output_tokens": 483,
+        "total_tokens": 2361
+      },
+      "determination_id": "n400.civics_requirement_satisfied",
+      "disposition_id": "direct_disp_9c8143aaad274f12982baa9af203632a",
+      "matches_reference": false,
+      "outcome": "true",
+      "rationale": "Civics test passed per naturalization test record.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_clean_general_track_packet",
+      "case_title": "Clean general five-year packet",
+      "confidence": 0.97,
+      "cost": {
+        "estimated_cost_usd": 0.064395,
+        "input_tokens": 1878,
+        "latency_s": 9.21257419999165,
+        "output_tokens": 483,
+        "total_tokens": 2361
+      },
+      "determination_id": "n400.oath_attachment_satisfied",
+      "disposition_id": "direct_disp_3ed374b442454b24a243c1bd2ed29038",
+      "matches_reference": false,
+      "outcome": "true",
+      "rationale": "Applicant willing to take oath and attachment to Constitution recorded.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_clean_general_track_packet",
+      "case_title": "Clean general five-year packet",
+      "confidence": 0.95,
+      "cost": {
+        "estimated_cost_usd": 0.064395,
+        "input_tokens": 1878,
+        "latency_s": 9.21257419999165,
+        "output_tokens": 483,
+        "total_tokens": 2361
+      },
+      "determination_id": "n400.good_moral_character_satisfied",
+      "disposition_id": "direct_disp_dcaf27d0a7c142d59acbb91d0c27d742",
+      "matches_reference": false,
+      "outcome": "true",
+      "rationale": "No aggravated felony, no pending charges, no false testimony issues reported.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_clean_general_track_packet",
+      "case_title": "Clean general five-year packet",
+      "confidence": 0.9,
+      "cost": {
+        "estimated_cost_usd": 0.064395,
+        "input_tokens": 1878,
+        "latency_s": 9.21257419999165,
+        "output_tokens": 483,
+        "total_tokens": 2361
+      },
+      "determination_id": "n400.human_review_required",
+      "disposition_id": "direct_disp_b768b045185240faa9d5fe1b4e6ec7c9",
+      "matches_reference": false,
+      "outcome": "false",
+      "rationale": "No missing, inconsistent, or pending facts triggering human review; all requirements clearly met.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "tier1_travel_conflict_six_month_absence",
+      "case_title": "Travel conflict creates six-month absence issue",
+      "confidence": 0.85,
+      "cost": {
+        "estimated_cost_usd": 0.07332,
+        "input_tokens": 1463,
+        "latency_s": 11.812805900000967,
+        "output_tokens": 685,
+        "total_tokens": 2148
+      },
+      "determination_id": "n400.continuous_residence_satisfied",
+      "disposition_id": "direct_disp_5e5f2d674bf347c6a4a8482990601a2b",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "Objective records show an absence of approximately 198 days (over six months, under one year), which creates a rebuttable presumption of broken continuous residence. Although the applicant has lease, bank, and family ties evidence that may rebut the presumption, the travel table conflicts with passport/CBP records, requiring adjudicator review.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_travel_conflict_six_month_absence",
+      "case_title": "Travel conflict creates six-month absence issue",
+      "confidence": 0.8,
+      "cost": {
+        "estimated_cost_usd": 0.07332,
+        "input_tokens": 1463,
+        "latency_s": 11.812805900000967,
+        "output_tokens": 685,
+        "total_tokens": 2148
+      },
+      "determination_id": "n400.physical_presence_satisfied",
+      "disposition_id": "direct_disp_54a8c148dd1e4d7480bf571c51dbea13",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "The packet does not provide total physical presence days across the five-year period; only one trip is documented with conflicting durations. Insufficient facts to compute the 30-month threshold.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_travel_conflict_six_month_absence",
+      "case_title": "Travel conflict creates six-month absence issue",
+      "confidence": 0.7,
+      "cost": {
+        "estimated_cost_usd": 0.07332,
+        "input_tokens": 1463,
+        "latency_s": 11.812805900000967,
+        "output_tokens": 685,
+        "total_tokens": 2148
+      },
+      "determination_id": "n400.state_residence_satisfied",
+      "disposition_id": "direct_disp_88fa10adfb114e7c87766217ca9a5b82",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "No facts in the packet address state or USCIS district residence duration.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_travel_conflict_six_month_absence",
+      "case_title": "Travel conflict creates six-month absence issue",
+      "confidence": 0.8,
+      "cost": {
+        "estimated_cost_usd": 0.07332,
+        "input_tokens": 1463,
+        "latency_s": 11.812805900000967,
+        "output_tokens": 685,
+        "total_tokens": 2148
+      },
+      "determination_id": "n400.english_requirement_satisfied",
+      "disposition_id": "direct_disp_dbae79f31f1444f1bc5b08381baa4031",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "Packet contains no facts about English proficiency or exceptions.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_travel_conflict_six_month_absence",
+      "case_title": "Travel conflict creates six-month absence issue",
+      "confidence": 0.8,
+      "cost": {
+        "estimated_cost_usd": 0.07332,
+        "input_tokens": 1463,
+        "latency_s": 11.812805900000967,
+        "output_tokens": 685,
+        "total_tokens": 2148
+      },
+      "determination_id": "n400.civics_requirement_satisfied",
+      "disposition_id": "direct_disp_e8ec369a91264b6e9d46e0b35afb9838",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "Packet contains no facts about civics knowledge or exceptions.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_travel_conflict_six_month_absence",
+      "case_title": "Travel conflict creates six-month absence issue",
+      "confidence": 0.8,
+      "cost": {
+        "estimated_cost_usd": 0.07332,
+        "input_tokens": 1463,
+        "latency_s": 11.812805900000967,
+        "output_tokens": 685,
+        "total_tokens": 2148
+      },
+      "determination_id": "n400.oath_attachment_satisfied",
+      "disposition_id": "direct_disp_e4d9a44a1b4a429bb578a01256707ea7",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "No facts about attachment to the Constitution or oath are provided.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_travel_conflict_six_month_absence",
+      "case_title": "Travel conflict creates six-month absence issue",
+      "confidence": 0.7,
+      "cost": {
+        "estimated_cost_usd": 0.07332,
+        "input_tokens": 1463,
+        "latency_s": 11.812805900000967,
+        "output_tokens": 685,
+        "total_tokens": 2148
+      },
+      "determination_id": "n400.good_moral_character_satisfied",
+      "disposition_id": "direct_disp_6c7077fd2907466c83277d6991db7f51",
+      "matches_reference": false,
+      "outcome": "undetermined",
+      "rationale": "The inconsistency between the applicant's travel table/personal statement and objective passport/CBP records raises a potential candor/GMC issue requiring adjudicator review. No other GMC bars discussed.",
+      "reference_outcome": "false"
+    },
+    {
+      "case_id": "tier1_travel_conflict_six_month_absence",
+      "case_title": "Travel conflict creates six-month absence issue",
+      "confidence": 0.95,
+      "cost": {
+        "estimated_cost_usd": 0.07332,
+        "input_tokens": 1463,
+        "latency_s": 11.812805900000967,
+        "output_tokens": 685,
+        "total_tokens": 2148
+      },
+      "determination_id": "n400.human_review_required",
+      "disposition_id": "direct_disp_f3516c4e5dd247bb9ce53e4ce8d94a25",
+      "matches_reference": true,
+      "outcome": "true",
+      "rationale": "Inconsistent travel history between the N-400 table, personal statement, and passport/CBP records, plus an absence between six and twelve months, trigger human review for continuous residence rebuttal and possible misrepresentation/GMC concerns.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "tier1_one_year_absence_no_exception",
+      "case_title": "One-year absence with no preservation exception",
+      "confidence": 0.95,
+      "cost": {
+        "estimated_cost_usd": 0.061335,
+        "input_tokens": 1194,
+        "latency_s": 8.988964899996063,
+        "output_tokens": 579,
+        "total_tokens": 1773
+      },
+      "determination_id": "n400.continuous_residence_satisfied",
+      "disposition_id": "direct_disp_1fd9761c31aa4c75bf33df7e213bbadb",
+      "matches_reference": false,
+      "outcome": "false",
+      "rationale": "Absence from January 4, 2021 to February 10, 2022 exceeds one year, breaking continuous residence, with no N-470 or other preservation exception in the packet.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_one_year_absence_no_exception",
+      "case_title": "One-year absence with no preservation exception",
+      "confidence": 0.7,
+      "cost": {
+        "estimated_cost_usd": 0.061335,
+        "input_tokens": 1194,
+        "latency_s": 8.988964899996063,
+        "output_tokens": 579,
+        "total_tokens": 1773
+      },
+      "determination_id": "n400.physical_presence_satisfied",
+      "disposition_id": "direct_disp_39c4abe6d66547b6a596e977f271df91",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "Packet does not provide total physical presence days within the statutory period; only one absence is documented.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_one_year_absence_no_exception",
+      "case_title": "One-year absence with no preservation exception",
+      "confidence": 0.7,
+      "cost": {
+        "estimated_cost_usd": 0.061335,
+        "input_tokens": 1194,
+        "latency_s": 8.988964899996063,
+        "output_tokens": 579,
+        "total_tokens": 1773
+      },
+      "determination_id": "n400.state_residence_satisfied",
+      "disposition_id": "direct_disp_0d664226697e454695d03c8ffc142065",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "No information about state or USCIS district residence provided in the packet.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_one_year_absence_no_exception",
+      "case_title": "One-year absence with no preservation exception",
+      "confidence": 0.7,
+      "cost": {
+        "estimated_cost_usd": 0.061335,
+        "input_tokens": 1194,
+        "latency_s": 8.988964899996063,
+        "output_tokens": 579,
+        "total_tokens": 1773
+      },
+      "determination_id": "n400.english_requirement_satisfied",
+      "disposition_id": "direct_disp_fd5204ea23db418d9c4b52239248f89d",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "No facts in the packet address English proficiency or exceptions.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_one_year_absence_no_exception",
+      "case_title": "One-year absence with no preservation exception",
+      "confidence": 0.7,
+      "cost": {
+        "estimated_cost_usd": 0.061335,
+        "input_tokens": 1194,
+        "latency_s": 8.988964899996063,
+        "output_tokens": 579,
+        "total_tokens": 1773
+      },
+      "determination_id": "n400.civics_requirement_satisfied",
+      "disposition_id": "direct_disp_b5e9668dce5d434cba79f87374de7e29",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "No facts in the packet address civics knowledge or exceptions.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_one_year_absence_no_exception",
+      "case_title": "One-year absence with no preservation exception",
+      "confidence": 0.7,
+      "cost": {
+        "estimated_cost_usd": 0.061335,
+        "input_tokens": 1194,
+        "latency_s": 8.988964899996063,
+        "output_tokens": 579,
+        "total_tokens": 1773
+      },
+      "determination_id": "n400.oath_attachment_satisfied",
+      "disposition_id": "direct_disp_1dd9ca1a7d32496abe76ddb00aeadf58",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "Packet contains no information on oath or attachment to the Constitution.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_one_year_absence_no_exception",
+      "case_title": "One-year absence with no preservation exception",
+      "confidence": 0.7,
+      "cost": {
+        "estimated_cost_usd": 0.061335,
+        "input_tokens": 1194,
+        "latency_s": 8.988964899996063,
+        "output_tokens": 579,
+        "total_tokens": 1773
+      },
+      "determination_id": "n400.good_moral_character_satisfied",
+      "disposition_id": "direct_disp_df064ca634564d4cb83063c858da9831",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "Packet contains no GMC-related facts to evaluate.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_one_year_absence_no_exception",
+      "case_title": "One-year absence with no preservation exception",
+      "confidence": 0.9,
+      "cost": {
+        "estimated_cost_usd": 0.061335,
+        "input_tokens": 1194,
+        "latency_s": 8.988964899996063,
+        "output_tokens": 579,
+        "total_tokens": 1773
+      },
+      "determination_id": "n400.human_review_required",
+      "disposition_id": "direct_disp_f65e5ec609be43a8909dc6540caba296",
+      "matches_reference": false,
+      "outcome": "true",
+      "rationale": "Absence exceeding one year with no preservation exception is a benchmark trigger; case should be reviewed and likely denied for broken continuous residence.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_physical_presence_short_by_worksheet",
+      "case_title": "Physical presence shortfall",
+      "confidence": 0.6,
+      "cost": {
+        "estimated_cost_usd": 0.054,
+        "input_tokens": 1045,
+        "latency_s": 8.256795300010708,
+        "output_tokens": 511,
+        "total_tokens": 1556
+      },
+      "determination_id": "n400.continuous_residence_satisfied",
+      "disposition_id": "direct_disp_baafa4059edf4a9d8d1c858e77ac4237",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "No facts provided regarding continuous residence absences or breaks.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_physical_presence_short_by_worksheet",
+      "case_title": "Physical presence shortfall",
+      "confidence": 0.95,
+      "cost": {
+        "estimated_cost_usd": 0.054,
+        "input_tokens": 1045,
+        "latency_s": 8.256795300010708,
+        "output_tokens": 511,
+        "total_tokens": 1556
+      },
+      "determination_id": "n400.physical_presence_satisfied",
+      "disposition_id": "direct_disp_de3a82cc584f4abd8942f1971eb2a6b7",
+      "matches_reference": false,
+      "outcome": "false",
+      "rationale": "Worksheet shows 24 months physically present during the five-year period; general track requires at least 30 months.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_physical_presence_short_by_worksheet",
+      "case_title": "Physical presence shortfall",
+      "confidence": 0.6,
+      "cost": {
+        "estimated_cost_usd": 0.054,
+        "input_tokens": 1045,
+        "latency_s": 8.256795300010708,
+        "output_tokens": 511,
+        "total_tokens": 1556
+      },
+      "determination_id": "n400.state_residence_satisfied",
+      "disposition_id": "direct_disp_048a9c9e35ee43feb7cf2c8b65f07494",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "No facts provided about state or USCIS district residence.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_physical_presence_short_by_worksheet",
+      "case_title": "Physical presence shortfall",
+      "confidence": 0.6,
+      "cost": {
+        "estimated_cost_usd": 0.054,
+        "input_tokens": 1045,
+        "latency_s": 8.256795300010708,
+        "output_tokens": 511,
+        "total_tokens": 1556
+      },
+      "determination_id": "n400.english_requirement_satisfied",
+      "disposition_id": "direct_disp_ee8f0f19cf7442ed82c5449aa50702ea",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "No facts provided about English ability or exceptions.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_physical_presence_short_by_worksheet",
+      "case_title": "Physical presence shortfall",
+      "confidence": 0.6,
+      "cost": {
+        "estimated_cost_usd": 0.054,
+        "input_tokens": 1045,
+        "latency_s": 8.256795300010708,
+        "output_tokens": 511,
+        "total_tokens": 1556
+      },
+      "determination_id": "n400.civics_requirement_satisfied",
+      "disposition_id": "direct_disp_a7dc9a9803544ff0b3705e34ca4aec9d",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "No facts provided about civics knowledge or exceptions.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_physical_presence_short_by_worksheet",
+      "case_title": "Physical presence shortfall",
+      "confidence": 0.6,
+      "cost": {
+        "estimated_cost_usd": 0.054,
+        "input_tokens": 1045,
+        "latency_s": 8.256795300010708,
+        "output_tokens": 511,
+        "total_tokens": 1556
+      },
+      "determination_id": "n400.oath_attachment_satisfied",
+      "disposition_id": "direct_disp_7d86dc251ae04d92974ff6bb9513a346",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "No facts provided about attachment to the Constitution or oath.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_physical_presence_short_by_worksheet",
+      "case_title": "Physical presence shortfall",
+      "confidence": 0.6,
+      "cost": {
+        "estimated_cost_usd": 0.054,
+        "input_tokens": 1045,
+        "latency_s": 8.256795300010708,
+        "output_tokens": 511,
+        "total_tokens": 1556
+      },
+      "determination_id": "n400.good_moral_character_satisfied",
+      "disposition_id": "direct_disp_30cb979170f84ef798136ba26dc01a0c",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "No facts provided regarding GMC bars or conduct.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_physical_presence_short_by_worksheet",
+      "case_title": "Physical presence shortfall",
+      "confidence": 0.9,
+      "cost": {
+        "estimated_cost_usd": 0.054,
+        "input_tokens": 1045,
+        "latency_s": 8.256795300010708,
+        "output_tokens": 511,
+        "total_tokens": 1556
+      },
+      "determination_id": "n400.human_review_required",
+      "disposition_id": "direct_disp_3bb0a145e56b44deadb238d3eb2da774",
+      "matches_reference": false,
+      "outcome": "true",
+      "rationale": "Physical presence shortfall (24 of required 30 months) and multiple missing facts warrant human review.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_state_residence_short",
+      "case_title": "State residence only two months",
+      "confidence": 0.6,
+      "cost": {
+        "estimated_cost_usd": 0.05343,
+        "input_tokens": 1032,
+        "latency_s": 8.19150709999667,
+        "output_tokens": 506,
+        "total_tokens": 1538
+      },
+      "determination_id": "n400.continuous_residence_satisfied",
+      "disposition_id": "direct_disp_d60b954809334266a06c1bc0240a4a3e",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "Case packet does not provide facts about continuous residence over the statutory period.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_state_residence_short",
+      "case_title": "State residence only two months",
+      "confidence": 0.6,
+      "cost": {
+        "estimated_cost_usd": 0.05343,
+        "input_tokens": 1032,
+        "latency_s": 8.19150709999667,
+        "output_tokens": 506,
+        "total_tokens": 1538
+      },
+      "determination_id": "n400.physical_presence_satisfied",
+      "disposition_id": "direct_disp_96a7bb69ad7c4cbbbef599cf78702830",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "No physical presence data provided in the case packet.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_state_residence_short",
+      "case_title": "State residence only two months",
+      "confidence": 0.9,
+      "cost": {
+        "estimated_cost_usd": 0.05343,
+        "input_tokens": 1032,
+        "latency_s": 8.19150709999667,
+        "output_tokens": 506,
+        "total_tokens": 1538
+      },
+      "determination_id": "n400.state_residence_satisfied",
+      "disposition_id": "direct_disp_10420661dce94bc5989c15bea0ca79a5",
+      "matches_reference": true,
+      "outcome": "false",
+      "rationale": "Applicant has only two months of residence in the current USCIS district before filing, which is less than the three-month requirement.",
+      "reference_outcome": "false"
+    },
+    {
+      "case_id": "tier1_state_residence_short",
+      "case_title": "State residence only two months",
+      "confidence": 0.6,
+      "cost": {
+        "estimated_cost_usd": 0.05343,
+        "input_tokens": 1032,
+        "latency_s": 8.19150709999667,
+        "output_tokens": 506,
+        "total_tokens": 1538
+      },
+      "determination_id": "n400.english_requirement_satisfied",
+      "disposition_id": "direct_disp_610bc28d7c5b4803bb1fd5553550b4fc",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "No information about English proficiency or exceptions provided.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_state_residence_short",
+      "case_title": "State residence only two months",
+      "confidence": 0.6,
+      "cost": {
+        "estimated_cost_usd": 0.05343,
+        "input_tokens": 1032,
+        "latency_s": 8.19150709999667,
+        "output_tokens": 506,
+        "total_tokens": 1538
+      },
+      "determination_id": "n400.civics_requirement_satisfied",
+      "disposition_id": "direct_disp_1c491227edcd4d70bb4ccd52c0674ab3",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "No information about civics knowledge or exceptions provided.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_state_residence_short",
+      "case_title": "State residence only two months",
+      "confidence": 0.6,
+      "cost": {
+        "estimated_cost_usd": 0.05343,
+        "input_tokens": 1032,
+        "latency_s": 8.19150709999667,
+        "output_tokens": 506,
+        "total_tokens": 1538
+      },
+      "determination_id": "n400.oath_attachment_satisfied",
+      "disposition_id": "direct_disp_3db7ae264dd14e7db316044179fcca74",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "No facts about oath or attachment to the Constitution provided.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_state_residence_short",
+      "case_title": "State residence only two months",
+      "confidence": 0.6,
+      "cost": {
+        "estimated_cost_usd": 0.05343,
+        "input_tokens": 1032,
+        "latency_s": 8.19150709999667,
+        "output_tokens": 506,
+        "total_tokens": 1538
+      },
+      "determination_id": "n400.good_moral_character_satisfied",
+      "disposition_id": "direct_disp_bb2d8b0d6a264de293e7c62236ec1403",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "No GMC-related facts provided in the case packet.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_state_residence_short",
+      "case_title": "State residence only two months",
+      "confidence": 0.85,
+      "cost": {
+        "estimated_cost_usd": 0.05343,
+        "input_tokens": 1032,
+        "latency_s": 8.19150709999667,
+        "output_tokens": 506,
+        "total_tokens": 1538
+      },
+      "determination_id": "n400.human_review_required",
+      "disposition_id": "direct_disp_9002245f71c04252b821b9bb7d8ba287",
+      "matches_reference": false,
+      "outcome": "true",
+      "rationale": "State/district residence appears to fall short of statutory minimum, warranting human review.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_english_failed_civics_passed_no_exception",
+      "case_title": "English failed, civics passed, no exception",
+      "confidence": 0.6,
+      "cost": {
+        "estimated_cost_usd": 0.05814,
+        "input_tokens": 1186,
+        "latency_s": 8.057177800001227,
+        "output_tokens": 538,
+        "total_tokens": 1724
+      },
+      "determination_id": "n400.continuous_residence_satisfied",
+      "disposition_id": "direct_disp_95e01b13b5c44a18be57d2c3bbebd359",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "Case packet does not provide continuous residence facts.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_english_failed_civics_passed_no_exception",
+      "case_title": "English failed, civics passed, no exception",
+      "confidence": 0.6,
+      "cost": {
+        "estimated_cost_usd": 0.05814,
+        "input_tokens": 1186,
+        "latency_s": 8.057177800001227,
+        "output_tokens": 538,
+        "total_tokens": 1724
+      },
+      "determination_id": "n400.physical_presence_satisfied",
+      "disposition_id": "direct_disp_2d411635357049028aa705e5d78b9dcf",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "Case packet does not provide physical presence facts.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_english_failed_civics_passed_no_exception",
+      "case_title": "English failed, civics passed, no exception",
+      "confidence": 0.6,
+      "cost": {
+        "estimated_cost_usd": 0.05814,
+        "input_tokens": 1186,
+        "latency_s": 8.057177800001227,
+        "output_tokens": 538,
+        "total_tokens": 1724
+      },
+      "determination_id": "n400.state_residence_satisfied",
+      "disposition_id": "direct_disp_2f956c5712404664a8a4295b05d5665e",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "Case packet does not provide state/district residence facts.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_english_failed_civics_passed_no_exception",
+      "case_title": "English failed, civics passed, no exception",
+      "confidence": 0.95,
+      "cost": {
+        "estimated_cost_usd": 0.05814,
+        "input_tokens": 1186,
+        "latency_s": 8.057177800001227,
+        "output_tokens": 538,
+        "total_tokens": 1724
+      },
+      "determination_id": "n400.english_requirement_satisfied",
+      "disposition_id": "direct_disp_33c1bcff2aee40b09412d2a93fec2f9b",
+      "matches_reference": false,
+      "outcome": "false",
+      "rationale": "Applicant failed English reading and writing; no medical disability exception approved and no age-and-LPR exception claimed.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_english_failed_civics_passed_no_exception",
+      "case_title": "English failed, civics passed, no exception",
+      "confidence": 0.95,
+      "cost": {
+        "estimated_cost_usd": 0.05814,
+        "input_tokens": 1186,
+        "latency_s": 8.057177800001227,
+        "output_tokens": 538,
+        "total_tokens": 1724
+      },
+      "determination_id": "n400.civics_requirement_satisfied",
+      "disposition_id": "direct_disp_2fc63392a3af4c47a443f1ee99fa2451",
+      "matches_reference": false,
+      "outcome": "true",
+      "rationale": "Naturalization test record states applicant passed the civics test.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_english_failed_civics_passed_no_exception",
+      "case_title": "English failed, civics passed, no exception",
+      "confidence": 0.6,
+      "cost": {
+        "estimated_cost_usd": 0.05814,
+        "input_tokens": 1186,
+        "latency_s": 8.057177800001227,
+        "output_tokens": 538,
+        "total_tokens": 1724
+      },
+      "determination_id": "n400.oath_attachment_satisfied",
+      "disposition_id": "direct_disp_f21fa8bd4e1544f7b3bf6db343c40401",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "Case packet does not address oath or attachment to the Constitution.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_english_failed_civics_passed_no_exception",
+      "case_title": "English failed, civics passed, no exception",
+      "confidence": 0.6,
+      "cost": {
+        "estimated_cost_usd": 0.05814,
+        "input_tokens": 1186,
+        "latency_s": 8.057177800001227,
+        "output_tokens": 538,
+        "total_tokens": 1724
+      },
+      "determination_id": "n400.good_moral_character_satisfied",
+      "disposition_id": "direct_disp_f9a7b704f06f45058a521a0d9267e94b",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "Case packet does not provide GMC facts.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_english_failed_civics_passed_no_exception",
+      "case_title": "English failed, civics passed, no exception",
+      "confidence": 0.8,
+      "cost": {
+        "estimated_cost_usd": 0.05814,
+        "input_tokens": 1186,
+        "latency_s": 8.057177800001227,
+        "output_tokens": 538,
+        "total_tokens": 1724
+      },
+      "determination_id": "n400.human_review_required",
+      "disposition_id": "direct_disp_6b72cfed8ac64c92b71c94ca2224f205",
+      "matches_reference": false,
+      "outcome": "true",
+      "rationale": "Failed English component without an accepted exception is a substantive eligibility issue warranting human review; many required facts are also missing.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_medical_disability_exception_approved",
+      "case_title": "Medical disability exception approved",
+      "confidence": 0.6,
+      "cost": {
+        "estimated_cost_usd": 0.054975,
+        "input_tokens": 1145,
+        "latency_s": 8.143927500001155,
+        "output_tokens": 504,
+        "total_tokens": 1649
+      },
+      "determination_id": "n400.continuous_residence_satisfied",
+      "disposition_id": "direct_disp_c44b5eb9716a4a0a9f2ba911d907f93b",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "Case packet does not provide facts on continuous residence.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_medical_disability_exception_approved",
+      "case_title": "Medical disability exception approved",
+      "confidence": 0.6,
+      "cost": {
+        "estimated_cost_usd": 0.054975,
+        "input_tokens": 1145,
+        "latency_s": 8.143927500001155,
+        "output_tokens": 504,
+        "total_tokens": 1649
+      },
+      "determination_id": "n400.physical_presence_satisfied",
+      "disposition_id": "direct_disp_3de89420a0a1466d851f715866abdcfe",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "No physical presence facts in the packet.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_medical_disability_exception_approved",
+      "case_title": "Medical disability exception approved",
+      "confidence": 0.6,
+      "cost": {
+        "estimated_cost_usd": 0.054975,
+        "input_tokens": 1145,
+        "latency_s": 8.143927500001155,
+        "output_tokens": 504,
+        "total_tokens": 1649
+      },
+      "determination_id": "n400.state_residence_satisfied",
+      "disposition_id": "direct_disp_5e9d446849fa46bd8ae0e6d2a71b9578",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "No state/USCIS district residence facts provided.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_medical_disability_exception_approved",
+      "case_title": "Medical disability exception approved",
+      "confidence": 0.9,
+      "cost": {
+        "estimated_cost_usd": 0.054975,
+        "input_tokens": 1145,
+        "latency_s": 8.143927500001155,
+        "output_tokens": 504,
+        "total_tokens": 1649
+      },
+      "determination_id": "n400.english_requirement_satisfied",
+      "disposition_id": "direct_disp_c13f453911cf42299dc89ac64cb862db",
+      "matches_reference": true,
+      "outcome": "true",
+      "rationale": "Approved Form N-648 states English requirement is excepted, satisfying the accepted exception path.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "tier1_medical_disability_exception_approved",
+      "case_title": "Medical disability exception approved",
+      "confidence": 0.9,
+      "cost": {
+        "estimated_cost_usd": 0.054975,
+        "input_tokens": 1145,
+        "latency_s": 8.143927500001155,
+        "output_tokens": 504,
+        "total_tokens": 1649
+      },
+      "determination_id": "n400.civics_requirement_satisfied",
+      "disposition_id": "direct_disp_7074e6a3884a401297fe539fdd2a5537",
+      "matches_reference": true,
+      "outcome": "true",
+      "rationale": "Approved Form N-648 states civics requirement is excepted, satisfying the accepted exception path.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "tier1_medical_disability_exception_approved",
+      "case_title": "Medical disability exception approved",
+      "confidence": 0.6,
+      "cost": {
+        "estimated_cost_usd": 0.054975,
+        "input_tokens": 1145,
+        "latency_s": 8.143927500001155,
+        "output_tokens": 504,
+        "total_tokens": 1649
+      },
+      "determination_id": "n400.oath_attachment_satisfied",
+      "disposition_id": "direct_disp_731a809c14c94653a74ca5b7379a4a66",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "No facts on oath/attachment in the packet.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_medical_disability_exception_approved",
+      "case_title": "Medical disability exception approved",
+      "confidence": 0.6,
+      "cost": {
+        "estimated_cost_usd": 0.054975,
+        "input_tokens": 1145,
+        "latency_s": 8.143927500001155,
+        "output_tokens": 504,
+        "total_tokens": 1649
+      },
+      "determination_id": "n400.good_moral_character_satisfied",
+      "disposition_id": "direct_disp_b629fa07c2334abeaa41b57f6df1f2a8",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "No GMC-related facts provided in the packet.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_medical_disability_exception_approved",
+      "case_title": "Medical disability exception approved",
+      "confidence": 0.8,
+      "cost": {
+        "estimated_cost_usd": 0.054975,
+        "input_tokens": 1145,
+        "latency_s": 8.143927500001155,
+        "output_tokens": 504,
+        "total_tokens": 1649
+      },
+      "determination_id": "n400.human_review_required",
+      "disposition_id": "direct_disp_1b4d1451ea734370a66732bbc0ff0bfa",
+      "matches_reference": false,
+      "outcome": "true",
+      "rationale": "N-648 medical disability exception with failed test results is a benchmark human-review trigger warranting verification of the exception.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_oath_attachment_refusal",
+      "case_title": "Oath worksheet records refusal",
+      "confidence": 0.9,
+      "cost": {
+        "estimated_cost_usd": 0.053865,
+        "input_tokens": 1051,
+        "latency_s": 7.669451699999627,
+        "output_tokens": 508,
+        "total_tokens": 1559
+      },
+      "determination_id": "n400.continuous_residence_satisfied",
+      "disposition_id": "direct_disp_03f20ea7e7604f959fec9316d992f88f",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "No facts in packet regarding continuous residence.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_oath_attachment_refusal",
+      "case_title": "Oath worksheet records refusal",
+      "confidence": 0.9,
+      "cost": {
+        "estimated_cost_usd": 0.053865,
+        "input_tokens": 1051,
+        "latency_s": 7.669451699999627,
+        "output_tokens": 508,
+        "total_tokens": 1559
+      },
+      "determination_id": "n400.physical_presence_satisfied",
+      "disposition_id": "direct_disp_6367e1c821f14c818bfaa2bd8f44abaa",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "No facts in packet regarding physical presence.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_oath_attachment_refusal",
+      "case_title": "Oath worksheet records refusal",
+      "confidence": 0.9,
+      "cost": {
+        "estimated_cost_usd": 0.053865,
+        "input_tokens": 1051,
+        "latency_s": 7.669451699999627,
+        "output_tokens": 508,
+        "total_tokens": 1559
+      },
+      "determination_id": "n400.state_residence_satisfied",
+      "disposition_id": "direct_disp_59b3b3df40c946308e3c7580dd8b8e73",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "No facts in packet regarding state/district residence.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_oath_attachment_refusal",
+      "case_title": "Oath worksheet records refusal",
+      "confidence": 0.9,
+      "cost": {
+        "estimated_cost_usd": 0.053865,
+        "input_tokens": 1051,
+        "latency_s": 7.669451699999627,
+        "output_tokens": 508,
+        "total_tokens": 1559
+      },
+      "determination_id": "n400.english_requirement_satisfied",
+      "disposition_id": "direct_disp_4be55442f5fe44e0acea1220f3c674e4",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "No facts in packet regarding English ability or exceptions.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_oath_attachment_refusal",
+      "case_title": "Oath worksheet records refusal",
+      "confidence": 0.9,
+      "cost": {
+        "estimated_cost_usd": 0.053865,
+        "input_tokens": 1051,
+        "latency_s": 7.669451699999627,
+        "output_tokens": 508,
+        "total_tokens": 1559
+      },
+      "determination_id": "n400.civics_requirement_satisfied",
+      "disposition_id": "direct_disp_69a999a1ce954fb487e149b05e9616a4",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "No facts in packet regarding civics test or exceptions.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_oath_attachment_refusal",
+      "case_title": "Oath worksheet records refusal",
+      "confidence": 0.97,
+      "cost": {
+        "estimated_cost_usd": 0.053865,
+        "input_tokens": 1051,
+        "latency_s": 7.669451699999627,
+        "output_tokens": 508,
+        "total_tokens": 1559
+      },
+      "determination_id": "n400.oath_attachment_satisfied",
+      "disposition_id": "direct_disp_599bc30e53c6406a80b5f2a600af7912",
+      "matches_reference": true,
+      "outcome": "false",
+      "rationale": "Worksheet documents refusal to take the Oath of Allegiance and that attachment to the Constitution was not established at interview.",
+      "reference_outcome": "false"
+    },
+    {
+      "case_id": "tier1_oath_attachment_refusal",
+      "case_title": "Oath worksheet records refusal",
+      "confidence": 0.9,
+      "cost": {
+        "estimated_cost_usd": 0.053865,
+        "input_tokens": 1051,
+        "latency_s": 7.669451699999627,
+        "output_tokens": 508,
+        "total_tokens": 1559
+      },
+      "determination_id": "n400.good_moral_character_satisfied",
+      "disposition_id": "direct_disp_3cf880fec22d4739adf9c49140c16990",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "No facts in packet regarding GMC bars or triggers.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_oath_attachment_refusal",
+      "case_title": "Oath worksheet records refusal",
+      "confidence": 0.9,
+      "cost": {
+        "estimated_cost_usd": 0.053865,
+        "input_tokens": 1051,
+        "latency_s": 7.669451699999627,
+        "output_tokens": 508,
+        "total_tokens": 1559
+      },
+      "determination_id": "n400.human_review_required",
+      "disposition_id": "direct_disp_d9391d86eb72428d82a559f5ed2aa2cc",
+      "matches_reference": false,
+      "outcome": "true",
+      "rationale": "Refusal of oath and failure to establish attachment to the Constitution are significant adverse findings warranting human review.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_pending_charge_with_clean_conviction_check",
+      "case_title": "Clean conviction check but pending charge exists",
+      "confidence": 0.7,
+      "cost": {
+        "estimated_cost_usd": 0.05817,
+        "input_tokens": 1163,
+        "latency_s": 9.409505300005549,
+        "output_tokens": 543,
+        "total_tokens": 1706
+      },
+      "determination_id": "n400.continuous_residence_satisfied",
+      "disposition_id": "direct_disp_9170246c7a7c450d9ea0d3273388fde1",
+      "matches_reference": false,
+      "outcome": "true",
+      "rationale": "Within benchmark scope; no facts indicate a continuous residence problem.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_pending_charge_with_clean_conviction_check",
+      "case_title": "Clean conviction check but pending charge exists",
+      "confidence": 0.7,
+      "cost": {
+        "estimated_cost_usd": 0.05817,
+        "input_tokens": 1163,
+        "latency_s": 9.409505300005549,
+        "output_tokens": 543,
+        "total_tokens": 1706
+      },
+      "determination_id": "n400.physical_presence_satisfied",
+      "disposition_id": "direct_disp_70f9b3fce4604ec5a5c4568fc9defa21",
+      "matches_reference": false,
+      "outcome": "true",
+      "rationale": "Within benchmark scope; no facts indicate a physical presence shortfall.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_pending_charge_with_clean_conviction_check",
+      "case_title": "Clean conviction check but pending charge exists",
+      "confidence": 0.7,
+      "cost": {
+        "estimated_cost_usd": 0.05817,
+        "input_tokens": 1163,
+        "latency_s": 9.409505300005549,
+        "output_tokens": 543,
+        "total_tokens": 1706
+      },
+      "determination_id": "n400.state_residence_satisfied",
+      "disposition_id": "direct_disp_2d6d1d557b3e48b0b04f2700fc1ea68e",
+      "matches_reference": false,
+      "outcome": "true",
+      "rationale": "No facts in packet contradict state/district residence.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_pending_charge_with_clean_conviction_check",
+      "case_title": "Clean conviction check but pending charge exists",
+      "confidence": 0.6,
+      "cost": {
+        "estimated_cost_usd": 0.05817,
+        "input_tokens": 1163,
+        "latency_s": 9.409505300005549,
+        "output_tokens": 543,
+        "total_tokens": 1706
+      },
+      "determination_id": "n400.english_requirement_satisfied",
+      "disposition_id": "direct_disp_51770f0a9cf84ad4a4ef1cc641661b1d",
+      "matches_reference": false,
+      "outcome": "true",
+      "rationale": "No facts indicate failure or exception issue.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_pending_charge_with_clean_conviction_check",
+      "case_title": "Clean conviction check but pending charge exists",
+      "confidence": 0.6,
+      "cost": {
+        "estimated_cost_usd": 0.05817,
+        "input_tokens": 1163,
+        "latency_s": 9.409505300005549,
+        "output_tokens": 543,
+        "total_tokens": 1706
+      },
+      "determination_id": "n400.civics_requirement_satisfied",
+      "disposition_id": "direct_disp_bd90814ddb034482b11bf01905435712",
+      "matches_reference": false,
+      "outcome": "true",
+      "rationale": "No facts indicate failure or exception issue.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_pending_charge_with_clean_conviction_check",
+      "case_title": "Clean conviction check but pending charge exists",
+      "confidence": 0.7,
+      "cost": {
+        "estimated_cost_usd": 0.05817,
+        "input_tokens": 1163,
+        "latency_s": 9.409505300005549,
+        "output_tokens": 543,
+        "total_tokens": 1706
+      },
+      "determination_id": "n400.oath_attachment_satisfied",
+      "disposition_id": "direct_disp_be459e78d09846ad9b464e0b31a8bfcf",
+      "matches_reference": false,
+      "outcome": "true",
+      "rationale": "No facts in packet contradict attachment/oath requirements.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_pending_charge_with_clean_conviction_check",
+      "case_title": "Clean conviction check but pending charge exists",
+      "confidence": 0.85,
+      "cost": {
+        "estimated_cost_usd": 0.05817,
+        "input_tokens": 1163,
+        "latency_s": 9.409505300005549,
+        "output_tokens": 543,
+        "total_tokens": 1706
+      },
+      "determination_id": "n400.good_moral_character_satisfied",
+      "disposition_id": "direct_disp_e9defc0b54f84746a3f06574e3bc3363",
+      "matches_reference": false,
+      "outcome": "undetermined",
+      "rationale": "FBI check shows no aggravated felony convictions, but a pending felony charge appears on the county docket with no disposition. GMC cannot be conclusively determined while a felony charge is pending.",
+      "reference_outcome": "false"
+    },
+    {
+      "case_id": "tier1_pending_charge_with_clean_conviction_check",
+      "case_title": "Clean conviction check but pending charge exists",
+      "confidence": 0.95,
+      "cost": {
+        "estimated_cost_usd": 0.05817,
+        "input_tokens": 1163,
+        "latency_s": 9.409505300005549,
+        "output_tokens": 543,
+        "total_tokens": 1706
+      },
+      "determination_id": "n400.human_review_required",
+      "disposition_id": "direct_disp_a32a3bb6e7954c848984abd0e83ecb52",
+      "matches_reference": true,
+      "outcome": "true",
+      "rationale": "Pending felony charge with hearing after the N-400 interview and an unsupported claim of forthcoming dismissal constitutes a benchmark human-review trigger.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "tier1_missing_travel_dates",
+      "case_title": "Travel narrative missing exact dates",
+      "confidence": 0.85,
+      "cost": {
+        "estimated_cost_usd": 0.061365,
+        "input_tokens": 1166,
+        "latency_s": 12.592682000002242,
+        "output_tokens": 585,
+        "total_tokens": 1751
+      },
+      "determination_id": "n400.continuous_residence_satisfied",
+      "disposition_id": "direct_disp_e69422db47374caea4aefa68923f17a5",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "Approximate seven-month absence in 2021 raises a potential continuous residence break (6+ months), but exact dates are missing to evaluate.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_missing_travel_dates",
+      "case_title": "Travel narrative missing exact dates",
+      "confidence": 0.9,
+      "cost": {
+        "estimated_cost_usd": 0.061365,
+        "input_tokens": 1166,
+        "latency_s": 12.592682000002242,
+        "output_tokens": 585,
+        "total_tokens": 1751
+      },
+      "determination_id": "n400.physical_presence_satisfied",
+      "disposition_id": "direct_disp_cfeb0b0af4ed44f18f8c3ec16e550190",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "No exact travel dates, blank presence worksheet, and missing passport/CBP/flight records prevent calculation of physical presence days.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_missing_travel_dates",
+      "case_title": "Travel narrative missing exact dates",
+      "confidence": 0.7,
+      "cost": {
+        "estimated_cost_usd": 0.061365,
+        "input_tokens": 1166,
+        "latency_s": 12.592682000002242,
+        "output_tokens": 585,
+        "total_tokens": 1751
+      },
+      "determination_id": "n400.state_residence_satisfied",
+      "disposition_id": "direct_disp_144c082010f647239febf9e5767a9620",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "Case packet contains no information about state or USCIS district residence.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_missing_travel_dates",
+      "case_title": "Travel narrative missing exact dates",
+      "confidence": 0.7,
+      "cost": {
+        "estimated_cost_usd": 0.061365,
+        "input_tokens": 1166,
+        "latency_s": 12.592682000002242,
+        "output_tokens": 585,
+        "total_tokens": 1751
+      },
+      "determination_id": "n400.english_requirement_satisfied",
+      "disposition_id": "direct_disp_ca18b7c72109405c92987a51768b6367",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "No facts provided about English ability or applicable exceptions.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_missing_travel_dates",
+      "case_title": "Travel narrative missing exact dates",
+      "confidence": 0.7,
+      "cost": {
+        "estimated_cost_usd": 0.061365,
+        "input_tokens": 1166,
+        "latency_s": 12.592682000002242,
+        "output_tokens": 585,
+        "total_tokens": 1751
+      },
+      "determination_id": "n400.civics_requirement_satisfied",
+      "disposition_id": "direct_disp_8c654f24b1314072abca97fc04563f86",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "No facts provided about civics knowledge or applicable exceptions.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_missing_travel_dates",
+      "case_title": "Travel narrative missing exact dates",
+      "confidence": 0.7,
+      "cost": {
+        "estimated_cost_usd": 0.061365,
+        "input_tokens": 1166,
+        "latency_s": 12.592682000002242,
+        "output_tokens": 585,
+        "total_tokens": 1751
+      },
+      "determination_id": "n400.oath_attachment_satisfied",
+      "disposition_id": "direct_disp_04ace3d3d19b44a99b4f055b71e29ca1",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "No facts in the packet address oath or attachment to the Constitution.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_missing_travel_dates",
+      "case_title": "Travel narrative missing exact dates",
+      "confidence": 0.7,
+      "cost": {
+        "estimated_cost_usd": 0.061365,
+        "input_tokens": 1166,
+        "latency_s": 12.592682000002242,
+        "output_tokens": 585,
+        "total_tokens": 1751
+      },
+      "determination_id": "n400.good_moral_character_satisfied",
+      "disposition_id": "direct_disp_a2d65597e42e440da34df86c126e9279",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "No GMC-related facts are provided in the packet.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "tier1_missing_travel_dates",
+      "case_title": "Travel narrative missing exact dates",
+      "confidence": 0.95,
+      "cost": {
+        "estimated_cost_usd": 0.061365,
+        "input_tokens": 1166,
+        "latency_s": 12.592682000002242,
+        "output_tokens": 585,
+        "total_tokens": 1751
+      },
+      "determination_id": "n400.human_review_required",
+      "disposition_id": "direct_disp_51f5b3a20a964d97945a4a797b6e6d96",
+      "matches_reference": true,
+      "outcome": "true",
+      "rationale": "Missing critical travel dates, blank presence worksheet, and approximate ~7-month absence trigger benchmark human review for continuous residence and physical presence.",
+      "reference_outcome": "true"
+    }
+  ],
+  "map_mode": "direct_llm_disposition",
+  "program": {
+    "atom_count": 140,
+    "determination_count": 11,
+    "name": "USCIS N-400 selected naturalization eligibility candidate",
+    "node_count": 208,
+    "version": "0.1"
+  }
+}

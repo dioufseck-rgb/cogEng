@@ -1,0 +1,54 @@
+{
+  "case_id": "tier1_pending_charge_with_clean_conviction_check",
+  "determinations": [
+    {
+      "determination_id": "n400.continuous_residence_satisfied",
+      "outcome": "true",
+      "rationale": "Within benchmark scope; no facts indicate a continuous residence problem.",
+      "confidence": 0.7
+    },
+    {
+      "determination_id": "n400.physical_presence_satisfied",
+      "outcome": "true",
+      "rationale": "Within benchmark scope; no facts indicate a physical presence shortfall.",
+      "confidence": 0.7
+    },
+    {
+      "determination_id": "n400.state_residence_satisfied",
+      "outcome": "true",
+      "rationale": "No facts in packet contradict state/district residence.",
+      "confidence": 0.7
+    },
+    {
+      "determination_id": "n400.english_requirement_satisfied",
+      "outcome": "true",
+      "rationale": "No facts indicate failure or exception issue.",
+      "confidence": 0.6
+    },
+    {
+      "determination_id": "n400.civics_requirement_satisfied",
+      "outcome": "true",
+      "rationale": "No facts indicate failure or exception issue.",
+      "confidence": 0.6
+    },
+    {
+      "determination_id": "n400.oath_attachment_satisfied",
+      "outcome": "true",
+      "rationale": "No facts in packet contradict attachment/oath requirements.",
+      "confidence": 0.7
+    },
+    {
+      "determination_id": "n400.good_moral_character_satisfied",
+      "outcome": "undetermined",
+      "rationale": "FBI check shows no aggravated felony convictions, but a pending felony charge appears on the county docket with no disposition. GMC cannot be conclusively determined while a felony charge is pending.",
+      "confidence": 0.85
+    },
+    {
+      "determination_id": "n400.human_review_required",
+      "outcome": "true",
+      "rationale": "Pending felony charge with hearing after the N-400 interview and an unsupported claim of forthcoming dismissal constitutes a benchmark human-review trigger.",
+      "confidence": 0.95
+    }
+  ],
+  "case_level_notes": "Pending felony charge requires adjudicator review and likely continuance until disposition; clean conviction history does not resolve GMC while charges are pending."
+}

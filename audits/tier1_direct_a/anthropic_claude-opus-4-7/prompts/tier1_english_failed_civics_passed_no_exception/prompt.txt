@@ -1,0 +1,112 @@
+You are adjudicating a policy case directly.
+
+This is a baseline for research. Unlike RuleKit, you are being asked to decide
+the policy dispositions yourself from the policy summary and case packet.
+
+Important:
+- Return only JSON.
+- Do not invent facts not in the case packet.
+- Use "undetermined" when required facts are missing, conflicting, or too
+  approximate for a policy determination.
+- Use "true" when the determination is satisfied.
+- Use "false" when the determination is not satisfied.
+- If the case has missing, inconsistent, pending, or complex facts, mark
+  human-review-related determinations accordingly.
+
+POLICY SUMMARY
+==============
+Selected N-400 naturalization eligibility benchmark. The applicant must satisfy core threshold requirements, an applicable residence track, continuous residence, physical presence, state or USCIS district residence, good moral character, English and civics requirements or accepted exceptions, and oath/attachment requirements. Certain missing, inconsistent, pending, or complex facts require human review. Numeric requirements are represented with typed arithmetic and comparison nodes where possible.
+
+SELECTED DETERMINATIONS
+=======================
+[
+  {
+    "description": "Continuous residence is satisfied for this benchmark scope.",
+    "determination_id": "n400.continuous_residence_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 3"
+  },
+  {
+    "description": "Physical presence is satisfied under the selected track.",
+    "determination_id": "n400.physical_presence_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 4"
+  },
+  {
+    "description": "State or USCIS district residence is satisfied.",
+    "determination_id": "n400.state_residence_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 2-4"
+  },
+  {
+    "description": "English requirement is met or an accepted exception applies.",
+    "determination_id": "n400.english_requirement_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part E"
+  },
+  {
+    "description": "Civics requirement is met or an accepted exception applies.",
+    "determination_id": "n400.civics_requirement_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part E"
+  },
+  {
+    "description": "Attachment to the Constitution and oath-related requirements are satisfied.",
+    "determination_id": "n400.oath_attachment_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part J"
+  },
+  {
+    "description": "Selected good moral character bars and review triggers do not defeat eligibility.",
+    "determination_id": "n400.good_moral_character_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part F"
+  },
+  {
+    "description": "The case contains a benchmark human-review trigger.",
+    "determination_id": "n400.human_review_required",
+    "source_span": "RuleKit benchmark governance trigger"
+  }
+]
+
+CASE PACKET
+===========
+{
+  "case_id": "tier1_english_failed_civics_passed_no_exception",
+  "narrative": "The naturalization test record states that the applicant failed the English reading and writing components. The same record states that the applicant passed the civics test. The packet does not include an approved medical disability exception and does not claim an age-and-LPR English exception.",
+  "structured_fields": {
+    "evidence": {
+      "n400.civics_test_passed": "Naturalization test result: civics test passed.",
+      "n400.english_test_passed": "Naturalization test result: English reading and writing components failed.",
+      "n400.medical_disability_exception_approved": "Packet index: no approved medical disability exception included."
+    },
+    "evidence_sources": [
+      {
+        "closed_world_scopes": [
+          "english_civics_test_results"
+        ],
+        "limitations": "Current test result only.",
+        "source_id": "test_results",
+        "source_type": "naturalization_test_record",
+        "title": "Naturalization test result"
+      },
+      {
+        "closed_world_scopes": [
+          "submitted_exception_documents"
+        ],
+        "limitations": "Shows no medical exception document included.",
+        "source_id": "packet_index",
+        "source_type": "case_packet_index",
+        "title": "Case packet index"
+      }
+    ]
+  },
+  "title": "English failed, civics passed, no exception"
+}
+
+Return ONLY this JSON shape:
+{
+  "case_id": "tier1_english_failed_civics_passed_no_exception",
+  "determinations": [
+    {
+      "determination_id": "id from SELECTED DETERMINATIONS",
+      "outcome": "true|false|undetermined",
+      "rationale": "brief reason based on the case packet",
+      "confidence": 0.0
+    }
+  ],
+  "case_level_notes": "brief note or empty string"
+}

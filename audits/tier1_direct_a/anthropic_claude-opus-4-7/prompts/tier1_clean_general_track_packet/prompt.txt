@@ -1,0 +1,167 @@
+You are adjudicating a policy case directly.
+
+This is a baseline for research. Unlike RuleKit, you are being asked to decide
+the policy dispositions yourself from the policy summary and case packet.
+
+Important:
+- Return only JSON.
+- Do not invent facts not in the case packet.
+- Use "undetermined" when required facts are missing, conflicting, or too
+  approximate for a policy determination.
+- Use "true" when the determination is satisfied.
+- Use "false" when the determination is not satisfied.
+- If the case has missing, inconsistent, pending, or complex facts, mark
+  human-review-related determinations accordingly.
+
+POLICY SUMMARY
+==============
+Selected N-400 naturalization eligibility benchmark. The applicant must satisfy core threshold requirements, an applicable residence track, continuous residence, physical presence, state or USCIS district residence, good moral character, English and civics requirements or accepted exceptions, and oath/attachment requirements. Certain missing, inconsistent, pending, or complex facts require human review. Numeric requirements are represented with typed arithmetic and comparison nodes where possible.
+
+SELECTED DETERMINATIONS
+=======================
+[
+  {
+    "description": "Continuous residence is satisfied for this benchmark scope.",
+    "determination_id": "n400.continuous_residence_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 3"
+  },
+  {
+    "description": "Physical presence is satisfied under the selected track.",
+    "determination_id": "n400.physical_presence_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 4"
+  },
+  {
+    "description": "State or USCIS district residence is satisfied.",
+    "determination_id": "n400.state_residence_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 2-4"
+  },
+  {
+    "description": "English requirement is met or an accepted exception applies.",
+    "determination_id": "n400.english_requirement_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part E"
+  },
+  {
+    "description": "Civics requirement is met or an accepted exception applies.",
+    "determination_id": "n400.civics_requirement_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part E"
+  },
+  {
+    "description": "Attachment to the Constitution and oath-related requirements are satisfied.",
+    "determination_id": "n400.oath_attachment_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part J"
+  },
+  {
+    "description": "Selected good moral character bars and review triggers do not defeat eligibility.",
+    "determination_id": "n400.good_moral_character_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part F"
+  },
+  {
+    "description": "The case contains a benchmark human-review trigger.",
+    "determination_id": "n400.human_review_required",
+    "source_span": "RuleKit benchmark governance trigger"
+  }
+]
+
+CASE PACKET
+===========
+{
+  "case_id": "tier1_clean_general_track_packet",
+  "narrative": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue.",
+  "structured_fields": {
+    "evidence": {
+      "n400.age_years": "Intake summary: applicant age is 37.",
+      "n400.aggravated_felony_after_1990": "FBI check: no aggravated felony convictions.",
+      "n400.attachment_to_constitution": "Oath worksheet: attachment to the Constitution recorded.",
+      "n400.civics_test_passed": "Naturalization test record: civics test passed.",
+      "n400.days_absent_trip_1": "Travel table: one trip lasted 21 days.",
+      "n400.english_test_passed": "Naturalization test record: English test passed.",
+      "n400.false_testimony_for_immigration_benefit": "USCIS interview worksheet: no false testimony issue.",
+      "n400.months_physical_presence_5yr": "Physical presence worksheet: 41 months physically present.",
+      "n400.months_state_or_district_residence": "Residence worksheet: 9 months in same USCIS district.",
+      "n400.pending_criminal_charge": "Docket search: no pending criminal charges.",
+      "n400.willing_to_take_oath": "Oath worksheet: applicant willing to take the oath.",
+      "n400.years_as_lpr": "Intake summary: applicant has been an LPR for 6 years."
+    },
+    "evidence_sources": [
+      {
+        "closed_world_scopes": [],
+        "limitations": "Applicant and preparer supplied summary.",
+        "source_id": "intake_summary",
+        "source_type": "n400_intake_summary",
+        "title": "N-400 intake summary"
+      },
+      {
+        "closed_world_scopes": [
+          "declared_travel_history"
+        ],
+        "limitations": "Applicant-declared travel table.",
+        "source_id": "travel_table",
+        "source_type": "travel_history_table",
+        "title": "N-400 travel table"
+      },
+      {
+        "closed_world_scopes": [],
+        "limitations": "Structured worksheet in packet.",
+        "source_id": "presence_worksheet",
+        "source_type": "physical_presence_worksheet",
+        "title": "Physical presence worksheet"
+      },
+      {
+        "closed_world_scopes": [],
+        "limitations": "Current test result only.",
+        "source_id": "test_results",
+        "source_type": "naturalization_test_record",
+        "title": "English and civics test result"
+      },
+      {
+        "closed_world_scopes": [],
+        "limitations": "Current oath worksheet only.",
+        "source_id": "oath_worksheet",
+        "source_type": "oath_attachment_worksheet",
+        "title": "Oath and attachment worksheet"
+      },
+      {
+        "closed_world_scopes": [
+          "criminal_convictions"
+        ],
+        "limitations": "Synthetic benchmark source.",
+        "source_id": "fbi_check",
+        "source_type": "criminal_history_check",
+        "title": "FBI criminal history check"
+      },
+      {
+        "closed_world_scopes": [
+          "pending_criminal_charges"
+        ],
+        "limitations": "Synthetic benchmark source.",
+        "source_id": "docket_search",
+        "source_type": "court_docket_search",
+        "title": "Court docket search"
+      },
+      {
+        "closed_world_scopes": [
+          "false_testimony_for_immigration_benefit"
+        ],
+        "limitations": "Synthetic benchmark source.",
+        "source_id": "interview_worksheet",
+        "source_type": "uscis_interview_record",
+        "title": "USCIS interview worksheet"
+      }
+    ]
+  },
+  "title": "Clean general five-year packet"
+}
+
+Return ONLY this JSON shape:
+{
+  "case_id": "tier1_clean_general_track_packet",
+  "determinations": [
+    {
+      "determination_id": "id from SELECTED DETERMINATIONS",
+      "outcome": "true|false|undetermined",
+      "rationale": "brief reason based on the case packet",
+      "confidence": 0.0
+    }
+  ],
+  "case_level_notes": "brief note or empty string"
+}

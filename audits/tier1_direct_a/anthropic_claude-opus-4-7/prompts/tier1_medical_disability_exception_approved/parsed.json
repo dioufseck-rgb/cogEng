@@ -1,0 +1,54 @@
+{
+  "case_id": "tier1_medical_disability_exception_approved",
+  "case_level_notes": "Approved N-648 covers both English and civics exceptions; other eligibility prongs are not addressed in the packet.",
+  "determinations": [
+    {
+      "confidence": 0.6,
+      "determination_id": "n400.continuous_residence_satisfied",
+      "outcome": "undetermined",
+      "rationale": "Case packet does not provide facts on continuous residence."
+    },
+    {
+      "confidence": 0.6,
+      "determination_id": "n400.physical_presence_satisfied",
+      "outcome": "undetermined",
+      "rationale": "No physical presence facts in the packet."
+    },
+    {
+      "confidence": 0.6,
+      "determination_id": "n400.state_residence_satisfied",
+      "outcome": "undetermined",
+      "rationale": "No state/USCIS district residence facts provided."
+    },
+    {
+      "confidence": 0.9,
+      "determination_id": "n400.english_requirement_satisfied",
+      "outcome": "true",
+      "rationale": "Approved Form N-648 states English requirement is excepted, satisfying the accepted exception path."
+    },
+    {
+      "confidence": 0.9,
+      "determination_id": "n400.civics_requirement_satisfied",
+      "outcome": "true",
+      "rationale": "Approved Form N-648 states civics requirement is excepted, satisfying the accepted exception path."
+    },
+    {
+      "confidence": 0.6,
+      "determination_id": "n400.oath_attachment_satisfied",
+      "outcome": "undetermined",
+      "rationale": "No facts on oath/attachment in the packet."
+    },
+    {
+      "confidence": 0.6,
+      "determination_id": "n400.good_moral_character_satisfied",
+      "outcome": "undetermined",
+      "rationale": "No GMC-related facts provided in the packet."
+    },
+    {
+      "confidence": 0.8,
+      "determination_id": "n400.human_review_required",
+      "outcome": "true",
+      "rationale": "N-648 medical disability exception with failed test results is a benchmark human-review trigger warranting verification of the exception."
+    }
+  ]
+}

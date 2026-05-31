@@ -1,0 +1,99 @@
+You are adjudicating a policy case directly.
+
+This is a baseline for research. Unlike RuleKit, you are being asked to decide
+the policy dispositions yourself from the policy summary and case packet.
+
+Important:
+- Return only JSON.
+- Do not invent facts not in the case packet.
+- Use "undetermined" when required facts are missing, conflicting, or too
+  approximate for a policy determination.
+- Use "true" when the determination is satisfied.
+- Use "false" when the determination is not satisfied.
+- If the case has missing, inconsistent, pending, or complex facts, mark
+  human-review-related determinations accordingly.
+
+POLICY SUMMARY
+==============
+Selected N-400 naturalization eligibility benchmark. The applicant must satisfy core threshold requirements, an applicable residence track, continuous residence, physical presence, state or USCIS district residence, good moral character, English and civics requirements or accepted exceptions, and oath/attachment requirements. Certain missing, inconsistent, pending, or complex facts require human review. Numeric requirements are represented with typed arithmetic and comparison nodes where possible.
+
+SELECTED DETERMINATIONS
+=======================
+[
+  {
+    "description": "Continuous residence is satisfied for this benchmark scope.",
+    "determination_id": "n400.continuous_residence_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 3"
+  },
+  {
+    "description": "Physical presence is satisfied under the selected track.",
+    "determination_id": "n400.physical_presence_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 4"
+  },
+  {
+    "description": "State or USCIS district residence is satisfied.",
+    "determination_id": "n400.state_residence_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 2-4"
+  },
+  {
+    "description": "English requirement is met or an accepted exception applies.",
+    "determination_id": "n400.english_requirement_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part E"
+  },
+  {
+    "description": "Civics requirement is met or an accepted exception applies.",
+    "determination_id": "n400.civics_requirement_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part E"
+  },
+  {
+    "description": "Attachment to the Constitution and oath-related requirements are satisfied.",
+    "determination_id": "n400.oath_attachment_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part J"
+  },
+  {
+    "description": "Selected good moral character bars and review triggers do not defeat eligibility.",
+    "determination_id": "n400.good_moral_character_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part F"
+  },
+  {
+    "description": "The case contains a benchmark human-review trigger.",
+    "determination_id": "n400.human_review_required",
+    "source_span": "RuleKit benchmark governance trigger"
+  }
+]
+
+CASE PACKET
+===========
+{
+  "case_id": "tier1_state_residence_short",
+  "narrative": "The residence worksheet states that the applicant moved into the current USCIS district two months before filing. The lease start date and utility bill confirm two months of residence in the district before the filing date.",
+  "structured_fields": {
+    "evidence": {
+      "n400.months_state_or_district_residence": "Residence worksheet, lease, and utility bill show two months in the current USCIS district before filing."
+    },
+    "evidence_sources": [
+      {
+        "closed_world_scopes": [],
+        "limitations": "Current district residence calculation.",
+        "source_id": "residence_worksheet",
+        "source_type": "residence_worksheet",
+        "title": "Residence worksheet"
+      }
+    ]
+  },
+  "title": "State residence only two months"
+}
+
+Return ONLY this JSON shape:
+{
+  "case_id": "tier1_state_residence_short",
+  "determinations": [
+    {
+      "determination_id": "id from SELECTED DETERMINATIONS",
+      "outcome": "true|false|undetermined",
+      "rationale": "brief reason based on the case packet",
+      "confidence": 0.0
+    }
+  ],
+  "case_level_notes": "brief note or empty string"
+}

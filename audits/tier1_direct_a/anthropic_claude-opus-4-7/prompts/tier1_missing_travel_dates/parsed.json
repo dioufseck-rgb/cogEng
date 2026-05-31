@@ -1,0 +1,54 @@
+{
+  "case_id": "tier1_missing_travel_dates",
+  "case_level_notes": "Critical evidence (passport, CBP travel history, flight records, travel table) is missing; only an approximate narrative exists. Human review required to obtain exact travel dates before adjudicating continuous residence and physical presence.",
+  "determinations": [
+    {
+      "confidence": 0.85,
+      "determination_id": "n400.continuous_residence_satisfied",
+      "outcome": "undetermined",
+      "rationale": "Approximate seven-month absence in 2021 raises a potential continuous residence break (6+ months), but exact dates are missing to evaluate."
+    },
+    {
+      "confidence": 0.9,
+      "determination_id": "n400.physical_presence_satisfied",
+      "outcome": "undetermined",
+      "rationale": "No exact travel dates, blank presence worksheet, and missing passport/CBP/flight records prevent calculation of physical presence days."
+    },
+    {
+      "confidence": 0.7,
+      "determination_id": "n400.state_residence_satisfied",
+      "outcome": "undetermined",
+      "rationale": "Case packet contains no information about state or USCIS district residence."
+    },
+    {
+      "confidence": 0.7,
+      "determination_id": "n400.english_requirement_satisfied",
+      "outcome": "undetermined",
+      "rationale": "No facts provided about English ability or applicable exceptions."
+    },
+    {
+      "confidence": 0.7,
+      "determination_id": "n400.civics_requirement_satisfied",
+      "outcome": "undetermined",
+      "rationale": "No facts provided about civics knowledge or applicable exceptions."
+    },
+    {
+      "confidence": 0.7,
+      "determination_id": "n400.oath_attachment_satisfied",
+      "outcome": "undetermined",
+      "rationale": "No facts in the packet address oath or attachment to the Constitution."
+    },
+    {
+      "confidence": 0.7,
+      "determination_id": "n400.good_moral_character_satisfied",
+      "outcome": "undetermined",
+      "rationale": "No GMC-related facts are provided in the packet."
+    },
+    {
+      "confidence": 0.95,
+      "determination_id": "n400.human_review_required",
+      "outcome": "true",
+      "rationale": "Missing critical travel dates, blank presence worksheet, and approximate ~7-month absence trigger benchmark human review for continuous residence and physical presence."
+    }
+  ]
+}
