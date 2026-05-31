@@ -285,6 +285,7 @@ def apply_case_default_bindings(
             source=source or "case_default",
             metadata={
                 "case_default": True,
+                "default_kind": default.get("metadata_kind"),
                 "default_apply_when": apply_when,
                 "replaced_status": existing.status.value if existing else None,
                 "replaced_basis": existing.basis.value if existing and existing.basis else None,
@@ -307,8 +308,101 @@ def _case_default_binding_payloads(structured_fields: dict[str, Any]) -> dict[st
             payload = {key: value for key, value in group.items() if key != "atom_ids"}
             for atom_id in atom_ids:
                 defaults[str(atom_id)] = dict(payload)
+    defaults.update(_binding_directive_payloads(structured_fields))
     defaults.update(_dict_from_structured(structured_fields, "default_bindings"))
     return defaults
+
+
+def _binding_directive_payloads(structured_fields: dict[str, Any]) -> dict[str, Any]:
+    directives = structured_fields.get("binding_directives")
+    if not isinstance(directives, list):
+        return {}
+
+    defaults: dict[str, Any] = {}
+    for directive in directives:
+        if not isinstance(directive, dict):
+            continue
+        atom_ids = directive.get("atom_ids", directive.get("atoms"))
+        if not isinstance(atom_ids, list):
+            continue
+        base = _payload_for_binding_directive(directive)
+        if base is None:
+            continue
+        for atom_id in atom_ids:
+            defaults[str(atom_id)] = dict(base)
+    return defaults
+
+
+def _payload_for_binding_directive(directive: dict[str, Any]) -> dict[str, Any] | None:
+    kind = str(directive.get("kind", "")).strip()
+    if not kind:
+        return None
+
+    payload: dict[str, Any] = {
+        "evidence": directive.get("evidence"),
+        "explanation": directive.get("explanation")
+        or _default_directive_explanation(kind),
+        "source_ids": directive.get("source_ids"),
+        "confidence": directive.get("confidence"),
+        "metadata_kind": kind,
+    }
+    if kind == "closed_world_absence":
+        payload.update(
+            {
+                "value": False,
+                "basis": "source_scoped_absence",
+                "apply_when": directive.get("apply_when", "missing_or_undetermined"),
+            }
+        )
+        return _drop_none_values(payload)
+    if kind == "absent_review_trigger":
+        payload.update(
+            {
+                "value": False,
+                "basis": "explicit_negative",
+                "apply_when": directive.get("apply_when", "missing_or_undetermined"),
+            }
+        )
+        return _drop_none_values(payload)
+    if kind == "scope_supported_true":
+        payload.update(
+            {
+                "value": True,
+                "basis": "inferred_from_record",
+                "apply_when": directive.get("apply_when", "missing_or_undetermined"),
+            }
+        )
+        return _drop_none_values(payload)
+    if kind in {"out_of_scope", "evidence_gap", "branch_not_applicable"}:
+        payload.update(
+            {
+                "value": "undetermined",
+                "basis": "not_found",
+                "apply_when": directive.get("apply_when", "always"),
+            }
+        )
+        return _drop_none_values(payload)
+    return None
+
+
+def _default_directive_explanation(kind: str) -> str:
+    if kind == "closed_world_absence":
+        return "source-scoped packet directive: absence binds the atom false"
+    if kind == "absent_review_trigger":
+        return "source-scoped packet directive: review trigger absent"
+    if kind == "scope_supported_true":
+        return "source-scoped packet directive: support atom established"
+    if kind == "out_of_scope":
+        return "source-scoped packet directive: atom is outside the packet scope"
+    if kind == "evidence_gap":
+        return "source-scoped packet directive: evidence gap preserves uncertainty"
+    if kind == "branch_not_applicable":
+        return "source-scoped packet directive: policy branch is not applicable"
+    return "source-scoped packet directive"
+
+
+def _drop_none_values(payload: dict[str, Any]) -> dict[str, Any]:
+    return {key: value for key, value in payload.items() if value is not None}
 
 
 def _should_apply_default(

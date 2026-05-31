@@ -357,6 +357,66 @@ def test_case_default_source_scoped_absence_resolves_to_closed_world_basis():
     assert binding.basis == BindingBasis.CLOSED_WORLD_ABSENCE
 
 
+def test_binding_directive_closed_world_absence_expands_to_validated_default():
+    program = _program()
+    case = CaseExample(
+        case_id="directive_source_scope",
+        title="source scoped directive",
+        narrative="FBI check reports no aggravated felony convictions.",
+        structured_fields={
+            "binding_directives": [
+                {
+                    "kind": "closed_world_absence",
+                    "atom_ids": ["n400.aggravated_felony_after_1990"],
+                    "source_ids": ["fbi_check"],
+                    "evidence": "FBI check reports no aggravated felony convictions.",
+                }
+            ]
+        },
+    )
+
+    result = PreboundFactsMapStep().run(
+        program,
+        case,
+        MapStepContext(program_id="prog_n400"),
+    )
+
+    binding = result.map_record.bindings["n400.aggravated_felony_after_1990"]
+    assert binding.value is False
+    assert binding.basis == BindingBasis.CLOSED_WORLD_ABSENCE
+    assert binding.metadata["default_kind"] == "closed_world_absence"
+
+
+def test_binding_directive_evidence_gap_preserves_uncertainty():
+    program = _program()
+    case = CaseExample(
+        case_id="directive_evidence_gap",
+        title="evidence gap directive",
+        narrative="The packet does not include the required source.",
+        structured_fields={
+            "binding_directives": [
+                {
+                    "kind": "evidence_gap",
+                    "atom_ids": ["n400.aggravated_felony_after_1990"],
+                    "evidence": "The required source is missing.",
+                }
+            ]
+        },
+    )
+
+    result = PreboundFactsMapStep().run(
+        program,
+        case,
+        MapStepContext(program_id="prog_n400"),
+    )
+
+    binding = result.map_record.bindings["n400.aggravated_felony_after_1990"]
+    assert binding.value == "undetermined"
+    assert binding.status == AtomBindingStatus.UNDETERMINED
+    assert binding.basis == BindingBasis.NOT_FOUND
+    assert binding.metadata["default_kind"] == "evidence_gap"
+
+
 def test_atoms_for_determinations_returns_reachable_atoms():
     atoms = atoms_for_determinations(
         _program(),

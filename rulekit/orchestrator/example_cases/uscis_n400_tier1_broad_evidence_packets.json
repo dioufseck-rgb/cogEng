@@ -175,8 +175,11 @@
             "apply_when": "missing_or_undetermined",
             "evidence": "The clean packet supplies complete ordinary-course records and states no issue for this scope atom.",
             "explanation": "Clean-packet scope default for non-load-bearing support atoms."
-          },
+          }
+        ],
+        "binding_directives": [
           {
+            "kind": "closed_world_absence",
             "atom_ids": [
               "n400.murder_conviction",
               "n400.aggravated_felony_after_1990",
@@ -225,16 +228,13 @@
               "n400.welfare_fraud",
               "n400.prison_180_days_or_more"
             ],
-            "value": false,
-            "basis": "source_scoped_absence",
             "source_ids": [
               "fbi_check",
               "docket_search",
               "interview_worksheet"
             ],
-            "apply_when": "missing_or_undetermined",
             "evidence": "The clean packet includes official checks and no listed good-moral-character bar is present.",
-            "explanation": "Clean-packet default for absent selected negative bars."
+            "explanation": "Packet directive for absent selected negative bars."
           }
         ],
         "default_bindings": {
@@ -565,15 +565,16 @@
             "explanation": "Scoped benchmark default for absent human-review trigger atoms."
           }
         ],
-        "default_bindings": {
-          "n400.spouse_track_residence_consistent": {
-            "value": "undetermined",
-            "basis": "not_found",
-            "apply_when": "always",
+        "binding_directives": [
+          {
+            "kind": "out_of_scope",
+            "atom_ids": [
+              "n400.spouse_track_residence_consistent"
+            ],
             "evidence": "This physical-presence packet does not establish state/district residence or spouse-track residence facts.",
             "explanation": "Keep unrelated state-residence branch undetermined instead of letting a spouse-track absence decide it."
           }
-        }
+        ]
       },
       "metadata": {
         "expected_bindings": {
@@ -1066,36 +1067,33 @@
             "explanation": "Scoped benchmark default for absent human-review trigger atoms."
           }
         ],
-        "default_bindings": {
-          "n400.travel_records_complete": {
-            "value": "undetermined",
-            "basis": "not_found",
-            "apply_when": "always",
+        "binding_directives": [
+          {
+            "kind": "evidence_gap",
+            "atom_ids": [
+              "n400.travel_records_complete",
+              "n400.passport_records_support_travel"
+            ],
             "evidence": "Passport, CBP, flight records, and completed travel table are missing.",
             "explanation": "Missing travel support is a review/uncertainty trigger, not a substantive denial fact."
           },
-          "n400.passport_records_support_travel": {
-            "value": "undetermined",
-            "basis": "not_found",
-            "apply_when": "always",
-            "evidence": "Passport, CBP, flight records, and completed travel table are missing.",
-            "explanation": "Missing travel support is a review/uncertainty trigger, not a substantive denial fact."
-          },
-          "n400.physical_presence_calculation_reliable": {
-            "value": "undetermined",
-            "basis": "not_found",
-            "apply_when": "always",
+          {
+            "kind": "evidence_gap",
+            "atom_ids": [
+              "n400.physical_presence_calculation_reliable"
+            ],
             "evidence": "The physical presence worksheet is blank for 2021.",
             "explanation": "Missing calculation support is a review/uncertainty trigger, not a substantive denial fact."
           },
-          "n400.no_unresolved_physical_presence_gap": {
-            "value": "undetermined",
-            "basis": "not_found",
-            "apply_when": "always",
+          {
+            "kind": "evidence_gap",
+            "atom_ids": [
+              "n400.no_unresolved_physical_presence_gap"
+            ],
             "evidence": "The case gives approximate travel without exact dates.",
             "explanation": "Unresolved physical-presence gaps should preserve undetermined status."
           }
-        }
+        ]
       },
       "metadata": {
         "expected_bindings": {

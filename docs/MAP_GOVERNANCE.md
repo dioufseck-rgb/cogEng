@@ -173,7 +173,52 @@ When explicit `--atom` values are omitted, `--atom-scope` controls coverage:
 baselines because it gives RuleKit coverage over the whole relevant policy
 surface without binding unrelated atoms.
 
-## Case-Packet Defaults
+## Case-Packet Binding Directives
+
+Evidence packets should prefer `structured_fields.binding_directives` when
+they need to express source-scope/default semantics. Directives are generic
+packet semantics, not domain Python and not benchmark-specific engine code.
+The Map step expands them into audited default bindings and the same Map
+validation layer still decides whether the resulting basis/source is allowed.
+
+Supported directive kinds:
+
+- `closed_world_absence`: the packet's scoped sources establish that listed
+  atoms are absent, so they bind `false` with source-scoped absence semantics.
+- `absent_review_trigger`: listed routing/review trigger atoms are absent from
+  the packet, so they bind `false`.
+- `scope_supported_true`: listed support atoms are established by the packet's
+  source scope, so they bind `true`.
+- `out_of_scope`: listed atoms are outside the natural scope of this packet and
+  should remain `undetermined` instead of deciding an unrelated branch.
+- `evidence_gap`: listed atoms depend on missing or incomplete evidence and
+  should remain `undetermined`.
+- `branch_not_applicable`: listed atoms belong to a policy branch that the case
+  packet does not place in issue and should remain `undetermined`.
+
+Example:
+
+```json
+{
+  "structured_fields": {
+    "binding_directives": [
+      {
+        "kind": "closed_world_absence",
+        "atom_ids": ["policy.disqualifying_conviction"],
+        "source_ids": ["criminal_history_check"],
+        "evidence": "The criminal-history source reports no disqualifying conviction."
+      },
+      {
+        "kind": "evidence_gap",
+        "atom_ids": ["policy.travel_records_complete"],
+        "evidence": "Passport and travel-history records are missing."
+      }
+    ]
+  }
+}
+```
+
+## Legacy Case-Packet Defaults
 
 Evidence packets may include `structured_fields.default_bindings` or
 `structured_fields.default_binding_groups`. These are audited bindings supplied
@@ -181,7 +226,6 @@ by the packet, not Python domain logic. They apply after stochastic Map when an
 atom is missing, undetermined, `not_found`, or `open_world_absence`, unless the
 packet explicitly sets `apply_when: "always"`.
 
-The intended use is source-scope/default semantics: non-load-bearing scope
-facts and absent review triggers can be resolved from the packet when the packet
-itself establishes that they are not relevant. Defaults still pass through the
-same deterministic Map validation layer before the engine consumes them.
+These legacy forms remain supported for explicit values and migrations, but new
+packet builders should emit `binding_directives` when they are communicating
+source scope, out-of-scope branches, evidence gaps, or absent review triggers.
