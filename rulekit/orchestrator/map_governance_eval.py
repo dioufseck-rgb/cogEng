@@ -27,6 +27,7 @@ def run_map_governance_eval(
     atom_scope: str = "all",
     max_atoms: int | None = None,
     batch_size: int = 1,
+    single_map_call: bool = False,
     max_tokens: int = 4096,
     timeout: float = 120.0,
     max_retries: int = 2,
@@ -61,6 +62,7 @@ def run_map_governance_eval(
             llm,
             atom_ids=resolved_atom_ids,
             batch_size=batch_size,
+            single_map_call=single_map_call,
             pricing=pricing,
         )
         result = adjudicate_cases(
@@ -82,6 +84,7 @@ def run_map_governance_eval(
         "atom_scope": atom_scope,
         "selected_atom_count": len(resolved_atom_ids),
         "batch_size": batch_size,
+        "single_map_call": single_map_call,
         "runs": runs,
     }
     (output_dir / "summary.json").write_text(_json(aggregate), encoding="utf-8")
@@ -400,19 +403,34 @@ def _write_run_artifacts(output_dir: Path, result: dict[str, Any]) -> None:
                 _json(source.get("parsed")),
                 encoding="utf-8",
             )
+        single = artifacts.get("single_map")
+        if single:
+            (case_dir / "single_map_prompt.txt").write_text(
+                single.get("prompt", ""),
+                encoding="utf-8",
+            )
+            (case_dir / "single_map_raw.txt").write_text(
+                single.get("raw_response", ""),
+                encoding="utf-8",
+            )
+            (case_dir / "single_map_parsed.json").write_text(
+                _json(single.get("parsed")),
+                encoding="utf-8",
+            )
         atoms = artifacts.get("atoms", {})
         atom_dir = case_dir / "atoms"
         atom_dir.mkdir(exist_ok=True)
         for atom_id, artifact in atoms.items():
             stem = _safe_name(atom_id)
-            (atom_dir / f"{stem}.prompt.txt").write_text(
-                artifact.get("prompt", ""),
-                encoding="utf-8",
-            )
-            (atom_dir / f"{stem}.raw.txt").write_text(
-                artifact.get("raw_response", ""),
-                encoding="utf-8",
-            )
+            if not artifact.get("single_map"):
+                (atom_dir / f"{stem}.prompt.txt").write_text(
+                    artifact.get("prompt", ""),
+                    encoding="utf-8",
+                )
+                (atom_dir / f"{stem}.raw.txt").write_text(
+                    artifact.get("raw_response", ""),
+                    encoding="utf-8",
+                )
             (atom_dir / f"{stem}.parsed.json").write_text(
                 _json(artifact.get("parsed")),
                 encoding="utf-8",

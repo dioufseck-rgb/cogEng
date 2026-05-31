@@ -173,6 +173,19 @@ When explicit `--atom` values are omitted, `--atom-scope` controls coverage:
 baselines because it gives RuleKit coverage over the whole relevant policy
 surface without binding unrelated atoms.
 
+For latency experiments, the Map eval also supports a single-call mode:
+
+```powershell
+--single-map-call --llm-max-tokens 16000
+```
+
+In this mode one LLM call returns both the source inventory and every selected
+atom binding. The architectural separation is preserved because the LLM still
+only produces a Map record; deterministic validation and the engine still
+produce dispositions. This mode is faster and cheaper on large slices, but it
+must be evaluated separately because a compressed prompt can change binding
+quality, especially around conditional or branch-closing atoms.
+
 ## Case-Packet Binding Directives
 
 Evidence packets should prefer `structured_fields.binding_directives` when

@@ -2,6 +2,8 @@ param(
     [string] $OutputDir = "audits\tier1_slice_batch_cross_provider_local",
     [string] $KeysFile = "$HOME\.rulekit\llm_keys.ps1",
     [string] $Python = "python",
+    [switch] $SingleMapCall,
+    [int] $MaxTokens = 4096,
     [switch] $SkipPull,
     [string[]] $Models = @(
         "anthropic:claude-opus-4-7",
@@ -95,9 +97,13 @@ $ArgsList = @(
     "--determination", "n400.human_review_required",
     "--llm-timeout", "240",
     "--llm-max-retries", "2",
-    "--llm-max-tokens", "4096",
+    "--llm-max-tokens", "$MaxTokens",
     "--json"
 )
+
+if ($SingleMapCall) {
+    $ArgsList += @("--single-map-call")
+}
 
 foreach ($Model in $Models) {
     $ArgsList += @("--model", $Model)

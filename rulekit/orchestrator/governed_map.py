@@ -184,6 +184,84 @@ Return ONLY this JSON shape:
 """
 
 
+SINGLE_MAP_PROMPT = """You are producing a governed Map record for a policy engine.
+
+You are NOT deciding policy outcomes. Your job is only:
+1. inventory the evidence sources, and
+2. bind every listed atom independently with value, epistemic basis, source ids,
+   evidence, explanation, and confidence.
+
+The deterministic RuleKit engine will decide the policy determinations later.
+Do not infer a binding from the desired or likely determination outcome.
+
+Critical binding rules:
+- Treat each atom independently.
+- Return one binding object for every atom in ATOMS.
+- Do NOT bind an atom to false merely because an open narrative does not mention it.
+- If the only reason for false is "not mentioned", return status "undetermined"
+  and basis "open_world_absence".
+- If a source affirmatively says a fact is absent and that source has a relevant
+  closed-world scope, false may use basis "closed_world_absence".
+- If sources conflict, return status "undetermined" and basis
+  "conflicting_evidence"; do not choose a winner.
+- If the atom cannot be answered from the evidence, return status
+  "undetermined" and basis "not_found".
+- For numeric atoms, extract only stated or directly computed values requested
+  by the atom; otherwise return "undetermined".
+
+For each source, return:
+- source_id
+- source_type
+- title
+- as_of_date if stated
+- closed_world_scopes: factual universes where absence from this source can
+  support a negative atom binding
+- limitations
+
+Allowed basis values:
+explicit_positive, explicit_negative, closed_world_absence, open_world_absence,
+inferred_from_record, conflicting_evidence, computed, looked_up, not_found.
+
+CASE NARRATIVE
+==============
+{narrative}
+
+DECLARED SOURCES
+================
+{declared_sources}
+
+ATOMS
+=====
+{atoms_json}
+
+Return ONLY this JSON shape:
+{{
+  "sources": [
+    {{
+      "source_id": "source id",
+      "source_type": "source type",
+      "title": "short title",
+      "as_of_date": "YYYY-MM-DD or null",
+      "closed_world_scopes": ["scope"],
+      "limitations": "limitations"
+    }}
+  ],
+  "bindings": [
+    {{
+      "atom_id": "atom id from ATOMS",
+      "status": "bound|undetermined|error",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["source id"],
+      "evidence": "short exact evidence or summary",
+      "explanation": "why this basis is appropriate",
+      "confidence": 0.0
+    }}
+  ]
+}}
+"""
+
+
 class GovernedEvidenceMapStep:
     """Map step that asks the LLM for evidence basis, then records it."""
 
@@ -197,6 +275,7 @@ class GovernedEvidenceMapStep:
         stream: bool = True,
         pricing: dict[tuple[str, str], tuple[float, float]] | None = None,
         batch_size: int = 1,
+        single_map_call: bool = False,
     ):
         self.llm = llm
         self.atom_ids = atom_ids
@@ -204,6 +283,7 @@ class GovernedEvidenceMapStep:
         self.stream = stream
         self.pricing = pricing or {}
         self.batch_size = max(1, batch_size)
+        self.single_map_call = single_map_call
         self.spec = MapStepSpec(
             map_step_id=map_step_id,
             name="Governed evidence Map step",
@@ -223,16 +303,30 @@ class GovernedEvidenceMapStep:
         declared_sources = evidence_sources_from_case_fields(case.structured_fields)
         artifacts: dict[str, Any] = {"atoms": {}}
         call_metrics: list[dict[str, Any]] = []
-        sources, source_artifacts = self._inventory_sources(
-            case,
-            declared_sources,
-            call_metrics,
-        )
-        artifacts["source_inventory"] = source_artifacts
         evidence_by_atom = _evidence_by_atom(case.structured_fields)
         bindings: dict[str, AtomBindingRecord] = {}
         selected_atoms = self._selected_atom_ids(program)
-        if self.batch_size == 1:
+        if self.single_map_call:
+            sources = self._bind_single_map_call(
+                program,
+                case,
+                selected_atoms,
+                declared_sources,
+                evidence_by_atom,
+                artifacts,
+                call_metrics,
+                bindings,
+            )
+        else:
+            sources, source_artifacts = self._inventory_sources(
+                case,
+                declared_sources,
+                call_metrics,
+            )
+            artifacts["source_inventory"] = source_artifacts
+        if self.single_map_call:
+            pass
+        elif self.batch_size == 1:
             self._bind_atoms_one_by_one(
                 program,
                 case,
@@ -287,9 +381,67 @@ class GovernedEvidenceMapStep:
                     "default_binding_count": default_count,
                     "llm_call_metrics": call_metrics,
                     "prompt_artifacts": artifacts,
+                    "single_map_call": self.single_map_call,
                 },
             )
         )
+
+    def _bind_single_map_call(
+        self,
+        program: DeterminationProgram,
+        case: CaseExample,
+        selected_atoms: list[str],
+        declared_sources: list[EvidenceSource],
+        evidence_by_atom: dict[str, str],
+        artifacts: dict[str, Any],
+        call_metrics: list[dict[str, Any]],
+        bindings: dict[str, AtomBindingRecord],
+    ) -> list[EvidenceSource]:
+        prompt = build_single_map_prompt(
+            program,
+            selected_atoms,
+            case,
+            declared_sources,
+            evidence_by_atom=evidence_by_atom,
+        )
+        raw, cost, metrics = self._call_llm("map_governed_single_map", prompt)
+        call_metrics.append(metrics)
+        sources, parsed_by_atom, parsed = _parse_single_map_payload(
+            selected_atoms,
+            raw,
+            declared_sources,
+        )
+        artifacts["single_map"] = {
+            "atom_ids": selected_atoms,
+            "prompt": prompt,
+            "raw_response": raw,
+            "parsed": parsed,
+            "metrics": cost.model_dump(mode="json"),
+        }
+        artifacts["source_inventory"] = {
+            "prompt": prompt,
+            "raw_response": raw,
+            "parsed": {"sources": [source.model_dump(mode="json") for source in sources]},
+            "metrics": cost.model_dump(mode="json"),
+            "from_single_map_call": True,
+        }
+        for atom_id in selected_atoms:
+            atom = program.map_spec.atoms[atom_id]
+            parsed_binding = parsed_by_atom.get(atom_id) or _error_payload(
+                atom_id,
+                "single-map response did not include this atom",
+            )
+            artifacts["atoms"][atom_id] = {
+                "single_map": True,
+                "parsed": parsed_binding,
+                "metrics": cost.model_dump(mode="json"),
+            }
+            bindings[atom_id] = _binding_from_payload(
+                atom_id,
+                atom.atom_type,
+                parsed_binding,
+            )
+        return sources
 
     def _bind_atoms_one_by_one(
         self,
@@ -513,6 +665,37 @@ def build_batch_atom_binding_prompt(
     )
 
 
+def build_single_map_prompt(
+    program: DeterminationProgram,
+    atom_ids: list[str],
+    case: CaseExample,
+    declared_sources: list[EvidenceSource],
+    *,
+    evidence_by_atom: dict[str, str],
+) -> str:
+    atoms_payload = []
+    for atom_id in atom_ids:
+        atom = program.map_spec.atoms[atom_id]
+        atoms_payload.append(
+            {
+                "atom": to_jsonable_python(atom),
+                "binding_policy": to_jsonable_python(
+                    getattr(atom, "binding_policy", None)
+                ),
+                "relevant_evidence": evidence_by_atom.get(atom_id) or case.narrative,
+            }
+        )
+    return SINGLE_MAP_PROMPT.format(
+        narrative=case.narrative,
+        declared_sources=json.dumps(
+            [source.model_dump(mode="json") for source in declared_sources],
+            indent=2,
+            sort_keys=True,
+        ),
+        atoms_json=json.dumps(atoms_payload, indent=2, sort_keys=True),
+    )
+
+
 def _parse_binding_payload(atom_id: str, raw: str) -> dict[str, Any]:
     try:
         parsed = parse_json_response(raw)
@@ -545,6 +728,58 @@ def _parse_batch_binding_payloads(atom_ids: list[str], raw: str) -> dict[str, di
         if isinstance(item, dict) and item.get("atom_id") is not None:
             by_atom[str(item["atom_id"])] = item
     return by_atom
+
+
+def _parse_single_map_payload(
+    atom_ids: list[str],
+    raw: str,
+    declared_sources: list[EvidenceSource],
+) -> tuple[list[EvidenceSource], dict[str, dict[str, Any]], dict[str, Any]]:
+    try:
+        parsed = parse_json_response(raw)
+    except Exception as exc:
+        return (
+            declared_sources,
+            {
+                atom_id: _error_payload(atom_id, f"could not parse LLM JSON response: {exc}")
+                for atom_id in atom_ids
+            },
+            {"parse_error": str(exc), "raw": raw},
+        )
+    if not isinstance(parsed, dict):
+        return (
+            declared_sources,
+            {
+                atom_id: _error_payload(atom_id, "single-map response was not a JSON object")
+                for atom_id in atom_ids
+            },
+            {"parse_error": "single-map response was not a JSON object", "raw": raw},
+        )
+
+    sources_payload = parsed.get("sources", [])
+    sources = [
+        EvidenceSource.model_validate(source)
+        for source in sources_payload
+        if isinstance(source, dict)
+    ]
+    if not sources:
+        sources = declared_sources
+
+    bindings = parsed.get("bindings", [])
+    if not isinstance(bindings, list):
+        return (
+            sources,
+            {
+                atom_id: _error_payload(atom_id, "single-map response did not include bindings")
+                for atom_id in atom_ids
+            },
+            parsed,
+        )
+    by_atom: dict[str, dict[str, Any]] = {}
+    for item in bindings:
+        if isinstance(item, dict) and item.get("atom_id") is not None:
+            by_atom[str(item["atom_id"])] = item
+    return sources, by_atom, parsed
 
 
 def _error_payload(atom_id: str, explanation: str) -> dict[str, Any]:
@@ -663,7 +898,9 @@ __all__ = [
     "SOURCE_INVENTORY_PROMPT",
     "ATOM_BINDING_PROMPT",
     "BATCH_ATOM_BINDING_PROMPT",
+    "SINGLE_MAP_PROMPT",
     "build_source_inventory_prompt",
     "build_atom_binding_prompt",
     "build_batch_atom_binding_prompt",
+    "build_single_map_prompt",
 ]

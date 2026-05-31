@@ -232,6 +232,59 @@ def test_governed_map_step_can_bind_atoms_in_batches():
     assert artifacts["atoms"]["n400.aggravated_felony_after_1990"]["batch_index"] == 1
 
 
+def test_governed_map_step_can_bind_single_map_call():
+    program = _program()
+    case = CaseExample(
+        case_id="single_map_packet",
+        title="Single map packet",
+        narrative="The packet includes an FBI criminal history check showing no felony convictions.",
+        structured_fields={
+            "evidence_sources": [
+                {
+                    "source_id": "fbi_check",
+                    "source_type": "criminal_history_check",
+                    "title": "FBI criminal history check",
+                    "closed_world_scopes": ["criminal_convictions"],
+                }
+            ],
+        },
+        expected_outcomes=[],
+    )
+    llm = LLMCaller(
+        offline_responses={
+            "map_governed_single_map": (
+                '{"sources":[{"source_id":"fbi_check","source_type":"criminal_history_check",'
+                '"title":"FBI check","as_of_date":null,'
+                '"closed_world_scopes":["criminal_convictions"],"limitations":""}],'
+                '"bindings":[{"atom_id":"n400.aggravated_felony_after_1990",'
+                '"status":"bound","value":false,"basis":"closed_world_absence",'
+                '"source_ids":["fbi_check"],"evidence":"no felony convictions found",'
+                '"explanation":"official check","confidence":0.95}]}'
+            ),
+        }
+    )
+    step = GovernedEvidenceMapStep(
+        llm,
+        atom_ids=["n400.aggravated_felony_after_1990"],
+        single_map_call=True,
+    )
+
+    result = step.run(
+        program,
+        case,
+        MapStepContext(program_id="prog", substrate_id=step.spec.map_step_id),
+    )
+
+    binding = result.map_record.bindings["n400.aggravated_felony_after_1990"]
+    artifacts = result.map_record.metadata["prompt_artifacts"]
+    assert binding.value is False
+    assert binding.basis == BindingBasis.CLOSED_WORLD_ABSENCE
+    assert result.map_record.metadata["single_map_call"] is True
+    assert len(result.map_record.metadata["llm_call_metrics"]) == 1
+    assert artifacts["source_inventory"]["from_single_map_call"] is True
+    assert artifacts["atoms"]["n400.aggravated_felony_after_1990"]["single_map"] is True
+
+
 def test_governed_map_step_applies_case_default_bindings_to_undetermined_atoms():
     program = _program()
     case = CaseExample(
