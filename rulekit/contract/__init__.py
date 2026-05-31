@@ -100,6 +100,7 @@ from rulekit.contract.program import (
     DeterminationSpec,
     ProductionRecord,
     ProgramMetadata,
+    RoutingLogicSpec,
 )
 from rulekit.contract.validators import (
     ValidationReport,
@@ -117,6 +118,7 @@ __all__ = [
     "ProgramMetadata",
     "ProductionRecord",
     "DeterminationSpec",
+    "RoutingLogicSpec",
     # Map
     "MapSpec",
     "BindingBasis",

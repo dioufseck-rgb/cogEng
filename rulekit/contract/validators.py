@@ -297,6 +297,31 @@ def _check_determination_complement_links(program: DeterminationProgram,
             )
 
 
+def _check_routing_determinations(program: DeterminationProgram,
+                                  report: ValidationReport) -> None:
+    """Routing determinations may name trigger atoms directly."""
+    atoms = program.map_spec.atoms
+    for det_id, det in program.determinations.items():
+        if det.determination_kind != "routing":
+            continue
+        if det.routing is None:
+            report.errors.append(
+                f"determination {det_id!r}: routing determination has no routing config"
+            )
+            continue
+        for atom_id in det.routing.trigger_atoms:
+            if atom_id not in atoms:
+                report.errors.append(
+                    f"determination {det_id!r}: routing trigger atom "
+                    f"{atom_id!r} not found in map_spec.atoms"
+                )
+            elif atoms[atom_id].atom_type != "boolean":
+                report.errors.append(
+                    f"determination {det_id!r}: routing trigger atom "
+                    f"{atom_id!r} must be boolean"
+                )
+
+
 def _check_constant_label_resolution(program: DeterminationProgram,
                                        report: ValidationReport) -> None:
     """Every constant_label used by a node names a key in program.constants."""
@@ -498,6 +523,7 @@ def validate_program(program: DeterminationProgram,
     _check_atom_ref_integrity(program, report)
     _check_node_ref_integrity(program, report)
     _check_determination_complement_links(program, report)
+    _check_routing_determinations(program, report)
     _check_constant_label_resolution(program, report)
     _check_dag_acyclic(program, report)
     _check_orphan_nodes(program, report, orphans_are_errors=orphans_are_errors)

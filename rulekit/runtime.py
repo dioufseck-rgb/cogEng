@@ -12,6 +12,7 @@ from pydantic_core import to_jsonable_python
 from rulekit.contract import DeterminationProgram, safe_program_to_engine, validate_program
 from rulekit.orchestrator.cases import CaseExample, ExpectedOutcome
 from rulekit.orchestrator.disposition import DispositionRecord
+from rulekit.orchestrator.evaluation import evaluate_determination_with_map_record
 from rulekit.orchestrator.exercise import (
     extract_leaf_path,
     fact_bundle_from_values,
@@ -112,7 +113,15 @@ def adjudicate_cases(
         }
         for det_id in selected_determinations:
             started = perf_counter()
-            outcome, trace = runtime.determinations[det_id].evaluate(bundle)
+            evaluation = evaluate_determination_with_map_record(
+                program,
+                runtime,
+                det_id,
+                bundle,
+                map_record,
+            )
+            outcome = evaluation.outcome
+            trace = evaluation.trace
             expected_value = expected.get(det_id)
             dispositions.append(
                 DispositionRecord(
@@ -134,6 +143,7 @@ def adjudicate_cases(
                         "case_title": case.title,
                         "map_record_id": map_record.map_record_id,
                         "map_validation": map_validation.summary(),
+                        **evaluation.metadata,
                     },
                 )
             )

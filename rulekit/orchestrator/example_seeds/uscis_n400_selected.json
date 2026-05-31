@@ -4525,6 +4525,29 @@
       "operator": "and",
       "polarity": "neutral",
       "root_node": "n_human_review_required",
+      "determination_kind": "routing",
+      "routing": {
+        "mode": "any_true",
+        "trigger_atoms": [
+          "n400.complex_absence_pattern",
+          "n400.inconsistent_travel_history",
+          "n400.evidence_missing_critical_dates",
+          "n400.unresolved_tax_issue",
+          "n400.disputed_selective_service_issue",
+          "n400.pending_criminal_charge",
+          "n400.unresolved_arrest_disposition",
+          "n400.possible_false_testimony",
+          "n400.possible_gmc_discretion_issue",
+          "n400.accommodation_or_disability_documentation_unclear",
+          "n400.name_identity_record_conflict",
+          "n400.interpreter_or_understanding_issue",
+          "n400.legal_exception_claimed_needs_review",
+          "n400.outside_benchmark_scope"
+        ],
+        "missing_behavior": "false",
+        "conflict_behavior": "true",
+        "error_behavior": "true"
+      },
       "source_span": "RuleKit benchmark governance trigger"
     },
     {

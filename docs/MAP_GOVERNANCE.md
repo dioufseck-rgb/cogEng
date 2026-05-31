@@ -50,6 +50,40 @@ The validator enforces this after Map returns. Invalid bindings are sanitized
 to `undetermined`, marked for human review, or treated as errors depending on
 the atom policy.
 
+## Routing Determinations
+
+Some determinations are not substantive policy adjudications. For example,
+`human_review_required` is routing logic over validated trigger state. These
+determinations can be declared with `determination_kind: "routing"` and a
+`routing` block:
+
+```json
+{
+  "determination_kind": "routing",
+  "routing": {
+    "mode": "any_true",
+    "trigger_atoms": ["policy.pending_charge", "policy.record_conflict"],
+    "missing_behavior": "false",
+    "conflict_behavior": "true",
+    "error_behavior": "true"
+  }
+}
+```
+
+This keeps routing out of domain Python and avoids treating absent trigger
+facts like missing substantive eligibility facts. A trigger atom that is
+affirmatively true routes the case; missing trigger atoms default false unless
+the program says otherwise; conflicts and errors can route to review.
+
+## Evidence-Aware Evaluation
+
+The engine still evaluates ordinary adjudication DAGs with standard Kleene
+operators. The governed runtime adds an evidence-aware pass after engine
+evaluation. When a false outcome depends on unresolved evidence, or when a
+conflicting atom is present in the trace, the disposition is preserved as
+`undetermined` rather than collapsing to false. The disposition trace records
+the override and the atoms that caused it.
+
 ## Prompt Strategy
 
 The governed LLM Map step uses two stages:

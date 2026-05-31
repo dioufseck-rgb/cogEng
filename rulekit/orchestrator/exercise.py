@@ -10,6 +10,7 @@ from rulekit.engine.boolean import FactBundle, Kleene
 from rulekit.engine.typed import NumericValue
 from rulekit.orchestrator.cases import CaseExample
 from rulekit.orchestrator.disposition import DispositionRecord
+from rulekit.orchestrator.evaluation import evaluate_determination_with_map_record
 from rulekit.orchestrator.hints import ReviewerHint
 from rulekit.orchestrator.ids import new_id
 from rulekit.orchestrator.map_step import MapStep, MapStepContext
@@ -140,9 +141,16 @@ def exercise_program_on_case_with_map(
     runtime = safe_program_to_engine(program)
     records: list[DispositionRecord] = []
     for expected in case.expected_outcomes:
-        determination = runtime.determinations[expected.determination_id]
         eval_started = perf_counter()
-        outcome, trace = determination.evaluate(bundle)
+        evaluation = evaluate_determination_with_map_record(
+            program,
+            runtime,
+            expected.determination_id,
+            bundle,
+            map_record,
+        )
+        outcome = evaluation.outcome
+        trace = evaluation.trace
         engine_latency_ms = (perf_counter() - eval_started) * 1000
         records.append(
             DispositionRecord(
@@ -163,6 +171,7 @@ def exercise_program_on_case_with_map(
                     "map_record_id": map_record.map_record_id,
                     "prebound_fact_count": len(fact_values),
                     "exercise_latency_s": perf_counter() - started,
+                    **evaluation.metadata,
                 },
             )
         )
@@ -195,9 +204,16 @@ def exercise_program_on_case_with_map_record(
     runtime = safe_program_to_engine(program)
     records: list[DispositionRecord] = []
     for expected in case.expected_outcomes:
-        determination = runtime.determinations[expected.determination_id]
         eval_started = perf_counter()
-        outcome, trace = determination.evaluate(bundle)
+        evaluation = evaluate_determination_with_map_record(
+            program,
+            runtime,
+            expected.determination_id,
+            bundle,
+            map_record,
+        )
+        outcome = evaluation.outcome
+        trace = evaluation.trace
         engine_latency_ms = (perf_counter() - eval_started) * 1000
         records.append(
             DispositionRecord(
@@ -217,6 +233,7 @@ def exercise_program_on_case_with_map_record(
                     "case_title": case.title,
                     "map_record_id": map_record.map_record_id,
                     "exercise_latency_s": perf_counter() - started,
+                    **evaluation.metadata,
                 },
             )
         )

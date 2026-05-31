@@ -421,10 +421,26 @@ class DeterminationSpec(BaseModel):
     # If composition="complement": linked_to names another determination,
     # and this determination's root is NOT(linked_to.root_node)
     linked_to: Optional[AtomId] = None
+    determination_kind: Literal["adjudication", "routing"] = "adjudication"
+    routing: Optional[RoutingLogicSpec] = None
 ```
 
 Cross-model validator: exactly one of `(root_node, linked_to)` set,
-matching the `composition` field.
+matching the `composition` field. If `determination_kind="routing"`,
+`routing` must be present.
+
+Routing determinations are not substantive policy adjudications. They are
+runtime routing questions over validated trigger atoms, such as whether a case
+requires human review:
+
+```python
+class RoutingLogicSpec(BaseModel):
+    mode: Literal["any_true"] = "any_true"
+    trigger_atoms: list[AtomId] = Field(default_factory=list)
+    missing_behavior: Literal["false", "undetermined"] = "false"
+    conflict_behavior: Literal["true", "undetermined"] = "true"
+    error_behavior: Literal["true", "undetermined"] = "true"
+```
 
 ---
 

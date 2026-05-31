@@ -101,6 +101,23 @@ NUMERIC_NODE_KINDS = frozenset({
 # Determinations
 # ---------------------------------------------------------------------------
 
+class RoutingLogicSpec(BaseModel):
+    """Declarative routing semantics for non-adjudicative determinations.
+
+    Routing determinations answer questions such as "should this case be sent
+    to human review?" They are evaluated over validated Map trigger bindings,
+    not as ordinary eligibility DAGs where missing trigger atoms propagate like
+    missing substantive facts.
+    """
+    model_config = ConfigDict(extra="forbid")
+
+    mode: Literal["any_true"] = "any_true"
+    trigger_atoms: list[AtomId] = Field(default_factory=list)
+    missing_behavior: Literal["false", "undetermined"] = "false"
+    conflict_behavior: Literal["true", "undetermined"] = "true"
+    error_behavior: Literal["true", "undetermined"] = "true"
+
+
 class DeterminationSpec(BaseModel):
     """A named determination — the root claim the engine adjudicates.
 
@@ -125,6 +142,8 @@ class DeterminationSpec(BaseModel):
     composition: Literal["derived", "complement"] = "derived"
     root_node: Optional[NodeRef] = None
     linked_to: Optional[AtomId] = None
+    determination_kind: Literal["adjudication", "routing"] = "adjudication"
+    routing: Optional[RoutingLogicSpec] = None
 
     def model_post_init(self, __context):
         # Pydantic v2 doesn't run model_validator(mode="after") inside
@@ -143,6 +162,11 @@ class DeterminationSpec(BaseModel):
                     f"determination {self.id!r}: composition=complement "
                     f"requires linked_to set and root_node unset"
                 )
+        if self.determination_kind == "routing" and self.routing is None:
+            raise ValueError(
+                f"determination {self.id!r}: determination_kind=routing "
+                f"requires routing configuration"
+            )
 
 
 # ---------------------------------------------------------------------------
@@ -226,6 +250,7 @@ __all__ = [
     "AnyNodeSpec",
     "BOOLEAN_NODE_KINDS",
     "NUMERIC_NODE_KINDS",
+    "RoutingLogicSpec",
     "DeterminationSpec",
     "ProgramMetadata",
     "ProductionRecord",

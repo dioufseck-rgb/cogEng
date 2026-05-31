@@ -11,17 +11,17 @@ not copied from saved RuleKit or direct-LLM outputs.
 | System | Compared | Matches | Mismatches | Accuracy |
 |---|---:|---:|---:|---:|
 | rulekit_expanded_batched | 80 | 61 | 19 | 76.25% |
-| rulekit_with_case_defaults | 80 | 66 | 14 | 82.50% |
+| rulekit_with_case_defaults | 80 | 72 | 8 | 90.00% |
 | direct_anthropic | 80 | 67 | 13 | 83.75% |
 
 ## Side-By-Side
 
 | Result | Count |
 |---|---:|
-| both_match | 54 |
-| rulekit_only | 7 |
-| direct_only | 13 |
-| neither_match | 6 |
+| both_match | 60 |
+| rulekit_only | 12 |
+| direct_only | 7 |
+| neither_match | 1 |
 
 ## rulekit_expanded_batched Mismatch Patterns
 
@@ -73,8 +73,7 @@ not copied from saved RuleKit or direct-LLM outputs.
 
 | Actual | Expected | Count |
 |---|---|---:|
-| `false` | `undetermined` | 5 |
-| `undetermined` | `false` | 7 |
+| `undetermined` | `false` | 6 |
 | `undetermined` | `true` | 2 |
 
 ### By Determination
@@ -82,11 +81,11 @@ not copied from saved RuleKit or direct-LLM outputs.
 | Determination | Mismatches |
 |---|---:|
 | `n400.civics_requirement_satisfied` | 1 |
-| `n400.continuous_residence_satisfied` | 2 |
+| `n400.continuous_residence_satisfied` | 1 |
 | `n400.english_requirement_satisfied` | 1 |
-| `n400.good_moral_character_satisfied` | 1 |
-| `n400.human_review_required` | 6 |
-| `n400.physical_presence_satisfied` | 2 |
+| `n400.good_moral_character_satisfied` | 2 |
+| `n400.oath_attachment_satisfied` | 1 |
+| `n400.physical_presence_satisfied` | 1 |
 | `n400.state_residence_satisfied` | 1 |
 
 ### Mismatches
@@ -94,19 +93,13 @@ not copied from saved RuleKit or direct-LLM outputs.
 | Case | Determination | Expected | Actual |
 |---|---|---|---|
 | `tier1_clean_general_track_packet` | `n400.good_moral_character_satisfied` | `true` | `undetermined` |
-| `tier1_travel_conflict_six_month_absence` | `n400.continuous_residence_satisfied` | `undetermined` | `false` |
-| `tier1_travel_conflict_six_month_absence` | `n400.physical_presence_satisfied` | `undetermined` | `false` |
-| `tier1_one_year_absence_no_exception` | `n400.human_review_required` | `false` | `undetermined` |
-| `tier1_physical_presence_short_by_worksheet` | `n400.human_review_required` | `false` | `undetermined` |
-| `tier1_physical_presence_short_by_worksheet` | `n400.state_residence_satisfied` | `undetermined` | `false` |
-| `tier1_state_residence_short` | `n400.human_review_required` | `false` | `undetermined` |
+| `tier1_one_year_absence_no_exception` | `n400.continuous_residence_satisfied` | `false` | `undetermined` |
+| `tier1_physical_presence_short_by_worksheet` | `n400.physical_presence_satisfied` | `false` | `undetermined` |
+| `tier1_state_residence_short` | `n400.state_residence_satisfied` | `false` | `undetermined` |
 | `tier1_english_failed_civics_passed_no_exception` | `n400.civics_requirement_satisfied` | `true` | `undetermined` |
 | `tier1_english_failed_civics_passed_no_exception` | `n400.english_requirement_satisfied` | `false` | `undetermined` |
-| `tier1_english_failed_civics_passed_no_exception` | `n400.human_review_required` | `false` | `undetermined` |
-| `tier1_medical_disability_exception_approved` | `n400.human_review_required` | `false` | `undetermined` |
-| `tier1_oath_attachment_refusal` | `n400.human_review_required` | `false` | `undetermined` |
-| `tier1_missing_travel_dates` | `n400.continuous_residence_satisfied` | `undetermined` | `false` |
-| `tier1_missing_travel_dates` | `n400.physical_presence_satisfied` | `undetermined` | `false` |
+| `tier1_oath_attachment_refusal` | `n400.oath_attachment_satisfied` | `false` | `undetermined` |
+| `tier1_pending_charge_with_clean_conviction_check` | `n400.good_moral_character_satisfied` | `false` | `undetermined` |
 
 ## direct_anthropic Mismatch Patterns
 
@@ -149,7 +142,6 @@ not copied from saved RuleKit or direct-LLM outputs.
 
 ## Readout
 
-- Case-packet default semantics moved RuleKit from `61/80` to `66/80`, closing most of the gap to direct Anthropic without another LLM call.
-- RuleKit remains conservative against this ground truth: most remaining misses are `undetermined` where the benchmark label says `true` or `false`.
-- Direct Anthropic is more decisive and still slightly more accurate on this small labeled set, but its misses are mostly true-direction overclaims.
-- The remaining RuleKit errors now concentrate in two places: Kleene propagation for non-load-bearing missing facts, and `human_review_required` behaving like an ordinary adjudication determination rather than routing logic over validated trigger state.
+- Case defaults plus evidence-aware routing/conflict handling moved RuleKit to `72/80` on this benchmark replay.
+- RuleKit now exceeds the direct Anthropic headline accuracy on this labeled set while preserving governed atom-level traces.
+- The remaining RuleKit misses are all conservative `undetermined` outcomes; the next work is better source-scope defaults for clean negative bars and explicit scope facts.

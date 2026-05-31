@@ -224,14 +224,16 @@ The useful differences were in basis selection:
   undetermined, but this payload is internally inconsistent and should be
   normalized or flagged.
 
-One architectural issue was exposed:
+One architectural issue was exposed and has now been addressed in the runtime:
 
 - In the conflict case, models returned `status=undetermined` with
   `basis=conflicting_evidence`.
-- The validator treated this as accepted because undetermined bindings
-  currently short-circuit validation.
-- For governed runtime, `conflicting_evidence` should mark human review when
-  the undetermined atom is load-bearing for the requested disposition.
+- The governed evaluator now preserves unresolved relevant evidence when a
+  false engine result is not stable, and conflict-bearing atoms can force the
+  disposition back to `undetermined` instead of collapsing to false.
+- `human_review_required` can now be declared as routing logic over trigger
+  atoms, so missing trigger facts default to no route while conflicts/errors
+  can route to review.
 
 A broader Tier 1 USCIS eval has also been added under:
 
@@ -264,6 +266,12 @@ before computing arithmetic, treating approximate durations differently from
 exact date arithmetic, and tightening `computed` versus `inferred_from_record`
 basis taxonomy.
 
+The Tier 1 ground-truth replay now shows the value of the governed runtime
+layer: saved Anthropic Map records plus case defaults and routing/conflict
+handling score `72/80` (`90.00%`) versus direct Anthropic's `67/80`
+(`83.75%`). The remaining RuleKit misses are conservative `undetermined`
+outcomes.
+
 ## Current Strengths
 
 - The engine is deterministic and typed.
@@ -272,6 +280,10 @@ basis taxonomy.
 - Numeric/arithmetic reasoning is supported by the engine, not delegated to
   LLM free-form reasoning.
 - The Map layer now has the vocabulary needed for governed negative facts.
+- Routing determinations can be represented in the generic contract instead
+  of being encoded as ordinary adjudication determinations.
+- Evidence-aware evaluation preserves traceability while preventing conflict
+  cases from collapsing to unsupported false outcomes.
 - The multi-provider eval harness saves prompts, raw responses, parsed
   bindings, validation reports, and dispositions.
 - Initial live results support the core prompt strategy.
@@ -288,12 +300,10 @@ decomposition, source coverage, review workflows, and edit ergonomics.
 
 ### Map Validation Semantics
 
-Two refinements are needed:
+One refinement remains:
 
 - `status=undetermined` with concrete `value=true/false` should be normalized
   or flagged.
-- `basis=conflicting_evidence` should trigger the configured conflict behavior
-  even when status is undetermined.
 
 ### Evidence Packet Model
 
@@ -331,31 +341,36 @@ builder. It still needs better workflows for:
 
 ## Near-Term Priorities
 
-1. Fix Map validation semantics:
-   - reject or normalize contradictory undetermined payloads
-   - apply conflict behavior even for undetermined bindings
+1. Tighten source-scope/default semantics:
+   - extend clean-packet negative-bar defaults where official sources cover
+     the relevant factual universe
+   - add explicit scope facts for failed tests, oath refusal, short presence,
+     and state-residence shortfall cases
 
-2. Shorten or bundle live eval artifact paths.
+2. Normalize contradictory undetermined payloads:
+   - reject or normalize `status=undetermined` with concrete true/false values
 
-3. Add a report analyzer for `map-eval` outputs:
+3. Shorten or bundle live eval artifact paths.
+
+4. Add a report analyzer for `map-eval` outputs:
    - model comparison table
    - failure-mode table
    - basis confusion matrix
    - raw examples for disagreements
 
-4. Extend the evidence-packet suite:
+5. Extend the evidence-packet suite:
    - more domains
    - more atom types
    - more ambiguous source-scope cases
    - reviewer-hint reruns
 
-5. Improve Builder UI around Map governance:
+6. Improve Builder UI around Map governance:
    - basis and source display
    - invalid binding review
    - human-review trigger surfacing
    - provider comparison view
 
-6. Continue toward v1 policy package:
+7. Continue toward v1 policy package:
 
 ```text
 RuleKitPolicyPackage

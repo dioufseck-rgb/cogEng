@@ -35,6 +35,7 @@ from rulekit.contract import (
     OrNodeSpec,
     ProgramMetadata,
     Provenance,
+    RoutingLogicSpec,
     UnaryArithmeticSpec,
     VariadicArithmeticSpec,
 )
@@ -143,6 +144,8 @@ class DeterminationDeclaration(BaseModel):
     composition: Literal["derived", "complement"] = "derived"
     root_node: str | None = None
     linked_to: str | None = None
+    determination_kind: Literal["adjudication", "routing"] = "adjudication"
+    routing: RoutingLogicSpec | None = None
 
 
 class PolicyWorkspaceSeed(BaseModel):
@@ -317,6 +320,8 @@ def create_candidate_program(
             polarity=det.polarity,
             source_span=det.source_span,
             root_node=root_node,
+            determination_kind=det.determination_kind,
+            routing=det.routing,
         )
     return DeterminationProgram(
         metadata=ProgramMetadata(name=program_name, version=version),

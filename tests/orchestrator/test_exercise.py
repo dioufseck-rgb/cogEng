@@ -3,12 +3,14 @@ from __future__ import annotations
 from rulekit.contract import (
     AndNodeSpec,
     AtomRef,
+    BindingBasis,
     BooleanAtom,
     CaseInputSchema,
     DeterminationProgram,
     DeterminationSpec,
     EvaluationMode,
     MapSpec,
+    RoutingLogicSpec,
     ProgramMetadata,
     Provenance,
 )
@@ -17,10 +19,12 @@ from rulekit.orchestrator import (
     ExpectedOutcome,
     exercise_program_on_case,
     exercise_program_on_case_with_map,
+    exercise_program_on_case_with_map_record,
     exercise_program_on_suite,
     fact_bundle_from_values,
     map_record_from_values,
 )
+from rulekit.orchestrator.map_record import AtomBindingStatus
 
 
 def _program() -> DeterminationProgram:
@@ -162,3 +166,73 @@ def test_exercise_program_on_suite_handles_multiple_cases():
 
     assert [record.outcome for record in records] == ["true", "false"]
     assert all(record.matched_expected for record in records)
+
+
+def test_conflicting_evidence_preserves_undetermined_over_false_dag_path():
+    program = _program()
+    case = _case("case_conflict", "undetermined")
+    map_record = map_record_from_values(
+        program,
+        case,
+        {"fcba.credit_extended": False},
+        program_id="prog_fcba",
+        evidence={
+            "fcba.credit_extended": "not an extension of credit",
+            "fcba.unauthorized": "cardholder and merchant records conflict",
+        },
+    )
+    conflict = map_record.bindings["fcba.unauthorized"]
+    conflict.status = AtomBindingStatus.UNDETERMINED
+    conflict.value = "undetermined"
+    conflict.basis = BindingBasis.CONFLICTING_EVIDENCE
+    conflict.evidence = "cardholder and merchant records conflict"
+
+    records = exercise_program_on_case_with_map_record(
+        program,
+        case,
+        map_record,
+        program_id="prog_fcba",
+    )
+
+    assert records[0].outcome == "undetermined"
+    assert records[0].metadata["evidence_uncertainty_override"]["force_override_atom_ids"] == [
+        "fcba.unauthorized"
+    ]
+
+
+def test_routing_determination_treats_missing_triggers_as_false():
+    program = _program().model_copy(deep=True)
+    program.determinations["fcba.human_review_required"] = DeterminationSpec(
+        id="fcba.human_review_required",
+        description="The case requires human review.",
+        root_node="n_unauth",
+        determination_kind="routing",
+        routing=RoutingLogicSpec(trigger_atoms=["fcba.unauthorized"]),
+    )
+    case = CaseExample(
+        case_id="case_route",
+        title="case_route",
+        narrative="No review trigger is established.",
+        expected_outcomes=[
+            ExpectedOutcome(
+                determination_id="fcba.human_review_required",
+                expected_value="false",
+            )
+        ],
+    )
+    map_record = map_record_from_values(
+        program,
+        case,
+        {"fcba.credit_extended": True},
+        program_id="prog_fcba",
+    )
+
+    records = exercise_program_on_case_with_map_record(
+        program,
+        case,
+        map_record,
+        program_id="prog_fcba",
+    )
+
+    assert records[0].outcome == "false"
+    assert records[0].metadata["routing"]["undetermined_triggers"] == []
