@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.military_service_residence_exception_if_needed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "Worksheet covers physical presence totals only; no mention of military service.",
+      "explanation": "Military service exceptions are outside the worksheet's closed-world scope; absence of mention does not establish false.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.travel_records_complete",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "Worksheet lists dates and total days but does not assert completeness or verification against records.",
+      "explanation": "The worksheet is self-declared and does not affirm completeness of travel records.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "n400.passport_records_support_travel",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "Worksheet does not reference passport or independent travel records.",
+      "explanation": "Worksheet explicitly does not verify against border or government records; outside its closed-world scope.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.no_unexplained_trip_gaps",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "Worksheet lists dates and totals but no assessment of gap explanations is provided.",
+      "explanation": "No information about whether gaps exist or are explained.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "n400.no_break_in_residence_from_absence",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "Worksheet totals 24 months presence in five-year period; does not characterize absences as breaking continuous residence.",
+      "explanation": "Continuous residence determination is outside the worksheet's scope.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "n400.months_after_absence_reestablished_if_needed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "No information regarding reestablishment of residence after any breaking absence.",
+      "explanation": "Worksheet does not address residence reestablishment.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "n400.filing_under_3yr_spouse",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "Applicant is applying under the general five-year track; worksheet lists no alternative spouse-track claim.",
+      "explanation": "Presence of an alternative spouse-track claim is within the worksheet's closed-world scope, and narrative affirmatively states the five-year track applies.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.months_physical_presence_3yr",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "Worksheet states 24 months presence during the five-year statutory period; no three-year spouse period total provided.",
+      "explanation": "The worksheet reports only the five-year window; presence within a three-year spouse window is not stated and cannot be directly computed.",
+      "confidence": 0.9
+    }
+  ]
+}

@@ -74,6 +74,8 @@ rulekit-orchestrator map-eval `
   --model openai:gpt-5 `
   --model gemini:gemini-2.5-pro `
   --price anthropic:claude-opus-4-7=15,75 `
+  --atom-scope determination-slice `
+  --batch-size 8 `
   --determination n400.selected_n400_requirements_satisfied `
   --atom n400.aggravated_felony_after_1990 `
   --out audits/map_governance_n400 `
@@ -118,3 +120,21 @@ Pricing is supplied explicitly as USD per million input/output tokens:
 Token counts are currently estimated from character length. They are useful for
 provider/model comparisons and budget planning, but should be replaced with
 exact SDK usage metadata when provider wrappers expose it consistently.
+
+## Atom Scope And Batching
+
+The governed Map eval can now bind more than one atom per LLM call:
+
+```powershell
+--batch-size 8
+```
+
+When explicit `--atom` values are omitted, `--atom-scope` controls coverage:
+
+- `all`: bind every atom in the program.
+- `determination-slice`: bind only atoms reachable from the selected
+  determinations' DAG roots.
+
+`determination-slice` is the preferred comparison mode for direct-LLM
+baselines because it gives RuleKit coverage over the whole relevant policy
+surface without binding unrelated atoms.

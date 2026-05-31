@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.complex_absence_pattern",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No travel or absence information in the narrative or sources.",
+      "explanation": "Sources cover criminal history and court dockets, not travel/absence patterns.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.inconsistent_travel_history",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No travel history is discussed in the available evidence.",
+      "explanation": "No travel data present in either source; cannot assess consistency.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.evidence_missing_critical_dates",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["county_docket"],
+      "evidence": "Pending felony charge with next hearing date after N-400 interview; no disposition date; applicant claims dismissal but no dismissal order included.",
+      "explanation": "The disposition/dismissal date for the pending felony charge—critical to GMC assessment—is missing from the record.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "n400.unresolved_tax_issue",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No tax-related information in the sources.",
+      "explanation": "Sources do not cover tax matters; absence is not informative.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.disputed_selective_service_issue",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No Selective Service information in the sources.",
+      "explanation": "Sources do not address Selective Service registration.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.possible_false_testimony",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["county_docket"],
+      "evidence": "Applicant statement says the charge will be dismissed, but no dismissal order is included in the docket record.",
+      "explanation": "Applicant's unverified claim of dismissal contradicts the docket showing the charge still pending, suggesting potential testimony concern warranting review.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.possible_gmc_discretion_issue",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["county_docket", "fbi_check"],
+      "evidence": "Pending felony charge with next hearing date after the N-400 interview; no dismissal order present.",
+      "explanation": "A pending felony charge during the statutory GMC period raises a discretionary GMC issue requiring human review.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.accommodation_or_disability_documentation_unclear",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No accommodation or disability documentation discussed in the sources.",
+      "explanation": "Sources do not address accommodation/disability matters.",
+      "confidence": 0.9
+    }
+  ]
+}

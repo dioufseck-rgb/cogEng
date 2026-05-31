@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.absence_6_to_12_months",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["passport_stamps", "cbp_history"],
+      "evidence": "Departure March 1, 2022 and re-entry September 15, 2022 (~198 days).",
+      "explanation": "Both passport stamps and CBP records affirmatively show an absence greater than six months and less than one year.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.days_absent_trip_1",
+      "status": "bound",
+      "value": 198,
+      "basis": "computed",
+      "source_ids": ["passport_stamps", "cbp_history"],
+      "evidence": "March 1, 2022 to September 15, 2022.",
+      "explanation": "Days computed directly from CBP and passport stamp dates for the first material trip.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.days_absent_trip_2",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["n400_travel_table", "cbp_history", "passport_stamps"],
+      "evidence": "Narrative and sources describe only one material trip (March 1, 2022 to September 15, 2022).",
+      "explanation": "No second material trip is described in the evidence; absence of mention does not constitute a closed-world negation here.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "n400.days_absent_trip_3",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["n400_travel_table", "cbp_history", "passport_stamps"],
+      "evidence": "No third trip described in the evidence.",
+      "explanation": "No information available about a third material trip.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "n400.days_absent_trip_4",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["n400_travel_table", "cbp_history", "passport_stamps"],
+      "evidence": "No fourth trip described in the evidence.",
+      "explanation": "No information available about a fourth material trip.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "n400.rebuttal_no_residence_abandoned",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["residence_evidence"],
+      "evidence": "Lease, U.S. bank statements, and family residence records (spouse and children remained in the U.S.) during the period abroad.",
+      "explanation": "Documentary evidence of maintained U.S. ties during the absence supports rebuttal of abandonment of residence.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "n400.maintained_us_home",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["residence_evidence"],
+      "evidence": "Lease records and U.S. bank statements cover the period abroad.",
+      "explanation": "Residence records affirmatively show maintenance of a U.S. home during the absence.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.maintained_us_family_ties",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["residence_evidence"],
+      "evidence": "Family residence records show spouse and children remained in the United States.",
+      "explanation": "Family residence records affirmatively support maintained U.S. family ties.",
+      "confidence": 0.9
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.failure_to_pay_taxes",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No mention of taxes in the applicant statement; worksheet is blank.",
+      "explanation": "Neither source affirmatively addresses tax payment; absence in an open narrative is not evidence of falsity.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.social_security_fraud",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No mention of Social Security fraud anywhere in the record.",
+      "explanation": "Open narrative does not address this; cannot bind to false purely from silence.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.welfare_fraud",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No mention of public-benefits fraud in the record.",
+      "explanation": "Silence in an open-world source does not support a false binding.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.prison_180_days_or_more",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No mention of incarceration; applicant reports being abroad approximately seven months in 2021.",
+      "explanation": "Record does not affirmatively address penal confinement during the statutory period.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.days_imprisoned_statutory_period",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No data about imprisonment days in any source.",
+      "explanation": "Numeric atom cannot be extracted or computed from the available evidence.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.selective_service_registered_or_exempt",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No mention of Selective Service registration, sex, or age.",
+      "explanation": "Record provides no facts about Selective Service obligations or exemption.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.tax_filing_compliant_or_explained",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No mention of tax filings or explanations in the record.",
+      "explanation": "Open narrative is silent on tax filing history; cannot affirm or deny compliance.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.child_support_compliant_or_explained",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No mention of child support obligations.",
+      "explanation": "Record is silent on child support; silence does not establish compliance or non-compliance.",
+      "confidence": 0.9
+    }
+  ]
+}

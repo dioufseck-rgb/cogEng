@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.no_communist_party_bar_or_exception",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary"],
+      "evidence": "Narrative does not mention Communist party membership.",
+      "explanation": "No source affirmatively addresses Communist party membership; narrative silence is open-world.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.no_totalitarian_party_bar_or_exception",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary"],
+      "evidence": "Narrative does not mention totalitarian party membership.",
+      "explanation": "No source affirmatively addresses totalitarian party membership; silence alone is open-world.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.no_advocacy_overthrow",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary"],
+      "evidence": "Narrative does not address advocacy of overthrow.",
+      "explanation": "No closed-world source on this issue; only narrative silence.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.no_desertion_from_us_armed_forces",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary"],
+      "evidence": "Narrative does not mention military service or desertion.",
+      "explanation": "No source affirmatively addresses desertion; narrative silence is open-world.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.no_title_of_nobility_issue",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["oath_worksheet"],
+      "evidence": "Oath worksheet records willingness and attachment to Constitution but does not address title of nobility.",
+      "explanation": "No affirmative statement on title of nobility renunciation; silence is open-world.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.truthful_oath_related_answers",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["oath_worksheet", "interview_worksheet"],
+      "evidence": "Oath worksheet states attachment to the Constitution and willingness; interview worksheet reports no false testimony issue.",
+      "explanation": "The interview worksheet (closed-world on false testimony) and oath worksheet support truthfulness of oath-related answers.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "n400.murder_conviction",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["fbi_check"],
+      "evidence": "FBI check reports no aggravated felony convictions; does not specifically address murder.",
+      "explanation": "FBI check is closed-world for criminal convictions reportable to FBI, but evidence only specifies 'no aggravated felony convictions' rather than affirmatively excluding murder. Binding to false requires closed-world coverage; the narrative summary of FBI check does not explicitly state the murder finding.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.aggravated_felony_after_1990",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["fbi_check"],
+      "evidence": "FBI check reports no aggravated felony convictions.",
+      "explanation": "FBI criminal_history_check is a permitted closed-world source for criminal convictions and affirmatively reports no aggravated felony convictions.",
+      "confidence": 0.9
+    }
+  ]
+}

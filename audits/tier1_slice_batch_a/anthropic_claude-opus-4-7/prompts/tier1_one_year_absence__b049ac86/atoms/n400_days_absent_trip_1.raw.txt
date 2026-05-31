@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.absence_6_to_12_months",
+      "status": "bound",
+      "value": false,
+      "basis": "computed",
+      "source_ids": ["cbp_history"],
+      "evidence": "Departure Jan 4, 2021 to re-entry Feb 10, 2022 (~402 days).",
+      "explanation": "Computed absence exceeds one year, so the 6-to-12-month characterization is false.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "n400.days_absent_trip_1",
+      "status": "bound",
+      "value": 402,
+      "basis": "computed",
+      "source_ids": ["cbp_history"],
+      "evidence": "January 4, 2021 to February 10, 2022.",
+      "explanation": "Days between departure and re-entry computed directly from CBP dates.",
+      "confidence": 0.97
+    },
+    {
+      "atom_id": "n400.days_absent_trip_2",
+      "status": "undetermined",
+      "value": null,
+      "basis": "closed_world_absence",
+      "source_ids": ["cbp_history"],
+      "evidence": "CBP travel history shows only one departure/re-entry pair (Jan 4, 2021 / Feb 10, 2022).",
+      "explanation": "No second trip recorded within CBP's closed-world entry/exit scope; no days to extract.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.days_absent_trip_3",
+      "status": "undetermined",
+      "value": null,
+      "basis": "closed_world_absence",
+      "source_ids": ["cbp_history"],
+      "evidence": "CBP travel history shows only one departure/re-entry pair.",
+      "explanation": "No third trip recorded; no days to extract.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.days_absent_trip_4",
+      "status": "undetermined",
+      "value": null,
+      "basis": "closed_world_absence",
+      "source_ids": ["cbp_history"],
+      "evidence": "CBP travel history shows only one departure/re-entry pair.",
+      "explanation": "No fourth trip recorded; no days to extract.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.rebuttal_no_residence_abandoned",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["cbp_history", "packet_index"],
+      "evidence": "Applicant statement cites family reasons; no evidence of maintained home, employment, or family ties provided.",
+      "explanation": "Record does not affirmatively establish rebuttal evidence; absence of mention does not equal false.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "n400.maintained_us_home",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["cbp_history", "packet_index"],
+      "evidence": "Narrative does not address U.S. home maintenance during the absence.",
+      "explanation": "Not mentioned in any source with relevant closed-world scope; cannot bind.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "n400.maintained_us_family_ties",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["cbp_history", "packet_index"],
+      "evidence": "Applicant statement says trip was for family reasons but does not address U.S.-based family ties.",
+      "explanation": "No affirmative evidence on maintenance of U.S. family ties; absence of mention is open-world.",
+      "confidence": 0.75
+    }
+  ]
+}

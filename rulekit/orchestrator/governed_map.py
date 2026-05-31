@@ -129,6 +129,60 @@ Return ONLY this JSON shape:
 """
 
 
+BATCH_ATOM_BINDING_PROMPT = """You are binding MULTIPLE atoms for a governed policy engine.
+
+You are NOT deciding the policy outcome. Decide only whether the evidence
+supports each atom value, and on what epistemic basis.
+
+Critical rules:
+- Treat each atom independently.
+- Do NOT bind an atom to false merely because an open narrative does not mention it.
+- If the only reason for false is "not mentioned", return value "undetermined"
+  with basis "open_world_absence".
+- If a source affirmatively says a fact is absent and that source has a relevant
+  closed-world scope, false may use basis "closed_world_absence".
+- If sources conflict, return status "undetermined" and basis
+  "conflicting_evidence"; do not choose a winner.
+- If the atom cannot be answered from the evidence, return status
+  "undetermined" and basis "not_found".
+- For numeric atoms, extract only stated or directly computed values requested
+  by the atom; otherwise return "undetermined".
+- Return one binding object for every atom in ATOMS.
+
+SOURCE INVENTORY
+================
+{sources_json}
+
+CASE NARRATIVE
+==============
+{narrative}
+
+ATOMS
+=====
+{atoms_json}
+
+Allowed basis values:
+explicit_positive, explicit_negative, closed_world_absence, open_world_absence,
+inferred_from_record, conflicting_evidence, computed, looked_up, not_found.
+
+Return ONLY this JSON shape:
+{{
+  "bindings": [
+    {{
+      "atom_id": "atom id from ATOMS",
+      "status": "bound|undetermined|error",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["source id"],
+      "evidence": "short exact evidence or summary",
+      "explanation": "why this basis is appropriate",
+      "confidence": 0.0
+    }}
+  ]
+}}
+"""
+
+
 class GovernedEvidenceMapStep:
     """Map step that asks the LLM for evidence basis, then records it."""
 
@@ -141,12 +195,14 @@ class GovernedEvidenceMapStep:
         max_atoms: int | None = None,
         stream: bool = True,
         pricing: dict[tuple[str, str], tuple[float, float]] | None = None,
+        batch_size: int = 1,
     ):
         self.llm = llm
         self.atom_ids = atom_ids
         self.max_atoms = max_atoms
         self.stream = stream
         self.pricing = pricing or {}
+        self.batch_size = max(1, batch_size)
         self.spec = MapStepSpec(
             map_step_id=map_step_id,
             name="Governed evidence Map step",
@@ -175,28 +231,27 @@ class GovernedEvidenceMapStep:
         evidence_by_atom = _evidence_by_atom(case.structured_fields)
         bindings: dict[str, AtomBindingRecord] = {}
         selected_atoms = self._selected_atom_ids(program)
-        for atom_id in selected_atoms:
-            atom = program.map_spec.atoms[atom_id]
-            prompt = build_atom_binding_prompt(
+        if self.batch_size == 1:
+            self._bind_atoms_one_by_one(
                 program,
-                atom_id,
                 case,
                 sources,
-                evidence_text=evidence_by_atom.get(atom_id) or case.narrative,
+                evidence_by_atom,
+                artifacts,
+                call_metrics,
+                bindings,
             )
-            raw, cost, metrics = self._call_llm(
-                f"map_governed_atom:{atom_id}",
-                prompt,
+        else:
+            self._bind_atoms_in_batches(
+                program,
+                case,
+                selected_atoms,
+                sources,
+                evidence_by_atom,
+                artifacts,
+                call_metrics,
+                bindings,
             )
-            call_metrics.append(metrics)
-            parsed = _parse_binding_payload(atom_id, raw)
-            artifacts["atoms"][atom_id] = {
-                "prompt": prompt,
-                "raw_response": raw,
-                "parsed": parsed,
-                "metrics": cost.model_dump(mode="json"),
-            }
-            bindings[atom_id] = _binding_from_payload(atom_id, atom.atom_type, parsed)
         for atom_id, atom in program.map_spec.atoms.items():
             if atom_id not in bindings:
                 bindings[atom_id] = AtomBindingRecord(
@@ -227,6 +282,92 @@ class GovernedEvidenceMapStep:
                 },
             )
         )
+
+    def _bind_atoms_one_by_one(
+        self,
+        program: DeterminationProgram,
+        case: CaseExample,
+        sources: list[EvidenceSource],
+        evidence_by_atom: dict[str, str],
+        artifacts: dict[str, Any],
+        call_metrics: list[dict[str, Any]],
+        bindings: dict[str, AtomBindingRecord],
+    ) -> None:
+        for atom_id in self._selected_atom_ids(program):
+            atom = program.map_spec.atoms[atom_id]
+            prompt = build_atom_binding_prompt(
+                program,
+                atom_id,
+                case,
+                sources,
+                evidence_text=evidence_by_atom.get(atom_id) or case.narrative,
+            )
+            raw, cost, metrics = self._call_llm(
+                f"map_governed_atom:{atom_id}",
+                prompt,
+            )
+            call_metrics.append(metrics)
+            parsed = _parse_binding_payload(atom_id, raw)
+            artifacts["atoms"][atom_id] = {
+                "prompt": prompt,
+                "raw_response": raw,
+                "parsed": parsed,
+                "metrics": cost.model_dump(mode="json"),
+            }
+            bindings[atom_id] = _binding_from_payload(atom_id, atom.atom_type, parsed)
+
+    def _bind_atoms_in_batches(
+        self,
+        program: DeterminationProgram,
+        case: CaseExample,
+        selected_atoms: list[str],
+        sources: list[EvidenceSource],
+        evidence_by_atom: dict[str, str],
+        artifacts: dict[str, Any],
+        call_metrics: list[dict[str, Any]],
+        bindings: dict[str, AtomBindingRecord],
+    ) -> None:
+        artifacts["batches"] = []
+        for index, atom_ids in enumerate(_chunks(selected_atoms, self.batch_size), start=1):
+            prompt = build_batch_atom_binding_prompt(
+                program,
+                atom_ids,
+                case,
+                sources,
+                evidence_by_atom=evidence_by_atom,
+            )
+            raw, cost, metrics = self._call_llm(
+                f"map_governed_atom_batch:{index}",
+                prompt,
+            )
+            call_metrics.append(metrics)
+            parsed_by_atom = _parse_batch_binding_payloads(atom_ids, raw)
+            batch_artifact = {
+                "atom_ids": atom_ids,
+                "prompt": prompt,
+                "raw_response": raw,
+                "parsed": parsed_by_atom,
+                "metrics": cost.model_dump(mode="json"),
+            }
+            artifacts["batches"].append(batch_artifact)
+            for atom_id in atom_ids:
+                atom = program.map_spec.atoms[atom_id]
+                parsed = parsed_by_atom.get(atom_id) or _error_payload(
+                    atom_id,
+                    "batch response did not include this atom",
+                )
+                artifacts["atoms"][atom_id] = {
+                    "batch_index": index,
+                    "prompt": prompt,
+                    "raw_response": raw,
+                    "parsed": parsed,
+                    "metrics": cost.model_dump(mode="json"),
+                }
+                bindings[atom_id] = _binding_from_payload(
+                    atom_id,
+                    atom.atom_type,
+                    parsed,
+                )
 
     def _inventory_sources(
         self,
@@ -333,21 +474,82 @@ def build_atom_binding_prompt(
     )
 
 
+def build_batch_atom_binding_prompt(
+    program: DeterminationProgram,
+    atom_ids: list[str],
+    case: CaseExample,
+    sources: list[EvidenceSource],
+    *,
+    evidence_by_atom: dict[str, str],
+) -> str:
+    atoms_payload = []
+    for atom_id in atom_ids:
+        atom = program.map_spec.atoms[atom_id]
+        atoms_payload.append(
+            {
+                "atom": to_jsonable_python(atom),
+                "binding_policy": to_jsonable_python(
+                    getattr(atom, "binding_policy", None)
+                ),
+                "relevant_evidence": evidence_by_atom.get(atom_id) or case.narrative,
+            }
+        )
+    return BATCH_ATOM_BINDING_PROMPT.format(
+        sources_json=json.dumps(
+            [source.model_dump(mode="json") for source in sources],
+            indent=2,
+            sort_keys=True,
+        ),
+        narrative=case.narrative,
+        atoms_json=json.dumps(atoms_payload, indent=2, sort_keys=True),
+    )
+
+
 def _parse_binding_payload(atom_id: str, raw: str) -> dict[str, Any]:
     try:
         parsed = parse_json_response(raw)
     except Exception as exc:
-        return {
-            "atom_id": atom_id,
-            "status": "error",
-            "value": "undetermined",
-            "basis": "not_found",
-            "source_ids": [],
-            "evidence": None,
-            "explanation": f"could not parse LLM JSON response: {exc}",
-            "confidence": None,
-        }
+        return _error_payload(atom_id, f"could not parse LLM JSON response: {exc}")
     return parsed if isinstance(parsed, dict) else {}
+
+
+def _parse_batch_binding_payloads(atom_ids: list[str], raw: str) -> dict[str, dict[str, Any]]:
+    try:
+        parsed = parse_json_response(raw)
+    except Exception as exc:
+        return {
+            atom_id: _error_payload(atom_id, f"could not parse LLM JSON response: {exc}")
+            for atom_id in atom_ids
+        }
+    if not isinstance(parsed, dict):
+        return {
+            atom_id: _error_payload(atom_id, "batch response was not a JSON object")
+            for atom_id in atom_ids
+        }
+    bindings = parsed.get("bindings", [])
+    if not isinstance(bindings, list):
+        return {
+            atom_id: _error_payload(atom_id, "batch response did not include bindings")
+            for atom_id in atom_ids
+        }
+    by_atom: dict[str, dict[str, Any]] = {}
+    for item in bindings:
+        if isinstance(item, dict) and item.get("atom_id") is not None:
+            by_atom[str(item["atom_id"])] = item
+    return by_atom
+
+
+def _error_payload(atom_id: str, explanation: str) -> dict[str, Any]:
+    return {
+        "atom_id": atom_id,
+        "status": "error",
+        "value": "undetermined",
+        "basis": "not_found",
+        "source_ids": [],
+        "evidence": None,
+        "explanation": explanation,
+        "confidence": None,
+    }
 
 
 def _binding_from_payload(
@@ -444,10 +646,16 @@ def _aggregate_call_metrics(call_metrics: list[dict[str, Any]]) -> RunCost:
     )
 
 
+def _chunks(items: list[str], size: int) -> list[list[str]]:
+    return [items[index : index + size] for index in range(0, len(items), size)]
+
+
 __all__ = [
     "GovernedEvidenceMapStep",
     "SOURCE_INVENTORY_PROMPT",
     "ATOM_BINDING_PROMPT",
+    "BATCH_ATOM_BINDING_PROMPT",
     "build_source_inventory_prompt",
     "build_atom_binding_prompt",
+    "build_batch_atom_binding_prompt",
 ]

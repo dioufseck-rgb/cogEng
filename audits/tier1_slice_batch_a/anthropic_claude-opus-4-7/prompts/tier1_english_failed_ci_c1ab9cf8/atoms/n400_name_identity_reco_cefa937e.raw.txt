@@ -1,0 +1,44 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.name_identity_record_conflict",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["test_results", "packet_index"],
+      "evidence": "Narrative mentions only test results and absence of exception documents; no identity/name information discussed.",
+      "explanation": "No evidence addresses identity or name records; sources do not have closed-world scope over identity records.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.interpreter_or_understanding_issue",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["test_results", "packet_index"],
+      "evidence": "Record reports pass/fail components but says nothing about interpreter use or understanding issues.",
+      "explanation": "No source affirmatively addresses interpreter or understanding facts; closed-world scopes here do not cover interpreter context.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.legal_exception_claimed_needs_review",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["packet_index"],
+      "evidence": "The packet does not include an approved medical disability exception and does not claim an age-and-LPR English exception.",
+      "explanation": "Packet index has closed-world scope over submitted exception documents and affirmatively reports no exception claimed, so no claimed exception exists to review.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.outside_benchmark_scope",
+      "status": "undetermined",
+      "value": false,
+      "basis": "not_found",
+      "source_ids": ["test_results", "packet_index"],
+      "evidence": "No information in the sources indicates whether facts fall outside the benchmark's encoded scope.",
+      "explanation": "This is a meta-governance determination not supported by the available factual sources.",
+      "confidence": 0.8
+    }
+  ]
+}

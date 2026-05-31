@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.violation_protective_order",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of a protective order in any source.",
+      "explanation": "Narrative does not address protective orders; absence in an open-world narrative cannot establish false.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.unlawful_harassment_or_stalking",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of harassment or stalking conduct.",
+      "explanation": "Sources do not characterize the pending felony; harassment/stalking is not addressed.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.manslaughter_or_violent_crime",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "FBI check reports no aggravated felony convictions; pending felony nature unspecified.",
+      "explanation": "FBI closed-world scope covers convictions, not commission of violent crimes; pending charge nature unknown.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.dui_pattern_or_reckless_endangerment",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of DUI or reckless endangerment.",
+      "explanation": "Topic not addressed in available sources.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.unpaid_restitution_or_court_orders",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of restitution or unresolved court orders.",
+      "explanation": "Sources do not address restitution or court order compliance.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.probation_parole_uncompleted",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of probation or parole status.",
+      "explanation": "Topic not addressed; cannot infer absence from silence.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.pending_criminal_charge",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["county_docket"],
+      "evidence": "County docket lists a pending felony charge with a future hearing date.",
+      "explanation": "Docket affirmatively shows a pending felony charge; allowed basis explicit_positive for true.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "n400.unresolved_arrest_disposition",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["county_docket"],
+      "evidence": "Pending felony charge with future hearing date; no dismissal order in docket.",
+      "explanation": "A pending charge with no final disposition reflects an unresolved disposition in the docket record.",
+      "confidence": 0.85
+    }
+  ]
+}

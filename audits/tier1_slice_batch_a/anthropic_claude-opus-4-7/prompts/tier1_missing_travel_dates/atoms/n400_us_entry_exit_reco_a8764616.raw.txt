@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.months_physical_presence_5yr",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "Applicant says about seven months abroad sometime in 2021; worksheet is blank; no CBP/passport/N-400 travel table.",
+      "explanation": "Cannot compute total months physically present in a five-year period from an approximate single-year absence with no dates or boundaries.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.physical_presence_calculation_reliable",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "Only an approximate self-reported absence; worksheet blank; no corroborating travel records.",
+      "explanation": "The record affirmatively shows the inputs needed to calculate physical presence are missing or approximate, so any calculation is not reliable.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.us_entry_exit_records_consistent",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No passport stamps, CBP history, or flight records in packet.",
+      "explanation": "Without entry/exit records present, consistency cannot be assessed in either direction.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.no_unresolved_physical_presence_gap",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "Applicant reports ~7 months abroad in 2021 with no specific dates; worksheet blank; no corroborating records.",
+      "explanation": "The 2021 absence is described only approximately and is not reconciled by any travel record or completed worksheet, constituting an unresolved gap.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.stat_period_selected_correctly",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No information about which statutory period was selected by the applicant or adjudicator.",
+      "explanation": "The evidence does not address selection of the statutory period.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.early_filing_window_applied_correctly",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No filing date, eligibility date, or early-filing analysis in the record.",
+      "explanation": "Cannot evaluate application of the 90-day early filing window without filing/eligibility data.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.months_state_or_district_residence",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No information about state/district residence duration.",
+      "explanation": "Record contains no data from which to extract or compute months of state/district residence.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.jurisdiction_matches_residence",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No information about filing jurisdiction or residence address.",
+      "explanation": "Neither source addresses filing jurisdiction or residence, so match cannot be evaluated.",
+      "confidence": 0.95
+    }
+  ]
+}

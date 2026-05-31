@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.complex_absence_pattern",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["n400_travel_table", "passport_stamps", "cbp_history"],
+      "evidence": "Travel table reports 172 days ending August 20, 2022, but passport and CBP show re-entry September 15, 2022 (~198 days).",
+      "explanation": "The discrepancy between declared and recorded absence duration, near the six-month threshold, makes the absence pattern complex enough to warrant human review.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.inconsistent_travel_history",
+      "status": "bound",
+      "value": true,
+      "basis": "conflicting_evidence",
+      "source_ids": ["n400_travel_table", "passport_stamps", "cbp_history"],
+      "evidence": "N-400 travel table says trip ended August 20, 2022 (172 days); passport stamps and CBP show re-entry September 15, 2022.",
+      "explanation": "The applicant's declared travel dates conflict with passport stamps and CBP records, making the travel history internally inconsistent.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.evidence_missing_critical_dates",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["n400_travel_table", "passport_stamps", "cbp_history"],
+      "evidence": "Departure (March 1, 2022) and re-entry (September 15, 2022) dates are present in passport and CBP records; travel table also provides dates.",
+      "explanation": "Critical dates are present in the record; the issue is inconsistency among them, not absence.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.unresolved_tax_issue",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of tax matters in the narrative or sources.",
+      "explanation": "No source addresses tax issues; absence of mention is not affirmative evidence either way.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.disputed_selective_service_issue",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of Selective Service in the narrative or sources.",
+      "explanation": "No source addresses Selective Service; cannot determine dispute status.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.possible_false_testimony",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["n400_travel_table", "passport_stamps", "cbp_history"],
+      "evidence": "Applicant's personal statement says never outside U.S. more than six months; CBP and passport show ~198 days abroad (March 1 to September 15, 2022), exceeding six months.",
+      "explanation": "The applicant's sworn statement appears contradicted by objective records, raising a possible false testimony issue warranting review.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.possible_gmc_discretion_issue",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["n400_travel_table", "passport_stamps", "cbp_history"],
+      "evidence": "Discrepancy between declared travel and objective records, plus a statement potentially inconsistent with CBP data, raises a good moral character review concern.",
+      "explanation": "Possible misrepresentation about duration of absence implicates discretionary GMC evaluation requiring human review.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "n400.accommodation_or_disability_documentation_unclear",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of accommodation or disability in any source.",
+      "explanation": "No source addresses accommodation or disability documentation; cannot determine clarity status.",
+      "confidence": 0.9
+    }
+  ]
+}

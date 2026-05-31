@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.illegal_gambling_principal_income",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No mention of income sources or gambling in the record.",
+      "explanation": "Sources are silent on income or gambling; absence in an open narrative cannot support a false binding.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.multiple_gambling_convictions",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No mention of any criminal convictions in the record.",
+      "explanation": "No criminal history source provided; silence does not establish absence.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.prostitution_or_commercialized_vice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No mention of prostitution or vice activity in the record.",
+      "explanation": "Sources are silent; open-world absence prevents a false binding.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.alien_smuggling",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No mention of smuggling or assisting unlawful entry.",
+      "explanation": "No affirmative or closed-world coverage of smuggling-related conduct.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.polygamy",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No mention of marital practices or polygamy.",
+      "explanation": "Sources silent on marriage practices; cannot infer false from silence.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.false_testimony_for_immigration_benefit",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No USCIS interview record or immigration record check is in the packet.",
+      "explanation": "Binding policy requires uscis_interview_record or immigration_record_check for a false binding; neither is present. No affirmative evidence of false testimony either.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.failure_to_support_dependents",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No mention of dependents or support obligations.",
+      "explanation": "Sources silent on dependents; cannot bind false from absence alone.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.adultery_destroyed_marriage",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No mention of adultery or marital disruption.",
+      "explanation": "Open narrative is silent on marital conduct; cannot bind false from silence.",
+      "confidence": 0.9
+    }
+  ]
+}

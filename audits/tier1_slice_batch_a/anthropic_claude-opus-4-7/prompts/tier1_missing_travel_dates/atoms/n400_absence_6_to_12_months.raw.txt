@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.absence_6_to_12_months",
+      "status": "undetermined",
+      "value": null,
+      "basis": "inferred_from_record",
+      "source_ids": ["applicant_statement"],
+      "evidence": "Applicant says about seven months abroad sometime in 2021.",
+      "explanation": "The approximate narrative suggests seven months (which would fall in the 6-12 month range), but no exact dates are provided to confirm the absence exceeded six months and was less than one year. Cannot bind definitively.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.days_absent_trip_1",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "Applicant says about seven months abroad sometime in 2021; no exact dates provided; worksheet blank.",
+      "explanation": "Numeric atom requires stated or directly computable day count. Only an approximate month estimate is given, with no exact dates, so a precise day value cannot be extracted.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.days_absent_trip_2",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No mention of a second trip; worksheet is blank for 2021.",
+      "explanation": "Neither source affirmatively addresses a second trip. The narrative is open and the worksheet is blank, so absence of mention does not support a false/zero binding.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.days_absent_trip_3",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No mention of a third trip; worksheet is blank for 2021.",
+      "explanation": "Neither source affirmatively addresses a third trip. Open narrative and blank worksheet cannot support closed-world absence.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.days_absent_trip_4",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No mention of a fourth trip; worksheet is blank for 2021.",
+      "explanation": "Neither source affirmatively addresses a fourth trip. Open narrative and blank worksheet cannot support closed-world absence.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.rebuttal_no_residence_abandoned",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No evidence regarding home, employment, family, or other ties presented.",
+      "explanation": "The evidence does not address rebuttal factors for abandonment of residence.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.maintained_us_home",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "Applicant statement does not mention maintaining a U.S. home.",
+      "explanation": "Open narrative does not affirm or deny maintenance of a U.S. home. Cannot bind based on silence.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.maintained_us_family_ties",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "Applicant statement does not mention U.S. family ties.",
+      "explanation": "Open narrative does not affirm or deny U.S. family ties. Cannot bind based on silence.",
+      "confidence": 0.9
+    }
+  ]
+}

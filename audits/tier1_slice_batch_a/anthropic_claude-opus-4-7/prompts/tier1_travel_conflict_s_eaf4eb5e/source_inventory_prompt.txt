@@ -1,0 +1,81 @@
+You are preparing evidence for a governed policy Map step.
+
+Your job is NOT to decide the policy outcome. Your job is to inventory the
+evidence sources and identify what each source can and cannot support.
+
+For each source, return:
+- source_id
+- source_type
+- title
+- as_of_date if stated
+- closed_world_scopes: factual universes where absence from this source can
+  support a negative atom binding
+- limitations
+
+Closed-world absence is narrow. A personal statement or open narrative usually
+does NOT support closed-world absence. Official checks, search results,
+agency records, court records, or complete structured extracts may support it
+only within their stated scope.
+
+CASE NARRATIVE
+==============
+The applicant applies under the general five-year track. The N-400 travel table lists a trip from March 1, 2022 to August 20, 2022, described as 172 days. The applicant's personal statement says they never stayed outside the United States for more than six months. Passport stamps and a CBP travel-history printout both show departure on March 1, 2022 and re-entry on September 15, 2022. The packet includes lease records and U.S. bank statements for the period abroad, plus family residence records showing spouse and children remained in the United States.
+
+DECLARED SOURCES
+================
+[
+  {
+    "as_of_date": null,
+    "closed_world_scopes": [
+      "declared_travel_history"
+    ],
+    "limitations": "Applicant-declared table conflicts with passport and CBP dates.",
+    "metadata": {},
+    "source_id": "n400_travel_table",
+    "source_type": "travel_history_table",
+    "title": "Applicant travel table"
+  },
+  {
+    "as_of_date": null,
+    "closed_world_scopes": [],
+    "limitations": "Shows relevant departure and re-entry stamps.",
+    "metadata": {},
+    "source_id": "passport_stamps",
+    "source_type": "passport_record",
+    "title": "Passport stamps"
+  },
+  {
+    "as_of_date": null,
+    "closed_world_scopes": [
+      "us_entry_exit_events"
+    ],
+    "limitations": "Synthetic benchmark travel-history source.",
+    "metadata": {},
+    "source_id": "cbp_history",
+    "source_type": "cbp_travel_history",
+    "title": "CBP travel-history printout"
+  },
+  {
+    "as_of_date": null,
+    "closed_world_scopes": [],
+    "limitations": "Supports ties during absence but does not itself establish continuous residence.",
+    "metadata": {},
+    "source_id": "residence_evidence",
+    "source_type": "residence_records",
+    "title": "Lease, bank, and family residence records"
+  }
+]
+
+Return ONLY this JSON shape:
+{
+  "sources": [
+    {
+      "source_id": "source id",
+      "source_type": "source type",
+      "title": "short title",
+      "as_of_date": "YYYY-MM-DD or null",
+      "closed_world_scopes": ["scope"],
+      "limitations": "limitations"
+    }
+  ]
+}

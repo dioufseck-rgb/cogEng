@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.unlawful_voting",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary"],
+      "evidence": "No mention of voting in the record.",
+      "explanation": "No source has closed-world scope over unlawful voting; absence in narrative does not support false.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.false_claim_us_citizenship",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary"],
+      "evidence": "No mention of any false claim to citizenship.",
+      "explanation": "Interview worksheet only closes the world on false testimony for immigration benefit, not specifically on false claim to citizenship; no other source addresses this.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.failure_register_selective_service_willful",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary"],
+      "evidence": "No mention of Selective Service registration status.",
+      "explanation": "No source has closed-world scope on Selective Service compliance; cannot be bound from silence.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.tax_noncompliance_willful",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary"],
+      "evidence": "No mention of tax compliance.",
+      "explanation": "No source closes the world on tax obligations; cannot bind from silence.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.fraud_or_deceit",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["interview_worksheet"],
+      "evidence": "USCIS interview worksheet reports no false testimony issue.",
+      "explanation": "Interview worksheet's closed-world scope covers false testimony for immigration benefit specifically, not all forms of fraud or deceit; remains undetermined.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "n400.identity_document_fraud",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary"],
+      "evidence": "No mention of identity or document fraud.",
+      "explanation": "No source has closed-world scope over identity or document fraud; silence does not support false.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.domestic_violence",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["fbi_check", "docket_search"],
+      "evidence": "FBI check reports no aggravated felony convictions; docket search reports no pending criminal charges.",
+      "explanation": "FBI check closes the world only on criminal convictions reportable to FBI and docket search only on pending charges; neither closes world on commission of domestic violence conduct.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "n400.child_abuse",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["fbi_check", "docket_search"],
+      "evidence": "FBI check reports no aggravated felony convictions; docket search reports no pending criminal charges.",
+      "explanation": "Closed-world scopes cover only reportable convictions and pending charges, not the underlying conduct of child abuse; cannot bind to false.",
+      "confidence": 0.75
+    }
+  ]
+}

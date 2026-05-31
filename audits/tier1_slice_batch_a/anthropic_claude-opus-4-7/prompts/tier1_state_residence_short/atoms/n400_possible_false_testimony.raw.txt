@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.complex_absence_pattern",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["residence_worksheet"],
+      "evidence": "Residence worksheet only addresses current district residence duration.",
+      "explanation": "No travel/absence information is present in the evidence; worksheet scope does not cover absences.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.inconsistent_travel_history",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["residence_worksheet"],
+      "evidence": "No travel history mentioned in source.",
+      "explanation": "Evidence does not address travel history; absence is not closed-world.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.evidence_missing_critical_dates",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["residence_worksheet"],
+      "evidence": "Worksheet provides move-in date, lease start, utility bill for district residence only.",
+      "explanation": "Cannot determine whether the broader N-400 record is missing critical dates from this limited-scope source.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.unresolved_tax_issue",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["residence_worksheet"],
+      "evidence": "No tax information in source.",
+      "explanation": "Source does not address tax matters; absence is not closed-world.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.disputed_selective_service_issue",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["residence_worksheet"],
+      "evidence": "No Selective Service information in source.",
+      "explanation": "Source does not address Selective Service; absence is not closed-world.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.possible_false_testimony",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["residence_worksheet"],
+      "evidence": "No testimony content in source.",
+      "explanation": "Source does not provide testimony to assess for falsity.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.possible_gmc_discretion_issue",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["residence_worksheet"],
+      "evidence": "No GMC-related information in source.",
+      "explanation": "Source does not address good moral character factors.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.accommodation_or_disability_documentation_unclear",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["residence_worksheet"],
+      "evidence": "No accommodation or disability documentation referenced in source.",
+      "explanation": "Source does not address accommodation/disability documentation.",
+      "confidence": 0.9
+    }
+  ]
+}

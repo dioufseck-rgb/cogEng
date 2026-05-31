@@ -1,0 +1,24 @@
+{
+  "sources": [
+    {
+      "as_of_date": null,
+      "closed_world_scopes": [
+        "criminal_convictions"
+      ],
+      "limitations": "Reflects conviction history within FBI records as of the check date; does not establish the status or disposition of currently pending charges, and does not cover non-reporting jurisdictions or post-check activity.",
+      "source_id": "fbi_check",
+      "source_type": "criminal_history_check",
+      "title": "FBI criminal history check"
+    },
+    {
+      "as_of_date": null,
+      "closed_world_scopes": [
+        "pending_criminal_charges"
+      ],
+      "limitations": "Scope limited to this county's docket system; cannot support absence of charges in other jurisdictions. Shows a pending felony charge with a future hearing date but does not establish final disposition. No dismissal order is present in the docket record.",
+      "source_id": "county_docket",
+      "source_type": "court_docket_search",
+      "title": "County docket search"
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.complex_absence_pattern",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No travel information in the narrative.",
+      "explanation": "The narrative does not discuss travel patterns; absence of mention is not affirmative evidence.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.inconsistent_travel_history",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No travel history discussed.",
+      "explanation": "No source addresses travel history consistency.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.evidence_missing_critical_dates",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No information about dates in the record.",
+      "explanation": "Sources cover only N-648 approval and test results; do not address presence/absence of critical dates.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.unresolved_tax_issue",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No tax information mentioned.",
+      "explanation": "Available sources do not address tax matters.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.disputed_selective_service_issue",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No Selective Service information mentioned.",
+      "explanation": "Available sources do not address Selective Service.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.possible_false_testimony",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No statements about testimony in record.",
+      "explanation": "Nothing in the evidence speaks to truthfulness of testimony.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.possible_gmc_discretion_issue",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No GMC-related facts in evidence.",
+      "explanation": "Sources address only test exception and test results, not good moral character.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.accommodation_or_disability_documentation_unclear",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_positive",
+      "source_ids": ["n648_approval"],
+      "evidence": "The packet includes an approved Form N-648 medical disability exception.",
+      "explanation": "The N-648 is affirmatively approved, indicating disability documentation is clear and accepted for this packet.",
+      "confidence": 0.85
+    }
+  ]
+}

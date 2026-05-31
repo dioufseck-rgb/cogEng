@@ -1,0 +1,36 @@
+{
+  "sources": [
+    {
+      "source_id": "n400_travel_table",
+      "source_type": "travel_history_table",
+      "title": "Applicant travel table",
+      "as_of_date": null,
+      "closed_world_scopes": ["declared_travel_history"],
+      "limitations": "Applicant-declared table; lists the March 1, 2022 trip as ending August 20, 2022 (172 days), which conflicts with passport stamps and CBP records showing re-entry on September 15, 2022. Closed-world absence is limited to what the applicant chose to declare and cannot independently establish actual travel dates or durations."
+    },
+    {
+      "source_id": "passport_stamps",
+      "source_type": "passport_record",
+      "title": "Passport stamps",
+      "as_of_date": null,
+      "closed_world_scopes": [],
+      "limitations": "Shows departure on March 1, 2022 and re-entry on September 15, 2022. Stamps are event-level evidence only; absence of a stamp does not prove absence of travel because not all border crossings are stamped. Cannot support closed-world negative atoms about travel."
+    },
+    {
+      "source_id": "cbp_history",
+      "source_type": "cbp_travel_history",
+      "title": "CBP travel-history printout",
+      "as_of_date": null,
+      "closed_world_scopes": ["us_entry_exit_events"],
+      "limitations": "Synthetic benchmark travel-history source. Confirms departure March 1, 2022 and re-entry September 15, 2022. Closed-world absence supported only within the scope of recorded U.S. entry/exit events during the period covered; does not cover intent, residence, or events outside CBP's recording scope."
+    },
+    {
+      "source_id": "residence_evidence",
+      "source_type": "residence_records",
+      "title": "Lease, bank, and family residence records",
+      "as_of_date": null,
+      "closed_world_scopes": [],
+      "limitations": "Lease, U.S. bank statements, and family residence records support maintenance of U.S. ties during the absence but are partial/narrative documentary evidence. Cannot support closed-world negative atoms and does not by itself establish continuous residence or rebut the duration of absence shown by passport and CBP."
+    }
+  ]
+}

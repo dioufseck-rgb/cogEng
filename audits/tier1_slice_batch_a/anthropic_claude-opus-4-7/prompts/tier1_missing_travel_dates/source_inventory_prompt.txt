@@ -1,0 +1,59 @@
+You are preparing evidence for a governed policy Map step.
+
+Your job is NOT to decide the policy outcome. Your job is to inventory the
+evidence sources and identify what each source can and cannot support.
+
+For each source, return:
+- source_id
+- source_type
+- title
+- as_of_date if stated
+- closed_world_scopes: factual universes where absence from this source can
+  support a negative atom binding
+- limitations
+
+Closed-world absence is narrow. A personal statement or open narrative usually
+does NOT support closed-world absence. Official checks, search results,
+agency records, court records, or complete structured extracts may support it
+only within their stated scope.
+
+CASE NARRATIVE
+==============
+The applicant statement says they spent about seven months abroad sometime in 2021. The packet does not include passport stamps, CBP travel history, flight records, or a completed N-400 travel table. The physical presence worksheet is blank for 2021.
+
+DECLARED SOURCES
+================
+[
+  {
+    "as_of_date": null,
+    "closed_world_scopes": [],
+    "limitations": "Open narrative with approximate timing only.",
+    "metadata": {},
+    "source_id": "applicant_statement",
+    "source_type": "applicant_personal_statement",
+    "title": "Applicant personal statement"
+  },
+  {
+    "as_of_date": null,
+    "closed_world_scopes": [],
+    "limitations": "Does not provide exact dates.",
+    "metadata": {},
+    "source_id": "blank_presence_worksheet",
+    "source_type": "physical_presence_worksheet",
+    "title": "Blank physical presence worksheet"
+  }
+]
+
+Return ONLY this JSON shape:
+{
+  "sources": [
+    {
+      "source_id": "source id",
+      "source_type": "source type",
+      "title": "short title",
+      "as_of_date": "YYYY-MM-DD or null",
+      "closed_world_scopes": ["scope"],
+      "limitations": "limitations"
+    }
+  ]
+}

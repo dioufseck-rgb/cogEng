@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.complex_absence_pattern",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "Applicant reports ~7 months abroad in 2021 with no exact dates; no passport stamps, CBP history, flight records, or completed N-400 travel table; worksheet blank.",
+      "explanation": "A ~7-month absence is significant and lacks any structured documentation or dates, making the pattern non-trivial and requiring human review to characterize.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "n400.inconsistent_travel_history",
+      "status": "undetermined",
+      "value": false,
+      "basis": "not_found",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "Only one narrative source provides travel info; worksheet is blank so no comparison possible.",
+      "explanation": "Cannot assess internal inconsistency without a second data point to compare against the applicant statement.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "n400.evidence_missing_critical_dates",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No passport stamps, CBP travel history, flight records, or completed N-400 travel table; worksheet blank for 2021; only 'about seven months sometime in 2021'.",
+      "explanation": "Entry/exit dates needed for physical presence analysis are absent from the record.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.unresolved_tax_issue",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No mention of taxes in the record.",
+      "explanation": "Sources do not address tax issues and have no closed-world scope over them.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "n400.disputed_selective_service_issue",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No mention of Selective Service in the record.",
+      "explanation": "Sources do not address Selective Service and have no closed-world scope over it.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "n400.possible_false_testimony",
+      "status": "undetermined",
+      "value": false,
+      "basis": "not_found",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No contradictory statements or affirmative indicators of false testimony in record.",
+      "explanation": "Insufficient corroborating or contradicting evidence to assess truthfulness.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "n400.possible_gmc_discretion_issue",
+      "status": "undetermined",
+      "value": false,
+      "basis": "not_found",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "Record only addresses an extended absence without conduct details bearing on GMC discretion.",
+      "explanation": "No affirmative facts in the record speak to discretionary GMC concerns.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.accommodation_or_disability_documentation_unclear",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No mention of accommodation or disability documentation.",
+      "explanation": "Sources do not address accommodation/disability and have no closed-world scope over it.",
+      "confidence": 0.8
+    }
+  ]
+}

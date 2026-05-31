@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.maintained_us_employment_or_no_foreign_employment",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative mentions lease and U.S. bank statements but does not mention U.S. or foreign employment.",
+      "explanation": "No source affirmatively addresses employment; absence from the narrative is open-world.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.did_not_claim_nonresident_tax_status",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No tax filing information is provided in any source.",
+      "explanation": "No evidence speaks to tax status; cannot infer from silence.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.returned_to_us_after_absences",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["passport_stamps", "cbp_history"],
+      "evidence": "Passport stamps and CBP printout show re-entry on September 15, 2022.",
+      "explanation": "Both authoritative travel sources affirmatively record re-entry after the absence.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.no_absence_over_one_year",
+      "status": "bound",
+      "value": true,
+      "basis": "computed",
+      "source_ids": ["passport_stamps", "cbp_history"],
+      "evidence": "Departure March 1, 2022; re-entry September 15, 2022 (~198 days), which is less than one year.",
+      "explanation": "Even under the longer CBP/passport dating, the absence is under 365 days; only one absence is documented.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.absence_over_one_year",
+      "status": "bound",
+      "value": false,
+      "basis": "computed",
+      "source_ids": ["passport_stamps", "cbp_history"],
+      "evidence": "March 1, 2022 to September 15, 2022 is approximately 198 days, less than one year.",
+      "explanation": "Directly computed from the documented departure and re-entry dates.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.qualifying_employment_abroad_exception",
+      "status": "undetermined",
+      "value": false,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No evidence of any employment abroad exception (e.g., qualifying U.S. employer abroad).",
+      "explanation": "No source addresses an employment-abroad exception; cannot determine applicability.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "n400.timely_n470_approval_if_needed",
+      "status": "undetermined",
+      "value": false,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No mention of an N-470 filing or approval in the record.",
+      "explanation": "No source addresses N-470 preservation; cannot determine.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "n400.religious_vocation_abroad_exception_if_needed",
+      "status": "undetermined",
+      "value": false,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No mention of religious vocation in the record.",
+      "explanation": "No source addresses a religious vocation exception; cannot determine.",
+      "confidence": 0.7
+    }
+  ]
+}

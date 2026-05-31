@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.military_service_residence_exception_if_needed",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["packet_index"],
+      "evidence": "The packet contains no military service exception.",
+      "explanation": "Packet index has closed-world scope over submitted exception documents and affirmatively shows no military service exception in the packet.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.travel_records_complete",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["cbp_history"],
+      "evidence": "Passport and CBP travel-history printout show departure Jan 4, 2021 and re-entry Feb 10, 2022.",
+      "explanation": "Both passport and CBP records document the single absence with specific dates, sufficient to assess continuous residence.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "n400.passport_records_support_travel",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["cbp_history"],
+      "evidence": "The passport and CBP travel-history printout show departure from the United States on January 4, 2021 and re-entry on February 10, 2022.",
+      "explanation": "Passport and CBP records directly document the stated trip.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.no_unexplained_trip_gaps",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["cbp_history", "packet_index"],
+      "evidence": "Single recorded absence Jan 4, 2021 to Feb 10, 2022; applicant statement explains it was for family reasons.",
+      "explanation": "The only absence in the record has a stated explanation; CBP closed-world scope covers entry/exit events.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "n400.no_break_in_residence_from_absence",
+      "status": "undetermined",
+      "value": false,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "Absence was approximately 13 months (Jan 4, 2021 - Feb 10, 2022).",
+      "explanation": "Whether this absence breaks continuous residence is a policy determination not made in the evidence; cannot be bound from facts alone.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.months_after_absence_reestablished_if_needed",
+      "status": "undetermined",
+      "value": false,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No filing date or current date stated in evidence.",
+      "explanation": "Without a filing/as-of date, the period of reestablished residence after the Feb 10, 2022 re-entry cannot be determined.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "n400.filing_under_3yr_spouse",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not mention the filing basis or spouse status.",
+      "explanation": "No source addresses the filing track; cannot infer from absence in an open-world narrative.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "n400.months_physical_presence_3yr",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No statutory period boundaries or filing date provided.",
+      "explanation": "Without the three-year statutory window's start/end and complete travel within that window, months of physical presence cannot be computed.",
+      "confidence": 0.7
+    }
+  ]
+}

@@ -10,6 +10,7 @@ from typing import Any
 from pydantic_core import to_jsonable_python
 
 from rulekit.build.llm import LLMCaller
+from rulekit.contract import DeterminationProgram
 from rulekit.orchestrator.governed_map import GovernedEvidenceMapStep
 from rulekit.orchestrator.map_validation import MapValidationReport
 from rulekit.runtime import adjudicate_cases, load_program, load_runtime_cases
@@ -23,7 +24,9 @@ def run_map_governance_eval(
     output_dir: str | Path,
     determinations: list[str] | None = None,
     atom_ids: list[str] | None = None,
+    atom_scope: str = "all",
     max_atoms: int | None = None,
+    batch_size: int = 1,
     max_tokens: int = 4096,
     timeout: float = 120.0,
     max_retries: int = 2,
@@ -32,6 +35,13 @@ def run_map_governance_eval(
     """Run governed Map over the same packet suite for each provider/model."""
     program = load_program(program_path)
     cases = load_runtime_cases(cases_path)
+    resolved_atom_ids = resolve_eval_atom_ids(
+        program,
+        determinations=determinations,
+        atom_ids=atom_ids,
+        atom_scope=atom_scope,
+        max_atoms=max_atoms,
+    )
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
     runs: list[dict[str, Any]] = []
@@ -49,8 +59,8 @@ def run_map_governance_eval(
         )
         map_step = GovernedEvidenceMapStep(
             llm,
-            atom_ids=atom_ids,
-            max_atoms=max_atoms,
+            atom_ids=resolved_atom_ids,
+            batch_size=batch_size,
             pricing=pricing,
         )
         result = adjudicate_cases(
@@ -69,6 +79,9 @@ def run_map_governance_eval(
         "program": str(program_path),
         "cases": str(cases_path),
         "model_count": len(model_specs),
+        "atom_scope": atom_scope,
+        "selected_atom_count": len(resolved_atom_ids),
+        "batch_size": batch_size,
         "runs": runs,
     }
     (output_dir / "summary.json").write_text(_json(aggregate), encoding="utf-8")
@@ -84,6 +97,88 @@ def parse_model_spec(spec: str) -> tuple[str, str]:
     if not model:
         raise ValueError("model cannot be empty")
     return provider, model
+
+
+def resolve_eval_atom_ids(
+    program: DeterminationProgram,
+    *,
+    determinations: list[str] | None,
+    atom_ids: list[str] | None,
+    atom_scope: str,
+    max_atoms: int | None = None,
+) -> list[str]:
+    """Resolve which atoms a Map eval should bind."""
+    if atom_ids:
+        selected = [atom_id for atom_id in atom_ids if atom_id in program.map_spec.atoms]
+    elif atom_scope == "determination-slice":
+        selected = atoms_for_determinations(
+            program,
+            determinations or list(program.determinations),
+        )
+    elif atom_scope == "all":
+        selected = list(program.map_spec.atoms)
+    else:
+        raise ValueError("atom_scope must be 'all' or 'determination-slice'")
+    if max_atoms is not None:
+        selected = selected[:max_atoms]
+    return selected
+
+
+def atoms_for_determinations(
+    program: DeterminationProgram,
+    determinations: list[str],
+) -> list[str]:
+    """Return atom ids referenced by the DAG slice for selected determinations."""
+    selected: list[str] = []
+    seen_atoms: set[str] = set()
+    seen_nodes: set[str] = set()
+    for det_id in determinations:
+        det = program.determinations.get(det_id)
+        if det is None:
+            raise ValueError(f"unknown determination id {det_id!r}")
+        root = det.root_node
+        if root is None and det.linked_to:
+            linked = program.determinations.get(det.linked_to)
+            root = linked.root_node if linked else None
+        if root is None:
+            continue
+        for atom_id in _atoms_for_node(program, root, seen_nodes):
+            if atom_id not in seen_atoms and atom_id in program.map_spec.atoms:
+                seen_atoms.add(atom_id)
+                selected.append(atom_id)
+    return selected
+
+
+def _atoms_for_node(
+    program: DeterminationProgram,
+    node_id: str,
+    seen_nodes: set[str],
+) -> list[str]:
+    if node_id in seen_nodes:
+        return []
+    seen_nodes.add(node_id)
+    node = program.nodes.get(node_id)
+    if node is None:
+        return []
+    atom_id = getattr(node, "atom_id", None)
+    if atom_id is not None:
+        return [str(atom_id)]
+    atoms: list[str] = []
+    for child_id in _child_node_ids(node):
+        atoms.extend(_atoms_for_node(program, child_id, seen_nodes))
+    return atoms
+
+
+def _child_node_ids(node: Any) -> list[str]:
+    child_ids: list[str] = []
+    for field in ("child", "left", "right", "condition", "if_true", "if_false"):
+        value = getattr(node, field, None)
+        if isinstance(value, str):
+            child_ids.append(value)
+    children = getattr(node, "children", None)
+    if isinstance(children, list):
+        child_ids.extend(str(child) for child in children)
+    return child_ids
 
 
 def parse_price_spec(spec: str) -> tuple[tuple[str, str], tuple[float, float]]:
@@ -143,8 +238,17 @@ def summarize_governed_run(
         "basis_counts": dict(sorted(basis_counts.items())),
         "expected_binding_metrics": expected_metrics,
         "cost_metrics": cost_metrics,
+        "selected_atom_count": _selected_atom_count(result.get("map_records", [])),
         "map_mode": result["map_mode"],
     }
+
+
+def _selected_atom_count(map_records: list[dict[str, Any]]) -> int:
+    if not map_records:
+        return 0
+    artifacts = map_records[0].get("metadata", {}).get("prompt_artifacts", {})
+    atoms = artifacts.get("atoms", {})
+    return len(atoms) if isinstance(atoms, dict) else 0
 
 
 def _cost_metrics(map_records: list[dict[str, Any]]) -> dict[str, Any]:
@@ -321,15 +425,17 @@ def _json(payload: Any) -> str:
 
 def _safe_name(value: str) -> str:
     safe = "".join(ch if ch.isalnum() or ch in {"-", "_"} else "_" for ch in value)
-    if len(safe) <= 48:
+    if len(safe) <= 32:
         return safe
     digest = hashlib.sha1(value.encode("utf-8")).hexdigest()[:8]
-    return f"{safe[:39]}_{digest}"
+    return f"{safe[:23]}_{digest}"
 
 
 __all__ = [
     "run_map_governance_eval",
     "parse_model_spec",
     "parse_price_spec",
+    "resolve_eval_atom_ids",
+    "atoms_for_determinations",
     "summarize_governed_run",
 ]

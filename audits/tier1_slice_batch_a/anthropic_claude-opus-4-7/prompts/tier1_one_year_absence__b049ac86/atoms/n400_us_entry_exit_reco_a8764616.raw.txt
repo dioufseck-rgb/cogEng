@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.months_physical_presence_5yr",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["cbp_history"],
+      "evidence": "Only one trip shown (Jan 4, 2021 departure; Feb 10, 2022 re-entry). No statutory period anchor (filing date) provided.",
+      "explanation": "Cannot compute months physically present in the five-year period without a filing/anchor date defining the window.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.physical_presence_calculation_reliable",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["cbp_history"],
+      "evidence": "CBP printout shows the trip, but no filing date or full computation provided.",
+      "explanation": "Reliability cannot be assessed without the underlying calculation and statutory period.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "n400.us_entry_exit_records_consistent",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["cbp_history"],
+      "evidence": "Passport and CBP travel-history printout both show the same departure (Jan 4, 2021) and re-entry (Feb 10, 2022).",
+      "explanation": "Passport and CBP records align with no conflict noted.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "n400.no_unresolved_physical_presence_gap",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["cbp_history"],
+      "evidence": "Single absence of ~13 months documented; no information about whether it creates an unresolved gap relative to statutory requirements.",
+      "explanation": "Whether the gap is 'unresolved' depends on policy assessment not present in the evidence.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.stat_period_selected_correctly",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No information about which statutory period was selected or applicant's basis (3-yr vs 5-yr).",
+      "explanation": "Evidence does not address statutory period selection.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.early_filing_window_applied_correctly",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No filing date or early filing window information in the evidence.",
+      "explanation": "Cannot evaluate early filing window application without filing date and anniversary information.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.months_state_or_district_residence",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No state/district residence information present.",
+      "explanation": "Evidence does not state residence duration in any state or USCIS district.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.jurisdiction_matches_residence",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No filing jurisdiction or residence address information provided.",
+      "explanation": "Cannot determine jurisdiction match without residence and filing jurisdiction data.",
+      "confidence": 0.95
+    }
+  ]
+}

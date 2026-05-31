@@ -1,0 +1,491 @@
+{
+  "basis_counts": {
+    "closed_world_absence": 30,
+    "computed": 6,
+    "conflicting_evidence": 8,
+    "explicit_negative": 10,
+    "explicit_positive": 24,
+    "inferred_from_record": 42,
+    "not_found": 416,
+    "open_world_absence": 864
+  },
+  "case_count": 10,
+  "cost_metrics": {
+    "avg_llm_call_latency_s": 11.982972546249858,
+    "case_count": 10,
+    "estimated_cost_usd": 14.85024,
+    "estimated_input_tokens": 374981,
+    "estimated_output_tokens": 123007,
+    "estimated_total_tokens": 497988,
+    "llm_call_count": 160,
+    "llm_latency_s": 1917.2756073999772,
+    "map_latency_s": 1917.2756073999772,
+    "pricing_basis": "configured_usd_per_million_tokens",
+    "token_count_basis": "estimated_from_character_count"
+  },
+  "disposition_count": 80,
+  "expected_binding_metrics": {
+    "basis_expectation_count": 8,
+    "details": [
+      {
+        "atom_id": "n400.age_years",
+        "case_id": "tier1_clean_general_track_packet",
+        "expected": {
+          "ideal_status": "bound",
+          "ideal_value": 37
+        },
+        "raw_basis": "explicit_positive",
+        "raw_status": "bound",
+        "raw_value": 37,
+        "sanitized_basis": "explicit_positive",
+        "sanitized_status": "bound",
+        "sanitized_value": 37,
+        "validation_action": "accept"
+      },
+      {
+        "atom_id": "n400.years_as_lpr",
+        "case_id": "tier1_clean_general_track_packet",
+        "expected": {
+          "ideal_status": "bound",
+          "ideal_value": 6
+        },
+        "raw_basis": "explicit_positive",
+        "raw_status": "bound",
+        "raw_value": 6,
+        "sanitized_basis": "explicit_positive",
+        "sanitized_status": "bound",
+        "sanitized_value": 6,
+        "validation_action": "accept"
+      },
+      {
+        "atom_id": "n400.days_absent_trip_1",
+        "case_id": "tier1_clean_general_track_packet",
+        "expected": {
+          "ideal_status": "bound",
+          "ideal_value": 21
+        },
+        "raw_basis": "explicit_positive",
+        "raw_status": "bound",
+        "raw_value": 21,
+        "sanitized_basis": "explicit_positive",
+        "sanitized_status": "bound",
+        "sanitized_value": 21,
+        "validation_action": "accept"
+      },
+      {
+        "atom_id": "n400.months_physical_presence_5yr",
+        "case_id": "tier1_clean_general_track_packet",
+        "expected": {
+          "ideal_status": "bound",
+          "ideal_value": 41
+        },
+        "raw_basis": "explicit_positive",
+        "raw_status": "bound",
+        "raw_value": 41,
+        "sanitized_basis": "explicit_positive",
+        "sanitized_status": "bound",
+        "sanitized_value": 41,
+        "validation_action": "accept"
+      },
+      {
+        "atom_id": "n400.english_test_passed",
+        "case_id": "tier1_clean_general_track_packet",
+        "expected": {
+          "ideal_basis": "explicit_positive",
+          "ideal_status": "bound",
+          "ideal_value": true
+        },
+        "raw_basis": "explicit_positive",
+        "raw_status": "bound",
+        "raw_value": true,
+        "sanitized_basis": "explicit_positive",
+        "sanitized_status": "bound",
+        "sanitized_value": true,
+        "validation_action": "accept"
+      },
+      {
+        "atom_id": "n400.aggravated_felony_after_1990",
+        "case_id": "tier1_clean_general_track_packet",
+        "expected": {
+          "ideal_basis": "closed_world_absence",
+          "ideal_status": "bound",
+          "ideal_value": false
+        },
+        "raw_basis": "closed_world_absence",
+        "raw_status": "bound",
+        "raw_value": false,
+        "sanitized_basis": "closed_world_absence",
+        "sanitized_status": "bound",
+        "sanitized_value": false,
+        "validation_action": "accept"
+      },
+      {
+        "atom_id": "n400.days_absent_trip_1",
+        "case_id": "tier1_travel_conflict_six_month_absence",
+        "expected": {
+          "ideal_status": "bound",
+          "ideal_value": 198
+        },
+        "raw_basis": "computed",
+        "raw_status": "bound",
+        "raw_value": 198,
+        "sanitized_basis": "computed",
+        "sanitized_status": "bound",
+        "sanitized_value": 198,
+        "validation_action": "accept"
+      },
+      {
+        "atom_id": "n400.absence_6_to_12_months",
+        "case_id": "tier1_travel_conflict_six_month_absence",
+        "expected": {
+          "ideal_basis": "inferred_from_record",
+          "ideal_status": "bound",
+          "ideal_value": true
+        },
+        "raw_basis": "explicit_positive",
+        "raw_status": "bound",
+        "raw_value": true,
+        "sanitized_basis": "explicit_positive",
+        "sanitized_status": "bound",
+        "sanitized_value": true,
+        "validation_action": "accept"
+      },
+      {
+        "atom_id": "n400.maintained_us_home",
+        "case_id": "tier1_travel_conflict_six_month_absence",
+        "expected": {
+          "ideal_status": "bound",
+          "ideal_value": true
+        },
+        "raw_basis": "explicit_positive",
+        "raw_status": "bound",
+        "raw_value": true,
+        "sanitized_basis": "explicit_positive",
+        "sanitized_status": "bound",
+        "sanitized_value": true,
+        "validation_action": "accept"
+      },
+      {
+        "atom_id": "n400.maintained_us_family_ties",
+        "case_id": "tier1_travel_conflict_six_month_absence",
+        "expected": {
+          "ideal_status": "bound",
+          "ideal_value": true
+        },
+        "raw_basis": "explicit_positive",
+        "raw_status": "bound",
+        "raw_value": true,
+        "sanitized_basis": "explicit_positive",
+        "sanitized_status": "bound",
+        "sanitized_value": true,
+        "validation_action": "accept"
+      },
+      {
+        "atom_id": "n400.inconsistent_travel_history",
+        "case_id": "tier1_travel_conflict_six_month_absence",
+        "expected": {
+          "ideal_status": "bound",
+          "ideal_value": true
+        },
+        "raw_basis": "conflicting_evidence",
+        "raw_status": "bound",
+        "raw_value": true,
+        "sanitized_basis": "conflicting_evidence",
+        "sanitized_status": "bound",
+        "sanitized_value": true,
+        "validation_action": "accept"
+      },
+      {
+        "atom_id": "n400.days_absent_trip_1",
+        "case_id": "tier1_one_year_absence_no_exception",
+        "expected": {
+          "ideal_status": "bound"
+        },
+        "raw_basis": "computed",
+        "raw_status": "bound",
+        "raw_value": 402,
+        "sanitized_basis": "computed",
+        "sanitized_status": "bound",
+        "sanitized_value": 402,
+        "validation_action": "accept"
+      },
+      {
+        "atom_id": "n400.absence_over_one_year",
+        "case_id": "tier1_one_year_absence_no_exception",
+        "expected": {
+          "ideal_status": "bound",
+          "ideal_value": true
+        },
+        "raw_basis": "computed",
+        "raw_status": "bound",
+        "raw_value": true,
+        "sanitized_basis": "computed",
+        "sanitized_status": "bound",
+        "sanitized_value": true,
+        "validation_action": "accept"
+      },
+      {
+        "atom_id": "n400.absence_6_to_12_months",
+        "case_id": "tier1_one_year_absence_no_exception",
+        "expected": {
+          "ideal_status": "bound",
+          "ideal_value": false
+        },
+        "raw_basis": "computed",
+        "raw_status": "bound",
+        "raw_value": false,
+        "sanitized_basis": "computed",
+        "sanitized_status": "bound",
+        "sanitized_value": false,
+        "validation_action": "accept"
+      },
+      {
+        "atom_id": "n400.months_physical_presence_5yr",
+        "case_id": "tier1_physical_presence_short_by_worksheet",
+        "expected": {
+          "ideal_status": "bound",
+          "ideal_value": 24
+        },
+        "raw_basis": "explicit_positive",
+        "raw_status": "bound",
+        "raw_value": 24,
+        "sanitized_basis": "explicit_positive",
+        "sanitized_status": "bound",
+        "sanitized_value": 24,
+        "validation_action": "accept"
+      },
+      {
+        "atom_id": "n400.months_state_or_district_residence",
+        "case_id": "tier1_state_residence_short",
+        "expected": {
+          "ideal_status": "bound",
+          "ideal_value": 2
+        },
+        "raw_basis": "explicit_positive",
+        "raw_status": "bound",
+        "raw_value": 2,
+        "sanitized_basis": "explicit_positive",
+        "sanitized_status": "bound",
+        "sanitized_value": 2,
+        "validation_action": "accept"
+      },
+      {
+        "atom_id": "n400.english_test_passed",
+        "case_id": "tier1_english_failed_civics_passed_no_exception",
+        "expected": {
+          "ideal_status": "bound",
+          "ideal_value": false
+        },
+        "raw_basis": "explicit_negative",
+        "raw_status": "bound",
+        "raw_value": false,
+        "sanitized_basis": "explicit_negative",
+        "sanitized_status": "bound",
+        "sanitized_value": false,
+        "validation_action": "accept"
+      },
+      {
+        "atom_id": "n400.civics_test_passed",
+        "case_id": "tier1_english_failed_civics_passed_no_exception",
+        "expected": {
+          "ideal_status": "bound",
+          "ideal_value": true
+        },
+        "raw_basis": "explicit_positive",
+        "raw_status": "bound",
+        "raw_value": true,
+        "sanitized_basis": "explicit_positive",
+        "sanitized_status": "bound",
+        "sanitized_value": true,
+        "validation_action": "accept"
+      },
+      {
+        "atom_id": "n400.medical_disability_exception_approved",
+        "case_id": "tier1_english_failed_civics_passed_no_exception",
+        "expected": {
+          "ideal_basis": "closed_world_absence",
+          "ideal_status": "bound",
+          "ideal_value": false
+        },
+        "raw_basis": "closed_world_absence",
+        "raw_status": "bound",
+        "raw_value": false,
+        "sanitized_basis": "closed_world_absence",
+        "sanitized_status": "bound",
+        "sanitized_value": false,
+        "validation_action": "accept"
+      },
+      {
+        "atom_id": "n400.medical_disability_exception_approved",
+        "case_id": "tier1_medical_disability_exception_approved",
+        "expected": {
+          "ideal_basis": "explicit_positive",
+          "ideal_status": "bound",
+          "ideal_value": true
+        },
+        "raw_basis": "explicit_positive",
+        "raw_status": "bound",
+        "raw_value": true,
+        "sanitized_basis": "explicit_positive",
+        "sanitized_status": "bound",
+        "sanitized_value": true,
+        "validation_action": "accept"
+      },
+      {
+        "atom_id": "n400.english_test_passed",
+        "case_id": "tier1_medical_disability_exception_approved",
+        "expected": {
+          "ideal_status": "bound",
+          "ideal_value": false
+        },
+        "raw_basis": "closed_world_absence",
+        "raw_status": "bound",
+        "raw_value": false,
+        "sanitized_basis": "closed_world_absence",
+        "sanitized_status": "bound",
+        "sanitized_value": false,
+        "validation_action": "accept"
+      },
+      {
+        "atom_id": "n400.civics_test_passed",
+        "case_id": "tier1_medical_disability_exception_approved",
+        "expected": {
+          "ideal_status": "bound",
+          "ideal_value": false
+        },
+        "raw_basis": "closed_world_absence",
+        "raw_status": "bound",
+        "raw_value": false,
+        "sanitized_basis": "closed_world_absence",
+        "sanitized_status": "bound",
+        "sanitized_value": false,
+        "validation_action": "accept"
+      },
+      {
+        "atom_id": "n400.willing_to_take_oath",
+        "case_id": "tier1_oath_attachment_refusal",
+        "expected": {
+          "ideal_status": "bound",
+          "ideal_value": false
+        },
+        "raw_basis": "explicit_negative",
+        "raw_status": "bound",
+        "raw_value": false,
+        "sanitized_basis": "explicit_negative",
+        "sanitized_status": "bound",
+        "sanitized_value": false,
+        "validation_action": "accept"
+      },
+      {
+        "atom_id": "n400.attachment_to_constitution",
+        "case_id": "tier1_oath_attachment_refusal",
+        "expected": {
+          "ideal_status": "bound",
+          "ideal_value": false
+        },
+        "raw_basis": "explicit_negative",
+        "raw_status": "bound",
+        "raw_value": false,
+        "sanitized_basis": "explicit_negative",
+        "sanitized_status": "bound",
+        "sanitized_value": false,
+        "validation_action": "accept"
+      },
+      {
+        "atom_id": "n400.aggravated_felony_after_1990",
+        "case_id": "tier1_pending_charge_with_clean_conviction_check",
+        "expected": {
+          "ideal_basis": "closed_world_absence",
+          "ideal_status": "bound",
+          "ideal_value": false
+        },
+        "raw_basis": "closed_world_absence",
+        "raw_status": "bound",
+        "raw_value": false,
+        "sanitized_basis": "closed_world_absence",
+        "sanitized_status": "bound",
+        "sanitized_value": false,
+        "validation_action": "accept"
+      },
+      {
+        "atom_id": "n400.pending_criminal_charge",
+        "case_id": "tier1_pending_charge_with_clean_conviction_check",
+        "expected": {
+          "ideal_basis": "explicit_positive",
+          "ideal_status": "bound",
+          "ideal_value": true
+        },
+        "raw_basis": "explicit_positive",
+        "raw_status": "bound",
+        "raw_value": true,
+        "sanitized_basis": "explicit_positive",
+        "sanitized_status": "bound",
+        "sanitized_value": true,
+        "validation_action": "accept"
+      },
+      {
+        "atom_id": "n400.days_absent_trip_1",
+        "case_id": "tier1_missing_travel_dates",
+        "expected": {
+          "ideal_basis": "not_found",
+          "ideal_status": "undetermined"
+        },
+        "raw_basis": "not_found",
+        "raw_status": "undetermined",
+        "raw_value": null,
+        "sanitized_basis": "not_found",
+        "sanitized_status": "undetermined",
+        "sanitized_value": null,
+        "validation_action": "accept"
+      },
+      {
+        "atom_id": "n400.absence_6_to_12_months",
+        "case_id": "tier1_missing_travel_dates",
+        "expected": {
+          "ideal_status": "undetermined"
+        },
+        "raw_basis": "inferred_from_record",
+        "raw_status": "undetermined",
+        "raw_value": null,
+        "sanitized_basis": "inferred_from_record",
+        "sanitized_status": "undetermined",
+        "sanitized_value": null,
+        "validation_action": "accept"
+      },
+      {
+        "atom_id": "n400.evidence_missing_critical_dates",
+        "case_id": "tier1_missing_travel_dates",
+        "expected": {
+          "ideal_status": "bound",
+          "ideal_value": true
+        },
+        "raw_basis": "inferred_from_record",
+        "raw_status": "bound",
+        "raw_value": true,
+        "sanitized_basis": "inferred_from_record",
+        "sanitized_status": "bound",
+        "sanitized_value": true,
+        "validation_action": "accept"
+      }
+    ],
+    "expected_binding_count": 29,
+    "observed_failure_modes": {},
+    "raw_basis_match_count": 7,
+    "raw_status_match_count": 29,
+    "raw_value_match_count": 26,
+    "status_expectation_count": 29,
+    "value_expectation_count": 26
+  },
+  "map_mode": "map_governed_evidence",
+  "matched_disposition_count": 0,
+  "mismatch_count": 0,
+  "model": "claude-opus-4-7",
+  "provider": "anthropic",
+  "selected_atom_count": 116,
+  "validation_action_counts": {
+    "accept": 1400
+  },
+  "validation_status_counts": {
+    "valid": 1400
+  }
+}

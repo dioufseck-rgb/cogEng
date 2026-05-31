@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.illegal_gambling_principal_income",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["fbi_check", "county_docket"],
+      "evidence": "No mention of gambling income in FBI check or county docket.",
+      "explanation": "Neither source affirmatively addresses gambling income; absence is open-world.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.multiple_gambling_convictions",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["fbi_check"],
+      "evidence": "FBI check reports no aggravated felony convictions but does not specifically address gambling convictions.",
+      "explanation": "FBI check's closed-world scope is convictions generally but the narrative only specifies no aggravated felony convictions; gambling convictions are not affirmatively addressed.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.prostitution_or_commercialized_vice",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["fbi_check", "county_docket"],
+      "evidence": "No mention of prostitution or commercialized vice.",
+      "explanation": "Sources do not affirmatively address this; absence is open-world.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.alien_smuggling",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["fbi_check", "county_docket"],
+      "evidence": "No mention of alien smuggling.",
+      "explanation": "Neither source addresses alien smuggling; absence is open-world.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.polygamy",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["fbi_check", "county_docket"],
+      "evidence": "No mention of polygamy.",
+      "explanation": "Neither source addresses polygamy; absence is open-world.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.false_testimony_for_immigration_benefit",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["fbi_check", "county_docket"],
+      "evidence": "No USCIS interview record or immigration record check is present in the evidence.",
+      "explanation": "Binding policy requires uscis_interview_record or immigration_record_check for a false binding; none available, so per open_world_absence_behavior return undetermined.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "n400.failure_to_support_dependents",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["fbi_check", "county_docket"],
+      "evidence": "No mention of dependent support.",
+      "explanation": "Neither source addresses dependent support; absence is open-world.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.adultery_destroyed_marriage",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["fbi_check", "county_docket"],
+      "evidence": "No mention of adultery or marital impact.",
+      "explanation": "Neither source addresses adultery; absence is open-world.",
+      "confidence": 0.6
+    }
+  ]
+}

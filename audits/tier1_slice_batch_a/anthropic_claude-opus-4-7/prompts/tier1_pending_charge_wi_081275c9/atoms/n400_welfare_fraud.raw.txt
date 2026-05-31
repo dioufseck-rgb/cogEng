@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.failure_to_pay_taxes",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of tax payment status in available sources.",
+      "explanation": "Neither the FBI check nor the county docket addresses tax payment; absence from narrative is not affirmative evidence.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.social_security_fraud",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of Social Security fraud in available sources.",
+      "explanation": "Sources do not address SSN fraud; cannot infer false from silence.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.welfare_fraud",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of public-benefits fraud in available sources.",
+      "explanation": "No source addresses welfare fraud; silence is not negation.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.prison_180_days_or_more",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "FBI check reports no aggravated felony convictions but does not report confinement duration; docket shows pending charge, not confinement.",
+      "explanation": "No source affirmatively addresses days of confinement during the statutory period.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.days_imprisoned_statutory_period",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No numeric value for days imprisoned stated in evidence.",
+      "explanation": "Numeric atom requires a stated or computable value, which is not present.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.selective_service_registered_or_exempt",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of Selective Service registration or exemption.",
+      "explanation": "Sources do not address Selective Service status.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.tax_filing_compliant_or_explained",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of tax filing history in available sources.",
+      "explanation": "No evidence addresses tax filing compliance.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.child_support_compliant_or_explained",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of child support obligations in available sources.",
+      "explanation": "No evidence addresses child support compliance.",
+      "confidence": 0.9
+    }
+  ]
+}

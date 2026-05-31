@@ -261,7 +261,22 @@ def _parser() -> argparse.ArgumentParser:
         help="determination id to evaluate; may repeat; defaults to all",
     )
     map_eval.add_argument("--atom", action="append", default=[], help="atom id to bind; may repeat")
+    map_eval.add_argument(
+        "--atom-scope",
+        choices=["all", "determination-slice"],
+        default="all",
+        help=(
+            "atom selection when --atom is omitted: all program atoms or only "
+            "atoms reachable from selected determinations"
+        ),
+    )
     map_eval.add_argument("--max-atoms", type=int, default=None)
+    map_eval.add_argument(
+        "--batch-size",
+        type=int,
+        default=1,
+        help="number of atoms to bind per governed Map LLM call (default: 1)",
+    )
     map_eval.add_argument("--llm-max-tokens", type=int, default=4096)
     map_eval.add_argument("--llm-timeout", type=float, default=120.0)
     map_eval.add_argument("--llm-max-retries", type=int, default=2)
@@ -557,7 +572,9 @@ def _map_eval(args: argparse.Namespace) -> int:
         output_dir=args.out,
         determinations=args.determination or None,
         atom_ids=args.atom or None,
+        atom_scope=args.atom_scope,
         max_atoms=args.max_atoms,
+        batch_size=args.batch_size,
         max_tokens=args.llm_max_tokens,
         timeout=args.llm_timeout,
         max_retries=args.llm_max_retries,

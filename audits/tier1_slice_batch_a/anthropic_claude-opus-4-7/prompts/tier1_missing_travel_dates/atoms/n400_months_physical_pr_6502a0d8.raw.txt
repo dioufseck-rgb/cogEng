@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.military_service_residence_exception_if_needed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No mention of military service in the applicant statement or worksheet.",
+      "explanation": "Neither source affirms or denies military service; absence is from an open narrative, not a closed-world source.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.travel_records_complete",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "Packet lacks passport stamps, CBP travel history, flight records, or completed N-400 travel table; worksheet blank for 2021; only approximate 'about seven months' statement.",
+      "explanation": "The record affirmatively describes missing supporting documents and a blank worksheet, which directly indicates travel records are not complete enough to assess continuous residence.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.passport_records_support_travel",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["applicant_statement"],
+      "evidence": "The packet does not include passport stamps, CBP travel history, or flight records.",
+      "explanation": "The narrative affirmatively states passport/travel records are not present, so they cannot support the stated travel history.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.no_unexplained_trip_gaps",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "Only an approximate 'about seven months abroad sometime in 2021'; no dates or itinerary.",
+      "explanation": "Without specific dates or a complete travel table, gaps cannot be assessed either way.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "n400.no_break_in_residence_from_absence",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["applicant_statement"],
+      "evidence": "About seven months abroad in 2021, but no specific continuous absence duration is established.",
+      "explanation": "Whether the absence was a single continuous trip of 6+ months (potential break) or multiple shorter trips is unknown from the evidence.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "n400.months_after_absence_reestablished_if_needed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No exit/return dates or post-absence residence period documented.",
+      "explanation": "Cannot determine reestablished residence period without specific dates of absence and return.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "n400.filing_under_3yr_spouse",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No mention of filing track or spouse basis in the provided evidence.",
+      "explanation": "Sources do not state the filing track; open narrative cannot ground a closed-world negative.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.months_physical_presence_3yr",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "Only 'about seven months abroad sometime in 2021'; no statutory period boundaries or complete trip data.",
+      "explanation": "Without defined 3-year period boundaries and complete trip data, a months-present number cannot be computed.",
+      "confidence": 0.8
+    }
+  ]
+}

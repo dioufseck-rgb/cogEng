@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.months_physical_presence_5yr",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["residence_worksheet"],
+      "evidence": "Worksheet covers only current district residence duration.",
+      "explanation": "No data on physical presence in the US during the five-year period.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.physical_presence_calculation_reliable",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["residence_worksheet"],
+      "evidence": "Worksheet does not address physical presence calculation.",
+      "explanation": "No evidence about reliability of physical presence calculations.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.us_entry_exit_records_consistent",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["residence_worksheet"],
+      "evidence": "No mention of entry/exit records.",
+      "explanation": "No evidence regarding entry/exit consistency.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.no_unresolved_physical_presence_gap",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["residence_worksheet"],
+      "evidence": "Worksheet limited to district residence; no presence-gap info.",
+      "explanation": "Absence of mention is not affirmative absence.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.stat_period_selected_correctly",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["residence_worksheet"],
+      "evidence": "No information about statutory period selection.",
+      "explanation": "Worksheet scope does not include statutory period determination.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.early_filing_window_applied_correctly",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["residence_worksheet"],
+      "evidence": "No information about early filing window.",
+      "explanation": "Worksheet does not address early filing window.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.months_state_or_district_residence",
+      "status": "bound",
+      "value": 2,
+      "basis": "explicit_positive",
+      "source_ids": ["residence_worksheet"],
+      "evidence": "Two months of residence in the current USCIS district before filing.",
+      "explanation": "Worksheet, lease, and utility bill explicitly establish two months.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.jurisdiction_matches_residence",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["residence_worksheet"],
+      "evidence": "Worksheet shows district residence but does not confirm filing jurisdiction match.",
+      "explanation": "No explicit statement that filing jurisdiction equals residence district.",
+      "confidence": 0.7
+    }
+  ]
+}

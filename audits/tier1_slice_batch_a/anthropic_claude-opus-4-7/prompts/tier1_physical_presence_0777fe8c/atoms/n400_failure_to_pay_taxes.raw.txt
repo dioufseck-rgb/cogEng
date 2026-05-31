@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.failure_to_pay_taxes",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "Worksheet covers only physical presence totals; no tax information.",
+      "explanation": "Tax payment is outside the worksheet's closed-world scope; absence of mention does not support false.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.social_security_fraud",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "No mention of Social Security matters in the worksheet.",
+      "explanation": "Outside the worksheet's scope; cannot infer false from silence.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.welfare_fraud",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "No mention of public benefits in the worksheet.",
+      "explanation": "Outside the worksheet's scope; silence does not establish absence.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.prison_180_days_or_more",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "Worksheet lists dates and totals but does not characterize confinement.",
+      "explanation": "Confinement is not within the worksheet's stated closed-world scope; cannot infer either way.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.days_imprisoned_statutory_period",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "No data on imprisonment days in the evidence.",
+      "explanation": "The worksheet contains no information on imprisonment to extract or compute.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.selective_service_registered_or_exempt",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "No mention of Selective Service in the worksheet.",
+      "explanation": "Selective Service status is outside the worksheet's scope.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.tax_filing_compliant_or_explained",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "No tax filing information in the worksheet.",
+      "explanation": "Tax filing is outside the worksheet's closed-world scope.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.child_support_compliant_or_explained",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "No mention of child support in the worksheet.",
+      "explanation": "Child support is outside the worksheet's closed-world scope.",
+      "confidence": 0.9
+    }
+  ]
+}

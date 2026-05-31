@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.spouse_track_residence_consistent",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "Evidence describes a single trip abroad but says nothing about spouse-track eligibility or spouse's status.",
+      "explanation": "No evidence speaks to spouse-track residence requirements.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.english_test_passed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No mention of English test results.",
+      "explanation": "Sources do not address English test outcomes.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.reading_requirement_satisfied",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No mention of reading test results.",
+      "explanation": "Sources do not address reading requirement.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.writing_requirement_satisfied",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No mention of writing test results.",
+      "explanation": "Sources do not address writing requirement.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.speaking_requirement_satisfied",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No mention of speaking test results.",
+      "explanation": "Sources do not address speaking requirement.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.age_years",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No date of birth or age stated.",
+      "explanation": "No information to extract or compute applicant's age.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.years_as_lpr",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No LPR date or filing date stated.",
+      "explanation": "No information to extract or compute years as LPR.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.medical_disability_exception_approved",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["packet_index"],
+      "evidence": "Packet index lists no N-470, employment-abroad, military, or religious-vocation exceptions; medical disability exception (N-648) not addressed.",
+      "explanation": "The packet index's closed-world scope covers submitted exception documents but the narrative does not affirmatively state absence of N-648; treat as open-world absence.",
+      "confidence": 0.6
+    }
+  ]
+}

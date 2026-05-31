@@ -1,0 +1,44 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.name_identity_record_conflict",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["fbi_check", "county_docket"],
+      "evidence": "No mention of identity or name discrepancies in either source.",
+      "explanation": "Neither source affirmatively addresses name/identity conflicts; absence here is open-world.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.interpreter_or_understanding_issue",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["fbi_check", "county_docket"],
+      "evidence": "Narrative does not mention interpreter use or understanding issues.",
+      "explanation": "No source affirms or denies interpreter/understanding issues; absence is open-world.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.legal_exception_claimed_needs_review",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["county_docket"],
+      "evidence": "Applicant statement says the charge will be dismissed, but no dismissal order is included.",
+      "explanation": "The applicant is asserting a future favorable disposition (claimed exception/mitigation) without documentary support, which requires human review.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "n400.outside_benchmark_scope",
+      "status": "undetermined",
+      "value": false,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No evidence in the sources characterizes facts as outside benchmark scope.",
+      "explanation": "Whether facts are outside the benchmark's encoded scope is a meta-determination not addressable from these sources.",
+      "confidence": 0.5
+    }
+  ]
+}

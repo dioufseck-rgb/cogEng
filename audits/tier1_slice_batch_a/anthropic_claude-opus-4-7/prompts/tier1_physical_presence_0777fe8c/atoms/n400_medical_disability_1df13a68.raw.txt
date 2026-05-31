@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.spouse_track_residence_consistent",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "The applicant is applying under the general five-year track. The worksheet lists dates and total days but no alternative spouse-track claim.",
+      "explanation": "The worksheet's closed-world scope includes presence of an alternative spouse-track claim; none is asserted, and the applicant is on the general five-year track, so spouse-track residence facts are not consistent.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.english_test_passed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "No mention of English test results in the worksheet.",
+      "explanation": "The worksheet does not cover English testing; absence here is open-world.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.reading_requirement_satisfied",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "No mention of reading requirement.",
+      "explanation": "Outside the worksheet's scope; cannot infer.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.writing_requirement_satisfied",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "No mention of writing requirement.",
+      "explanation": "Outside the worksheet's scope; cannot infer.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.speaking_requirement_satisfied",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "No mention of speaking requirement.",
+      "explanation": "Outside the worksheet's scope; cannot infer.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.age_years",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "No age stated in evidence.",
+      "explanation": "The worksheet does not state the applicant's age.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.years_as_lpr",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "No LPR date or duration stated.",
+      "explanation": "The worksheet does not state years as LPR.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.medical_disability_exception_approved",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "No mention of medical disability exception.",
+      "explanation": "Outside the worksheet's scope; cannot infer absence.",
+      "confidence": 0.9
+    }
+  ]
+}

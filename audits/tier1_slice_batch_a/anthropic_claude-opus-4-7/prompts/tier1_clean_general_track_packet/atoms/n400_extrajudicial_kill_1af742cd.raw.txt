@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.persecution_participation",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary"],
+      "evidence": "Narrative does not address persecution participation.",
+      "explanation": "No source affirmatively addresses persecution; narrative silence is open-world absence.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.genocide_participation",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary"],
+      "evidence": "Narrative does not address genocide participation.",
+      "explanation": "No source affirmatively addresses genocide; silence cannot bind false.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.torture_participation",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary"],
+      "evidence": "Narrative does not address torture participation.",
+      "explanation": "No source affirmatively addresses torture; silence cannot bind false.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.extrajudicial_killing_participation",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary"],
+      "evidence": "Narrative does not address extrajudicial killing.",
+      "explanation": "No source affirmatively addresses extrajudicial killing; silence cannot bind false.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.controlled_substance_violation_except_single_marijuana_30g",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["fbi_check", "docket_search"],
+      "evidence": "FBI check reports no aggravated felony convictions; docket search reports no pending charges.",
+      "explanation": "FBI check is closed-world only for criminal convictions reportable to FBI and specifically notes aggravated felonies; it does not affirmatively close the world on controlled-substance violations generally (including admissions or non-reported records). Cannot bind false.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.admission_to_drug_offense",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["interview_worksheet"],
+      "evidence": "Interview worksheet only addresses false testimony issue.",
+      "explanation": "No source affirmatively addresses whether the applicant admitted drug conduct; silence cannot bind false.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.drug_trafficking",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["fbi_check", "docket_search"],
+      "evidence": "FBI check reports no aggravated felony convictions; docket search reports no pending charges.",
+      "explanation": "Drug trafficking conduct is not affirmatively addressed; FBI/docket closed-world scopes are narrower (convictions, pending charges) and do not foreclose conduct-based finding.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.habitual_drunkard",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary"],
+      "evidence": "Narrative does not address alcohol use or habitual drunkenness.",
+      "explanation": "No source affirmatively addresses habitual drunkard status; silence cannot bind false.",
+      "confidence": 0.9
+    }
+  ]
+}

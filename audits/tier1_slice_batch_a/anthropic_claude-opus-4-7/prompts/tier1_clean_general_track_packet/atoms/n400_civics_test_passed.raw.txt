@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.civics_test_passed",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["test_results"],
+      "evidence": "civics test passed",
+      "explanation": "Test record explicitly states civics test passed.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "n400.two_test_opportunities_completed_if_initial_fail",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["test_results"],
+      "evidence": "English test passed, civics test passed",
+      "explanation": "Both tests were passed, so the retest condition is not triggered; requirement is vacuously satisfied.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.reexamination_passed_or_exception",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["test_results"],
+      "evidence": "English test passed, civics test passed",
+      "explanation": "Since the applicant passed on the recorded test, no reexamination was needed; condition is vacuously satisfied.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.simplified_civics_administered_when_applicable",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["test_results", "intake_summary"],
+      "evidence": "Applicant is 37 years old with 6 years LPR; no mention of simplified civics applicability.",
+      "explanation": "No indication the simplified civics provisions applied or were administered; record is silent.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.willing_to_take_oath",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["oath_worksheet"],
+      "evidence": "applicant willing to take the oath",
+      "explanation": "Oath worksheet explicitly records willingness.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "n400.attachment_to_constitution",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["oath_worksheet"],
+      "evidence": "attachment to the Constitution recorded",
+      "explanation": "Oath worksheet explicitly records attachment to the Constitution.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "n400.favorable_to_good_order",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["fbi_check", "docket_search", "interview_worksheet", "oath_worksheet"],
+      "evidence": "No aggravated felony convictions, no pending criminal charges, no false testimony, attachment to Constitution.",
+      "explanation": "Multiple closed-world checks return no adverse facts and oath worksheet records attachment, supporting good-order disposition.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "n400.willing_to_bear_arms_or_noncombatant_or_civilian_work_if_required",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["oath_worksheet"],
+      "evidence": "Oath worksheet records willingness to take oath and attachment to Constitution; no specific mention of bear-arms/noncombatant/civilian-work commitments.",
+      "explanation": "Record does not affirmatively address the specific service commitment elements; narrative silence is not closed-world.",
+      "confidence": 0.6
+    }
+  ]
+}

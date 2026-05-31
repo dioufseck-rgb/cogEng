@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.violation_protective_order",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of any protective order in the narrative.",
+      "explanation": "Available sources (CBP travel history, packet index) have no closed-world scope over protective order violations; absence is open-world.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.unlawful_harassment_or_stalking",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of harassment or stalking.",
+      "explanation": "No source covers harassment/stalking conduct; absence cannot be treated as false.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.manslaughter_or_violent_crime",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of manslaughter or violent crime.",
+      "explanation": "No criminal-history source available; absence is open-world.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.dui_pattern_or_reckless_endangerment",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of DUI or reckless endangerment.",
+      "explanation": "No closed-world criminal/driving record source available.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.unpaid_restitution_or_court_orders",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of restitution or court orders.",
+      "explanation": "No court/financial-obligation source available; absence is open-world.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.probation_parole_uncompleted",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of probation or parole.",
+      "explanation": "No closed-world source for supervision status; absence is open-world.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.pending_criminal_charge",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of pending criminal charges.",
+      "explanation": "Binding policy requires a criminal_history_check or court_docket_search source to bind false; none provided. Open-world absence yields undetermined.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.unresolved_arrest_disposition",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of any arrest or disposition.",
+      "explanation": "No criminal history source covered; absence cannot establish false.",
+      "confidence": 0.9
+    }
+  ]
+}

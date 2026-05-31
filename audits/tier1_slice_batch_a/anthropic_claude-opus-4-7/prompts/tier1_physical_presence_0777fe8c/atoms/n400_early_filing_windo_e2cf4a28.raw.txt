@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.months_physical_presence_5yr",
+      "status": "bound",
+      "value": 24,
+      "basis": "explicit_positive",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "worksheet totals 24 months physically present during the five-year period",
+      "explanation": "Worksheet explicitly states the months total within its closed-world scope.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.physical_presence_calculation_reliable",
+      "status": "undetermined",
+      "value": false,
+      "basis": "not_found",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "Worksheet provides self-declared totals; no independent verification noted.",
+      "explanation": "Reliability is not affirmatively assessed by any source; worksheet limitations note it does not verify travel history.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.us_entry_exit_records_consistent",
+      "status": "undetermined",
+      "value": false,
+      "basis": "not_found",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "No entry/exit records or comparison present in evidence.",
+      "explanation": "No source addresses consistency with border or government records.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "n400.no_unresolved_physical_presence_gap",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "Worksheet lists dates and totals but no statement about unresolved gaps.",
+      "explanation": "Narrative does not mention gaps; absence is not affirmatively established.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.stat_period_selected_correctly",
+      "status": "undetermined",
+      "value": false,
+      "basis": "not_found",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "Applicant applies under general five-year track; worksheet covers five-year period.",
+      "explanation": "While consistent on its face, no source affirmatively determines correctness of statutory-period selection.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.early_filing_window_applied_correctly",
+      "status": "undetermined",
+      "value": false,
+      "basis": "not_found",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "No mention of early filing window or filing date.",
+      "explanation": "Evidence does not address the 90-day early filing window.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "n400.months_state_or_district_residence",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "No state or USCIS district residence months stated.",
+      "explanation": "No numeric value for state/district residence is present in the evidence.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.jurisdiction_matches_residence",
+      "status": "undetermined",
+      "value": false,
+      "basis": "not_found",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "No filing jurisdiction or residence address provided.",
+      "explanation": "Evidence does not address whether jurisdiction matches residence.",
+      "confidence": 0.8
+    }
+  ]
+}

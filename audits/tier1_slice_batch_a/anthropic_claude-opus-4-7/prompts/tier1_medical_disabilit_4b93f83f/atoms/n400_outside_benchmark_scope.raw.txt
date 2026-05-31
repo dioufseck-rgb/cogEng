@@ -1,0 +1,44 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.name_identity_record_conflict",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of identity or name records in the narrative.",
+      "explanation": "Neither source addresses identity or name records; absence is not affirmative.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "n400.interpreter_or_understanding_issue",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of interpreter or understanding facts.",
+      "explanation": "The narrative does not address interpreter or comprehension issues; absence is not affirmative.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "n400.legal_exception_claimed_needs_review",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["n648_approval"],
+      "evidence": "Approved Form N-648 medical disability exception stating English and civics requirements are excepted.",
+      "explanation": "An N-648 medical disability exception is a claimed legal exception interacting with test results, which warrants human review.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.outside_benchmark_scope",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["n648_approval", "test_results"],
+      "evidence": "Approved N-648 disability exception combined with failed English and civics tests.",
+      "explanation": "Disability-exception interplay with failed test results is a specialized scenario that typically falls outside encoded benchmark scope.",
+      "confidence": 0.7
+    }
+  ]
+}

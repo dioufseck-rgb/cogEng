@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.violation_protective_order",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No mention of protective orders in the record; sources address travel/presence only.",
+      "explanation": "The available sources do not address protective orders and have no closed-world scope; absence cannot support a false binding.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.unlawful_harassment_or_stalking",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No mention of harassment or stalking in the record.",
+      "explanation": "Sources do not cover conduct of this type and lack closed-world scope; cannot bind true or false.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.manslaughter_or_violent_crime",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No mention of any violent crime in the record.",
+      "explanation": "No criminal-history source present; silence is open-world absence.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.dui_pattern_or_reckless_endangerment",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No mention of DUI or reckless endangerment in the record.",
+      "explanation": "Sources do not address driving or reckless conduct and have no closed-world scope.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.unpaid_restitution_or_court_orders",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No mention of restitution or court orders in the record.",
+      "explanation": "No financial or court-order evidence present; open-world absence applies.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.probation_parole_uncompleted",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No mention of probation or parole in the record.",
+      "explanation": "Sources do not address supervision status and have no closed-world scope.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.pending_criminal_charge",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No criminal history check or court docket search is present in the record.",
+      "explanation": "Binding policy requires a closed-world criminal-history or court-docket source to bind false; none is provided, and no source affirms a pending charge.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.unresolved_arrest_disposition",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No mention of any arrest or disposition in the record.",
+      "explanation": "No criminal-history source; silence cannot support a false binding.",
+      "confidence": 0.9
+    }
+  ]
+}

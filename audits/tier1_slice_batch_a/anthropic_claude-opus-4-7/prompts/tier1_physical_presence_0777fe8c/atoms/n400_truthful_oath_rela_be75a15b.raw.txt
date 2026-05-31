@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.no_communist_party_bar_or_exception",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "Worksheet covers only physical presence; no information about party membership.",
+      "explanation": "The presence worksheet has no scope over communist party membership; silence is open-world absence.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.no_totalitarian_party_bar_or_exception",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "Worksheet covers only physical presence; no information about totalitarian party membership.",
+      "explanation": "No source addresses totalitarian party membership; cannot bind from silence.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.no_advocacy_overthrow",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "Worksheet contains only physical presence dates and totals.",
+      "explanation": "No evidence about advocacy of overthrow; silence in a presence worksheet is open-world.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.no_desertion_from_us_armed_forces",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "Worksheet contains only physical presence dates and totals.",
+      "explanation": "No evidence about military desertion; cannot infer from a presence worksheet.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.no_title_of_nobility_issue",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "Worksheet contains only physical presence dates and totals.",
+      "explanation": "No evidence about titles of nobility; silence is open-world absence.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.truthful_oath_related_answers",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "Worksheet contains only physical presence dates and totals; no oath-related answers shown.",
+      "explanation": "No evidence about truthfulness of oath-related answers; cannot infer from presence worksheet.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.murder_conviction",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "Only a physical presence worksheet is in the record; no criminal history check or court clearance.",
+      "explanation": "Binding policy requires a criminal_history_check or court_clearance for a false binding; none exists. Silence is open-world absence.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.aggravated_felony_after_1990",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "Only a physical presence worksheet is in the record; no criminal history check or court clearance.",
+      "explanation": "Binding policy requires a closed-world criminal-history or court-clearance source for false; none present. Silence is open-world absence.",
+      "confidence": 0.95
+    }
+  ]
+}

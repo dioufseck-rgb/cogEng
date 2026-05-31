@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.complex_absence_pattern",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["cbp_history"],
+      "evidence": "Single departure January 4, 2021 and re-entry February 10, 2022.",
+      "explanation": "The record shows a single continuous absence with clear dates; no multiple or overlapping trips suggesting complexity.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "n400.inconsistent_travel_history",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["cbp_history"],
+      "evidence": "Passport and CBP printout both show departure 2021-01-04 and re-entry 2022-02-10.",
+      "explanation": "Sources agree on the dates; no inconsistency apparent.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "n400.evidence_missing_critical_dates",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_positive",
+      "source_ids": ["cbp_history"],
+      "evidence": "Departure on January 4, 2021 and re-entry on February 10, 2022.",
+      "explanation": "The critical travel dates are present in the evidence.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.unresolved_tax_issue",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No tax-related information in the narrative.",
+      "explanation": "No source in the inventory has closed-world scope over tax matters; absence is open-world.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.disputed_selective_service_issue",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No Selective Service information in narrative.",
+      "explanation": "No source with closed-world scope over Selective Service; cannot determine.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.possible_false_testimony",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["cbp_history"],
+      "evidence": "Applicant statement (family reasons) does not conflict with CBP/passport travel record.",
+      "explanation": "No discrepancy between testimony and documentary evidence is apparent.",
+      "confidence": 0.65
+    },
+    {
+      "atom_id": "n400.possible_gmc_discretion_issue",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No GMC-related adverse facts mentioned.",
+      "explanation": "No source has closed-world scope over GMC-relevant conduct; open-world absence.",
+      "confidence": 0.55
+    },
+    {
+      "atom_id": "n400.accommodation_or_disability_documentation_unclear",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No accommodation or disability documentation discussed.",
+      "explanation": "No source with closed-world scope over accommodation/disability documentation; cannot assess clarity.",
+      "confidence": 0.55
+    }
+  ]
+}

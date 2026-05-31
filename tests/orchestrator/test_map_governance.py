@@ -17,6 +17,7 @@ from rulekit.contract import (
 )
 from rulekit.orchestrator.cases import CaseExample, ExpectedOutcome
 from rulekit.orchestrator.governed_map import GovernedEvidenceMapStep
+from rulekit.orchestrator.map_governance_eval import atoms_for_determinations
 from rulekit.orchestrator.map_record import (
     AtomBindingRecord,
     AtomBindingStatus,
@@ -176,6 +177,68 @@ def test_governed_map_step_records_prompts_basis_and_raw_responses():
     assert artifacts["atoms"]["n400.aggravated_felony_after_1990"]["metrics"][
         "output_tokens"
     ] > 0
+
+
+def test_governed_map_step_can_bind_atoms_in_batches():
+    program = _program()
+    case = CaseExample(
+        case_id="closed_world_packet",
+        title="Closed-world packet",
+        narrative="The packet includes an FBI criminal history check showing no felony convictions.",
+        structured_fields={
+            "evidence_sources": [
+                {
+                    "source_id": "fbi_check",
+                    "source_type": "criminal_history_check",
+                    "title": "FBI criminal history check",
+                    "closed_world_scopes": ["criminal_convictions"],
+                }
+            ],
+        },
+        expected_outcomes=[],
+    )
+    llm = LLMCaller(
+        offline_responses={
+            "map_governed_source_inventory": (
+                '{"sources":[{"source_id":"fbi_check","source_type":"criminal_history_check",'
+                '"title":"FBI check","as_of_date":null,'
+                '"closed_world_scopes":["criminal_convictions"],"limitations":""}]}'
+            ),
+            "map_governed_atom_batch:1": (
+                '{"bindings":[{"atom_id":"n400.aggravated_felony_after_1990",'
+                '"status":"bound","value":false,"basis":"closed_world_absence",'
+                '"source_ids":["fbi_check"],"evidence":"no felony convictions found",'
+                '"explanation":"official check","confidence":0.95}]}'
+            ),
+        }
+    )
+    step = GovernedEvidenceMapStep(
+        llm,
+        atom_ids=["n400.aggravated_felony_after_1990"],
+        batch_size=4,
+    )
+
+    result = step.run(
+        program,
+        case,
+        MapStepContext(program_id="prog", substrate_id=step.spec.map_step_id),
+    )
+
+    binding = result.map_record.bindings["n400.aggravated_felony_after_1990"]
+    artifacts = result.map_record.metadata["prompt_artifacts"]
+    assert binding.value is False
+    assert binding.basis == BindingBasis.CLOSED_WORLD_ABSENCE
+    assert len(artifacts["batches"]) == 1
+    assert artifacts["atoms"]["n400.aggravated_felony_after_1990"]["batch_index"] == 1
+
+
+def test_atoms_for_determinations_returns_reachable_atoms():
+    atoms = atoms_for_determinations(
+        _program(),
+        ["n400.no_aggravated_felony_bar"],
+    )
+
+    assert atoms == ["n400.aggravated_felony_after_1990"]
 
 
 def _program() -> DeterminationProgram:

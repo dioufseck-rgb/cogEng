@@ -1,0 +1,44 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.name_identity_record_conflict",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["residence_worksheet"],
+      "evidence": "Worksheet addresses only district residence duration; no identity or name information mentioned.",
+      "explanation": "The single source has no scope over identity/name records, so absence cannot support a negative finding.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.interpreter_or_understanding_issue",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["residence_worksheet"],
+      "evidence": "Worksheet addresses only district residence duration; no mention of interpreter or understanding facts.",
+      "explanation": "No source with closed-world scope over interpreter/understanding issues; silence is not negative evidence.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.legal_exception_claimed_needs_review",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["residence_worksheet"],
+      "evidence": "Worksheet addresses only district residence duration; no claimed legal exception mentioned.",
+      "explanation": "No evidence affirms or denies a claimed legal exception; absence is open-world.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.outside_benchmark_scope",
+      "status": "undetermined",
+      "value": false,
+      "basis": "not_found",
+      "source_ids": ["residence_worksheet"],
+      "evidence": "Worksheet only documents current district residence duration.",
+      "explanation": "Whether the case contains facts outside benchmark scope cannot be determined from this single residence worksheet alone.",
+      "confidence": 0.8
+    }
+  ]
+}

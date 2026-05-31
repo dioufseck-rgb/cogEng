@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.illegal_gambling_principal_income",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No source addresses income source or gambling.",
+      "explanation": "Narrative is silent on income from gambling; no closed-world source covers this.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.multiple_gambling_convictions",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No source addresses criminal convictions.",
+      "explanation": "No conviction record or background check provided; silence is not negation.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.prostitution_or_commercialized_vice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No source addresses prostitution or vice.",
+      "explanation": "Available sources don't cover this topic and aren't closed-world for it.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.alien_smuggling",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No source addresses smuggling.",
+      "explanation": "No relevant evidence; silence not negation.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.polygamy",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Family records mention spouse and children but do not address polygamy.",
+      "explanation": "Residence records are not closed-world for marital practice; no affirmative or negative evidence on polygamy.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.false_testimony_for_immigration_benefit",
+      "status": "undetermined",
+      "value": null,
+      "basis": "conflicting_evidence",
+      "source_ids": ["n400_travel_table", "passport_stamps", "cbp_history"],
+      "evidence": "N-400 table and personal statement claim absence of 172 days ending August 20, 2022; passport stamps and CBP show re-entry September 15, 2022 (~198 days).",
+      "explanation": "Applicant's declared travel and statement (never >6 months abroad) conflict with passport and CBP records. Per binding policy, conflicting evidence routes to human review as undetermined; also no uscis_interview_record or immigration_record_check supports a false binding.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "n400.failure_to_support_dependents",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Family residence records show spouse and children in U.S.; no information on support.",
+      "explanation": "No affirmative evidence of willful failure to support; available records are not closed-world for support obligations.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.adultery_destroyed_marriage",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No source addresses adultery or marital dissolution.",
+      "explanation": "Family records mention intact household but are not closed-world for adultery; silence is not negation.",
+      "confidence": 0.85
+    }
+  ]
+}

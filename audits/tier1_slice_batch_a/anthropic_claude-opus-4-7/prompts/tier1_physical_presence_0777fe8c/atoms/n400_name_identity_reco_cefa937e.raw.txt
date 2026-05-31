@@ -1,0 +1,44 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.name_identity_record_conflict",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "Worksheet covers only physical presence totals and dates; no identity or name records discussed.",
+      "explanation": "Identity/name facts are outside the worksheet's closed-world scope; absence of mention does not establish absence of conflict.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.interpreter_or_understanding_issue",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "No information about interpreter use or applicant understanding in the worksheet.",
+      "explanation": "Interpreter/understanding facts are outside the worksheet's scope; cannot infer absence.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.legal_exception_claimed_needs_review",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "Applicant is applying under the general five-year track; worksheet lists no alternative spouse-track claim.",
+      "explanation": "The worksheet's closed-world scope includes presence of an alternative spouse-track claim; none is asserted, and applicant proceeds under the general track, so no legal exception is claimed within this scope.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "n400.outside_benchmark_scope",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "Worksheet provides only physical presence totals and track designation.",
+      "explanation": "Whether the case contains facts outside the benchmark's encoded scope is a meta-determination not supported or refuted by this evidence.",
+      "confidence": 0.6
+    }
+  ]
+}

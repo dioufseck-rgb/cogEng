@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.spouse_track_residence_consistent",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No residence or spouse-track information in evidence.",
+      "explanation": "Neither source addresses residence facts or spouse track; cannot bind.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.english_test_passed",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["test_results"],
+      "evidence": "Naturalization test result: English not passed.",
+      "explanation": "The test record has closed-world scope over current English test pass status and affirmatively reports not passed.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.reading_requirement_satisfied",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["test_results", "n648_approval"],
+      "evidence": "Test record shows English not passed; N-648 excepts English/civics requirements.",
+      "explanation": "Whether the reading requirement is satisfied depends on policy interpretation of the exception; evidence does not directly state the requirement is met or unmet. Defer to policy engine.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "n400.writing_requirement_satisfied",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["test_results", "n648_approval"],
+      "evidence": "Test record shows English not passed; N-648 excepts English/civics requirements.",
+      "explanation": "Evidence does not directly state writing requirement satisfaction; this is a policy determination from the exception.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "n400.speaking_requirement_satisfied",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["test_results", "n648_approval"],
+      "evidence": "Test record shows English not passed; N-648 excepts English/civics requirements.",
+      "explanation": "Evidence does not directly state speaking requirement satisfaction; this is a policy determination from the exception.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "n400.age_years",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No age information provided in evidence.",
+      "explanation": "Neither source states applicant's age.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.years_as_lpr",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No LPR duration information provided.",
+      "explanation": "Neither source states applicant's years as LPR.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.medical_disability_exception_approved",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["n648_approval"],
+      "evidence": "Approved Form N-648 states English and civics requirements are excepted.",
+      "explanation": "Source explicitly affirms an approved medical disability exception within its closed-world scope.",
+      "confidence": 0.98
+    }
+  ]
+}

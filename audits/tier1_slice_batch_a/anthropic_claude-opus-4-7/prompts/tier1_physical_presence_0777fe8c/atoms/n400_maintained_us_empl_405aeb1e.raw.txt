@@ -1,0 +1,85 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.maintained_us_employment_or_no_foreign_employment",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "Worksheet only reports physical presence totals; no employment data.",
+      "explanation": "Employment is outside the worksheet's closed-world scope; no other sources.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.did_not_claim_nonresident_tax_status",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_id": ["presence_worksheet"],
+      "source_ids": ["presence_worksheet"],
+      "evidence": "No tax status information in the worksheet.",
+      "explanation": "Tax status is outside the worksheet's scope; cannot infer.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.returned_to_us_after_absences",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "Worksheet lists dates and totals but narrative does not characterize returns after absences.",
+      "explanation": "Insufficient detail in provided narrative to affirm returns; not addressed explicitly.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "n400.no_absence_over_one_year",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "Worksheet totals 24 months presence over 5-year period but specific absence durations not provided in narrative.",
+      "explanation": "Cannot determine from totals alone whether any single absence exceeded one year.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "n400.absence_over_one_year",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "Worksheet totals 24 months presence but individual absence lengths not stated in narrative.",
+      "explanation": "Cannot determine presence/absence of a one-year-plus absence from totals alone.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "n400.qualifying_employment_abroad_exception",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "No mention of employment abroad exceptions.",
+      "explanation": "Outside the worksheet's scope; no evidence available.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.timely_n470_approval_if_needed",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "No mention of N-470 approval.",
+      "explanation": "Outside the worksheet's scope; no evidence available.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.religious_vocation_abroad_exception_if_needed",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "No mention of religious vocation abroad exception.",
+      "explanation": "Outside the worksheet's scope; no evidence available.",
+      "confidence": 0.9
+    }
+  ]
+}

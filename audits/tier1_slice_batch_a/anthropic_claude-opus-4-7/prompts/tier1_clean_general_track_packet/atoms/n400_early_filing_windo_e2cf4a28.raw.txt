@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.months_physical_presence_5yr",
+      "status": "bound",
+      "value": 41,
+      "basis": "explicit_positive",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "Physical presence worksheet states 41 months present in the United States during the five-year period.",
+      "explanation": "Directly stated numeric value in months.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.physical_presence_calculation_reliable",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["presence_worksheet", "travel_table"],
+      "evidence": "Travel table lists one 21-day trip and no other travel; physical presence worksheet states 41 months.",
+      "explanation": "Worksheet and limited declared travel are mutually consistent, supporting reliability of the calculation.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "n400.us_entry_exit_records_consistent",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["travel_table", "presence_worksheet"],
+      "evidence": "Travel table lists one 21-day trip; presence worksheet states 41 months present, consistent with the declared trip.",
+      "explanation": "Declared travel and presence worksheet are consistent with each other; no conflicting entries noted.",
+      "confidence": 0.65
+    },
+    {
+      "atom_id": "n400.no_unresolved_physical_presence_gap",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["presence_worksheet", "travel_table"],
+      "evidence": "Travel table lists one 21-day trip and no other travel; presence worksheet provides a complete 41-month figure.",
+      "explanation": "No unresolved gap is indicated in the worksheet or travel record.",
+      "confidence": 0.65
+    },
+    {
+      "atom_id": "n400.stat_period_selected_correctly",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["presence_worksheet", "intake_summary"],
+      "evidence": "Applicant LPR for 6 years; physical presence worksheet uses a five-year statutory period.",
+      "explanation": "A five-year period is appropriate for a 6-year LPR with no spousal basis indicated; selection aligns with record.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "n400.early_filing_window_applied_correctly",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No mention of filing date or application of the 90-day early filing window.",
+      "explanation": "Record does not address early filing window application.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.months_state_or_district_residence",
+      "status": "bound",
+      "value": 9,
+      "basis": "explicit_positive",
+      "source_ids": ["intake_summary"],
+      "evidence": "Residence worksheet states 9 months in the same USCIS district.",
+      "explanation": "Directly stated numeric value in months.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.jurisdiction_matches_residence",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No statement comparing filing jurisdiction to applicant residence.",
+      "explanation": "Record does not address whether filing jurisdiction matches the applicant's residence.",
+      "confidence": 0.6
+    }
+  ]
+}

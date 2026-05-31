@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.spouse_track_residence_consistent",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No residence or spouse-track facts in the narrative.",
+      "explanation": "Evidence concerns testing only; nothing about residence or spouse track.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.english_test_passed",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["test_results"],
+      "evidence": "Applicant failed the English reading and writing components.",
+      "explanation": "Test record affirmatively states English components failed; within closed-world scope of english_civics_test_results.",
+      "confidence": 0.97
+    },
+    {
+      "atom_id": "n400.reading_requirement_satisfied",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["test_results"],
+      "evidence": "Failed English reading component.",
+      "explanation": "Test record affirmatively records failure of reading component within its closed-world scope.",
+      "confidence": 0.97
+    },
+    {
+      "atom_id": "n400.writing_requirement_satisfied",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["test_results"],
+      "evidence": "Failed English writing component.",
+      "explanation": "Test record affirmatively records failure of writing component within its closed-world scope.",
+      "confidence": 0.97
+    },
+    {
+      "atom_id": "n400.speaking_requirement_satisfied",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["test_results"],
+      "evidence": "Record mentions reading, writing, and civics, but not speaking.",
+      "explanation": "No statement about speaking component; absence not affirmative.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.age_years",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No age stated.",
+      "explanation": "No numeric age data available in evidence.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.years_as_lpr",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No LPR duration stated.",
+      "explanation": "No numeric LPR duration available in evidence.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.medical_disability_exception_approved",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["packet_index"],
+      "evidence": "Packet index: no approved medical disability exception included.",
+      "explanation": "Packet index has closed-world scope over submitted exception documents; the document is absent from the packet, so within that scope the exception is not approved/submitted.",
+      "confidence": 0.9
+    }
+  ]
+}

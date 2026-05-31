@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.no_communist_party_bar_or_exception",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No mention of communist party membership in the available evidence.",
+      "explanation": "The available sources address travel/presence, not political affiliations. Silence in an open narrative cannot establish absence.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.no_totalitarian_party_bar_or_exception",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No mention of totalitarian party membership in the available evidence.",
+      "explanation": "Sources address only travel/presence; they do not affirmatively address party membership. Open-world silence cannot determine this atom.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.no_advocacy_overthrow",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No statements about advocacy in the available evidence.",
+      "explanation": "Available sources are scoped to physical presence/travel and do not affirmatively address advocacy. Cannot bind from silence.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.no_desertion_from_us_armed_forces",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No mention of military service or desertion in the available evidence.",
+      "explanation": "Sources do not affirmatively address desertion. Open-world silence cannot determine this atom.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.no_title_of_nobility_issue",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No mention of titles of nobility in the available evidence.",
+      "explanation": "Sources do not affirmatively address titles of nobility. Open-world silence cannot determine this atom.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.truthful_oath_related_answers",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No information bearing on truthfulness of oath-related answers.",
+      "explanation": "Available sources do not affirmatively address truthfulness of oath answers. Cannot bind from silence.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.murder_conviction",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No criminal history check or court clearance in the record; no explicit positive evidence of a murder conviction.",
+      "explanation": "Binding policy requires a closed-world criminal-history or court-clearance source for a false binding. No such source is present, and no explicit positive evidence exists to bind true.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.aggravated_felony_after_1990",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No criminal history check or court clearance in the record; no explicit positive evidence of an aggravated felony.",
+      "explanation": "Binding policy requires a closed-world criminal-history or court-clearance source for a false binding. No such source is present, and no explicit positive evidence exists to bind true.",
+      "confidence": 0.95
+    }
+  ]
+}

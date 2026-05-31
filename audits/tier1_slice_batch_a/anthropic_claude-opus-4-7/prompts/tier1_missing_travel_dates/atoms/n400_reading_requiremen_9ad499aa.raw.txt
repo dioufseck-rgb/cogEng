@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.spouse_track_residence_consistent",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "Applicant reports ~7 months abroad in 2021; no passport stamps, CBP history, flight records, or completed N-400 travel table; worksheet blank for 2021.",
+      "explanation": "No affirmative evidence about spouse-track residence eligibility; travel data incomplete. Cannot determine consistency from open narrative.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "n400.english_test_passed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No mention of English test results in the available sources.",
+      "explanation": "Sources address travel/presence only; silence is not evidence of failure.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.reading_requirement_satisfied",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No mention of English reading test outcome.",
+      "explanation": "No data on reading requirement; cannot bind.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.writing_requirement_satisfied",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No mention of English writing test outcome.",
+      "explanation": "No data on writing requirement; cannot bind.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.speaking_requirement_satisfied",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No mention of English speaking ability assessment.",
+      "explanation": "No data on speaking requirement; cannot bind.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.age_years",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "Sources do not state applicant's date of birth or age at filing.",
+      "explanation": "Numeric age cannot be extracted or computed from available evidence.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.years_as_lpr",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "Sources do not state LPR admission date or duration.",
+      "explanation": "No data to extract or compute years as LPR.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.medical_disability_exception_approved",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["applicant_statement", "blank_presence_worksheet"],
+      "evidence": "No mention of an N-648 or medical disability exception in the sources.",
+      "explanation": "Silence in open-world sources does not affirm absence of approval.",
+      "confidence": 0.9
+    }
+  ]
+}

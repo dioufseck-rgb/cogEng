@@ -1,0 +1,13 @@
+{
+  "atom_id": "n400.reexamination_passed_or_exception",
+  "basis": "closed_world_absence",
+  "confidence": 0.85,
+  "evidence": "Test record shows English reading/writing failed; packet index shows no medical disability exception document and no age-and-LPR English exception claimed.",
+  "explanation": "The test result source (closed-world for this attempt's outcomes) affirmatively records failure, and the packet index (closed-world for submitted exception documents) affirmatively shows no exception document; together they support a closed-world negative for 'passed or exception applies' on this record.",
+  "source_ids": [
+    "test_results",
+    "packet_index"
+  ],
+  "status": "bound",
+  "value": false
+}

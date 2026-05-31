@@ -1,0 +1,63 @@
+You are preparing evidence for a governed policy Map step.
+
+Your job is NOT to decide the policy outcome. Your job is to inventory the
+evidence sources and identify what each source can and cannot support.
+
+For each source, return:
+- source_id
+- source_type
+- title
+- as_of_date if stated
+- closed_world_scopes: factual universes where absence from this source can
+  support a negative atom binding
+- limitations
+
+Closed-world absence is narrow. A personal statement or open narrative usually
+does NOT support closed-world absence. Official checks, search results,
+agency records, court records, or complete structured extracts may support it
+only within their stated scope.
+
+CASE NARRATIVE
+==============
+The passport and CBP travel-history printout show departure from the United States on January 4, 2021 and re-entry on February 10, 2022. The packet contains no N-470 preservation approval, no qualifying employment-abroad approval, no military service exception, and no religious-vocation exception. The applicant statement says the trip was for family reasons.
+
+DECLARED SOURCES
+================
+[
+  {
+    "as_of_date": null,
+    "closed_world_scopes": [
+      "us_entry_exit_events"
+    ],
+    "limitations": "Synthetic benchmark travel-history source.",
+    "metadata": {},
+    "source_id": "cbp_history",
+    "source_type": "cbp_travel_history",
+    "title": "CBP travel-history printout"
+  },
+  {
+    "as_of_date": null,
+    "closed_world_scopes": [
+      "submitted_exception_documents"
+    ],
+    "limitations": "Shows no exception document included.",
+    "metadata": {},
+    "source_id": "packet_index",
+    "source_type": "case_packet_index",
+    "title": "Case packet index"
+  }
+]
+
+Return ONLY this JSON shape:
+{
+  "sources": [
+    {
+      "source_id": "source id",
+      "source_type": "source type",
+      "title": "short title",
+      "as_of_date": "YYYY-MM-DD or null",
+      "closed_world_scopes": ["scope"],
+      "limitations": "limitations"
+    }
+  ]
+}

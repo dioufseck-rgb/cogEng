@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.complex_absence_pattern",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["travel_table"],
+      "evidence": "Travel table lists one 21-day trip and no other travel.",
+      "explanation": "A single short trip is not a complex travel pattern.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.inconsistent_travel_history",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["travel_table", "presence_worksheet"],
+      "evidence": "One 21-day trip; 41 months present in 5-year period (60 months - 21 days is consistent).",
+      "explanation": "Travel table and presence worksheet are consistent with each other.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.evidence_missing_critical_dates",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary"],
+      "evidence": "Narrative does not enumerate specific dates such as LPR admission date or trip dates.",
+      "explanation": "Narrative summary does not affirm completeness of dates; cannot conclude missing or present.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.unresolved_tax_issue",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary"],
+      "evidence": "No mention of tax issues in the record.",
+      "explanation": "No source has closed-world scope over tax issues; absence of mention does not establish absence.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.disputed_selective_service_issue",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary"],
+      "evidence": "No mention of Selective Service in the record.",
+      "explanation": "No source addresses Selective Service; cannot determine whether facts are disputed.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.possible_false_testimony",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["interview_worksheet"],
+      "evidence": "USCIS interview worksheet reports no false testimony issue.",
+      "explanation": "Interview worksheet has closed-world scope over the false testimony issue and affirmatively reports none.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.possible_gmc_discretion_issue",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["fbi_check", "docket_search", "interview_worksheet"],
+      "evidence": "No aggravated felony convictions, no pending charges, no false testimony issue.",
+      "explanation": "Available GMC-relevant sources report nothing adverse; no indicator of a discretionary GMC issue.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "n400.accommodation_or_disability_documentation_unclear",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary", "test_results"],
+      "evidence": "No mention of accommodation or disability documentation; English and civics tests passed.",
+      "explanation": "No source affirmatively addresses accommodation/disability documentation; cannot determine clarity.",
+      "confidence": 0.5
+    }
+  ]
+}

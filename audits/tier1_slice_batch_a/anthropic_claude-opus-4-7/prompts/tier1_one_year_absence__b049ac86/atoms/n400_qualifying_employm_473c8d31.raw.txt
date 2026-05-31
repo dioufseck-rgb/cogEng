@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.maintained_us_employment_or_no_foreign_employment",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["cbp_history", "packet_index"],
+      "evidence": "Narrative addresses travel and absence of exception documents; no information about employment status during the trip.",
+      "explanation": "No source in scope addresses employment; CBP and packet index do not cover employment facts.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.did_not_claim_nonresident_tax_status",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["cbp_history", "packet_index"],
+      "evidence": "No mention of tax filings or residency claims in the evidence.",
+      "explanation": "Neither source's closed-world scope covers tax filings; silence is not affirmative absence.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.returned_to_us_after_absences",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["cbp_history"],
+      "evidence": "Re-entry on February 10, 2022 following departure January 4, 2021.",
+      "explanation": "CBP record affirmatively shows return to the U.S. after the absence.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "n400.no_absence_over_one_year",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["cbp_history"],
+      "evidence": "Departure January 4, 2021 to re-entry February 10, 2022 — approximately 13 months.",
+      "explanation": "CBP-recorded dates directly show an absence exceeding one year, contradicting the statement.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "n400.absence_over_one_year",
+      "status": "bound",
+      "value": true,
+      "basis": "computed",
+      "source_ids": ["cbp_history"],
+      "evidence": "Departure 2021-01-04 to re-entry 2022-02-10 = ~402 days.",
+      "explanation": "Directly computed from CBP-recorded entry/exit dates.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "n400.qualifying_employment_abroad_exception",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["packet_index"],
+      "evidence": "Packet contains no qualifying employment-abroad approval; trip stated to be for family reasons.",
+      "explanation": "Packet index has closed-world scope over submitted exception documents and affirmatively shows none.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.timely_n470_approval_if_needed",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["packet_index"],
+      "evidence": "Packet contains no N-470 preservation approval.",
+      "explanation": "Packet index closed-world scope affirmatively shows no N-470 in submitted packet.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.religious_vocation_abroad_exception_if_needed",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["packet_index"],
+      "evidence": "Packet contains no religious-vocation exception.",
+      "explanation": "Packet index closed-world scope affirmatively shows no such exception in submitted packet.",
+      "confidence": 0.9
+    }
+  ]
+}

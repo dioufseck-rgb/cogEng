@@ -1,0 +1,44 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.name_identity_record_conflict",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["cbp_history", "packet_index"],
+      "evidence": "No mention of name or identity record conflicts in the narrative.",
+      "explanation": "The available sources do not address identity/name consistency; absence of mention is not affirmative evidence of no conflict.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.interpreter_or_understanding_issue",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["cbp_history", "packet_index"],
+      "evidence": "Narrative does not mention interpreter use or understanding issues.",
+      "explanation": "No source covers interpreter/understanding facts; cannot affirm or deny.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.legal_exception_claimed_needs_review",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["packet_index"],
+      "evidence": "The packet contains no N-470 preservation approval, no qualifying employment-abroad approval, no military service exception, and no religious-vocation exception. The applicant statement says the trip was for family reasons.",
+      "explanation": "Packet index has closed-world scope over submitted exception documents and shows none included; applicant attributes the trip to family reasons, not a legal exception. No exception is claimed requiring review.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "n400.outside_benchmark_scope",
+      "status": "undetermined",
+      "value": false,
+      "basis": "not_found",
+      "source_ids": ["cbp_history", "packet_index"],
+      "evidence": "No indication in the evidence of facts outside the benchmark's encoded scope.",
+      "explanation": "Whether the case is outside benchmark scope is a meta-determination not addressed by the provided sources.",
+      "confidence": 0.5
+    }
+  ]
+}

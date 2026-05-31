@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.months_physical_presence_5yr",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["n400_travel_table", "passport_stamps", "cbp_history"],
+      "evidence": "Only a single trip (March 1, 2022 to September 15, 2022 per CBP/passport; or to August 20, 2022 per N-400 table) is described; the five-year statutory window and total presence months are not stated or computable from the evidence given.",
+      "explanation": "The evidence describes one trip but does not provide the full five-year window or other absences needed to compute total months of physical presence.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.physical_presence_calculation_reliable",
+      "status": "bound",
+      "value": false,
+      "basis": "conflicting_evidence",
+      "source_ids": ["n400_travel_table", "passport_stamps", "cbp_history"],
+      "evidence": "N-400 travel table lists re-entry August 20, 2022 (172 days), while passport stamps and CBP records show re-entry September 15, 2022.",
+      "explanation": "Conflict between the applicant-declared trip end date and the passport/CBP records means the physical presence calculation derived from the table is not reliable.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.us_entry_exit_records_consistent",
+      "status": "bound",
+      "value": false,
+      "basis": "conflicting_evidence",
+      "source_ids": ["n400_travel_table", "passport_stamps", "cbp_history"],
+      "evidence": "N-400 table shows return August 20, 2022; passport stamps and CBP show re-entry September 15, 2022.",
+      "explanation": "The applicant's declared travel table conflicts with passport stamps and CBP records on the re-entry date.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.no_unresolved_physical_presence_gap",
+      "status": "bound",
+      "value": false,
+      "basis": "conflicting_evidence",
+      "source_ids": ["n400_travel_table", "passport_stamps", "cbp_history"],
+      "evidence": "Discrepancy between August 20, 2022 (declared) and September 15, 2022 (passport/CBP) leaves ~26 days unaccounted for in the declared record.",
+      "explanation": "The conflicting re-entry dates create an unresolved gap of approximately 26 days affecting physical presence.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.stat_period_selected_correctly",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["n400_travel_table"],
+      "evidence": "Narrative states applicant applies under the general five-year track but does not show the filing date or the specific statutory window selected.",
+      "explanation": "While the five-year track is noted, the evidence does not affirmatively confirm correct selection of the statutory period.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.early_filing_window_applied_correctly",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No information about filing date or application of the 90-day early filing window.",
+      "explanation": "The evidence does not address the early filing window.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.months_state_or_district_residence",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No state or USCIS district residence duration is stated.",
+      "explanation": "Lease and residence records are mentioned but no duration in months in a specific state/district is provided.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.jurisdiction_matches_residence",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No information about filing jurisdiction relative to residence.",
+      "explanation": "The evidence does not identify the filing jurisdiction or compare it to the applicant's residence.",
+      "confidence": 0.9
+    }
+  ]
+}

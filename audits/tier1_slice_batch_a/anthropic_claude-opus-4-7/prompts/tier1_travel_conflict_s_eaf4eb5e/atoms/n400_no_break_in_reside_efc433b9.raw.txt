@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.military_service_residence_exception_if_needed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of military service in the narrative.",
+      "explanation": "Narrative does not address military service; absence of mention is not affirmative negation.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.travel_records_complete",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["n400_travel_table", "passport_stamps", "cbp_history"],
+      "evidence": "N-400 table, passport stamps, and CBP printout all document the 2022 trip with departure and re-entry dates.",
+      "explanation": "Multiple corroborating travel records exist covering the period, sufficient to assess continuous residence even if they conflict on duration.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "n400.passport_records_support_travel",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["passport_stamps", "cbp_history", "n400_travel_table"],
+      "evidence": "Passport and CBP show re-entry September 15, 2022, while the N-400 table lists return as August 20, 2022 (172 days).",
+      "explanation": "Passport/CBP records contradict the stated travel history on the N-400 table, so they do not support the stated travel.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.no_unexplained_trip_gaps",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["n400_travel_table", "passport_stamps", "cbp_history"],
+      "evidence": "N-400 lists return August 20, 2022, but passport and CBP show re-entry September 15, 2022 — an unexplained ~26-day discrepancy.",
+      "explanation": "There is an unexplained gap between the declared return date and the documented re-entry date.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.no_break_in_residence_from_absence",
+      "status": "undetermined",
+      "value": null,
+      "basis": "conflicting_evidence",
+      "source_ids": ["n400_travel_table", "passport_stamps", "cbp_history", "residence_evidence"],
+      "evidence": "Declared 172 days (under 6 months) conflicts with passport/CBP showing March 1 to September 15, 2022 (~198 days, over 6 months). Residence ties (lease, bank, family) support no break.",
+      "explanation": "Sources conflict on whether the absence exceeded six months, which is determinative for break in residence.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "n400.months_after_absence_reestablished_if_needed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not state filing date or post-return residence duration.",
+      "explanation": "Cannot determine whether residence was reestablished for the required period without filing date or post-return timeline.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.filing_under_3yr_spouse",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["residence_evidence"],
+      "evidence": "The applicant applies under the general five-year track.",
+      "explanation": "Narrative explicitly states the applicant is on the five-year track, not the three-year spouse track.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.months_physical_presence_3yr",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No three-year statutory period defined; applicant is on the five-year track.",
+      "explanation": "Cannot compute months of physical presence for a three-year spouse period when no such period is established and no filing date is given.",
+      "confidence": 0.7
+    }
+  ]
+}

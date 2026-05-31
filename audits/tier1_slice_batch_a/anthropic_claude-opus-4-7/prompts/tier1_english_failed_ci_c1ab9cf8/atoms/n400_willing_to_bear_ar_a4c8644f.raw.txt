@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.civics_test_passed",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["test_results"],
+      "evidence": "Naturalization test record states the applicant passed the civics test.",
+      "explanation": "Direct affirmative statement in the test record.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "n400.two_test_opportunities_completed_if_initial_fail",
+      "status": "undetermined",
+      "value": false,
+      "basis": "not_found",
+      "source_ids": ["test_results"],
+      "evidence": "Record shows failure on English components but no information about a retest opportunity.",
+      "explanation": "No evidence about whether a second test opportunity was offered/completed.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.reexamination_passed_or_exception",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["test_results", "packet_index"],
+      "evidence": "Test record shows English reading/writing failed; packet index shows no medical disability exception document and no age-and-LPR English exception claimed.",
+      "explanation": "The test result source (closed-world for this attempt's outcomes) affirmatively records failure, and the packet index (closed-world for submitted exception documents) affirmatively shows no exception document; together they support a closed-world negative for 'passed or exception applies' on this record.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.simplified_civics_administered_when_applicable",
+      "status": "undetermined",
+      "value": false,
+      "basis": "not_found",
+      "source_ids": ["test_results"],
+      "evidence": "No information about simplified civics administration or applicant's eligibility (e.g., 65/20).",
+      "explanation": "Evidence does not address whether simplified civics was applicable or administered.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.willing_to_take_oath",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No statement in available sources regarding willingness to take the Oath.",
+      "explanation": "Sources are scoped to test results and packet index; they do not address oath willingness.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.attachment_to_constitution",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No statement regarding attachment to the Constitution.",
+      "explanation": "Available sources do not speak to this attribute.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.favorable_to_good_order",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No statement regarding disposition to good order and happiness of the U.S.",
+      "explanation": "Available sources do not speak to this attribute.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.willing_to_bear_arms_or_noncombatant_or_civilian_work_if_required",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No statement regarding oath service commitments or modifications.",
+      "explanation": "Available sources do not speak to this attribute.",
+      "confidence": 0.9
+    }
+  ]
+}

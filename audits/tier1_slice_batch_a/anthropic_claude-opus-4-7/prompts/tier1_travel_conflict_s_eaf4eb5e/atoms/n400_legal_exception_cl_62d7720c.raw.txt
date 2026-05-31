@@ -1,0 +1,44 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.name_identity_record_conflict",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No identity or name information is discussed in the narrative or sources.",
+      "explanation": "Nothing in the evidence speaks to identity/name records; absence of mention is not negative proof.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "n400.interpreter_or_understanding_issue",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of interpreter use or comprehension issues.",
+      "explanation": "Evidence does not address interpreter or understanding facts.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "n400.legal_exception_claimed_needs_review",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Applicant applies under the general five-year track; no legal exception is claimed in the available evidence.",
+      "explanation": "No claimed legal exception is mentioned; absence of mention does not affirmatively bind false.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "n400.outside_benchmark_scope",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["n400_travel_table", "passport_stamps", "cbp_history"],
+      "evidence": "N-400 table lists trip ending August 20, 2022 (172 days), while passport stamps and CBP records show re-entry September 15, 2022 (~198 days); applicant's statement claims never over six months.",
+      "explanation": "There is a material conflict between the applicant-declared travel duration and authoritative travel records that bears on the continuous-residence question, raising a discrepancy that warrants human review and may fall outside the benchmark's automated encoding scope.",
+      "confidence": 0.6
+    }
+  ]
+}

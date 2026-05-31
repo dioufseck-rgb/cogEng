@@ -1,0 +1,185 @@
+You are binding MULTIPLE atoms for a governed policy engine.
+
+You are NOT deciding the policy outcome. Decide only whether the evidence
+supports each atom value, and on what epistemic basis.
+
+Critical rules:
+- Treat each atom independently.
+- Do NOT bind an atom to false merely because an open narrative does not mention it.
+- If the only reason for false is "not mentioned", return value "undetermined"
+  with basis "open_world_absence".
+- If a source affirmatively says a fact is absent and that source has a relevant
+  closed-world scope, false may use basis "closed_world_absence".
+- If sources conflict, return status "undetermined" and basis
+  "conflicting_evidence"; do not choose a winner.
+- If the atom cannot be answered from the evidence, return status
+  "undetermined" and basis "not_found".
+- For numeric atoms, extract only stated or directly computed values requested
+  by the atom; otherwise return "undetermined".
+- Return one binding object for every atom in ATOMS.
+
+SOURCE INVENTORY
+================
+[
+  {
+    "as_of_date": null,
+    "closed_world_scopes": [
+      "applicant's oath willingness as recorded at this interview",
+      "attachment to the Constitution determination as recorded at this interview"
+    ],
+    "limitations": "Current interview worksheet only. Reflects the officer's recorded findings and applicant's stated position at the time of interview; does not cover prior or subsequent statements, external evidence of attachment or disposition outside the interview, or any rehabilitation/reconsideration after the worksheet date.",
+    "metadata": {},
+    "source_id": "oath_worksheet",
+    "source_type": "oath_attachment_worksheet",
+    "title": "Oath and attachment worksheet"
+  }
+]
+
+CASE NARRATIVE
+==============
+The oath and attachment worksheet says the applicant refuses to take the Oath of Allegiance and does not agree to the oath-related commitments. The worksheet also states that attachment to the Constitution was not established at interview.
+
+ATOMS
+=====
+[
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.civics_test_passed",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part E",
+      "statement": "The applicant passed the civics test.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The oath and attachment worksheet says the applicant refuses to take the Oath of Allegiance and does not agree to the oath-related commitments. The worksheet also states that attachment to the Constitution was not established at interview."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.two_test_opportunities_completed_if_initial_fail",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part E",
+      "statement": "Required retest opportunities were completed when applicable.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The oath and attachment worksheet says the applicant refuses to take the Oath of Allegiance and does not agree to the oath-related commitments. The worksheet also states that attachment to the Constitution was not established at interview."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.reexamination_passed_or_exception",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part E",
+      "statement": "Reexamination was passed or an exception applies.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The oath and attachment worksheet says the applicant refuses to take the Oath of Allegiance and does not agree to the oath-related commitments. The worksheet also states that attachment to the Constitution was not established at interview."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.simplified_civics_administered_when_applicable",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part E",
+      "statement": "Simplified civics treatment was administered when applicable.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The oath and attachment worksheet says the applicant refuses to take the Oath of Allegiance and does not agree to the oath-related commitments. The worksheet also states that attachment to the Constitution was not established at interview."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.willing_to_take_oath",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part J",
+      "statement": "The applicant is willing to take the Oath of Allegiance.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Oath worksheet: applicant refuses to take the Oath of Allegiance."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.attachment_to_constitution",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part J",
+      "statement": "The applicant is attached to the principles of the Constitution.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Oath worksheet: attachment to the Constitution not established."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.favorable_to_good_order",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part J",
+      "statement": "The applicant is well disposed to the good order and happiness of the United States.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The oath and attachment worksheet says the applicant refuses to take the Oath of Allegiance and does not agree to the oath-related commitments. The worksheet also states that attachment to the Constitution was not established at interview."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.willing_to_bear_arms_or_noncombatant_or_civilian_work_if_required",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part J",
+      "statement": "The applicant accepts required oath-related service commitments or a permitted modification.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The oath and attachment worksheet says the applicant refuses to take the Oath of Allegiance and does not agree to the oath-related commitments. The worksheet also states that attachment to the Constitution was not established at interview."
+  }
+]
+
+Allowed basis values:
+explicit_positive, explicit_negative, closed_world_absence, open_world_absence,
+inferred_from_record, conflicting_evidence, computed, looked_up, not_found.
+
+Return ONLY this JSON shape:
+{
+  "bindings": [
+    {
+      "atom_id": "atom id from ATOMS",
+      "status": "bound|undetermined|error",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["source id"],
+      "evidence": "short exact evidence or summary",
+      "explanation": "why this basis is appropriate",
+      "confidence": 0.0
+    }
+  ]
+}

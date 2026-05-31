@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.complex_absence_pattern",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["test_results", "packet_index"],
+      "evidence": "Narrative discusses only English/civics test results and absence of exception documents; no travel pattern information.",
+      "explanation": "No source addresses travel patterns; absence of mention does not support a false binding.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.inconsistent_travel_history",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["test_results", "packet_index"],
+      "evidence": "No travel history mentioned in available sources.",
+      "explanation": "Sources do not cover travel history; cannot infer consistency or inconsistency.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.evidence_missing_critical_dates",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["test_results", "packet_index"],
+      "evidence": "No discussion of dates in the available evidence.",
+      "explanation": "Sources don't speak to completeness of dates in the broader record.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.unresolved_tax_issue",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["test_results", "packet_index"],
+      "evidence": "No tax-related information present in the sources.",
+      "explanation": "Sources do not cover tax matters; cannot determine status.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.disputed_selective_service_issue",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["test_results", "packet_index"],
+      "evidence": "No Selective Service information present.",
+      "explanation": "Sources do not address Selective Service; cannot determine dispute status.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.possible_false_testimony",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["test_results", "packet_index"],
+      "evidence": "No testimony content available in the sources.",
+      "explanation": "No basis to assess truthfulness; absence of mention does not warrant false.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.possible_gmc_discretion_issue",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["test_results", "packet_index"],
+      "evidence": "No GMC-related facts present in the sources.",
+      "explanation": "Sources only address test results and missing exception documents; no GMC indicators discussed.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.accommodation_or_disability_documentation_unclear",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["packet_index"],
+      "evidence": "The packet does not include an approved medical disability exception and does not claim an age-and-LPR English exception.",
+      "explanation": "Packet index has closed-world scope over submitted exception documents; it affirmatively shows no such documentation, so there is no unclear documentation to review — the position is simply that none was submitted.",
+      "confidence": 0.6
+    }
+  ]
+}
