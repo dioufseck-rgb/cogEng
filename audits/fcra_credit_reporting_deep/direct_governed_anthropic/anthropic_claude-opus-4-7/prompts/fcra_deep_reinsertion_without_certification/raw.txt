@@ -1,0 +1,196 @@
+{
+  "case_id": "fcra_deep_reinsertion_without_certification",
+  "determinations": [
+    {
+      "determination_id": "fcra.consumer_statement_satisfied",
+      "outcome": "true",
+      "rationale": "No consumer statement was filed per the packet defaults; not applicable.",
+      "confidence": 0.7,
+      "material_facts": [
+        {"fact": "No consumer statement filed", "source": "default bindings", "basis": "closed_world_absence"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Treated as not applicable consistent with packet scope."
+    },
+    {
+      "determination_id": "fcra.cra_consideration_satisfied",
+      "outcome": "true",
+      "rationale": "Ordinary-course processing indicates the CRA reviewed and compared sources; no contrary fact in record.",
+      "confidence": 0.6,
+      "material_facts": [
+        {"fact": "CRA reviewed all consumer info (default inferred)", "source": "default bindings", "basis": "inferred"}
+      ],
+      "uncertainty_flags": ["scope limited to prior reinvestigation; reinsertion issue is separate"],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Limited to ordinary process facts; reinsertion defect addressed separately."
+    },
+    {
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "outcome": "true",
+      "rationale": "Furnisher notified within 2 business days, within the 5-business-day window.",
+      "confidence": 0.8,
+      "material_facts": [
+        {"fact": "business_days_to_notify_furnisher = 2", "source": "structured_fields.facts", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Based on explicit timing fact."
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_required",
+      "outcome": "true",
+      "rationale": "Consumer disputed accuracy of an item in the file; trigger conditions met by defaults.",
+      "confidence": 0.8,
+      "material_facts": [
+        {"fact": "Consumer disputed item and notified CRA", "source": "default bindings", "basis": "inferred"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Standard trigger inference."
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_timely",
+      "outcome": "true",
+      "rationale": "Reinvestigation completed in 21 days, within the 30-day window.",
+      "confidence": 0.9,
+      "material_facts": [
+        {"fact": "days_to_complete_reinvestigation = 21", "source": "structured_fields.facts", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Explicit numeric fact within bound."
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+      "outcome": "true",
+      "rationale": "Valid dispute packet elements present per defaults.",
+      "confidence": 0.8,
+      "material_facts": [
+        {"fact": "Identity, account, field, basis all present (default)", "source": "default bindings", "basis": "inferred"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Standard inference from clean packet."
+    },
+    {
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "outcome": "true",
+      "rationale": "No direct furnisher dispute in this packet; not applicable.",
+      "confidence": 0.9,
+      "material_facts": [
+        {"fact": "No direct dispute received by furnisher", "source": "default bindings", "basis": "closed_world_absence"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Not applicable on facts."
+    },
+    {
+      "determination_id": "fcra.dispute_resolution_compliant",
+      "outcome": "false",
+      "rationale": "Item was reinserted without furnisher certification, no reinsertion notice was sent, and reinsertion safeguard procedures were not followed — non-compliant.",
+      "confidence": 0.95,
+      "material_facts": [
+        {"fact": "item_reinserted = true", "source": "structured_fields.facts", "basis": "explicit"},
+        {"fact": "furnisher_certified_accuracy_for_reinsertion = false", "source": "structured_fields.facts", "basis": "explicit"},
+        {"fact": "reinsertion_notice_sent = false", "source": "structured_fields.facts", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Explicit facts demonstrate non-compliance with §1681i(a)(5)(B)."
+    },
+    {
+      "determination_id": "fcra.frivolous_termination_valid",
+      "outcome": "true",
+      "rationale": "No frivolous termination invoked; not applicable.",
+      "confidence": 0.9,
+      "material_facts": [
+        {"fact": "frivolous_determination_made = false (default)", "source": "default bindings", "basis": "closed_world_absence"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Not applicable."
+    },
+    {
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "outcome": "true",
+      "rationale": "Furnisher completed investigation within 17 days and reported results per defaults.",
+      "confidence": 0.6,
+      "material_facts": [
+        {"fact": "days_to_furnisher_complete = 17", "source": "structured_fields.facts", "basis": "explicit"},
+        {"fact": "furnisher investigation/results defaults", "source": "default bindings", "basis": "inferred"}
+      ],
+      "uncertainty_flags": ["furnisher conduct in reinsertion event not detailed"],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Limited to indirect-dispute scope; reinsertion certification failure addressed in reinsertion determination."
+    },
+    {
+      "determination_id": "fcra.human_review_required",
+      "outcome": "true",
+      "rationale": "Manual review policy trigger is set true and reinsertion without certification raises material compliance defect.",
+      "confidence": 0.95,
+      "material_facts": [
+        {"fact": "manual_review_policy_trigger = true", "source": "structured_fields.facts", "basis": "explicit"},
+        {"fact": "deleted_item_reappeared_without_certification = true", "source": "structured_fields.facts", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Explicit trigger present."
+    },
+    {
+      "determination_id": "fcra.item_treatment_satisfied",
+      "outcome": "undetermined",
+      "rationale": "Prior reinvestigation deleted the item, but reinsertion two weeks later without certification suggests treatment after reinsertion may not have been correct; current status recording unclear.",
+      "confidence": 0.5,
+      "material_facts": [
+        {"fact": "item deleted then reinserted", "source": "narrative", "basis": "explicit"},
+        {"fact": "no furnisher certification", "source": "structured_fields.facts", "basis": "explicit"}
+      ],
+      "uncertainty_flags": ["status of item post-reinsertion ambiguous"],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Avoids asserting satisfaction given reinsertion defect."
+    },
+    {
+      "determination_id": "fcra.reinsertion_satisfied",
+      "outcome": "false",
+      "rationale": "Item reinserted without furnisher certification of completeness/accuracy; no reinsertion notice sent; notice did not identify furnisher or include statement right.",
+      "confidence": 0.98,
+      "material_facts": [
+        {"fact": "item_reinserted = true", "source": "structured_fields.facts", "basis": "explicit"},
+        {"fact": "furnisher_certified_accuracy_for_reinsertion = false", "source": "structured_fields.facts", "basis": "explicit"},
+        {"fact": "reinsertion_notice_sent = false", "source": "structured_fields.facts", "basis": "explicit"},
+        {"fact": "reinsertion_notice_identifies_furnisher = false", "source": "structured_fields.facts", "basis": "explicit"},
+        {"fact": "reinsertion_notice_includes_statement_right = false", "source": "structured_fields.facts", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Direct explicit facts establish failure of §1681i(a)(5)(B)."
+    },
+    {
+      "determination_id": "fcra.reseller_satisfied",
+      "outcome": "true",
+      "rationale": "No reseller involved; not applicable.",
+      "confidence": 0.95,
+      "material_facts": [
+        {"fact": "reseller_received_dispute = false (default)", "source": "default bindings", "basis": "closed_world_absence"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Not applicable."
+    },
+    {
+      "determination_id": "fcra.results_notice_satisfied",
+      "outcome": "true",
+      "rationale": "Results notice sent within 3 business days with normal disclosures per narrative and defaults.",
+      "confidence": 0.75,
+      "material_facts": [
+        {"fact": "business_days_to_results_notice = 3", "source": "structured_fields.facts", "basis": "explicit"},
+        {"fact": "Results notice contains normal disclosures", "source": "narrative", "basis": "explicit"}
+      ],
+      "uncertainty_flags": ["results notice scope is the original reinvestigation, not the later reinsertion notice"],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Limited to results-notice obligation; reinsertion notice failure tracked separately."
+    }
+  ],
+  "case_level_notes": "Primary compliance defect: reinsertion of deleted collection account without furnisher certification and without required reinsertion notice. Human review required."
+}

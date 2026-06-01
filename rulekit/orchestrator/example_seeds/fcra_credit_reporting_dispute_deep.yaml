@@ -1,0 +1,1218 @@
+workspace_name: FCRA Credit Reporting Dispute Deep Benchmark
+policy_title: FCRA credit reporting dispute reinvestigation
+policy_id: fcra_credit_reporting_dispute_deep
+version_label: FCRA 1681i, 1681s-2, Regulation V bounded benchmark
+metadata:
+  purpose: >
+    Deep, realistic credit-reporting dispute benchmark for testing governed
+    Map plus deterministic RuleKit execution against direct LLM disposition.
+  legal_scope_note: >
+    This is an engineering benchmark, not legal advice and not a complete FCRA
+    compliance program. It models selected public-law duties for consumer
+    reporting agency disputes, furnisher indirect disputes, furnisher direct
+    disputes, reseller routing, reinsertion, consumer statements, and routing
+    review triggers.
+  primary_sources:
+    - 15 U.S.C. 1681i
+    - 15 U.S.C. 1681s-2
+    - 12 CFR 1022.43
+  map_profile:
+    default_rules:
+      - id: no_frivolous_termination_mentioned
+        kind: scoped_absence
+        atom_ids:
+          - fcra.frivolous_determination_made
+          - fcra.frivolous_notice_sent
+          - fcra.frivolous_reason_identified
+          - fcra.frivolous_missing_info_identified
+        value: false
+        basis: explicit_negative
+        unless_any: [frivolous, irrelevant, duplicate]
+        evidence: Narrative does not state a frivolous or irrelevant termination.
+      - id: no_reseller_branch_mentioned
+        kind: branch_not_applicable
+        atom_ids:
+          - fcra.notice_through_reseller
+          - fcra.reseller_received_dispute
+          - fcra.reseller_item_due_to_reseller_error
+          - fcra.reseller_corrected_or_deleted
+          - fcra.reseller_conveyed_to_cra
+          - fcra.reseller_reconveyed_results_to_consumer
+          - fcra.reseller_reinvestigation_chosen
+        value: false
+        basis: explicit_negative
+        unless_any: [reseller, tenant-screening]
+        evidence: Narrative does not describe reseller involvement.
+      - id: no_reinsertion_branch_mentioned
+        kind: branch_not_applicable
+        atom_ids:
+          - fcra.item_reinserted
+          - fcra.furnisher_certified_accuracy_for_reinsertion
+          - fcra.reinsertion_notice_sent
+          - fcra.reinsertion_notice_identifies_furnisher
+          - fcra.reinsertion_notice_includes_statement_right
+          - fcra.deleted_item_reappeared_without_certification
+        value: false
+        basis: explicit_negative
+        unless_any: [reinserted, reinsertion, reappeared, reappears]
+        evidence: Narrative does not describe deletion followed by reinsertion or reappearance.
+      - id: no_consumer_statement_mentioned
+        kind: branch_not_applicable
+        atom_ids:
+          - fcra.consumer_statement_filed
+          - fcra.subsequent_reports_note_dispute
+        value: false
+        basis: explicit_negative
+        unless_any: [consumer statement, statement of dispute]
+        evidence: Narrative does not state that a consumer statement was filed.
+      - id: no_direct_furnisher_dispute_mentioned
+        kind: branch_not_applicable
+        atom_ids:
+          - fcra.direct_dispute_received_by_furnisher
+          - fcra.direct_dispute_at_proper_address
+          - fcra.direct_dispute_identifies_account
+          - fcra.direct_dispute_identifies_specific_info
+          - fcra.direct_dispute_explains_basis
+          - fcra.direct_dispute_supporting_docs_supplied
+          - fcra.direct_dispute_public_record_only
+          - fcra.direct_dispute_fraud_alert_only
+          - fcra.direct_furnisher_investigation_conducted
+          - fcra.direct_furnisher_reviewed_info
+          - fcra.direct_furnisher_results_reported_to_consumer
+          - fcra.direct_furnisher_corrected_cras
+        value: false
+        basis: explicit_negative
+        unless_any: [direct dispute, furnisher's published dispute address, furnisher dispute address]
+        evidence: Narrative does not describe a direct dispute sent to the furnisher.
+      - id: ordinary_cra_dispute_trigger
+        kind: scope_supported_true
+        atom_ids:
+          - fcra.consumer_disputed_item
+          - fcra.item_in_consumer_file
+          - fcra.dispute_about_accuracy
+          - fcra.consumer_identity_sufficient
+          - fcra.account_identified
+          - fcra.disputed_field_identified
+          - fcra.basis_explained
+          - fcra.consumer_submission_authentic
+        value: true
+        basis: inferred_from_record
+        if_any: [consumer disputed, disputed a, disputes]
+        evidence: Narrative describes a consumer dispute identifying an item and basis.
+      - id: direct_cra_notice
+        kind: scope_supported_true
+        atom_ids:
+          - fcra.notice_direct_to_cra
+        value: true
+        basis: inferred_from_record
+        if_any: [CRA file shows the dispute was received directly, received directly, dispute was received directly, CRA coded, CRA log, CRA has not yet received]
+        evidence: Narrative states direct CRA receipt.
+      - id: ordinary_cra_review_completed
+        kind: scope_supported_true
+        atom_ids:
+          - fcra.cra_reviewed_all_consumer_info
+          - fcra.cra_considered_primary_source_documents
+          - fcra.cra_compared_furnisher_response
+          - fcra.cra_compared_own_file
+          - fcra.cra_reasonable_reinvestigation_performed
+          - fcra.dispositive_info_not_ignored
+          - fcra.human_review_of_documents_performed
+        value: true
+        basis: inferred_from_record
+        if_any: [reviewed the consumer ledger against the furnisher payment history, reviewed consumer ledger, compared, sent complete written results]
+        unless_any: [not sent or made available, not forwarded, not yet received enough material]
+        evidence: Narrative describes ordinary-course review of consumer and furnisher information.
+      - id: ordinary_verified_item_treatment
+        kind: scope_supported_true
+        atom_ids:
+          - fcra.item_verified_as_accurate
+          - fcra.item_status_recorded_current
+        value: true
+        basis: inferred_from_record
+        if_any: [recorded the item as verified, verifying the late payment]
+        evidence: Narrative states the item was verified and recorded.
+      - id: ordinary_results_notice_complete
+        kind: scope_supported_true
+        atom_ids:
+          - fcra.results_notice_sent
+          - fcra.notice_states_reinvestigation_completed
+          - fcra.revised_consumer_report_provided
+          - fcra.procedure_description_right_disclosed
+          - fcra.furnisher_contact_disclosed_if_available
+          - fcra.consumer_statement_right_disclosed
+          - fcra.notification_right_disclosed
+        value: true
+        basis: inferred_from_record
+        if_any: [mailed results with the revised report, sent complete written results, otherwise complete results notice]
+        evidence: Narrative describes a complete written results notice with revised report.
+      - id: ordinary_furnisher_indirect_completed
+        kind: scope_supported_true
+        atom_ids:
+          - fcra.furnisher_received_cra_notice
+          - fcra.furnisher_investigation_conducted
+          - fcra.furnisher_reviewed_all_cra_info
+          - fcra.furnisher_reported_results_to_cra
+        value: true
+        basis: inferred_from_record
+        if_any: [received a furnisher response verifying, furnisher response verifying, furnisher verified]
+        unless_any: [not sent or made available, not forwarded]
+        evidence: Narrative describes furnisher response to CRA dispute notice.
+      - id: reseller_notice_path
+        kind: scope_supported_true
+        atom_ids:
+          - fcra.notice_through_reseller
+          - fcra.reseller_received_dispute
+        value: true
+        basis: explicit_positive
+        if_any: [reseller, tenant-screening]
+        evidence: Narrative describes reseller receipt of the dispute.
+      - id: direct_furnisher_notice_path
+        kind: scope_supported_true
+        atom_ids:
+          - fcra.direct_dispute_received_by_furnisher
+          - fcra.direct_dispute_at_proper_address
+          - fcra.direct_dispute_identifies_account
+          - fcra.direct_dispute_identifies_specific_info
+          - fcra.direct_dispute_explains_basis
+          - fcra.direct_dispute_supporting_docs_supplied
+          - fcra.direct_dispute_subject_within_scope
+        value: true
+        basis: explicit_positive
+        if_any: [furnisher's published dispute address, direct dispute to the furnisher]
+        evidence: Narrative describes a qualifying direct furnisher dispute packet.
+      - id: no_cra_path_for_direct_furnisher_only
+        kind: branch_not_applicable
+        atom_ids:
+          - fcra.notice_direct_to_cra
+          - fcra.notice_through_reseller
+        value: false
+        basis: explicit_negative
+        if_any: [furnisher's published dispute address, direct dispute to the furnisher]
+        unless_any: [CRA file shows, source CRA, through a tenant-screening reseller]
+        evidence: Narrative describes only a direct-to-furnisher dispute, not CRA receipt.
+      - id: primary_documents_not_forwarded
+        kind: explicit_negative
+        atom_ids:
+          - fcra.primary_documents_forwarded
+          - fcra.notice_included_all_relevant_info
+          - fcra.cra_considered_primary_source_documents
+          - fcra.dispositive_info_not_ignored
+        value: false
+        basis: explicit_negative
+        if_any: [not sent or made available, were not sent, were not forwarded]
+        evidence: Narrative states primary documents were not forwarded or made available.
+      - id: automated_code_only_from_generic_code
+        kind: explicit_positive
+        atom_ids:
+          - fcra.automated_code_only
+        value: true
+        basis: explicit_positive
+        if_any: [generic "claims paid" code, coded the dispute]
+        evidence: Narrative describes generic dispute coding.
+      - id: manual_review_for_forwarding_failure
+        kind: routing_trigger
+        atom_ids:
+          - fcra.manual_review_policy_trigger
+          - fcra.conflicting_furnisher_and_consumer_docs
+        value: true
+        basis: inferred_from_record
+        if_any: [not sent or made available, old balance despite settlement documents]
+        evidence: Missing primary-document forwarding and contrary furnisher verification trigger review.
+      - id: not_mine_identity_route
+        kind: routing_trigger
+        atom_ids:
+          - fcra.consumer_alleges_not_mine
+        value: true
+        basis: explicit_positive
+        if_any: [not mine, not belonging to the consumer]
+        evidence: Narrative contains a not-mine dispute.
+      - id: identity_theft_route
+        kind: routing_trigger
+        atom_ids:
+          - fcra.identity_theft_claimed
+        value: true
+        basis: explicit_positive
+        if_any: [identity theft]
+        evidence: Narrative mentions identity theft.
+      - id: mixed_file_route
+        kind: routing_trigger
+        atom_ids:
+          - fcra.mixed_file_claimed
+        value: true
+        basis: inferred_from_record
+        if_any: [mixed-file, similar name]
+        evidence: Narrative describes mixed-file or similar-name evidence.
+      - id: missing_identity_theft_report
+        kind: routing_trigger
+        atom_ids:
+          - fcra.identity_theft_report_supplied
+        value: false
+        basis: explicit_negative
+        if_any: [not the actual identity theft report, affidavit is being prepared]
+        evidence: Narrative states identity theft documentation is incomplete.
+      - id: source_gap_route
+        kind: routing_trigger
+        atom_ids:
+          - fcra.source_documents_missing
+        value: true
+        basis: explicit_positive
+        if_any: [not yet received enough material, not the actual identity theft report]
+        evidence: Narrative states source material is missing.
+      - id: material_date_conflict_route
+        kind: routing_trigger
+        atom_ids:
+          - fcra.material_date_conflict
+        value: true
+        basis: explicit_positive
+        if_any: [inconsistent dates]
+        evidence: Narrative states material dates are inconsistent.
+      - id: human_review_from_routing_cues
+        kind: routing_trigger
+        atom_ids:
+          - fcra.manual_review_policy_trigger
+        value: true
+        basis: inferred_from_record
+        if_any: [not mine, identity theft, mixed-file, similar name, not yet received enough material, inconsistent dates]
+        evidence: Narrative contains a routing cue requiring human review.
+policy_text: |
+  Bounded benchmark policy for consumer reporting disputes.
+
+  1. Consumer reporting agency reinvestigation trigger. If the completeness or
+  accuracy of an item in a consumer's file is disputed by the consumer and the
+  consumer reporting agency receives notice directly or through a reseller, the
+  agency must conduct a reasonable reinvestigation unless a valid frivolous or
+  irrelevant termination applies. A valid dispute packet identifies the consumer,
+  identifies the account or item, identifies the disputed field or information,
+  and explains the basis for the dispute.
+
+  2. Time to complete reinvestigation. The agency must complete the
+  reinvestigation within 30 calendar days after receipt of the dispute notice.
+  The period may extend to 45 days if the consumer provides additional relevant
+  information during the initial 30-day period. The extension does not apply
+  where the agency determines within the initial period that the item is
+  inaccurate, incomplete, or cannot be verified.
+
+  3. Furnisher notice by the agency. Before the end of the fifth business day
+  after receiving the consumer's dispute, the agency must notify the furnisher
+  of the disputed information when the item was provided by a furnisher, and the
+  notice must include all relevant information received from the consumer. Later
+  relevant information received during the reinvestigation period must be
+  promptly provided to the furnisher. Primary source documents submitted by the
+  consumer, such as bank statements, creditor letters, account statements,
+  police reports, identity theft affidavits, court orders, or billing
+  statements, are relevant when they bear on the disputed information.
+
+  4. Consideration and reasonableness. The agency must review and consider all
+  relevant consumer information. A reasonable reinvestigation compares the
+  consumer submission, furnisher response, agency file, prior dispute history
+  where relevant, and public-record source where relevant. Automated dispute
+  coding alone is not sufficient when primary documents or material conflicts
+  require review.
+
+  5. Treatment of inaccurate, incomplete, or unverifiable information. If the
+  item is inaccurate, incomplete, or cannot be verified, the agency must delete
+  or modify it as appropriate and record the current status. If no defect is
+  found after a reasonable reinvestigation, the item may remain verified.
+
+  6. Results notice. Within 5 business days after completing the
+  reinvestigation, the agency must provide written results to the consumer. The
+  notice must state that the reinvestigation is completed, include a consumer
+  report based on the revised file, disclose the right to request a description
+  of the procedure used, disclose furnisher contact information if reasonably
+  available, disclose the right to add a consumer statement, and disclose the
+  right to request notification of deletion or dispute notation.
+
+  7. Reinsertion. Deleted information may not be reinserted unless the furnisher
+  certifies that it is complete and accurate. If reinserted, the agency must
+  notify the consumer in writing within 5 business days, identify the furnisher,
+  provide the consumer's right to add a statement, and maintain reasonable
+  procedures designed to prevent improper reappearance.
+
+  8. Frivolous or irrelevant disputes. The agency may terminate a
+  reinvestigation if it reasonably determines that the dispute is frivolous or
+  irrelevant, including because the consumer failed to provide sufficient
+  information to investigate. The agency must notify the consumer within 5
+  business days after that determination, provide the reasons, and identify any
+  information required to investigate.
+
+  9. Reseller disputes. A reseller receiving a dispute must determine within 5
+  business days whether the item is incomplete or inaccurate because of a
+  reseller act or omission. If so, the reseller must correct or delete within 20
+  days. If not, the reseller must convey the dispute and all relevant consumer
+  information to the consumer reporting agency that supplied the information and
+  reconvey the agency's completion notice to the consumer.
+
+  10. Furnisher duties after agency notice. A furnisher receiving agency notice
+  of a dispute must investigate the disputed information, review all relevant
+  information provided by the agency, report results to the agency, report
+  incomplete or inaccurate findings to other nationwide consumer reporting
+  agencies to which it furnished the information, and modify, delete, or
+  permanently block information that is inaccurate, incomplete, or unverifiable.
+  The furnisher must complete those actions before the agency's applicable
+  reinvestigation deadline.
+
+  11. Furnisher direct disputes. A furnisher receiving a qualifying direct
+  dispute must investigate when the notice is sent to a proper address, identifies
+  the account or relationship, identifies the specific disputed information,
+  explains the basis for the dispute, includes reasonably required supporting
+  documentation, and concerns covered account or relationship information. The
+  furnisher need not investigate direct disputes outside the regulatory scope,
+  including disputes solely about public records, fraud alerts, active duty
+  alerts, information from another furnisher, or disputes reasonably believed to
+  be submitted by a credit repair organization. A furnisher that invokes a
+  frivolous or irrelevant direct-dispute determination must notify the consumer
+  within 5 business days, state reasons, and identify information needed to
+  investigate.
+
+  12. Consumer statement and subsequent reporting. If the reinvestigation does
+  not resolve the dispute and the consumer files a brief statement, subsequent
+  reports containing the disputed information must clearly note that it is
+  disputed and include the statement or an accurate codification or summary,
+  unless there are reasonable grounds to believe the statement is frivolous or
+  irrelevant.
+
+  13. Human-review routing. Human review is required when material evidence
+  conflicts remain unresolved, identity theft or mixed-file evidence is
+  plausible but incomplete, a court order or legal-liability issue changes the
+  ordinary fact-verification path, a veteran medical debt claim may require the
+  special deletion process, primary source documents are missing from the record,
+  material dates conflict, or the institution's manual review policy is
+  triggered.
+atoms:
+  - {atom_id: fcra.consumer_disputed_item, statement: The consumer disputed an item., source_span: 15 U.S.C. 1681i(a)(1)(A)}
+  - {atom_id: fcra.item_in_consumer_file, statement: The disputed item is contained in the consumer's file at a consumer reporting agency., source_span: 15 U.S.C. 1681i(a)(1)(A)}
+  - {atom_id: fcra.dispute_about_completeness, statement: The dispute concerns completeness of the item., source_span: 15 U.S.C. 1681i(a)(1)(A)}
+  - {atom_id: fcra.dispute_about_accuracy, statement: The dispute concerns accuracy of the item., source_span: 15 U.S.C. 1681i(a)(1)(A)}
+  - {atom_id: fcra.notice_direct_to_cra, statement: The consumer notified the consumer reporting agency directly., source_span: 15 U.S.C. 1681i(a)(1)(A)}
+  - {atom_id: fcra.notice_through_reseller, statement: The consumer notified the consumer reporting agency indirectly through a reseller., source_span: 15 U.S.C. 1681i(a)(1)(A), notes: Applies when a reseller forwards the dispute.}
+  - {atom_id: fcra.consumer_identity_sufficient, statement: The packet contains sufficient consumer identity information to investigate., source_span: 15 U.S.C. 1681i(a)(3)}
+  - {atom_id: fcra.account_identified, statement: The disputed account or tradeline is identified., source_span: 15 U.S.C. 1681i(a)(3)}
+  - {atom_id: fcra.disputed_field_identified, statement: The specific disputed field or information is identified., source_span: 15 U.S.C. 1681i(a)(3)}
+  - {atom_id: fcra.basis_explained, statement: The dispute explains the basis for the claimed inaccuracy or incompleteness., source_span: 15 U.S.C. 1681i(a)(3)}
+  - {atom_id: fcra.consumer_authorized_representative, statement: Any representative submitting the dispute is authorized by the consumer., source_span: 15 U.S.C. 1681i(a)(1)(A)}
+  - {atom_id: fcra.consumer_submission_authentic, statement: The dispute submission appears authentic to the consumer or authorized representative., source_span: 15 U.S.C. 1681i(a)(1)(A)}
+  - {atom_id: fcra.dispute_not_credit_repair_org_form, statement: The direct furnisher dispute was not submitted by or on a form supplied by a credit repair organization., source_span: 12 CFR 1022.43(b)(2)}
+  - {atom_id: fcra.dispute_duplicate_without_new_info, statement: The dispute is substantially the same as a prior dispute and contains no new required information., source_span: 12 CFR 1022.43(f)(1)(ii)}
+  - {atom_id: fcra.insufficient_information_to_investigate, statement: The consumer failed to provide sufficient information to investigate the disputed information., source_span: 15 U.S.C. 1681i(a)(3)}
+  - {atom_id: fcra.frivolous_determination_made, statement: The institution determined the dispute was frivolous or irrelevant., source_span: 15 U.S.C. 1681i(a)(3)}
+  - {atom_id: fcra.frivolous_reason_identified, statement: The frivolous or irrelevant notice identified the reasons for the determination., source_span: 15 U.S.C. 1681i(a)(3)(C)}
+  - {atom_id: fcra.frivolous_missing_info_identified, statement: The frivolous or irrelevant notice identified information required to investigate., source_span: 15 U.S.C. 1681i(a)(3)(C)}
+  - {atom_id: fcra.frivolous_notice_sent, statement: Notice of the frivolous or irrelevant determination was sent to the consumer., source_span: 15 U.S.C. 1681i(a)(3)(B)}
+  - {atom_id: fcra.business_days_to_frivolous_notice, atom_type: numeric, numeric_unit: business_days, statement: Business days from frivolous or irrelevant determination to consumer notice., source_span: 15 U.S.C. 1681i(a)(3)(B)}
+  - {atom_id: fcra.cra_received_dispute_date_known, statement: The consumer reporting agency's dispute receipt date is known., source_span: 15 U.S.C. 1681i(a)(1)}
+  - {atom_id: fcra.reinvestigation_completed, statement: The consumer reporting agency completed the reinvestigation., source_span: 15 U.S.C. 1681i(a)(1)}
+  - {atom_id: fcra.days_to_complete_reinvestigation, atom_type: numeric, numeric_unit: calendar_days, statement: Calendar days from dispute receipt to reinvestigation completion., source_span: 15 U.S.C. 1681i(a)(1)}
+  - {atom_id: fcra.additional_relevant_info_received_in_30_days, statement: The consumer provided additional relevant information during the initial 30-day period., source_span: 15 U.S.C. 1681i(a)(1)(B)}
+  - {atom_id: fcra.info_found_inaccurate_during_30_days, statement: The item was found inaccurate during the initial 30-day period., source_span: 15 U.S.C. 1681i(a)(1)(C)}
+  - {atom_id: fcra.info_found_incomplete_during_30_days, statement: The item was found incomplete during the initial 30-day period., source_span: 15 U.S.C. 1681i(a)(1)(C)}
+  - {atom_id: fcra.info_unverifiable_during_30_days, statement: The item was determined unverifiable during the initial 30-day period., source_span: 15 U.S.C. 1681i(a)(1)(C)}
+  - {atom_id: fcra.furnished_by_furnisher, statement: The disputed item was provided by a furnisher., source_span: 15 U.S.C. 1681i(a)(2)}
+  - {atom_id: fcra.furnisher_address_available, statement: The furnisher address or notification mechanism is available., source_span: 15 U.S.C. 1681i(a)(2)}
+  - {atom_id: fcra.cra_notified_furnisher, statement: The consumer reporting agency notified the furnisher of the dispute., source_span: 15 U.S.C. 1681i(a)(2)}
+  - {atom_id: fcra.business_days_to_notify_furnisher, atom_type: numeric, numeric_unit: business_days, statement: Business days from CRA receipt of dispute to furnisher notice., source_span: 15 U.S.C. 1681i(a)(2)}
+  - {atom_id: fcra.notice_included_all_relevant_info, statement: The CRA's furnisher notice included all relevant information received from the consumer., source_span: 15 U.S.C. 1681i(a)(2)}
+  - {atom_id: fcra.primary_documents_forwarded, statement: Primary source documents submitted by the consumer were forwarded or made available to the furnisher., source_span: CFPB Circular 2022-07}
+  - {atom_id: fcra.later_relevant_info_received, statement: Additional relevant information was received from the consumer after furnisher notice and before the reinvestigation deadline., source_span: 15 U.S.C. 1681i(a)(2)(B)}
+  - {atom_id: fcra.later_relevant_info_forwarded, statement: Later relevant information was promptly provided to the furnisher., source_span: 15 U.S.C. 1681i(a)(2)(B)}
+  - {atom_id: fcra.expedited_deleted_within_3_business_days, statement: The dispute was resolved by deletion within 3 business days after receipt., source_span: 15 U.S.C. 1681i(a)(8)}
+  - {atom_id: fcra.consumer_telephone_notice_of_expedited_deletion, statement: The consumer received prompt telephone notice of expedited deletion., source_span: 15 U.S.C. 1681i(a)(8)}
+  - {atom_id: fcra.expedited_written_confirmation_sent, statement: Written confirmation and a revised report were sent after expedited deletion., source_span: 15 U.S.C. 1681i(a)(8)}
+  - {atom_id: fcra.cra_reviewed_all_consumer_info, statement: The CRA reviewed all relevant information submitted by the consumer., source_span: 15 U.S.C. 1681i(a)(4)}
+  - {atom_id: fcra.cra_considered_primary_source_documents, statement: The CRA considered primary source documents submitted by the consumer., source_span: 15 U.S.C. 1681i(a)(4)}
+  - {atom_id: fcra.cra_compared_furnisher_response, statement: The CRA compared the furnisher response against the consumer's dispute basis., source_span: 15 U.S.C. 1681i(a)(1)}
+  - {atom_id: fcra.cra_compared_own_file, statement: The CRA compared the dispute against its own file contents., source_span: 15 U.S.C. 1681i(a)(1)}
+  - {atom_id: fcra.cra_checked_prior_dispute_history, statement: The CRA checked prior dispute history where relevant., source_span: 15 U.S.C. 1681i(a)(3)}
+  - {atom_id: fcra.cra_checked_public_record_source, statement: The CRA checked the public-record source where public-record data was material., source_span: 15 U.S.C. 1681i(a)(1)}
+  - {atom_id: fcra.cra_resolved_internal_inconsistency, statement: The CRA resolved material internal inconsistencies in its file or processing records., source_span: 15 U.S.C. 1681i(a)(1)}
+  - {atom_id: fcra.cra_reasonable_reinvestigation_performed, statement: The CRA performed a reasonable reinvestigation of the disputed item., source_span: 15 U.S.C. 1681i(a)(1)}
+  - {atom_id: fcra.consumer_info_dispositive, statement: Consumer-submitted information is dispositive or potentially dispositive of the dispute., source_span: CFPB Circular 2022-07}
+  - {atom_id: fcra.dispositive_info_not_ignored, statement: Dispositive or potentially dispositive consumer information was not ignored., source_span: CFPB Circular 2022-07}
+  - {atom_id: fcra.automated_code_only, statement: The investigation consisted only of automated dispute coding without meaningful document review., source_span: CFPB Circular 2022-07}
+  - {atom_id: fcra.human_review_of_documents_performed, statement: A human or equivalent document-review process evaluated material primary documents., source_span: CFPB Circular 2022-07}
+  - {atom_id: fcra.item_found_inaccurate, statement: The reinvestigation found the disputed item inaccurate., source_span: 15 U.S.C. 1681i(a)(5)}
+  - {atom_id: fcra.item_found_incomplete, statement: The reinvestigation found the disputed item incomplete., source_span: 15 U.S.C. 1681i(a)(5)}
+  - {atom_id: fcra.item_cannot_be_verified, statement: The disputed item could not be verified., source_span: 15 U.S.C. 1681i(a)(5)}
+  - {atom_id: fcra.item_verified_as_accurate, statement: The disputed item was verified as complete and accurate after reasonable reinvestigation., source_span: 15 U.S.C. 1681i(a)(1)}
+  - {atom_id: fcra.item_deleted, statement: The disputed item was deleted from the consumer's file., source_span: 15 U.S.C. 1681i(a)(5)}
+  - {atom_id: fcra.item_modified, statement: The disputed item was modified as appropriate., source_span: 15 U.S.C. 1681i(a)(5)}
+  - {atom_id: fcra.item_status_recorded_current, statement: The current status of the disputed information was recorded., source_span: 15 U.S.C. 1681i(a)(1)}
+  - {atom_id: fcra.furnisher_certified_accuracy_for_reinsertion, statement: The furnisher certified the reinserted information as complete and accurate., source_span: 15 U.S.C. 1681i(a)(5)(B)}
+  - {atom_id: fcra.item_reinserted, statement: Previously deleted information was reinserted into the consumer's file., source_span: 15 U.S.C. 1681i(a)(5)(B)}
+  - {atom_id: fcra.reinsertion_notice_sent, statement: Written notice of reinsertion was sent to the consumer., source_span: 15 U.S.C. 1681i(a)(5)(B)}
+  - {atom_id: fcra.business_days_to_reinsertion_notice, atom_type: numeric, numeric_unit: business_days, statement: Business days from reinsertion to consumer notice., source_span: 15 U.S.C. 1681i(a)(5)(B)}
+  - {atom_id: fcra.reinsertion_notice_identifies_furnisher, statement: The reinsertion notice identified the furnisher's business name and address if reasonably available., source_span: 15 U.S.C. 1681i(a)(5)(B)}
+  - {atom_id: fcra.reinsertion_notice_includes_statement_right, statement: The reinsertion notice told the consumer of the right to add a statement., source_span: 15 U.S.C. 1681i(a)(5)(B)}
+  - {atom_id: fcra.procedures_prevent_reappearance, statement: The CRA maintained reasonable procedures designed to prevent improper reappearance of deleted information., source_span: 15 U.S.C. 1681i(a)(5)(C)}
+  - {atom_id: fcra.deleted_item_reappeared_without_certification, statement: Deleted information reappeared without required furnisher certification., source_span: 15 U.S.C. 1681i(a)(5)(B)}
+  - {atom_id: fcra.results_notice_sent, statement: The CRA sent written reinvestigation results to the consumer., source_span: 15 U.S.C. 1681i(a)(6)}
+  - {atom_id: fcra.business_days_to_results_notice, atom_type: numeric, numeric_unit: business_days, statement: Business days from reinvestigation completion to results notice., source_span: 15 U.S.C. 1681i(a)(6)}
+  - {atom_id: fcra.notice_states_reinvestigation_completed, statement: The results notice states that the reinvestigation is completed., source_span: 15 U.S.C. 1681i(a)(6)}
+  - {atom_id: fcra.revised_consumer_report_provided, statement: The results notice included a consumer report based on the revised file., source_span: 15 U.S.C. 1681i(a)(6)}
+  - {atom_id: fcra.procedure_description_right_disclosed, statement: The results notice disclosed the right to request the procedure used., source_span: 15 U.S.C. 1681i(a)(6)}
+  - {atom_id: fcra.furnisher_contact_disclosed_if_available, statement: The procedure-right notice includes furnisher contact information when reasonably available., source_span: 15 U.S.C. 1681i(a)(6)}
+  - {atom_id: fcra.consumer_statement_right_disclosed, statement: The results notice disclosed the right to add a consumer statement., source_span: 15 U.S.C. 1681i(a)(6)}
+  - {atom_id: fcra.notification_right_disclosed, statement: The results notice disclosed the right to request notifications of deletion or dispute notation., source_span: 15 U.S.C. 1681i(a)(6)}
+  - {atom_id: fcra.procedure_description_requested, statement: The consumer requested a description of the reinvestigation procedure used., source_span: 15 U.S.C. 1681i(a)(7)}
+  - {atom_id: fcra.procedure_description_sent, statement: The CRA sent the requested description of the reinvestigation procedure., source_span: 15 U.S.C. 1681i(a)(7)}
+  - {atom_id: fcra.days_to_send_procedure_description, atom_type: numeric, numeric_unit: calendar_days, statement: Days from procedure-description request to description sent., source_span: 15 U.S.C. 1681i(a)(7)}
+  - {atom_id: fcra.consumer_statement_filed, statement: The consumer filed a brief statement of dispute after reinvestigation did not resolve the dispute., source_span: 15 U.S.C. 1681i(b)}
+  - {atom_id: fcra.subsequent_reports_note_dispute, statement: Subsequent reports containing the information clearly note the consumer's dispute and statement or summary., source_span: 15 U.S.C. 1681i(c)}
+  - {atom_id: fcra.reseller_received_dispute, statement: A reseller received the consumer dispute., source_span: 15 U.S.C. 1681i(f)}
+  - {atom_id: fcra.reseller_item_due_to_reseller_error, statement: The incomplete or inaccurate item resulted from an act or omission of the reseller., source_span: 15 U.S.C. 1681i(f)}
+  - {atom_id: fcra.reseller_corrected_or_deleted, statement: The reseller corrected or deleted information caused by its act or omission., source_span: 15 U.S.C. 1681i(f)}
+  - {atom_id: fcra.days_to_reseller_correct_delete, atom_type: numeric, numeric_unit: calendar_days, statement: Days from reseller receipt to correction or deletion by reseller., source_span: 15 U.S.C. 1681i(f)}
+  - {atom_id: fcra.reseller_conveyed_to_cra, statement: The reseller conveyed the dispute and all relevant information to the source CRA., source_span: 15 U.S.C. 1681i(f)}
+  - {atom_id: fcra.business_days_to_reseller_conveyance, atom_type: numeric, numeric_unit: business_days, statement: Business days from reseller receipt to conveyance to the CRA., source_span: 15 U.S.C. 1681i(f)}
+  - {atom_id: fcra.reseller_reconveyed_results_to_consumer, statement: The reseller reconveyed the CRA completion notice to the consumer., source_span: 15 U.S.C. 1681i(f)}
+  - {atom_id: fcra.reseller_reinvestigation_chosen, statement: The reseller elected to conduct its own reinvestigation., source_span: 15 U.S.C. 1681i(f)}
+  - {atom_id: fcra.furnisher_received_cra_notice, statement: The furnisher received CRA notice of the consumer dispute., source_span: 15 U.S.C. 1681s-2(b)}
+  - {atom_id: fcra.furnisher_investigation_conducted, statement: The furnisher conducted an investigation of the disputed information., source_span: 15 U.S.C. 1681s-2(b)}
+  - {atom_id: fcra.furnisher_reviewed_all_cra_info, statement: The furnisher reviewed all relevant information provided by the CRA., source_span: 15 U.S.C. 1681s-2(b)}
+  - {atom_id: fcra.furnisher_reported_results_to_cra, statement: The furnisher reported investigation results to the CRA., source_span: 15 U.S.C. 1681s-2(b)}
+  - {atom_id: fcra.furnisher_reported_inaccuracy_to_other_cras, statement: The furnisher reported incomplete or inaccurate findings to other nationwide CRAs to which it furnished the information., source_span: 15 U.S.C. 1681s-2(b)}
+  - {atom_id: fcra.furnisher_modified_item, statement: The furnisher modified the disputed information for reporting purposes., source_span: 15 U.S.C. 1681s-2(b)}
+  - {atom_id: fcra.furnisher_deleted_item, statement: The furnisher deleted the disputed information for reporting purposes., source_span: 15 U.S.C. 1681s-2(b)}
+  - {atom_id: fcra.furnisher_blocked_item, statement: The furnisher permanently blocked reporting of the disputed information., source_span: 15 U.S.C. 1681s-2(b)}
+  - {atom_id: fcra.days_to_furnisher_complete, atom_type: numeric, numeric_unit: calendar_days, statement: "Calendar days from CRA dispute notice to furnisher completion of required investigation, review, and reports.", source_span: 15 U.S.C. 1681s-2(b)}
+  - {atom_id: fcra.direct_dispute_received_by_furnisher, statement: The furnisher received a direct dispute notice from the consumer., source_span: 12 CFR 1022.43}
+  - {atom_id: fcra.direct_dispute_at_proper_address, statement: The direct dispute was sent to a proper furnisher dispute address., source_span: 12 CFR 1022.43(c)}
+  - {atom_id: fcra.direct_dispute_identifies_account, statement: The direct dispute identifies the account or relationship in dispute., source_span: 12 CFR 1022.43(d)}
+  - {atom_id: fcra.direct_dispute_identifies_specific_info, statement: The direct dispute identifies the specific information being disputed., source_span: 12 CFR 1022.43(d)}
+  - {atom_id: fcra.direct_dispute_explains_basis, statement: The direct dispute explains the basis for the dispute., source_span: 12 CFR 1022.43(d)}
+  - {atom_id: fcra.direct_dispute_supporting_docs_supplied, statement: The consumer supplied supporting documentation reasonably required by the furnisher., source_span: 12 CFR 1022.43(d)}
+  - {atom_id: fcra.direct_dispute_subject_within_scope, statement: The direct dispute concerns covered account or relationship information bearing on creditworthiness or similar attributes., source_span: 12 CFR 1022.43(a)}
+  - {atom_id: fcra.direct_dispute_public_record_only, statement: The direct dispute concerns only public-record information outside direct-furnisher dispute scope., source_span: 12 CFR 1022.43(b)}
+  - {atom_id: fcra.direct_dispute_fraud_alert_only, statement: The direct dispute concerns only fraud alerts or active duty alerts outside direct-furnisher dispute scope., source_span: 12 CFR 1022.43(b)}
+  - {atom_id: fcra.direct_furnisher_investigation_conducted, statement: The furnisher conducted a reasonable investigation of a qualifying direct dispute., source_span: 12 CFR 1022.43(e)}
+  - {atom_id: fcra.direct_furnisher_reviewed_info, statement: The furnisher reviewed all relevant information provided by the consumer with the direct dispute notice., source_span: 12 CFR 1022.43(e)}
+  - {atom_id: fcra.direct_furnisher_results_reported_to_consumer, statement: The furnisher reported direct-dispute investigation results to the consumer within the applicable period., source_span: 12 CFR 1022.43(e)}
+  - {atom_id: fcra.direct_furnisher_corrected_cras, statement: The furnisher notified CRAs and provided corrections when the direct investigation found reported information inaccurate., source_span: 12 CFR 1022.43(e)}
+  - {atom_id: fcra.identity_theft_claimed, statement: The consumer claims the disputed item resulted from identity theft., source_span: "15 U.S.C. 1681c-2, 1681i"}
+  - {atom_id: fcra.identity_theft_report_supplied, statement: The consumer supplied an identity theft report or equivalent identity theft documentation., source_span: 15 U.S.C. 1681c-2}
+  - {atom_id: fcra.mixed_file_claimed, statement: The consumer claims the report mixed another person's information into the consumer's file., source_span: 15 U.S.C. 1681i(a)}
+  - {atom_id: fcra.legal_liability_dispute_only, statement: The dispute turns only on legal liability rather than objectively verifiable factual reporting., source_span: 15 U.S.C. 1681i(a)}
+  - {atom_id: fcra.court_order_supplied, statement: The consumer supplied a court order material to the disputed reporting., source_span: 12 CFR 1022.43(d)}
+  - {atom_id: fcra.conflicting_furnisher_and_consumer_docs, statement: Furnisher records and consumer primary documents materially conflict., source_span: 15 U.S.C. 1681i(a)}
+  - {atom_id: fcra.pending_litigation_affects_account, statement: Pending litigation materially affects the disputed account reporting., source_span: 15 U.S.C. 1681i(a)}
+  - {atom_id: fcra.medical_debt_veteran_claimed, statement: The dispute claims veteran medical-debt treatment may apply., source_span: 15 U.S.C. 1681i(g)}
+  - {atom_id: fcra.source_documents_missing, statement: Material source documents needed to resolve the dispute are missing from the packet., source_span: 15 U.S.C. 1681i(a)}
+  - {atom_id: fcra.material_date_conflict, statement: Material dates in the dispute record conflict., source_span: 15 U.S.C. 1681i(a)}
+  - {atom_id: fcra.consumer_alleges_not_mine, statement: The consumer alleges the disputed account or item is not theirs., source_span: 15 U.S.C. 1681i(a)}
+  - {atom_id: fcra.manual_review_policy_trigger, statement: The institution's manual review policy is triggered by the dispute packet., source_span: benchmark routing policy}
+nodes:
+  - {node_id: n_disputed, kind: atom_ref, atom_id: fcra.consumer_disputed_item}
+  - {node_id: n_in_file, kind: atom_ref, atom_id: fcra.item_in_consumer_file}
+  - {node_id: n_completeness, kind: atom_ref, atom_id: fcra.dispute_about_completeness}
+  - {node_id: n_accuracy, kind: atom_ref, atom_id: fcra.dispute_about_accuracy}
+  - {node_id: n_dispute_subject, kind: or, children: [n_completeness, n_accuracy], surface_label: completeness or accuracy dispute, source_span: 15 U.S.C. 1681i(a)(1)(A)}
+  - {node_id: n_direct_to_cra, kind: atom_ref, atom_id: fcra.notice_direct_to_cra}
+  - {node_id: n_through_reseller, kind: atom_ref, atom_id: fcra.notice_through_reseller}
+  - {node_id: n_received_channel, kind: or, children: [n_direct_to_cra, n_through_reseller], surface_label: direct or reseller notice received, source_span: 15 U.S.C. 1681i(a)(1)(A)}
+  - {node_id: n_identity_ok, kind: atom_ref, atom_id: fcra.consumer_identity_sufficient}
+  - {node_id: n_account_id, kind: atom_ref, atom_id: fcra.account_identified}
+  - {node_id: n_field_id, kind: atom_ref, atom_id: fcra.disputed_field_identified}
+  - {node_id: n_basis, kind: atom_ref, atom_id: fcra.basis_explained}
+  - {node_id: n_submission_authentic, kind: atom_ref, atom_id: fcra.consumer_submission_authentic}
+  - {node_id: n_intake_sufficient, kind: and, children: [n_identity_ok, n_account_id, n_field_id, n_basis, n_submission_authentic], surface_label: sufficient intake packet, source_span: "15 U.S.C. 1681i(a)(1), (a)(3)"}
+  - {node_id: n_valid_cra_trigger, kind: and, children: [n_disputed, n_in_file, n_dispute_subject, n_received_channel, n_intake_sufficient], surface_label: valid CRA reinvestigation trigger, source_span: 15 U.S.C. 1681i(a)(1)}
+
+  - {node_id: n_friv_made, kind: atom_ref, atom_id: fcra.frivolous_determination_made}
+  - {node_id: n_duplicate_no_new, kind: atom_ref, atom_id: fcra.dispute_duplicate_without_new_info}
+  - {node_id: n_insufficient, kind: atom_ref, atom_id: fcra.insufficient_information_to_investigate}
+  - {node_id: n_friv_basis, kind: or, children: [n_duplicate_no_new, n_insufficient], surface_label: permissible frivolous basis, source_span: 15 U.S.C. 1681i(a)(3)}
+  - {node_id: n_friv_notice, kind: atom_ref, atom_id: fcra.frivolous_notice_sent}
+  - {node_id: n_friv_reason, kind: atom_ref, atom_id: fcra.frivolous_reason_identified}
+  - {node_id: n_friv_missing_info, kind: atom_ref, atom_id: fcra.frivolous_missing_info_identified}
+  - {node_id: n_friv_days, kind: numeric_atom_ref, atom_id: fcra.business_days_to_frivolous_notice}
+  - {node_id: n_5bd, kind: constant, literal_value: 5}
+  - {node_id: n_friv_notice_timely, kind: comparison, operator: leq, left: n_friv_days, right: n_5bd, surface_label: frivolous notice within five business days, source_span: 15 U.S.C. 1681i(a)(3)}
+  - {node_id: n_frivolous_valid, kind: and, children: [n_friv_made, n_friv_basis, n_friv_notice, n_friv_reason, n_friv_missing_info, n_friv_notice_timely], surface_label: valid frivolous or irrelevant termination, source_span: 15 U.S.C. 1681i(a)(3)}
+  - {node_id: n_not_frivolous_valid, kind: not, child: n_frivolous_valid}
+  - {node_id: n_cra_required, kind: and, children: [n_valid_cra_trigger, n_not_frivolous_valid], surface_label: CRA reinvestigation required, source_span: "15 U.S.C. 1681i(a)(1), (a)(3)"}
+  - {node_id: n_not_cra_required, kind: not, child: n_cra_required}
+
+  - {node_id: n_reinv_completed, kind: atom_ref, atom_id: fcra.reinvestigation_completed}
+  - {node_id: n_complete_days, kind: numeric_atom_ref, atom_id: fcra.days_to_complete_reinvestigation}
+  - {node_id: n_addl_info, kind: atom_ref, atom_id: fcra.additional_relevant_info_received_in_30_days}
+  - {node_id: n_30d, kind: constant, literal_value: 30}
+  - {node_id: n_45d, kind: constant, literal_value: 45}
+  - {node_id: n_allowed_days, kind: conditional_numeric, condition: n_addl_info, if_true: n_45d, if_false: n_30d, surface_label: 30-day deadline with possible 45-day extension, source_span: 15 U.S.C. 1681i(a)(1)}
+  - {node_id: n_completed_in_allowed_days, kind: comparison, operator: leq, left: n_complete_days, right: n_allowed_days, surface_label: completed within applicable deadline, source_span: 15 U.S.C. 1681i(a)(1)}
+  - {node_id: n_reinv_timely_if_required, kind: and, children: [n_cra_required, n_reinv_completed, n_completed_in_allowed_days], surface_label: required reinvestigation completed timely, source_span: 15 U.S.C. 1681i(a)(1)}
+  - {node_id: n_reinv_timely, kind: or, children: [n_not_cra_required, n_reinv_timely_if_required], surface_label: reinvestigation timing satisfied or not required, source_span: 15 U.S.C. 1681i(a)(1)}
+
+  - {node_id: n_furnished_by_furnisher, kind: atom_ref, atom_id: fcra.furnished_by_furnisher}
+  - {node_id: n_not_furnished_by_furnisher, kind: not, child: n_furnished_by_furnisher}
+  - {node_id: n_cra_notified_furnisher, kind: atom_ref, atom_id: fcra.cra_notified_furnisher}
+  - {node_id: n_notify_days, kind: numeric_atom_ref, atom_id: fcra.business_days_to_notify_furnisher}
+  - {node_id: n_notify_within_5, kind: comparison, operator: leq, left: n_notify_days, right: n_5bd, surface_label: furnisher notice within five business days, source_span: 15 U.S.C. 1681i(a)(2)}
+  - {node_id: n_notice_all_info, kind: atom_ref, atom_id: fcra.notice_included_all_relevant_info}
+  - {node_id: n_primary_docs_forwarded, kind: atom_ref, atom_id: fcra.primary_documents_forwarded}
+  - {node_id: n_later_info_received, kind: atom_ref, atom_id: fcra.later_relevant_info_received}
+  - {node_id: n_later_info_not_received, kind: not, child: n_later_info_received}
+  - {node_id: n_later_info_forwarded, kind: atom_ref, atom_id: fcra.later_relevant_info_forwarded}
+  - {node_id: n_later_info_satisfied, kind: or, children: [n_later_info_not_received, n_later_info_forwarded], surface_label: later relevant information forwarding satisfied, source_span: 15 U.S.C. 1681i(a)(2)(B)}
+  - {node_id: n_expedited_delete, kind: atom_ref, atom_id: fcra.expedited_deleted_within_3_business_days}
+  - {node_id: n_furnisher_transmission_met, kind: and, children: [n_cra_required, n_furnished_by_furnisher, n_cra_notified_furnisher, n_notify_within_5, n_notice_all_info, n_primary_docs_forwarded, n_later_info_satisfied], surface_label: CRA furnisher transmission obligations met, source_span: 15 U.S.C. 1681i(a)(2)}
+  - {node_id: n_furnisher_notice_satisfied, kind: or, children: [n_not_cra_required, n_not_furnished_by_furnisher, n_expedited_delete, n_furnisher_transmission_met], surface_label: furnisher notice satisfied, source_span: "15 U.S.C. 1681i(a)(2), (a)(8)"}
+
+  - {node_id: n_reviewed_all_info, kind: atom_ref, atom_id: fcra.cra_reviewed_all_consumer_info}
+  - {node_id: n_considered_primary_docs, kind: atom_ref, atom_id: fcra.cra_considered_primary_source_documents}
+  - {node_id: n_compared_furnisher, kind: atom_ref, atom_id: fcra.cra_compared_furnisher_response}
+  - {node_id: n_compared_file, kind: atom_ref, atom_id: fcra.cra_compared_own_file}
+  - {node_id: n_reasonable_reinv, kind: atom_ref, atom_id: fcra.cra_reasonable_reinvestigation_performed}
+  - {node_id: n_dispositive_not_ignored, kind: atom_ref, atom_id: fcra.dispositive_info_not_ignored}
+  - {node_id: n_auto_only, kind: atom_ref, atom_id: fcra.automated_code_only}
+  - {node_id: n_not_auto_only, kind: not, child: n_auto_only}
+  - {node_id: n_doc_review, kind: atom_ref, atom_id: fcra.human_review_of_documents_performed}
+  - {node_id: n_consideration_met, kind: and, children: [n_cra_required, n_reviewed_all_info, n_considered_primary_docs, n_compared_furnisher, n_compared_file, n_reasonable_reinv, n_dispositive_not_ignored, n_not_auto_only, n_doc_review], surface_label: reasonable CRA consideration performed, source_span: "15 U.S.C. 1681i(a)(1), (a)(4)"}
+  - {node_id: n_consideration_satisfied, kind: or, children: [n_not_cra_required, n_consideration_met], surface_label: CRA consideration satisfied or not required, source_span: 15 U.S.C. 1681i(a)(4)}
+
+  - {node_id: n_inaccurate, kind: atom_ref, atom_id: fcra.item_found_inaccurate}
+  - {node_id: n_incomplete, kind: atom_ref, atom_id: fcra.item_found_incomplete}
+  - {node_id: n_unverifiable, kind: atom_ref, atom_id: fcra.item_cannot_be_verified}
+  - {node_id: n_defect_found, kind: or, children: [n_inaccurate, n_incomplete, n_unverifiable], surface_label: inaccurate incomplete or unverifiable, source_span: 15 U.S.C. 1681i(a)(5)}
+  - {node_id: n_no_defect_found, kind: not, child: n_defect_found}
+  - {node_id: n_item_verified, kind: atom_ref, atom_id: fcra.item_verified_as_accurate}
+  - {node_id: n_item_status_current, kind: atom_ref, atom_id: fcra.item_status_recorded_current}
+  - {node_id: n_deleted, kind: atom_ref, atom_id: fcra.item_deleted}
+  - {node_id: n_modified, kind: atom_ref, atom_id: fcra.item_modified}
+  - {node_id: n_delete_or_modify, kind: or, children: [n_deleted, n_modified], surface_label: item deleted or modified, source_span: 15 U.S.C. 1681i(a)(5)}
+  - {node_id: n_no_defect_treatment, kind: and, children: [n_no_defect_found, n_item_verified, n_item_status_current], surface_label: no-defect verified status treatment, source_span: 15 U.S.C. 1681i(a)(1)}
+  - {node_id: n_defect_treatment, kind: and, children: [n_defect_found, n_delete_or_modify, n_item_status_current], surface_label: defect corrected by deletion or modification, source_span: 15 U.S.C. 1681i(a)(5)}
+  - {node_id: n_item_treatment_if_required, kind: or, children: [n_no_defect_treatment, n_defect_treatment], surface_label: item treatment after reinvestigation, source_span: 15 U.S.C. 1681i(a)(5)}
+  - {node_id: n_item_treatment_satisfied, kind: or, children: [n_not_cra_required, n_item_treatment_if_required], surface_label: item treatment satisfied, source_span: 15 U.S.C. 1681i(a)(5)}
+
+  - {node_id: n_results_sent, kind: atom_ref, atom_id: fcra.results_notice_sent}
+  - {node_id: n_results_days, kind: numeric_atom_ref, atom_id: fcra.business_days_to_results_notice}
+  - {node_id: n_results_within_5, kind: comparison, operator: leq, left: n_results_days, right: n_5bd, surface_label: results notice within five business days, source_span: 15 U.S.C. 1681i(a)(6)}
+  - {node_id: n_notice_completed, kind: atom_ref, atom_id: fcra.notice_states_reinvestigation_completed}
+  - {node_id: n_revised_report, kind: atom_ref, atom_id: fcra.revised_consumer_report_provided}
+  - {node_id: n_proc_right, kind: atom_ref, atom_id: fcra.procedure_description_right_disclosed}
+  - {node_id: n_furnisher_contact, kind: atom_ref, atom_id: fcra.furnisher_contact_disclosed_if_available}
+  - {node_id: n_statement_right, kind: atom_ref, atom_id: fcra.consumer_statement_right_disclosed}
+  - {node_id: n_notification_right, kind: atom_ref, atom_id: fcra.notification_right_disclosed}
+  - {node_id: n_results_notice_met, kind: and, children: [n_cra_required, n_reinv_completed, n_results_sent, n_results_within_5, n_notice_completed, n_revised_report, n_proc_right, n_furnisher_contact, n_statement_right, n_notification_right], surface_label: results notice requirements met, source_span: 15 U.S.C. 1681i(a)(6)}
+  - {node_id: n_results_notice_satisfied, kind: or, children: [n_not_cra_required, n_results_notice_met], surface_label: results notice satisfied, source_span: 15 U.S.C. 1681i(a)(6)}
+
+  - {node_id: n_reinserted, kind: atom_ref, atom_id: fcra.item_reinserted}
+  - {node_id: n_not_reinserted, kind: not, child: n_reinserted}
+  - {node_id: n_reinsert_cert, kind: atom_ref, atom_id: fcra.furnisher_certified_accuracy_for_reinsertion}
+  - {node_id: n_reinsert_notice, kind: atom_ref, atom_id: fcra.reinsertion_notice_sent}
+  - {node_id: n_reinsert_days, kind: numeric_atom_ref, atom_id: fcra.business_days_to_reinsertion_notice}
+  - {node_id: n_reinsert_notice_within_5, kind: comparison, operator: leq, left: n_reinsert_days, right: n_5bd, surface_label: reinsertion notice within five business days, source_span: 15 U.S.C. 1681i(a)(5)(B)}
+  - {node_id: n_reinsert_identifies_furnisher, kind: atom_ref, atom_id: fcra.reinsertion_notice_identifies_furnisher}
+  - {node_id: n_reinsert_statement_right, kind: atom_ref, atom_id: fcra.reinsertion_notice_includes_statement_right}
+  - {node_id: n_prevent_reappearance, kind: atom_ref, atom_id: fcra.procedures_prevent_reappearance}
+  - {node_id: n_reinsertion_package, kind: and, children: [n_reinserted, n_reinsert_cert, n_reinsert_notice, n_reinsert_notice_within_5, n_reinsert_identifies_furnisher, n_reinsert_statement_right, n_prevent_reappearance], surface_label: reinsertion safeguards satisfied, source_span: 15 U.S.C. 1681i(a)(5)(B)-(C)}
+  - {node_id: n_reinsertion_satisfied, kind: or, children: [n_not_reinserted, n_reinsertion_package], surface_label: reinsertion satisfied or not applicable, source_span: 15 U.S.C. 1681i(a)(5)}
+
+  - {node_id: n_furnisher_received_cra, kind: atom_ref, atom_id: fcra.furnisher_received_cra_notice}
+  - {node_id: n_no_furnisher_cra_notice, kind: not, child: n_furnisher_received_cra}
+  - {node_id: n_furnisher_investigated, kind: atom_ref, atom_id: fcra.furnisher_investigation_conducted}
+  - {node_id: n_furnisher_reviewed, kind: atom_ref, atom_id: fcra.furnisher_reviewed_all_cra_info}
+  - {node_id: n_furnisher_reported, kind: atom_ref, atom_id: fcra.furnisher_reported_results_to_cra}
+  - {node_id: n_furnisher_reported_others, kind: atom_ref, atom_id: fcra.furnisher_reported_inaccuracy_to_other_cras}
+  - {node_id: n_furnisher_mod, kind: atom_ref, atom_id: fcra.furnisher_modified_item}
+  - {node_id: n_furnisher_del, kind: atom_ref, atom_id: fcra.furnisher_deleted_item}
+  - {node_id: n_furnisher_block, kind: atom_ref, atom_id: fcra.furnisher_blocked_item}
+  - {node_id: n_furnisher_action, kind: or, children: [n_furnisher_mod, n_furnisher_del, n_furnisher_block], surface_label: furnisher corrected or blocked defective item, source_span: 15 U.S.C. 1681s-2(b)}
+  - {node_id: n_furnisher_days, kind: numeric_atom_ref, atom_id: fcra.days_to_furnisher_complete}
+  - {node_id: n_furnisher_within_deadline, kind: comparison, operator: leq, left: n_furnisher_days, right: n_allowed_days, surface_label: furnisher completed within agency deadline, source_span: 15 U.S.C. 1681s-2(b)}
+  - {node_id: n_no_defect_furnisher, kind: and, children: [n_no_defect_found, n_furnisher_investigated, n_furnisher_reviewed, n_furnisher_reported, n_furnisher_within_deadline], surface_label: furnisher verified no defect after indirect dispute, source_span: 15 U.S.C. 1681s-2(b)}
+  - {node_id: n_defect_furnisher, kind: and, children: [n_defect_found, n_furnisher_investigated, n_furnisher_reviewed, n_furnisher_reported, n_furnisher_reported_others, n_furnisher_action, n_furnisher_within_deadline], surface_label: furnisher corrected defective information after indirect dispute, source_span: 15 U.S.C. 1681s-2(b)}
+  - {node_id: n_furnisher_indirect_met, kind: or, children: [n_no_defect_furnisher, n_defect_furnisher], surface_label: furnisher indirect dispute duties met, source_span: 15 U.S.C. 1681s-2(b)}
+  - {node_id: n_furnisher_indirect_satisfied, kind: or, children: [n_not_cra_required, n_no_furnisher_cra_notice, n_furnisher_indirect_met], surface_label: furnisher indirect duties satisfied or not applicable, source_span: 15 U.S.C. 1681s-2(b)}
+
+  - {node_id: n_direct_dispute, kind: atom_ref, atom_id: fcra.direct_dispute_received_by_furnisher}
+  - {node_id: n_no_direct_dispute, kind: not, child: n_direct_dispute}
+  - {node_id: n_direct_address, kind: atom_ref, atom_id: fcra.direct_dispute_at_proper_address}
+  - {node_id: n_direct_account, kind: atom_ref, atom_id: fcra.direct_dispute_identifies_account}
+  - {node_id: n_direct_specific, kind: atom_ref, atom_id: fcra.direct_dispute_identifies_specific_info}
+  - {node_id: n_direct_basis, kind: atom_ref, atom_id: fcra.direct_dispute_explains_basis}
+  - {node_id: n_direct_docs, kind: atom_ref, atom_id: fcra.direct_dispute_supporting_docs_supplied}
+  - {node_id: n_direct_scope, kind: atom_ref, atom_id: fcra.direct_dispute_subject_within_scope}
+  - {node_id: n_direct_public_only, kind: atom_ref, atom_id: fcra.direct_dispute_public_record_only}
+  - {node_id: n_direct_fraud_alert_only, kind: atom_ref, atom_id: fcra.direct_dispute_fraud_alert_only}
+  - {node_id: n_direct_exception, kind: or, children: [n_direct_public_only, n_direct_fraud_alert_only], surface_label: direct-dispute exception applies, source_span: 12 CFR 1022.43(b)}
+  - {node_id: n_direct_valid_notice, kind: and, children: [n_direct_dispute, n_direct_address, n_direct_account, n_direct_specific, n_direct_basis, n_direct_docs, n_direct_scope], surface_label: qualifying direct dispute notice, source_span: 12 CFR 1022.43(c)-(d)}
+  - {node_id: n_direct_investigated, kind: atom_ref, atom_id: fcra.direct_furnisher_investigation_conducted}
+  - {node_id: n_direct_reviewed, kind: atom_ref, atom_id: fcra.direct_furnisher_reviewed_info}
+  - {node_id: n_direct_reported_consumer, kind: atom_ref, atom_id: fcra.direct_furnisher_results_reported_to_consumer}
+  - {node_id: n_direct_corrected_cras, kind: atom_ref, atom_id: fcra.direct_furnisher_corrected_cras}
+  - {node_id: n_direct_no_defect_path, kind: and, children: [n_direct_valid_notice, n_no_defect_found, n_direct_investigated, n_direct_reviewed, n_direct_reported_consumer], surface_label: direct dispute verified with required process, source_span: 12 CFR 1022.43(e)}
+  - {node_id: n_direct_defect_path, kind: and, children: [n_direct_valid_notice, n_defect_found, n_direct_investigated, n_direct_reviewed, n_direct_reported_consumer, n_direct_corrected_cras], surface_label: direct dispute corrected with required process, source_span: 12 CFR 1022.43(e)}
+  - {node_id: n_direct_furnisher_satisfied, kind: or, children: [n_no_direct_dispute, n_direct_exception, n_direct_no_defect_path, n_direct_defect_path], surface_label: direct furnisher dispute duties satisfied, source_span: 12 CFR 1022.43}
+
+  - {node_id: n_reseller_received, kind: atom_ref, atom_id: fcra.reseller_received_dispute}
+  - {node_id: n_no_reseller_received, kind: not, child: n_reseller_received}
+  - {node_id: n_reseller_error, kind: atom_ref, atom_id: fcra.reseller_item_due_to_reseller_error}
+  - {node_id: n_no_reseller_error, kind: not, child: n_reseller_error}
+  - {node_id: n_reseller_corrected, kind: atom_ref, atom_id: fcra.reseller_corrected_or_deleted}
+  - {node_id: n_reseller_correct_days, kind: numeric_atom_ref, atom_id: fcra.days_to_reseller_correct_delete}
+  - {node_id: n_20d, kind: constant, literal_value: 20}
+  - {node_id: n_reseller_correct_within_20, kind: comparison, operator: leq, left: n_reseller_correct_days, right: n_20d, surface_label: reseller correction within 20 days, source_span: 15 U.S.C. 1681i(f)}
+  - {node_id: n_reseller_conveyed, kind: atom_ref, atom_id: fcra.reseller_conveyed_to_cra}
+  - {node_id: n_reseller_convey_days, kind: numeric_atom_ref, atom_id: fcra.business_days_to_reseller_conveyance}
+  - {node_id: n_reseller_convey_within_5, kind: comparison, operator: leq, left: n_reseller_convey_days, right: n_5bd, surface_label: reseller conveyance within five business days, source_span: 15 U.S.C. 1681i(f)}
+  - {node_id: n_reseller_reconveyed, kind: atom_ref, atom_id: fcra.reseller_reconveyed_results_to_consumer}
+  - {node_id: n_reseller_error_path, kind: and, children: [n_reseller_received, n_reseller_error, n_reseller_corrected, n_reseller_correct_within_20], surface_label: reseller corrected own error, source_span: 15 U.S.C. 1681i(f)}
+  - {node_id: n_reseller_forward_path, kind: and, children: [n_reseller_received, n_no_reseller_error, n_reseller_conveyed, n_reseller_convey_within_5, n_reseller_reconveyed], surface_label: reseller forwarded source CRA dispute and reconveyed results, source_span: 15 U.S.C. 1681i(f)}
+  - {node_id: n_reseller_satisfied, kind: or, children: [n_no_reseller_received, n_reseller_error_path, n_reseller_forward_path], surface_label: reseller obligations satisfied or not applicable, source_span: 15 U.S.C. 1681i(f)}
+
+  - {node_id: n_statement_filed, kind: atom_ref, atom_id: fcra.consumer_statement_filed}
+  - {node_id: n_no_statement_filed, kind: not, child: n_statement_filed}
+  - {node_id: n_subseq_note, kind: atom_ref, atom_id: fcra.subsequent_reports_note_dispute}
+  - {node_id: n_statement_satisfied, kind: or, children: [n_no_statement_filed, n_subseq_note], surface_label: consumer statement handling satisfied, source_span: 15 U.S.C. 1681i(b)-(c)}
+
+  - {node_id: n_identity_theft, kind: atom_ref, atom_id: fcra.identity_theft_claimed}
+  - {node_id: n_id_theft_report, kind: atom_ref, atom_id: fcra.identity_theft_report_supplied}
+  - {node_id: n_id_theft_report_missing, kind: not, child: n_id_theft_report}
+  - {node_id: n_id_theft_missing_report, kind: and, children: [n_identity_theft, n_id_theft_report_missing], surface_label: identity theft claim lacks required report, source_span: 15 U.S.C. 1681c-2}
+  - {node_id: n_mixed_file, kind: atom_ref, atom_id: fcra.mixed_file_claimed}
+  - {node_id: n_legal_only, kind: atom_ref, atom_id: fcra.legal_liability_dispute_only}
+  - {node_id: n_court_order, kind: atom_ref, atom_id: fcra.court_order_supplied}
+  - {node_id: n_conflict_docs, kind: atom_ref, atom_id: fcra.conflicting_furnisher_and_consumer_docs}
+  - {node_id: n_pending_litigation, kind: atom_ref, atom_id: fcra.pending_litigation_affects_account}
+  - {node_id: n_veteran_medical, kind: atom_ref, atom_id: fcra.medical_debt_veteran_claimed}
+  - {node_id: n_source_docs_missing, kind: atom_ref, atom_id: fcra.source_documents_missing}
+  - {node_id: n_date_conflict, kind: atom_ref, atom_id: fcra.material_date_conflict}
+  - {node_id: n_not_mine, kind: atom_ref, atom_id: fcra.consumer_alleges_not_mine}
+  - {node_id: n_manual_trigger, kind: atom_ref, atom_id: fcra.manual_review_policy_trigger}
+  - {node_id: n_human_review, kind: or, children: [n_id_theft_missing_report, n_mixed_file, n_legal_only, n_court_order, n_conflict_docs, n_pending_litigation, n_veteran_medical, n_source_docs_missing, n_date_conflict, n_not_mine, n_manual_trigger], surface_label: human review routing triggers, source_span: benchmark routing policy}
+
+  - {node_id: n_overall, kind: and, children: [n_reinv_timely, n_furnisher_notice_satisfied, n_consideration_satisfied, n_item_treatment_satisfied, n_results_notice_satisfied, n_reinsertion_satisfied, n_furnisher_indirect_satisfied, n_direct_furnisher_satisfied, n_reseller_satisfied, n_statement_satisfied], surface_label: selected credit-reporting dispute obligations satisfied, source_span: benchmark root}
+determinations:
+  - {determination_id: fcra.cra_reinvestigation_trigger_valid, description: A valid CRA reinvestigation trigger exists., root_node: n_valid_cra_trigger, source_span: 15 U.S.C. 1681i(a)(1)}
+  - {determination_id: fcra.frivolous_termination_valid, description: Any frivolous or irrelevant termination is valid., root_node: n_frivolous_valid, source_span: 15 U.S.C. 1681i(a)(3)}
+  - {determination_id: fcra.cra_reinvestigation_required, description: The CRA is required to conduct a reinvestigation., root_node: n_cra_required, source_span: 15 U.S.C. 1681i(a)(1)}
+  - {determination_id: fcra.cra_reinvestigation_timely, description: CRA reinvestigation timing is satisfied., root_node: n_reinv_timely, source_span: 15 U.S.C. 1681i(a)(1)}
+  - {determination_id: fcra.cra_furnisher_notice_satisfied, description: CRA furnisher-notice transmission duties are satisfied., root_node: n_furnisher_notice_satisfied, source_span: 15 U.S.C. 1681i(a)(2)}
+  - {determination_id: fcra.cra_consideration_satisfied, description: CRA consideration and reasonableness duties are satisfied., root_node: n_consideration_satisfied, source_span: 15 U.S.C. 1681i(a)(4)}
+  - {determination_id: fcra.item_treatment_satisfied, description: "Inaccurate, incomplete, or unverifiable information is treated correctly.", root_node: n_item_treatment_satisfied, source_span: 15 U.S.C. 1681i(a)(5)}
+  - {determination_id: fcra.results_notice_satisfied, description: CRA results notice duties are satisfied., root_node: n_results_notice_satisfied, source_span: 15 U.S.C. 1681i(a)(6)}
+  - {determination_id: fcra.reinsertion_satisfied, description: Reinsertion safeguards are satisfied or not applicable., root_node: n_reinsertion_satisfied, source_span: 15 U.S.C. 1681i(a)(5)(B)}
+  - {determination_id: fcra.furnisher_indirect_satisfied, description: Furnisher duties after CRA notice are satisfied or not applicable., root_node: n_furnisher_indirect_satisfied, source_span: 15 U.S.C. 1681s-2(b)}
+  - {determination_id: fcra.direct_furnisher_satisfied, description: Furnisher direct-dispute duties are satisfied or not applicable., root_node: n_direct_furnisher_satisfied, source_span: 12 CFR 1022.43}
+  - {determination_id: fcra.reseller_satisfied, description: Reseller dispute duties are satisfied or not applicable., root_node: n_reseller_satisfied, source_span: 15 U.S.C. 1681i(f)}
+  - {determination_id: fcra.consumer_statement_satisfied, description: Consumer statement handling is satisfied or not applicable., root_node: n_statement_satisfied, source_span: 15 U.S.C. 1681i(b)-(c)}
+  - {determination_id: fcra.dispute_resolution_compliant, description: Selected credit-reporting dispute obligations are satisfied., root_node: n_overall, source_span: benchmark root}
+  - determination_id: fcra.human_review_required
+    description: The packet requires human review routing.
+    root_node: n_human_review
+    source_span: benchmark routing policy
+    determination_kind: routing
+    routing:
+      mode: any_true
+      missing_behavior: "false"
+      conflict_behavior: "true"
+      error_behavior: "true"
+      trigger_atoms:
+        - fcra.identity_theft_claimed
+        - fcra.mixed_file_claimed
+        - fcra.legal_liability_dispute_only
+        - fcra.court_order_supplied
+        - fcra.conflicting_furnisher_and_consumer_docs
+        - fcra.pending_litigation_affects_account
+        - fcra.medical_debt_veteran_claimed
+        - fcra.source_documents_missing
+        - fcra.material_date_conflict
+        - fcra.consumer_alleges_not_mine
+        - fcra.manual_review_policy_trigger
+cases:
+  - case_id: fcra_deep_clean_verified
+    title: Clean verified auto-loan dispute
+    narrative: >
+      The consumer disputed a 30-day late notation on an auto loan. The CRA
+      file shows the dispute was received directly on March 1, the account and
+      month were identified, and the consumer supplied a servicer payment
+      ledger. The CRA sent the dispute and document image to the furnisher on
+      the third business day, completed the reinvestigation in 24 calendar days,
+      received a furnisher response verifying the late payment, reviewed the
+      consumer ledger against the furnisher payment history, recorded the item
+      as verified, and mailed results with the revised report 4 business days
+      after completion.
+    expected_outcomes: &clean_expected
+      fcra.cra_reinvestigation_trigger_valid: "true"
+      fcra.frivolous_termination_valid: "false"
+      fcra.cra_reinvestigation_required: "true"
+      fcra.cra_reinvestigation_timely: "true"
+      fcra.cra_furnisher_notice_satisfied: "true"
+      fcra.cra_consideration_satisfied: "true"
+      fcra.item_treatment_satisfied: "true"
+      fcra.results_notice_satisfied: "true"
+      fcra.reinsertion_satisfied: "true"
+      fcra.furnisher_indirect_satisfied: "true"
+      fcra.direct_furnisher_satisfied: "true"
+      fcra.reseller_satisfied: "true"
+      fcra.consumer_statement_satisfied: "true"
+      fcra.dispute_resolution_compliant: "true"
+      fcra.human_review_required: "false"
+    structured_fields: &base_structured
+      evidence_sources:
+        - {source_id: consumer_dispute, source_type: consumer_dispute_letter, title: Consumer dispute letter, closed_world_scopes: [consumer_dispute_packet]}
+        - {source_id: cra_log, source_type: cra_dispute_processing_log, title: CRA dispute processing log, closed_world_scopes: [cra_processing_dates, cra_actions]}
+        - {source_id: furnisher_acdv, source_type: furnisher_dispute_response, title: Furnisher dispute response, closed_world_scopes: [furnisher_response]}
+        - {source_id: results_notice, source_type: cra_results_notice, title: CRA results notice, closed_world_scopes: [results_notice]}
+      facts:
+        fcra.days_to_complete_reinvestigation: 24
+        fcra.business_days_to_notify_furnisher: 3
+        fcra.business_days_to_results_notice: 4
+        fcra.days_to_furnisher_complete: 18
+      default_binding_groups:
+        - atom_ids: &default_true_atoms
+            - fcra.consumer_disputed_item
+            - fcra.item_in_consumer_file
+            - fcra.dispute_about_accuracy
+            - fcra.notice_direct_to_cra
+            - fcra.consumer_identity_sufficient
+            - fcra.account_identified
+            - fcra.disputed_field_identified
+            - fcra.basis_explained
+            - fcra.consumer_submission_authentic
+            - fcra.cra_received_dispute_date_known
+            - fcra.reinvestigation_completed
+            - fcra.furnished_by_furnisher
+            - fcra.furnisher_address_available
+            - fcra.cra_notified_furnisher
+            - fcra.notice_included_all_relevant_info
+            - fcra.primary_documents_forwarded
+            - fcra.cra_reviewed_all_consumer_info
+            - fcra.cra_considered_primary_source_documents
+            - fcra.cra_compared_furnisher_response
+            - fcra.cra_compared_own_file
+            - fcra.cra_checked_prior_dispute_history
+            - fcra.cra_resolved_internal_inconsistency
+            - fcra.cra_reasonable_reinvestigation_performed
+            - fcra.dispositive_info_not_ignored
+            - fcra.item_verified_as_accurate
+            - fcra.item_status_recorded_current
+            - fcra.results_notice_sent
+            - fcra.notice_states_reinvestigation_completed
+            - fcra.revised_consumer_report_provided
+            - fcra.procedure_description_right_disclosed
+            - fcra.furnisher_contact_disclosed_if_available
+            - fcra.consumer_statement_right_disclosed
+            - fcra.notification_right_disclosed
+            - fcra.procedures_prevent_reappearance
+            - fcra.furnisher_received_cra_notice
+            - fcra.furnisher_investigation_conducted
+            - fcra.furnisher_reviewed_all_cra_info
+            - fcra.furnisher_reported_results_to_cra
+            - fcra.direct_dispute_subject_within_scope
+            - fcra.human_review_of_documents_performed
+          value: true
+          basis: inferred_from_record
+          apply_when: missing_or_undetermined
+          evidence: Ordinary-course dispute packet supports this process fact.
+        - atom_ids: &default_false_atoms
+            - fcra.dispute_about_completeness
+            - fcra.notice_through_reseller
+            - fcra.consumer_authorized_representative
+            - fcra.dispute_not_credit_repair_org_form
+            - fcra.dispute_duplicate_without_new_info
+            - fcra.insufficient_information_to_investigate
+            - fcra.frivolous_determination_made
+            - fcra.frivolous_reason_identified
+            - fcra.frivolous_missing_info_identified
+            - fcra.frivolous_notice_sent
+            - fcra.additional_relevant_info_received_in_30_days
+            - fcra.info_found_inaccurate_during_30_days
+            - fcra.info_found_incomplete_during_30_days
+            - fcra.info_unverifiable_during_30_days
+            - fcra.later_relevant_info_received
+            - fcra.later_relevant_info_forwarded
+            - fcra.expedited_deleted_within_3_business_days
+            - fcra.consumer_telephone_notice_of_expedited_deletion
+            - fcra.expedited_written_confirmation_sent
+            - fcra.cra_checked_public_record_source
+            - fcra.consumer_info_dispositive
+            - fcra.automated_code_only
+            - fcra.item_found_inaccurate
+            - fcra.item_found_incomplete
+            - fcra.item_cannot_be_verified
+            - fcra.item_deleted
+            - fcra.item_modified
+            - fcra.furnisher_certified_accuracy_for_reinsertion
+            - fcra.item_reinserted
+            - fcra.reinsertion_notice_sent
+            - fcra.reinsertion_notice_identifies_furnisher
+            - fcra.reinsertion_notice_includes_statement_right
+            - fcra.deleted_item_reappeared_without_certification
+            - fcra.procedure_description_requested
+            - fcra.procedure_description_sent
+            - fcra.consumer_statement_filed
+            - fcra.subsequent_reports_note_dispute
+            - fcra.reseller_received_dispute
+            - fcra.reseller_item_due_to_reseller_error
+            - fcra.reseller_corrected_or_deleted
+            - fcra.reseller_conveyed_to_cra
+            - fcra.reseller_reconveyed_results_to_consumer
+            - fcra.reseller_reinvestigation_chosen
+            - fcra.furnisher_reported_inaccuracy_to_other_cras
+            - fcra.furnisher_modified_item
+            - fcra.furnisher_deleted_item
+            - fcra.furnisher_blocked_item
+            - fcra.direct_dispute_received_by_furnisher
+            - fcra.direct_dispute_at_proper_address
+            - fcra.direct_dispute_identifies_account
+            - fcra.direct_dispute_identifies_specific_info
+            - fcra.direct_dispute_explains_basis
+            - fcra.direct_dispute_supporting_docs_supplied
+            - fcra.direct_dispute_public_record_only
+            - fcra.direct_dispute_fraud_alert_only
+            - fcra.direct_furnisher_investigation_conducted
+            - fcra.direct_furnisher_reviewed_info
+            - fcra.direct_furnisher_results_reported_to_consumer
+            - fcra.direct_furnisher_corrected_cras
+            - fcra.identity_theft_claimed
+            - fcra.identity_theft_report_supplied
+            - fcra.mixed_file_claimed
+            - fcra.legal_liability_dispute_only
+            - fcra.court_order_supplied
+            - fcra.conflicting_furnisher_and_consumer_docs
+            - fcra.pending_litigation_affects_account
+            - fcra.medical_debt_veteran_claimed
+            - fcra.source_documents_missing
+            - fcra.material_date_conflict
+            - fcra.consumer_alleges_not_mine
+            - fcra.manual_review_policy_trigger
+          value: false
+          basis: explicit_negative
+          apply_when: missing_or_undetermined
+          evidence: The case packet does not state this fact or trigger in the modeled scope.
+
+  - case_id: fcra_deep_missing_forwarded_bank_statement
+    title: Bank statement not forwarded to furnisher
+    narrative: >
+      The consumer disputed a charged-off credit card balance and attached bank
+      statements plus a creditor letter showing a settlement payment. The CRA
+      coded the dispute and sent a generic "claims paid" code to the furnisher
+      on day 4, but the processing log says the document images were not sent or
+      made available. The furnisher verified the old balance. The CRA completed
+      within 29 days and sent a timely results notice.
+    expected_outcomes:
+      <<: *clean_expected
+      fcra.cra_furnisher_notice_satisfied: "false"
+      fcra.cra_consideration_satisfied: "false"
+      fcra.dispute_resolution_compliant: "false"
+      fcra.human_review_required: "true"
+    structured_fields:
+      <<: *base_structured
+      facts:
+        fcra.days_to_complete_reinvestigation: 29
+        fcra.business_days_to_notify_furnisher: 4
+        fcra.business_days_to_results_notice: 3
+        fcra.days_to_furnisher_complete: 20
+        fcra.primary_documents_forwarded: false
+        fcra.cra_considered_primary_source_documents: false
+        fcra.dispositive_info_not_ignored: false
+        fcra.automated_code_only: true
+        fcra.consumer_info_dispositive: true
+        fcra.conflicting_furnisher_and_consumer_docs: true
+        fcra.manual_review_policy_trigger: true
+
+  - case_id: fcra_deep_late_no_extension
+    title: Late CRA reinvestigation without extension
+    narrative: >
+      The dispute was received directly on April 2. No later consumer
+      submission was received during the initial 30-day period. The CRA
+      completed the reinvestigation after 38 calendar days, then mailed an
+      otherwise complete results notice two business days later.
+    expected_outcomes:
+      <<: *clean_expected
+      fcra.cra_reinvestigation_timely: "false"
+      fcra.dispute_resolution_compliant: "false"
+    structured_fields:
+      <<: *base_structured
+      facts:
+        fcra.days_to_complete_reinvestigation: 38
+        fcra.business_days_to_notify_furnisher: 2
+        fcra.business_days_to_results_notice: 2
+        fcra.days_to_furnisher_complete: 28
+
+  - case_id: fcra_deep_45_day_extension_with_correction
+    title: Forty-five-day extension with modified tradeline
+    narrative: >
+      The consumer disputed the date of first delinquency and sent additional
+      account statements on day 18. The CRA forwarded the later material to the
+      furnisher, completed the reinvestigation in 43 calendar days, found the
+      date incomplete, modified the tradeline, recorded current status, and sent
+      complete written results within 5 business days.
+    expected_outcomes:
+      <<: *clean_expected
+    structured_fields:
+      <<: *base_structured
+      facts:
+        fcra.days_to_complete_reinvestigation: 43
+        fcra.business_days_to_notify_furnisher: 3
+        fcra.business_days_to_results_notice: 5
+        fcra.days_to_furnisher_complete: 40
+        fcra.additional_relevant_info_received_in_30_days: true
+        fcra.later_relevant_info_received: true
+        fcra.later_relevant_info_forwarded: true
+        fcra.dispute_about_completeness: true
+        fcra.item_found_incomplete: true
+        fcra.item_verified_as_accurate: false
+        fcra.item_modified: true
+        fcra.furnisher_reported_inaccuracy_to_other_cras: true
+        fcra.furnisher_modified_item: true
+
+  - case_id: fcra_deep_unverifiable_not_deleted
+    title: Collection account unverifiable but left reporting
+    narrative: >
+      A collection account was disputed as not belonging to the consumer. The
+      furnisher did not produce account-level documentation and the CRA log says
+      the account could not be verified. The tradeline nevertheless remained
+      unchanged on the revised file.
+    expected_outcomes:
+      <<: *clean_expected
+      fcra.item_treatment_satisfied: "false"
+      fcra.furnisher_indirect_satisfied: "false"
+      fcra.dispute_resolution_compliant: "false"
+      fcra.human_review_required: "true"
+    structured_fields:
+      <<: *base_structured
+      facts:
+        fcra.days_to_complete_reinvestigation: 22
+        fcra.business_days_to_notify_furnisher: 2
+        fcra.business_days_to_results_notice: 4
+        fcra.days_to_furnisher_complete: 21
+        fcra.item_cannot_be_verified: true
+        fcra.item_verified_as_accurate: false
+        fcra.item_deleted: false
+        fcra.item_modified: false
+        fcra.furnisher_deleted_item: false
+        fcra.furnisher_blocked_item: false
+        fcra.consumer_alleges_not_mine: true
+        fcra.source_documents_missing: true
+
+  - case_id: fcra_deep_valid_frivolous_missing_account
+    title: Valid frivolous termination for missing account identity
+    narrative: >
+      The consumer wrote "something is wrong on my report" but did not identify
+      the account, furnish a report excerpt, or explain which item was disputed.
+      The CRA made a frivolous-or-irrelevant determination and mailed a notice
+      three business days later explaining that the account and disputed
+      information were needed.
+    expected_outcomes:
+      <<: *clean_expected
+      fcra.cra_reinvestigation_trigger_valid: "false"
+      fcra.frivolous_termination_valid: "true"
+      fcra.cra_reinvestigation_required: "false"
+    structured_fields:
+      <<: *base_structured
+      facts:
+        fcra.account_identified: false
+        fcra.disputed_field_identified: false
+        fcra.basis_explained: false
+        fcra.insufficient_information_to_investigate: true
+        fcra.frivolous_determination_made: true
+        fcra.frivolous_notice_sent: true
+        fcra.frivolous_reason_identified: true
+        fcra.frivolous_missing_info_identified: true
+        fcra.business_days_to_frivolous_notice: 3
+        fcra.reinvestigation_completed: false
+        fcra.results_notice_sent: false
+
+  - case_id: fcra_deep_invalid_duplicate_with_new_docs
+    title: Improper duplicate-dispute termination despite new proof
+    narrative: >
+      The consumer had disputed the same mortgage late payment before, but the
+      new packet included a servicer correction letter not previously supplied.
+      The CRA marked it duplicate/frivolous and closed it without
+      reinvestigation. The notice did not identify any missing information.
+    expected_outcomes:
+      <<: *clean_expected
+      fcra.frivolous_termination_valid: "false"
+      fcra.cra_reinvestigation_timely: "false"
+      fcra.cra_furnisher_notice_satisfied: "false"
+      fcra.cra_consideration_satisfied: "false"
+      fcra.item_treatment_satisfied: "false"
+      fcra.results_notice_satisfied: "false"
+      fcra.dispute_resolution_compliant: "false"
+      fcra.human_review_required: "true"
+    structured_fields:
+      <<: *base_structured
+      facts:
+        fcra.frivolous_determination_made: true
+        fcra.dispute_duplicate_without_new_info: false
+        fcra.insufficient_information_to_investigate: false
+        fcra.frivolous_notice_sent: true
+        fcra.frivolous_reason_identified: true
+        fcra.frivolous_missing_info_identified: false
+        fcra.business_days_to_frivolous_notice: 4
+        fcra.reinvestigation_completed: false
+        fcra.cra_notified_furnisher: false
+        fcra.furnisher_received_cra_notice: false
+        fcra.cra_reviewed_all_consumer_info: false
+        fcra.item_verified_as_accurate: false
+        fcra.results_notice_sent: false
+        fcra.consumer_info_dispositive: true
+        fcra.manual_review_policy_trigger: true
+
+  - case_id: fcra_deep_reinsertion_without_certification
+    title: Deleted account reinserted without certification notice
+    narrative: >
+      A collection account was deleted after a prior reinvestigation. Two weeks
+      later it reappeared. The CRA file contains no furnisher certification of
+      completeness and accuracy, and the consumer did not receive a reinsertion
+      notice. The later results notice otherwise contains the normal disclosures.
+    expected_outcomes:
+      <<: *clean_expected
+      fcra.reinsertion_satisfied: "false"
+      fcra.dispute_resolution_compliant: "false"
+      fcra.human_review_required: "true"
+    structured_fields:
+      <<: *base_structured
+      facts:
+        fcra.days_to_complete_reinvestigation: 21
+        fcra.business_days_to_notify_furnisher: 2
+        fcra.business_days_to_results_notice: 3
+        fcra.days_to_furnisher_complete: 17
+        fcra.item_reinserted: true
+        fcra.furnisher_certified_accuracy_for_reinsertion: false
+        fcra.reinsertion_notice_sent: false
+        fcra.business_days_to_reinsertion_notice: 9
+        fcra.reinsertion_notice_identifies_furnisher: false
+        fcra.reinsertion_notice_includes_statement_right: false
+        fcra.deleted_item_reappeared_without_certification: true
+        fcra.manual_review_policy_trigger: true
+
+  - case_id: fcra_deep_direct_furnisher_valid_not_corrected
+    title: Direct furnisher dispute found inaccurate but CRAs not corrected
+    narrative: >
+      The consumer sent a direct dispute to the furnisher's published dispute
+      address, identifying the credit-card account, the inaccurate balance, and
+      attaching the final payoff statement. The furnisher agreed internally that
+      the balance was wrong and reported results to the consumer, but the log
+      shows it did not notify the CRAs or provide the correction.
+    expected_outcomes:
+      <<: *clean_expected
+      fcra.direct_furnisher_satisfied: "false"
+      fcra.dispute_resolution_compliant: "false"
+    structured_fields:
+      <<: *base_structured
+      facts:
+        fcra.days_to_complete_reinvestigation: 20
+        fcra.business_days_to_notify_furnisher: 2
+        fcra.business_days_to_results_notice: 3
+        fcra.days_to_furnisher_complete: 16
+        fcra.direct_dispute_received_by_furnisher: true
+        fcra.direct_dispute_at_proper_address: true
+        fcra.direct_dispute_identifies_account: true
+        fcra.direct_dispute_identifies_specific_info: true
+        fcra.direct_dispute_explains_basis: true
+        fcra.direct_dispute_supporting_docs_supplied: true
+        fcra.direct_dispute_subject_within_scope: true
+        fcra.direct_furnisher_investigation_conducted: true
+        fcra.direct_furnisher_reviewed_info: true
+        fcra.direct_furnisher_results_reported_to_consumer: true
+        fcra.direct_furnisher_corrected_cras: false
+        fcra.item_found_inaccurate: true
+        fcra.item_verified_as_accurate: false
+        fcra.item_modified: true
+        fcra.furnisher_reported_inaccuracy_to_other_cras: true
+        fcra.furnisher_modified_item: true
+
+  - case_id: fcra_deep_reseller_forwarding_path
+    title: Reseller receives dispute and forwards source-CRA item
+    narrative: >
+      The consumer disputed a mortgage account through a tenant-screening
+      reseller. The reseller determined within 2 business days that the alleged
+      inaccuracy was not caused by the reseller and conveyed the dispute packet
+      and attachments to the source CRA. The CRA completed the reinvestigation,
+      and the reseller reconveyed the completion notice to the consumer.
+    expected_outcomes:
+      <<: *clean_expected
+    structured_fields:
+      <<: *base_structured
+      facts:
+        fcra.notice_direct_to_cra: false
+        fcra.notice_through_reseller: true
+        fcra.reseller_received_dispute: true
+        fcra.reseller_item_due_to_reseller_error: false
+        fcra.reseller_conveyed_to_cra: true
+        fcra.business_days_to_reseller_conveyance: 2
+        fcra.reseller_reconveyed_results_to_consumer: true
+        fcra.days_to_complete_reinvestigation: 27
+        fcra.business_days_to_notify_furnisher: 3
+        fcra.business_days_to_results_notice: 4
+        fcra.days_to_furnisher_complete: 24
+
+  - case_id: fcra_deep_mixed_file_identity_theft_ambiguous
+    title: Mixed-file not-mine dispute with incomplete identity theft packet
+    narrative: >
+      The consumer disputes three collection accounts as "not mine" and says an
+      identity theft affidavit is being prepared. The packet includes a police
+      incident number but not the actual identity theft report, two addresses
+      for a person with a similar name, and inconsistent dates across the CRA
+      file and furnisher response. The CRA has not yet received enough material
+      to decide whether the items are mixed-file, identity-theft, or verified
+      consumer obligations.
+    expected_outcomes:
+      fcra.cra_reinvestigation_trigger_valid: "true"
+      fcra.frivolous_termination_valid: "false"
+      fcra.cra_reinvestigation_required: "true"
+      fcra.cra_reinvestigation_timely: "undetermined"
+      fcra.cra_furnisher_notice_satisfied: "undetermined"
+      fcra.cra_consideration_satisfied: "undetermined"
+      fcra.item_treatment_satisfied: "undetermined"
+      fcra.results_notice_satisfied: "undetermined"
+      fcra.reinsertion_satisfied: "true"
+      fcra.furnisher_indirect_satisfied: "undetermined"
+      fcra.direct_furnisher_satisfied: "true"
+      fcra.reseller_satisfied: "true"
+      fcra.consumer_statement_satisfied: "true"
+      fcra.dispute_resolution_compliant: "undetermined"
+      fcra.human_review_required: "true"
+    structured_fields:
+      <<: *base_structured
+      facts:
+        fcra.days_to_complete_reinvestigation: undetermined
+        fcra.business_days_to_notify_furnisher: undetermined
+        fcra.business_days_to_results_notice: undetermined
+        fcra.days_to_furnisher_complete: undetermined
+        fcra.reinvestigation_completed: undetermined
+        fcra.cra_notified_furnisher: undetermined
+        fcra.cra_reviewed_all_consumer_info: undetermined
+        fcra.cra_considered_primary_source_documents: undetermined
+        fcra.cra_compared_furnisher_response: undetermined
+        fcra.cra_reasonable_reinvestigation_performed: undetermined
+        fcra.item_verified_as_accurate: undetermined
+        fcra.item_status_recorded_current: undetermined
+        fcra.results_notice_sent: undetermined
+        fcra.furnisher_received_cra_notice: undetermined
+        fcra.furnisher_investigation_conducted: undetermined
+        fcra.furnisher_reviewed_all_cra_info: undetermined
+        fcra.furnisher_reported_results_to_cra: undetermined
+        fcra.identity_theft_claimed: true
+        fcra.identity_theft_report_supplied: false
+        fcra.mixed_file_claimed: true
+        fcra.conflicting_furnisher_and_consumer_docs: true
+        fcra.source_documents_missing: true
+        fcra.material_date_conflict: true
+        fcra.consumer_alleges_not_mine: true
+      binding_directives:
+        - kind: evidence_gap
+          atom_ids:
+            - fcra.reinvestigation_completed
+            - fcra.cra_notified_furnisher
+            - fcra.cra_reviewed_all_consumer_info
+            - fcra.cra_considered_primary_source_documents
+            - fcra.cra_compared_furnisher_response
+            - fcra.cra_reasonable_reinvestigation_performed
+            - fcra.item_verified_as_accurate
+            - fcra.item_status_recorded_current
+            - fcra.results_notice_sent
+            - fcra.notice_states_reinvestigation_completed
+            - fcra.revised_consumer_report_provided
+            - fcra.procedure_description_right_disclosed
+            - fcra.furnisher_contact_disclosed_if_available
+            - fcra.consumer_statement_right_disclosed
+            - fcra.notification_right_disclosed
+            - fcra.furnisher_received_cra_notice
+            - fcra.furnisher_investigation_conducted
+            - fcra.furnisher_reviewed_all_cra_info
+            - fcra.furnisher_reported_results_to_cra
+          evidence: The packet leaves this process fact unresolved pending source-document review.

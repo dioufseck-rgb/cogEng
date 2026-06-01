@@ -1,0 +1,194 @@
+{
+  "fcra.business_days_to_frivolous_notice": {
+    "atom_id": "fcra.business_days_to_frivolous_notice",
+    "basis": "not_found",
+    "confidence": 0.5,
+    "evidence": "No frivolous determination made; numeric timing not applicable and not stated.",
+    "explanation": "Numeric atom without a triggering event; cannot bind a number.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.business_days_to_notify_furnisher": {
+    "atom_id": "fcra.business_days_to_notify_furnisher",
+    "basis": "not_found",
+    "confidence": 0.5,
+    "evidence": "Narrative states 'day 4' without specifying business vs calendar days.",
+    "explanation": "Unit ambiguity; cannot bind a business-day numeric value with confidence.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.consumer_statement_filed": {
+    "atom_id": "fcra.consumer_statement_filed",
+    "basis": "inferred_from_record",
+    "confidence": 0.6,
+    "evidence": "Narrative describes the reinvestigation outcome (furnisher verified, CRA sent timely results notice) without mention of a consumer statement; this atom is conditional on reinvestigation not resolving the dispute and the consumer choosing to file a statement.",
+    "explanation": "Conditional support atom; triggering follow-on step is not indicated and the branch is not applicable on this trace.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.consumer_submission_authentic": {
+    "atom_id": "fcra.consumer_submission_authentic",
+    "basis": "inferred_from_record",
+    "confidence": 0.7,
+    "evidence": "CRA accepted and processed the dispute, coded it, and forwarded notice to the furnisher; no authenticity issue raised.",
+    "explanation": "CRA's processing of the dispute supports inferring the submission appeared authentic.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.cra_compared_furnisher_response": {
+    "atom_id": "fcra.cra_compared_furnisher_response",
+    "basis": "inferred_from_record",
+    "confidence": 0.6,
+    "evidence": "CRA sent only a generic 'claims paid' code and did not forward document images; furnisher merely verified old balance and CRA accepted without indicia of comparing the response against consumer's documentary dispute basis.",
+    "explanation": "Record suggests CRA did not meaningfully compare the furnisher's verification against the consumer's stated basis (settlement documentation).",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.cra_compared_own_file": {
+    "atom_id": "fcra.cra_compared_own_file",
+    "basis": "open_world_absence",
+    "confidence": 0.5,
+    "evidence": "Narrative does not address whether CRA compared the dispute to its own file contents.",
+    "explanation": "Silence on this internal procedural step; not within closed-world scope.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.cra_reasonable_reinvestigation_performed": {
+    "atom_id": "fcra.cra_reasonable_reinvestigation_performed",
+    "basis": "inferred_from_record",
+    "confidence": 0.7,
+    "evidence": "CRA sent only a generic 'claims paid' code without forwarding the consumer's supporting document images (bank statements and settlement letter), and accepted furnisher's verification of the old balance.",
+    "explanation": "Failure to forward the substantive documentary evidence supporting the dispute indicates the reinvestigation was not reasonable, notwithstanding timely completion.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.dispute_about_completeness": {
+    "atom_id": "fcra.dispute_about_completeness",
+    "basis": "inferred_from_record",
+    "confidence": 0.7,
+    "evidence": "Consumer disputed a charged-off balance attaching bank statements and a settlement letter; the dispute concerns accuracy of the balance, not completeness of the item.",
+    "explanation": "Narrative characterizes dispute as about accuracy (settled/paid) rather than completeness.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.dispute_duplicate_without_new_info": {
+    "atom_id": "fcra.dispute_duplicate_without_new_info",
+    "basis": "closed_world_absence",
+    "confidence": 0.75,
+    "evidence": "Narrative describes a substantive dispute with new supporting documents (bank statements, settlement letter); no prior dispute referenced.",
+    "explanation": "Within the enumerated procedural scope, a duplicate-disposition would be salient; absence and new documentary support indicate not a duplicate.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.frivolous_missing_info_identified": {
+    "atom_id": "fcra.frivolous_missing_info_identified",
+    "basis": "inferred_from_record",
+    "confidence": 0.8,
+    "evidence": "No frivolous determination was made; reinvestigation occurred.",
+    "explanation": "Conditional branch not triggered; not applicable.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.frivolous_notice_sent": {
+    "atom_id": "fcra.frivolous_notice_sent",
+    "basis": "inferred_from_record",
+    "confidence": 0.8,
+    "evidence": "CRA proceeded to reinvestigation and verification rather than making a frivolous/irrelevant determination.",
+    "explanation": "Conditional support atom; triggering condition (frivolous determination) clearly absent, so branch not applicable.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.frivolous_reason_identified": {
+    "atom_id": "fcra.frivolous_reason_identified",
+    "basis": "inferred_from_record",
+    "confidence": 0.8,
+    "evidence": "No frivolous determination was made; CRA conducted reinvestigation.",
+    "explanation": "Conditional branch not triggered; not applicable.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.later_relevant_info_forwarded": {
+    "atom_id": "fcra.later_relevant_info_forwarded",
+    "basis": "inferred_from_record",
+    "confidence": 0.7,
+    "evidence": "No later relevant information was received from the consumer; forwarding obligation is conditional on receipt.",
+    "explanation": "Triggering condition absent; conditional branch not applicable.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.later_relevant_info_received": {
+    "atom_id": "fcra.later_relevant_info_received",
+    "basis": "closed_world_absence",
+    "confidence": 0.65,
+    "evidence": "Narrative enumerates dispute submission with attached documents at outset; no later supplemental information mentioned within the procedural scope.",
+    "explanation": "Within enumerated procedural events, additional later submissions would be salient; absence supports negative.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.notice_through_reseller": {
+    "atom_id": "fcra.notice_through_reseller",
+    "basis": "closed_world_absence",
+    "confidence": 0.7,
+    "evidence": "Narrative describes consumer disputing directly with the CRA; closed-world scope covers CRA coding and dispute receipt.",
+    "explanation": "Reseller pathway would be a salient procedural fact within the enumerated CRA-handling scope; its absence supports closed-world negative.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.subsequent_reports_note_dispute": {
+    "atom_id": "fcra.subsequent_reports_note_dispute",
+    "basis": "inferred_from_record",
+    "confidence": 0.6,
+    "evidence": "No consumer statement was filed in the record; the obligation to note dispute/statement in subsequent reports is conditional on that branch.",
+    "explanation": "Triggering condition (consumer statement) absent; conditional branch not applicable.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": true
+  }
+}

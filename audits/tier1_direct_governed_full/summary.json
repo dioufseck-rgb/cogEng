@@ -1,0 +1,40 @@
+{
+  "cases": "rulekit\\orchestrator\\example_cases\\uscis_n400_tier1_broad_evidence_packets.json",
+  "model_count": 1,
+  "program": "build\\uscis_n400_tier1_bundle\\program.json",
+  "prompt_style": "governed",
+  "reference_dispositions": null,
+  "runs": [
+    {
+      "case_count": 10,
+      "cost_metrics": {
+        "avg_llm_call_latency_s": 21.90369631000067,
+        "case_count": 10,
+        "estimated_cost_usd": 1.379985,
+        "estimated_input_tokens": 19784,
+        "estimated_output_tokens": 14443,
+        "estimated_total_tokens": 34227,
+        "llm_call_count": 10,
+        "llm_latency_s": 219.0369631000067,
+        "pricing_basis": "configured_usd_per_million_tokens",
+        "token_count_basis": "estimated_from_character_count"
+      },
+      "disposition_count": 80,
+      "model": "claude-opus-4-7",
+      "outcome_counts": {
+        "false": 8,
+        "true": 17,
+        "undetermined": 55
+      },
+      "prompt_style": "governed",
+      "provider": "anthropic",
+      "reference_agreement": {
+        "agreement_rate": 0.9375,
+        "compared_count": 80,
+        "reference_agree_count": 75,
+        "reference_disagree_count": 5
+      }
+    }
+  ],
+  "seed": "rulekit\\orchestrator\\example_seeds\\uscis_n400_selected.json"
+}

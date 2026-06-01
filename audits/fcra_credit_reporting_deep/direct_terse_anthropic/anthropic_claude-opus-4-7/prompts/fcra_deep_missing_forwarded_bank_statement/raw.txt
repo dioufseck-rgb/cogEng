@@ -1,0 +1,96 @@
+{
+  "case_id": "fcra_deep_missing_forwarded_bank_statement",
+  "determinations": [
+    {
+      "determination_id": "fcra.consumer_statement_satisfied",
+      "outcome": "true",
+      "rationale": "No consumer statement filed; not applicable.",
+      "confidence": 0.7
+    },
+    {
+      "determination_id": "fcra.cra_consideration_satisfied",
+      "outcome": "false",
+      "rationale": "CRA used automated coding only, did not consider primary source documents (bank statements, creditor letter), and dispositive consumer info was ignored.",
+      "confidence": 0.95
+    },
+    {
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "outcome": "false",
+      "rationale": "Although notice was sent on day 4, primary source documents were not forwarded to the furnisher; notice did not include all relevant information.",
+      "confidence": 0.95
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_required",
+      "outcome": "true",
+      "rationale": "Consumer submitted a valid dispute with identification, account, disputed field, and basis.",
+      "confidence": 0.95
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_timely",
+      "outcome": "true",
+      "rationale": "Completed within 29 days, under the 30-day deadline.",
+      "confidence": 0.95
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+      "outcome": "true",
+      "rationale": "Valid dispute packet received directly by CRA.",
+      "confidence": 0.95
+    },
+    {
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "outcome": "true",
+      "rationale": "No direct dispute to furnisher; not applicable.",
+      "confidence": 0.8
+    },
+    {
+      "determination_id": "fcra.dispute_resolution_compliant",
+      "outcome": "false",
+      "rationale": "Multiple failures: primary documents not forwarded, automated coding only, dispositive info ignored, and conflicting docs unresolved.",
+      "confidence": 0.95
+    },
+    {
+      "determination_id": "fcra.frivolous_termination_valid",
+      "outcome": "true",
+      "rationale": "No frivolous termination was made; not applicable.",
+      "confidence": 0.85
+    },
+    {
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "outcome": "false",
+      "rationale": "Furnisher verified the old balance without receiving the relevant primary source documents; review of all relevant info not possible.",
+      "confidence": 0.85
+    },
+    {
+      "determination_id": "fcra.human_review_required",
+      "outcome": "true",
+      "rationale": "Manual review policy triggered; conflicting furnisher and consumer docs; primary documents missing from furnisher record.",
+      "confidence": 0.95
+    },
+    {
+      "determination_id": "fcra.item_treatment_satisfied",
+      "outcome": "false",
+      "rationale": "Item was verified as accurate despite dispositive consumer information being ignored; should likely have been modified or deleted.",
+      "confidence": 0.9
+    },
+    {
+      "determination_id": "fcra.reinsertion_satisfied",
+      "outcome": "true",
+      "rationale": "No reinsertion occurred; not applicable.",
+      "confidence": 0.9
+    },
+    {
+      "determination_id": "fcra.reseller_satisfied",
+      "outcome": "true",
+      "rationale": "No reseller involved; not applicable.",
+      "confidence": 0.9
+    },
+    {
+      "determination_id": "fcra.results_notice_satisfied",
+      "outcome": "true",
+      "rationale": "Timely results notice was sent within 5 business days with required disclosures inferred from record.",
+      "confidence": 0.7
+    }
+  ],
+  "case_level_notes": "CRA failed to forward primary source documents and relied on automated coding; human review required due to conflicting docs and manual review policy trigger."
+}

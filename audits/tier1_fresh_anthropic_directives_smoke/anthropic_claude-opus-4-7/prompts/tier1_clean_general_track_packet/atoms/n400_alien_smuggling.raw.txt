@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.illegal_gambling_principal_income",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary"],
+      "evidence": "No mention of gambling income in the narrative.",
+      "explanation": "No source affirmatively addresses gambling income; absence alone cannot support false.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.multiple_gambling_convictions",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["fbi_check"],
+      "evidence": "FBI check reports no aggravated felony convictions; does not specifically address gambling convictions.",
+      "explanation": "FBI check's closed-world scope is criminal convictions generally, but narrative only states 'no aggravated felony' — not a clear statement about gambling convictions specifically. Absent affirmative coverage, undetermined.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.prostitution_or_commercialized_vice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary"],
+      "evidence": "No mention of prostitution or commercialized vice.",
+      "explanation": "No source affirmatively addresses this; absence in narrative cannot bind false.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.alien_smuggling",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary"],
+      "evidence": "No mention of alien smuggling.",
+      "explanation": "No source affirmatively addresses alien smuggling; absence alone cannot support false.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.polygamy",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary"],
+      "evidence": "No mention of polygamy.",
+      "explanation": "No source affirmatively addresses polygamy; absence alone cannot support false.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.false_testimony_for_immigration_benefit",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["interview_worksheet"],
+      "evidence": "USCIS interview worksheet reports no false testimony issue.",
+      "explanation": "USCIS interview record has closed-world scope over false testimony observed in the interview; binding policy permits closed_world_absence for false from a uscis_interview_record.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.failure_to_support_dependents",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary"],
+      "evidence": "No mention of dependents or support obligations.",
+      "explanation": "No source affirmatively addresses failure to support dependents; absence alone cannot support false.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.adultery_destroyed_marriage",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary"],
+      "evidence": "No mention of adultery or marital issues.",
+      "explanation": "No source affirmatively addresses adultery; absence in narrative cannot bind false.",
+      "confidence": 0.9
+    }
+  ]
+}

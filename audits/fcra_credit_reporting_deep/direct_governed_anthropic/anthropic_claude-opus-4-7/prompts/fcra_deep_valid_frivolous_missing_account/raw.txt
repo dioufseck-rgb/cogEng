@@ -1,0 +1,194 @@
+{
+  "case_id": "fcra_deep_valid_frivolous_missing_account",
+  "determinations": [
+    {
+      "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+      "outcome": "false",
+      "rationale": "The consumer's letter did not identify the account, the disputed field, or explain the basis, so the dispute packet does not meet the validity requirements for triggering reinvestigation.",
+      "confidence": 0.9,
+      "material_facts": [
+        {"fact": "Account not identified", "source": "consumer_dispute", "basis": "explicit"},
+        {"fact": "Disputed field not identified", "source": "consumer_dispute", "basis": "explicit"},
+        {"fact": "Basis not explained", "source": "consumer_dispute", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Directly grounded in narrative stating the consumer did not identify the account or basis."
+    },
+    {
+      "determination_id": "fcra.frivolous_termination_valid",
+      "outcome": "true",
+      "rationale": "CRA reasonably determined the dispute frivolous/irrelevant due to insufficient information, and sent a notice within 5 business days (3 BD) stating reasons and identifying information needed.",
+      "confidence": 0.9,
+      "material_facts": [
+        {"fact": "Frivolous determination made", "source": "cra_log", "basis": "explicit"},
+        {"fact": "Notice sent in 3 business days", "source": "cra_log", "basis": "explicit"},
+        {"fact": "Reason identified and missing info identified", "source": "cra_log", "basis": "explicit"},
+        {"fact": "Insufficient information to investigate", "source": "consumer_dispute", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "All elements of valid frivolous termination are explicitly present."
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_required",
+      "outcome": "false",
+      "rationale": "Because a valid frivolous/irrelevant termination applies, no reinvestigation is required.",
+      "confidence": 0.9,
+      "material_facts": [
+        {"fact": "Valid frivolous termination applied", "source": "cra_log", "basis": "explicit"},
+        {"fact": "Dispute trigger invalid", "source": "consumer_dispute", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Follows directly from frivolous termination validity."
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_timely",
+      "outcome": "true",
+      "rationale": "Reinvestigation timing is not applicable because a valid frivolous termination was made within the allowed window; no timing duty was breached.",
+      "confidence": 0.7,
+      "material_facts": [
+        {"fact": "Frivolous notice within 3 business days", "source": "cra_log", "basis": "explicit"}
+      ],
+      "uncertainty_flags": ["not applicable due to termination"],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Marked satisfied/not-applicable based on valid termination; no contrary evidence."
+    },
+    {
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "outcome": "true",
+      "rationale": "Furnisher notice obligation does not arise where a valid frivolous/irrelevant termination ended the matter before reinvestigation began.",
+      "confidence": 0.75,
+      "material_facts": [
+        {"fact": "Valid frivolous termination", "source": "cra_log", "basis": "explicit"}
+      ],
+      "uncertainty_flags": ["not applicable"],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Treated as not-applicable rather than asserting affirmative compliance."
+    },
+    {
+      "determination_id": "fcra.cra_consideration_satisfied",
+      "outcome": "true",
+      "rationale": "Consideration duties do not apply when the dispute is validly terminated as frivolous/irrelevant.",
+      "confidence": 0.75,
+      "material_facts": [
+        {"fact": "Valid frivolous termination", "source": "cra_log", "basis": "explicit"}
+      ],
+      "uncertainty_flags": ["not applicable"],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Not applicable disposition aligned with policy."
+    },
+    {
+      "determination_id": "fcra.item_treatment_satisfied",
+      "outcome": "true",
+      "rationale": "No item-treatment duty arises because no reinvestigation occurred under a valid frivolous termination.",
+      "confidence": 0.75,
+      "material_facts": [
+        {"fact": "Reinvestigation not completed/required", "source": "cra_log", "basis": "explicit"}
+      ],
+      "uncertainty_flags": ["not applicable"],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Not applicable; not claiming affirmative compliance."
+    },
+    {
+      "determination_id": "fcra.results_notice_satisfied",
+      "outcome": "true",
+      "rationale": "Results notice not required where the CRA validly terminated as frivolous; the required notice in that path is the frivolous-determination notice, which was sent timely with reasons and required information.",
+      "confidence": 0.8,
+      "material_facts": [
+        {"fact": "Results notice not sent", "source": "cra_log", "basis": "explicit"},
+        {"fact": "Frivolous notice sent within 3 BD with required content", "source": "cra_log", "basis": "explicit"}
+      ],
+      "uncertainty_flags": ["not applicable"],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Treated as not applicable due to termination pathway."
+    },
+    {
+      "determination_id": "fcra.reinsertion_satisfied",
+      "outcome": "true",
+      "rationale": "No deletion occurred, so reinsertion safeguards are not applicable.",
+      "confidence": 0.9,
+      "material_facts": [
+        {"fact": "No item deleted or reinserted", "source": "cra_log", "basis": "closed_world_absence"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Not applicable based on closed-world CRA actions scope."
+    },
+    {
+      "determination_id": "fcra.consumer_statement_satisfied",
+      "outcome": "true",
+      "rationale": "No consumer statement filed in the record; provision is not applicable.",
+      "confidence": 0.85,
+      "material_facts": [
+        {"fact": "No consumer statement filed", "source": "consumer_dispute", "basis": "closed_world_absence"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Not applicable; no statement on record."
+    },
+    {
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "outcome": "true",
+      "rationale": "No furnisher notice was triggered because reinvestigation was validly terminated; furnisher indirect duties are not applicable.",
+      "confidence": 0.8,
+      "material_facts": [
+        {"fact": "No CRA furnisher notice issued", "source": "cra_log", "basis": "closed_world_absence"}
+      ],
+      "uncertainty_flags": ["not applicable"],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Not applicable disposition."
+    },
+    {
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "outcome": "true",
+      "rationale": "No direct dispute to a furnisher is in the record; provision not applicable.",
+      "confidence": 0.9,
+      "material_facts": [
+        {"fact": "No direct furnisher dispute indicated", "source": "narrative", "basis": "closed_world_absence"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Not applicable based on absence in scope."
+    },
+    {
+      "determination_id": "fcra.reseller_satisfied",
+      "outcome": "true",
+      "rationale": "No reseller involvement indicated; provision not applicable.",
+      "confidence": 0.9,
+      "material_facts": [
+        {"fact": "No reseller indicated", "source": "narrative", "basis": "closed_world_absence"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Not applicable."
+    },
+    {
+      "determination_id": "fcra.human_review_required",
+      "outcome": "false",
+      "rationale": "No human-review triggers (identity theft, mixed file, court order, veteran medical debt, conflicting dates, manual policy trigger) are present; the case is a straightforward valid frivolous termination.",
+      "confidence": 0.85,
+      "material_facts": [
+        {"fact": "No identity theft, mixed file, court order, or conflicting dates", "source": "narrative", "basis": "closed_world_absence"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Routing triggers absent across modeled scope."
+    },
+    {
+      "determination_id": "fcra.dispute_resolution_compliant",
+      "outcome": "true",
+      "rationale": "The CRA validly terminated the dispute as frivolous/irrelevant with timely notice (3 BD), stated reasons, and identified missing information needed to investigate, satisfying the applicable obligations.",
+      "confidence": 0.85,
+      "material_facts": [
+        {"fact": "Valid frivolous termination", "source": "cra_log", "basis": "explicit"},
+        {"fact": "Notice within 5 business days with reasons and required info", "source": "cra_log", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Compliance limited to obligations actually triggered on the termination pathway."
+    }
+  ],
+  "case_level_notes": "Consumer's vague letter failed validity requirements; CRA's timely frivolous-determination notice with reasons and required-info identification satisfies the termination pathway."
+}

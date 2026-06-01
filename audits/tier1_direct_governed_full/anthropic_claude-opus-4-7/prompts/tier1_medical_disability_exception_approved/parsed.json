@@ -1,0 +1,165 @@
+{
+  "case_id": "tier1_medical_disability_exception_approved",
+  "case_level_notes": "Scope of packet is limited to the medical disability exception and test results; only English/civics determinations and the human-review trigger can be resolved on the record.",
+  "determinations": [
+    {
+      "anti_overclaim_check": "Cannot affirm satisfaction without residence facts in the packet.",
+      "confidence": 0.6,
+      "determination_id": "n400.continuous_residence_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "missing",
+          "fact": "No continuous residence facts provided in the packet.",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "The packet does not address continuous residence facts; scope is limited to the medical disability exception and test results.",
+      "uncertainty_flags": [
+        "missing fact"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Absence from narrative is not proof of satisfaction.",
+      "confidence": 0.6,
+      "determination_id": "n400.physical_presence_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "missing",
+          "fact": "No physical presence facts provided.",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "No physical presence data is provided in the packet.",
+      "uncertainty_flags": [
+        "missing fact"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Cannot infer satisfaction without facts.",
+      "confidence": 0.6,
+      "determination_id": "n400.state_residence_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "missing",
+          "fact": "No state/district residence facts in packet.",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "No state or USCIS district residence facts are provided.",
+      "uncertainty_flags": [
+        "missing fact"
+      ]
+    },
+    {
+      "anti_overclaim_check": "An accepted exception is explicitly approved in the packet.",
+      "confidence": 0.9,
+      "determination_id": "n400.english_requirement_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Approved N-648 excepts English requirement.",
+          "source": "n648_approval"
+        },
+        {
+          "basis": "explicit",
+          "fact": "English test not passed.",
+          "source": "test_results"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "The applicant did not pass the English test, but an approved Form N-648 medical disability exception expressly excepts the English requirement.",
+      "uncertainty_flags": [
+        ""
+      ]
+    },
+    {
+      "anti_overclaim_check": "Exception is explicitly approved in the packet.",
+      "confidence": 0.9,
+      "determination_id": "n400.civics_requirement_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Approved N-648 excepts civics requirement.",
+          "source": "n648_approval"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Civics test not passed.",
+          "source": "test_results"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "Civics test not passed, but the approved N-648 expressly excepts the civics requirement.",
+      "uncertainty_flags": [
+        ""
+      ]
+    },
+    {
+      "anti_overclaim_check": "Cannot infer satisfaction without supporting facts.",
+      "confidence": 0.6,
+      "determination_id": "n400.oath_attachment_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "missing",
+          "fact": "No oath/attachment facts in packet.",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "No oath or attachment facts are provided in the packet.",
+      "uncertainty_flags": [
+        "missing fact"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Clean packet is not proof of satisfaction.",
+      "confidence": 0.6,
+      "determination_id": "n400.good_moral_character_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "missing",
+          "fact": "No GMC facts in packet.",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "No GMC-related facts are provided in the packet.",
+      "uncertainty_flags": [
+        "missing fact"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Default bindings explicitly set review-trigger atoms to false based on packet evidence.",
+      "confidence": 0.85,
+      "determination_id": "n400.human_review_required",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Approved N-648 documentation is clear.",
+          "source": "n648_approval"
+        },
+        {
+          "basis": "closed_world_absence",
+          "fact": "No other review triggers stated in packet.",
+          "source": "structured_fields"
+        }
+      ],
+      "outcome": "false",
+      "rationale": "The N-648 exception is approved (not merely claimed or unclear), and no other listed human-review triggers are present in the benchmark scope.",
+      "uncertainty_flags": [
+        ""
+      ]
+    }
+  ]
+}

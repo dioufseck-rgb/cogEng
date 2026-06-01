@@ -1,0 +1,198 @@
+{
+  "case_id": "fcra_deep_unverifiable_not_deleted",
+  "determinations": [
+    {
+      "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+      "outcome": "true",
+      "rationale": "Consumer disputed a collection account as not belonging to them, identifying the item and basis; default bindings support identity, account, field, and basis sufficiency.",
+      "confidence": 0.8,
+      "material_facts": [
+        {"fact": "Consumer alleges account is not theirs", "source": "consumer_dispute", "basis": "explicit"},
+        {"fact": "Dispute about accuracy", "source": "consumer_dispute", "basis": "inferred"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Trigger elements are supported by narrative and ordinary-course inferences."
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_required",
+      "outcome": "true",
+      "rationale": "Valid trigger exists and no frivolous/irrelevant termination was made.",
+      "confidence": 0.85,
+      "material_facts": [
+        {"fact": "Dispute received by CRA", "source": "cra_log", "basis": "inferred"},
+        {"fact": "No frivolous determination", "source": "cra_log", "basis": "closed_world_absence"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Required duty follows from valid trigger."
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_timely",
+      "outcome": "true",
+      "rationale": "Reinvestigation completed in 22 days, within the 30-day baseline window.",
+      "confidence": 0.9,
+      "material_facts": [
+        {"fact": "Days to complete reinvestigation = 22", "source": "cra_log", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Timing directly supported by structured fact."
+    },
+    {
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "outcome": "true",
+      "rationale": "Furnisher notified within 2 business days, well under the 5-business-day deadline.",
+      "confidence": 0.8,
+      "material_facts": [
+        {"fact": "Business days to notify furnisher = 2", "source": "cra_log", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Timing within statutory window; content sufficiency inferred from ordinary-course default."
+    },
+    {
+      "determination_id": "fcra.cra_consideration_satisfied",
+      "outcome": "false",
+      "rationale": "CRA log indicates the item could not be verified yet the tradeline remained unchanged, suggesting the unverifiable status was not acted upon — inconsistent with reasonable consideration.",
+      "confidence": 0.75,
+      "material_facts": [
+        {"fact": "Item cannot be verified", "source": "cra_log", "basis": "explicit"},
+        {"fact": "Item not deleted or modified; remained on revised file", "source": "results_notice", "basis": "explicit"},
+        {"fact": "Source documents missing", "source": "cra_log", "basis": "explicit"}
+      ],
+      "uncertainty_flags": ["conflict between unverifiable finding and no-action outcome"],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Finding is grounded in explicit conflict between CRA's own determination and outcome."
+    },
+    {
+      "determination_id": "fcra.item_treatment_satisfied",
+      "outcome": "false",
+      "rationale": "Item was found unverifiable but was not deleted or modified, violating the required treatment.",
+      "confidence": 0.95,
+      "material_facts": [
+        {"fact": "Item cannot be verified = true", "source": "cra_log", "basis": "explicit"},
+        {"fact": "Item deleted = false", "source": "results_notice", "basis": "explicit"},
+        {"fact": "Item modified = false", "source": "results_notice", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Directly supported by explicit structured facts."
+    },
+    {
+      "determination_id": "fcra.results_notice_satisfied",
+      "outcome": "undetermined",
+      "rationale": "Results notice was sent timely (4 business days), but the underlying revised file improperly retained an unverifiable item; content elements not detailed and substantive defect undermines confident satisfaction.",
+      "confidence": 0.5,
+      "material_facts": [
+        {"fact": "Business days to results notice = 4", "source": "cra_log", "basis": "explicit"},
+        {"fact": "Revised file still contained unverifiable item", "source": "results_notice", "basis": "explicit"}
+      ],
+      "uncertainty_flags": ["substantive revised-file accuracy in doubt"],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Notice timing met but content of revised report flawed; uncertainty preserved."
+    },
+    {
+      "determination_id": "fcra.reinsertion_satisfied",
+      "outcome": "true",
+      "rationale": "No deletion and no reinsertion occurred; provision not applicable.",
+      "confidence": 0.9,
+      "material_facts": [
+        {"fact": "Item not deleted; no reinsertion event", "source": "results_notice", "basis": "closed_world_absence"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Not applicable because no deletion preceded any reinsertion."
+    },
+    {
+      "determination_id": "fcra.frivolous_termination_valid",
+      "outcome": "true",
+      "rationale": "No frivolous/irrelevant termination was invoked; provision not applicable.",
+      "confidence": 0.9,
+      "material_facts": [
+        {"fact": "No frivolous determination made", "source": "cra_log", "basis": "closed_world_absence"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "N/A path."
+    },
+    {
+      "determination_id": "fcra.reseller_satisfied",
+      "outcome": "true",
+      "rationale": "No reseller involvement indicated; not applicable.",
+      "confidence": 0.9,
+      "material_facts": [
+        {"fact": "No reseller in record", "source": "consumer_dispute", "basis": "closed_world_absence"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "N/A path."
+    },
+    {
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "outcome": "false",
+      "rationale": "Furnisher did not produce account-level documentation, and did not modify, delete, or block the item despite the unverifiable status, failing duties under §1681s-2(b).",
+      "confidence": 0.8,
+      "material_facts": [
+        {"fact": "Furnisher produced no account-level documentation", "source": "furnisher_acdv", "basis": "explicit"},
+        {"fact": "Furnisher did not delete or block", "source": "furnisher_acdv", "basis": "explicit"},
+        {"fact": "Item unverifiable", "source": "cra_log", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Conclusion grounded in explicit furnisher response gap."
+    },
+    {
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "outcome": "true",
+      "rationale": "No direct dispute to furnisher indicated; not applicable.",
+      "confidence": 0.9,
+      "material_facts": [
+        {"fact": "No direct dispute pathway in record", "source": "consumer_dispute", "basis": "closed_world_absence"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "N/A path."
+    },
+    {
+      "determination_id": "fcra.consumer_statement_satisfied",
+      "outcome": "true",
+      "rationale": "No consumer statement filed; provision not triggered.",
+      "confidence": 0.85,
+      "material_facts": [
+        {"fact": "No consumer statement filed", "source": "consumer_dispute", "basis": "closed_world_absence"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "N/A path."
+    },
+    {
+      "determination_id": "fcra.human_review_required",
+      "outcome": "true",
+      "rationale": "Primary source documents missing, item determined unverifiable yet retained, and consumer alleges not-mine — triggers human review routing.",
+      "confidence": 0.9,
+      "material_facts": [
+        {"fact": "Source documents missing", "source": "cra_log", "basis": "explicit"},
+        {"fact": "Consumer alleges not mine", "source": "consumer_dispute", "basis": "explicit"},
+        {"fact": "Unverifiable item left reporting", "source": "results_notice", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Explicit routing triggers present."
+    },
+    {
+      "determination_id": "fcra.dispute_resolution_compliant",
+      "outcome": "false",
+      "rationale": "Unverifiable item was not deleted or modified; CRA and furnisher both failed core duties under §1681i(a)(5) and §1681s-2(b).",
+      "confidence": 0.95,
+      "material_facts": [
+        {"fact": "Item unverifiable yet remained unchanged", "source": "cra_log", "basis": "explicit"},
+        {"fact": "Furnisher did not delete/block", "source": "furnisher_acdv", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Aggregate non-compliance grounded in explicit failures."
+    }
+  ],
+  "case_level_notes": "CRA and furnisher both failed to act on an unverifiable item; substantive non-compliance with item treatment and furnisher duties. Human review required."
+}

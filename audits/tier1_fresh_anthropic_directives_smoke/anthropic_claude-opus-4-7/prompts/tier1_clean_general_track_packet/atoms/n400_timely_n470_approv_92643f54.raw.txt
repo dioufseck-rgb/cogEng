@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.maintained_us_employment_or_no_foreign_employment",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary"],
+      "evidence": "No mention of employment status, U.S. or foreign.",
+      "explanation": "Narrative intake does not address employment; cannot infer absence of foreign employment.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.did_not_claim_nonresident_tax_status",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary"],
+      "evidence": "No mention of tax filing status.",
+      "explanation": "No evidence about nonresident tax claims; narrative intake cannot support closed-world absence.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.returned_to_us_after_absences",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["travel_table", "presence_worksheet"],
+      "evidence": "Travel table lists one 21-day trip and no other travel; 41 months present in 5-year period.",
+      "explanation": "The single 21-day trip implies return to the U.S., consistent with current LPR presence.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.no_absence_over_one_year",
+      "status": "bound",
+      "value": true,
+      "basis": "closed_world_absence",
+      "source_ids": ["travel_table"],
+      "evidence": "Travel table lists one 21-day trip and no other travel.",
+      "explanation": "Within declared travel history closed-world scope, no trip exceeded one year (only 21 days).",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.absence_over_one_year",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["travel_table"],
+      "evidence": "Travel table lists one 21-day trip and no other travel.",
+      "explanation": "Within declared travel history, no absence reached one year.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.qualifying_employment_abroad_exception",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No information about employment abroad or exception claim.",
+      "explanation": "No evidence supports or refutes a qualifying employment abroad exception.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.timely_n470_approval_if_needed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No mention of N-470 in evidence.",
+      "explanation": "No record concerning N-470 preservation approval.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.religious_vocation_abroad_exception_if_needed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No mention of religious vocation abroad.",
+      "explanation": "No evidence on a religious vocation exception.",
+      "confidence": 0.6
+    }
+  ]
+}

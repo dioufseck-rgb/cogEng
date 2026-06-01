@@ -1,0 +1,196 @@
+{
+  "case_id": "fcra_deep_reseller_forwarding_path",
+  "determinations": [
+    {
+      "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+      "outcome": "true",
+      "rationale": "Consumer disputed mortgage item via reseller; reseller conveyed to source CRA with identification and basis per defaults.",
+      "confidence": 0.8,
+      "material_facts": [
+        {"fact": "Notice through reseller", "source": "structured_fields.facts", "basis": "explicit"},
+        {"fact": "Reseller conveyed dispute to CRA", "source": "narrative", "basis": "explicit"},
+        {"fact": "Consumer identity, account, field, basis identified", "source": "default_binding", "basis": "inferred"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Trigger elements supported by narrative plus ordinary-course defaults."
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_required",
+      "outcome": "true",
+      "rationale": "Valid trigger via reseller route, no frivolous determination indicated.",
+      "confidence": 0.85,
+      "material_facts": [
+        {"fact": "Dispute received via reseller and conveyed to CRA", "source": "narrative", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Follows directly from valid trigger."
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_timely",
+      "outcome": "true",
+      "rationale": "Reinvestigation completed in 27 days, within 30-day limit.",
+      "confidence": 0.9,
+      "material_facts": [
+        {"fact": "27 days to complete reinvestigation", "source": "structured_fields.facts", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Direct numeric comparison to deadline."
+    },
+    {
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "outcome": "true",
+      "rationale": "Furnisher notified within 3 business days (≤5), with all relevant info and primary documents forwarded per defaults.",
+      "confidence": 0.8,
+      "material_facts": [
+        {"fact": "3 business days to notify furnisher", "source": "structured_fields.facts", "basis": "explicit"},
+        {"fact": "Notice included all relevant info; primary docs forwarded", "source": "default_binding", "basis": "inferred"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Timing explicit; content defaults align with ordinary course."
+    },
+    {
+      "determination_id": "fcra.cra_consideration_satisfied",
+      "outcome": "true",
+      "rationale": "Defaults indicate CRA reviewed all consumer info, considered primary docs, compared furnisher response and own file, and performed reasonable reinvestigation.",
+      "confidence": 0.75,
+      "material_facts": [
+        {"fact": "Reasonable reinvestigation performed", "source": "default_binding", "basis": "inferred"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Relies on ordinary-course defaults; no contrary evidence."
+    },
+    {
+      "determination_id": "fcra.item_treatment_satisfied",
+      "outcome": "true",
+      "rationale": "Item verified as accurate and current status recorded per defaults; no inaccuracy found.",
+      "confidence": 0.75,
+      "material_facts": [
+        {"fact": "Item verified as accurate", "source": "default_binding", "basis": "inferred"},
+        {"fact": "Status recorded current", "source": "default_binding", "basis": "inferred"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Default disposition; no conflicting evidence."
+    },
+    {
+      "determination_id": "fcra.results_notice_satisfied",
+      "outcome": "true",
+      "rationale": "Results notice sent within 4 business days (≤5) with required disclosures per defaults.",
+      "confidence": 0.8,
+      "material_facts": [
+        {"fact": "4 business days to results notice", "source": "structured_fields.facts", "basis": "explicit"},
+        {"fact": "Required disclosures included", "source": "default_binding", "basis": "inferred"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Timing explicit; disclosures supported by defaults."
+    },
+    {
+      "determination_id": "fcra.reinsertion_satisfied",
+      "outcome": "true",
+      "rationale": "No reinsertion occurred; safeguards not applicable.",
+      "confidence": 0.9,
+      "material_facts": [
+        {"fact": "No item deletion or reinsertion", "source": "default_binding", "basis": "explicit_negative"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Not applicable since no deletion."
+    },
+    {
+      "determination_id": "fcra.frivolous_termination_valid",
+      "outcome": "true",
+      "rationale": "No frivolous determination was made; not applicable.",
+      "confidence": 0.9,
+      "material_facts": [
+        {"fact": "No frivolous determination", "source": "default_binding", "basis": "explicit_negative"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "N/A path."
+    },
+    {
+      "determination_id": "fcra.consumer_statement_satisfied",
+      "outcome": "true",
+      "rationale": "No consumer statement filed; not applicable.",
+      "confidence": 0.9,
+      "material_facts": [
+        {"fact": "No consumer statement filed", "source": "default_binding", "basis": "explicit_negative"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "N/A path."
+    },
+    {
+      "determination_id": "fcra.reseller_satisfied",
+      "outcome": "true",
+      "rationale": "Reseller determined within 2 business days (≤5) that error was not reseller's, conveyed dispute to source CRA, and reconveyed completion notice to consumer.",
+      "confidence": 0.9,
+      "material_facts": [
+        {"fact": "Reseller determined within 2 business days", "source": "narrative", "basis": "explicit"},
+        {"fact": "Not reseller error", "source": "structured_fields.facts", "basis": "explicit"},
+        {"fact": "Reseller conveyed to CRA", "source": "structured_fields.facts", "basis": "explicit"},
+        {"fact": "Reseller reconveyed completion notice", "source": "structured_fields.facts", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "All reseller duties explicitly satisfied."
+    },
+    {
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "outcome": "true",
+      "rationale": "Furnisher received CRA notice, investigated, reviewed all info, reported results within 24 days (before 30-day deadline).",
+      "confidence": 0.8,
+      "material_facts": [
+        {"fact": "24 days to furnisher complete", "source": "structured_fields.facts", "basis": "explicit"},
+        {"fact": "Furnisher investigation conducted and reported", "source": "default_binding", "basis": "inferred"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Timing explicit; investigation defaults align."
+    },
+    {
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "outcome": "true",
+      "rationale": "No direct dispute to furnisher; not applicable.",
+      "confidence": 0.9,
+      "material_facts": [
+        {"fact": "No direct dispute received by furnisher", "source": "default_binding", "basis": "explicit_negative"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "N/A path."
+    },
+    {
+      "determination_id": "fcra.human_review_required",
+      "outcome": "false",
+      "rationale": "No identity theft, mixed file, court order, veteran medical debt, missing primary docs, date conflicts, or manual review triggers indicated.",
+      "confidence": 0.85,
+      "material_facts": [
+        {"fact": "No human-review triggers", "source": "default_binding", "basis": "explicit_negative"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Routing triggers all negative per defaults."
+    },
+    {
+      "determination_id": "fcra.dispute_resolution_compliant",
+      "outcome": "true",
+      "rationale": "All applicable CRA, reseller, and furnisher duties satisfied within deadlines; no triggers for special handling.",
+      "confidence": 0.8,
+      "material_facts": [
+        {"fact": "Timing facts within limits", "source": "structured_fields.facts", "basis": "explicit"},
+        {"fact": "Reseller chain properly executed", "source": "narrative", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Aggregation of satisfied subdeterminations."
+    }
+  ],
+  "case_level_notes": "Clean reseller-forwarding path with explicit timing within deadlines; ordinary-course defaults support content elements."
+}

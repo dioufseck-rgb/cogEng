@@ -1,0 +1,164 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.consumer_statement_filed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not mention any consumer statement after reinvestigation; reinvestigation resulted in verification rather than non-resolution from the consumer's perspective is not characterized.",
+      "explanation": "Silence about post-reinvestigation consumer statement; cannot affirm or deny.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.subsequent_reports_note_dispute",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not address content of subsequent reports.",
+      "explanation": "No information about subsequent report disclosures; cannot bind.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Consumer disputed a 30-day late notation and supplied a payment ledger; dispute targets accuracy of the late status, not completeness.",
+      "explanation": "Record characterizes the dispute as an accuracy challenge to the late notation, not a completeness challenge.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative describes a dispute received March 1 with a servicer payment ledger; CRA processed the reinvestigation rather than treating it as frivolous/duplicate.",
+      "explanation": "CRA's handling (forwarded to furnisher, conducted full reinvestigation) is inconsistent with a duplicate-without-new-info determination; no prior dispute referenced.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.frivolous_notice_sent",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "CRA proceeded with a full reinvestigation; no frivolous or irrelevant determination was made, so the conditional notice obligation is not triggered.",
+      "explanation": "Triggering condition (frivolous determination) is clearly absent; conditional obligation is vacuously satisfied.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.frivolous_reason_identified",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "No frivolous determination was made; CRA conducted reinvestigation.",
+      "explanation": "Conditional obligation not triggered because no frivolous determination occurred.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.frivolous_missing_info_identified",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "No frivolous determination was made; CRA conducted reinvestigation.",
+      "explanation": "Conditional obligation not triggered because no frivolous determination occurred.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "No frivolous determination occurred; numeric timing is not applicable.",
+      "explanation": "Predicate absent; no numeric measurement exists to record. Left undetermined since no value applies.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.cra_compared_own_file",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative describes review of furnisher response and consumer ledger; does not explicitly state comparison against CRA's own file.",
+      "explanation": "Silent on own-file comparison; cannot affirm or deny.",
+      "confidence": 0.55
+    },
+    {
+      "atom_id": "fcra.later_relevant_info_forwarded",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative describes single intake on March 1 with the ledger forwarded to the furnisher; no later additional information identified.",
+      "explanation": "Triggering condition (later relevant information received) is clearly absent; conditional obligation is vacuously satisfied.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.item_modified",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "CRA 'recorded the item as verified' after reinvestigation; the disputed late notation was not modified.",
+      "explanation": "Verification outcome indicates the disputed item was not changed. 'Revised report' refers to the reissued report following the reinvestigation, not to a change in the disputed field.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.notice_states_reinvestigation_completed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative says results were mailed with the revised report but does not quote or summarize the notice's statement about completion.",
+      "explanation": "Content of notice not described; cannot bind affirmatively or negatively.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.procedure_description_right_disclosed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not describe disclosures included in results notice.",
+      "explanation": "Notice contents not enumerated; cannot bind.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.furnisher_contact_disclosed_if_available",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Notice content not described.",
+      "explanation": "Cannot determine whether furnisher contact information was included in the notice.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.consumer_statement_right_disclosed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Notice content not described.",
+      "explanation": "Cannot determine whether the right to add a consumer statement was disclosed.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.notification_right_disclosed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Notice content not described.",
+      "explanation": "Cannot determine whether the right to request notifications was disclosed.",
+      "confidence": 0.6
+    }
+  ]
+}

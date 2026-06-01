@@ -1,0 +1,164 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.notice_direct_to_cra",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative describes a dispute packet sent in relation to the CRA but does not specify the channel of notice.",
+      "explanation": "The narrative implies a dispute was submitted to the CRA (packet contents and CRA status referenced), but it does not state whether the consumer notified the CRA directly versus through an intermediary. Without explicit confirmation, this remains undetermined.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "No reference to any prior dispute on these accounts.",
+      "explanation": "The narrative does not mention any prior dispute, so whether this is substantially the same as a prior dispute without new information cannot be determined from the record.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "'The CRA has not yet received enough material to decide whether the items are mixed-file, identity-theft, or verified consumer obligations.'",
+      "explanation": "While the narrative notes the CRA lacks material for a substantive determination, the CRA has not made a formal sufficiency-to-investigate finding under 1681i(a)(3). This is a policy conclusion for the engine, not extractable as a bound truth value here.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No frivolous/irrelevant determination or related notice timing stated.",
+      "explanation": "Numeric value cannot be extracted or computed because no frivolous determination or associated notice timeline is described.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.cra_reviewed_all_consumer_info",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative describes CRA still gathering material; review status not stated.",
+      "explanation": "The narrative does not address whether the CRA has reviewed all relevant information submitted; the reinvestigation appears to be in progress.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.cra_considered_primary_source_documents",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Packet contents are described but CRA consideration is not.",
+      "explanation": "The narrative lists items in the packet (police incident number, addresses) but does not state whether the CRA considered any submitted primary documents.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.cra_compared_furnisher_response",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Furnisher response is mentioned but comparison process is not described.",
+      "explanation": "The narrative notes inconsistent dates between CRA file and furnisher response but does not state whether the CRA performed a comparative analysis against the dispute basis.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.cra_compared_own_file",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "CRA file contents referenced but comparison process not described.",
+      "explanation": "No statement about whether the CRA compared the dispute against its own file contents.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.cra_reasonable_reinvestigation_performed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "CRA still receiving material; no description of reinvestigation conduct or completion.",
+      "explanation": "Whether a reasonable reinvestigation was performed is a policy conclusion and the reinvestigation appears incomplete based on the narrative.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.dispositive_info_not_ignored",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "No description of CRA's handling of specific submitted information.",
+      "explanation": "Cannot determine whether dispositive or potentially dispositive information was or was not ignored by the CRA.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.automated_code_only",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "No description of investigation method (automated or manual).",
+      "explanation": "The narrative does not describe the CRA's investigation methodology, so it is unknown whether processing was limited to automated dispute coding.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.human_review_of_documents_performed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "No description of human review process.",
+      "explanation": "Cannot determine whether a human or equivalent document-review process evaluated material primary documents.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.expedited_deleted_within_3_business_days",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "No mention of deletion within 3 business days; narrative indicates CRA is still gathering material.",
+      "explanation": "Cannot determine expedited deletion status from the record.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.business_days_to_notify_furnisher",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No timing information stated regarding when the furnisher was notified.",
+      "explanation": "Numeric value cannot be extracted or computed because no dates of CRA receipt or furnisher notification are provided.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.notice_included_all_relevant_info",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Contents of CRA notice to furnisher not described.",
+      "explanation": "Cannot determine whether the CRA's furnisher notice included all relevant information received from the consumer.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.primary_documents_forwarded",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "No description of whether documents were forwarded to furnisher.",
+      "explanation": "Cannot determine whether primary source documents were forwarded or made available to the furnisher.",
+      "confidence": 0.5
+    }
+  ]
+}

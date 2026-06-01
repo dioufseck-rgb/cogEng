@@ -390,10 +390,10 @@ def _write_run_artifacts(output_dir: Path, result: dict[str, Any]) -> None:
         encoding="utf-8",
     )
     prompts_dir = output_dir / "prompts"
-    prompts_dir.mkdir(exist_ok=True)
+    prompts_dir.mkdir(parents=True, exist_ok=True)
     for record in result["map_records"]:
         case_dir = prompts_dir / _safe_name(record["case_id"])
-        case_dir.mkdir(exist_ok=True)
+        case_dir.mkdir(parents=True, exist_ok=True)
         artifacts = record.get("metadata", {}).get("prompt_artifacts", {})
         source = artifacts.get("source_inventory")
         if source:
@@ -426,7 +426,7 @@ def _write_run_artifacts(output_dir: Path, result: dict[str, Any]) -> None:
         repairs = artifacts.get("repairs", [])
         if isinstance(repairs, list) and repairs:
             repair_dir = case_dir / "repairs"
-            repair_dir.mkdir(exist_ok=True)
+            repair_dir.mkdir(parents=True, exist_ok=True)
             for index, repair in enumerate(repairs, start=1):
                 stem = f"repair_{index}"
                 (repair_dir / f"{stem}.prompt.txt").write_text(
@@ -443,7 +443,7 @@ def _write_run_artifacts(output_dir: Path, result: dict[str, Any]) -> None:
                 )
         atoms = artifacts.get("atoms", {})
         atom_dir = case_dir / "atoms"
-        atom_dir.mkdir(exist_ok=True)
+        atom_dir.mkdir(parents=True, exist_ok=True)
         for atom_id, artifact in atoms.items():
             if artifact.get("single_map"):
                 continue

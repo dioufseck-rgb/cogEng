@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.violation_protective_order",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary"],
+      "evidence": "No mention of any protective order violation in the narrative or sources.",
+      "explanation": "No source affirmatively addresses protective orders; absence in narrative is open-world.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.unlawful_harassment_or_stalking",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary"],
+      "evidence": "No mention of harassment or stalking in any source.",
+      "explanation": "No closed-world source covers harassment/stalking conduct; silence is open-world.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.manslaughter_or_violent_crime",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["fbi_check"],
+      "evidence": "FBI check reports no aggravated felony convictions; does not specifically address manslaughter or other violent crimes broadly.",
+      "explanation": "FBI closed-world scope is criminal_convictions generally, but the stated finding is limited to aggravated felony; manslaughter/violent crime not specifically addressed, so absence is open-world.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.dui_pattern_or_reckless_endangerment",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["fbi_check"],
+      "evidence": "No mention of DUI or reckless endangerment.",
+      "explanation": "No source affirmatively addresses DUI or reckless conduct patterns; silence is open-world.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.unpaid_restitution_or_court_orders",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary"],
+      "evidence": "No mention of restitution or unresolved court orders.",
+      "explanation": "No source affirmatively addresses restitution or court orders; silence is open-world.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.probation_parole_uncompleted",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary"],
+      "evidence": "No mention of probation or parole status.",
+      "explanation": "No source affirmatively addresses probation or parole; silence is open-world.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.pending_criminal_charge",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["docket_search"],
+      "evidence": "Docket search reports no pending criminal charges.",
+      "explanation": "Court docket search is a required closed-world source for pending charges and affirmatively reports none.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.unresolved_arrest_disposition",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["fbi_check", "docket_search"],
+      "evidence": "No mention of any arrest or unresolved disposition.",
+      "explanation": "No source affirmatively addresses arrest dispositions; silence about arrests is open-world.",
+      "confidence": 0.8
+    }
+  ]
+}

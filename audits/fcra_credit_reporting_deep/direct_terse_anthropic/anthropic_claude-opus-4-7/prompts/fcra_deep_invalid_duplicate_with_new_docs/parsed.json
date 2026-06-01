@@ -1,0 +1,96 @@
+{
+  "case_id": "fcra_deep_invalid_duplicate_with_new_docs",
+  "case_level_notes": "CRA improperly invoked frivolous/duplicate termination despite new servicer correction letter constituting new relevant evidence. Human review required.",
+  "determinations": [
+    {
+      "confidence": 0.7,
+      "determination_id": "fcra.consumer_statement_satisfied",
+      "outcome": "true",
+      "rationale": "No consumer statement filed; not applicable."
+    },
+    {
+      "confidence": 0.9,
+      "determination_id": "fcra.cra_consideration_satisfied",
+      "outcome": "false",
+      "rationale": "CRA did not review consumer info and improperly terminated despite new servicer correction letter."
+    },
+    {
+      "confidence": 0.95,
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "outcome": "false",
+      "rationale": "CRA did not notify the furnisher of the dispute."
+    },
+    {
+      "confidence": 0.95,
+      "determination_id": "fcra.cra_reinvestigation_required",
+      "outcome": "true",
+      "rationale": "Valid dispute packet with new primary source document triggers reinvestigation."
+    },
+    {
+      "confidence": 0.9,
+      "determination_id": "fcra.cra_reinvestigation_timely",
+      "outcome": "false",
+      "rationale": "No reinvestigation was completed; improperly closed as frivolous."
+    },
+    {
+      "confidence": 0.9,
+      "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+      "outcome": "true",
+      "rationale": "Consumer disputed accuracy of an item in file with identifying info and basis."
+    },
+    {
+      "confidence": 0.8,
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "outcome": "true",
+      "rationale": "No direct dispute to furnisher; not applicable."
+    },
+    {
+      "confidence": 0.95,
+      "determination_id": "fcra.dispute_resolution_compliant",
+      "outcome": "false",
+      "rationale": "CRA improperly terminated as duplicate despite new servicer correction letter; multiple obligations unmet."
+    },
+    {
+      "confidence": 0.95,
+      "determination_id": "fcra.frivolous_termination_valid",
+      "outcome": "false",
+      "rationale": "Dispute was not duplicate without new info; consumer supplied new servicer correction letter, so frivolous determination is invalid."
+    },
+    {
+      "confidence": 0.7,
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "outcome": "undetermined",
+      "rationale": "Furnisher never received CRA notice due to CRA's improper termination; furnisher duties not triggered."
+    },
+    {
+      "confidence": 0.95,
+      "determination_id": "fcra.human_review_required",
+      "outcome": "true",
+      "rationale": "Manual review policy triggered; primary source document (servicer correction letter) and improper frivolous termination warrant human review."
+    },
+    {
+      "confidence": 0.85,
+      "determination_id": "fcra.item_treatment_satisfied",
+      "outcome": "false",
+      "rationale": "No reinvestigation conducted, so item treatment obligation unmet given new evidence."
+    },
+    {
+      "confidence": 0.85,
+      "determination_id": "fcra.reinsertion_satisfied",
+      "outcome": "true",
+      "rationale": "No reinsertion at issue."
+    },
+    {
+      "confidence": 0.9,
+      "determination_id": "fcra.reseller_satisfied",
+      "outcome": "true",
+      "rationale": "No reseller involvement."
+    },
+    {
+      "confidence": 0.9,
+      "determination_id": "fcra.results_notice_satisfied",
+      "outcome": "false",
+      "rationale": "No results notice sent; reinvestigation not completed."
+    }
+  ]
+}

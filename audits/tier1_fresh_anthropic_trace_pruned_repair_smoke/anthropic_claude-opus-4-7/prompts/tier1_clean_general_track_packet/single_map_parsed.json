@@ -1,0 +1,390 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.days_absent_trip_1",
+      "basis": "explicit_positive",
+      "confidence": 0.95,
+      "evidence": "Travel table lists one 21-day trip.",
+      "explanation": "Trip duration stated directly in the travel table.",
+      "source_ids": [
+        "travel_table"
+      ],
+      "status": "bound",
+      "value": 21
+    },
+    {
+      "atom_id": "n400.rebuttal_no_residence_abandoned",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Only a 21-day trip is recorded; no six-to-twelve-month absence is indicated, and no rebuttal evidence is described.",
+      "explanation": "The predicate (a six-to-twelve-month absence) does not appear, and no affirmative rebuttal evidence is offered; cannot bind true or false.",
+      "source_ids": [
+        "travel_table"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "n400.maintained_us_home",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Packet does not affirmatively address maintenance of a U.S. home during absences.",
+      "explanation": "No source affirmatively confirms or denies this fact.",
+      "source_ids": [
+        "intake_summary"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "n400.maintained_us_family_ties",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Packet does not affirmatively address family ties during absences.",
+      "explanation": "No source affirmatively confirms or denies this fact.",
+      "source_ids": [
+        "intake_summary"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "n400.maintained_us_employment_or_no_foreign_employment",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Packet does not address U.S. employment or foreign employment.",
+      "explanation": "No source affirmatively confirms or denies this fact.",
+      "source_ids": [
+        "intake_summary"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "n400.did_not_claim_nonresident_tax_status",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Packet does not address tax filing status.",
+      "explanation": "No source affirmatively confirms or denies whether nonresident tax status was claimed.",
+      "source_ids": [
+        "intake_summary"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "n400.returned_to_us_after_absences",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Travel table lists a single 21-day trip but does not explicitly state return events.",
+      "explanation": "No source affirmatively states that the applicant returned to the United States after the absence.",
+      "source_ids": [
+        "travel_table"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "n400.qualifying_employment_abroad_exception",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Packet does not mention an employment-abroad exception.",
+      "explanation": "No source affirmatively confirms or denies applicability of this exception.",
+      "source_ids": [
+        "intake_summary"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "n400.timely_n470_approval_if_needed",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Packet does not mention an N-470 approval.",
+      "explanation": "No source affirmatively confirms or denies N-470 approval.",
+      "source_ids": [
+        "intake_summary"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "n400.religious_vocation_abroad_exception_if_needed",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Packet does not mention a religious vocation exception.",
+      "explanation": "No source affirmatively confirms or denies this exception.",
+      "source_ids": [
+        "intake_summary"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "n400.military_service_residence_exception_if_needed",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Packet does not mention a military service residence exception.",
+      "explanation": "No source affirmatively confirms or denies this exception.",
+      "source_ids": [
+        "intake_summary"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "n400.months_physical_presence_5yr",
+      "basis": "explicit_positive",
+      "confidence": 0.98,
+      "evidence": "Physical presence worksheet states 41 months present in the United States during the five-year period.",
+      "explanation": "Value directly stated in the presence worksheet.",
+      "source_ids": [
+        "presence_worksheet"
+      ],
+      "status": "bound",
+      "value": 41
+    },
+    {
+      "atom_id": "n400.months_state_or_district_residence",
+      "basis": "explicit_positive",
+      "confidence": 0.98,
+      "evidence": "Residence worksheet states 9 months in the same USCIS district.",
+      "explanation": "Value directly stated in the residence worksheet.",
+      "source_ids": [
+        "intake_summary"
+      ],
+      "status": "bound",
+      "value": 9
+    },
+    {
+      "atom_id": "n400.english_test_passed",
+      "basis": "explicit_positive",
+      "confidence": 0.98,
+      "evidence": "Naturalization test record: English test passed.",
+      "explanation": "Affirmatively stated in the test record.",
+      "source_ids": [
+        "test_results"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "n400.reading_requirement_satisfied",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Record states English test passed overall but does not separately confirm the reading subcomponent.",
+      "explanation": "No source affirmatively addresses the reading subcomponent specifically.",
+      "source_ids": [
+        "test_results"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "n400.writing_requirement_satisfied",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Record states English test passed overall but does not separately confirm the writing subcomponent.",
+      "explanation": "No source affirmatively addresses the writing subcomponent specifically.",
+      "source_ids": [
+        "test_results"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "n400.speaking_requirement_satisfied",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Record states English test passed overall but does not separately confirm the speaking subcomponent.",
+      "explanation": "No source affirmatively addresses the speaking subcomponent specifically.",
+      "source_ids": [
+        "test_results"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "n400.age_years",
+      "basis": "explicit_positive",
+      "confidence": 0.98,
+      "evidence": "Intake summary: applicant age is 37.",
+      "explanation": "Value directly stated in the intake summary.",
+      "source_ids": [
+        "intake_summary"
+      ],
+      "status": "bound",
+      "value": 37
+    },
+    {
+      "atom_id": "n400.years_as_lpr",
+      "basis": "explicit_positive",
+      "confidence": 0.98,
+      "evidence": "Intake summary: applicant has been an LPR for 6 years.",
+      "explanation": "Value directly stated in the intake summary.",
+      "source_ids": [
+        "intake_summary"
+      ],
+      "status": "bound",
+      "value": 6
+    },
+    {
+      "atom_id": "n400.medical_disability_exception_approved",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Packet does not mention a medical disability exception.",
+      "explanation": "No source affirmatively confirms or denies a medical disability exception.",
+      "source_ids": [
+        "intake_summary"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "n400.civics_test_passed",
+      "basis": "explicit_positive",
+      "confidence": 0.98,
+      "evidence": "Naturalization test record: civics test passed.",
+      "explanation": "Affirmatively stated in the test record.",
+      "source_ids": [
+        "test_results"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "n400.two_test_opportunities_completed_if_initial_fail",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "No retest event is described; the predicate (initial fail) does not appear.",
+      "explanation": "No source affirmatively addresses retest completion.",
+      "source_ids": [
+        "test_results"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "n400.reexamination_passed_or_exception",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Packet does not address reexamination or any exception.",
+      "explanation": "No source affirmatively confirms or denies reexamination outcome.",
+      "source_ids": [
+        "test_results"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "n400.simplified_civics_administered_when_applicable",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Packet does not state whether simplified civics treatment was administered.",
+      "explanation": "No source affirmatively confirms or denies simplified civics administration.",
+      "source_ids": [
+        "test_results"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "n400.willing_to_take_oath",
+      "basis": "explicit_positive",
+      "confidence": 0.98,
+      "evidence": "Oath worksheet: applicant willing to take the oath.",
+      "explanation": "Affirmatively stated in the oath worksheet.",
+      "source_ids": [
+        "oath_worksheet"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "n400.attachment_to_constitution",
+      "basis": "explicit_positive",
+      "confidence": 0.98,
+      "evidence": "Oath worksheet: attachment to the Constitution recorded.",
+      "explanation": "Affirmatively stated in the oath worksheet.",
+      "source_ids": [
+        "oath_worksheet"
+      ],
+      "status": "bound",
+      "value": true
+    }
+  ],
+  "sources": [
+    {
+      "as_of_date": null,
+      "closed_world_scopes": [],
+      "limitations": "Applicant and preparer supplied summary.",
+      "source_id": "intake_summary",
+      "source_type": "n400_intake_summary",
+      "title": "N-400 intake summary"
+    },
+    {
+      "as_of_date": null,
+      "closed_world_scopes": [
+        "declared_travel_history"
+      ],
+      "limitations": "Applicant-declared travel table.",
+      "source_id": "travel_table",
+      "source_type": "travel_history_table",
+      "title": "N-400 travel table"
+    },
+    {
+      "as_of_date": null,
+      "closed_world_scopes": [],
+      "limitations": "Structured worksheet in packet.",
+      "source_id": "presence_worksheet",
+      "source_type": "physical_presence_worksheet",
+      "title": "Physical presence worksheet"
+    },
+    {
+      "as_of_date": null,
+      "closed_world_scopes": [],
+      "limitations": "Current test result only.",
+      "source_id": "test_results",
+      "source_type": "naturalization_test_record",
+      "title": "English and civics test result"
+    },
+    {
+      "as_of_date": null,
+      "closed_world_scopes": [],
+      "limitations": "Current oath worksheet only.",
+      "source_id": "oath_worksheet",
+      "source_type": "oath_attachment_worksheet",
+      "title": "Oath and attachment worksheet"
+    },
+    {
+      "as_of_date": null,
+      "closed_world_scopes": [
+        "criminal_convictions"
+      ],
+      "limitations": "Synthetic benchmark source.",
+      "source_id": "fbi_check",
+      "source_type": "criminal_history_check",
+      "title": "FBI criminal history check"
+    },
+    {
+      "as_of_date": null,
+      "closed_world_scopes": [
+        "pending_criminal_charges"
+      ],
+      "limitations": "Synthetic benchmark source.",
+      "source_id": "docket_search",
+      "source_type": "court_docket_search",
+      "title": "Court docket search"
+    },
+    {
+      "as_of_date": null,
+      "closed_world_scopes": [
+        "false_testimony_for_immigration_benefit"
+      ],
+      "limitations": "Synthetic benchmark source.",
+      "source_id": "interview_worksheet",
+      "source_type": "uscis_interview_record",
+      "title": "USCIS interview worksheet"
+    }
+  ]
+}

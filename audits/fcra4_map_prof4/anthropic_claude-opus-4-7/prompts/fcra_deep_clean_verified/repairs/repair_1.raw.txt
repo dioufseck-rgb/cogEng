@@ -1,0 +1,134 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["cra_file_narrative"],
+      "evidence": "Consumer disputed a 30-day late notation, challenging whether the late mark is accurate; no completeness framing is described.",
+      "explanation": "The dispute is characterized as an accuracy challenge to a specific tradeline notation. The CRA narrative scope explicitly covers receipt and handling of the dispute, so the absence of any completeness framing supports a negative finding under closed-world handling of dispute characterization.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["cra_file_narrative"],
+      "evidence": "CRA accepted the dispute, forwarded it to the furnisher, and conducted a full reinvestigation; no indication of prior-dispute screening or duplicate handling.",
+      "explanation": "The CRA processed the dispute as a substantive reinvestigation rather than dismissing it as duplicative. Under 12 CFR 1022.43(f)(1)(ii) the duplicate-without-new-info branch is not triggered here, so the conditional binds false.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["cra_file_narrative"],
+      "evidence": "No frivolous or irrelevant determination is described; CRA conducted a full reinvestigation.",
+      "explanation": "This is a conditional 'if applicable' timing atom under 1681i(a)(3)(B). The triggering condition (a frivolous/irrelevant determination) is clearly absent from a narrative whose closed-world scope covers CRA handling of the dispute, so the branch is not applicable and binds true.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.later_relevant_info_received",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["cra_file_narrative"],
+      "evidence": "Narrative describes only the initial servicer payment ledger submission; no later submissions during the reinvestigation period are mentioned.",
+      "explanation": "The CRA file narrative closed-world scope covers dispute receipt and handling. The absence of any later consumer submission in a complete handling narrative supports a negative finding.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.later_relevant_info_forwarded",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["cra_file_narrative"],
+      "evidence": "No later relevant information was received from the consumer, so the forwarding obligation was not triggered.",
+      "explanation": "This is a conditional support obligation ('if later relevant info received'). Since the triggering condition is absent, the branch is not applicable and binds true.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.additional_relevant_info_received_in_30_days",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["cra_file_narrative"],
+      "evidence": "Only the initial ledger submission is described; reinvestigation completed in 24 calendar days with no mention of additional submissions.",
+      "explanation": "The narrative comprehensively describes CRA handling within the 30-day period and identifies only the initial ledger. Under closed-world scope of CRA handling, no additional submission occurred, so the 15-day extension trigger does not apply.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.item_modified",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["cra_file_narrative"],
+      "evidence": "Item was 'recorded as verified' after furnisher response verifying the late payment.",
+      "explanation": "Verification of the existing notation is the opposite of modification. The 'revised report' refers to issuing updated results, not modifying the disputed late mark itself.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "fcra.business_days_to_reinsertion_notice",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["cra_file_narrative"],
+      "evidence": "Item was verified and never deleted, so no reinsertion event occurred.",
+      "explanation": "Conditional 'if reinsertion occurred' timing obligation. Triggering condition is clearly absent, so the branch is not applicable and binds true.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.procedures_prevent_reappearance",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["cra_file_narrative"],
+      "evidence": "No deletion occurred; item was verified, so the reappearance-prevention obligation has no triggering predicate in this case.",
+      "explanation": "This 1681i(a)(5)(C) duty attaches to deleted information. Because no deletion occurred, the conditional branch is not applicable and binds true.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.days_to_furnisher_complete",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["cra_file_narrative"],
+      "evidence": "Narrative states furnisher response was received and CRA completed reinvestigation in 24 calendar days, but does not give a specific day count between CRA notice to furnisher and furnisher completion.",
+      "explanation": "The narrative's stated limitation excludes furnisher s-2(b) internal procedures and timing. A specific numeric value cannot be extracted.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.furnisher_reported_inaccuracy_to_other_cras",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["cra_file_narrative"],
+      "evidence": "Furnisher verified the item as accurate; no incomplete or inaccurate finding was made.",
+      "explanation": "This is a conditional duty triggered by an inaccuracy/incompleteness finding. The triggering condition is clearly absent (item verified), so the branch is not applicable and binds true.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "fcra.days_to_reseller_correct_delete",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["cra_file_narrative"],
+      "evidence": "Dispute was received directly by the CRA; no reseller was involved.",
+      "explanation": "Conditional reseller timing obligation. Triggering condition (reseller involvement) is absent, so the branch is not applicable and binds true.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.business_days_to_reseller_conveyance",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["cra_file_narrative"],
+      "evidence": "Dispute was received directly by the CRA; no reseller is in the workflow.",
+      "explanation": "Conditional reseller timing obligation. Triggering condition is absent, so the branch is not applicable and binds true.",
+      "confidence": 0.85
+    }
+  ]
+}

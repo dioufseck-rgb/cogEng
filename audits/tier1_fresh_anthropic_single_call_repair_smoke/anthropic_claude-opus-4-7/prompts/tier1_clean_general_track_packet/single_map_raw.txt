@@ -1,0 +1,1230 @@
+{
+  "sources": [
+    {
+      "source_id": "intake_summary",
+      "source_type": "n400_intake_summary",
+      "title": "N-400 intake summary",
+      "as_of_date": null,
+      "closed_world_scopes": [],
+      "limitations": "Applicant and preparer supplied summary."
+    },
+    {
+      "source_id": "travel_table",
+      "source_type": "travel_history_table",
+      "title": "N-400 travel table",
+      "as_of_date": null,
+      "closed_world_scopes": ["declared_travel_history"],
+      "limitations": "Applicant-declared travel table."
+    },
+    {
+      "source_id": "presence_worksheet",
+      "source_type": "physical_presence_worksheet",
+      "title": "Physical presence worksheet",
+      "as_of_date": null,
+      "closed_world_scopes": [],
+      "limitations": "Structured worksheet in packet."
+    },
+    {
+      "source_id": "test_results",
+      "source_type": "naturalization_test_record",
+      "title": "English and civics test result",
+      "as_of_date": null,
+      "closed_world_scopes": [],
+      "limitations": "Current test result only."
+    },
+    {
+      "source_id": "oath_worksheet",
+      "source_type": "oath_attachment_worksheet",
+      "title": "Oath and attachment worksheet",
+      "as_of_date": null,
+      "closed_world_scopes": [],
+      "limitations": "Current oath worksheet only."
+    },
+    {
+      "source_id": "fbi_check",
+      "source_type": "criminal_history_check",
+      "title": "FBI criminal history check",
+      "as_of_date": null,
+      "closed_world_scopes": ["criminal_convictions"],
+      "limitations": "Synthetic benchmark source."
+    },
+    {
+      "source_id": "docket_search",
+      "source_type": "court_docket_search",
+      "title": "Court docket search",
+      "as_of_date": null,
+      "closed_world_scopes": ["pending_criminal_charges"],
+      "limitations": "Synthetic benchmark source."
+    },
+    {
+      "source_id": "interview_worksheet",
+      "source_type": "uscis_interview_record",
+      "title": "USCIS interview worksheet",
+      "as_of_date": null,
+      "closed_world_scopes": ["false_testimony_for_immigration_benefit"],
+      "limitations": "Synthetic benchmark source."
+    }
+  ],
+  "bindings": [
+    {
+      "atom_id": "n400.absence_6_to_12_months",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["travel_table"],
+      "evidence": "Travel table lists one 21-day trip and no other travel.",
+      "explanation": "Travel table is closed-world for declared travel history; only a 21-day trip is recorded, so no 6-12 month absence exists.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.days_absent_trip_1",
+      "status": "bound",
+      "value": 21,
+      "basis": "explicit_positive",
+      "source_ids": ["travel_table"],
+      "evidence": "Travel table: one trip lasted 21 days.",
+      "explanation": "The single declared trip is 21 days.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "n400.days_absent_trip_2",
+      "status": "undetermined",
+      "value": null,
+      "basis": "closed_world_absence",
+      "source_ids": ["travel_table"],
+      "evidence": "Travel table lists only one trip and no other travel.",
+      "explanation": "No second trip exists in declared travel; numeric value not applicable.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.days_absent_trip_3",
+      "status": "undetermined",
+      "value": null,
+      "basis": "closed_world_absence",
+      "source_ids": ["travel_table"],
+      "evidence": "Travel table lists only one trip and no other travel.",
+      "explanation": "No third trip exists; numeric value not applicable.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.days_absent_trip_4",
+      "status": "undetermined",
+      "value": null,
+      "basis": "closed_world_absence",
+      "source_ids": ["travel_table"],
+      "evidence": "Travel table lists only one trip and no other travel.",
+      "explanation": "No fourth trip exists; numeric value not applicable.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.rebuttal_no_residence_abandoned",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No 6-12 month absence in record; rebuttal evidence not addressed.",
+      "explanation": "Atom is conditional on a 6-12 month absence which is not present; cannot bind rebuttal.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.maintained_us_home",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not address U.S. home maintenance during absences.",
+      "explanation": "Not mentioned in any source; cannot bind from silence.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.maintained_us_family_ties",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not address U.S. family ties.",
+      "explanation": "Not mentioned in any source.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.maintained_us_employment_or_no_foreign_employment",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not address employment.",
+      "explanation": "Not mentioned in any source.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.did_not_claim_nonresident_tax_status",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not address tax residency claims.",
+      "explanation": "Not mentioned in any source.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.returned_to_us_after_absences",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["travel_table", "presence_worksheet"],
+      "evidence": "Only one 21-day trip; applicant is in U.S. as evidenced by 41 months presence and filing.",
+      "explanation": "Single short trip and continued presence support that applicant returned after absence.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.no_absence_over_one_year",
+      "status": "bound",
+      "value": true,
+      "basis": "closed_world_absence",
+      "source_ids": ["travel_table"],
+      "evidence": "Travel table lists one 21-day trip and no other travel.",
+      "explanation": "Closed-world declared travel shows only 21-day trip; no absence exceeds one year.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.absence_over_one_year",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["travel_table"],
+      "evidence": "Travel table lists one 21-day trip and no other travel.",
+      "explanation": "Closed-world travel record contains no absence over one year.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.qualifying_employment_abroad_exception",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "Not addressed in record.",
+      "explanation": "No information about an employment-abroad exception.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.timely_n470_approval_if_needed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "Not addressed in record.",
+      "explanation": "No N-470 information in record.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.religious_vocation_abroad_exception_if_needed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "Not addressed in record.",
+      "explanation": "No religious vocation exception information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.military_service_residence_exception_if_needed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "Not addressed in record.",
+      "explanation": "No military service exception information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.travel_records_complete",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["travel_table", "presence_worksheet"],
+      "evidence": "Travel table and physical presence worksheet provided.",
+      "explanation": "Packet includes complete travel table and presence worksheet supporting continuous-residence assessment.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "n400.passport_records_support_travel",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No passport stamps source declared.",
+      "explanation": "No passport record provided to verify travel.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.no_unexplained_trip_gaps",
+      "status": "bound",
+      "value": true,
+      "basis": "closed_world_absence",
+      "source_ids": ["travel_table"],
+      "evidence": "Travel table lists one 21-day trip and no other travel.",
+      "explanation": "Closed-world declared travel shows no gaps requiring explanation.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.no_break_in_residence_from_absence",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["travel_table"],
+      "evidence": "Only a 21-day trip; well under 6 months.",
+      "explanation": "No absence approaches the break-in-residence threshold.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.months_after_absence_reestablished_if_needed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No breaking absence triggers this atom.",
+      "explanation": "Conditional atom; no breaking absence in record.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.filing_under_3yr_spouse",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of spouse-based filing in narrative.",
+      "explanation": "Filing track not explicitly stated.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.months_physical_presence_3yr",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "Only 5-year period stated.",
+      "explanation": "Presence worksheet reports 41 months for the 5-year period; no 3-year figure stated.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "n400.months_physical_presence_5yr",
+      "status": "bound",
+      "value": 41,
+      "basis": "explicit_positive",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "Physical presence worksheet: 41 months present in 5-year period.",
+      "explanation": "Directly stated in worksheet.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "n400.physical_presence_calculation_reliable",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Reliability not explicitly addressed.",
+      "explanation": "No statement about reliability of calculations.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.us_entry_exit_records_consistent",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No entry/exit consistency comparison addressed.",
+      "explanation": "No CBP records source declared.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.no_unresolved_physical_presence_gap",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of unresolved gaps.",
+      "explanation": "Not affirmatively addressed.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.stat_period_selected_correctly",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No explicit statement.",
+      "explanation": "Worksheet uses 5-year period but no statement that selection is correct.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.early_filing_window_applied_correctly",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No statement about early filing window.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.months_state_or_district_residence",
+      "status": "bound",
+      "value": 9,
+      "basis": "explicit_positive",
+      "source_ids": ["presence_worksheet"],
+      "evidence": "Residence worksheet: 9 months in same USCIS district.",
+      "explanation": "Directly stated.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.jurisdiction_matches_residence",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not explicitly addressed.",
+      "explanation": "No statement about jurisdiction match.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.spouse_track_residence_consistent",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "Spouse track not indicated.",
+      "explanation": "Cannot assess consistency without spouse track facts.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.english_test_passed",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["test_results"],
+      "evidence": "Naturalization test record: English test passed.",
+      "explanation": "Directly stated.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "n400.reading_requirement_satisfied",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["test_results"],
+      "evidence": "English test passed.",
+      "explanation": "Reading is a component of the English test; passing implies it was satisfied.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.writing_requirement_satisfied",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["test_results"],
+      "evidence": "English test passed.",
+      "explanation": "Writing is a component of the English test; passing implies it was satisfied.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.speaking_requirement_satisfied",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["test_results"],
+      "evidence": "English test passed.",
+      "explanation": "Speaking is a component of the English test; passing implies it was satisfied.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.age_years",
+      "status": "bound",
+      "value": 37,
+      "basis": "explicit_positive",
+      "source_ids": ["intake_summary"],
+      "evidence": "Intake summary: applicant age is 37.",
+      "explanation": "Directly stated.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "n400.years_as_lpr",
+      "status": "bound",
+      "value": 6,
+      "basis": "explicit_positive",
+      "source_ids": ["intake_summary"],
+      "evidence": "Intake summary: applicant has been an LPR for 6 years.",
+      "explanation": "Directly stated.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "n400.medical_disability_exception_approved",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of disability exception.",
+      "explanation": "Not addressed in record.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.civics_test_passed",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["test_results"],
+      "evidence": "Naturalization test record: civics test passed.",
+      "explanation": "Directly stated.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "n400.two_test_opportunities_completed_if_initial_fail",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No initial failure indicated.",
+      "explanation": "Conditional atom; applicant passed so no retest applicable.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.reexamination_passed_or_exception",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "Not applicable; applicant passed.",
+      "explanation": "Conditional atom; no reexamination needed.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.simplified_civics_administered_when_applicable",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No indication simplified civics applicable.",
+      "explanation": "Conditional atom; no information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.willing_to_take_oath",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["oath_worksheet"],
+      "evidence": "Oath worksheet: applicant willing to take the oath.",
+      "explanation": "Directly stated.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "n400.attachment_to_constitution",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["oath_worksheet"],
+      "evidence": "Oath worksheet: attachment to the Constitution recorded.",
+      "explanation": "Directly stated.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "n400.favorable_to_good_order",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not explicitly addressed.",
+      "explanation": "Not affirmatively recorded.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.willing_to_bear_arms_or_noncombatant_or_civilian_work_if_required",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed beyond general willingness to take the oath.",
+      "explanation": "No specific bearing-arms/noncombatant statement.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.no_communist_party_bar_or_exception",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed in record.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.no_totalitarian_party_bar_or_exception",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed in record.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.no_advocacy_overthrow",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed in record.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.no_desertion_from_us_armed_forces",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed in record.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.no_title_of_nobility_issue",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed in record.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.truthful_oath_related_answers",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed in record.",
+      "explanation": "Not explicitly recorded.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.murder_conviction",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["fbi_check"],
+      "evidence": "FBI check reports no aggravated felony convictions; does not affirmatively address murder specifically.",
+      "explanation": "Binding policy requires criminal_history_check or court_clearance scope for false; FBI check's stated closed-world scope is criminal_convictions which arguably covers murder, but the narrative only specifies aggravated felony coverage. To be safe under open-world-absence behavior, leaving undetermined.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.aggravated_felony_after_1990",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["fbi_check"],
+      "evidence": "FBI check: no aggravated felony convictions.",
+      "explanation": "FBI criminal_history_check has criminal_convictions closed-world scope and affirmatively reports absence of aggravated felonies.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.persecution_participation",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed in record.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.genocide_participation",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed in record.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.torture_participation",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed in record.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.extrajudicial_killing_participation",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed in record.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.controlled_substance_violation_except_single_marijuana_30g",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "FBI check addresses aggravated felonies only in narrative.",
+      "explanation": "No affirmative statement on controlled substance violations.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.admission_to_drug_offense",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.drug_trafficking",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.habitual_drunkard",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.illegal_gambling_principal_income",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.multiple_gambling_convictions",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.prostitution_or_commercialized_vice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.alien_smuggling",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.polygamy",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.false_testimony_for_immigration_benefit",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["interview_worksheet"],
+      "evidence": "USCIS interview worksheet: no false testimony issue.",
+      "explanation": "Interview worksheet (uscis_interview_record) is closed-world for false_testimony_for_immigration_benefit and affirmatively reports no issue.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.failure_to_support_dependents",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.adultery_destroyed_marriage",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.unlawful_voting",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.false_claim_us_citizenship",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.failure_register_selective_service_willful",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.tax_noncompliance_willful",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.fraud_or_deceit",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.identity_document_fraud",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.domestic_violence",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.child_abuse",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.violation_protective_order",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.unlawful_harassment_or_stalking",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.manslaughter_or_violent_crime",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.dui_pattern_or_reckless_endangerment",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.unpaid_restitution_or_court_orders",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.probation_parole_uncompleted",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.pending_criminal_charge",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["docket_search"],
+      "evidence": "Docket search: no pending criminal charges.",
+      "explanation": "Court docket search is closed-world for pending_criminal_charges and affirmatively reports none.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "n400.unresolved_arrest_disposition",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.misrepresentation_material_to_benefit",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.unlawful_voting_registration",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.removal_order_after_filing",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.terrorism_related_activity",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.nazi_persecution_related",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.serious_immigration_violation",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.sham_marriage_for_benefit",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.smuggling_family_member_without_exception",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.failure_to_pay_taxes",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.social_security_fraud",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.welfare_fraud",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.prison_180_days_or_more",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information about imprisonment.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.days_imprisoned_statutory_period",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No imprisonment information in record.",
+      "explanation": "No numeric value can be extracted.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.selective_service_registered_or_exempt",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.tax_filing_compliant_or_explained",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.child_support_compliant_or_explained",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.complex_absence_pattern",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["travel_table"],
+      "evidence": "Single 21-day trip recorded.",
+      "explanation": "Travel pattern of one short trip is not complex.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.inconsistent_travel_history",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["travel_table", "presence_worksheet"],
+      "evidence": "Travel table and presence worksheet are consistent with a single 21-day absence.",
+      "explanation": "No internal inconsistency noted.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "n400.evidence_missing_critical_dates",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Critical dates not specifically itemized.",
+      "explanation": "Cannot affirm completeness of critical dates from narrative.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.unresolved_tax_issue",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Tax issues not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.disputed_selective_service_issue",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.possible_false_testimony",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["interview_worksheet"],
+      "evidence": "USCIS interview worksheet: no false testimony issue.",
+      "explanation": "Interview worksheet affirmatively reports no false testimony concern.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.possible_gmc_discretion_issue",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No discretionary GMC concerns affirmatively raised.",
+      "explanation": "Cannot bind from silence; no information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.accommodation_or_disability_documentation_unclear",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.name_identity_record_conflict",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.interpreter_or_understanding_issue",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.legal_exception_claimed_needs_review",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No claimed exception in record.",
+      "explanation": "No information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.outside_benchmark_scope",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Not addressed.",
+      "explanation": "Cannot determine scope coverage from evidence alone.",
+      "confidence": 0.5
+    }
+  ]
+}

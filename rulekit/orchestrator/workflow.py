@@ -300,6 +300,7 @@ def run_policy_seed(
         atoms=seed.atoms,
         nodes=seed.nodes,
         constants=seed.constants,
+        metadata_extras=seed.metadata,
     )
     snapshot = ProgramSnapshot(
         snapshot_id=f"snap_{program_id}_{program_version.replace('.', '_')}",

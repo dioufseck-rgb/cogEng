@@ -1,0 +1,194 @@
+{
+  "fcra.business_days_to_frivolous_notice": {
+    "atom_id": "fcra.business_days_to_frivolous_notice",
+    "basis": "not_found",
+    "confidence": 0.6,
+    "evidence": "No frivolous determination occurred; no numeric value applies.",
+    "explanation": "Numeric atom cannot be assigned a value; conditional branch is inapplicable but atom is numeric, not a boolean support, so it remains undetermined.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.consumer_statement_filed": {
+    "atom_id": "fcra.consumer_statement_filed",
+    "basis": "inferred_from_record",
+    "confidence": 0.7,
+    "evidence": "Conditional atom: consumer statement is filed only 'after reinvestigation did not resolve the dispute.' Here the reinvestigation completed and verified the item; the triggering branch (consumer choosing to file a brief statement) is not described and the conditional support reads as not-applicable.",
+    "explanation": "Phrased as a conditional support step; absence of triggering action lets it bind true as not-applicable per the conditional rule.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.consumer_statement_right_disclosed": {
+    "atom_id": "fcra.consumer_statement_right_disclosed",
+    "basis": "open_world_absence",
+    "confidence": 0.6,
+    "evidence": "Narrative does not describe disclosures in the results notice.",
+    "explanation": "Notice content is outside the closed-world scopes; cannot bind.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.consumer_submission_authentic": {
+    "atom_id": "fcra.consumer_submission_authentic",
+    "basis": "inferred_from_record",
+    "confidence": 0.7,
+    "evidence": "CRA accepted the dispute directly from the consumer on March 1 and processed it through reinvestigation; no authenticity issue is raised.",
+    "explanation": "CRA's processing of the dispute as a valid consumer submission supports authenticity by inference.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.cra_compared_own_file": {
+    "atom_id": "fcra.cra_compared_own_file",
+    "basis": "inferred_from_record",
+    "confidence": 0.7,
+    "evidence": "CRA file identified the account and month, and reviewed the consumer ledger against the furnisher payment history to evaluate the disputed notation in its file.",
+    "explanation": "The reinvestigation necessarily compared evidence against the disputed item in the CRA's own file (the 30-day late notation).",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.cra_reasonable_reinvestigation_performed": {
+    "atom_id": "fcra.cra_reasonable_reinvestigation_performed",
+    "basis": "open_world_absence",
+    "confidence": 0.6,
+    "evidence": "Narrative describes steps but reasonableness is a legal characterization for the policy engine.",
+    "explanation": "Reasonableness determination is reserved to the engine; raw facts do not bind this atom.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.dispute_about_completeness": {
+    "atom_id": "fcra.dispute_about_completeness",
+    "basis": "explicit_negative",
+    "confidence": 0.7,
+    "evidence": "Consumer disputed a '30-day late notation' and supplied a payment ledger; this characterizes the dispute as one about accuracy of the late mark, not completeness.",
+    "explanation": "The dispute targets whether the late notation is accurate; nothing suggests completeness is at issue.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.dispute_duplicate_without_new_info": {
+    "atom_id": "fcra.dispute_duplicate_without_new_info",
+    "basis": "inferred_from_record",
+    "confidence": 0.7,
+    "evidence": "No prior dispute is referenced; consumer supplied a servicer payment ledger as supporting documentation, and the CRA treated the dispute as a fresh reinvestigation rather than dismissing it as duplicative.",
+    "explanation": "CRA's full processing without invoking the frivolous/duplicate exception supports the negative finding.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.frivolous_missing_info_identified": {
+    "atom_id": "fcra.frivolous_missing_info_identified",
+    "basis": "inferred_from_record",
+    "confidence": 0.8,
+    "evidence": "Conditional: only required if a frivolous/irrelevant determination was made. CRA performed full reinvestigation; branch not applicable.",
+    "explanation": "Triggering condition clearly absent; conditional support binds true as not-applicable.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.frivolous_reason_identified": {
+    "atom_id": "fcra.frivolous_reason_identified",
+    "basis": "inferred_from_record",
+    "confidence": 0.8,
+    "evidence": "Conditional: only required if a frivolous/irrelevant determination was made. The CRA fully reinvestigated, so this branch is not applicable.",
+    "explanation": "Triggering condition clearly absent; conditional support binds true as not-applicable.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.furnisher_contact_disclosed_if_available": {
+    "atom_id": "fcra.furnisher_contact_disclosed_if_available",
+    "basis": "open_world_absence",
+    "confidence": 0.6,
+    "evidence": "Narrative does not describe disclosures in the results notice.",
+    "explanation": "Notice content is outside the closed-world scopes; cannot bind.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.item_modified": {
+    "atom_id": "fcra.item_modified",
+    "basis": "explicit_negative",
+    "confidence": 0.75,
+    "evidence": "CRA 'recorded the item as verified' after reinvestigation; the late notation was confirmed, not modified.",
+    "explanation": "Verification of the disputed item directly indicates no modification of the item itself, even though the report was reissued.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.later_relevant_info_forwarded": {
+    "atom_id": "fcra.later_relevant_info_forwarded",
+    "basis": "inferred_from_record",
+    "confidence": 0.8,
+    "evidence": "Conditional: applies only if later relevant information arose. None is described; triggering condition absent.",
+    "explanation": "Conditional support atom binds true as not-applicable when triggering condition is clearly absent.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.notice_states_reinvestigation_completed": {
+    "atom_id": "fcra.notice_states_reinvestigation_completed",
+    "basis": "open_world_absence",
+    "confidence": 0.6,
+    "evidence": "Narrative does not describe the textual contents of the results notice.",
+    "explanation": "Source limitations explicitly note silence on results notice contents; cannot bind.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.procedure_description_right_disclosed": {
+    "atom_id": "fcra.procedure_description_right_disclosed",
+    "basis": "open_world_absence",
+    "confidence": 0.6,
+    "evidence": "Narrative does not describe disclosures in the results notice.",
+    "explanation": "Closed-world scopes do not cover notice contents; cannot bind from silence.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.subsequent_reports_note_dispute": {
+    "atom_id": "fcra.subsequent_reports_note_dispute",
+    "basis": "open_world_absence",
+    "confidence": 0.6,
+    "evidence": "Narrative is silent on how subsequent reports treat the dispute and does not address consumer statements.",
+    "explanation": "Closed-world scopes do not cover subsequent-report behavior; cannot bind from silence.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  }
+}

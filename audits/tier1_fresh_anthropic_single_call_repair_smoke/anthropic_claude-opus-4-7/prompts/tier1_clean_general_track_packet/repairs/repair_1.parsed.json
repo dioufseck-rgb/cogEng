@@ -1,0 +1,49 @@
+{
+  "n400.medical_disability_exception_approved": {
+    "atom_id": "n400.medical_disability_exception_approved",
+    "basis": "open_world_absence",
+    "confidence": 0.6,
+    "evidence": "No mention of any medical disability exception in the packet.",
+    "explanation": "This atom asserts an affirmative approval of a disability exception; the record does not address it and no closed-world source covers disability exceptions, so it remains undetermined.",
+    "source_ids": [],
+    "status": "undetermined",
+    "value": null
+  },
+  "n400.reexamination_passed_or_exception": {
+    "atom_id": "n400.reexamination_passed_or_exception",
+    "basis": "inferred_from_record",
+    "confidence": 0.9,
+    "evidence": "English test passed, civics test passed.",
+    "explanation": "Conditional atom; reexamination only triggered by initial failure, which did not occur, so the branch is not applicable and binds true.",
+    "source_ids": [
+      "test_results"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "n400.simplified_civics_administered_when_applicable": {
+    "atom_id": "n400.simplified_civics_administered_when_applicable",
+    "basis": "inferred_from_record",
+    "confidence": 0.9,
+    "evidence": "Applicant is 37 years old and has been an LPR for 6 years; civics test passed.",
+    "explanation": "Simplified civics applies only to qualifying older long-term LPRs (e.g., 65/20). Applicant's age and LPR duration do not trigger simplified civics, so the 'when applicable' branch is not applicable.",
+    "source_ids": [
+      "intake_summary",
+      "test_results"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "n400.two_test_opportunities_completed_if_initial_fail": {
+    "atom_id": "n400.two_test_opportunities_completed_if_initial_fail",
+    "basis": "inferred_from_record",
+    "confidence": 0.9,
+    "evidence": "English test passed, civics test passed.",
+    "explanation": "Conditional atom phrased 'if initial fail'/'when applicable'; applicant passed on initial attempt so retest branch is not applicable.",
+    "source_ids": [
+      "test_results"
+    ],
+    "status": "bound",
+    "value": true
+  }
+}

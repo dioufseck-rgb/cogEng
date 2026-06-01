@@ -1,0 +1,162 @@
+{
+  "case_id": "tier1_oath_attachment_refusal",
+  "case_level_notes": "Oath worksheet establishes a dispositive failure of the oath/attachment requirement; other eligibility prongs are outside the packet's scope and remain undetermined.",
+  "determinations": [
+    {
+      "anti_overclaim_check": "Not asserting satisfaction without evidence.",
+      "confidence": 0.8,
+      "determination_id": "n400.continuous_residence_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "missing",
+          "fact": "No continuous residence evidence in packet",
+          "source": "case packet"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "Case packet contains no facts regarding continuous residence; scope is limited to oath worksheet.",
+      "uncertainty_flags": [
+        "missing fact",
+        "source limitation"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Cannot deem satisfied without facts.",
+      "confidence": 0.8,
+      "determination_id": "n400.physical_presence_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "missing",
+          "fact": "No physical presence evidence",
+          "source": "case packet"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "No physical presence facts in the packet.",
+      "uncertainty_flags": [
+        "missing fact",
+        "source limitation"
+      ]
+    },
+    {
+      "anti_overclaim_check": "No basis to declare satisfied.",
+      "confidence": 0.8,
+      "determination_id": "n400.state_residence_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "missing",
+          "fact": "No state residence evidence",
+          "source": "case packet"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "No state/district residence facts in packet.",
+      "uncertainty_flags": [
+        "missing fact",
+        "source limitation"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Silence is not evidence of compliance.",
+      "confidence": 0.8,
+      "determination_id": "n400.english_requirement_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "missing",
+          "fact": "No English-related facts",
+          "source": "case packet"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "Packet does not address English ability or exception.",
+      "uncertainty_flags": [
+        "missing fact",
+        "source limitation"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Silence is not evidence of compliance.",
+      "confidence": 0.8,
+      "determination_id": "n400.civics_requirement_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "missing",
+          "fact": "No civics-related facts",
+          "source": "case packet"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "Packet does not address civics test or exception.",
+      "uncertainty_flags": [
+        "missing fact",
+        "source limitation"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Conclusion drawn directly from explicit worksheet statements.",
+      "confidence": 0.97,
+      "determination_id": "n400.oath_attachment_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Applicant refuses to take the Oath of Allegiance",
+          "source": "oath_worksheet"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Attachment to the Constitution not established at interview",
+          "source": "oath_worksheet"
+        }
+      ],
+      "outcome": "false",
+      "rationale": "Worksheet explicitly records refusal to take the Oath of Allegiance and that attachment to the Constitution was not established at interview.",
+      "uncertainty_flags": []
+    },
+    {
+      "anti_overclaim_check": "No basis to deem satisfied.",
+      "confidence": 0.75,
+      "determination_id": "n400.good_moral_character_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "missing",
+          "fact": "No GMC facts presented",
+          "source": "case packet"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "Packet does not contain GMC-related facts; scope limited to oath worksheet.",
+      "uncertainty_flags": [
+        "missing fact",
+        "source limitation"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Human review flagged based on explicit dispositive facts.",
+      "confidence": 0.9,
+      "determination_id": "n400.human_review_required",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Refusal of Oath of Allegiance",
+          "source": "oath_worksheet"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Attachment to Constitution not established",
+          "source": "oath_worksheet"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "Refusal to take the Oath and failure to establish attachment to the Constitution are dispositive eligibility issues warranting human review.",
+      "uncertainty_flags": []
+    }
+  ]
+}

@@ -1,0 +1,816 @@
+You are repairing selected atom bindings for a governed policy engine.
+
+You are NOT deciding policy outcomes. The deterministic engine has already
+identified these atoms as unresolved on a load-bearing trace. Your job is only
+to revisit the listed atom bindings from the case packet and return improved
+bindings where the evidence supports them.
+
+Rules:
+- Treat each atom independently.
+- Do not change an atom just to make a determination true or false.
+- If the case packet still does not support a value, keep it undetermined.
+- If a conditional support atom is phrased like "if needed", "if applicable",
+  "if initial fail", or "when applicable", and the triggering condition is
+  clearly absent, it may bind true with basis "inferred_from_record" because the
+  branch is not applicable.
+- Return one binding object for every atom in REPAIR_ATOMS.
+
+Allowed basis values:
+explicit_positive, explicit_negative, closed_world_absence, open_world_absence,
+inferred_from_record, conflicting_evidence, computed, looked_up, not_found.
+
+CASE NARRATIVE
+==============
+The consumer disputed a charged-off credit card balance and attached bank statements plus a creditor letter showing a settlement payment. The CRA coded the dispute and sent a generic "claims paid" code to the furnisher on day 4, but the processing log says the document images were not sent or made available. The furnisher verified the old balance. The CRA completed within 29 days and sent a timely results notice.
+
+
+SOURCE INVENTORY
+================
+[
+  {
+    "as_of_date": null,
+    "closed_world_scopes": [
+      "dispute_intake_and_processing_steps_described",
+      "cra_processing_log_contents"
+    ],
+    "limitations": "Brief narrative summary; does not enumerate every procedural step, notice content, or furnisher-side detail. Silence on a given fact does not necessarily mean the fact is absent.",
+    "metadata": {},
+    "source_id": "case_narrative",
+    "source_type": "case_narrative",
+    "title": "FCRA Reinvestigation Case Narrative"
+  }
+]
+
+REPAIR_ATOMS
+============
+[
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.consumer_statement_filed",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(b)",
+      "statement": "The consumer filed a brief statement of dispute after reinvestigation did not resolve the dispute.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.consumer_statement_filed",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.7,
+      "evidence": "Narrative does not mention a consumer statement of dispute.",
+      "explanation": "No information about whether a brief statement was filed post-reinvestigation.",
+      "metadata": {
+        "raw_atom_id": "fcra.consumer_statement_filed"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "The consumer disputed a charged-off credit card balance and attached bank statements plus a creditor letter showing a settlement payment. The CRA coded the dispute and sent a generic \"claims paid\" code to the furnisher on day 4, but the processing log says the document images were not sent or made available. The furnisher verified the old balance. The CRA completed within 29 days and sent a timely results notice.\n",
+    "repair_reasons": [
+      "fcra.consumer_statement_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.subsequent_reports_note_dispute",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(c)",
+      "statement": "Subsequent reports containing the information clearly note the consumer's dispute and statement or summary.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.subsequent_reports_note_dispute",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.7,
+      "evidence": "Narrative does not mention content of subsequent reports.",
+      "explanation": "No evidence on subsequent reports noting the dispute.",
+      "metadata": {
+        "raw_atom_id": "fcra.subsequent_reports_note_dispute"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "The consumer disputed a charged-off credit card balance and attached bank statements plus a creditor letter showing a settlement payment. The CRA coded the dispute and sent a generic \"claims paid\" code to the furnisher on day 4, but the processing log says the document images were not sent or made available. The furnisher verified the old balance. The CRA completed within 29 days and sent a timely results notice.\n",
+    "repair_reasons": [
+      "fcra.consumer_statement_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.dispute_about_completeness",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)(A)",
+      "statement": "The dispute concerns completeness of the item.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.dispute_about_completeness",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Narrative does not characterize the dispute as one about completeness.",
+      "explanation": "Cannot determine completeness framing without more detail.",
+      "metadata": {
+        "raw_atom_id": "fcra.dispute_about_completeness"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "The consumer disputed a charged-off credit card balance and attached bank statements plus a creditor letter showing a settlement payment. The CRA coded the dispute and sent a generic \"claims paid\" code to the furnisher on day 4, but the processing log says the document images were not sent or made available. The furnisher verified the old balance. The CRA completed within 29 days and sent a timely results notice.\n",
+    "repair_reasons": [
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_required evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_trigger_valid evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.notice_through_reseller",
+      "notes": "Applies when a reseller forwards the dispute.",
+      "source_span": "15 U.S.C. 1681i(a)(1)(A)",
+      "statement": "The consumer notified the consumer reporting agency indirectly through a reseller.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.notice_through_reseller",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.7,
+      "evidence": "No mention of a reseller in the narrative.",
+      "explanation": "Absence in a brief narrative is not conclusive that no reseller was involved.",
+      "metadata": {
+        "raw_atom_id": "fcra.notice_through_reseller"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "The consumer disputed a charged-off credit card balance and attached bank statements plus a creditor letter showing a settlement payment. The CRA coded the dispute and sent a generic \"claims paid\" code to the furnisher on day 4, but the processing log says the document images were not sent or made available. The furnisher verified the old balance. The CRA completed within 29 days and sent a timely results notice.\n",
+    "repair_reasons": [
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_required evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_trigger_valid evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.consumer_identity_sufficient",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(3)",
+      "statement": "The packet contains sufficient consumer identity information to investigate.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.consumer_identity_sufficient",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Narrative does not address identity sufficiency.",
+      "explanation": "No explicit statement; processing proceeded but identity sufficiency not described.",
+      "metadata": {
+        "raw_atom_id": "fcra.consumer_identity_sufficient"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "The consumer disputed a charged-off credit card balance and attached bank statements plus a creditor letter showing a settlement payment. The CRA coded the dispute and sent a generic \"claims paid\" code to the furnisher on day 4, but the processing log says the document images were not sent or made available. The furnisher verified the old balance. The CRA completed within 29 days and sent a timely results notice.\n",
+    "repair_reasons": [
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_required evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_trigger_valid evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.consumer_submission_authentic",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)(A)",
+      "statement": "The dispute submission appears authentic to the consumer or authorized representative.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.consumer_submission_authentic",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Narrative does not address authenticity verification.",
+      "explanation": "No evidence either way; CRA proceeded but authenticity not explicitly addressed.",
+      "metadata": {
+        "raw_atom_id": "fcra.consumer_submission_authentic"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "The consumer disputed a charged-off credit card balance and attached bank statements plus a creditor letter showing a settlement payment. The CRA coded the dispute and sent a generic \"claims paid\" code to the furnisher on day 4, but the processing log says the document images were not sent or made available. The furnisher verified the old balance. The CRA completed within 29 days and sent a timely results notice.\n",
+    "repair_reasons": [
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_required evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_trigger_valid evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.dispute_duplicate_without_new_info",
+      "notes": "",
+      "source_span": "12 CFR 1022.43(f)(1)(ii)",
+      "statement": "The dispute is substantially the same as a prior dispute and contains no new required information.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Narrative does not address whether dispute was a duplicate.",
+      "explanation": "No information about prior disputes.",
+      "metadata": {
+        "raw_atom_id": "fcra.dispute_duplicate_without_new_info"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "The consumer disputed a charged-off credit card balance and attached bank statements plus a creditor letter showing a settlement payment. The CRA coded the dispute and sent a generic \"claims paid\" code to the furnisher on day 4, but the processing log says the document images were not sent or made available. The furnisher verified the old balance. The CRA completed within 29 days and sent a timely results notice.\n",
+    "repair_reasons": [
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_required evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.frivolous_notice_sent",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(3)(B)",
+      "statement": "Notice of the frivolous or irrelevant determination was sent to the consumer.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.frivolous_notice_sent",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "No frivolous determination described, so no frivolous notice described.",
+      "explanation": "Absence of frivolous determination makes notice inapplicable but not affirmatively stated.",
+      "metadata": {
+        "raw_atom_id": "fcra.frivolous_notice_sent"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "The consumer disputed a charged-off credit card balance and attached bank statements plus a creditor letter showing a settlement payment. The CRA coded the dispute and sent a generic \"claims paid\" code to the furnisher on day 4, but the processing log says the document images were not sent or made available. The furnisher verified the old balance. The CRA completed within 29 days and sent a timely results notice.\n",
+    "repair_reasons": [
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_required evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.frivolous_reason_identified",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(3)(C)",
+      "statement": "The frivolous or irrelevant notice identified the reasons for the determination.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.frivolous_reason_identified",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Narrative does not mention any frivolous notice content.",
+      "explanation": "No evidence about frivolous-notice content.",
+      "metadata": {
+        "raw_atom_id": "fcra.frivolous_reason_identified"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "The consumer disputed a charged-off credit card balance and attached bank statements plus a creditor letter showing a settlement payment. The CRA coded the dispute and sent a generic \"claims paid\" code to the furnisher on day 4, but the processing log says the document images were not sent or made available. The furnisher verified the old balance. The CRA completed within 29 days and sent a timely results notice.\n",
+    "repair_reasons": [
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_required evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.frivolous_missing_info_identified",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(3)(C)",
+      "statement": "The frivolous or irrelevant notice identified information required to investigate.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.frivolous_missing_info_identified",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Narrative does not mention frivolous-notice content.",
+      "explanation": "No evidence.",
+      "metadata": {
+        "raw_atom_id": "fcra.frivolous_missing_info_identified"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "The consumer disputed a charged-off credit card balance and attached bank statements plus a creditor letter showing a settlement payment. The CRA coded the dispute and sent a generic \"claims paid\" code to the furnisher on day 4, but the processing log says the document images were not sent or made available. The furnisher verified the old balance. The CRA completed within 29 days and sent a timely results notice.\n",
+    "repair_reasons": [
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_required evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "numeric",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.business_days_to_frivolous_notice",
+      "notes": "",
+      "numeric_unit": "business_days",
+      "source_span": "15 U.S.C. 1681i(a)(3)(B)",
+      "statement": "Business days from frivolous or irrelevant determination to consumer notice.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "atom_type": "numeric",
+      "basis": "not_found",
+      "confidence": 0.7,
+      "evidence": "No frivolous determination or notice timing mentioned.",
+      "explanation": "Cannot compute a value not present in the record.",
+      "metadata": {
+        "raw_atom_id": "fcra.business_days_to_frivolous_notice"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "The consumer disputed a charged-off credit card balance and attached bank statements plus a creditor letter showing a settlement payment. The CRA coded the dispute and sent a generic \"claims paid\" code to the furnisher on day 4, but the processing log says the document images were not sent or made available. The furnisher verified the old balance. The CRA completed within 29 days and sent a timely results notice.\n",
+    "repair_reasons": [
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_required evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.cra_compared_furnisher_response",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)",
+      "statement": "The CRA compared the furnisher response against the consumer's dispute basis.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.cra_compared_furnisher_response",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.65,
+      "evidence": "Narrative states furnisher verified old balance and CRA completed reinvestigation, but does not describe a comparison step.",
+      "explanation": "No explicit evidence of comparison against consumer's dispute basis.",
+      "metadata": {
+        "raw_atom_id": "fcra.cra_compared_furnisher_response"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "The consumer disputed a charged-off credit card balance and attached bank statements plus a creditor letter showing a settlement payment. The CRA coded the dispute and sent a generic \"claims paid\" code to the furnisher on day 4, but the processing log says the document images were not sent or made available. The furnisher verified the old balance. The CRA completed within 29 days and sent a timely results notice.\n",
+    "repair_reasons": [
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.cra_compared_own_file",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)",
+      "statement": "The CRA compared the dispute against its own file contents.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.cra_compared_own_file",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Narrative does not describe CRA comparing dispute to its own file.",
+      "explanation": "No explicit evidence.",
+      "metadata": {
+        "raw_atom_id": "fcra.cra_compared_own_file"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "The consumer disputed a charged-off credit card balance and attached bank statements plus a creditor letter showing a settlement payment. The CRA coded the dispute and sent a generic \"claims paid\" code to the furnisher on day 4, but the processing log says the document images were not sent or made available. The furnisher verified the old balance. The CRA completed within 29 days and sent a timely results notice.\n",
+    "repair_reasons": [
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.cra_reasonable_reinvestigation_performed",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)",
+      "statement": "The CRA performed a reasonable reinvestigation of the disputed item.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.cra_reasonable_reinvestigation_performed",
+      "atom_type": "boolean",
+      "basis": "conflicting_evidence",
+      "confidence": 0.7,
+      "evidence": "CRA coded and routed the dispute and completed within 29 days, but did not forward document images and used a generic code.",
+      "explanation": "Engine should decide reasonableness; record shows both procedural completion and gaps (no document transmission).",
+      "metadata": {
+        "raw_atom_id": "fcra.cra_reasonable_reinvestigation_performed"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "The consumer disputed a charged-off credit card balance and attached bank statements plus a creditor letter showing a settlement payment. The CRA coded the dispute and sent a generic \"claims paid\" code to the furnisher on day 4, but the processing log says the document images were not sent or made available. The furnisher verified the old balance. The CRA completed within 29 days and sent a timely results notice.\n",
+    "repair_reasons": [
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "numeric",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.business_days_to_notify_furnisher",
+      "notes": "",
+      "numeric_unit": "business_days",
+      "source_span": "15 U.S.C. 1681i(a)(2)",
+      "statement": "Business days from CRA receipt of dispute to furnisher notice.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.business_days_to_notify_furnisher",
+      "atom_type": "numeric",
+      "basis": "not_found",
+      "confidence": 0.6,
+      "evidence": "Narrative says 'on day 4' without specifying business vs. calendar days.",
+      "explanation": "Unit ambiguity; cannot reliably extract business-day count.",
+      "metadata": {
+        "raw_atom_id": "fcra.business_days_to_notify_furnisher"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "The consumer disputed a charged-off credit card balance and attached bank statements plus a creditor letter showing a settlement payment. The CRA coded the dispute and sent a generic \"claims paid\" code to the furnisher on day 4, but the processing log says the document images were not sent or made available. The furnisher verified the old balance. The CRA completed within 29 days and sent a timely results notice.\n",
+    "repair_reasons": [
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.later_relevant_info_received",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(2)(B)",
+      "statement": "Additional relevant information was received from the consumer after furnisher notice and before the reinvestigation deadline.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.later_relevant_info_received",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Narrative does not mention later submissions.",
+      "explanation": "No evidence about additional information after furnisher notice.",
+      "metadata": {
+        "raw_atom_id": "fcra.later_relevant_info_received"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "The consumer disputed a charged-off credit card balance and attached bank statements plus a creditor letter showing a settlement payment. The CRA coded the dispute and sent a generic \"claims paid\" code to the furnisher on day 4, but the processing log says the document images were not sent or made available. The furnisher verified the old balance. The CRA completed within 29 days and sent a timely results notice.\n",
+    "repair_reasons": [
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  }
+]
+
+Return ONLY this JSON shape:
+{
+  "bindings": [
+    {
+      "atom_id": "atom id from REPAIR_ATOMS",
+      "status": "bound|undetermined|error",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["source id"],
+      "evidence": "short exact evidence or summary",
+      "explanation": "why this basis is appropriate",
+      "confidence": 0.0
+    }
+  ]
+}

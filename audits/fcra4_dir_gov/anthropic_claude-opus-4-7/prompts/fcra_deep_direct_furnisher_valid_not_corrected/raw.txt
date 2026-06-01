@@ -1,0 +1,188 @@
+{
+  "case_id": "fcra_deep_direct_furnisher_valid_not_corrected",
+  "determinations": [
+    {
+      "determination_id": "fcra.consumer_statement_satisfied",
+      "outcome": "undetermined",
+      "rationale": "No information about consumer statement filing; dispute was direct to furnisher, not CRA.",
+      "confidence": 0.5,
+      "material_facts": [
+        {"fact": "Direct dispute to furnisher only", "source": "narrative", "basis": "explicit"}
+      ],
+      "uncertainty_flags": ["missing fact"],
+      "human_review_considered": false,
+      "anti_overclaim_check": "No facts about consumer statement in packet."
+    },
+    {
+      "determination_id": "fcra.cra_consideration_satisfied",
+      "outcome": "undetermined",
+      "rationale": "No CRA dispute in this case; CRA duties not triggered or addressed.",
+      "confidence": 0.5,
+      "material_facts": [
+        {"fact": "Dispute went to furnisher, not CRA", "source": "narrative", "basis": "explicit"}
+      ],
+      "uncertainty_flags": ["source limitation"],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Packet does not describe CRA processing."
+    },
+    {
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "outcome": "undetermined",
+      "rationale": "No CRA dispute received; this duty not addressed in packet.",
+      "confidence": 0.5,
+      "material_facts": [
+        {"fact": "No CRA dispute described", "source": "narrative", "basis": "explicit"}
+      ],
+      "uncertainty_flags": ["source limitation"],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Not applicable to direct dispute path."
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_required",
+      "outcome": "undetermined",
+      "rationale": "Packet describes direct furnisher dispute; no CRA notice indicated.",
+      "confidence": 0.5,
+      "material_facts": [
+        {"fact": "Direct dispute to furnisher", "source": "narrative", "basis": "explicit"}
+      ],
+      "uncertainty_flags": ["source limitation"],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Cannot infer CRA receipt absent facts."
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_timely",
+      "outcome": "undetermined",
+      "rationale": "No CRA reinvestigation in packet to assess timing.",
+      "confidence": 0.5,
+      "material_facts": [
+        {"fact": "No CRA process described", "source": "narrative", "basis": "missing"}
+      ],
+      "uncertainty_flags": ["missing fact"],
+      "human_review_considered": false,
+      "anti_overclaim_check": "No timing facts present."
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+      "outcome": "undetermined",
+      "rationale": "No CRA-side dispute described in packet.",
+      "confidence": 0.5,
+      "material_facts": [
+        {"fact": "Dispute only to furnisher", "source": "narrative", "basis": "explicit"}
+      ],
+      "uncertainty_flags": ["source limitation"],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Cannot conclude trigger without CRA receipt facts."
+    },
+    {
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "outcome": "false",
+      "rationale": "Although furnisher investigated and reported results to consumer, it failed to correct/modify the inaccurate information by notifying CRAs after finding the balance wrong, which is required under furnisher duties.",
+      "confidence": 0.9,
+      "material_facts": [
+        {"fact": "Furnisher agreed balance was wrong", "source": "narrative", "basis": "explicit"},
+        {"fact": "Furnisher did not notify CRAs or provide correction", "source": "narrative", "basis": "explicit"},
+        {"fact": "Direct dispute identified account, disputed field, attached payoff statement", "source": "narrative", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Failure is explicit in the narrative log."
+    },
+    {
+      "determination_id": "fcra.dispute_resolution_compliant",
+      "outcome": "false",
+      "rationale": "Furnisher failed to propagate the correction to CRAs after finding the item inaccurate, breaching dispute resolution obligations.",
+      "confidence": 0.9,
+      "material_facts": [
+        {"fact": "No CRA notification or correction by furnisher", "source": "narrative", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Non-compliance is directly stated."
+    },
+    {
+      "determination_id": "fcra.frivolous_termination_valid",
+      "outcome": "undetermined",
+      "rationale": "No frivolous termination invoked in the packet.",
+      "confidence": 0.6,
+      "material_facts": [
+        {"fact": "Furnisher accepted dispute and investigated", "source": "narrative", "basis": "explicit"}
+      ],
+      "uncertainty_flags": ["empty"],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Not addressed; cannot declare applicability."
+    },
+    {
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "outcome": "undetermined",
+      "rationale": "No CRA-routed dispute described; indirect furnisher duties not triggered in packet.",
+      "confidence": 0.5,
+      "material_facts": [
+        {"fact": "Dispute was direct, not via CRA", "source": "narrative", "basis": "explicit"}
+      ],
+      "uncertainty_flags": ["source limitation"],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Not applicable in this direct-dispute scenario."
+    },
+    {
+      "determination_id": "fcra.human_review_required",
+      "outcome": "true",
+      "rationale": "Furnisher found the item inaccurate but failed to correct/notify CRAs, leaving inaccurate reporting in place — a material compliance failure warranting human review.",
+      "confidence": 0.85,
+      "material_facts": [
+        {"fact": "Furnisher inaction after finding inaccuracy", "source": "narrative", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Routing triggered by material compliance gap explicit in the log."
+    },
+    {
+      "determination_id": "fcra.item_treatment_satisfied",
+      "outcome": "false",
+      "rationale": "Item determined inaccurate but not modified/deleted in CRA reporting; treatment duty not satisfied.",
+      "confidence": 0.9,
+      "material_facts": [
+        {"fact": "Furnisher agreed balance wrong but did not correct CRA reporting", "source": "narrative", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Explicit failure stated."
+    },
+    {
+      "determination_id": "fcra.reinsertion_satisfied",
+      "outcome": "undetermined",
+      "rationale": "No deletion or reinsertion described.",
+      "confidence": 0.6,
+      "material_facts": [
+        {"fact": "No deletion event described", "source": "narrative", "basis": "missing"}
+      ],
+      "uncertainty_flags": ["empty"],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Not applicable; no reinsertion facts."
+    },
+    {
+      "determination_id": "fcra.reseller_satisfied",
+      "outcome": "undetermined",
+      "rationale": "No reseller in this packet.",
+      "confidence": 0.6,
+      "material_facts": [
+        {"fact": "No reseller mentioned", "source": "narrative", "basis": "open_world_absence"}
+      ],
+      "uncertainty_flags": ["empty"],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Cannot make positive claim from absence."
+    },
+    {
+      "determination_id": "fcra.results_notice_satisfied",
+      "outcome": "undetermined",
+      "rationale": "Pertains to CRA results notice; no CRA reinvestigation here.",
+      "confidence": 0.5,
+      "material_facts": [
+        {"fact": "Furnisher reported results to consumer; no CRA notice described", "source": "narrative", "basis": "explicit"}
+      ],
+      "uncertainty_flags": ["source limitation"],
+      "human_review_considered": false,
+      "anti_overclaim_check": "CRA-specific duty not addressed."
+    }
+  ],
+  "case_level_notes": "Direct furnisher dispute: qualifying dispute was investigated and found valid, but furnisher failed to correct CRA records, breaching furnisher direct-dispute duties and overall dispute-resolution compliance. Human review warranted."
+}

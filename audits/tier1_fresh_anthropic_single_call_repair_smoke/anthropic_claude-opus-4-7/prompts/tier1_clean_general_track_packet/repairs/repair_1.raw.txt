@@ -1,0 +1,44 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.two_test_opportunities_completed_if_initial_fail",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["test_results"],
+      "evidence": "English test passed, civics test passed.",
+      "explanation": "Conditional atom phrased 'if initial fail'/'when applicable'; applicant passed on initial attempt so retest branch is not applicable.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.reexamination_passed_or_exception",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["test_results"],
+      "evidence": "English test passed, civics test passed.",
+      "explanation": "Conditional atom; reexamination only triggered by initial failure, which did not occur, so the branch is not applicable and binds true.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.simplified_civics_administered_when_applicable",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["intake_summary", "test_results"],
+      "evidence": "Applicant is 37 years old and has been an LPR for 6 years; civics test passed.",
+      "explanation": "Simplified civics applies only to qualifying older long-term LPRs (e.g., 65/20). Applicant's age and LPR duration do not trigger simplified civics, so the 'when applicable' branch is not applicable.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.medical_disability_exception_approved",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of any medical disability exception in the packet.",
+      "explanation": "This atom asserts an affirmative approval of a disability exception; the record does not address it and no closed-world source covers disability exceptions, so it remains undetermined.",
+      "confidence": 0.6
+    }
+  ]
+}

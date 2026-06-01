@@ -1,0 +1,194 @@
+{
+  "fcra.business_days_to_frivolous_notice": {
+    "atom_id": "fcra.business_days_to_frivolous_notice",
+    "basis": "not_found",
+    "confidence": 0.9,
+    "evidence": "No timing or frivolous-notice events stated in the narrative.",
+    "explanation": "Numeric value cannot be computed; no dates available and no frivolous-determination event has occurred.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.consumer_identity_sufficient": {
+    "atom_id": "fcra.consumer_identity_sufficient",
+    "basis": "conflicting_evidence",
+    "confidence": 0.75,
+    "evidence": "Two addresses for a person with a similar name, inconsistent dates; CRA \"has not yet received enough material to decide.\"",
+    "explanation": "Evidence on identity sufficiency is mixed and explicitly insufficient per the CRA itself. Cannot resolve to true or false.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.consumer_statement_filed": {
+    "atom_id": "fcra.consumer_statement_filed",
+    "basis": "open_world_absence",
+    "confidence": 0.85,
+    "evidence": "Reinvestigation has not concluded; no mention of a consumer brief statement filed post-reinvestigation.",
+    "explanation": "The triggering condition (reinvestigation that did not resolve the dispute) has not yet occurred; narrative is silent on a filed statement. Cannot bind affirmatively.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.consumer_submission_authentic": {
+    "atom_id": "fcra.consumer_submission_authentic",
+    "basis": "open_world_absence",
+    "confidence": 0.75,
+    "evidence": "Narrative does not address authenticity of the dispute submission.",
+    "explanation": "No statements about authentication of the submitter; cannot infer either way.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.cra_compared_furnisher_response": {
+    "atom_id": "fcra.cra_compared_furnisher_response",
+    "basis": "open_world_absence",
+    "confidence": 0.75,
+    "evidence": "Narrative notes inconsistent dates across CRA file and furnisher response but does not state whether the CRA performed a comparison.",
+    "explanation": "Existence of inconsistencies does not establish whether the CRA conducted the comparison activity; record is silent on the act itself.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.cra_compared_own_file": {
+    "atom_id": "fcra.cra_compared_own_file",
+    "basis": "open_world_absence",
+    "confidence": 0.8,
+    "evidence": "No description of CRA comparing the dispute against its own file contents.",
+    "explanation": "Silent on this internal CRA activity.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.cra_considered_primary_source_documents": {
+    "atom_id": "fcra.cra_considered_primary_source_documents",
+    "basis": "open_world_absence",
+    "confidence": 0.8,
+    "evidence": "No description of CRA consideration of primary source documents; the identity theft report itself was not provided.",
+    "explanation": "Silent on CRA's consideration activity. Some primary documents (the identity theft report) are not yet in the packet, but that does not establish whether the CRA considered what was submitted.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.cra_reviewed_all_consumer_info": {
+    "atom_id": "fcra.cra_reviewed_all_consumer_info",
+    "basis": "open_world_absence",
+    "confidence": 0.8,
+    "evidence": "Narrative does not describe CRA review activities; states CRA has not yet received enough material to decide.",
+    "explanation": "Cannot affirm or deny that all consumer-submitted information was reviewed; investigation appears ongoing.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.dispute_about_completeness": {
+    "atom_id": "fcra.dispute_about_completeness",
+    "basis": "explicit_negative",
+    "confidence": 0.8,
+    "evidence": "Consumer disputes accounts as \"not mine\" \u2014 an accuracy/ownership challenge, not a completeness challenge.",
+    "explanation": "The dispute basis is affirmatively stated as 'not mine,' which characterizes the dispute as one of accuracy/ownership, not completeness. This supports a negative binding for the completeness predicate.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.dispute_duplicate_without_new_info": {
+    "atom_id": "fcra.dispute_duplicate_without_new_info",
+    "basis": "open_world_absence",
+    "confidence": 0.85,
+    "evidence": "No mention of prior disputes against which to compare.",
+    "explanation": "Cannot evaluate duplication without information about any prior dispute history.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.frivolous_determination_made": {
+    "atom_id": "fcra.frivolous_determination_made",
+    "basis": "inferred_from_record",
+    "confidence": 0.8,
+    "evidence": "Narrative states the CRA \"has not yet received enough material to decide\" the nature of the items; no frivolous/irrelevant determination is mentioned.",
+    "explanation": "The CRA has not made any determination yet, and there is no indication of a frivolous/irrelevant finding. The triggering condition for downstream frivolous-notice atoms is absent, so this can be bound false.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.frivolous_missing_info_identified": {
+    "atom_id": "fcra.frivolous_missing_info_identified",
+    "basis": "inferred_from_record",
+    "confidence": 0.75,
+    "evidence": "No frivolous determination has occurred, so the obligation to identify missing info in such a notice does not apply.",
+    "explanation": "Conditional support atom; the triggering condition is absent. Branch not applicable.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.frivolous_notice_sent": {
+    "atom_id": "fcra.frivolous_notice_sent",
+    "basis": "inferred_from_record",
+    "confidence": 0.75,
+    "evidence": "No frivolous/irrelevant determination has been made (CRA has not yet decided anything), so the conditional notice obligation has not been triggered.",
+    "explanation": "This is a conditional support atom (\"if frivolous determination made\"). Since the triggering condition is clearly absent, the branch is not applicable and binds true with inferred_from_record.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.frivolous_reason_identified": {
+    "atom_id": "fcra.frivolous_reason_identified",
+    "basis": "inferred_from_record",
+    "confidence": 0.75,
+    "evidence": "No frivolous determination has occurred, so the notice-content obligation does not apply.",
+    "explanation": "Conditional support atom; the triggering condition (frivolous determination) is absent. Branch not applicable.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.notice_through_reseller": {
+    "atom_id": "fcra.notice_through_reseller",
+    "basis": "inferred_from_record",
+    "confidence": 0.75,
+    "evidence": "Narrative describes the consumer disputing directly with the CRA; no reseller is mentioned anywhere in the packet.",
+    "explanation": "The reseller branch is a conditional/applicability gate. The triggering condition (reseller forwarding) is clearly absent from the record, so the branch is not applicable and can be bound false via inferred_from_record.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.subsequent_reports_note_dispute": {
+    "atom_id": "fcra.subsequent_reports_note_dispute",
+    "basis": "open_world_absence",
+    "confidence": 0.85,
+    "evidence": "Narrative does not mention subsequent reports or their content.",
+    "explanation": "No information about downstream reporting behavior; silence, not negation.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  }
+}

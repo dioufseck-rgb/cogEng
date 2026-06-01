@@ -1,0 +1,293 @@
+{
+  "case_id": "fcra_deep_clean_verified",
+  "case_level_notes": "Clean ordinary-course verified dispute; key timing facts explicit, disclosure-content details rely on default inference.",
+  "determinations": [
+    {
+      "anti_overclaim_check": "Trigger elements are all explicitly described in the narrative.",
+      "confidence": 0.9,
+      "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Dispute received directly on March 1",
+          "source": "narrative/cra_log"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Account and disputed month identified",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Consumer supplied servicer payment ledger as basis",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "Consumer disputed accuracy of an item, identified account/month, supplied basis (ledger), and CRA received direct notice on March 1.",
+      "uncertainty_flags": []
+    },
+    {
+      "anti_overclaim_check": "Required follows from valid trigger plus absence of frivolous termination.",
+      "confidence": 0.9,
+      "determination_id": "fcra.cra_reinvestigation_required",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "closed_world_absence",
+          "fact": "No frivolous determination made",
+          "source": "structured_fields"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Valid dispute received",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "Valid trigger exists and no frivolous termination was invoked.",
+      "uncertainty_flags": []
+    },
+    {
+      "anti_overclaim_check": "Days explicitly stated and below threshold.",
+      "confidence": 0.95,
+      "determination_id": "fcra.cra_reinvestigation_timely",
+      "human_review_considered": false,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Reinvestigation completed in 24 days",
+          "source": "narrative/structured_fields"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "Reinvestigation completed in 24 calendar days, within the 30-day limit.",
+      "uncertainty_flags": []
+    },
+    {
+      "anti_overclaim_check": "Timing and content of furnisher notice explicitly stated.",
+      "confidence": 0.9,
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "human_review_considered": false,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Furnisher notified on business day 3",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Dispute and document image forwarded",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "CRA notified furnisher on the 3rd business day, within 5 business days, and forwarded the document image.",
+      "uncertainty_flags": []
+    },
+    {
+      "anti_overclaim_check": "Narrative describes substantive comparison rather than automated coding alone.",
+      "confidence": 0.85,
+      "determination_id": "fcra.cra_consideration_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "CRA compared consumer ledger to furnisher payment history",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Furnisher response received and considered",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "CRA reviewed the consumer ledger against the furnisher payment history; no automated-only coding indicated.",
+      "uncertainty_flags": []
+    },
+    {
+      "anti_overclaim_check": "Verification outcome is explicit; treatment aligns with policy.",
+      "confidence": 0.85,
+      "determination_id": "fcra.item_treatment_satisfied",
+      "human_review_considered": false,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Item recorded as verified",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "Item verified after reasonable reinvestigation, may remain; status recorded current.",
+      "uncertainty_flags": []
+    },
+    {
+      "anti_overclaim_check": "Timing explicit; disclosure elements rely on default-binding inference within scope.",
+      "confidence": 0.75,
+      "determination_id": "fcra.results_notice_satisfied",
+      "human_review_considered": false,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Results mailed 4 business days after completion with revised report",
+          "source": "narrative"
+        },
+        {
+          "basis": "inferred",
+          "fact": "Disclosure rights presumed included per default binding",
+          "source": "structured_fields"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "Results notice with revised report mailed 4 business days after completion, within 5-business-day window. Required disclosure elements inferred from default binding as ordinary-course.",
+      "uncertainty_flags": [
+        "specific disclosure content not itemized in narrative"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Verification result reported; no inaccuracy found so other downstream actions inapplicable.",
+      "confidence": 0.8,
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "human_review_considered": false,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Furnisher response verifying the late payment received",
+          "source": "furnisher_acdv"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Furnisher completed in 18 days",
+          "source": "structured_fields"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "Furnisher investigated and reported verification result to CRA within the reinvestigation period (18 days).",
+      "uncertainty_flags": []
+    },
+    {
+      "anti_overclaim_check": "Marked satisfied/N-A because pathway not triggered.",
+      "confidence": 0.9,
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "human_review_considered": false,
+      "material_facts": [
+        {
+          "basis": "closed_world_absence",
+          "fact": "No direct dispute to furnisher indicated",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "No direct dispute to furnisher in this packet; provision not applicable.",
+      "uncertainty_flags": []
+    },
+    {
+      "anti_overclaim_check": "Reseller pathway not triggered.",
+      "confidence": 0.95,
+      "determination_id": "fcra.reseller_satisfied",
+      "human_review_considered": false,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Direct receipt by CRA",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "Dispute received directly by CRA, not through a reseller; not applicable.",
+      "uncertainty_flags": []
+    },
+    {
+      "anti_overclaim_check": "N-A because no deletion.",
+      "confidence": 0.95,
+      "determination_id": "fcra.reinsertion_satisfied",
+      "human_review_considered": false,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Item verified, not deleted",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "No deletion occurred so reinsertion provisions are not applicable.",
+      "uncertainty_flags": []
+    },
+    {
+      "anti_overclaim_check": "Not triggered.",
+      "confidence": 0.95,
+      "determination_id": "fcra.frivolous_termination_valid",
+      "human_review_considered": false,
+      "material_facts": [
+        {
+          "basis": "closed_world_absence",
+          "fact": "No frivolous determination made",
+          "source": "structured_fields"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "No frivolous termination invoked; provision not applicable.",
+      "uncertainty_flags": []
+    },
+    {
+      "anti_overclaim_check": "Not applicable because no statement filed.",
+      "confidence": 0.85,
+      "determination_id": "fcra.consumer_statement_satisfied",
+      "human_review_considered": false,
+      "material_facts": [
+        {
+          "basis": "closed_world_absence",
+          "fact": "No consumer statement filed",
+          "source": "structured_fields"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "No consumer statement filed in this packet; subsequent-reporting notation provision not triggered. Statement-right disclosure inferred per default binding.",
+      "uncertainty_flags": []
+    },
+    {
+      "anti_overclaim_check": "Routing triggers absent within modeled scope.",
+      "confidence": 0.85,
+      "determination_id": "fcra.human_review_required",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "closed_world_absence",
+          "fact": "No conflicting docs, identity theft, or other triggers indicated",
+          "source": "structured_fields"
+        }
+      ],
+      "outcome": "false",
+      "rationale": "No identity theft, mixed file, court order, missing documents, material date conflict, veteran medical debt, or manual policy trigger indicated.",
+      "uncertainty_flags": []
+    },
+    {
+      "anti_overclaim_check": "Aggregate compliance follows from per-determination satisfaction supported by record.",
+      "confidence": 0.8,
+      "determination_id": "fcra.dispute_resolution_compliant",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Reinvestigation timely and reasonable",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Furnisher notice within 5 business days",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Results notice within 5 business days",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "All applicable obligations (trigger, timing, furnisher notice, consideration, treatment, results notice, furnisher indirect duties) are satisfied; inapplicable provisions correctly handled.",
+      "uncertainty_flags": []
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "cases": "audits\\fcra_credit_reporting_deep\\runtime_cases.json",
+  "model_count": 1,
+  "program": "audits\\fcra_credit_reporting_deep\\rulekit_export\\program.json",
+  "prompt_style": "governed",
+  "reference_dispositions": null,
+  "runs": [
+    {
+      "case_count": 11,
+      "cost_metrics": {
+        "avg_llm_call_latency_s": 37.07433580909326,
+        "case_count": 11,
+        "estimated_cost_usd": 2.801655,
+        "estimated_input_tokens": 53302,
+        "estimated_output_tokens": 26695,
+        "estimated_total_tokens": 79997,
+        "llm_call_count": 11,
+        "llm_latency_s": 407.8176939000259,
+        "pricing_basis": "configured_usd_per_million_tokens",
+        "token_count_basis": "estimated_from_character_count"
+      },
+      "disposition_count": 165,
+      "model": "claude-opus-4-7",
+      "outcome_counts": {
+        "false": 31,
+        "true": 110,
+        "undetermined": 24
+      },
+      "prompt_style": "governed",
+      "provider": "anthropic",
+      "reference_agreement": {
+        "agreement_rate": 0.8121212121212121,
+        "compared_count": 165,
+        "reference_agree_count": 134,
+        "reference_disagree_count": 31
+      }
+    }
+  ],
+  "seed": "rulekit\\orchestrator\\example_seeds\\fcra_credit_reporting_dispute_deep.yaml"
+}

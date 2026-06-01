@@ -1,0 +1,191 @@
+{
+  "case_id": "fcra_deep_clean_verified",
+  "determinations": [
+    {
+      "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+      "outcome": "true",
+      "rationale": "Dispute received directly, consumer identified, account and month identified, and ledger supplied as basis.",
+      "confidence": 0.9,
+      "material_facts": [
+        {"fact": "Dispute received directly March 1 with account/month identified and ledger supplied", "source": "narrative", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Trigger elements are explicitly described in the packet."
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_required",
+      "outcome": "true",
+      "rationale": "Valid dispute trigger received and no frivolous termination applied.",
+      "confidence": 0.9,
+      "material_facts": [
+        {"fact": "Valid dispute packet received by CRA", "source": "narrative", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Follows directly from valid trigger in packet."
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_timely",
+      "outcome": "true",
+      "rationale": "Reinvestigation completed in 24 calendar days, within the 30-day window.",
+      "confidence": 0.95,
+      "material_facts": [
+        {"fact": "Completed in 24 calendar days", "source": "narrative", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Explicit timing in packet."
+    },
+    {
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "outcome": "true",
+      "rationale": "CRA forwarded dispute and document image to furnisher on third business day, within the 5-business-day window, including the consumer's relevant document.",
+      "confidence": 0.9,
+      "material_facts": [
+        {"fact": "Dispute and document image sent to furnisher on third business day", "source": "narrative", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Timing and document inclusion explicit in packet."
+    },
+    {
+      "determination_id": "fcra.cra_consideration_satisfied",
+      "outcome": "true",
+      "rationale": "CRA reviewed consumer ledger against furnisher payment history, comparing relevant submissions, not relying on automated coding alone.",
+      "confidence": 0.85,
+      "material_facts": [
+        {"fact": "CRA reviewed consumer ledger against furnisher payment history", "source": "narrative", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Explicit comparison described in packet."
+    },
+    {
+      "determination_id": "fcra.item_treatment_satisfied",
+      "outcome": "true",
+      "rationale": "Furnisher verified the late payment after reasonable review; item recorded as verified, which is permissible when no defect is found.",
+      "confidence": 0.85,
+      "material_facts": [
+        {"fact": "Furnisher verified late payment; item recorded as verified", "source": "narrative", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Packet states verification outcome explicitly."
+    },
+    {
+      "determination_id": "fcra.results_notice_satisfied",
+      "outcome": "undetermined",
+      "rationale": "Results mailed with revised report within 4 business days of completion, but packet does not state inclusion of the required disclosures (procedure description right, furnisher contact, consumer statement right, deletion notification right).",
+      "confidence": 0.6,
+      "material_facts": [
+        {"fact": "Results with revised report mailed 4 business days after completion", "source": "narrative", "basis": "explicit"},
+        {"fact": "No mention of required disclosure contents", "source": "narrative", "basis": "open_world_absence"}
+      ],
+      "uncertainty_flags": ["missing disclosure-content facts"],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Open narrative silence on disclosure contents is not proof of inclusion; marking undetermined preserves uncertainty."
+    },
+    {
+      "determination_id": "fcra.frivolous_termination_valid",
+      "outcome": "true",
+      "rationale": "No frivolous termination was invoked; provision is not applicable.",
+      "confidence": 0.9,
+      "material_facts": [
+        {"fact": "Reinvestigation completed; no termination occurred", "source": "narrative", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Not applicable since investigation was completed."
+    },
+    {
+      "determination_id": "fcra.reinsertion_satisfied",
+      "outcome": "true",
+      "rationale": "No deletion or reinsertion occurred; provision not applicable.",
+      "confidence": 0.9,
+      "material_facts": [
+        {"fact": "Item was verified, not deleted", "source": "narrative", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Not applicable in this packet."
+    },
+    {
+      "determination_id": "fcra.reseller_satisfied",
+      "outcome": "true",
+      "rationale": "Dispute was received directly by the CRA; no reseller involved.",
+      "confidence": 0.9,
+      "material_facts": [
+        {"fact": "Dispute received directly by CRA", "source": "narrative", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Not applicable here."
+    },
+    {
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "outcome": "undetermined",
+      "rationale": "Furnisher responded verifying the late payment, but packet does not state whether the furnisher reviewed the consumer ledger or reported results to other nationwide CRAs as required.",
+      "confidence": 0.55,
+      "material_facts": [
+        {"fact": "Furnisher response verified the late payment", "source": "narrative", "basis": "explicit"},
+        {"fact": "No detail on furnisher's review of consumer info or cross-CRA reporting", "source": "narrative", "basis": "open_world_absence"}
+      ],
+      "uncertainty_flags": ["missing detail on furnisher investigation steps"],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Narrative silence on furnisher's full duties is not proof of compliance."
+    },
+    {
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "outcome": "true",
+      "rationale": "No direct furnisher dispute occurred; consumer disputed through the CRA.",
+      "confidence": 0.9,
+      "material_facts": [
+        {"fact": "Dispute submitted to CRA, not directly to furnisher", "source": "narrative", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Not applicable."
+    },
+    {
+      "determination_id": "fcra.consumer_statement_satisfied",
+      "outcome": "undetermined",
+      "rationale": "Item was verified and dispute unresolved in consumer's favor; packet does not indicate whether the consumer was offered or filed a brief statement, or whether subsequent reporting handling applies.",
+      "confidence": 0.5,
+      "material_facts": [
+        {"fact": "Item remained verified after reinvestigation", "source": "narrative", "basis": "explicit"},
+        {"fact": "No mention of consumer statement option in results notice", "source": "narrative", "basis": "open_world_absence"}
+      ],
+      "uncertainty_flags": ["missing facts on consumer statement disclosure or filing"],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Cannot conclude satisfaction without disclosure or statement facts."
+    },
+    {
+      "determination_id": "fcra.human_review_required",
+      "outcome": "false",
+      "rationale": "No material evidence conflict, identity theft, court order, veteran medical debt, missing primary documents, or date conflict is present. Some compliance details are open-narrative gaps but not routing triggers.",
+      "confidence": 0.7,
+      "material_facts": [
+        {"fact": "No conflicting dates, identity theft, or court-order issues present", "source": "narrative", "basis": "open_world_absence"},
+        {"fact": "Primary document (ledger) is in record", "source": "narrative", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Routing triggers are not present in the packet."
+    },
+    {
+      "determination_id": "fcra.dispute_resolution_compliant",
+      "outcome": "undetermined",
+      "rationale": "Core CRA duties (trigger, timing, furnisher notice, consideration, item treatment) appear satisfied, but results-notice disclosures, furnisher indirect duty details, and consumer statement handling are not described, leaving overall compliance uncertain.",
+      "confidence": 0.55,
+      "material_facts": [
+        {"fact": "Trigger, timing, furnisher notice, consideration explicitly satisfied", "source": "narrative", "basis": "explicit"},
+        {"fact": "Disclosure contents and furnisher full duties not described", "source": "narrative", "basis": "open_world_absence"}
+      ],
+      "uncertainty_flags": ["missing disclosure contents", "missing furnisher duty details"],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Cannot declare overall compliance when component determinations remain undetermined."
+    }
+  ],
+  "case_level_notes": "Packet shows a clean, timely reinvestigation with verified outcome, but lacks explicit detail on results-notice disclosures, furnisher cross-CRA reporting, and consumer statement handling."
+}

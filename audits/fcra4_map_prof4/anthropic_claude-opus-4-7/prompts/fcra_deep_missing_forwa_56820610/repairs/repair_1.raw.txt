@@ -1,0 +1,114 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative describes a single dispute with new attached evidence (bank statements, settlement letter); no prior dispute referenced.",
+      "explanation": "The dispute is presented as an original submission with new supporting documents, so it is not substantially the same as a prior dispute lacking new information.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "bound",
+      "value": 0,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "No frivolous or irrelevant determination is described; CRA processed the dispute and forwarded to furnisher.",
+      "explanation": "Conditional/triggering condition (frivolous determination) is absent, so the timing requirement is not applicable.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.additional_relevant_info_received_in_30_days",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative recounts CRA processing timeline events and mentions no further consumer submissions after the initial dispute package.",
+      "explanation": "Closed-world scope covers CRA processing timeline events; absence of any additional submission supports a negative binding.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.item_status_recorded_current",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not describe whether CRA recorded the current status of the disputed tradeline.",
+      "explanation": "This procedural detail is outside the narrative's closed-world scope and is not addressed; cannot be inferred.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.business_days_to_results_notice",
+      "status": "undetermined",
+      "value": 0,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative states the results notice was 'timely' but provides no business-day count.",
+      "explanation": "Numeric value not provided; qualitative 'timely' does not yield a specific number.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.notice_states_reinvestigation_completed",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative refers to a 'timely results notice' but does not enumerate its contents.",
+      "explanation": "Notice contents are outside the closed-world scope and not described; cannot bind.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.revised_consumer_report_provided",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not state whether a consumer report based on the revised file was included.",
+      "explanation": "Notice contents not enumerated; cannot infer.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.procedure_description_right_disclosed",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not describe disclosures within the results notice.",
+      "explanation": "Notice content disclosures are outside the narrative's closed-world scope.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.furnisher_contact_disclosed_if_available",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not describe procedure-right notice contents or furnisher contact disclosure.",
+      "explanation": "Triggering condition (procedure-right notice contents) is not described; cannot confirm absence of the underlying disclosure context to infer not applicable.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.consumer_statement_right_disclosed",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not describe contents of the results notice regarding consumer statement rights.",
+      "explanation": "Notice contents outside closed-world scope; cannot bind.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.notification_right_disclosed",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not describe notification-right disclosure in the results notice.",
+      "explanation": "Notice contents outside closed-world scope; cannot bind.",
+      "confidence": 0.5
+    }
+  ]
+}

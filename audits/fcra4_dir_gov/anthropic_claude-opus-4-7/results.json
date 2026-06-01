@@ -1,0 +1,2303 @@
+{
+  "case_count": 4,
+  "case_runs": [
+    {
+      "case_id": "fcra_deep_clean_verified",
+      "cost": {
+        "estimated_cost_usd": 0.223635,
+        "input_tokens": 2979,
+        "latency_s": 39.06365790001291,
+        "output_tokens": 2386,
+        "total_tokens": 5365
+      },
+      "parsed": {
+        "case_id": "fcra_deep_clean_verified",
+        "case_level_notes": "Case appears largely compliant on its face, but several disclosure and furnisher-investigation specifics are absent from the narrative, warranting undetermined outcomes rather than affirmative compliance findings.",
+        "determinations": [
+          {
+            "anti_overclaim_check": "All trigger elements explicitly stated.",
+            "confidence": 0.9,
+            "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+            "human_review_considered": false,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "Dispute received directly on March 1",
+                "source": "narrative"
+              },
+              {
+                "basis": "explicit",
+                "fact": "Account and month identified; ledger supplied",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "true",
+            "rationale": "Consumer identified account, disputed field (30-day late notation), supplied basis with a servicer payment ledger, and CRA received notice directly.",
+            "uncertainty_flags": []
+          },
+          {
+            "anti_overclaim_check": "Follows directly from valid trigger.",
+            "confidence": 0.9,
+            "determination_id": "fcra.cra_reinvestigation_required",
+            "human_review_considered": false,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "Valid dispute packet received",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "true",
+            "rationale": "Valid trigger present and no frivolous termination invoked.",
+            "uncertainty_flags": []
+          },
+          {
+            "anti_overclaim_check": "Explicit timing in packet.",
+            "confidence": 0.95,
+            "determination_id": "fcra.cra_reinvestigation_timely",
+            "human_review_considered": false,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "Reinvestigation completed in 24 calendar days",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "true",
+            "rationale": "Reinvestigation completed in 24 calendar days, within the 30-day window.",
+            "uncertainty_flags": []
+          },
+          {
+            "anti_overclaim_check": "Timing and content explicit.",
+            "confidence": 0.9,
+            "determination_id": "fcra.cra_furnisher_notice_satisfied",
+            "human_review_considered": false,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "Furnisher notified on third business day with document image",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "true",
+            "rationale": "CRA sent the dispute and document image to the furnisher on the third business day, within the 5-business-day window, and included relevant consumer information.",
+            "uncertainty_flags": []
+          },
+          {
+            "anti_overclaim_check": "Explicit comparison documented.",
+            "confidence": 0.85,
+            "determination_id": "fcra.cra_consideration_satisfied",
+            "human_review_considered": false,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "CRA reviewed ledger against furnisher payment history",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "true",
+            "rationale": "CRA reviewed consumer ledger against furnisher payment history, not relying solely on automated coding.",
+            "uncertainty_flags": []
+          },
+          {
+            "anti_overclaim_check": "Outcome explicit in packet.",
+            "confidence": 0.85,
+            "determination_id": "fcra.item_treatment_satisfied",
+            "human_review_considered": false,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "Furnisher verified late payment; item recorded as verified",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "true",
+            "rationale": "Item was verified after reasonable reinvestigation; no defect found, so item may remain.",
+            "uncertainty_flags": []
+          },
+          {
+            "anti_overclaim_check": "Cannot confirm all required disclosure elements from narrative.",
+            "confidence": 0.7,
+            "determination_id": "fcra.results_notice_satisfied",
+            "human_review_considered": true,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "Results with revised report mailed 4 business days after completion",
+                "source": "narrative"
+              },
+              {
+                "basis": "open_world_absence",
+                "fact": "No mention of required disclosures in results notice",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "undetermined",
+            "rationale": "Results were mailed within 4 business days with revised report, but the packet does not state whether required disclosures (procedure description right, furnisher contact, consumer statement right, deletion notification right) were included.",
+            "uncertainty_flags": [
+              "missing fact"
+            ]
+          },
+          {
+            "anti_overclaim_check": "No termination present to validate.",
+            "confidence": 0.95,
+            "determination_id": "fcra.frivolous_termination_valid",
+            "human_review_considered": false,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "CRA completed reinvestigation rather than terminating",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "false",
+            "rationale": "No frivolous or irrelevant termination was invoked; the CRA performed a full reinvestigation.",
+            "uncertainty_flags": []
+          },
+          {
+            "anti_overclaim_check": "Not applicable status follows from explicit facts.",
+            "confidence": 0.95,
+            "determination_id": "fcra.reinsertion_satisfied",
+            "human_review_considered": false,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "Item verified, not deleted",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "true",
+            "rationale": "No deletion occurred, so reinsertion safeguards are not applicable.",
+            "uncertainty_flags": []
+          },
+          {
+            "anti_overclaim_check": "No reseller in packet.",
+            "confidence": 0.95,
+            "determination_id": "fcra.reseller_satisfied",
+            "human_review_considered": false,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "Dispute received directly by CRA on March 1",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "true",
+            "rationale": "Dispute was received directly by the CRA; no reseller involved.",
+            "uncertainty_flags": []
+          },
+          {
+            "anti_overclaim_check": "Verification alone does not establish full s-2(b) compliance.",
+            "confidence": 0.6,
+            "determination_id": "fcra.furnisher_indirect_satisfied",
+            "human_review_considered": true,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "Furnisher response verifying the late payment",
+                "source": "narrative"
+              },
+              {
+                "basis": "open_world_absence",
+                "fact": "No details on furnisher's internal investigation scope or cross-CRA reporting",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "undetermined",
+            "rationale": "Furnisher provided a verifying response, but the packet does not state whether the furnisher reviewed all relevant information (e.g., the consumer ledger image) or reported to other nationwide CRAs as required.",
+            "uncertainty_flags": [
+              "missing fact"
+            ]
+          },
+          {
+            "anti_overclaim_check": "Not applicable based on facts.",
+            "confidence": 0.9,
+            "determination_id": "fcra.direct_furnisher_satisfied",
+            "human_review_considered": false,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "Dispute received by CRA, not direct to furnisher",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "true",
+            "rationale": "No direct furnisher dispute is described; only an indirect CRA-routed dispute occurred.",
+            "uncertainty_flags": []
+          },
+          {
+            "anti_overclaim_check": "Absence from narrative is not proof of compliance.",
+            "confidence": 0.6,
+            "determination_id": "fcra.consumer_statement_satisfied",
+            "human_review_considered": true,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "Item verified; dispute not resolved for consumer",
+                "source": "narrative"
+              },
+              {
+                "basis": "open_world_absence",
+                "fact": "No mention of consumer statement option or filing",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "undetermined",
+            "rationale": "Reinvestigation did not resolve the dispute in the consumer's favor (item verified). Packet does not say whether the consumer filed a brief statement or whether the right to add one was disclosed.",
+            "uncertainty_flags": [
+              "missing fact"
+            ]
+          },
+          {
+            "anti_overclaim_check": "Routing triggers not present in narrative.",
+            "confidence": 0.75,
+            "determination_id": "fcra.human_review_required",
+            "human_review_considered": true,
+            "material_facts": [
+              {
+                "basis": "open_world_absence",
+                "fact": "No conflicts, identity theft, or special-process triggers in packet",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "false",
+            "rationale": "No identity theft, mixed file, court order, veteran medical debt, material date conflict, or missing primary documents are indicated. Documents were considered and compared.",
+            "uncertainty_flags": []
+          },
+          {
+            "anti_overclaim_check": "Cannot certify overall compliance without confirming all sub-elements.",
+            "confidence": 0.65,
+            "determination_id": "fcra.dispute_resolution_compliant",
+            "human_review_considered": true,
+            "material_facts": [
+              {
+                "basis": "open_world_absence",
+                "fact": "Multiple sub-determinations undetermined due to missing details",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "undetermined",
+            "rationale": "Core trigger, timing, furnisher notice, consideration, and item treatment appear satisfied, but results-notice disclosure elements, furnisher s-2(b) scope details, and consumer-statement handling are not established by the packet.",
+            "uncertainty_flags": [
+              "missing fact"
+            ]
+          }
+        ]
+      },
+      "prompt": "You are adjudicating a policy case directly.\n\nThis is a governed-style direct baseline for research. Unlike RuleKit, you are\nstill deciding the policy dispositions yourself, but you must apply conservative\nevidence discipline similar to a governed Map + engine flow.\n\nImportant:\n- Return only JSON.\n- Do not invent facts not in the case packet.\n- Do not infer a satisfied determination merely because the packet looks clean.\n- Use \"undetermined\" when required facts are missing, conflicting, approximate,\n  source-limited, or outside the case packet's natural scope.\n- Treat source-scope carefully: absence from an open narrative is not proof of\n  absence; absence from an official/checking source may matter only within its\n  closed-world scope.\n- If a case has pending, inconsistent, missing, source-limited, or complex facts,\n  preserve that uncertainty or mark human-review-related determinations\n  accordingly.\n- For each determination, identify the material facts relied on, uncertainty\n  flags, and whether human review should be considered.\n- Use \"true\" when the determination is satisfied.\n- Use \"false\" when the determination is not satisfied.\n\nPOLICY SUMMARY\n==============\nBounded benchmark policy for consumer reporting disputes.\n\n1. Consumer reporting agency reinvestigation trigger. If the completeness or\naccuracy of an item in a consumer's file is disputed by the consumer and the\nconsumer reporting agency receives notice directly or through a reseller, the\nagency must conduct a reasonable reinvestigation unless a valid frivolous or\nirrelevant termination applies. A valid dispute packet identifies the consumer,\nidentifies the account or item, identifies the disputed field or information,\nand explains the basis for the dispute.\n\n2. Time to complete reinvestigation. The agency must complete the\nreinvestigation within 30 calendar days after receipt of the dispute notice.\nThe period may extend to 45 days if the consumer provides additional relevant\ninformation during the initial 30-day period. The extension does not apply\nwhere the agency determines within the initial period that the item is\ninaccurate, incomplete, or cannot be verified.\n\n3. Furnisher notice by the agency. Before the end of the fifth business day\nafter receiving the consumer's dispute, the agency must notify the furnisher\nof the disputed information when the item was provided by a furnisher, and the\nnotice must include all relevant information received from the consumer. Later\nrelevant information received during the reinvestigation period must be\npromptly provided to the furnisher. Primary source documents submitted by the\nconsumer, such as bank statements, creditor letters, account statements,\npolice reports, identity theft affidavits, court orders, or billing\nstatements, are relevant when they bear on the disputed information.\n\n4. Consideration and reasonableness. The agency must review and consider all\nrelevant consumer information. A reasonable reinvestigation compares the\nconsumer submission, furnisher response, agency file, prior dispute history\nwhere relevant, and public-record source where relevant. Automated dispute\ncoding alone is not sufficient when primary documents or material conflicts\nrequire review.\n\n5. Treatment of inaccurate, incomplete, or unverifiable information. If the\nitem is inaccurate, incomplete, or cannot be verified, the agency must delete\nor modify it as appropriate and record the current status. If no defect is\nfound after a reasonable reinvestigation, the item may remain verified.\n\n6. Results notice. Within 5 business days after completing the\nreinvestigation, the agency must provide written results to the consumer. The\nnotice must state that the reinvestigation is completed, include a consumer\nreport based on the revised file, disclose the right to request a description\nof the procedure used, disclose furnisher contact information if reasonably\navailable, disclose the right to add a consumer statement, and disclose the\nright to request notification of deletion or dispute notation.\n\n7. Reinsertion. Deleted information may not be reinserted unless the furnisher\ncertifies that it is complete and accurate. If reinserted, the agency must\nnotify the consumer in writing within 5 business days, identify the furnisher,\nprovide the consumer's right to add a statement, and maintain reasonable\nprocedures designed to prevent improper reappearance.\n\n8. Frivolous or irrelevant disputes. The agency may terminate a\nreinvestigation if it reasonably determines that the dispute is frivolous or\nirrelevant, including because the consumer failed to provide sufficient\ninformation to investigate. The agency must notify the consumer within 5\nbusiness days after that determination, provide the reasons, and identify any\ninformation required to investigate.\n\n9. Reseller disputes. A reseller receiving a dispute must determine within 5\nbusiness days whether the item is incomplete or inaccurate because of a\nreseller act or omission. If so, the reseller must correct or delete within 20\ndays. If not, the reseller must convey the dispute and all relevant consumer\ninformation to the consumer reporting agency that supplied the information and\nreconvey the agency's completion notice to the consumer.\n\n10. Furnisher duties after agency notice. A furnisher receiving agency notice\nof a dispute must investigate the disputed information, review all relevant\ninformation provided by the agency, report results to the agency, report\nincomplete or inaccurate findings to other nationwide consumer reporting\nagencies to which it furnished the information, and modify, delete, or\npermanently block information that is inaccurate, incomplete, or unverifiable.\nThe furnisher must complete those actions before the agency's applicable\nreinvestigation deadline.\n\n11. Furnisher direct disputes. A furnisher receiving a qualifying direct\ndispute must investigate when the notice is sent to a proper address, identifies\nthe account or relationship, identifies the specific disputed information,\nexplains the basis for the dispute, includes reasonably required supporting\ndocumentation, and concerns covered account or relationship information. The\nfurnisher need not investigate direct disputes outside the regulatory scope,\nincluding disputes solely about public records, fraud alerts, active duty\nalerts, information from another furnisher, or disputes reasonably believed to\nbe submitted by a credit repair organization. A furnisher that invokes a\nfrivolous or irrelevant direct-dispute determination must notify the consumer\nwithin 5 business days, state reasons, and identify information needed to\ninvestigate.\n\n12. Consumer statement and subsequent reporting. If the reinvestigation does\nnot resolve the dispute and the consumer files a brief statement, subsequent\nreports containing the disputed information must clearly note that it is\ndisputed and include the statement or an accurate codification or summary,\nunless there are reasonable grounds to believe the statement is frivolous or\nirrelevant.\n\n13. Human-review routing. Human review is required when material evidence\nconflicts remain unresolved, identity theft or mixed-file evidence is\nplausible but incomplete, a court order or legal-liability issue changes the\nordinary fact-verification path, a veteran medical debt claim may require the\nspecial deletion process, primary source documents are missing from the record,\nmaterial dates conflict, or the institution's manual review policy is\ntriggered.\n\n\nSELECTED DETERMINATIONS\n=======================\n[\n  {\n    \"description\": \"Consumer statement handling is satisfied or not applicable.\",\n    \"determination_id\": \"fcra.consumer_statement_satisfied\",\n    \"source_span\": \"15 U.S.C. 1681i(b)-(c)\"\n  },\n  {\n    \"description\": \"CRA consideration and reasonableness duties are satisfied.\",\n    \"determination_id\": \"fcra.cra_consideration_satisfied\",\n    \"source_span\": \"15 U.S.C. 1681i(a)(4)\"\n  },\n  {\n    \"description\": \"CRA furnisher-notice transmission duties are satisfied.\",\n    \"determination_id\": \"fcra.cra_furnisher_notice_satisfied\",\n    \"source_span\": \"15 U.S.C. 1681i(a)(2)\"\n  },\n  {\n    \"description\": \"The CRA is required to conduct a reinvestigation.\",\n    \"determination_id\": \"fcra.cra_reinvestigation_required\",\n    \"source_span\": \"15 U.S.C. 1681i(a)(1)\"\n  },\n  {\n    \"description\": \"CRA reinvestigation timing is satisfied.\",\n    \"determination_id\": \"fcra.cra_reinvestigation_timely\",\n    \"source_span\": \"15 U.S.C. 1681i(a)(1)\"\n  },\n  {\n    \"description\": \"A valid CRA reinvestigation trigger exists.\",\n    \"determination_id\": \"fcra.cra_reinvestigation_trigger_valid\",\n    \"source_span\": \"15 U.S.C. 1681i(a)(1)\"\n  },\n  {\n    \"description\": \"Furnisher direct-dispute duties are satisfied or not applicable.\",\n    \"determination_id\": \"fcra.direct_furnisher_satisfied\",\n    \"source_span\": \"12 CFR 1022.43\"\n  },\n  {\n    \"description\": \"Selected credit-reporting dispute obligations are satisfied.\",\n    \"determination_id\": \"fcra.dispute_resolution_compliant\",\n    \"source_span\": \"benchmark root\"\n  },\n  {\n    \"description\": \"Any frivolous or irrelevant termination is valid.\",\n    \"determination_id\": \"fcra.frivolous_termination_valid\",\n    \"source_span\": \"15 U.S.C. 1681i(a)(3)\"\n  },\n  {\n    \"description\": \"Furnisher duties after CRA notice are satisfied or not applicable.\",\n    \"determination_id\": \"fcra.furnisher_indirect_satisfied\",\n    \"source_span\": \"15 U.S.C. 1681s-2(b)\"\n  },\n  {\n    \"description\": \"The packet requires human review routing.\",\n    \"determination_id\": \"fcra.human_review_required\",\n    \"source_span\": \"benchmark routing policy\"\n  },\n  {\n    \"description\": \"Inaccurate, incomplete, or unverifiable information is treated correctly.\",\n    \"determination_id\": \"fcra.item_treatment_satisfied\",\n    \"source_span\": \"15 U.S.C. 1681i(a)(5)\"\n  },\n  {\n    \"description\": \"Reinsertion safeguards are satisfied or not applicable.\",\n    \"determination_id\": \"fcra.reinsertion_satisfied\",\n    \"source_span\": \"15 U.S.C. 1681i(a)(5)(B)\"\n  },\n  {\n    \"description\": \"Reseller dispute duties are satisfied or not applicable.\",\n    \"determination_id\": \"fcra.reseller_satisfied\",\n    \"source_span\": \"15 U.S.C. 1681i(f)\"\n  },\n  {\n    \"description\": \"CRA results notice duties are satisfied.\",\n    \"determination_id\": \"fcra.results_notice_satisfied\",\n    \"source_span\": \"15 U.S.C. 1681i(a)(6)\"\n  }\n]\n\nCASE PACKET\n===========\n{\n  \"case_id\": \"fcra_deep_clean_verified\",\n  \"narrative\": \"The consumer disputed a 30-day late notation on an auto loan. The CRA file shows the dispute was received directly on March 1, the account and month were identified, and the consumer supplied a servicer payment ledger. The CRA sent the dispute and document image to the furnisher on the third business day, completed the reinvestigation in 24 calendar days, received a furnisher response verifying the late payment, reviewed the consumer ledger against the furnisher payment history, recorded the item as verified, and mailed results with the revised report 4 business days after completion.\\n\",\n  \"structured_fields\": {},\n  \"title\": \"Clean verified auto-loan dispute\"\n}\n\nReturn ONLY this JSON shape:\n{\n  \"case_id\": \"fcra_deep_clean_verified\",\n  \"determinations\": [\n    {\n      \"determination_id\": \"id from SELECTED DETERMINATIONS\",\n      \"outcome\": \"true|false|undetermined\",\n      \"rationale\": \"brief reason based on the case packet\",\n      \"confidence\": 0.0,\n      \"material_facts\": [\n        {\n          \"fact\": \"short fact\",\n          \"source\": \"source title/id or narrative\",\n          \"basis\": \"explicit|closed_world_absence|open_world_absence|inferred|missing|conflicting\"\n        }\n      ],\n      \"uncertainty_flags\": [\"missing fact, source limitation, conflict, or empty\"],\n      \"human_review_considered\": true,\n      \"anti_overclaim_check\": \"why this is not overclaiming beyond the packet\"\n    }\n  ],\n  \"case_level_notes\": \"brief note or empty string\"\n}\n",
+      "raw_response": "{\n  \"case_id\": \"fcra_deep_clean_verified\",\n  \"determinations\": [\n    {\n      \"determination_id\": \"fcra.cra_reinvestigation_trigger_valid\",\n      \"outcome\": \"true\",\n      \"rationale\": \"Consumer identified account, disputed field (30-day late notation), supplied basis with a servicer payment ledger, and CRA received notice directly.\",\n      \"confidence\": 0.9,\n      \"material_facts\": [\n        {\"fact\": \"Dispute received directly on March 1\", \"source\": \"narrative\", \"basis\": \"explicit\"},\n        {\"fact\": \"Account and month identified; ledger supplied\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [],\n      \"human_review_considered\": false,\n      \"anti_overclaim_check\": \"All trigger elements explicitly stated.\"\n    },\n    {\n      \"determination_id\": \"fcra.cra_reinvestigation_required\",\n      \"outcome\": \"true\",\n      \"rationale\": \"Valid trigger present and no frivolous termination invoked.\",\n      \"confidence\": 0.9,\n      \"material_facts\": [\n        {\"fact\": \"Valid dispute packet received\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [],\n      \"human_review_considered\": false,\n      \"anti_overclaim_check\": \"Follows directly from valid trigger.\"\n    },\n    {\n      \"determination_id\": \"fcra.cra_reinvestigation_timely\",\n      \"outcome\": \"true\",\n      \"rationale\": \"Reinvestigation completed in 24 calendar days, within the 30-day window.\",\n      \"confidence\": 0.95,\n      \"material_facts\": [\n        {\"fact\": \"Reinvestigation completed in 24 calendar days\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [],\n      \"human_review_considered\": false,\n      \"anti_overclaim_check\": \"Explicit timing in packet.\"\n    },\n    {\n      \"determination_id\": \"fcra.cra_furnisher_notice_satisfied\",\n      \"outcome\": \"true\",\n      \"rationale\": \"CRA sent the dispute and document image to the furnisher on the third business day, within the 5-business-day window, and included relevant consumer information.\",\n      \"confidence\": 0.9,\n      \"material_facts\": [\n        {\"fact\": \"Furnisher notified on third business day with document image\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [],\n      \"human_review_considered\": false,\n      \"anti_overclaim_check\": \"Timing and content explicit.\"\n    },\n    {\n      \"determination_id\": \"fcra.cra_consideration_satisfied\",\n      \"outcome\": \"true\",\n      \"rationale\": \"CRA reviewed consumer ledger against furnisher payment history, not relying solely on automated coding.\",\n      \"confidence\": 0.85,\n      \"material_facts\": [\n        {\"fact\": \"CRA reviewed ledger against furnisher payment history\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [],\n      \"human_review_considered\": false,\n      \"anti_overclaim_check\": \"Explicit comparison documented.\"\n    },\n    {\n      \"determination_id\": \"fcra.item_treatment_satisfied\",\n      \"outcome\": \"true\",\n      \"rationale\": \"Item was verified after reasonable reinvestigation; no defect found, so item may remain.\",\n      \"confidence\": 0.85,\n      \"material_facts\": [\n        {\"fact\": \"Furnisher verified late payment; item recorded as verified\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [],\n      \"human_review_considered\": false,\n      \"anti_overclaim_check\": \"Outcome explicit in packet.\"\n    },\n    {\n      \"determination_id\": \"fcra.results_notice_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"Results were mailed within 4 business days with revised report, but the packet does not state whether required disclosures (procedure description right, furnisher contact, consumer statement right, deletion notification right) were included.\",\n      \"confidence\": 0.7,\n      \"material_facts\": [\n        {\"fact\": \"Results with revised report mailed 4 business days after completion\", \"source\": \"narrative\", \"basis\": \"explicit\"},\n        {\"fact\": \"No mention of required disclosures in results notice\", \"source\": \"narrative\", \"basis\": \"open_world_absence\"}\n      ],\n      \"uncertainty_flags\": [\"missing fact\"],\n      \"human_review_considered\": true,\n      \"anti_overclaim_check\": \"Cannot confirm all required disclosure elements from narrative.\"\n    },\n    {\n      \"determination_id\": \"fcra.frivolous_termination_valid\",\n      \"outcome\": \"false\",\n      \"rationale\": \"No frivolous or irrelevant termination was invoked; the CRA performed a full reinvestigation.\",\n      \"confidence\": 0.95,\n      \"material_facts\": [\n        {\"fact\": \"CRA completed reinvestigation rather than terminating\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [],\n      \"human_review_considered\": false,\n      \"anti_overclaim_check\": \"No termination present to validate.\"\n    },\n    {\n      \"determination_id\": \"fcra.reinsertion_satisfied\",\n      \"outcome\": \"true\",\n      \"rationale\": \"No deletion occurred, so reinsertion safeguards are not applicable.\",\n      \"confidence\": 0.95,\n      \"material_facts\": [\n        {\"fact\": \"Item verified, not deleted\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [],\n      \"human_review_considered\": false,\n      \"anti_overclaim_check\": \"Not applicable status follows from explicit facts.\"\n    },\n    {\n      \"determination_id\": \"fcra.reseller_satisfied\",\n      \"outcome\": \"true\",\n      \"rationale\": \"Dispute was received directly by the CRA; no reseller involved.\",\n      \"confidence\": 0.95,\n      \"material_facts\": [\n        {\"fact\": \"Dispute received directly by CRA on March 1\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [],\n      \"human_review_considered\": false,\n      \"anti_overclaim_check\": \"No reseller in packet.\"\n    },\n    {\n      \"determination_id\": \"fcra.furnisher_indirect_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"Furnisher provided a verifying response, but the packet does not state whether the furnisher reviewed all relevant information (e.g., the consumer ledger image) or reported to other nationwide CRAs as required.\",\n      \"confidence\": 0.6,\n      \"material_facts\": [\n        {\"fact\": \"Furnisher response verifying the late payment\", \"source\": \"narrative\", \"basis\": \"explicit\"},\n        {\"fact\": \"No details on furnisher's internal investigation scope or cross-CRA reporting\", \"source\": \"narrative\", \"basis\": \"open_world_absence\"}\n      ],\n      \"uncertainty_flags\": [\"missing fact\"],\n      \"human_review_considered\": true,\n      \"anti_overclaim_check\": \"Verification alone does not establish full s-2(b) compliance.\"\n    },\n    {\n      \"determination_id\": \"fcra.direct_furnisher_satisfied\",\n      \"outcome\": \"true\",\n      \"rationale\": \"No direct furnisher dispute is described; only an indirect CRA-routed dispute occurred.\",\n      \"confidence\": 0.9,\n      \"material_facts\": [\n        {\"fact\": \"Dispute received by CRA, not direct to furnisher\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [],\n      \"human_review_considered\": false,\n      \"anti_overclaim_check\": \"Not applicable based on facts.\"\n    },\n    {\n      \"determination_id\": \"fcra.consumer_statement_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"Reinvestigation did not resolve the dispute in the consumer's favor (item verified). Packet does not say whether the consumer filed a brief statement or whether the right to add one was disclosed.\",\n      \"confidence\": 0.6,\n      \"material_facts\": [\n        {\"fact\": \"Item verified; dispute not resolved for consumer\", \"source\": \"narrative\", \"basis\": \"explicit\"},\n        {\"fact\": \"No mention of consumer statement option or filing\", \"source\": \"narrative\", \"basis\": \"open_world_absence\"}\n      ],\n      \"uncertainty_flags\": [\"missing fact\"],\n      \"human_review_considered\": true,\n      \"anti_overclaim_check\": \"Absence from narrative is not proof of compliance.\"\n    },\n    {\n      \"determination_id\": \"fcra.human_review_required\",\n      \"outcome\": \"false\",\n      \"rationale\": \"No identity theft, mixed file, court order, veteran medical debt, material date conflict, or missing primary documents are indicated. Documents were considered and compared.\",\n      \"confidence\": 0.75,\n      \"material_facts\": [\n        {\"fact\": \"No conflicts, identity theft, or special-process triggers in packet\", \"source\": \"narrative\", \"basis\": \"open_world_absence\"}\n      ],\n      \"uncertainty_flags\": [],\n      \"human_review_considered\": true,\n      \"anti_overclaim_check\": \"Routing triggers not present in narrative.\"\n    },\n    {\n      \"determination_id\": \"fcra.dispute_resolution_compliant\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"Core trigger, timing, furnisher notice, consideration, and item treatment appear satisfied, but results-notice disclosure elements, furnisher s-2(b) scope details, and consumer-statement handling are not established by the packet.\",\n      \"confidence\": 0.65,\n      \"material_facts\": [\n        {\"fact\": \"Multiple sub-determinations undetermined due to missing details\", \"source\": \"narrative\", \"basis\": \"open_world_absence\"}\n      ],\n      \"uncertainty_flags\": [\"missing fact\"],\n      \"human_review_considered\": true,\n      \"anti_overclaim_check\": \"Cannot certify overall compliance without confirming all sub-elements.\"\n    }\n  ],\n  \"case_level_notes\": \"Case appears largely compliant on its face, but several disclosure and furnisher-investigation specifics are absent from the narrative, warranting undetermined outcomes rather than affirmative compliance findings.\"\n}"
+    },
+    {
+      "case_id": "fcra_deep_missing_forwarded_bank_statement",
+      "cost": {
+        "estimated_cost_usd": 0.24828,
+        "input_tokens": 2947,
+        "latency_s": 41.217352399995434,
+        "output_tokens": 2721,
+        "total_tokens": 5668
+      },
+      "parsed": {
+        "case_id": "fcra_deep_missing_forwarded_bank_statement",
+        "case_level_notes": "Core failure: CRA's failure to transmit primary source documents (bank statements, creditor letter) to the furnisher, combined with reliance on a generic dispute code, taints the reinvestigation. Human review required to resolve the underlying accuracy conflict.",
+        "determinations": [
+          {
+            "anti_overclaim_check": "Trigger elements explicitly stated in narrative.",
+            "confidence": 0.9,
+            "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+            "human_review_considered": false,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "Consumer disputed charged-off balance with bank statements and creditor letter",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "true",
+            "rationale": "Consumer disputed a specific item (charged-off balance) and provided basis (settlement payment) with supporting documents.",
+            "uncertainty_flags": []
+          },
+          {
+            "anti_overclaim_check": "Directly follows from valid trigger per policy.",
+            "confidence": 0.9,
+            "determination_id": "fcra.cra_reinvestigation_required",
+            "human_review_considered": false,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "CRA received dispute and processed it",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "true",
+            "rationale": "Valid dispute received; no frivolous termination indicated.",
+            "uncertainty_flags": []
+          },
+          {
+            "anti_overclaim_check": "Failure to forward relevant documents is explicitly stated in the narrative.",
+            "confidence": 0.9,
+            "determination_id": "fcra.cra_furnisher_notice_satisfied",
+            "human_review_considered": true,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "Generic 'claims paid' code sent on day 4",
+                "source": "narrative"
+              },
+              {
+                "basis": "explicit",
+                "fact": "Document images were not sent or made available to furnisher",
+                "source": "narrative/processing log"
+              },
+              {
+                "basis": "explicit",
+                "fact": "Bank statements and creditor letter are primary source documents bearing on the dispute",
+                "source": "policy"
+              }
+            ],
+            "outcome": "false",
+            "rationale": "Although notice was sent on day 4 (within 5 business days), the notice did not include all relevant information from the consumer\u2014the document images (bank statements, creditor letter) were not forwarded. Policy requires the notice to include all relevant information received.",
+            "uncertainty_flags": []
+          },
+          {
+            "anti_overclaim_check": "Timing explicitly stated.",
+            "confidence": 0.95,
+            "determination_id": "fcra.cra_reinvestigation_timely",
+            "human_review_considered": false,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "CRA completed within 29 days",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "true",
+            "rationale": "CRA completed within 29 days, inside the 30-day window.",
+            "uncertainty_flags": []
+          },
+          {
+            "anti_overclaim_check": "Based on explicit narrative facts about coding-only handling and missing document transmission.",
+            "confidence": 0.9,
+            "determination_id": "fcra.cra_consideration_satisfied",
+            "human_review_considered": true,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "CRA coded the dispute with a generic code",
+                "source": "narrative"
+              },
+              {
+                "basis": "explicit",
+                "fact": "Primary source documents not forwarded",
+                "source": "narrative"
+              },
+              {
+                "basis": "explicit",
+                "fact": "Furnisher verified old balance despite settlement evidence",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "false",
+            "rationale": "CRA used automated dispute coding alone and failed to ensure the furnisher received primary documents (bank statements, creditor letter) that materially conflict with the reported balance. Policy explicitly states automated coding alone is insufficient when primary documents require review.",
+            "uncertainty_flags": [
+              "No evidence CRA independently reviewed the documents"
+            ]
+          },
+          {
+            "anti_overclaim_check": "Insufficient information to determine final accuracy; conflict preserved.",
+            "confidence": 0.6,
+            "determination_id": "fcra.item_treatment_satisfied",
+            "human_review_considered": true,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "Furnisher verified old balance",
+                "source": "narrative"
+              },
+              {
+                "basis": "explicit",
+                "fact": "Settlement letter and bank statements suggest possible inaccuracy",
+                "source": "narrative"
+              },
+              {
+                "basis": "explicit",
+                "fact": "Documents not forwarded to furnisher",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "undetermined",
+            "rationale": "The furnisher verified the old balance, but verification occurred without the relevant primary documents. Whether the item is in fact inaccurate/unverifiable cannot be determined from the packet; the verification may be unreliable due to upstream CRA failure.",
+            "uncertainty_flags": [
+              "material conflict between consumer documents and furnisher verification"
+            ]
+          },
+          {
+            "anti_overclaim_check": "Timing confirmed but content elements not in packet.",
+            "confidence": 0.6,
+            "determination_id": "fcra.results_notice_satisfied",
+            "human_review_considered": false,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "Timely results notice sent",
+                "source": "narrative"
+              },
+              {
+                "basis": "missing",
+                "fact": "Contents of notice not described",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "undetermined",
+            "rationale": "Narrative states results notice was timely, but does not describe its contents (required disclosures regarding procedure, furnisher contact, consumer statement right, deletion notification right).",
+            "uncertainty_flags": [
+              "missing fact about required notice disclosures"
+            ]
+          },
+          {
+            "anti_overclaim_check": "Packet silent; cannot assert satisfied or not applicable.",
+            "confidence": 0.6,
+            "determination_id": "fcra.consumer_statement_satisfied",
+            "human_review_considered": false,
+            "material_facts": [
+              {
+                "basis": "missing",
+                "fact": "No mention of consumer statement",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "undetermined",
+            "rationale": "No information in packet about whether the consumer filed a brief statement after the unresolved dispute.",
+            "uncertainty_flags": [
+              "missing fact"
+            ]
+          },
+          {
+            "anti_overclaim_check": "No termination was invoked; not applicable.",
+            "confidence": 0.85,
+            "determination_id": "fcra.frivolous_termination_valid",
+            "human_review_considered": false,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "CRA conducted reinvestigation, no termination",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "true",
+            "rationale": "No frivolous termination occurred; the agency proceeded with reinvestigation, so this is not applicable/trivially valid.",
+            "uncertainty_flags": []
+          },
+          {
+            "anti_overclaim_check": "Verification without relevant documents indicates duty unmet even if CRA caused gap.",
+            "confidence": 0.7,
+            "determination_id": "fcra.furnisher_indirect_satisfied",
+            "human_review_considered": true,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "Furnisher verified balance despite settlement evidence",
+                "source": "narrative"
+              },
+              {
+                "basis": "explicit",
+                "fact": "Furnisher did not receive primary documents",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "false",
+            "rationale": "Furnisher verified the old balance, but did so without all relevant information because the CRA did not forward primary documents. The furnisher's duty to review all relevant information could not be met, and the verification of an item that may be inaccurate suggests duty likely not satisfied. However, partial fault lies with CRA's transmission failure.",
+            "uncertainty_flags": [
+              "Furnisher's actual review scope not detailed"
+            ]
+          },
+          {
+            "anti_overclaim_check": "Direct-dispute scenario absent from packet.",
+            "confidence": 0.9,
+            "determination_id": "fcra.direct_furnisher_satisfied",
+            "human_review_considered": false,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "Dispute was filed with CRA, not direct to furnisher",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "true",
+            "rationale": "No direct dispute to furnisher described; not applicable.",
+            "uncertainty_flags": []
+          },
+          {
+            "anti_overclaim_check": "Not applicable in this scope.",
+            "confidence": 0.9,
+            "determination_id": "fcra.reseller_satisfied",
+            "human_review_considered": false,
+            "material_facts": [
+              {
+                "basis": "open_world_absence",
+                "fact": "No reseller mentioned",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "true",
+            "rationale": "No reseller involvement described; not applicable.",
+            "uncertainty_flags": []
+          },
+          {
+            "anti_overclaim_check": "Reinsertion provisions not triggered.",
+            "confidence": 0.9,
+            "determination_id": "fcra.reinsertion_satisfied",
+            "human_review_considered": false,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "Item was verified, not deleted",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "true",
+            "rationale": "No deletion occurred and no reinsertion described; not applicable.",
+            "uncertainty_flags": []
+          },
+          {
+            "anti_overclaim_check": "Routing triggers explicitly satisfied per policy section 13.",
+            "confidence": 0.95,
+            "determination_id": "fcra.human_review_required",
+            "human_review_considered": true,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "Primary documents not forwarded to furnisher",
+                "source": "narrative"
+              },
+              {
+                "basis": "explicit",
+                "fact": "Conflict between settlement evidence and verified balance",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "true",
+            "rationale": "Material evidence conflict (settlement documents vs. furnisher verification) remains unresolved, and primary source documents were missing from the furnisher's review record. Routing policy triggers apply.",
+            "uncertainty_flags": []
+          },
+          {
+            "anti_overclaim_check": "Non-compliance follows directly from explicit narrative failures.",
+            "confidence": 0.9,
+            "determination_id": "fcra.dispute_resolution_compliant",
+            "human_review_considered": true,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "Documents not forwarded",
+                "source": "narrative"
+              },
+              {
+                "basis": "explicit",
+                "fact": "Generic code used",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "false",
+            "rationale": "CRA failed to forward relevant primary documents to the furnisher and relied on automated coding, undermining furnisher-notice and consideration duties. Overall compliance not met.",
+            "uncertainty_flags": []
+          }
+        ]
+      },
+      "prompt": "You are adjudicating a policy case directly.\n\nThis is a governed-style direct baseline for research. Unlike RuleKit, you are\nstill deciding the policy dispositions yourself, but you must apply conservative\nevidence discipline similar to a governed Map + engine flow.\n\nImportant:\n- Return only JSON.\n- Do not invent facts not in the case packet.\n- Do not infer a satisfied determination merely because the packet looks clean.\n- Use \"undetermined\" when required facts are missing, conflicting, approximate,\n  source-limited, or outside the case packet's natural scope.\n- Treat source-scope carefully: absence from an open narrative is not proof of\n  absence; absence from an official/checking source may matter only within its\n  closed-world scope.\n- If a case has pending, inconsistent, missing, source-limited, or complex facts,\n  preserve that uncertainty or mark human-review-related determinations\n  accordingly.\n- For each determination, identify the material facts relied on, uncertainty\n  flags, and whether human review should be considered.\n- Use \"true\" when the determination is satisfied.\n- Use \"false\" when the determination is not satisfied.\n\nPOLICY SUMMARY\n==============\nBounded benchmark policy for consumer reporting disputes.\n\n1. Consumer reporting agency reinvestigation trigger. If the completeness or\naccuracy of an item in a consumer's file is disputed by the consumer and the\nconsumer reporting agency receives notice directly or through a reseller, the\nagency must conduct a reasonable reinvestigation unless a valid frivolous or\nirrelevant termination applies. A valid dispute packet identifies the consumer,\nidentifies the account or item, identifies the disputed field or information,\nand explains the basis for the dispute.\n\n2. Time to complete reinvestigation. The agency must complete the\nreinvestigation within 30 calendar days after receipt of the dispute notice.\nThe period may extend to 45 days if the consumer provides additional relevant\ninformation during the initial 30-day period. The extension does not apply\nwhere the agency determines within the initial period that the item is\ninaccurate, incomplete, or cannot be verified.\n\n3. Furnisher notice by the agency. Before the end of the fifth business day\nafter receiving the consumer's dispute, the agency must notify the furnisher\nof the disputed information when the item was provided by a furnisher, and the\nnotice must include all relevant information received from the consumer. Later\nrelevant information received during the reinvestigation period must be\npromptly provided to the furnisher. Primary source documents submitted by the\nconsumer, such as bank statements, creditor letters, account statements,\npolice reports, identity theft affidavits, court orders, or billing\nstatements, are relevant when they bear on the disputed information.\n\n4. Consideration and reasonableness. The agency must review and consider all\nrelevant consumer information. A reasonable reinvestigation compares the\nconsumer submission, furnisher response, agency file, prior dispute history\nwhere relevant, and public-record source where relevant. Automated dispute\ncoding alone is not sufficient when primary documents or material conflicts\nrequire review.\n\n5. Treatment of inaccurate, incomplete, or unverifiable information. If the\nitem is inaccurate, incomplete, or cannot be verified, the agency must delete\nor modify it as appropriate and record the current status. If no defect is\nfound after a reasonable reinvestigation, the item may remain verified.\n\n6. Results notice. Within 5 business days after completing the\nreinvestigation, the agency must provide written results to the consumer. The\nnotice must state that the reinvestigation is completed, include a consumer\nreport based on the revised file, disclose the right to request a description\nof the procedure used, disclose furnisher contact information if reasonably\navailable, disclose the right to add a consumer statement, and disclose the\nright to request notification of deletion or dispute notation.\n\n7. Reinsertion. Deleted information may not be reinserted unless the furnisher\ncertifies that it is complete and accurate. If reinserted, the agency must\nnotify the consumer in writing within 5 business days, identify the furnisher,\nprovide the consumer's right to add a statement, and maintain reasonable\nprocedures designed to prevent improper reappearance.\n\n8. Frivolous or irrelevant disputes. The agency may terminate a\nreinvestigation if it reasonably determines that the dispute is frivolous or\nirrelevant, including because the consumer failed to provide sufficient\ninformation to investigate. The agency must notify the consumer within 5\nbusiness days after that determination, provide the reasons, and identify any\ninformation required to investigate.\n\n9. Reseller disputes. A reseller receiving a dispute must determine within 5\nbusiness days whether the item is incomplete or inaccurate because of a\nreseller act or omission. If so, the reseller must correct or delete within 20\ndays. If not, the reseller must convey the dispute and all relevant consumer\ninformation to the consumer reporting agency that supplied the information and\nreconvey the agency's completion notice to the consumer.\n\n10. Furnisher duties after agency notice. A furnisher receiving agency notice\nof a dispute must investigate the disputed information, review all relevant\ninformation provided by the agency, report results to the agency, report\nincomplete or inaccurate findings to other nationwide consumer reporting\nagencies to which it furnished the information, and modify, delete, or\npermanently block information that is inaccurate, incomplete, or unverifiable.\nThe furnisher must complete those actions before the agency's applicable\nreinvestigation deadline.\n\n11. Furnisher direct disputes. A furnisher receiving a qualifying direct\ndispute must investigate when the notice is sent to a proper address, identifies\nthe account or relationship, identifies the specific disputed information,\nexplains the basis for the dispute, includes reasonably required supporting\ndocumentation, and concerns covered account or relationship information. The\nfurnisher need not investigate direct disputes outside the regulatory scope,\nincluding disputes solely about public records, fraud alerts, active duty\nalerts, information from another furnisher, or disputes reasonably believed to\nbe submitted by a credit repair organization. A furnisher that invokes a\nfrivolous or irrelevant direct-dispute determination must notify the consumer\nwithin 5 business days, state reasons, and identify information needed to\ninvestigate.\n\n12. Consumer statement and subsequent reporting. If the reinvestigation does\nnot resolve the dispute and the consumer files a brief statement, subsequent\nreports containing the disputed information must clearly note that it is\ndisputed and include the statement or an accurate codification or summary,\nunless there are reasonable grounds to believe the statement is frivolous or\nirrelevant.\n\n13. Human-review routing. Human review is required when material evidence\nconflicts remain unresolved, identity theft or mixed-file evidence is\nplausible but incomplete, a court order or legal-liability issue changes the\nordinary fact-verification path, a veteran medical debt claim may require the\nspecial deletion process, primary source documents are missing from the record,\nmaterial dates conflict, or the institution's manual review policy is\ntriggered.\n\n\nSELECTED DETERMINATIONS\n=======================\n[\n  {\n    \"description\": \"Consumer statement handling is satisfied or not applicable.\",\n    \"determination_id\": \"fcra.consumer_statement_satisfied\",\n    \"source_span\": \"15 U.S.C. 1681i(b)-(c)\"\n  },\n  {\n    \"description\": \"CRA consideration and reasonableness duties are satisfied.\",\n    \"determination_id\": \"fcra.cra_consideration_satisfied\",\n    \"source_span\": \"15 U.S.C. 1681i(a)(4)\"\n  },\n  {\n    \"description\": \"CRA furnisher-notice transmission duties are satisfied.\",\n    \"determination_id\": \"fcra.cra_furnisher_notice_satisfied\",\n    \"source_span\": \"15 U.S.C. 1681i(a)(2)\"\n  },\n  {\n    \"description\": \"The CRA is required to conduct a reinvestigation.\",\n    \"determination_id\": \"fcra.cra_reinvestigation_required\",\n    \"source_span\": \"15 U.S.C. 1681i(a)(1)\"\n  },\n  {\n    \"description\": \"CRA reinvestigation timing is satisfied.\",\n    \"determination_id\": \"fcra.cra_reinvestigation_timely\",\n    \"source_span\": \"15 U.S.C. 1681i(a)(1)\"\n  },\n  {\n    \"description\": \"A valid CRA reinvestigation trigger exists.\",\n    \"determination_id\": \"fcra.cra_reinvestigation_trigger_valid\",\n    \"source_span\": \"15 U.S.C. 1681i(a)(1)\"\n  },\n  {\n    \"description\": \"Furnisher direct-dispute duties are satisfied or not applicable.\",\n    \"determination_id\": \"fcra.direct_furnisher_satisfied\",\n    \"source_span\": \"12 CFR 1022.43\"\n  },\n  {\n    \"description\": \"Selected credit-reporting dispute obligations are satisfied.\",\n    \"determination_id\": \"fcra.dispute_resolution_compliant\",\n    \"source_span\": \"benchmark root\"\n  },\n  {\n    \"description\": \"Any frivolous or irrelevant termination is valid.\",\n    \"determination_id\": \"fcra.frivolous_termination_valid\",\n    \"source_span\": \"15 U.S.C. 1681i(a)(3)\"\n  },\n  {\n    \"description\": \"Furnisher duties after CRA notice are satisfied or not applicable.\",\n    \"determination_id\": \"fcra.furnisher_indirect_satisfied\",\n    \"source_span\": \"15 U.S.C. 1681s-2(b)\"\n  },\n  {\n    \"description\": \"The packet requires human review routing.\",\n    \"determination_id\": \"fcra.human_review_required\",\n    \"source_span\": \"benchmark routing policy\"\n  },\n  {\n    \"description\": \"Inaccurate, incomplete, or unverifiable information is treated correctly.\",\n    \"determination_id\": \"fcra.item_treatment_satisfied\",\n    \"source_span\": \"15 U.S.C. 1681i(a)(5)\"\n  },\n  {\n    \"description\": \"Reinsertion safeguards are satisfied or not applicable.\",\n    \"determination_id\": \"fcra.reinsertion_satisfied\",\n    \"source_span\": \"15 U.S.C. 1681i(a)(5)(B)\"\n  },\n  {\n    \"description\": \"Reseller dispute duties are satisfied or not applicable.\",\n    \"determination_id\": \"fcra.reseller_satisfied\",\n    \"source_span\": \"15 U.S.C. 1681i(f)\"\n  },\n  {\n    \"description\": \"CRA results notice duties are satisfied.\",\n    \"determination_id\": \"fcra.results_notice_satisfied\",\n    \"source_span\": \"15 U.S.C. 1681i(a)(6)\"\n  }\n]\n\nCASE PACKET\n===========\n{\n  \"case_id\": \"fcra_deep_missing_forwarded_bank_statement\",\n  \"narrative\": \"The consumer disputed a charged-off credit card balance and attached bank statements plus a creditor letter showing a settlement payment. The CRA coded the dispute and sent a generic \\\"claims paid\\\" code to the furnisher on day 4, but the processing log says the document images were not sent or made available. The furnisher verified the old balance. The CRA completed within 29 days and sent a timely results notice.\\n\",\n  \"structured_fields\": {},\n  \"title\": \"Bank statement not forwarded to furnisher\"\n}\n\nReturn ONLY this JSON shape:\n{\n  \"case_id\": \"fcra_deep_missing_forwarded_bank_statement\",\n  \"determinations\": [\n    {\n      \"determination_id\": \"id from SELECTED DETERMINATIONS\",\n      \"outcome\": \"true|false|undetermined\",\n      \"rationale\": \"brief reason based on the case packet\",\n      \"confidence\": 0.0,\n      \"material_facts\": [\n        {\n          \"fact\": \"short fact\",\n          \"source\": \"source title/id or narrative\",\n          \"basis\": \"explicit|closed_world_absence|open_world_absence|inferred|missing|conflicting\"\n        }\n      ],\n      \"uncertainty_flags\": [\"missing fact, source limitation, conflict, or empty\"],\n      \"human_review_considered\": true,\n      \"anti_overclaim_check\": \"why this is not overclaiming beyond the packet\"\n    }\n  ],\n  \"case_level_notes\": \"brief note or empty string\"\n}\n",
+      "raw_response": "{\n  \"case_id\": \"fcra_deep_missing_forwarded_bank_statement\",\n  \"determinations\": [\n    {\n      \"determination_id\": \"fcra.cra_reinvestigation_trigger_valid\",\n      \"outcome\": \"true\",\n      \"rationale\": \"Consumer disputed a specific item (charged-off balance) and provided basis (settlement payment) with supporting documents.\",\n      \"confidence\": 0.9,\n      \"material_facts\": [\n        {\"fact\": \"Consumer disputed charged-off balance with bank statements and creditor letter\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [],\n      \"human_review_considered\": false,\n      \"anti_overclaim_check\": \"Trigger elements explicitly stated in narrative.\"\n    },\n    {\n      \"determination_id\": \"fcra.cra_reinvestigation_required\",\n      \"outcome\": \"true\",\n      \"rationale\": \"Valid dispute received; no frivolous termination indicated.\",\n      \"confidence\": 0.9,\n      \"material_facts\": [\n        {\"fact\": \"CRA received dispute and processed it\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [],\n      \"human_review_considered\": false,\n      \"anti_overclaim_check\": \"Directly follows from valid trigger per policy.\"\n    },\n    {\n      \"determination_id\": \"fcra.cra_furnisher_notice_satisfied\",\n      \"outcome\": \"false\",\n      \"rationale\": \"Although notice was sent on day 4 (within 5 business days), the notice did not include all relevant information from the consumer\u2014the document images (bank statements, creditor letter) were not forwarded. Policy requires the notice to include all relevant information received.\",\n      \"confidence\": 0.9,\n      \"material_facts\": [\n        {\"fact\": \"Generic 'claims paid' code sent on day 4\", \"source\": \"narrative\", \"basis\": \"explicit\"},\n        {\"fact\": \"Document images were not sent or made available to furnisher\", \"source\": \"narrative/processing log\", \"basis\": \"explicit\"},\n        {\"fact\": \"Bank statements and creditor letter are primary source documents bearing on the dispute\", \"source\": \"policy\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [],\n      \"human_review_considered\": true,\n      \"anti_overclaim_check\": \"Failure to forward relevant documents is explicitly stated in the narrative.\"\n    },\n    {\n      \"determination_id\": \"fcra.cra_reinvestigation_timely\",\n      \"outcome\": \"true\",\n      \"rationale\": \"CRA completed within 29 days, inside the 30-day window.\",\n      \"confidence\": 0.95,\n      \"material_facts\": [\n        {\"fact\": \"CRA completed within 29 days\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [],\n      \"human_review_considered\": false,\n      \"anti_overclaim_check\": \"Timing explicitly stated.\"\n    },\n    {\n      \"determination_id\": \"fcra.cra_consideration_satisfied\",\n      \"outcome\": \"false\",\n      \"rationale\": \"CRA used automated dispute coding alone and failed to ensure the furnisher received primary documents (bank statements, creditor letter) that materially conflict with the reported balance. Policy explicitly states automated coding alone is insufficient when primary documents require review.\",\n      \"confidence\": 0.9,\n      \"material_facts\": [\n        {\"fact\": \"CRA coded the dispute with a generic code\", \"source\": \"narrative\", \"basis\": \"explicit\"},\n        {\"fact\": \"Primary source documents not forwarded\", \"source\": \"narrative\", \"basis\": \"explicit\"},\n        {\"fact\": \"Furnisher verified old balance despite settlement evidence\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [\"No evidence CRA independently reviewed the documents\"],\n      \"human_review_considered\": true,\n      \"anti_overclaim_check\": \"Based on explicit narrative facts about coding-only handling and missing document transmission.\"\n    },\n    {\n      \"determination_id\": \"fcra.item_treatment_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"The furnisher verified the old balance, but verification occurred without the relevant primary documents. Whether the item is in fact inaccurate/unverifiable cannot be determined from the packet; the verification may be unreliable due to upstream CRA failure.\",\n      \"confidence\": 0.6,\n      \"material_facts\": [\n        {\"fact\": \"Furnisher verified old balance\", \"source\": \"narrative\", \"basis\": \"explicit\"},\n        {\"fact\": \"Settlement letter and bank statements suggest possible inaccuracy\", \"source\": \"narrative\", \"basis\": \"explicit\"},\n        {\"fact\": \"Documents not forwarded to furnisher\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [\"material conflict between consumer documents and furnisher verification\"],\n      \"human_review_considered\": true,\n      \"anti_overclaim_check\": \"Insufficient information to determine final accuracy; conflict preserved.\"\n    },\n    {\n      \"determination_id\": \"fcra.results_notice_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"Narrative states results notice was timely, but does not describe its contents (required disclosures regarding procedure, furnisher contact, consumer statement right, deletion notification right).\",\n      \"confidence\": 0.6,\n      \"material_facts\": [\n        {\"fact\": \"Timely results notice sent\", \"source\": \"narrative\", \"basis\": \"explicit\"},\n        {\"fact\": \"Contents of notice not described\", \"source\": \"narrative\", \"basis\": \"missing\"}\n      ],\n      \"uncertainty_flags\": [\"missing fact about required notice disclosures\"],\n      \"human_review_considered\": false,\n      \"anti_overclaim_check\": \"Timing confirmed but content elements not in packet.\"\n    },\n    {\n      \"determination_id\": \"fcra.consumer_statement_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No information in packet about whether the consumer filed a brief statement after the unresolved dispute.\",\n      \"confidence\": 0.6,\n      \"material_facts\": [\n        {\"fact\": \"No mention of consumer statement\", \"source\": \"narrative\", \"basis\": \"missing\"}\n      ],\n      \"uncertainty_flags\": [\"missing fact\"],\n      \"human_review_considered\": false,\n      \"anti_overclaim_check\": \"Packet silent; cannot assert satisfied or not applicable.\"\n    },\n    {\n      \"determination_id\": \"fcra.frivolous_termination_valid\",\n      \"outcome\": \"true\",\n      \"rationale\": \"No frivolous termination occurred; the agency proceeded with reinvestigation, so this is not applicable/trivially valid.\",\n      \"confidence\": 0.85,\n      \"material_facts\": [\n        {\"fact\": \"CRA conducted reinvestigation, no termination\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [],\n      \"human_review_considered\": false,\n      \"anti_overclaim_check\": \"No termination was invoked; not applicable.\"\n    },\n    {\n      \"determination_id\": \"fcra.furnisher_indirect_satisfied\",\n      \"outcome\": \"false\",\n      \"rationale\": \"Furnisher verified the old balance, but did so without all relevant information because the CRA did not forward primary documents. The furnisher's duty to review all relevant information could not be met, and the verification of an item that may be inaccurate suggests duty likely not satisfied. However, partial fault lies with CRA's transmission failure.\",\n      \"confidence\": 0.7,\n      \"material_facts\": [\n        {\"fact\": \"Furnisher verified balance despite settlement evidence\", \"source\": \"narrative\", \"basis\": \"explicit\"},\n        {\"fact\": \"Furnisher did not receive primary documents\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [\"Furnisher's actual review scope not detailed\"],\n      \"human_review_considered\": true,\n      \"anti_overclaim_check\": \"Verification without relevant documents indicates duty unmet even if CRA caused gap.\"\n    },\n    {\n      \"determination_id\": \"fcra.direct_furnisher_satisfied\",\n      \"outcome\": \"true\",\n      \"rationale\": \"No direct dispute to furnisher described; not applicable.\",\n      \"confidence\": 0.9,\n      \"material_facts\": [\n        {\"fact\": \"Dispute was filed with CRA, not direct to furnisher\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [],\n      \"human_review_considered\": false,\n      \"anti_overclaim_check\": \"Direct-dispute scenario absent from packet.\"\n    },\n    {\n      \"determination_id\": \"fcra.reseller_satisfied\",\n      \"outcome\": \"true\",\n      \"rationale\": \"No reseller involvement described; not applicable.\",\n      \"confidence\": 0.9,\n      \"material_facts\": [\n        {\"fact\": \"No reseller mentioned\", \"source\": \"narrative\", \"basis\": \"open_world_absence\"}\n      ],\n      \"uncertainty_flags\": [],\n      \"human_review_considered\": false,\n      \"anti_overclaim_check\": \"Not applicable in this scope.\"\n    },\n    {\n      \"determination_id\": \"fcra.reinsertion_satisfied\",\n      \"outcome\": \"true\",\n      \"rationale\": \"No deletion occurred and no reinsertion described; not applicable.\",\n      \"confidence\": 0.9,\n      \"material_facts\": [\n        {\"fact\": \"Item was verified, not deleted\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [],\n      \"human_review_considered\": false,\n      \"anti_overclaim_check\": \"Reinsertion provisions not triggered.\"\n    },\n    {\n      \"determination_id\": \"fcra.human_review_required\",\n      \"outcome\": \"true\",\n      \"rationale\": \"Material evidence conflict (settlement documents vs. furnisher verification) remains unresolved, and primary source documents were missing from the furnisher's review record. Routing policy triggers apply.\",\n      \"confidence\": 0.95,\n      \"material_facts\": [\n        {\"fact\": \"Primary documents not forwarded to furnisher\", \"source\": \"narrative\", \"basis\": \"explicit\"},\n        {\"fact\": \"Conflict between settlement evidence and verified balance\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [],\n      \"human_review_considered\": true,\n      \"anti_overclaim_check\": \"Routing triggers explicitly satisfied per policy section 13.\"\n    },\n    {\n      \"determination_id\": \"fcra.dispute_resolution_compliant\",\n      \"outcome\": \"false\",\n      \"rationale\": \"CRA failed to forward relevant primary documents to the furnisher and relied on automated coding, undermining furnisher-notice and consideration duties. Overall compliance not met.\",\n      \"confidence\": 0.9,\n      \"material_facts\": [\n        {\"fact\": \"Documents not forwarded\", \"source\": \"narrative\", \"basis\": \"explicit\"},\n        {\"fact\": \"Generic code used\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [],\n      \"human_review_considered\": true,\n      \"anti_overclaim_check\": \"Non-compliance follows directly from explicit narrative failures.\"\n    }\n  ],\n  \"case_level_notes\": \"Core failure: CRA's failure to transmit primary source documents (bank statements, creditor letter) to the furnisher, combined with reliance on a generic dispute code, taints the reinvestigation. Human review required to resolve the underlying accuracy conflict.\"\n}"
+    },
+    {
+      "case_id": "fcra_deep_direct_furnisher_valid_not_corrected",
+      "cost": {
+        "estimated_cost_usd": 0.203445,
+        "input_tokens": 2938,
+        "latency_s": 33.187052599998424,
+        "output_tokens": 2125,
+        "total_tokens": 5063
+      },
+      "parsed": {
+        "case_id": "fcra_deep_direct_furnisher_valid_not_corrected",
+        "case_level_notes": "Direct furnisher dispute: qualifying dispute was investigated and found valid, but furnisher failed to correct CRA records, breaching furnisher direct-dispute duties and overall dispute-resolution compliance. Human review warranted.",
+        "determinations": [
+          {
+            "anti_overclaim_check": "No facts about consumer statement in packet.",
+            "confidence": 0.5,
+            "determination_id": "fcra.consumer_statement_satisfied",
+            "human_review_considered": false,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "Direct dispute to furnisher only",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "undetermined",
+            "rationale": "No information about consumer statement filing; dispute was direct to furnisher, not CRA.",
+            "uncertainty_flags": [
+              "missing fact"
+            ]
+          },
+          {
+            "anti_overclaim_check": "Packet does not describe CRA processing.",
+            "confidence": 0.5,
+            "determination_id": "fcra.cra_consideration_satisfied",
+            "human_review_considered": false,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "Dispute went to furnisher, not CRA",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "undetermined",
+            "rationale": "No CRA dispute in this case; CRA duties not triggered or addressed.",
+            "uncertainty_flags": [
+              "source limitation"
+            ]
+          },
+          {
+            "anti_overclaim_check": "Not applicable to direct dispute path.",
+            "confidence": 0.5,
+            "determination_id": "fcra.cra_furnisher_notice_satisfied",
+            "human_review_considered": false,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "No CRA dispute described",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "undetermined",
+            "rationale": "No CRA dispute received; this duty not addressed in packet.",
+            "uncertainty_flags": [
+              "source limitation"
+            ]
+          },
+          {
+            "anti_overclaim_check": "Cannot infer CRA receipt absent facts.",
+            "confidence": 0.5,
+            "determination_id": "fcra.cra_reinvestigation_required",
+            "human_review_considered": false,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "Direct dispute to furnisher",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "undetermined",
+            "rationale": "Packet describes direct furnisher dispute; no CRA notice indicated.",
+            "uncertainty_flags": [
+              "source limitation"
+            ]
+          },
+          {
+            "anti_overclaim_check": "No timing facts present.",
+            "confidence": 0.5,
+            "determination_id": "fcra.cra_reinvestigation_timely",
+            "human_review_considered": false,
+            "material_facts": [
+              {
+                "basis": "missing",
+                "fact": "No CRA process described",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "undetermined",
+            "rationale": "No CRA reinvestigation in packet to assess timing.",
+            "uncertainty_flags": [
+              "missing fact"
+            ]
+          },
+          {
+            "anti_overclaim_check": "Cannot conclude trigger without CRA receipt facts.",
+            "confidence": 0.5,
+            "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+            "human_review_considered": false,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "Dispute only to furnisher",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "undetermined",
+            "rationale": "No CRA-side dispute described in packet.",
+            "uncertainty_flags": [
+              "source limitation"
+            ]
+          },
+          {
+            "anti_overclaim_check": "Failure is explicit in the narrative log.",
+            "confidence": 0.9,
+            "determination_id": "fcra.direct_furnisher_satisfied",
+            "human_review_considered": true,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "Furnisher agreed balance was wrong",
+                "source": "narrative"
+              },
+              {
+                "basis": "explicit",
+                "fact": "Furnisher did not notify CRAs or provide correction",
+                "source": "narrative"
+              },
+              {
+                "basis": "explicit",
+                "fact": "Direct dispute identified account, disputed field, attached payoff statement",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "false",
+            "rationale": "Although furnisher investigated and reported results to consumer, it failed to correct/modify the inaccurate information by notifying CRAs after finding the balance wrong, which is required under furnisher duties.",
+            "uncertainty_flags": []
+          },
+          {
+            "anti_overclaim_check": "Non-compliance is directly stated.",
+            "confidence": 0.9,
+            "determination_id": "fcra.dispute_resolution_compliant",
+            "human_review_considered": true,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "No CRA notification or correction by furnisher",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "false",
+            "rationale": "Furnisher failed to propagate the correction to CRAs after finding the item inaccurate, breaching dispute resolution obligations.",
+            "uncertainty_flags": []
+          },
+          {
+            "anti_overclaim_check": "Not addressed; cannot declare applicability.",
+            "confidence": 0.6,
+            "determination_id": "fcra.frivolous_termination_valid",
+            "human_review_considered": false,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "Furnisher accepted dispute and investigated",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "undetermined",
+            "rationale": "No frivolous termination invoked in the packet.",
+            "uncertainty_flags": [
+              "empty"
+            ]
+          },
+          {
+            "anti_overclaim_check": "Not applicable in this direct-dispute scenario.",
+            "confidence": 0.5,
+            "determination_id": "fcra.furnisher_indirect_satisfied",
+            "human_review_considered": false,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "Dispute was direct, not via CRA",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "undetermined",
+            "rationale": "No CRA-routed dispute described; indirect furnisher duties not triggered in packet.",
+            "uncertainty_flags": [
+              "source limitation"
+            ]
+          },
+          {
+            "anti_overclaim_check": "Routing triggered by material compliance gap explicit in the log.",
+            "confidence": 0.85,
+            "determination_id": "fcra.human_review_required",
+            "human_review_considered": true,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "Furnisher inaction after finding inaccuracy",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "true",
+            "rationale": "Furnisher found the item inaccurate but failed to correct/notify CRAs, leaving inaccurate reporting in place \u2014 a material compliance failure warranting human review.",
+            "uncertainty_flags": []
+          },
+          {
+            "anti_overclaim_check": "Explicit failure stated.",
+            "confidence": 0.9,
+            "determination_id": "fcra.item_treatment_satisfied",
+            "human_review_considered": true,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "Furnisher agreed balance wrong but did not correct CRA reporting",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "false",
+            "rationale": "Item determined inaccurate but not modified/deleted in CRA reporting; treatment duty not satisfied.",
+            "uncertainty_flags": []
+          },
+          {
+            "anti_overclaim_check": "Not applicable; no reinsertion facts.",
+            "confidence": 0.6,
+            "determination_id": "fcra.reinsertion_satisfied",
+            "human_review_considered": false,
+            "material_facts": [
+              {
+                "basis": "missing",
+                "fact": "No deletion event described",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "undetermined",
+            "rationale": "No deletion or reinsertion described.",
+            "uncertainty_flags": [
+              "empty"
+            ]
+          },
+          {
+            "anti_overclaim_check": "Cannot make positive claim from absence.",
+            "confidence": 0.6,
+            "determination_id": "fcra.reseller_satisfied",
+            "human_review_considered": false,
+            "material_facts": [
+              {
+                "basis": "open_world_absence",
+                "fact": "No reseller mentioned",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "undetermined",
+            "rationale": "No reseller in this packet.",
+            "uncertainty_flags": [
+              "empty"
+            ]
+          },
+          {
+            "anti_overclaim_check": "CRA-specific duty not addressed.",
+            "confidence": 0.5,
+            "determination_id": "fcra.results_notice_satisfied",
+            "human_review_considered": false,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "Furnisher reported results to consumer; no CRA notice described",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "undetermined",
+            "rationale": "Pertains to CRA results notice; no CRA reinvestigation here.",
+            "uncertainty_flags": [
+              "source limitation"
+            ]
+          }
+        ]
+      },
+      "prompt": "You are adjudicating a policy case directly.\n\nThis is a governed-style direct baseline for research. Unlike RuleKit, you are\nstill deciding the policy dispositions yourself, but you must apply conservative\nevidence discipline similar to a governed Map + engine flow.\n\nImportant:\n- Return only JSON.\n- Do not invent facts not in the case packet.\n- Do not infer a satisfied determination merely because the packet looks clean.\n- Use \"undetermined\" when required facts are missing, conflicting, approximate,\n  source-limited, or outside the case packet's natural scope.\n- Treat source-scope carefully: absence from an open narrative is not proof of\n  absence; absence from an official/checking source may matter only within its\n  closed-world scope.\n- If a case has pending, inconsistent, missing, source-limited, or complex facts,\n  preserve that uncertainty or mark human-review-related determinations\n  accordingly.\n- For each determination, identify the material facts relied on, uncertainty\n  flags, and whether human review should be considered.\n- Use \"true\" when the determination is satisfied.\n- Use \"false\" when the determination is not satisfied.\n\nPOLICY SUMMARY\n==============\nBounded benchmark policy for consumer reporting disputes.\n\n1. Consumer reporting agency reinvestigation trigger. If the completeness or\naccuracy of an item in a consumer's file is disputed by the consumer and the\nconsumer reporting agency receives notice directly or through a reseller, the\nagency must conduct a reasonable reinvestigation unless a valid frivolous or\nirrelevant termination applies. A valid dispute packet identifies the consumer,\nidentifies the account or item, identifies the disputed field or information,\nand explains the basis for the dispute.\n\n2. Time to complete reinvestigation. The agency must complete the\nreinvestigation within 30 calendar days after receipt of the dispute notice.\nThe period may extend to 45 days if the consumer provides additional relevant\ninformation during the initial 30-day period. The extension does not apply\nwhere the agency determines within the initial period that the item is\ninaccurate, incomplete, or cannot be verified.\n\n3. Furnisher notice by the agency. Before the end of the fifth business day\nafter receiving the consumer's dispute, the agency must notify the furnisher\nof the disputed information when the item was provided by a furnisher, and the\nnotice must include all relevant information received from the consumer. Later\nrelevant information received during the reinvestigation period must be\npromptly provided to the furnisher. Primary source documents submitted by the\nconsumer, such as bank statements, creditor letters, account statements,\npolice reports, identity theft affidavits, court orders, or billing\nstatements, are relevant when they bear on the disputed information.\n\n4. Consideration and reasonableness. The agency must review and consider all\nrelevant consumer information. A reasonable reinvestigation compares the\nconsumer submission, furnisher response, agency file, prior dispute history\nwhere relevant, and public-record source where relevant. Automated dispute\ncoding alone is not sufficient when primary documents or material conflicts\nrequire review.\n\n5. Treatment of inaccurate, incomplete, or unverifiable information. If the\nitem is inaccurate, incomplete, or cannot be verified, the agency must delete\nor modify it as appropriate and record the current status. If no defect is\nfound after a reasonable reinvestigation, the item may remain verified.\n\n6. Results notice. Within 5 business days after completing the\nreinvestigation, the agency must provide written results to the consumer. The\nnotice must state that the reinvestigation is completed, include a consumer\nreport based on the revised file, disclose the right to request a description\nof the procedure used, disclose furnisher contact information if reasonably\navailable, disclose the right to add a consumer statement, and disclose the\nright to request notification of deletion or dispute notation.\n\n7. Reinsertion. Deleted information may not be reinserted unless the furnisher\ncertifies that it is complete and accurate. If reinserted, the agency must\nnotify the consumer in writing within 5 business days, identify the furnisher,\nprovide the consumer's right to add a statement, and maintain reasonable\nprocedures designed to prevent improper reappearance.\n\n8. Frivolous or irrelevant disputes. The agency may terminate a\nreinvestigation if it reasonably determines that the dispute is frivolous or\nirrelevant, including because the consumer failed to provide sufficient\ninformation to investigate. The agency must notify the consumer within 5\nbusiness days after that determination, provide the reasons, and identify any\ninformation required to investigate.\n\n9. Reseller disputes. A reseller receiving a dispute must determine within 5\nbusiness days whether the item is incomplete or inaccurate because of a\nreseller act or omission. If so, the reseller must correct or delete within 20\ndays. If not, the reseller must convey the dispute and all relevant consumer\ninformation to the consumer reporting agency that supplied the information and\nreconvey the agency's completion notice to the consumer.\n\n10. Furnisher duties after agency notice. A furnisher receiving agency notice\nof a dispute must investigate the disputed information, review all relevant\ninformation provided by the agency, report results to the agency, report\nincomplete or inaccurate findings to other nationwide consumer reporting\nagencies to which it furnished the information, and modify, delete, or\npermanently block information that is inaccurate, incomplete, or unverifiable.\nThe furnisher must complete those actions before the agency's applicable\nreinvestigation deadline.\n\n11. Furnisher direct disputes. A furnisher receiving a qualifying direct\ndispute must investigate when the notice is sent to a proper address, identifies\nthe account or relationship, identifies the specific disputed information,\nexplains the basis for the dispute, includes reasonably required supporting\ndocumentation, and concerns covered account or relationship information. The\nfurnisher need not investigate direct disputes outside the regulatory scope,\nincluding disputes solely about public records, fraud alerts, active duty\nalerts, information from another furnisher, or disputes reasonably believed to\nbe submitted by a credit repair organization. A furnisher that invokes a\nfrivolous or irrelevant direct-dispute determination must notify the consumer\nwithin 5 business days, state reasons, and identify information needed to\ninvestigate.\n\n12. Consumer statement and subsequent reporting. If the reinvestigation does\nnot resolve the dispute and the consumer files a brief statement, subsequent\nreports containing the disputed information must clearly note that it is\ndisputed and include the statement or an accurate codification or summary,\nunless there are reasonable grounds to believe the statement is frivolous or\nirrelevant.\n\n13. Human-review routing. Human review is required when material evidence\nconflicts remain unresolved, identity theft or mixed-file evidence is\nplausible but incomplete, a court order or legal-liability issue changes the\nordinary fact-verification path, a veteran medical debt claim may require the\nspecial deletion process, primary source documents are missing from the record,\nmaterial dates conflict, or the institution's manual review policy is\ntriggered.\n\n\nSELECTED DETERMINATIONS\n=======================\n[\n  {\n    \"description\": \"Consumer statement handling is satisfied or not applicable.\",\n    \"determination_id\": \"fcra.consumer_statement_satisfied\",\n    \"source_span\": \"15 U.S.C. 1681i(b)-(c)\"\n  },\n  {\n    \"description\": \"CRA consideration and reasonableness duties are satisfied.\",\n    \"determination_id\": \"fcra.cra_consideration_satisfied\",\n    \"source_span\": \"15 U.S.C. 1681i(a)(4)\"\n  },\n  {\n    \"description\": \"CRA furnisher-notice transmission duties are satisfied.\",\n    \"determination_id\": \"fcra.cra_furnisher_notice_satisfied\",\n    \"source_span\": \"15 U.S.C. 1681i(a)(2)\"\n  },\n  {\n    \"description\": \"The CRA is required to conduct a reinvestigation.\",\n    \"determination_id\": \"fcra.cra_reinvestigation_required\",\n    \"source_span\": \"15 U.S.C. 1681i(a)(1)\"\n  },\n  {\n    \"description\": \"CRA reinvestigation timing is satisfied.\",\n    \"determination_id\": \"fcra.cra_reinvestigation_timely\",\n    \"source_span\": \"15 U.S.C. 1681i(a)(1)\"\n  },\n  {\n    \"description\": \"A valid CRA reinvestigation trigger exists.\",\n    \"determination_id\": \"fcra.cra_reinvestigation_trigger_valid\",\n    \"source_span\": \"15 U.S.C. 1681i(a)(1)\"\n  },\n  {\n    \"description\": \"Furnisher direct-dispute duties are satisfied or not applicable.\",\n    \"determination_id\": \"fcra.direct_furnisher_satisfied\",\n    \"source_span\": \"12 CFR 1022.43\"\n  },\n  {\n    \"description\": \"Selected credit-reporting dispute obligations are satisfied.\",\n    \"determination_id\": \"fcra.dispute_resolution_compliant\",\n    \"source_span\": \"benchmark root\"\n  },\n  {\n    \"description\": \"Any frivolous or irrelevant termination is valid.\",\n    \"determination_id\": \"fcra.frivolous_termination_valid\",\n    \"source_span\": \"15 U.S.C. 1681i(a)(3)\"\n  },\n  {\n    \"description\": \"Furnisher duties after CRA notice are satisfied or not applicable.\",\n    \"determination_id\": \"fcra.furnisher_indirect_satisfied\",\n    \"source_span\": \"15 U.S.C. 1681s-2(b)\"\n  },\n  {\n    \"description\": \"The packet requires human review routing.\",\n    \"determination_id\": \"fcra.human_review_required\",\n    \"source_span\": \"benchmark routing policy\"\n  },\n  {\n    \"description\": \"Inaccurate, incomplete, or unverifiable information is treated correctly.\",\n    \"determination_id\": \"fcra.item_treatment_satisfied\",\n    \"source_span\": \"15 U.S.C. 1681i(a)(5)\"\n  },\n  {\n    \"description\": \"Reinsertion safeguards are satisfied or not applicable.\",\n    \"determination_id\": \"fcra.reinsertion_satisfied\",\n    \"source_span\": \"15 U.S.C. 1681i(a)(5)(B)\"\n  },\n  {\n    \"description\": \"Reseller dispute duties are satisfied or not applicable.\",\n    \"determination_id\": \"fcra.reseller_satisfied\",\n    \"source_span\": \"15 U.S.C. 1681i(f)\"\n  },\n  {\n    \"description\": \"CRA results notice duties are satisfied.\",\n    \"determination_id\": \"fcra.results_notice_satisfied\",\n    \"source_span\": \"15 U.S.C. 1681i(a)(6)\"\n  }\n]\n\nCASE PACKET\n===========\n{\n  \"case_id\": \"fcra_deep_direct_furnisher_valid_not_corrected\",\n  \"narrative\": \"The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\\n\",\n  \"structured_fields\": {},\n  \"title\": \"Direct furnisher dispute found inaccurate but CRAs not corrected\"\n}\n\nReturn ONLY this JSON shape:\n{\n  \"case_id\": \"fcra_deep_direct_furnisher_valid_not_corrected\",\n  \"determinations\": [\n    {\n      \"determination_id\": \"id from SELECTED DETERMINATIONS\",\n      \"outcome\": \"true|false|undetermined\",\n      \"rationale\": \"brief reason based on the case packet\",\n      \"confidence\": 0.0,\n      \"material_facts\": [\n        {\n          \"fact\": \"short fact\",\n          \"source\": \"source title/id or narrative\",\n          \"basis\": \"explicit|closed_world_absence|open_world_absence|inferred|missing|conflicting\"\n        }\n      ],\n      \"uncertainty_flags\": [\"missing fact, source limitation, conflict, or empty\"],\n      \"human_review_considered\": true,\n      \"anti_overclaim_check\": \"why this is not overclaiming beyond the packet\"\n    }\n  ],\n  \"case_level_notes\": \"brief note or empty string\"\n}\n",
+      "raw_response": "{\n  \"case_id\": \"fcra_deep_direct_furnisher_valid_not_corrected\",\n  \"determinations\": [\n    {\n      \"determination_id\": \"fcra.consumer_statement_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No information about consumer statement filing; dispute was direct to furnisher, not CRA.\",\n      \"confidence\": 0.5,\n      \"material_facts\": [\n        {\"fact\": \"Direct dispute to furnisher only\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [\"missing fact\"],\n      \"human_review_considered\": false,\n      \"anti_overclaim_check\": \"No facts about consumer statement in packet.\"\n    },\n    {\n      \"determination_id\": \"fcra.cra_consideration_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No CRA dispute in this case; CRA duties not triggered or addressed.\",\n      \"confidence\": 0.5,\n      \"material_facts\": [\n        {\"fact\": \"Dispute went to furnisher, not CRA\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [\"source limitation\"],\n      \"human_review_considered\": false,\n      \"anti_overclaim_check\": \"Packet does not describe CRA processing.\"\n    },\n    {\n      \"determination_id\": \"fcra.cra_furnisher_notice_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No CRA dispute received; this duty not addressed in packet.\",\n      \"confidence\": 0.5,\n      \"material_facts\": [\n        {\"fact\": \"No CRA dispute described\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [\"source limitation\"],\n      \"human_review_considered\": false,\n      \"anti_overclaim_check\": \"Not applicable to direct dispute path.\"\n    },\n    {\n      \"determination_id\": \"fcra.cra_reinvestigation_required\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"Packet describes direct furnisher dispute; no CRA notice indicated.\",\n      \"confidence\": 0.5,\n      \"material_facts\": [\n        {\"fact\": \"Direct dispute to furnisher\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [\"source limitation\"],\n      \"human_review_considered\": false,\n      \"anti_overclaim_check\": \"Cannot infer CRA receipt absent facts.\"\n    },\n    {\n      \"determination_id\": \"fcra.cra_reinvestigation_timely\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No CRA reinvestigation in packet to assess timing.\",\n      \"confidence\": 0.5,\n      \"material_facts\": [\n        {\"fact\": \"No CRA process described\", \"source\": \"narrative\", \"basis\": \"missing\"}\n      ],\n      \"uncertainty_flags\": [\"missing fact\"],\n      \"human_review_considered\": false,\n      \"anti_overclaim_check\": \"No timing facts present.\"\n    },\n    {\n      \"determination_id\": \"fcra.cra_reinvestigation_trigger_valid\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No CRA-side dispute described in packet.\",\n      \"confidence\": 0.5,\n      \"material_facts\": [\n        {\"fact\": \"Dispute only to furnisher\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [\"source limitation\"],\n      \"human_review_considered\": false,\n      \"anti_overclaim_check\": \"Cannot conclude trigger without CRA receipt facts.\"\n    },\n    {\n      \"determination_id\": \"fcra.direct_furnisher_satisfied\",\n      \"outcome\": \"false\",\n      \"rationale\": \"Although furnisher investigated and reported results to consumer, it failed to correct/modify the inaccurate information by notifying CRAs after finding the balance wrong, which is required under furnisher duties.\",\n      \"confidence\": 0.9,\n      \"material_facts\": [\n        {\"fact\": \"Furnisher agreed balance was wrong\", \"source\": \"narrative\", \"basis\": \"explicit\"},\n        {\"fact\": \"Furnisher did not notify CRAs or provide correction\", \"source\": \"narrative\", \"basis\": \"explicit\"},\n        {\"fact\": \"Direct dispute identified account, disputed field, attached payoff statement\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [],\n      \"human_review_considered\": true,\n      \"anti_overclaim_check\": \"Failure is explicit in the narrative log.\"\n    },\n    {\n      \"determination_id\": \"fcra.dispute_resolution_compliant\",\n      \"outcome\": \"false\",\n      \"rationale\": \"Furnisher failed to propagate the correction to CRAs after finding the item inaccurate, breaching dispute resolution obligations.\",\n      \"confidence\": 0.9,\n      \"material_facts\": [\n        {\"fact\": \"No CRA notification or correction by furnisher\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [],\n      \"human_review_considered\": true,\n      \"anti_overclaim_check\": \"Non-compliance is directly stated.\"\n    },\n    {\n      \"determination_id\": \"fcra.frivolous_termination_valid\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No frivolous termination invoked in the packet.\",\n      \"confidence\": 0.6,\n      \"material_facts\": [\n        {\"fact\": \"Furnisher accepted dispute and investigated\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [\"empty\"],\n      \"human_review_considered\": false,\n      \"anti_overclaim_check\": \"Not addressed; cannot declare applicability.\"\n    },\n    {\n      \"determination_id\": \"fcra.furnisher_indirect_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No CRA-routed dispute described; indirect furnisher duties not triggered in packet.\",\n      \"confidence\": 0.5,\n      \"material_facts\": [\n        {\"fact\": \"Dispute was direct, not via CRA\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [\"source limitation\"],\n      \"human_review_considered\": false,\n      \"anti_overclaim_check\": \"Not applicable in this direct-dispute scenario.\"\n    },\n    {\n      \"determination_id\": \"fcra.human_review_required\",\n      \"outcome\": \"true\",\n      \"rationale\": \"Furnisher found the item inaccurate but failed to correct/notify CRAs, leaving inaccurate reporting in place \u2014 a material compliance failure warranting human review.\",\n      \"confidence\": 0.85,\n      \"material_facts\": [\n        {\"fact\": \"Furnisher inaction after finding inaccuracy\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [],\n      \"human_review_considered\": true,\n      \"anti_overclaim_check\": \"Routing triggered by material compliance gap explicit in the log.\"\n    },\n    {\n      \"determination_id\": \"fcra.item_treatment_satisfied\",\n      \"outcome\": \"false\",\n      \"rationale\": \"Item determined inaccurate but not modified/deleted in CRA reporting; treatment duty not satisfied.\",\n      \"confidence\": 0.9,\n      \"material_facts\": [\n        {\"fact\": \"Furnisher agreed balance wrong but did not correct CRA reporting\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [],\n      \"human_review_considered\": true,\n      \"anti_overclaim_check\": \"Explicit failure stated.\"\n    },\n    {\n      \"determination_id\": \"fcra.reinsertion_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No deletion or reinsertion described.\",\n      \"confidence\": 0.6,\n      \"material_facts\": [\n        {\"fact\": \"No deletion event described\", \"source\": \"narrative\", \"basis\": \"missing\"}\n      ],\n      \"uncertainty_flags\": [\"empty\"],\n      \"human_review_considered\": false,\n      \"anti_overclaim_check\": \"Not applicable; no reinsertion facts.\"\n    },\n    {\n      \"determination_id\": \"fcra.reseller_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No reseller in this packet.\",\n      \"confidence\": 0.6,\n      \"material_facts\": [\n        {\"fact\": \"No reseller mentioned\", \"source\": \"narrative\", \"basis\": \"open_world_absence\"}\n      ],\n      \"uncertainty_flags\": [\"empty\"],\n      \"human_review_considered\": false,\n      \"anti_overclaim_check\": \"Cannot make positive claim from absence.\"\n    },\n    {\n      \"determination_id\": \"fcra.results_notice_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"Pertains to CRA results notice; no CRA reinvestigation here.\",\n      \"confidence\": 0.5,\n      \"material_facts\": [\n        {\"fact\": \"Furnisher reported results to consumer; no CRA notice described\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [\"source limitation\"],\n      \"human_review_considered\": false,\n      \"anti_overclaim_check\": \"CRA-specific duty not addressed.\"\n    }\n  ],\n  \"case_level_notes\": \"Direct furnisher dispute: qualifying dispute was investigated and found valid, but furnisher failed to correct CRA records, breaching furnisher direct-dispute duties and overall dispute-resolution compliance. Human review warranted.\"\n}"
+    },
+    {
+      "case_id": "fcra_deep_mixed_file_identity_theft_ambiguous",
+      "cost": {
+        "estimated_cost_usd": 0.225075,
+        "input_tokens": 2965,
+        "latency_s": 37.37864479998825,
+        "output_tokens": 2408,
+        "total_tokens": 5373
+      },
+      "parsed": {
+        "case_id": "fcra_deep_mixed_file_identity_theft_ambiguous",
+        "case_level_notes": "Mixed-file plus incomplete identity theft signals with conflicting dates and missing primary documents; route to human review and hold compliance determinations as undetermined.",
+        "determinations": [
+          {
+            "anti_overclaim_check": "No facts about a consumer statement appear in the packet.",
+            "confidence": 0.5,
+            "determination_id": "fcra.consumer_statement_satisfied",
+            "human_review_considered": true,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "Reinvestigation outcome is not yet decided",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "undetermined",
+            "rationale": "Reinvestigation is not complete and no consumer statement has been filed or addressed in the packet.",
+            "uncertainty_flags": [
+              "missing fact"
+            ]
+          },
+          {
+            "anti_overclaim_check": "Packet does not show whether CRA has completed reasonable review.",
+            "confidence": 0.6,
+            "determination_id": "fcra.cra_consideration_satisfied",
+            "human_review_considered": true,
+            "material_facts": [
+              {
+                "basis": "conflicting",
+                "fact": "Inconsistent dates across CRA file and furnisher response",
+                "source": "narrative"
+              },
+              {
+                "basis": "missing",
+                "fact": "Identity theft affidavit not yet provided",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "undetermined",
+            "rationale": "CRA has not received sufficient material to evaluate; inconsistent dates and missing identity theft report prevent a finding on reasonableness.",
+            "uncertainty_flags": [
+              "conflict",
+              "missing fact"
+            ]
+          },
+          {
+            "anti_overclaim_check": "Existence of a furnisher response does not establish timely or complete notice.",
+            "confidence": 0.6,
+            "determination_id": "fcra.cra_furnisher_notice_satisfied",
+            "human_review_considered": false,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "Furnisher response is referenced",
+                "source": "narrative"
+              },
+              {
+                "basis": "missing",
+                "fact": "No timing data on CRA-to-furnisher notice",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "undetermined",
+            "rationale": "Packet does not record whether or when the CRA notified the furnishers within 5 business days.",
+            "uncertainty_flags": [
+              "missing fact"
+            ]
+          },
+          {
+            "anti_overclaim_check": "Trigger is based on explicit dispute in the narrative.",
+            "confidence": 0.85,
+            "determination_id": "fcra.cra_reinvestigation_required",
+            "human_review_considered": false,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "Consumer disputes three collection accounts as 'not mine'",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "true",
+            "rationale": "Consumer disputed accuracy of three collection accounts ('not mine'), identifying items and basis; this triggers the CRA reinvestigation duty.",
+            "uncertainty_flags": []
+          },
+          {
+            "anti_overclaim_check": "Cannot judge timing without dates.",
+            "confidence": 0.7,
+            "determination_id": "fcra.cra_reinvestigation_timely",
+            "human_review_considered": false,
+            "material_facts": [
+              {
+                "basis": "missing",
+                "fact": "No reinvestigation completion date in packet",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "undetermined",
+            "rationale": "No dates of receipt or completion are provided to evaluate the 30/45-day window.",
+            "uncertainty_flags": [
+              "missing fact"
+            ]
+          },
+          {
+            "anti_overclaim_check": "Trigger validity assessed from explicit dispute content.",
+            "confidence": 0.8,
+            "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+            "human_review_considered": false,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "Three collection accounts disputed as not the consumer's",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "true",
+            "rationale": "Dispute identifies consumer, accounts (three collections), disputed field (ownership/accuracy), and basis ('not mine').",
+            "uncertainty_flags": []
+          },
+          {
+            "anti_overclaim_check": "Absence from open narrative is not proof of absence.",
+            "confidence": 0.5,
+            "determination_id": "fcra.direct_furnisher_satisfied",
+            "human_review_considered": false,
+            "material_facts": [
+              {
+                "basis": "open_world_absence",
+                "fact": "Dispute is to CRA, no direct-furnisher facts present",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "undetermined",
+            "rationale": "No indication of a direct dispute to a furnisher in the packet.",
+            "uncertainty_flags": [
+              "source limitation"
+            ]
+          },
+          {
+            "anti_overclaim_check": "Compliance cannot be asserted given unresolved sub-determinations.",
+            "confidence": 0.7,
+            "determination_id": "fcra.dispute_resolution_compliant",
+            "human_review_considered": true,
+            "material_facts": [
+              {
+                "basis": "conflicting",
+                "fact": "Inconsistent dates and missing identity theft report",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "undetermined",
+            "rationale": "Multiple sub-duties are undetermined; cannot conclude overall compliance.",
+            "uncertainty_flags": [
+              "conflict",
+              "missing fact"
+            ]
+          },
+          {
+            "anti_overclaim_check": "No express termination action is recorded.",
+            "confidence": 0.55,
+            "determination_id": "fcra.frivolous_termination_valid",
+            "human_review_considered": true,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "CRA lacks sufficient material to decide",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "undetermined",
+            "rationale": "Packet does not indicate the CRA has invoked a frivolous/irrelevant termination, though materials are insufficient; status unclear.",
+            "uncertainty_flags": [
+              "missing fact"
+            ]
+          },
+          {
+            "anti_overclaim_check": "Existence of response does not confirm full duty satisfaction.",
+            "confidence": 0.6,
+            "determination_id": "fcra.furnisher_indirect_satisfied",
+            "human_review_considered": true,
+            "material_facts": [
+              {
+                "basis": "conflicting",
+                "fact": "Furnisher response referenced with inconsistent dates",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "undetermined",
+            "rationale": "Furnisher response exists but its sufficiency, completeness, and treatment of mixed-file/identity theft signals is not described.",
+            "uncertainty_flags": [
+              "conflict",
+              "missing fact"
+            ]
+          },
+          {
+            "anti_overclaim_check": "Routing criteria explicitly include mixed-file and identity theft ambiguity with missing primary documents.",
+            "confidence": 0.92,
+            "determination_id": "fcra.human_review_required",
+            "human_review_considered": true,
+            "material_facts": [
+              {
+                "basis": "missing",
+                "fact": "Identity theft affidavit being prepared but not provided",
+                "source": "narrative"
+              },
+              {
+                "basis": "explicit",
+                "fact": "Two addresses for a similar-named person",
+                "source": "narrative"
+              },
+              {
+                "basis": "conflicting",
+                "fact": "Inconsistent dates across CRA file and furnisher response",
+                "source": "narrative"
+              },
+              {
+                "basis": "missing",
+                "fact": "Police incident number provided but not actual report",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "true",
+            "rationale": "Plausible but incomplete identity theft evidence, possible mixed-file (similar name, two addresses), conflicting dates, and missing primary source (identity theft report) trigger human review routing.",
+            "uncertainty_flags": [
+              "conflict",
+              "missing fact"
+            ]
+          },
+          {
+            "anti_overclaim_check": "Cannot assess treatment without a verification outcome.",
+            "confidence": 0.7,
+            "determination_id": "fcra.item_treatment_satisfied",
+            "human_review_considered": true,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "Items remain undetermined as mixed-file, identity theft, or verified",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "undetermined",
+            "rationale": "No determination has yet been made whether items are inaccurate/unverifiable; treatment cannot be evaluated.",
+            "uncertainty_flags": [
+              "missing fact"
+            ]
+          },
+          {
+            "anti_overclaim_check": "Open-world absence is not proof reinsertion has or has not occurred.",
+            "confidence": 0.5,
+            "determination_id": "fcra.reinsertion_satisfied",
+            "human_review_considered": false,
+            "material_facts": [
+              {
+                "basis": "open_world_absence",
+                "fact": "No reinsertion facts in narrative",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "undetermined",
+            "rationale": "No reinsertion event described in the packet.",
+            "uncertainty_flags": [
+              "source limitation"
+            ]
+          },
+          {
+            "anti_overclaim_check": "Absence in open narrative does not establish non-applicability.",
+            "confidence": 0.5,
+            "determination_id": "fcra.reseller_satisfied",
+            "human_review_considered": false,
+            "material_facts": [
+              {
+                "basis": "open_world_absence",
+                "fact": "No reseller referenced",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "undetermined",
+            "rationale": "No reseller involvement mentioned.",
+            "uncertainty_flags": [
+              "source limitation"
+            ]
+          },
+          {
+            "anti_overclaim_check": "Results notice cannot be evaluated before completion.",
+            "confidence": 0.7,
+            "determination_id": "fcra.results_notice_satisfied",
+            "human_review_considered": false,
+            "material_facts": [
+              {
+                "basis": "explicit",
+                "fact": "CRA has not yet decided the items",
+                "source": "narrative"
+              }
+            ],
+            "outcome": "undetermined",
+            "rationale": "Reinvestigation not complete; no results notice facts are present.",
+            "uncertainty_flags": [
+              "missing fact"
+            ]
+          }
+        ]
+      },
+      "prompt": "You are adjudicating a policy case directly.\n\nThis is a governed-style direct baseline for research. Unlike RuleKit, you are\nstill deciding the policy dispositions yourself, but you must apply conservative\nevidence discipline similar to a governed Map + engine flow.\n\nImportant:\n- Return only JSON.\n- Do not invent facts not in the case packet.\n- Do not infer a satisfied determination merely because the packet looks clean.\n- Use \"undetermined\" when required facts are missing, conflicting, approximate,\n  source-limited, or outside the case packet's natural scope.\n- Treat source-scope carefully: absence from an open narrative is not proof of\n  absence; absence from an official/checking source may matter only within its\n  closed-world scope.\n- If a case has pending, inconsistent, missing, source-limited, or complex facts,\n  preserve that uncertainty or mark human-review-related determinations\n  accordingly.\n- For each determination, identify the material facts relied on, uncertainty\n  flags, and whether human review should be considered.\n- Use \"true\" when the determination is satisfied.\n- Use \"false\" when the determination is not satisfied.\n\nPOLICY SUMMARY\n==============\nBounded benchmark policy for consumer reporting disputes.\n\n1. Consumer reporting agency reinvestigation trigger. If the completeness or\naccuracy of an item in a consumer's file is disputed by the consumer and the\nconsumer reporting agency receives notice directly or through a reseller, the\nagency must conduct a reasonable reinvestigation unless a valid frivolous or\nirrelevant termination applies. A valid dispute packet identifies the consumer,\nidentifies the account or item, identifies the disputed field or information,\nand explains the basis for the dispute.\n\n2. Time to complete reinvestigation. The agency must complete the\nreinvestigation within 30 calendar days after receipt of the dispute notice.\nThe period may extend to 45 days if the consumer provides additional relevant\ninformation during the initial 30-day period. The extension does not apply\nwhere the agency determines within the initial period that the item is\ninaccurate, incomplete, or cannot be verified.\n\n3. Furnisher notice by the agency. Before the end of the fifth business day\nafter receiving the consumer's dispute, the agency must notify the furnisher\nof the disputed information when the item was provided by a furnisher, and the\nnotice must include all relevant information received from the consumer. Later\nrelevant information received during the reinvestigation period must be\npromptly provided to the furnisher. Primary source documents submitted by the\nconsumer, such as bank statements, creditor letters, account statements,\npolice reports, identity theft affidavits, court orders, or billing\nstatements, are relevant when they bear on the disputed information.\n\n4. Consideration and reasonableness. The agency must review and consider all\nrelevant consumer information. A reasonable reinvestigation compares the\nconsumer submission, furnisher response, agency file, prior dispute history\nwhere relevant, and public-record source where relevant. Automated dispute\ncoding alone is not sufficient when primary documents or material conflicts\nrequire review.\n\n5. Treatment of inaccurate, incomplete, or unverifiable information. If the\nitem is inaccurate, incomplete, or cannot be verified, the agency must delete\nor modify it as appropriate and record the current status. If no defect is\nfound after a reasonable reinvestigation, the item may remain verified.\n\n6. Results notice. Within 5 business days after completing the\nreinvestigation, the agency must provide written results to the consumer. The\nnotice must state that the reinvestigation is completed, include a consumer\nreport based on the revised file, disclose the right to request a description\nof the procedure used, disclose furnisher contact information if reasonably\navailable, disclose the right to add a consumer statement, and disclose the\nright to request notification of deletion or dispute notation.\n\n7. Reinsertion. Deleted information may not be reinserted unless the furnisher\ncertifies that it is complete and accurate. If reinserted, the agency must\nnotify the consumer in writing within 5 business days, identify the furnisher,\nprovide the consumer's right to add a statement, and maintain reasonable\nprocedures designed to prevent improper reappearance.\n\n8. Frivolous or irrelevant disputes. The agency may terminate a\nreinvestigation if it reasonably determines that the dispute is frivolous or\nirrelevant, including because the consumer failed to provide sufficient\ninformation to investigate. The agency must notify the consumer within 5\nbusiness days after that determination, provide the reasons, and identify any\ninformation required to investigate.\n\n9. Reseller disputes. A reseller receiving a dispute must determine within 5\nbusiness days whether the item is incomplete or inaccurate because of a\nreseller act or omission. If so, the reseller must correct or delete within 20\ndays. If not, the reseller must convey the dispute and all relevant consumer\ninformation to the consumer reporting agency that supplied the information and\nreconvey the agency's completion notice to the consumer.\n\n10. Furnisher duties after agency notice. A furnisher receiving agency notice\nof a dispute must investigate the disputed information, review all relevant\ninformation provided by the agency, report results to the agency, report\nincomplete or inaccurate findings to other nationwide consumer reporting\nagencies to which it furnished the information, and modify, delete, or\npermanently block information that is inaccurate, incomplete, or unverifiable.\nThe furnisher must complete those actions before the agency's applicable\nreinvestigation deadline.\n\n11. Furnisher direct disputes. A furnisher receiving a qualifying direct\ndispute must investigate when the notice is sent to a proper address, identifies\nthe account or relationship, identifies the specific disputed information,\nexplains the basis for the dispute, includes reasonably required supporting\ndocumentation, and concerns covered account or relationship information. The\nfurnisher need not investigate direct disputes outside the regulatory scope,\nincluding disputes solely about public records, fraud alerts, active duty\nalerts, information from another furnisher, or disputes reasonably believed to\nbe submitted by a credit repair organization. A furnisher that invokes a\nfrivolous or irrelevant direct-dispute determination must notify the consumer\nwithin 5 business days, state reasons, and identify information needed to\ninvestigate.\n\n12. Consumer statement and subsequent reporting. If the reinvestigation does\nnot resolve the dispute and the consumer files a brief statement, subsequent\nreports containing the disputed information must clearly note that it is\ndisputed and include the statement or an accurate codification or summary,\nunless there are reasonable grounds to believe the statement is frivolous or\nirrelevant.\n\n13. Human-review routing. Human review is required when material evidence\nconflicts remain unresolved, identity theft or mixed-file evidence is\nplausible but incomplete, a court order or legal-liability issue changes the\nordinary fact-verification path, a veteran medical debt claim may require the\nspecial deletion process, primary source documents are missing from the record,\nmaterial dates conflict, or the institution's manual review policy is\ntriggered.\n\n\nSELECTED DETERMINATIONS\n=======================\n[\n  {\n    \"description\": \"Consumer statement handling is satisfied or not applicable.\",\n    \"determination_id\": \"fcra.consumer_statement_satisfied\",\n    \"source_span\": \"15 U.S.C. 1681i(b)-(c)\"\n  },\n  {\n    \"description\": \"CRA consideration and reasonableness duties are satisfied.\",\n    \"determination_id\": \"fcra.cra_consideration_satisfied\",\n    \"source_span\": \"15 U.S.C. 1681i(a)(4)\"\n  },\n  {\n    \"description\": \"CRA furnisher-notice transmission duties are satisfied.\",\n    \"determination_id\": \"fcra.cra_furnisher_notice_satisfied\",\n    \"source_span\": \"15 U.S.C. 1681i(a)(2)\"\n  },\n  {\n    \"description\": \"The CRA is required to conduct a reinvestigation.\",\n    \"determination_id\": \"fcra.cra_reinvestigation_required\",\n    \"source_span\": \"15 U.S.C. 1681i(a)(1)\"\n  },\n  {\n    \"description\": \"CRA reinvestigation timing is satisfied.\",\n    \"determination_id\": \"fcra.cra_reinvestigation_timely\",\n    \"source_span\": \"15 U.S.C. 1681i(a)(1)\"\n  },\n  {\n    \"description\": \"A valid CRA reinvestigation trigger exists.\",\n    \"determination_id\": \"fcra.cra_reinvestigation_trigger_valid\",\n    \"source_span\": \"15 U.S.C. 1681i(a)(1)\"\n  },\n  {\n    \"description\": \"Furnisher direct-dispute duties are satisfied or not applicable.\",\n    \"determination_id\": \"fcra.direct_furnisher_satisfied\",\n    \"source_span\": \"12 CFR 1022.43\"\n  },\n  {\n    \"description\": \"Selected credit-reporting dispute obligations are satisfied.\",\n    \"determination_id\": \"fcra.dispute_resolution_compliant\",\n    \"source_span\": \"benchmark root\"\n  },\n  {\n    \"description\": \"Any frivolous or irrelevant termination is valid.\",\n    \"determination_id\": \"fcra.frivolous_termination_valid\",\n    \"source_span\": \"15 U.S.C. 1681i(a)(3)\"\n  },\n  {\n    \"description\": \"Furnisher duties after CRA notice are satisfied or not applicable.\",\n    \"determination_id\": \"fcra.furnisher_indirect_satisfied\",\n    \"source_span\": \"15 U.S.C. 1681s-2(b)\"\n  },\n  {\n    \"description\": \"The packet requires human review routing.\",\n    \"determination_id\": \"fcra.human_review_required\",\n    \"source_span\": \"benchmark routing policy\"\n  },\n  {\n    \"description\": \"Inaccurate, incomplete, or unverifiable information is treated correctly.\",\n    \"determination_id\": \"fcra.item_treatment_satisfied\",\n    \"source_span\": \"15 U.S.C. 1681i(a)(5)\"\n  },\n  {\n    \"description\": \"Reinsertion safeguards are satisfied or not applicable.\",\n    \"determination_id\": \"fcra.reinsertion_satisfied\",\n    \"source_span\": \"15 U.S.C. 1681i(a)(5)(B)\"\n  },\n  {\n    \"description\": \"Reseller dispute duties are satisfied or not applicable.\",\n    \"determination_id\": \"fcra.reseller_satisfied\",\n    \"source_span\": \"15 U.S.C. 1681i(f)\"\n  },\n  {\n    \"description\": \"CRA results notice duties are satisfied.\",\n    \"determination_id\": \"fcra.results_notice_satisfied\",\n    \"source_span\": \"15 U.S.C. 1681i(a)(6)\"\n  }\n]\n\nCASE PACKET\n===========\n{\n  \"case_id\": \"fcra_deep_mixed_file_identity_theft_ambiguous\",\n  \"narrative\": \"The consumer disputes three collection accounts as \\\"not mine\\\" and says an identity theft affidavit is being prepared. The packet includes a police incident number but not the actual identity theft report, two addresses for a person with a similar name, and inconsistent dates across the CRA file and furnisher response. The CRA has not yet received enough material to decide whether the items are mixed-file, identity-theft, or verified consumer obligations.\\n\",\n  \"structured_fields\": {},\n  \"title\": \"Mixed-file not-mine dispute with incomplete identity theft packet\"\n}\n\nReturn ONLY this JSON shape:\n{\n  \"case_id\": \"fcra_deep_mixed_file_identity_theft_ambiguous\",\n  \"determinations\": [\n    {\n      \"determination_id\": \"id from SELECTED DETERMINATIONS\",\n      \"outcome\": \"true|false|undetermined\",\n      \"rationale\": \"brief reason based on the case packet\",\n      \"confidence\": 0.0,\n      \"material_facts\": [\n        {\n          \"fact\": \"short fact\",\n          \"source\": \"source title/id or narrative\",\n          \"basis\": \"explicit|closed_world_absence|open_world_absence|inferred|missing|conflicting\"\n        }\n      ],\n      \"uncertainty_flags\": [\"missing fact, source limitation, conflict, or empty\"],\n      \"human_review_considered\": true,\n      \"anti_overclaim_check\": \"why this is not overclaiming beyond the packet\"\n    }\n  ],\n  \"case_level_notes\": \"brief note or empty string\"\n}\n",
+      "raw_response": "{\n  \"case_id\": \"fcra_deep_mixed_file_identity_theft_ambiguous\",\n  \"determinations\": [\n    {\n      \"determination_id\": \"fcra.consumer_statement_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"Reinvestigation is not complete and no consumer statement has been filed or addressed in the packet.\",\n      \"confidence\": 0.5,\n      \"material_facts\": [\n        {\"fact\": \"Reinvestigation outcome is not yet decided\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [\"missing fact\"],\n      \"human_review_considered\": true,\n      \"anti_overclaim_check\": \"No facts about a consumer statement appear in the packet.\"\n    },\n    {\n      \"determination_id\": \"fcra.cra_consideration_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"CRA has not received sufficient material to evaluate; inconsistent dates and missing identity theft report prevent a finding on reasonableness.\",\n      \"confidence\": 0.6,\n      \"material_facts\": [\n        {\"fact\": \"Inconsistent dates across CRA file and furnisher response\", \"source\": \"narrative\", \"basis\": \"conflicting\"},\n        {\"fact\": \"Identity theft affidavit not yet provided\", \"source\": \"narrative\", \"basis\": \"missing\"}\n      ],\n      \"uncertainty_flags\": [\"conflict\", \"missing fact\"],\n      \"human_review_considered\": true,\n      \"anti_overclaim_check\": \"Packet does not show whether CRA has completed reasonable review.\"\n    },\n    {\n      \"determination_id\": \"fcra.cra_furnisher_notice_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"Packet does not record whether or when the CRA notified the furnishers within 5 business days.\",\n      \"confidence\": 0.6,\n      \"material_facts\": [\n        {\"fact\": \"Furnisher response is referenced\", \"source\": \"narrative\", \"basis\": \"explicit\"},\n        {\"fact\": \"No timing data on CRA-to-furnisher notice\", \"source\": \"narrative\", \"basis\": \"missing\"}\n      ],\n      \"uncertainty_flags\": [\"missing fact\"],\n      \"human_review_considered\": false,\n      \"anti_overclaim_check\": \"Existence of a furnisher response does not establish timely or complete notice.\"\n    },\n    {\n      \"determination_id\": \"fcra.cra_reinvestigation_required\",\n      \"outcome\": \"true\",\n      \"rationale\": \"Consumer disputed accuracy of three collection accounts ('not mine'), identifying items and basis; this triggers the CRA reinvestigation duty.\",\n      \"confidence\": 0.85,\n      \"material_facts\": [\n        {\"fact\": \"Consumer disputes three collection accounts as 'not mine'\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [],\n      \"human_review_considered\": false,\n      \"anti_overclaim_check\": \"Trigger is based on explicit dispute in the narrative.\"\n    },\n    {\n      \"determination_id\": \"fcra.cra_reinvestigation_timely\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No dates of receipt or completion are provided to evaluate the 30/45-day window.\",\n      \"confidence\": 0.7,\n      \"material_facts\": [\n        {\"fact\": \"No reinvestigation completion date in packet\", \"source\": \"narrative\", \"basis\": \"missing\"}\n      ],\n      \"uncertainty_flags\": [\"missing fact\"],\n      \"human_review_considered\": false,\n      \"anti_overclaim_check\": \"Cannot judge timing without dates.\"\n    },\n    {\n      \"determination_id\": \"fcra.cra_reinvestigation_trigger_valid\",\n      \"outcome\": \"true\",\n      \"rationale\": \"Dispute identifies consumer, accounts (three collections), disputed field (ownership/accuracy), and basis ('not mine').\",\n      \"confidence\": 0.8,\n      \"material_facts\": [\n        {\"fact\": \"Three collection accounts disputed as not the consumer's\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [],\n      \"human_review_considered\": false,\n      \"anti_overclaim_check\": \"Trigger validity assessed from explicit dispute content.\"\n    },\n    {\n      \"determination_id\": \"fcra.direct_furnisher_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No indication of a direct dispute to a furnisher in the packet.\",\n      \"confidence\": 0.5,\n      \"material_facts\": [\n        {\"fact\": \"Dispute is to CRA, no direct-furnisher facts present\", \"source\": \"narrative\", \"basis\": \"open_world_absence\"}\n      ],\n      \"uncertainty_flags\": [\"source limitation\"],\n      \"human_review_considered\": false,\n      \"anti_overclaim_check\": \"Absence from open narrative is not proof of absence.\"\n    },\n    {\n      \"determination_id\": \"fcra.dispute_resolution_compliant\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"Multiple sub-duties are undetermined; cannot conclude overall compliance.\",\n      \"confidence\": 0.7,\n      \"material_facts\": [\n        {\"fact\": \"Inconsistent dates and missing identity theft report\", \"source\": \"narrative\", \"basis\": \"conflicting\"}\n      ],\n      \"uncertainty_flags\": [\"conflict\", \"missing fact\"],\n      \"human_review_considered\": true,\n      \"anti_overclaim_check\": \"Compliance cannot be asserted given unresolved sub-determinations.\"\n    },\n    {\n      \"determination_id\": \"fcra.frivolous_termination_valid\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"Packet does not indicate the CRA has invoked a frivolous/irrelevant termination, though materials are insufficient; status unclear.\",\n      \"confidence\": 0.55,\n      \"material_facts\": [\n        {\"fact\": \"CRA lacks sufficient material to decide\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [\"missing fact\"],\n      \"human_review_considered\": true,\n      \"anti_overclaim_check\": \"No express termination action is recorded.\"\n    },\n    {\n      \"determination_id\": \"fcra.furnisher_indirect_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"Furnisher response exists but its sufficiency, completeness, and treatment of mixed-file/identity theft signals is not described.\",\n      \"confidence\": 0.6,\n      \"material_facts\": [\n        {\"fact\": \"Furnisher response referenced with inconsistent dates\", \"source\": \"narrative\", \"basis\": \"conflicting\"}\n      ],\n      \"uncertainty_flags\": [\"conflict\", \"missing fact\"],\n      \"human_review_considered\": true,\n      \"anti_overclaim_check\": \"Existence of response does not confirm full duty satisfaction.\"\n    },\n    {\n      \"determination_id\": \"fcra.human_review_required\",\n      \"outcome\": \"true\",\n      \"rationale\": \"Plausible but incomplete identity theft evidence, possible mixed-file (similar name, two addresses), conflicting dates, and missing primary source (identity theft report) trigger human review routing.\",\n      \"confidence\": 0.92,\n      \"material_facts\": [\n        {\"fact\": \"Identity theft affidavit being prepared but not provided\", \"source\": \"narrative\", \"basis\": \"missing\"},\n        {\"fact\": \"Two addresses for a similar-named person\", \"source\": \"narrative\", \"basis\": \"explicit\"},\n        {\"fact\": \"Inconsistent dates across CRA file and furnisher response\", \"source\": \"narrative\", \"basis\": \"conflicting\"},\n        {\"fact\": \"Police incident number provided but not actual report\", \"source\": \"narrative\", \"basis\": \"missing\"}\n      ],\n      \"uncertainty_flags\": [\"conflict\", \"missing fact\"],\n      \"human_review_considered\": true,\n      \"anti_overclaim_check\": \"Routing criteria explicitly include mixed-file and identity theft ambiguity with missing primary documents.\"\n    },\n    {\n      \"determination_id\": \"fcra.item_treatment_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No determination has yet been made whether items are inaccurate/unverifiable; treatment cannot be evaluated.\",\n      \"confidence\": 0.7,\n      \"material_facts\": [\n        {\"fact\": \"Items remain undetermined as mixed-file, identity theft, or verified\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [\"missing fact\"],\n      \"human_review_considered\": true,\n      \"anti_overclaim_check\": \"Cannot assess treatment without a verification outcome.\"\n    },\n    {\n      \"determination_id\": \"fcra.reinsertion_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No reinsertion event described in the packet.\",\n      \"confidence\": 0.5,\n      \"material_facts\": [\n        {\"fact\": \"No reinsertion facts in narrative\", \"source\": \"narrative\", \"basis\": \"open_world_absence\"}\n      ],\n      \"uncertainty_flags\": [\"source limitation\"],\n      \"human_review_considered\": false,\n      \"anti_overclaim_check\": \"Open-world absence is not proof reinsertion has or has not occurred.\"\n    },\n    {\n      \"determination_id\": \"fcra.reseller_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"No reseller involvement mentioned.\",\n      \"confidence\": 0.5,\n      \"material_facts\": [\n        {\"fact\": \"No reseller referenced\", \"source\": \"narrative\", \"basis\": \"open_world_absence\"}\n      ],\n      \"uncertainty_flags\": [\"source limitation\"],\n      \"human_review_considered\": false,\n      \"anti_overclaim_check\": \"Absence in open narrative does not establish non-applicability.\"\n    },\n    {\n      \"determination_id\": \"fcra.results_notice_satisfied\",\n      \"outcome\": \"undetermined\",\n      \"rationale\": \"Reinvestigation not complete; no results notice facts are present.\",\n      \"confidence\": 0.7,\n      \"material_facts\": [\n        {\"fact\": \"CRA has not yet decided the items\", \"source\": \"narrative\", \"basis\": \"explicit\"}\n      ],\n      \"uncertainty_flags\": [\"missing fact\"],\n      \"human_review_considered\": false,\n      \"anti_overclaim_check\": \"Results notice cannot be evaluated before completion.\"\n    }\n  ],\n  \"case_level_notes\": \"Mixed-file plus incomplete identity theft signals with conflicting dates and missing primary documents; route to human review and hold compliance determinations as undetermined.\"\n}"
+    }
+  ],
+  "dispositions": [
+    {
+      "case_id": "fcra_deep_clean_verified",
+      "case_title": "Clean verified auto-loan dispute",
+      "confidence": 0.6,
+      "cost": {
+        "estimated_cost_usd": 0.223635,
+        "input_tokens": 2979,
+        "latency_s": 39.06365790001291,
+        "output_tokens": 2386,
+        "total_tokens": 5365
+      },
+      "determination_id": "fcra.consumer_statement_satisfied",
+      "disposition_id": "direct_disp_f13b904a976e4002ae78fd5ae293d4a8",
+      "matches_reference": false,
+      "outcome": "undetermined",
+      "rationale": "Reinvestigation did not resolve the dispute in the consumer's favor (item verified). Packet does not say whether the consumer filed a brief statement or whether the right to add one was disclosed.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_clean_verified",
+      "case_title": "Clean verified auto-loan dispute",
+      "confidence": 0.85,
+      "cost": {
+        "estimated_cost_usd": 0.223635,
+        "input_tokens": 2979,
+        "latency_s": 39.06365790001291,
+        "output_tokens": 2386,
+        "total_tokens": 5365
+      },
+      "determination_id": "fcra.cra_consideration_satisfied",
+      "disposition_id": "direct_disp_071c52c312ba4f0095f571543d19a123",
+      "matches_reference": true,
+      "outcome": "true",
+      "rationale": "CRA reviewed consumer ledger against furnisher payment history, not relying solely on automated coding.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_clean_verified",
+      "case_title": "Clean verified auto-loan dispute",
+      "confidence": 0.9,
+      "cost": {
+        "estimated_cost_usd": 0.223635,
+        "input_tokens": 2979,
+        "latency_s": 39.06365790001291,
+        "output_tokens": 2386,
+        "total_tokens": 5365
+      },
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "disposition_id": "direct_disp_5a78089a17094fe8ba1e563fb3c8c8dc",
+      "matches_reference": true,
+      "outcome": "true",
+      "rationale": "CRA sent the dispute and document image to the furnisher on the third business day, within the 5-business-day window, and included relevant consumer information.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_clean_verified",
+      "case_title": "Clean verified auto-loan dispute",
+      "confidence": 0.9,
+      "cost": {
+        "estimated_cost_usd": 0.223635,
+        "input_tokens": 2979,
+        "latency_s": 39.06365790001291,
+        "output_tokens": 2386,
+        "total_tokens": 5365
+      },
+      "determination_id": "fcra.cra_reinvestigation_required",
+      "disposition_id": "direct_disp_8ddfdc0320214c33af48eb0620db0a41",
+      "matches_reference": true,
+      "outcome": "true",
+      "rationale": "Valid trigger present and no frivolous termination invoked.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_clean_verified",
+      "case_title": "Clean verified auto-loan dispute",
+      "confidence": 0.95,
+      "cost": {
+        "estimated_cost_usd": 0.223635,
+        "input_tokens": 2979,
+        "latency_s": 39.06365790001291,
+        "output_tokens": 2386,
+        "total_tokens": 5365
+      },
+      "determination_id": "fcra.cra_reinvestigation_timely",
+      "disposition_id": "direct_disp_5c25220e76264c96affcc54fd60c90a4",
+      "matches_reference": true,
+      "outcome": "true",
+      "rationale": "Reinvestigation completed in 24 calendar days, within the 30-day window.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_clean_verified",
+      "case_title": "Clean verified auto-loan dispute",
+      "confidence": 0.9,
+      "cost": {
+        "estimated_cost_usd": 0.223635,
+        "input_tokens": 2979,
+        "latency_s": 39.06365790001291,
+        "output_tokens": 2386,
+        "total_tokens": 5365
+      },
+      "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+      "disposition_id": "direct_disp_b4f3db672a4e41c1a68a6a04c9e19b77",
+      "matches_reference": true,
+      "outcome": "true",
+      "rationale": "Consumer identified account, disputed field (30-day late notation), supplied basis with a servicer payment ledger, and CRA received notice directly.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_clean_verified",
+      "case_title": "Clean verified auto-loan dispute",
+      "confidence": 0.9,
+      "cost": {
+        "estimated_cost_usd": 0.223635,
+        "input_tokens": 2979,
+        "latency_s": 39.06365790001291,
+        "output_tokens": 2386,
+        "total_tokens": 5365
+      },
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "disposition_id": "direct_disp_afe0c7675654435fa2655445cf172a43",
+      "matches_reference": true,
+      "outcome": "true",
+      "rationale": "No direct furnisher dispute is described; only an indirect CRA-routed dispute occurred.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_clean_verified",
+      "case_title": "Clean verified auto-loan dispute",
+      "confidence": 0.65,
+      "cost": {
+        "estimated_cost_usd": 0.223635,
+        "input_tokens": 2979,
+        "latency_s": 39.06365790001291,
+        "output_tokens": 2386,
+        "total_tokens": 5365
+      },
+      "determination_id": "fcra.dispute_resolution_compliant",
+      "disposition_id": "direct_disp_d1d1e46c08784205972ede53ff777214",
+      "matches_reference": false,
+      "outcome": "undetermined",
+      "rationale": "Core trigger, timing, furnisher notice, consideration, and item treatment appear satisfied, but results-notice disclosure elements, furnisher s-2(b) scope details, and consumer-statement handling are not established by the packet.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_clean_verified",
+      "case_title": "Clean verified auto-loan dispute",
+      "confidence": 0.95,
+      "cost": {
+        "estimated_cost_usd": 0.223635,
+        "input_tokens": 2979,
+        "latency_s": 39.06365790001291,
+        "output_tokens": 2386,
+        "total_tokens": 5365
+      },
+      "determination_id": "fcra.frivolous_termination_valid",
+      "disposition_id": "direct_disp_94fc31b774f340b2b8b5a26946c20ce9",
+      "matches_reference": true,
+      "outcome": "false",
+      "rationale": "No frivolous or irrelevant termination was invoked; the CRA performed a full reinvestigation.",
+      "reference_outcome": "false"
+    },
+    {
+      "case_id": "fcra_deep_clean_verified",
+      "case_title": "Clean verified auto-loan dispute",
+      "confidence": 0.6,
+      "cost": {
+        "estimated_cost_usd": 0.223635,
+        "input_tokens": 2979,
+        "latency_s": 39.06365790001291,
+        "output_tokens": 2386,
+        "total_tokens": 5365
+      },
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "disposition_id": "direct_disp_5ddbb3e895504cfcac0eb7cb2efcfc90",
+      "matches_reference": false,
+      "outcome": "undetermined",
+      "rationale": "Furnisher provided a verifying response, but the packet does not state whether the furnisher reviewed all relevant information (e.g., the consumer ledger image) or reported to other nationwide CRAs as required.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_clean_verified",
+      "case_title": "Clean verified auto-loan dispute",
+      "confidence": 0.75,
+      "cost": {
+        "estimated_cost_usd": 0.223635,
+        "input_tokens": 2979,
+        "latency_s": 39.06365790001291,
+        "output_tokens": 2386,
+        "total_tokens": 5365
+      },
+      "determination_id": "fcra.human_review_required",
+      "disposition_id": "direct_disp_6c55963b284c4138a96af448574fc560",
+      "matches_reference": true,
+      "outcome": "false",
+      "rationale": "No identity theft, mixed file, court order, veteran medical debt, material date conflict, or missing primary documents are indicated. Documents were considered and compared.",
+      "reference_outcome": "false"
+    },
+    {
+      "case_id": "fcra_deep_clean_verified",
+      "case_title": "Clean verified auto-loan dispute",
+      "confidence": 0.85,
+      "cost": {
+        "estimated_cost_usd": 0.223635,
+        "input_tokens": 2979,
+        "latency_s": 39.06365790001291,
+        "output_tokens": 2386,
+        "total_tokens": 5365
+      },
+      "determination_id": "fcra.item_treatment_satisfied",
+      "disposition_id": "direct_disp_140db71166a44bfa936d7c10f85cce5b",
+      "matches_reference": true,
+      "outcome": "true",
+      "rationale": "Item was verified after reasonable reinvestigation; no defect found, so item may remain.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_clean_verified",
+      "case_title": "Clean verified auto-loan dispute",
+      "confidence": 0.95,
+      "cost": {
+        "estimated_cost_usd": 0.223635,
+        "input_tokens": 2979,
+        "latency_s": 39.06365790001291,
+        "output_tokens": 2386,
+        "total_tokens": 5365
+      },
+      "determination_id": "fcra.reinsertion_satisfied",
+      "disposition_id": "direct_disp_a12f59fe97db42b990ad43de88760456",
+      "matches_reference": true,
+      "outcome": "true",
+      "rationale": "No deletion occurred, so reinsertion safeguards are not applicable.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_clean_verified",
+      "case_title": "Clean verified auto-loan dispute",
+      "confidence": 0.95,
+      "cost": {
+        "estimated_cost_usd": 0.223635,
+        "input_tokens": 2979,
+        "latency_s": 39.06365790001291,
+        "output_tokens": 2386,
+        "total_tokens": 5365
+      },
+      "determination_id": "fcra.reseller_satisfied",
+      "disposition_id": "direct_disp_884aed7d33c04c75950013eb6afa37fb",
+      "matches_reference": true,
+      "outcome": "true",
+      "rationale": "Dispute was received directly by the CRA; no reseller involved.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_clean_verified",
+      "case_title": "Clean verified auto-loan dispute",
+      "confidence": 0.7,
+      "cost": {
+        "estimated_cost_usd": 0.223635,
+        "input_tokens": 2979,
+        "latency_s": 39.06365790001291,
+        "output_tokens": 2386,
+        "total_tokens": 5365
+      },
+      "determination_id": "fcra.results_notice_satisfied",
+      "disposition_id": "direct_disp_13932fa638c64b16922ce937a1c29ea7",
+      "matches_reference": false,
+      "outcome": "undetermined",
+      "rationale": "Results were mailed within 4 business days with revised report, but the packet does not state whether required disclosures (procedure description right, furnisher contact, consumer statement right, deletion notification right) were included.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_missing_forwarded_bank_statement",
+      "case_title": "Bank statement not forwarded to furnisher",
+      "confidence": 0.6,
+      "cost": {
+        "estimated_cost_usd": 0.24828,
+        "input_tokens": 2947,
+        "latency_s": 41.217352399995434,
+        "output_tokens": 2721,
+        "total_tokens": 5668
+      },
+      "determination_id": "fcra.consumer_statement_satisfied",
+      "disposition_id": "direct_disp_f971fd7cea9a498cab9512391c866ee6",
+      "matches_reference": false,
+      "outcome": "undetermined",
+      "rationale": "No information in packet about whether the consumer filed a brief statement after the unresolved dispute.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_missing_forwarded_bank_statement",
+      "case_title": "Bank statement not forwarded to furnisher",
+      "confidence": 0.9,
+      "cost": {
+        "estimated_cost_usd": 0.24828,
+        "input_tokens": 2947,
+        "latency_s": 41.217352399995434,
+        "output_tokens": 2721,
+        "total_tokens": 5668
+      },
+      "determination_id": "fcra.cra_consideration_satisfied",
+      "disposition_id": "direct_disp_222a65528076424881a218b2ef4937f8",
+      "matches_reference": true,
+      "outcome": "false",
+      "rationale": "CRA used automated dispute coding alone and failed to ensure the furnisher received primary documents (bank statements, creditor letter) that materially conflict with the reported balance. Policy explicitly states automated coding alone is insufficient when primary documents require review.",
+      "reference_outcome": "false"
+    },
+    {
+      "case_id": "fcra_deep_missing_forwarded_bank_statement",
+      "case_title": "Bank statement not forwarded to furnisher",
+      "confidence": 0.9,
+      "cost": {
+        "estimated_cost_usd": 0.24828,
+        "input_tokens": 2947,
+        "latency_s": 41.217352399995434,
+        "output_tokens": 2721,
+        "total_tokens": 5668
+      },
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "disposition_id": "direct_disp_f1b1d468d0d1461f97b1e92e5d22a2eb",
+      "matches_reference": true,
+      "outcome": "false",
+      "rationale": "Although notice was sent on day 4 (within 5 business days), the notice did not include all relevant information from the consumer\u2014the document images (bank statements, creditor letter) were not forwarded. Policy requires the notice to include all relevant information received.",
+      "reference_outcome": "false"
+    },
+    {
+      "case_id": "fcra_deep_missing_forwarded_bank_statement",
+      "case_title": "Bank statement not forwarded to furnisher",
+      "confidence": 0.9,
+      "cost": {
+        "estimated_cost_usd": 0.24828,
+        "input_tokens": 2947,
+        "latency_s": 41.217352399995434,
+        "output_tokens": 2721,
+        "total_tokens": 5668
+      },
+      "determination_id": "fcra.cra_reinvestigation_required",
+      "disposition_id": "direct_disp_364da2d569894b2092f150de36356a64",
+      "matches_reference": true,
+      "outcome": "true",
+      "rationale": "Valid dispute received; no frivolous termination indicated.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_missing_forwarded_bank_statement",
+      "case_title": "Bank statement not forwarded to furnisher",
+      "confidence": 0.95,
+      "cost": {
+        "estimated_cost_usd": 0.24828,
+        "input_tokens": 2947,
+        "latency_s": 41.217352399995434,
+        "output_tokens": 2721,
+        "total_tokens": 5668
+      },
+      "determination_id": "fcra.cra_reinvestigation_timely",
+      "disposition_id": "direct_disp_7f76437298a24dbdaed5006d477d85f1",
+      "matches_reference": true,
+      "outcome": "true",
+      "rationale": "CRA completed within 29 days, inside the 30-day window.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_missing_forwarded_bank_statement",
+      "case_title": "Bank statement not forwarded to furnisher",
+      "confidence": 0.9,
+      "cost": {
+        "estimated_cost_usd": 0.24828,
+        "input_tokens": 2947,
+        "latency_s": 41.217352399995434,
+        "output_tokens": 2721,
+        "total_tokens": 5668
+      },
+      "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+      "disposition_id": "direct_disp_ebecec8bde424c7ba78881efa1680a9a",
+      "matches_reference": true,
+      "outcome": "true",
+      "rationale": "Consumer disputed a specific item (charged-off balance) and provided basis (settlement payment) with supporting documents.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_missing_forwarded_bank_statement",
+      "case_title": "Bank statement not forwarded to furnisher",
+      "confidence": 0.9,
+      "cost": {
+        "estimated_cost_usd": 0.24828,
+        "input_tokens": 2947,
+        "latency_s": 41.217352399995434,
+        "output_tokens": 2721,
+        "total_tokens": 5668
+      },
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "disposition_id": "direct_disp_4c440a21e5f54f3bb5aba2853b3fe463",
+      "matches_reference": true,
+      "outcome": "true",
+      "rationale": "No direct dispute to furnisher described; not applicable.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_missing_forwarded_bank_statement",
+      "case_title": "Bank statement not forwarded to furnisher",
+      "confidence": 0.9,
+      "cost": {
+        "estimated_cost_usd": 0.24828,
+        "input_tokens": 2947,
+        "latency_s": 41.217352399995434,
+        "output_tokens": 2721,
+        "total_tokens": 5668
+      },
+      "determination_id": "fcra.dispute_resolution_compliant",
+      "disposition_id": "direct_disp_c1a11d96d0a04fe6a380411473eb95ed",
+      "matches_reference": true,
+      "outcome": "false",
+      "rationale": "CRA failed to forward relevant primary documents to the furnisher and relied on automated coding, undermining furnisher-notice and consideration duties. Overall compliance not met.",
+      "reference_outcome": "false"
+    },
+    {
+      "case_id": "fcra_deep_missing_forwarded_bank_statement",
+      "case_title": "Bank statement not forwarded to furnisher",
+      "confidence": 0.85,
+      "cost": {
+        "estimated_cost_usd": 0.24828,
+        "input_tokens": 2947,
+        "latency_s": 41.217352399995434,
+        "output_tokens": 2721,
+        "total_tokens": 5668
+      },
+      "determination_id": "fcra.frivolous_termination_valid",
+      "disposition_id": "direct_disp_3297ea23e2514e82b64dcf3b049a714c",
+      "matches_reference": false,
+      "outcome": "true",
+      "rationale": "No frivolous termination occurred; the agency proceeded with reinvestigation, so this is not applicable/trivially valid.",
+      "reference_outcome": "false"
+    },
+    {
+      "case_id": "fcra_deep_missing_forwarded_bank_statement",
+      "case_title": "Bank statement not forwarded to furnisher",
+      "confidence": 0.7,
+      "cost": {
+        "estimated_cost_usd": 0.24828,
+        "input_tokens": 2947,
+        "latency_s": 41.217352399995434,
+        "output_tokens": 2721,
+        "total_tokens": 5668
+      },
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "disposition_id": "direct_disp_51af2e5c527848508213a3a0049002db",
+      "matches_reference": false,
+      "outcome": "false",
+      "rationale": "Furnisher verified the old balance, but did so without all relevant information because the CRA did not forward primary documents. The furnisher's duty to review all relevant information could not be met, and the verification of an item that may be inaccurate suggests duty likely not satisfied. However, partial fault lies with CRA's transmission failure.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_missing_forwarded_bank_statement",
+      "case_title": "Bank statement not forwarded to furnisher",
+      "confidence": 0.95,
+      "cost": {
+        "estimated_cost_usd": 0.24828,
+        "input_tokens": 2947,
+        "latency_s": 41.217352399995434,
+        "output_tokens": 2721,
+        "total_tokens": 5668
+      },
+      "determination_id": "fcra.human_review_required",
+      "disposition_id": "direct_disp_83d701ee98c548ff8b70155bd86d687e",
+      "matches_reference": true,
+      "outcome": "true",
+      "rationale": "Material evidence conflict (settlement documents vs. furnisher verification) remains unresolved, and primary source documents were missing from the furnisher's review record. Routing policy triggers apply.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_missing_forwarded_bank_statement",
+      "case_title": "Bank statement not forwarded to furnisher",
+      "confidence": 0.6,
+      "cost": {
+        "estimated_cost_usd": 0.24828,
+        "input_tokens": 2947,
+        "latency_s": 41.217352399995434,
+        "output_tokens": 2721,
+        "total_tokens": 5668
+      },
+      "determination_id": "fcra.item_treatment_satisfied",
+      "disposition_id": "direct_disp_abc497ccd09e4d3badd011a06fb087ee",
+      "matches_reference": false,
+      "outcome": "undetermined",
+      "rationale": "The furnisher verified the old balance, but verification occurred without the relevant primary documents. Whether the item is in fact inaccurate/unverifiable cannot be determined from the packet; the verification may be unreliable due to upstream CRA failure.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_missing_forwarded_bank_statement",
+      "case_title": "Bank statement not forwarded to furnisher",
+      "confidence": 0.9,
+      "cost": {
+        "estimated_cost_usd": 0.24828,
+        "input_tokens": 2947,
+        "latency_s": 41.217352399995434,
+        "output_tokens": 2721,
+        "total_tokens": 5668
+      },
+      "determination_id": "fcra.reinsertion_satisfied",
+      "disposition_id": "direct_disp_e810475d32914e229acdb895979f7f52",
+      "matches_reference": true,
+      "outcome": "true",
+      "rationale": "No deletion occurred and no reinsertion described; not applicable.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_missing_forwarded_bank_statement",
+      "case_title": "Bank statement not forwarded to furnisher",
+      "confidence": 0.9,
+      "cost": {
+        "estimated_cost_usd": 0.24828,
+        "input_tokens": 2947,
+        "latency_s": 41.217352399995434,
+        "output_tokens": 2721,
+        "total_tokens": 5668
+      },
+      "determination_id": "fcra.reseller_satisfied",
+      "disposition_id": "direct_disp_d4d65006a3624e9c8306d9bd5431cba3",
+      "matches_reference": true,
+      "outcome": "true",
+      "rationale": "No reseller involvement described; not applicable.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_missing_forwarded_bank_statement",
+      "case_title": "Bank statement not forwarded to furnisher",
+      "confidence": 0.6,
+      "cost": {
+        "estimated_cost_usd": 0.24828,
+        "input_tokens": 2947,
+        "latency_s": 41.217352399995434,
+        "output_tokens": 2721,
+        "total_tokens": 5668
+      },
+      "determination_id": "fcra.results_notice_satisfied",
+      "disposition_id": "direct_disp_191d7b4f1cb345f3a1a9b55b3e0fe93c",
+      "matches_reference": false,
+      "outcome": "undetermined",
+      "rationale": "Narrative states results notice was timely, but does not describe its contents (required disclosures regarding procedure, furnisher contact, consumer statement right, deletion notification right).",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_direct_furnisher_valid_not_corrected",
+      "case_title": "Direct furnisher dispute found inaccurate but CRAs not corrected",
+      "confidence": 0.5,
+      "cost": {
+        "estimated_cost_usd": 0.203445,
+        "input_tokens": 2938,
+        "latency_s": 33.187052599998424,
+        "output_tokens": 2125,
+        "total_tokens": 5063
+      },
+      "determination_id": "fcra.consumer_statement_satisfied",
+      "disposition_id": "direct_disp_3c9e355ea78a426cafb0879c40b20555",
+      "matches_reference": false,
+      "outcome": "undetermined",
+      "rationale": "No information about consumer statement filing; dispute was direct to furnisher, not CRA.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_direct_furnisher_valid_not_corrected",
+      "case_title": "Direct furnisher dispute found inaccurate but CRAs not corrected",
+      "confidence": 0.5,
+      "cost": {
+        "estimated_cost_usd": 0.203445,
+        "input_tokens": 2938,
+        "latency_s": 33.187052599998424,
+        "output_tokens": 2125,
+        "total_tokens": 5063
+      },
+      "determination_id": "fcra.cra_consideration_satisfied",
+      "disposition_id": "direct_disp_f5cb203067e244b1adad942a5fad929e",
+      "matches_reference": false,
+      "outcome": "undetermined",
+      "rationale": "No CRA dispute in this case; CRA duties not triggered or addressed.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_direct_furnisher_valid_not_corrected",
+      "case_title": "Direct furnisher dispute found inaccurate but CRAs not corrected",
+      "confidence": 0.5,
+      "cost": {
+        "estimated_cost_usd": 0.203445,
+        "input_tokens": 2938,
+        "latency_s": 33.187052599998424,
+        "output_tokens": 2125,
+        "total_tokens": 5063
+      },
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "disposition_id": "direct_disp_6473377f993a4f16b6791706ebed123f",
+      "matches_reference": false,
+      "outcome": "undetermined",
+      "rationale": "No CRA dispute received; this duty not addressed in packet.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_direct_furnisher_valid_not_corrected",
+      "case_title": "Direct furnisher dispute found inaccurate but CRAs not corrected",
+      "confidence": 0.5,
+      "cost": {
+        "estimated_cost_usd": 0.203445,
+        "input_tokens": 2938,
+        "latency_s": 33.187052599998424,
+        "output_tokens": 2125,
+        "total_tokens": 5063
+      },
+      "determination_id": "fcra.cra_reinvestigation_required",
+      "disposition_id": "direct_disp_7ce156bbeba747dd814ca185356d6ed2",
+      "matches_reference": false,
+      "outcome": "undetermined",
+      "rationale": "Packet describes direct furnisher dispute; no CRA notice indicated.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_direct_furnisher_valid_not_corrected",
+      "case_title": "Direct furnisher dispute found inaccurate but CRAs not corrected",
+      "confidence": 0.5,
+      "cost": {
+        "estimated_cost_usd": 0.203445,
+        "input_tokens": 2938,
+        "latency_s": 33.187052599998424,
+        "output_tokens": 2125,
+        "total_tokens": 5063
+      },
+      "determination_id": "fcra.cra_reinvestigation_timely",
+      "disposition_id": "direct_disp_47489893e9344b0e964fab180cee98a0",
+      "matches_reference": false,
+      "outcome": "undetermined",
+      "rationale": "No CRA reinvestigation in packet to assess timing.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_direct_furnisher_valid_not_corrected",
+      "case_title": "Direct furnisher dispute found inaccurate but CRAs not corrected",
+      "confidence": 0.5,
+      "cost": {
+        "estimated_cost_usd": 0.203445,
+        "input_tokens": 2938,
+        "latency_s": 33.187052599998424,
+        "output_tokens": 2125,
+        "total_tokens": 5063
+      },
+      "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+      "disposition_id": "direct_disp_190c23e6bec5482582c9b6b01b088f10",
+      "matches_reference": false,
+      "outcome": "undetermined",
+      "rationale": "No CRA-side dispute described in packet.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_direct_furnisher_valid_not_corrected",
+      "case_title": "Direct furnisher dispute found inaccurate but CRAs not corrected",
+      "confidence": 0.9,
+      "cost": {
+        "estimated_cost_usd": 0.203445,
+        "input_tokens": 2938,
+        "latency_s": 33.187052599998424,
+        "output_tokens": 2125,
+        "total_tokens": 5063
+      },
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "disposition_id": "direct_disp_73d2bf998e994e71914a81bfe7f27115",
+      "matches_reference": true,
+      "outcome": "false",
+      "rationale": "Although furnisher investigated and reported results to consumer, it failed to correct/modify the inaccurate information by notifying CRAs after finding the balance wrong, which is required under furnisher duties.",
+      "reference_outcome": "false"
+    },
+    {
+      "case_id": "fcra_deep_direct_furnisher_valid_not_corrected",
+      "case_title": "Direct furnisher dispute found inaccurate but CRAs not corrected",
+      "confidence": 0.9,
+      "cost": {
+        "estimated_cost_usd": 0.203445,
+        "input_tokens": 2938,
+        "latency_s": 33.187052599998424,
+        "output_tokens": 2125,
+        "total_tokens": 5063
+      },
+      "determination_id": "fcra.dispute_resolution_compliant",
+      "disposition_id": "direct_disp_fae24132ddf1402b9abad2b03e9f6ebc",
+      "matches_reference": true,
+      "outcome": "false",
+      "rationale": "Furnisher failed to propagate the correction to CRAs after finding the item inaccurate, breaching dispute resolution obligations.",
+      "reference_outcome": "false"
+    },
+    {
+      "case_id": "fcra_deep_direct_furnisher_valid_not_corrected",
+      "case_title": "Direct furnisher dispute found inaccurate but CRAs not corrected",
+      "confidence": 0.6,
+      "cost": {
+        "estimated_cost_usd": 0.203445,
+        "input_tokens": 2938,
+        "latency_s": 33.187052599998424,
+        "output_tokens": 2125,
+        "total_tokens": 5063
+      },
+      "determination_id": "fcra.frivolous_termination_valid",
+      "disposition_id": "direct_disp_aa63889da7b84f1eb16a916627c9964f",
+      "matches_reference": false,
+      "outcome": "undetermined",
+      "rationale": "No frivolous termination invoked in the packet.",
+      "reference_outcome": "false"
+    },
+    {
+      "case_id": "fcra_deep_direct_furnisher_valid_not_corrected",
+      "case_title": "Direct furnisher dispute found inaccurate but CRAs not corrected",
+      "confidence": 0.5,
+      "cost": {
+        "estimated_cost_usd": 0.203445,
+        "input_tokens": 2938,
+        "latency_s": 33.187052599998424,
+        "output_tokens": 2125,
+        "total_tokens": 5063
+      },
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "disposition_id": "direct_disp_5d5d137ee1fd46e6aed254bfcc1269b3",
+      "matches_reference": false,
+      "outcome": "undetermined",
+      "rationale": "No CRA-routed dispute described; indirect furnisher duties not triggered in packet.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_direct_furnisher_valid_not_corrected",
+      "case_title": "Direct furnisher dispute found inaccurate but CRAs not corrected",
+      "confidence": 0.85,
+      "cost": {
+        "estimated_cost_usd": 0.203445,
+        "input_tokens": 2938,
+        "latency_s": 33.187052599998424,
+        "output_tokens": 2125,
+        "total_tokens": 5063
+      },
+      "determination_id": "fcra.human_review_required",
+      "disposition_id": "direct_disp_e9da7f04c38a4cf48b9e16e38f2465e9",
+      "matches_reference": false,
+      "outcome": "true",
+      "rationale": "Furnisher found the item inaccurate but failed to correct/notify CRAs, leaving inaccurate reporting in place \u2014 a material compliance failure warranting human review.",
+      "reference_outcome": "false"
+    },
+    {
+      "case_id": "fcra_deep_direct_furnisher_valid_not_corrected",
+      "case_title": "Direct furnisher dispute found inaccurate but CRAs not corrected",
+      "confidence": 0.9,
+      "cost": {
+        "estimated_cost_usd": 0.203445,
+        "input_tokens": 2938,
+        "latency_s": 33.187052599998424,
+        "output_tokens": 2125,
+        "total_tokens": 5063
+      },
+      "determination_id": "fcra.item_treatment_satisfied",
+      "disposition_id": "direct_disp_aa91c5b9a3f140b69d9c048a11af25f6",
+      "matches_reference": false,
+      "outcome": "false",
+      "rationale": "Item determined inaccurate but not modified/deleted in CRA reporting; treatment duty not satisfied.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_direct_furnisher_valid_not_corrected",
+      "case_title": "Direct furnisher dispute found inaccurate but CRAs not corrected",
+      "confidence": 0.6,
+      "cost": {
+        "estimated_cost_usd": 0.203445,
+        "input_tokens": 2938,
+        "latency_s": 33.187052599998424,
+        "output_tokens": 2125,
+        "total_tokens": 5063
+      },
+      "determination_id": "fcra.reinsertion_satisfied",
+      "disposition_id": "direct_disp_787cb7c716c0494cb2973d1f66287144",
+      "matches_reference": false,
+      "outcome": "undetermined",
+      "rationale": "No deletion or reinsertion described.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_direct_furnisher_valid_not_corrected",
+      "case_title": "Direct furnisher dispute found inaccurate but CRAs not corrected",
+      "confidence": 0.6,
+      "cost": {
+        "estimated_cost_usd": 0.203445,
+        "input_tokens": 2938,
+        "latency_s": 33.187052599998424,
+        "output_tokens": 2125,
+        "total_tokens": 5063
+      },
+      "determination_id": "fcra.reseller_satisfied",
+      "disposition_id": "direct_disp_822c4b842146460abb2c978177a3e0e3",
+      "matches_reference": false,
+      "outcome": "undetermined",
+      "rationale": "No reseller in this packet.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_direct_furnisher_valid_not_corrected",
+      "case_title": "Direct furnisher dispute found inaccurate but CRAs not corrected",
+      "confidence": 0.5,
+      "cost": {
+        "estimated_cost_usd": 0.203445,
+        "input_tokens": 2938,
+        "latency_s": 33.187052599998424,
+        "output_tokens": 2125,
+        "total_tokens": 5063
+      },
+      "determination_id": "fcra.results_notice_satisfied",
+      "disposition_id": "direct_disp_47536096b27f45fcb2f6222c1cb8d2e3",
+      "matches_reference": false,
+      "outcome": "undetermined",
+      "rationale": "Pertains to CRA results notice; no CRA reinvestigation here.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_mixed_file_identity_theft_ambiguous",
+      "case_title": "Mixed-file not-mine dispute with incomplete identity theft packet",
+      "confidence": 0.5,
+      "cost": {
+        "estimated_cost_usd": 0.225075,
+        "input_tokens": 2965,
+        "latency_s": 37.37864479998825,
+        "output_tokens": 2408,
+        "total_tokens": 5373
+      },
+      "determination_id": "fcra.consumer_statement_satisfied",
+      "disposition_id": "direct_disp_c6ad241666b64086bd01613c7deac7fe",
+      "matches_reference": false,
+      "outcome": "undetermined",
+      "rationale": "Reinvestigation is not complete and no consumer statement has been filed or addressed in the packet.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_mixed_file_identity_theft_ambiguous",
+      "case_title": "Mixed-file not-mine dispute with incomplete identity theft packet",
+      "confidence": 0.6,
+      "cost": {
+        "estimated_cost_usd": 0.225075,
+        "input_tokens": 2965,
+        "latency_s": 37.37864479998825,
+        "output_tokens": 2408,
+        "total_tokens": 5373
+      },
+      "determination_id": "fcra.cra_consideration_satisfied",
+      "disposition_id": "direct_disp_773dee694fcf419eb3b6592070e82119",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "CRA has not received sufficient material to evaluate; inconsistent dates and missing identity theft report prevent a finding on reasonableness.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "fcra_deep_mixed_file_identity_theft_ambiguous",
+      "case_title": "Mixed-file not-mine dispute with incomplete identity theft packet",
+      "confidence": 0.6,
+      "cost": {
+        "estimated_cost_usd": 0.225075,
+        "input_tokens": 2965,
+        "latency_s": 37.37864479998825,
+        "output_tokens": 2408,
+        "total_tokens": 5373
+      },
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "disposition_id": "direct_disp_81179c87b4034df3ac358b5151aa53fc",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "Packet does not record whether or when the CRA notified the furnishers within 5 business days.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "fcra_deep_mixed_file_identity_theft_ambiguous",
+      "case_title": "Mixed-file not-mine dispute with incomplete identity theft packet",
+      "confidence": 0.85,
+      "cost": {
+        "estimated_cost_usd": 0.225075,
+        "input_tokens": 2965,
+        "latency_s": 37.37864479998825,
+        "output_tokens": 2408,
+        "total_tokens": 5373
+      },
+      "determination_id": "fcra.cra_reinvestigation_required",
+      "disposition_id": "direct_disp_a80406968dd347a290742e47d613c234",
+      "matches_reference": true,
+      "outcome": "true",
+      "rationale": "Consumer disputed accuracy of three collection accounts ('not mine'), identifying items and basis; this triggers the CRA reinvestigation duty.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_mixed_file_identity_theft_ambiguous",
+      "case_title": "Mixed-file not-mine dispute with incomplete identity theft packet",
+      "confidence": 0.7,
+      "cost": {
+        "estimated_cost_usd": 0.225075,
+        "input_tokens": 2965,
+        "latency_s": 37.37864479998825,
+        "output_tokens": 2408,
+        "total_tokens": 5373
+      },
+      "determination_id": "fcra.cra_reinvestigation_timely",
+      "disposition_id": "direct_disp_e89da26df0df43c8857668f6e45b8404",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "No dates of receipt or completion are provided to evaluate the 30/45-day window.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "fcra_deep_mixed_file_identity_theft_ambiguous",
+      "case_title": "Mixed-file not-mine dispute with incomplete identity theft packet",
+      "confidence": 0.8,
+      "cost": {
+        "estimated_cost_usd": 0.225075,
+        "input_tokens": 2965,
+        "latency_s": 37.37864479998825,
+        "output_tokens": 2408,
+        "total_tokens": 5373
+      },
+      "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+      "disposition_id": "direct_disp_214d3121875241bf9abbf61319292f20",
+      "matches_reference": true,
+      "outcome": "true",
+      "rationale": "Dispute identifies consumer, accounts (three collections), disputed field (ownership/accuracy), and basis ('not mine').",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_mixed_file_identity_theft_ambiguous",
+      "case_title": "Mixed-file not-mine dispute with incomplete identity theft packet",
+      "confidence": 0.5,
+      "cost": {
+        "estimated_cost_usd": 0.225075,
+        "input_tokens": 2965,
+        "latency_s": 37.37864479998825,
+        "output_tokens": 2408,
+        "total_tokens": 5373
+      },
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "disposition_id": "direct_disp_e25070ab30864534821ceba3d1972013",
+      "matches_reference": false,
+      "outcome": "undetermined",
+      "rationale": "No indication of a direct dispute to a furnisher in the packet.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_mixed_file_identity_theft_ambiguous",
+      "case_title": "Mixed-file not-mine dispute with incomplete identity theft packet",
+      "confidence": 0.7,
+      "cost": {
+        "estimated_cost_usd": 0.225075,
+        "input_tokens": 2965,
+        "latency_s": 37.37864479998825,
+        "output_tokens": 2408,
+        "total_tokens": 5373
+      },
+      "determination_id": "fcra.dispute_resolution_compliant",
+      "disposition_id": "direct_disp_a63665c61cc24d5290f537ee7ec29666",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "Multiple sub-duties are undetermined; cannot conclude overall compliance.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "fcra_deep_mixed_file_identity_theft_ambiguous",
+      "case_title": "Mixed-file not-mine dispute with incomplete identity theft packet",
+      "confidence": 0.55,
+      "cost": {
+        "estimated_cost_usd": 0.225075,
+        "input_tokens": 2965,
+        "latency_s": 37.37864479998825,
+        "output_tokens": 2408,
+        "total_tokens": 5373
+      },
+      "determination_id": "fcra.frivolous_termination_valid",
+      "disposition_id": "direct_disp_a4dba67b844d44769e6a15083230301e",
+      "matches_reference": false,
+      "outcome": "undetermined",
+      "rationale": "Packet does not indicate the CRA has invoked a frivolous/irrelevant termination, though materials are insufficient; status unclear.",
+      "reference_outcome": "false"
+    },
+    {
+      "case_id": "fcra_deep_mixed_file_identity_theft_ambiguous",
+      "case_title": "Mixed-file not-mine dispute with incomplete identity theft packet",
+      "confidence": 0.6,
+      "cost": {
+        "estimated_cost_usd": 0.225075,
+        "input_tokens": 2965,
+        "latency_s": 37.37864479998825,
+        "output_tokens": 2408,
+        "total_tokens": 5373
+      },
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "disposition_id": "direct_disp_b140dfdd8c854c47ad491704d3ad8d52",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "Furnisher response exists but its sufficiency, completeness, and treatment of mixed-file/identity theft signals is not described.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "fcra_deep_mixed_file_identity_theft_ambiguous",
+      "case_title": "Mixed-file not-mine dispute with incomplete identity theft packet",
+      "confidence": 0.92,
+      "cost": {
+        "estimated_cost_usd": 0.225075,
+        "input_tokens": 2965,
+        "latency_s": 37.37864479998825,
+        "output_tokens": 2408,
+        "total_tokens": 5373
+      },
+      "determination_id": "fcra.human_review_required",
+      "disposition_id": "direct_disp_c3ba49f4fa47483b8137cc8315926560",
+      "matches_reference": true,
+      "outcome": "true",
+      "rationale": "Plausible but incomplete identity theft evidence, possible mixed-file (similar name, two addresses), conflicting dates, and missing primary source (identity theft report) trigger human review routing.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_mixed_file_identity_theft_ambiguous",
+      "case_title": "Mixed-file not-mine dispute with incomplete identity theft packet",
+      "confidence": 0.7,
+      "cost": {
+        "estimated_cost_usd": 0.225075,
+        "input_tokens": 2965,
+        "latency_s": 37.37864479998825,
+        "output_tokens": 2408,
+        "total_tokens": 5373
+      },
+      "determination_id": "fcra.item_treatment_satisfied",
+      "disposition_id": "direct_disp_e2a91bbce2294a25a740617b011b3db2",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "No determination has yet been made whether items are inaccurate/unverifiable; treatment cannot be evaluated.",
+      "reference_outcome": "undetermined"
+    },
+    {
+      "case_id": "fcra_deep_mixed_file_identity_theft_ambiguous",
+      "case_title": "Mixed-file not-mine dispute with incomplete identity theft packet",
+      "confidence": 0.5,
+      "cost": {
+        "estimated_cost_usd": 0.225075,
+        "input_tokens": 2965,
+        "latency_s": 37.37864479998825,
+        "output_tokens": 2408,
+        "total_tokens": 5373
+      },
+      "determination_id": "fcra.reinsertion_satisfied",
+      "disposition_id": "direct_disp_736fd02161a54ea78b86bcab9f4bd6b6",
+      "matches_reference": false,
+      "outcome": "undetermined",
+      "rationale": "No reinsertion event described in the packet.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_mixed_file_identity_theft_ambiguous",
+      "case_title": "Mixed-file not-mine dispute with incomplete identity theft packet",
+      "confidence": 0.5,
+      "cost": {
+        "estimated_cost_usd": 0.225075,
+        "input_tokens": 2965,
+        "latency_s": 37.37864479998825,
+        "output_tokens": 2408,
+        "total_tokens": 5373
+      },
+      "determination_id": "fcra.reseller_satisfied",
+      "disposition_id": "direct_disp_f5581b8cb68640359d5fba3c13164a81",
+      "matches_reference": false,
+      "outcome": "undetermined",
+      "rationale": "No reseller involvement mentioned.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "fcra_deep_mixed_file_identity_theft_ambiguous",
+      "case_title": "Mixed-file not-mine dispute with incomplete identity theft packet",
+      "confidence": 0.7,
+      "cost": {
+        "estimated_cost_usd": 0.225075,
+        "input_tokens": 2965,
+        "latency_s": 37.37864479998825,
+        "output_tokens": 2408,
+        "total_tokens": 5373
+      },
+      "determination_id": "fcra.results_notice_satisfied",
+      "disposition_id": "direct_disp_19dcfe37e9e446eca1bbf3a04a439b5a",
+      "matches_reference": true,
+      "outcome": "undetermined",
+      "rationale": "Reinvestigation not complete; no results notice facts are present.",
+      "reference_outcome": "undetermined"
+    }
+  ],
+  "map_mode": "direct_llm_disposition",
+  "program": {
+    "atom_count": 120,
+    "determination_count": 15,
+    "name": "FCRA credit reporting dispute reinvestigation candidate",
+    "node_count": 169,
+    "version": "0.1"
+  },
+  "prompt_style": "governed"
+}

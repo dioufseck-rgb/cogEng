@@ -1,0 +1,74 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.reading_requirement_satisfied",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["test_results"],
+      "evidence": "English test passed.",
+      "explanation": "Overall English pass on the naturalization test record encompasses the reading subcomponent; reading is a required component of the English test.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.writing_requirement_satisfied",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["test_results"],
+      "evidence": "English test passed.",
+      "explanation": "Overall English pass on the naturalization test record encompasses the writing subcomponent; writing is a required component of the English test.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.speaking_requirement_satisfied",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["test_results"],
+      "evidence": "English test passed.",
+      "explanation": "Overall English pass on the naturalization test record encompasses the speaking subcomponent, which is assessed during the interview/test.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.medical_disability_exception_approved",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["test_results"],
+      "evidence": "English test passed, civics test passed.",
+      "explanation": "This is a conditional support atom ('if applicable'). The triggering condition (need for a disability exception) is absent because the applicant passed both English and civics tests, so the branch is not applicable.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "n400.two_test_opportunities_completed_if_initial_fail",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["test_results"],
+      "evidence": "English test passed, civics test passed.",
+      "explanation": "Conditional 'if initial fail' atom. The triggering condition is clearly absent because both tests were passed; no retest opportunity was required.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.reexamination_passed_or_exception",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["test_results"],
+      "evidence": "English test passed, civics test passed.",
+      "explanation": "Conditional support atom. Reexamination is only required if the initial test was failed; here both tests were passed, so the branch is not applicable.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.simplified_civics_administered_when_applicable",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["intake_summary", "test_results"],
+      "evidence": "Applicant is 37 years old and has been an LPR for 6 years; civics test passed.",
+      "explanation": "Conditional 'when applicable' atom. Simplified civics applies to older long-term LPRs (e.g., 65/20). Applicant is 37 with 6 years LPR, so the triggering condition is clearly absent and the branch is not applicable.",
+      "confidence": 0.9
+    }
+  ]
+}

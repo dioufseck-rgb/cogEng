@@ -1,0 +1,96 @@
+{
+  "case_id": "fcra_deep_clean_verified",
+  "case_level_notes": "",
+  "determinations": [
+    {
+      "confidence": 0.9,
+      "determination_id": "fcra.consumer_statement_satisfied",
+      "outcome": "true",
+      "rationale": "No consumer statement was filed; obligation not triggered."
+    },
+    {
+      "confidence": 0.9,
+      "determination_id": "fcra.cra_consideration_satisfied",
+      "outcome": "true",
+      "rationale": "CRA reviewed consumer ledger against furnisher payment history, not relying on automated coding alone."
+    },
+    {
+      "confidence": 0.95,
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "outcome": "true",
+      "rationale": "CRA sent dispute and document image to furnisher on the 3rd business day, within the 5-day window."
+    },
+    {
+      "confidence": 0.95,
+      "determination_id": "fcra.cra_reinvestigation_required",
+      "outcome": "true",
+      "rationale": "Valid dispute of accuracy received directly with identified account, field, and basis."
+    },
+    {
+      "confidence": 0.98,
+      "determination_id": "fcra.cra_reinvestigation_timely",
+      "outcome": "true",
+      "rationale": "Completed in 24 calendar days, within 30-day deadline."
+    },
+    {
+      "confidence": 0.95,
+      "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+      "outcome": "true",
+      "rationale": "Dispute identifies consumer, account, disputed field (30-day late), and basis with supporting ledger."
+    },
+    {
+      "confidence": 0.9,
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "outcome": "true",
+      "rationale": "No direct furnisher dispute in this case; not applicable."
+    },
+    {
+      "confidence": 0.9,
+      "determination_id": "fcra.dispute_resolution_compliant",
+      "outcome": "true",
+      "rationale": "All applicable obligations (trigger, timing, furnisher notice, consideration, treatment, results notice) satisfied."
+    },
+    {
+      "confidence": 0.95,
+      "determination_id": "fcra.frivolous_termination_valid",
+      "outcome": "true",
+      "rationale": "No frivolous termination invoked; not applicable."
+    },
+    {
+      "confidence": 0.9,
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "outcome": "true",
+      "rationale": "Furnisher investigated and reported results to CRA within 18 days, before the reinvestigation deadline."
+    },
+    {
+      "confidence": 0.9,
+      "determination_id": "fcra.human_review_required",
+      "outcome": "false",
+      "rationale": "No identity theft, mixed file, court order, conflicting docs, missing primary documents, or manual review policy trigger present."
+    },
+    {
+      "confidence": 0.95,
+      "determination_id": "fcra.item_treatment_satisfied",
+      "outcome": "true",
+      "rationale": "Item verified as accurate after reasonable reinvestigation; status recorded current."
+    },
+    {
+      "confidence": 0.95,
+      "determination_id": "fcra.reinsertion_satisfied",
+      "outcome": "true",
+      "rationale": "No deletion or reinsertion occurred; not applicable."
+    },
+    {
+      "confidence": 0.95,
+      "determination_id": "fcra.reseller_satisfied",
+      "outcome": "true",
+      "rationale": "Dispute received directly by CRA, not through a reseller; not applicable."
+    },
+    {
+      "confidence": 0.9,
+      "determination_id": "fcra.results_notice_satisfied",
+      "outcome": "true",
+      "rationale": "Results mailed with revised report 4 business days after completion, within 5-day window."
+    }
+  ]
+}

@@ -1,0 +1,164 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.consumer_statement_filed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not mention a consumer statement of dispute filed after reinvestigation.",
+      "explanation": "Post-reinvestigation statement filing is not within the closed-world scopes; silence is not conclusive.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.subsequent_reports_note_dispute",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not describe contents of subsequent consumer reports.",
+      "explanation": "Subsequent report content is outside the closed-world scopes documented.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "Consumer disputed a charged-off credit card balance, attaching bank statements and a settlement letter, contesting the accuracy of the balance.",
+      "explanation": "The dispute is framed as accuracy of the balance (paid via settlement), not completeness of the item. The intake scope is closed-world and characterizes the dispute basis.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.notice_through_reseller",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative describes consumer disputing directly to the CRA with no reseller mentioned.",
+      "explanation": "Dispute intake steps are within the closed-world scope; no reseller is described in the intake chain.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.consumer_identity_sufficient",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "CRA coded the dispute, routed it to the furnisher on day 4, and completed reinvestigation with a timely results notice.",
+      "explanation": "The CRA processed the dispute through to completion and sent a results notice to the consumer, indicating identity information was sufficient to proceed; no identity deficiency is noted in the closed-world processing log.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "fcra.consumer_submission_authentic",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Consumer submitted the dispute with bank statements and a creditor letter; CRA accepted, coded, and processed it.",
+      "explanation": "CRA treated the submission as a valid consumer dispute and processed it; no authenticity concern is reflected in the closed-world processing log.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative describes the dispute being accepted and processed, with no indication it was treated as duplicate; consumer supplied new supporting documents (bank statements, settlement letter).",
+      "explanation": "Dispute intake/processing is within closed-world scope and shows no duplicate determination; consumer provided new evidence.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.frivolous_notice_sent",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "No frivolous or irrelevant determination was made; CRA proceeded with reinvestigation and issued a results notice.",
+      "explanation": "Conditional branch is not applicable because no frivolous determination occurred; binding true under the not-applicable convention.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.frivolous_reason_identified",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "No frivolous determination was made; reinvestigation proceeded to completion.",
+      "explanation": "Branch is inapplicable; binding true under the not-applicable convention.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.frivolous_missing_info_identified",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "No frivolous determination was made; CRA proceeded to reinvestigate and notified results.",
+      "explanation": "Branch is inapplicable; binding true under the not-applicable convention.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "bound",
+      "value": 0,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "No frivolous determination was made.",
+      "explanation": "The triggering condition (frivolous determination) is absent; the timing measurement is not applicable and can be treated as zero/not-applicable.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.cra_compared_furnisher_response",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative reports the furnisher verified the old balance but does not describe whether the CRA compared the response against the consumer's dispute basis.",
+      "explanation": "Comparison step is not enumerated; silence in a brief narrative is not conclusive.",
+      "confidence": 0.65
+    },
+    {
+      "atom_id": "fcra.cra_compared_own_file",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not describe CRA comparing dispute to its own file contents.",
+      "explanation": "Procedural step not enumerated; silence does not establish absence.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.cra_reasonable_reinvestigation_performed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "conflicting_evidence",
+      "source_ids": ["case_narrative"],
+      "evidence": "CRA coded and routed the dispute and completed within 29 days, but processing log shows document images were not sent or made available and only a generic 'claims paid' code was transmitted.",
+      "explanation": "Record contains both compliant procedural steps and material gaps; reasonableness determination is for the engine.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.business_days_to_notify_furnisher",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative says furnisher was notified 'on day 4' without specifying business vs. calendar days.",
+      "explanation": "Unit ambiguity prevents a reliable business-day extraction.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.later_relevant_info_received",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative describes initial submission only; no later consumer submissions are mentioned in the processing log.",
+      "explanation": "Dispute intake/processing steps are within closed-world scope; no additional submissions appear, supporting a negative binding.",
+      "confidence": 0.75
+    }
+  ]
+}

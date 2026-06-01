@@ -1,0 +1,1096 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.consumer_statement_filed",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Narrative does not mention any consumer statement of dispute filed after reinvestigation.",
+      "explanation": "Silence in an open-world narrative does not establish absence.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.subsequent_reports_note_dispute",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Narrative does not address subsequent reports.",
+      "explanation": "No evidence in narrative; cannot infer.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.consumer_disputed_item",
+      "basis": "explicit_positive",
+      "confidence": 0.98,
+      "evidence": "The consumer disputed a charged-off credit card balance.",
+      "explanation": "Narrative directly states the consumer disputed the item.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.item_in_consumer_file",
+      "basis": "inferred_from_record",
+      "confidence": 0.9,
+      "evidence": "CRA coded the dispute, sent code to furnisher; furnisher verified the old balance.",
+      "explanation": "The CRA's reinvestigation of the tradeline indicates the item was in the consumer's file at the CRA.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Narrative does not characterize the dispute as one of completeness.",
+      "explanation": "Cannot determine whether dispute was framed as completeness.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.dispute_about_accuracy",
+      "basis": "inferred_from_record",
+      "confidence": 0.9,
+      "evidence": "Consumer attached creditor settlement letter and bank statements to dispute a charged-off balance, contesting the reported balance.",
+      "explanation": "Disputing the reported balance with payment evidence is an accuracy dispute.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.notice_direct_to_cra",
+      "basis": "inferred_from_record",
+      "confidence": 0.85,
+      "evidence": "The CRA coded the dispute and processed it; no reseller mentioned.",
+      "explanation": "Narrative indicates CRA directly received and processed the dispute.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.notice_through_reseller",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Narrative does not mention a reseller.",
+      "explanation": "Absence of mention does not affirmatively establish no reseller involvement.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.consumer_identity_sufficient",
+      "basis": "inferred_from_record",
+      "confidence": 0.8,
+      "evidence": "CRA coded the dispute and conducted reinvestigation through the furnisher.",
+      "explanation": "Reinvestigation proceeded, indicating identity was sufficient.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.account_identified",
+      "basis": "inferred_from_record",
+      "confidence": 0.85,
+      "evidence": "CRA forwarded a dispute about the specific charged-off credit card to the furnisher who verified the balance.",
+      "explanation": "Account was identifiable enough to route to the proper furnisher.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.disputed_field_identified",
+      "basis": "inferred_from_record",
+      "confidence": 0.85,
+      "evidence": "Dispute concerned the charged-off balance with settlement evidence.",
+      "explanation": "The specific disputed field (balance/status) is identified.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.basis_explained",
+      "basis": "inferred_from_record",
+      "confidence": 0.9,
+      "evidence": "Consumer attached bank statements plus a creditor letter showing a settlement payment.",
+      "explanation": "Attaching primary documents showing settlement explains the basis for the inaccuracy claim.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.consumer_submission_authentic",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Narrative does not address authenticity concerns; CRA processed the dispute.",
+      "explanation": "Authenticity not affirmatively addressed; cannot be determined with confidence.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.frivolous_determination_made",
+      "basis": "inferred_from_record",
+      "confidence": 0.85,
+      "evidence": "CRA processed the dispute, coded it, sent furnisher notice, and completed reinvestigation with a results notice.",
+      "explanation": "Conducting the reinvestigation is inconsistent with treating the dispute as frivolous/irrelevant.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "No mention of prior disputes.",
+      "explanation": "Cannot determine duplicate-without-new-info from silent narrative.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "basis": "inferred_from_record",
+      "confidence": 0.8,
+      "evidence": "CRA processed and reinvestigated; consumer provided bank statements and creditor settlement letter.",
+      "explanation": "The CRA proceeded with investigation, indicating sufficient info to investigate.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.frivolous_notice_sent",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "No frivolous determination indicated; narrative silent on frivolous notice.",
+      "explanation": "No affirmative statement; conditional on a frivolous determination not made.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.frivolous_reason_identified",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Narrative silent.",
+      "explanation": "No evidence either way.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.frivolous_missing_info_identified",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Narrative silent.",
+      "explanation": "No evidence either way.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "basis": "not_found",
+      "confidence": 0.5,
+      "evidence": "No frivolous determination or related timing stated.",
+      "explanation": "No numeric value available.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.cra_reviewed_all_consumer_info",
+      "basis": "explicit_negative",
+      "confidence": 0.85,
+      "evidence": "Processing log says document images were not sent or made available; CRA sent only a generic 'claims paid' code.",
+      "explanation": "Failing to transmit/use the submitted documents indicates the CRA did not review all relevant info submitted.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.cra_considered_primary_source_documents",
+      "basis": "explicit_negative",
+      "confidence": 0.9,
+      "evidence": "Processing log says the document images were not sent or made available.",
+      "explanation": "Primary documents (bank statements, creditor letter) were not transmitted or used.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.cra_compared_furnisher_response",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Narrative does not state whether CRA compared furnisher response to consumer's dispute basis.",
+      "explanation": "Cannot determine from silent narrative.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.cra_compared_own_file",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Narrative does not describe comparison to own file.",
+      "explanation": "Not stated.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.cra_reasonable_reinvestigation_performed",
+      "basis": "conflicting_evidence",
+      "confidence": 0.5,
+      "evidence": "CRA completed within 29 days and obtained furnisher verification, but used only a generic code without forwarding document images.",
+      "explanation": "Reasonableness is a legal characterization for RuleKit; narrative gives both compliance and deficiency signals.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.dispositive_info_not_ignored",
+      "basis": "explicit_negative",
+      "confidence": 0.85,
+      "evidence": "Settlement letter and bank statements were not sent or made available to the furnisher; CRA used only a generic 'claims paid' code.",
+      "explanation": "Potentially dispositive primary documents were not transmitted or considered.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.automated_code_only",
+      "basis": "explicit_positive",
+      "confidence": 0.9,
+      "evidence": "CRA sent a generic 'claims paid' code to the furnisher; document images were not sent or made available.",
+      "explanation": "Narrative describes investigation as coding-only without document review/transmission.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.human_review_of_documents_performed",
+      "basis": "explicit_negative",
+      "confidence": 0.85,
+      "evidence": "Document images were not sent or made available; only a generic code was used.",
+      "explanation": "No document-review process occurred given documents were not transmitted/available.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.furnished_by_furnisher",
+      "basis": "explicit_positive",
+      "confidence": 0.95,
+      "evidence": "The furnisher verified the old balance.",
+      "explanation": "Item was furnished by a furnisher (the creditor/furnisher who verified).",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.expedited_deleted_within_3_business_days",
+      "basis": "inferred_from_record",
+      "confidence": 0.9,
+      "evidence": "Furnisher verified the old balance; CRA completed reinvestigation in 29 days, not by expedited deletion.",
+      "explanation": "The dispute was not resolved by deletion within 3 business days.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.cra_notified_furnisher",
+      "basis": "explicit_positive",
+      "confidence": 0.95,
+      "evidence": "CRA sent a generic 'claims paid' code to the furnisher on day 4.",
+      "explanation": "CRA notified the furnisher of the dispute.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.business_days_to_notify_furnisher",
+      "basis": "not_found",
+      "confidence": 0.5,
+      "evidence": "Narrative states 'day 4' without specifying business vs calendar days.",
+      "explanation": "Unit (business days) not unambiguously stated; cannot extract.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.notice_included_all_relevant_info",
+      "basis": "explicit_negative",
+      "confidence": 0.9,
+      "evidence": "CRA sent a generic 'claims paid' code; document images were not sent or made available.",
+      "explanation": "Notice omitted the consumer's primary documents.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.primary_documents_forwarded",
+      "basis": "explicit_negative",
+      "confidence": 0.95,
+      "evidence": "Processing log says the document images were not sent or made available.",
+      "explanation": "Primary documents were neither forwarded nor made available to furnisher.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.later_relevant_info_received",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Narrative silent on additional later info.",
+      "explanation": "Not addressed.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.later_relevant_info_forwarded",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Narrative silent.",
+      "explanation": "Not addressed.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.reinvestigation_completed",
+      "basis": "explicit_positive",
+      "confidence": 0.98,
+      "evidence": "The CRA completed within 29 days and sent a timely results notice.",
+      "explanation": "Narrative explicitly says CRA completed the reinvestigation.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.days_to_complete_reinvestigation",
+      "basis": "explicit_positive",
+      "confidence": 0.95,
+      "evidence": "The CRA completed within 29 days.",
+      "explanation": "Numeric value stated directly.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": 29
+    },
+    {
+      "atom_id": "fcra.additional_relevant_info_received_in_30_days",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Narrative silent on additional info during the 30-day window.",
+      "explanation": "Not addressed.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.direct_dispute_received_by_furnisher",
+      "basis": "inferred_from_record",
+      "confidence": 0.8,
+      "evidence": "Consumer disputed via the CRA, which coded and sent notice to the furnisher; no direct dispute described.",
+      "explanation": "Dispute flow was through the CRA, not directly to furnisher.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.direct_dispute_public_record_only",
+      "basis": "not_found",
+      "confidence": 0.5,
+      "evidence": "No direct dispute described.",
+      "explanation": "Not applicable in record; cannot bind.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.direct_dispute_fraud_alert_only",
+      "basis": "not_found",
+      "confidence": 0.5,
+      "evidence": "No direct dispute described.",
+      "explanation": "Not applicable in record.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.direct_dispute_at_proper_address",
+      "basis": "not_found",
+      "confidence": 0.5,
+      "evidence": "No direct dispute described.",
+      "explanation": "Cannot bind without a direct dispute.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.direct_dispute_identifies_account",
+      "basis": "not_found",
+      "confidence": 0.5,
+      "evidence": "No direct dispute described.",
+      "explanation": "Cannot bind without a direct dispute.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.direct_dispute_identifies_specific_info",
+      "basis": "not_found",
+      "confidence": 0.5,
+      "evidence": "No direct dispute described.",
+      "explanation": "Cannot bind without a direct dispute.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.direct_dispute_explains_basis",
+      "basis": "not_found",
+      "confidence": 0.5,
+      "evidence": "No direct dispute described.",
+      "explanation": "Cannot bind without a direct dispute.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.direct_dispute_supporting_docs_supplied",
+      "basis": "not_found",
+      "confidence": 0.5,
+      "evidence": "No direct dispute described.",
+      "explanation": "Cannot bind without a direct dispute.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.direct_dispute_subject_within_scope",
+      "basis": "not_found",
+      "confidence": 0.5,
+      "evidence": "No direct dispute described.",
+      "explanation": "Cannot bind without a direct dispute.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.item_found_inaccurate",
+      "basis": "inferred_from_record",
+      "confidence": 0.85,
+      "evidence": "The furnisher verified the old balance.",
+      "explanation": "Verification indicates the reinvestigation did not find the item inaccurate.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.item_found_incomplete",
+      "basis": "inferred_from_record",
+      "confidence": 0.8,
+      "evidence": "The furnisher verified the old balance.",
+      "explanation": "Verification implies no incompleteness finding by the reinvestigation.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "basis": "explicit_negative",
+      "confidence": 0.9,
+      "evidence": "The furnisher verified the old balance.",
+      "explanation": "The item was reported as verified.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.direct_furnisher_investigation_conducted",
+      "basis": "not_found",
+      "confidence": 0.5,
+      "evidence": "No direct dispute described.",
+      "explanation": "Not applicable in record.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.direct_furnisher_reviewed_info",
+      "basis": "not_found",
+      "confidence": 0.5,
+      "evidence": "No direct dispute described.",
+      "explanation": "Not applicable in record.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.direct_furnisher_results_reported_to_consumer",
+      "basis": "not_found",
+      "confidence": 0.5,
+      "evidence": "No direct dispute described.",
+      "explanation": "Not applicable in record.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.direct_furnisher_corrected_cras",
+      "basis": "not_found",
+      "confidence": 0.5,
+      "evidence": "No direct dispute described.",
+      "explanation": "Not applicable in record.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.item_verified_as_accurate",
+      "basis": "conflicting_evidence",
+      "confidence": 0.5,
+      "evidence": "The furnisher verified the old balance, but the verification followed an investigation that did not transmit/consider primary documents.",
+      "explanation": "Whether the verification followed a 'reasonable reinvestigation' is a policy judgment with conflicting signals; verification as a fact occurred, reasonableness is not for this atom binding to decide.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.item_status_recorded_current",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Narrative does not state whether current status was recorded.",
+      "explanation": "Not addressed.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.item_deleted",
+      "basis": "inferred_from_record",
+      "confidence": 0.85,
+      "evidence": "Furnisher verified the old balance; no deletion mentioned.",
+      "explanation": "Verification outcome contradicts deletion.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.item_modified",
+      "basis": "inferred_from_record",
+      "confidence": 0.85,
+      "evidence": "Furnisher verified the old balance.",
+      "explanation": "Verification of the old balance implies no modification.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.results_notice_sent",
+      "basis": "explicit_positive",
+      "confidence": 0.95,
+      "evidence": "The CRA ... sent a timely results notice.",
+      "explanation": "Narrative explicitly states results notice was sent.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.business_days_to_results_notice",
+      "basis": "not_found",
+      "confidence": 0.5,
+      "evidence": "Narrative describes the notice as 'timely' but provides no business-day count.",
+      "explanation": "No numeric value stated.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.notice_states_reinvestigation_completed",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Narrative does not quote the notice's content.",
+      "explanation": "Content of notice not described.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.revised_consumer_report_provided",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Narrative does not address inclusion of a revised consumer report.",
+      "explanation": "Not addressed.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.procedure_description_right_disclosed",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Narrative does not describe disclosures in the notice.",
+      "explanation": "Not addressed.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.furnisher_contact_disclosed_if_available",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Narrative does not describe disclosures in the notice.",
+      "explanation": "Not addressed.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.consumer_statement_right_disclosed",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Narrative does not describe disclosures in the notice.",
+      "explanation": "Not addressed.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.notification_right_disclosed",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Narrative does not describe disclosures in the notice.",
+      "explanation": "Not addressed.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.item_reinserted",
+      "basis": "inferred_from_record",
+      "confidence": 0.85,
+      "evidence": "No deletion occurred; furnisher verified the old balance.",
+      "explanation": "Reinsertion presupposes prior deletion, which did not occur.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.furnisher_certified_accuracy_for_reinsertion",
+      "basis": "not_found",
+      "confidence": 0.5,
+      "evidence": "No reinsertion event in record.",
+      "explanation": "Not applicable.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.reinsertion_notice_sent",
+      "basis": "not_found",
+      "confidence": 0.5,
+      "evidence": "No reinsertion event in record.",
+      "explanation": "Not applicable.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.business_days_to_reinsertion_notice",
+      "basis": "not_found",
+      "confidence": 0.5,
+      "evidence": "No reinsertion event in record.",
+      "explanation": "No numeric value available.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.reinsertion_notice_identifies_furnisher",
+      "basis": "not_found",
+      "confidence": 0.5,
+      "evidence": "No reinsertion event in record.",
+      "explanation": "Not applicable.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.reinsertion_notice_includes_statement_right",
+      "basis": "not_found",
+      "confidence": 0.5,
+      "evidence": "No reinsertion event in record.",
+      "explanation": "Not applicable.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.procedures_prevent_reappearance",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Narrative does not address CRA reappearance-prevention procedures.",
+      "explanation": "Not addressed.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.furnisher_received_cra_notice",
+      "basis": "explicit_positive",
+      "confidence": 0.95,
+      "evidence": "CRA ... sent a generic 'claims paid' code to the furnisher on day 4.",
+      "explanation": "Furnisher received CRA notice of the dispute.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.furnisher_investigation_conducted",
+      "basis": "inferred_from_record",
+      "confidence": 0.8,
+      "evidence": "The furnisher verified the old balance.",
+      "explanation": "Verification implies some investigation activity was conducted (its reasonableness is a separate policy issue).",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.furnisher_reviewed_all_cra_info",
+      "basis": "inferred_from_record",
+      "confidence": 0.7,
+      "evidence": "Furnisher responded to the CRA's transmitted information, though CRA only sent a generic code without document images.",
+      "explanation": "Furnisher reviewed what the CRA provided; CRA's transmission limitations are separate.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.furnisher_reported_results_to_cra",
+      "basis": "explicit_positive",
+      "confidence": 0.9,
+      "evidence": "The furnisher verified the old balance.",
+      "explanation": "Furnisher reported verification result to the CRA.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.days_to_furnisher_complete",
+      "basis": "not_found",
+      "confidence": 0.5,
+      "evidence": "No specific timing for furnisher completion stated.",
+      "explanation": "No numeric value available.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.furnisher_reported_inaccuracy_to_other_cras",
+      "basis": "inferred_from_record",
+      "confidence": 0.75,
+      "evidence": "Furnisher verified the old balance; no inaccuracy finding triggered downstream reporting.",
+      "explanation": "No finding of inaccuracy occurred to require notice to other CRAs.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.furnisher_modified_item",
+      "basis": "inferred_from_record",
+      "confidence": 0.85,
+      "evidence": "Furnisher verified the old balance.",
+      "explanation": "Verification implies no modification.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.furnisher_deleted_item",
+      "basis": "inferred_from_record",
+      "confidence": 0.85,
+      "evidence": "Furnisher verified the old balance.",
+      "explanation": "Verification implies no deletion.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.furnisher_blocked_item",
+      "basis": "inferred_from_record",
+      "confidence": 0.85,
+      "evidence": "Furnisher verified the old balance.",
+      "explanation": "Verification implies no blocking.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.reseller_received_dispute",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Narrative does not mention any reseller.",
+      "explanation": "Silence does not affirmatively rule out reseller involvement.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.reseller_item_due_to_reseller_error",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Narrative does not mention any reseller.",
+      "explanation": "Not addressed.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.reseller_corrected_or_deleted",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Narrative does not mention any reseller.",
+      "explanation": "Not addressed.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.days_to_reseller_correct_delete",
+      "basis": "not_found",
+      "confidence": 0.5,
+      "evidence": "No reseller events described.",
+      "explanation": "No numeric value available.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.reseller_conveyed_to_cra",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "No reseller events described.",
+      "explanation": "Not addressed.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.business_days_to_reseller_conveyance",
+      "basis": "not_found",
+      "confidence": 0.5,
+      "evidence": "No reseller events described.",
+      "explanation": "No numeric value available.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.reseller_reconveyed_results_to_consumer",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "No reseller events described.",
+      "explanation": "Not addressed.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    }
+  ],
+  "sources": [
+    {
+      "as_of_date": null,
+      "closed_world_scopes": [
+        "events explicitly described in the narrative including CRA coding, furnisher notice contents, reinvestigation timing, and results notice timing"
+      ],
+      "limitations": "High-level summary; does not enumerate every procedural detail, notice contents, or downstream actions; silent on direct-furnisher disputes, resellers, reinsertion, and several procedural disclosures.",
+      "source_id": "case_narrative",
+      "source_type": "case_narrative",
+      "title": "Consumer dispute case narrative"
+    }
+  ]
+}

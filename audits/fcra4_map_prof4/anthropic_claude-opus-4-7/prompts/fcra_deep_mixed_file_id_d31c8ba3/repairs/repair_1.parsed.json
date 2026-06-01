@@ -1,0 +1,194 @@
+{
+  "fcra.automated_code_only": {
+    "atom_id": "fcra.automated_code_only",
+    "basis": "open_world_absence",
+    "confidence": 0.6,
+    "evidence": "No description of CRA investigation methodology (automated coding vs. document review).",
+    "explanation": "Source is silent on the means of investigation, so the question whether the investigation was code-only cannot be resolved.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": false
+  },
+  "fcra.business_days_to_frivolous_notice": {
+    "atom_id": "fcra.business_days_to_frivolous_notice",
+    "basis": "not_found",
+    "confidence": 0.9,
+    "evidence": "No frivolous determination or notice described; no dates provided.",
+    "explanation": "Numeric value cannot be derived from the narrative; no triggering frivolous determination is mentioned.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.business_days_to_notify_furnisher": {
+    "atom_id": "fcra.business_days_to_notify_furnisher",
+    "basis": "not_found",
+    "confidence": 0.9,
+    "evidence": "No dates given for CRA receipt of the dispute or for any furnisher notice.",
+    "explanation": "Numeric value cannot be computed; narrative provides no datestamps for these events.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.cra_compared_furnisher_response": {
+    "atom_id": "fcra.cra_compared_furnisher_response",
+    "basis": "open_world_absence",
+    "confidence": 0.5,
+    "evidence": "Narrative notes inconsistent dates between CRA file and furnisher response but does not state the CRA performed a comparison.",
+    "explanation": "The existence of date discrepancies is observed at the case-summary level, not affirmatively as a CRA comparison action. Determination still open.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": false
+  },
+  "fcra.cra_compared_own_file": {
+    "atom_id": "fcra.cra_compared_own_file",
+    "basis": "open_world_absence",
+    "confidence": 0.5,
+    "evidence": "No statement that the CRA compared the dispute against its own file contents.",
+    "explanation": "No affirmative evidence of this comparison; narrative does not close the world on CRA procedural steps.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": false
+  },
+  "fcra.cra_considered_primary_source_documents": {
+    "atom_id": "fcra.cra_considered_primary_source_documents",
+    "basis": "open_world_absence",
+    "confidence": 0.6,
+    "evidence": "No description of CRA consideration of any primary source documents.",
+    "explanation": "Narrative does not affirm or deny consideration of primary source documents; in-progress dispute leaves this open.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": false
+  },
+  "fcra.cra_reasonable_reinvestigation_performed": {
+    "atom_id": "fcra.cra_reasonable_reinvestigation_performed",
+    "basis": "open_world_absence",
+    "confidence": 0.6,
+    "evidence": "CRA has not yet decided whether the items are mixed-file, identity-theft, or verified obligations.",
+    "explanation": "Reinvestigation is in-progress; there is no affirmative statement that a reasonable reinvestigation was performed or completed.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": false
+  },
+  "fcra.cra_reviewed_all_consumer_info": {
+    "atom_id": "fcra.cra_reviewed_all_consumer_info",
+    "basis": "open_world_absence",
+    "confidence": 0.6,
+    "evidence": "CRA 'has not yet received enough material to decide'; no description of review activities.",
+    "explanation": "The narrative is silent on what the CRA reviewed. Since the reinvestigation is in-progress and the source does not close the world on procedural steps, this remains undetermined.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": false
+  },
+  "fcra.dispositive_info_not_ignored": {
+    "atom_id": "fcra.dispositive_info_not_ignored",
+    "basis": "open_world_absence",
+    "confidence": 0.5,
+    "evidence": "No information on CRA's handling of any dispositive consumer information.",
+    "explanation": "Narrative does not describe whether any dispositive information was considered or ignored.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": false
+  },
+  "fcra.dispute_duplicate_without_new_info": {
+    "atom_id": "fcra.dispute_duplicate_without_new_info",
+    "basis": "open_world_absence",
+    "confidence": 0.5,
+    "evidence": "Narrative describes a current dispute with no mention of any prior dispute or resubmission.",
+    "explanation": "No information about prior disputes is present; cannot determine whether this is substantially the same as a prior dispute. Narrative is an in-progress summary that does not affirmatively close the world on prior dispute history.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": false
+  },
+  "fcra.expedited_deleted_within_3_business_days": {
+    "atom_id": "fcra.expedited_deleted_within_3_business_days",
+    "basis": "open_world_absence",
+    "confidence": 0.7,
+    "evidence": "CRA has not yet decided the disposition; no mention of any deletion.",
+    "explanation": "No evidence of expedited deletion under 1681i(a)(8); however, narrative does not close the world on whether the CRA elected this path.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": false
+  },
+  "fcra.human_review_of_documents_performed": {
+    "atom_id": "fcra.human_review_of_documents_performed",
+    "basis": "open_world_absence",
+    "confidence": 0.6,
+    "evidence": "No reference to any human or equivalent document review.",
+    "explanation": "Narrative does not affirm or deny human review of documents; remains open.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": false
+  },
+  "fcra.insufficient_information_to_investigate": {
+    "atom_id": "fcra.insufficient_information_to_investigate",
+    "basis": "conflicting_evidence",
+    "confidence": 0.5,
+    "evidence": "CRA 'has not yet received enough material to decide,' yet packet includes police incident number, addresses, and date discrepancies; identity theft affidavit is being prepared but not submitted.",
+    "explanation": "Evidence cuts both ways: some materials provided, but CRA has not yet made a determination. The narrative does not affirmatively characterize the dispute as insufficient under 1681i(a)(3); the question is still open.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": false
+  },
+  "fcra.later_relevant_info_received": {
+    "atom_id": "fcra.later_relevant_info_received",
+    "basis": "open_world_absence",
+    "confidence": 0.55,
+    "evidence": "Identity theft affidavit is 'being prepared' but not stated as received; no timeline relative to a furnisher notice is provided.",
+    "explanation": "Receipt of additional relevant information after furnisher notice is not affirmatively described; narrative remains open as the dispute is in-progress.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": false
+  },
+  "fcra.notice_included_all_relevant_info": {
+    "atom_id": "fcra.notice_included_all_relevant_info",
+    "basis": "open_world_absence",
+    "confidence": 0.6,
+    "evidence": "No description of what the CRA included in any notice to the furnisher.",
+    "explanation": "Contents of any furnisher notice are not described; completeness cannot be evaluated.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": false
+  },
+  "fcra.primary_documents_forwarded": {
+    "atom_id": "fcra.primary_documents_forwarded",
+    "basis": "open_world_absence",
+    "confidence": 0.6,
+    "evidence": "No statement about forwarding consumer documents to the furnisher.",
+    "explanation": "Narrative does not state whether primary documents were forwarded or made available to the furnisher.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": false
+  }
+}

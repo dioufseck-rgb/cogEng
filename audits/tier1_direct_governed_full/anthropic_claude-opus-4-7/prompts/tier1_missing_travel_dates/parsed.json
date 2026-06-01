@@ -1,0 +1,173 @@
+{
+  "case_id": "tier1_missing_travel_dates",
+  "case_level_notes": "Tier-1 case with missing exact travel dates and blank presence worksheet; continuous residence and physical presence cannot be adjudicated without further evidence. Route to human review.",
+  "determinations": [
+    {
+      "anti_overclaim_check": "Not concluding satisfied or unsatisfied without dates; preserving uncertainty per evidence gap directive.",
+      "confidence": 0.85,
+      "determination_id": "n400.continuous_residence_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Approximately seven months abroad in 2021",
+          "source": "applicant_statement"
+        },
+        {
+          "basis": "missing",
+          "fact": "No passport, CBP, flight records, or travel table",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "Applicant reports about seven months abroad in 2021 with no exact dates; absence between 6 and 12 months can rebut continuous residence and cannot be evaluated without dates.",
+      "uncertainty_flags": [
+        "missing exact travel dates",
+        "source limitation: approximate narrative only"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Binding directive flags this as a review trigger; not treating absence of calculation as satisfaction.",
+      "confidence": 0.9,
+      "determination_id": "n400.physical_presence_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "missing",
+          "fact": "Physical presence worksheet blank for 2021",
+          "source": "blank_presence_worksheet"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Approximate seven-month absence without dates",
+          "source": "applicant_statement"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "Physical presence worksheet is blank for 2021 and travel dates are approximate, so the calculation cannot be reliably verified.",
+      "uncertainty_flags": [
+        "missing calculation support",
+        "approximate dates"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Absence from open narrative is not proof of satisfaction.",
+      "confidence": 0.7,
+      "determination_id": "n400.state_residence_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "missing",
+          "fact": "No state/district residence facts in packet",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "Packet does not address state or USCIS district residence facts.",
+      "uncertainty_flags": [
+        "missing fact"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Not inferring satisfaction from silence.",
+      "confidence": 0.7,
+      "determination_id": "n400.english_requirement_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "missing",
+          "fact": "No English-related facts in packet",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "Packet contains no information regarding English ability or exception.",
+      "uncertainty_flags": [
+        "missing fact"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Not inferring satisfaction from silence.",
+      "confidence": 0.7,
+      "determination_id": "n400.civics_requirement_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "missing",
+          "fact": "No civics-related facts in packet",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "Packet contains no information regarding civics knowledge or exception.",
+      "uncertainty_flags": [
+        "missing fact"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Not inferring satisfaction from silence.",
+      "confidence": 0.7,
+      "determination_id": "n400.oath_attachment_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "missing",
+          "fact": "No oath/attachment facts in packet",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "Packet contains no information about oath/attachment to the Constitution.",
+      "uncertainty_flags": [
+        "missing fact"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Not inferring satisfaction from silence in open-world narrative.",
+      "confidence": 0.65,
+      "determination_id": "n400.good_moral_character_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "missing",
+          "fact": "No GMC-related facts in packet",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "Packet does not address GMC factors; cannot affirm satisfaction in absence of evidence.",
+      "uncertainty_flags": [
+        "missing fact"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Trigger is explicitly supported by binding directives in the packet.",
+      "confidence": 0.95,
+      "determination_id": "n400.human_review_required",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Missing passport/CBP/flight records and travel table",
+          "source": "binding_directives"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Blank physical presence worksheet for 2021",
+          "source": "blank_presence_worksheet"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Approximate ~7 months abroad without exact dates",
+          "source": "applicant_statement"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "Missing travel records, blank presence worksheet, and approximate seven-month absence constitute benchmark review triggers (evidence_missing_critical_dates, unresolved physical-presence gap).",
+      "uncertainty_flags": [
+        "missing critical dates",
+        "approximate facts"
+      ]
+    }
+  ]
+}

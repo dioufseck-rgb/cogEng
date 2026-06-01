@@ -1,0 +1,96 @@
+{
+  "case_id": "fcra_deep_valid_frivolous_missing_account",
+  "case_level_notes": "Valid frivolous termination because consumer's dispute failed to identify account, disputed field, or basis.",
+  "determinations": [
+    {
+      "confidence": 0.9,
+      "determination_id": "fcra.consumer_statement_satisfied",
+      "outcome": "true",
+      "rationale": "No consumer statement was filed; not applicable."
+    },
+    {
+      "confidence": 0.85,
+      "determination_id": "fcra.cra_consideration_satisfied",
+      "outcome": "true",
+      "rationale": "Reinvestigation was validly terminated as frivolous; consideration duties not triggered."
+    },
+    {
+      "confidence": 0.85,
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "outcome": "true",
+      "rationale": "Because dispute was frivolous/insufficient, furnisher notice duty not triggered."
+    },
+    {
+      "confidence": 0.9,
+      "determination_id": "fcra.cra_reinvestigation_required",
+      "outcome": "false",
+      "rationale": "Dispute failed to identify account, disputed field, or basis; valid frivolous termination applies."
+    },
+    {
+      "confidence": 0.85,
+      "determination_id": "fcra.cra_reinvestigation_timely",
+      "outcome": "true",
+      "rationale": "No reinvestigation required; timing not applicable."
+    },
+    {
+      "confidence": 0.95,
+      "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+      "outcome": "false",
+      "rationale": "Dispute packet did not identify account, disputed field, or basis, so no valid trigger."
+    },
+    {
+      "confidence": 0.9,
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "outcome": "true",
+      "rationale": "No direct furnisher dispute occurred; not applicable."
+    },
+    {
+      "confidence": 0.9,
+      "determination_id": "fcra.dispute_resolution_compliant",
+      "outcome": "true",
+      "rationale": "CRA validly terminated as frivolous and notified consumer within 5 business days with reasons and missing info."
+    },
+    {
+      "confidence": 0.95,
+      "determination_id": "fcra.frivolous_termination_valid",
+      "outcome": "true",
+      "rationale": "Consumer failed to identify account or basis; CRA determined frivolous, gave reasons and identified needed info within 3 business days."
+    },
+    {
+      "confidence": 0.9,
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "outcome": "true",
+      "rationale": "No furnisher notice triggered; duties not applicable."
+    },
+    {
+      "confidence": 0.9,
+      "determination_id": "fcra.human_review_required",
+      "outcome": "false",
+      "rationale": "No identity theft, mixed file, court order, missing primary docs, date conflict, or manual review trigger present."
+    },
+    {
+      "confidence": 0.85,
+      "determination_id": "fcra.item_treatment_satisfied",
+      "outcome": "true",
+      "rationale": "No reinvestigation conducted; item treatment duty not applicable."
+    },
+    {
+      "confidence": 0.95,
+      "determination_id": "fcra.reinsertion_satisfied",
+      "outcome": "true",
+      "rationale": "No deletion or reinsertion occurred; not applicable."
+    },
+    {
+      "confidence": 0.95,
+      "determination_id": "fcra.reseller_satisfied",
+      "outcome": "true",
+      "rationale": "No reseller involved; not applicable."
+    },
+    {
+      "confidence": 0.85,
+      "determination_id": "fcra.results_notice_satisfied",
+      "outcome": "true",
+      "rationale": "No reinvestigation; results notice not required. Frivolous notice was sent instead within 5 business days."
+    }
+  ]
+}

@@ -1,0 +1,2051 @@
+You are producing a governed Map record for a policy engine.
+
+You are NOT deciding policy outcomes. Your job is only:
+1. inventory the evidence sources, and
+2. bind every listed atom independently with value, epistemic basis, source ids,
+   evidence, explanation, and confidence.
+
+The deterministic RuleKit engine will decide the policy determinations later.
+Do not infer a binding from the desired or likely determination outcome.
+
+Critical binding rules:
+- Treat each atom independently.
+- Return one binding object for every atom in ATOMS.
+- Do NOT bind an atom to false merely because an open narrative does not mention it.
+- If the only reason for false is "not mentioned", return status "undetermined"
+  and basis "open_world_absence".
+- If a source affirmatively says a fact is absent and that source has a relevant
+  closed-world scope, false may use basis "closed_world_absence".
+- If sources conflict, return status "undetermined" and basis
+  "conflicting_evidence"; do not choose a winner.
+- If the atom cannot be answered from the evidence, return status
+  "undetermined" and basis "not_found".
+- For numeric atoms, extract only stated or directly computed values requested
+  by the atom; otherwise return "undetermined".
+
+For each source, return:
+- source_id
+- source_type
+- title
+- as_of_date if stated
+- closed_world_scopes: factual universes where absence from this source can
+  support a negative atom binding
+- limitations
+
+Allowed basis values:
+explicit_positive, explicit_negative, closed_world_absence, open_world_absence,
+inferred_from_record, conflicting_evidence, computed, looked_up, not_found.
+
+CASE NARRATIVE
+==============
+The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue.
+
+DECLARED SOURCES
+================
+[
+  {
+    "as_of_date": null,
+    "closed_world_scopes": [],
+    "limitations": "Applicant and preparer supplied summary.",
+    "metadata": {},
+    "source_id": "intake_summary",
+    "source_type": "n400_intake_summary",
+    "title": "N-400 intake summary"
+  },
+  {
+    "as_of_date": null,
+    "closed_world_scopes": [
+      "declared_travel_history"
+    ],
+    "limitations": "Applicant-declared travel table.",
+    "metadata": {},
+    "source_id": "travel_table",
+    "source_type": "travel_history_table",
+    "title": "N-400 travel table"
+  },
+  {
+    "as_of_date": null,
+    "closed_world_scopes": [],
+    "limitations": "Structured worksheet in packet.",
+    "metadata": {},
+    "source_id": "presence_worksheet",
+    "source_type": "physical_presence_worksheet",
+    "title": "Physical presence worksheet"
+  },
+  {
+    "as_of_date": null,
+    "closed_world_scopes": [],
+    "limitations": "Current test result only.",
+    "metadata": {},
+    "source_id": "test_results",
+    "source_type": "naturalization_test_record",
+    "title": "English and civics test result"
+  },
+  {
+    "as_of_date": null,
+    "closed_world_scopes": [],
+    "limitations": "Current oath worksheet only.",
+    "metadata": {},
+    "source_id": "oath_worksheet",
+    "source_type": "oath_attachment_worksheet",
+    "title": "Oath and attachment worksheet"
+  },
+  {
+    "as_of_date": null,
+    "closed_world_scopes": [
+      "criminal_convictions"
+    ],
+    "limitations": "Synthetic benchmark source.",
+    "metadata": {},
+    "source_id": "fbi_check",
+    "source_type": "criminal_history_check",
+    "title": "FBI criminal history check"
+  },
+  {
+    "as_of_date": null,
+    "closed_world_scopes": [
+      "pending_criminal_charges"
+    ],
+    "limitations": "Synthetic benchmark source.",
+    "metadata": {},
+    "source_id": "docket_search",
+    "source_type": "court_docket_search",
+    "title": "Court docket search"
+  },
+  {
+    "as_of_date": null,
+    "closed_world_scopes": [
+      "false_testimony_for_immigration_benefit"
+    ],
+    "limitations": "Synthetic benchmark source.",
+    "metadata": {},
+    "source_id": "interview_worksheet",
+    "source_type": "uscis_interview_record",
+    "title": "USCIS interview worksheet"
+  }
+]
+
+ATOMS
+=====
+[
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.absence_6_to_12_months",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 3",
+      "statement": "The applicant had an absence of more than six months but less than one year.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "numeric",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.days_absent_trip_1",
+      "notes": "",
+      "numeric_unit": "days",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 3",
+      "statement": "Days absent from the United States for the first material trip in the statutory period.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Travel table: one trip lasted 21 days."
+  },
+  {
+    "atom": {
+      "atom_type": "numeric",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.days_absent_trip_2",
+      "notes": "",
+      "numeric_unit": "days",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 3",
+      "statement": "Days absent from the United States for the second material trip in the statutory period.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "numeric",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.days_absent_trip_3",
+      "notes": "",
+      "numeric_unit": "days",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 3",
+      "statement": "Days absent from the United States for the third material trip in the statutory period.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "numeric",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.days_absent_trip_4",
+      "notes": "",
+      "numeric_unit": "days",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 3",
+      "statement": "Days absent from the United States for the fourth material trip in the statutory period.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.rebuttal_no_residence_abandoned",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 3",
+      "statement": "If a six-to-twelve-month absence occurred, evidence rebuts abandonment of residence.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.maintained_us_home",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 3",
+      "statement": "The applicant maintained a U.S. home during relevant absences.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.maintained_us_family_ties",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 3",
+      "statement": "The applicant maintained family ties in the United States during relevant absences.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.maintained_us_employment_or_no_foreign_employment",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 3",
+      "statement": "The applicant maintained U.S. employment or did not take foreign employment inconsistent with residence.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.did_not_claim_nonresident_tax_status",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 3",
+      "statement": "The applicant did not claim nonresident status for tax purposes.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.returned_to_us_after_absences",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 3",
+      "statement": "The applicant returned to the United States after relevant absences.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.no_absence_over_one_year",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 3",
+      "statement": "No absence from the United States exceeded one year.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.absence_over_one_year",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 3",
+      "statement": "The applicant had an absence of one year or more.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.qualifying_employment_abroad_exception",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 3",
+      "statement": "A qualifying employment abroad exception applies if needed.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.timely_n470_approval_if_needed",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 3",
+      "statement": "An N-470 preservation approval applies if needed.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.religious_vocation_abroad_exception_if_needed",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 3",
+      "statement": "A religious vocation abroad exception applies if needed.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.military_service_residence_exception_if_needed",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 3",
+      "statement": "A military service residence exception applies if needed.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.travel_records_complete",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 3",
+      "statement": "Travel records are complete enough to assess continuous residence.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.passport_records_support_travel",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 3",
+      "statement": "Passport or travel records support the stated travel history.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.no_unexplained_trip_gaps",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 3",
+      "statement": "There are no unexplained gaps in the travel history.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.no_break_in_residence_from_absence",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 3",
+      "statement": "No absence breaks continuous residence for this benchmark.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.months_after_absence_reestablished_if_needed",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 3",
+      "statement": "Residence was reestablished for the required period after any breaking absence.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.filing_under_3yr_spouse",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 2-4",
+      "statement": "The applicant seeks naturalization under the three-year U.S. citizen spouse track.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "numeric",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.months_physical_presence_3yr",
+      "notes": "",
+      "numeric_unit": "months",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 4",
+      "statement": "Months physically present in the United States during the three-year spouse statutory period.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "numeric",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.months_physical_presence_5yr",
+      "notes": "",
+      "numeric_unit": "months",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 4",
+      "statement": "Months physically present in the United States during the five-year statutory period.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Physical presence worksheet: 41 months physically present."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.physical_presence_calculation_reliable",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 4",
+      "statement": "Physical presence calculations are reliable.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.us_entry_exit_records_consistent",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 4",
+      "statement": "Entry and exit records are consistent.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.no_unresolved_physical_presence_gap",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 4",
+      "statement": "No unresolved gap affects physical presence.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.stat_period_selected_correctly",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 4",
+      "statement": "The applicable statutory period is selected correctly.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.early_filing_window_applied_correctly",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 4",
+      "statement": "Any early filing window is applied correctly.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "numeric",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.months_state_or_district_residence",
+      "notes": "",
+      "numeric_unit": "months",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 2-4",
+      "statement": "Months residing in the state or USCIS district before filing.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Residence worksheet: 9 months in same USCIS district."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.jurisdiction_matches_residence",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 1",
+      "statement": "The filing jurisdiction matches the applicant's residence.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.spouse_track_residence_consistent",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 2-4",
+      "statement": "Residence facts are consistent with the spouse track.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.english_test_passed",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part E",
+      "statement": "The applicant passed the English test.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Naturalization test record: English test passed."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.reading_requirement_satisfied",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part E",
+      "statement": "The applicant satisfied the English reading requirement.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.writing_requirement_satisfied",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part E",
+      "statement": "The applicant satisfied the English writing requirement.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.speaking_requirement_satisfied",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part E",
+      "statement": "The applicant satisfied the English speaking requirement.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "numeric",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.age_years",
+      "notes": "",
+      "numeric_unit": "years",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 1",
+      "statement": "The applicant's age in years at filing.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Intake summary: applicant age is 37."
+  },
+  {
+    "atom": {
+      "atom_type": "numeric",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.years_as_lpr",
+      "notes": "",
+      "numeric_unit": "years",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 2-4",
+      "statement": "The applicant's years as a lawful permanent resident at filing.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Intake summary: applicant has been an LPR for 6 years."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.medical_disability_exception_approved",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part E",
+      "statement": "A medical disability exception to English/civics requirements is approved.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.civics_test_passed",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part E",
+      "statement": "The applicant passed the civics test.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Naturalization test record: civics test passed."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.two_test_opportunities_completed_if_initial_fail",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part E",
+      "statement": "Required retest opportunities were completed when applicable.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.reexamination_passed_or_exception",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part E",
+      "statement": "Reexamination was passed or an exception applies.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.simplified_civics_administered_when_applicable",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part E",
+      "statement": "Simplified civics treatment was administered when applicable.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.willing_to_take_oath",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part J",
+      "statement": "The applicant is willing to take the Oath of Allegiance.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Oath worksheet: applicant willing to take the oath."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.attachment_to_constitution",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part J",
+      "statement": "The applicant is attached to the principles of the Constitution.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Oath worksheet: attachment to the Constitution recorded."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.favorable_to_good_order",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part J",
+      "statement": "The applicant is well disposed to the good order and happiness of the United States.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.willing_to_bear_arms_or_noncombatant_or_civilian_work_if_required",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part J",
+      "statement": "The applicant accepts required oath-related service commitments or a permitted modification.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.no_communist_party_bar_or_exception",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part J",
+      "statement": "Communist party membership does not bar eligibility or an exception applies.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.no_totalitarian_party_bar_or_exception",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part J",
+      "statement": "Totalitarian party membership does not bar eligibility or an exception applies.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.no_advocacy_overthrow",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part J",
+      "statement": "The applicant does not advocate overthrow of the U.S. government.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.no_desertion_from_us_armed_forces",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part J",
+      "statement": "The applicant has no disqualifying desertion issue.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.no_title_of_nobility_issue",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part J",
+      "statement": "No title of nobility issue defeats the oath.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.truthful_oath_related_answers",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part J",
+      "statement": "Oath-related answers are truthful.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": {
+        "allowed_bases_for_false": [
+          "closed_world_absence"
+        ],
+        "allowed_bases_for_true": [
+          "explicit_positive",
+          "inferred_from_record",
+          "looked_up"
+        ],
+        "conflicting_evidence_behavior": "human_review",
+        "invalid_binding_behavior": "undetermined",
+        "notes": "A false murder-conviction binding requires a closed-world criminal-history or court-clearance source.",
+        "open_world_absence_behavior": "undetermined",
+        "required_source_types_for_false": [
+          "criminal_history_check",
+          "court_clearance"
+        ],
+        "required_source_types_for_true": []
+      },
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.murder_conviction",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant has a murder conviction.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": {
+      "allowed_bases_for_false": [
+        "closed_world_absence"
+      ],
+      "allowed_bases_for_true": [
+        "explicit_positive",
+        "inferred_from_record",
+        "looked_up"
+      ],
+      "conflicting_evidence_behavior": "human_review",
+      "invalid_binding_behavior": "undetermined",
+      "notes": "A false murder-conviction binding requires a closed-world criminal-history or court-clearance source.",
+      "open_world_absence_behavior": "undetermined",
+      "required_source_types_for_false": [
+        "criminal_history_check",
+        "court_clearance"
+      ],
+      "required_source_types_for_true": []
+    },
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": {
+        "allowed_bases_for_false": [
+          "closed_world_absence"
+        ],
+        "allowed_bases_for_true": [
+          "explicit_positive",
+          "inferred_from_record",
+          "looked_up"
+        ],
+        "conflicting_evidence_behavior": "human_review",
+        "invalid_binding_behavior": "undetermined",
+        "notes": "A false aggravated-felony bar binding requires a closed-world criminal-history or court-clearance source, not narrative silence.",
+        "open_world_absence_behavior": "undetermined",
+        "required_source_types_for_false": [
+          "criminal_history_check",
+          "court_clearance"
+        ],
+        "required_source_types_for_true": []
+      },
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.aggravated_felony_after_1990",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant has an aggravated felony conviction after November 29, 1990.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": {
+      "allowed_bases_for_false": [
+        "closed_world_absence"
+      ],
+      "allowed_bases_for_true": [
+        "explicit_positive",
+        "inferred_from_record",
+        "looked_up"
+      ],
+      "conflicting_evidence_behavior": "human_review",
+      "invalid_binding_behavior": "undetermined",
+      "notes": "A false aggravated-felony bar binding requires a closed-world criminal-history or court-clearance source, not narrative silence.",
+      "open_world_absence_behavior": "undetermined",
+      "required_source_types_for_false": [
+        "criminal_history_check",
+        "court_clearance"
+      ],
+      "required_source_types_for_true": []
+    },
+    "relevant_evidence": "FBI check: no aggravated felony convictions."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.persecution_participation",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant participated in persecution.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.genocide_participation",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant participated in genocide.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.torture_participation",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant participated in torture.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.extrajudicial_killing_participation",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant participated in extrajudicial killing.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.controlled_substance_violation_except_single_marijuana_30g",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant has a controlled-substance violation other than a single offense involving 30 grams or less of marijuana.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.admission_to_drug_offense",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant admitted conduct constituting a drug offense.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.drug_trafficking",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant engaged in drug trafficking.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.habitual_drunkard",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant is a habitual drunkard during the statutory period.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.illegal_gambling_principal_income",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant's principal income came from illegal gambling.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.multiple_gambling_convictions",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant has multiple gambling convictions.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.prostitution_or_commercialized_vice",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant engaged in prostitution or commercialized vice.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.alien_smuggling",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant engaged in alien smuggling without an applicable exception.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.polygamy",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant practiced polygamy.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": {
+        "allowed_bases_for_false": [
+          "closed_world_absence"
+        ],
+        "allowed_bases_for_true": [
+          "explicit_positive",
+          "inferred_from_record",
+          "looked_up"
+        ],
+        "conflicting_evidence_behavior": "human_review",
+        "invalid_binding_behavior": "undetermined",
+        "notes": "A false false-testimony binding requires an immigration/interview record with relevant coverage.",
+        "open_world_absence_behavior": "undetermined",
+        "required_source_types_for_false": [
+          "uscis_interview_record",
+          "immigration_record_check"
+        ],
+        "required_source_types_for_true": []
+      },
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.false_testimony_for_immigration_benefit",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant gave false testimony to obtain an immigration benefit.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": {
+      "allowed_bases_for_false": [
+        "closed_world_absence"
+      ],
+      "allowed_bases_for_true": [
+        "explicit_positive",
+        "inferred_from_record",
+        "looked_up"
+      ],
+      "conflicting_evidence_behavior": "human_review",
+      "invalid_binding_behavior": "undetermined",
+      "notes": "A false false-testimony binding requires an immigration/interview record with relevant coverage.",
+      "open_world_absence_behavior": "undetermined",
+      "required_source_types_for_false": [
+        "uscis_interview_record",
+        "immigration_record_check"
+      ],
+      "required_source_types_for_true": []
+    },
+    "relevant_evidence": "USCIS interview worksheet: no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.failure_to_support_dependents",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant willfully failed to support dependents.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.adultery_destroyed_marriage",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant committed adultery that tended to destroy a marriage.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.unlawful_voting",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant unlawfully voted.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.false_claim_us_citizenship",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant made a false claim to U.S. citizenship.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.failure_register_selective_service_willful",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant willfully failed to register for Selective Service when required.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.tax_noncompliance_willful",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant willfully failed to comply with tax obligations.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.fraud_or_deceit",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant engaged in fraud or deceit.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.identity_document_fraud",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant engaged in identity or document fraud.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.domestic_violence",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant committed domestic violence.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.child_abuse",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant committed child abuse.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.violation_protective_order",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant violated a protective order.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.unlawful_harassment_or_stalking",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant committed unlawful harassment or stalking.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.manslaughter_or_violent_crime",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant committed manslaughter or another serious violent crime.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.dui_pattern_or_reckless_endangerment",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant has a DUI pattern or reckless-endangerment conduct relevant to GMC.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.unpaid_restitution_or_court_orders",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant has unpaid restitution or unresolved court orders.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.probation_parole_uncompleted",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant has uncompleted probation or parole.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": {
+        "allowed_bases_for_false": [
+          "closed_world_absence"
+        ],
+        "allowed_bases_for_true": [
+          "explicit_positive",
+          "inferred_from_record",
+          "looked_up"
+        ],
+        "conflicting_evidence_behavior": "human_review",
+        "invalid_binding_behavior": "undetermined",
+        "notes": "A false pending-charge binding requires a closed-world criminal-history or docket search source.",
+        "open_world_absence_behavior": "undetermined",
+        "required_source_types_for_false": [
+          "criminal_history_check",
+          "court_docket_search"
+        ],
+        "required_source_types_for_true": []
+      },
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.pending_criminal_charge",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant has a pending criminal charge.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": {
+      "allowed_bases_for_false": [
+        "closed_world_absence"
+      ],
+      "allowed_bases_for_true": [
+        "explicit_positive",
+        "inferred_from_record",
+        "looked_up"
+      ],
+      "conflicting_evidence_behavior": "human_review",
+      "invalid_binding_behavior": "undetermined",
+      "notes": "A false pending-charge binding requires a closed-world criminal-history or docket search source.",
+      "open_world_absence_behavior": "undetermined",
+      "required_source_types_for_false": [
+        "criminal_history_check",
+        "court_docket_search"
+      ],
+      "required_source_types_for_true": []
+    },
+    "relevant_evidence": "Docket search: no pending criminal charges."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.unresolved_arrest_disposition",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "An arrest disposition is unresolved.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.misrepresentation_material_to_benefit",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant made a material misrepresentation to obtain a benefit.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.unlawful_voting_registration",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant unlawfully registered to vote.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.removal_order_after_filing",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "A removal order or proceeding after filing affects eligibility.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.terrorism_related_activity",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant engaged in terrorism-related activity.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.nazi_persecution_related",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant has Nazi-persecution-related inadmissibility conduct.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.serious_immigration_violation",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant has a serious immigration violation relevant to GMC.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.sham_marriage_for_benefit",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant entered a sham marriage for an immigration benefit.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.smuggling_family_member_without_exception",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant smuggled a family member without an applicable exception.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.failure_to_pay_taxes",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant failed to pay required taxes.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.social_security_fraud",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant committed Social Security fraud.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.welfare_fraud",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant committed public-benefits fraud.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.prison_180_days_or_more",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "The applicant was confined to a penal institution for 180 days or more during the statutory period.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "numeric",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.days_imprisoned_statutory_period",
+      "notes": "",
+      "numeric_unit": "days",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part F",
+      "statement": "Aggregate days imprisoned during the statutory period.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.selective_service_registered_or_exempt",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 1",
+      "statement": "Selective Service registration is satisfied or the applicant is exempt.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.tax_filing_compliant_or_explained",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 1",
+      "statement": "Tax filing history is compliant or adequately explained.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.child_support_compliant_or_explained",
+      "notes": "",
+      "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 1",
+      "statement": "Child support obligations are compliant or adequately explained.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.complex_absence_pattern",
+      "notes": "",
+      "source_span": "RuleKit benchmark governance trigger",
+      "statement": "The travel pattern is complex enough to require human review.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.inconsistent_travel_history",
+      "notes": "",
+      "source_span": "RuleKit benchmark governance trigger",
+      "statement": "Travel history is internally inconsistent.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.evidence_missing_critical_dates",
+      "notes": "",
+      "source_span": "RuleKit benchmark governance trigger",
+      "statement": "Critical dates are missing from the evidence.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.unresolved_tax_issue",
+      "notes": "",
+      "source_span": "RuleKit benchmark governance trigger",
+      "statement": "A tax issue remains unresolved.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.disputed_selective_service_issue",
+      "notes": "",
+      "source_span": "RuleKit benchmark governance trigger",
+      "statement": "Selective Service facts are disputed.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.possible_false_testimony",
+      "notes": "",
+      "source_span": "RuleKit benchmark governance trigger",
+      "statement": "The record suggests possible false testimony requiring review.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.possible_gmc_discretion_issue",
+      "notes": "",
+      "source_span": "RuleKit benchmark governance trigger",
+      "statement": "The record suggests a discretionary GMC issue requiring review.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.accommodation_or_disability_documentation_unclear",
+      "notes": "",
+      "source_span": "RuleKit benchmark governance trigger",
+      "statement": "Accommodation or disability documentation is unclear.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.name_identity_record_conflict",
+      "notes": "",
+      "source_span": "RuleKit benchmark governance trigger",
+      "statement": "Identity or name records conflict.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.interpreter_or_understanding_issue",
+      "notes": "",
+      "source_span": "RuleKit benchmark governance trigger",
+      "statement": "Interpreter or understanding facts require human review.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.legal_exception_claimed_needs_review",
+      "notes": "",
+      "source_span": "RuleKit benchmark governance trigger",
+      "statement": "A claimed legal exception requires human review.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "n400.outside_benchmark_scope",
+      "notes": "",
+      "source_span": "RuleKit benchmark governance trigger",
+      "statement": "The case contains facts outside the benchmark's encoded scope.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue."
+  }
+]
+
+Return ONLY this JSON shape:
+{
+  "sources": [
+    {
+      "source_id": "source id",
+      "source_type": "source type",
+      "title": "short title",
+      "as_of_date": "YYYY-MM-DD or null",
+      "closed_world_scopes": ["scope"],
+      "limitations": "limitations"
+    }
+  ],
+  "bindings": [
+    {
+      "atom_id": "atom id from ATOMS",
+      "status": "bound|undetermined|error",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["source id"],
+      "evidence": "short exact evidence or summary",
+      "explanation": "why this basis is appropriate",
+      "confidence": 0.0
+    }
+  ]
+}

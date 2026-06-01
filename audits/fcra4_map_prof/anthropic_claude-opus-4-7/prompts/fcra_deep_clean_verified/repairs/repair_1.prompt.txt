@@ -1,0 +1,789 @@
+You are repairing selected atom bindings for a governed policy engine.
+
+You are NOT deciding policy outcomes. The deterministic engine has already
+identified these atoms as unresolved on a load-bearing trace. Your job is only
+to revisit the listed atom bindings from the case packet and return improved
+bindings where the evidence supports them.
+
+Rules:
+- Treat each atom independently.
+- Do not change an atom just to make a determination true or false.
+- If the case packet still does not support a value, keep it undetermined.
+- If a conditional support atom is phrased like "if needed", "if applicable",
+  "if initial fail", or "when applicable", and the triggering condition is
+  clearly absent, it may bind true with basis "inferred_from_record" because the
+  branch is not applicable.
+- Return one binding object for every atom in REPAIR_ATOMS.
+
+Allowed basis values:
+explicit_positive, explicit_negative, closed_world_absence, open_world_absence,
+inferred_from_record, conflicting_evidence, computed, looked_up, not_found.
+
+CASE NARRATIVE
+==============
+The consumer disputed a 30-day late notation on an auto loan. The CRA file shows the dispute was received directly on March 1, the account and month were identified, and the consumer supplied a servicer payment ledger. The CRA sent the dispute and document image to the furnisher on the third business day, completed the reinvestigation in 24 calendar days, received a furnisher response verifying the late payment, reviewed the consumer ledger against the furnisher payment history, recorded the item as verified, and mailed results with the revised report 4 business days after completion.
+
+
+SOURCE INVENTORY
+================
+[
+  {
+    "as_of_date": null,
+    "closed_world_scopes": [
+      "CRA reinvestigation workflow steps explicitly recounted in the narrative"
+    ],
+    "limitations": "Single narrative summary; does not enumerate every procedural detail (e.g., notice contents, identity verification, reseller involvement, furnisher's internal timeline). Absence of detail does not necessarily imply absence of fact.",
+    "metadata": {},
+    "source_id": "case_narrative",
+    "source_type": "case_narrative",
+    "title": "FCRA reinvestigation case narrative"
+  }
+]
+
+REPAIR_ATOMS
+============
+[
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.consumer_statement_filed",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(b)",
+      "statement": "The consumer filed a brief statement of dispute after reinvestigation did not resolve the dispute.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.consumer_statement_filed",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Narrative does not mention any consumer statement filed after reinvestigation.",
+      "explanation": "No mention of a consumer brief statement; cannot infer absence as affirmative.",
+      "metadata": {
+        "raw_atom_id": "fcra.consumer_statement_filed"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "The consumer disputed a 30-day late notation on an auto loan. The CRA file shows the dispute was received directly on March 1, the account and month were identified, and the consumer supplied a servicer payment ledger. The CRA sent the dispute and document image to the furnisher on the third business day, completed the reinvestigation in 24 calendar days, received a furnisher response verifying the late payment, reviewed the consumer ledger against the furnisher payment history, recorded the item as verified, and mailed results with the revised report 4 business days after completion.\n",
+    "repair_reasons": [
+      "fcra.consumer_statement_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.subsequent_reports_note_dispute",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(c)",
+      "statement": "Subsequent reports containing the information clearly note the consumer's dispute and statement or summary.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.subsequent_reports_note_dispute",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Narrative does not address subsequent reports' notation of dispute.",
+      "explanation": "Silent on subsequent reports.",
+      "metadata": {
+        "raw_atom_id": "fcra.subsequent_reports_note_dispute"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "The consumer disputed a 30-day late notation on an auto loan. The CRA file shows the dispute was received directly on March 1, the account and month were identified, and the consumer supplied a servicer payment ledger. The CRA sent the dispute and document image to the furnisher on the third business day, completed the reinvestigation in 24 calendar days, received a furnisher response verifying the late payment, reviewed the consumer ledger against the furnisher payment history, recorded the item as verified, and mailed results with the revised report 4 business days after completion.\n",
+    "repair_reasons": [
+      "fcra.consumer_statement_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.dispute_about_completeness",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)(A)",
+      "statement": "The dispute concerns completeness of the item.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.dispute_about_completeness",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Narrative does not characterize dispute as concerning completeness.",
+      "explanation": "Nature of dispute appears to be accuracy of late notation; completeness not addressed.",
+      "metadata": {
+        "raw_atom_id": "fcra.dispute_about_completeness"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "The consumer disputed a 30-day late notation on an auto loan. The CRA file shows the dispute was received directly on March 1, the account and month were identified, and the consumer supplied a servicer payment ledger. The CRA sent the dispute and document image to the furnisher on the third business day, completed the reinvestigation in 24 calendar days, received a furnisher response verifying the late payment, reviewed the consumer ledger against the furnisher payment history, recorded the item as verified, and mailed results with the revised report 4 business days after completion.\n",
+    "repair_reasons": [
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_required evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_trigger_valid evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.consumer_identity_sufficient",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(3)",
+      "statement": "The packet contains sufficient consumer identity information to investigate.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.consumer_identity_sufficient",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.55,
+      "evidence": "Narrative does not describe identity information in the packet.",
+      "explanation": "CRA proceeded to investigate, but no explicit statement about identity sufficiency.",
+      "metadata": {
+        "raw_atom_id": "fcra.consumer_identity_sufficient"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "The consumer disputed a 30-day late notation on an auto loan. The CRA file shows the dispute was received directly on March 1, the account and month were identified, and the consumer supplied a servicer payment ledger. The CRA sent the dispute and document image to the furnisher on the third business day, completed the reinvestigation in 24 calendar days, received a furnisher response verifying the late payment, reviewed the consumer ledger against the furnisher payment history, recorded the item as verified, and mailed results with the revised report 4 business days after completion.\n",
+    "repair_reasons": [
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_required evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_trigger_valid evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.consumer_submission_authentic",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)(A)",
+      "statement": "The dispute submission appears authentic to the consumer or authorized representative.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.consumer_submission_authentic",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.55,
+      "evidence": "Narrative does not address authenticity of submission.",
+      "explanation": "No discussion of authenticity verification or concerns.",
+      "metadata": {
+        "raw_atom_id": "fcra.consumer_submission_authentic"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "The consumer disputed a 30-day late notation on an auto loan. The CRA file shows the dispute was received directly on March 1, the account and month were identified, and the consumer supplied a servicer payment ledger. The CRA sent the dispute and document image to the furnisher on the third business day, completed the reinvestigation in 24 calendar days, received a furnisher response verifying the late payment, reviewed the consumer ledger against the furnisher payment history, recorded the item as verified, and mailed results with the revised report 4 business days after completion.\n",
+    "repair_reasons": [
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_required evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_trigger_valid evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.dispute_duplicate_without_new_info",
+      "notes": "",
+      "source_span": "12 CFR 1022.43(f)(1)(ii)",
+      "statement": "The dispute is substantially the same as a prior dispute and contains no new required information.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Narrative does not mention any prior dispute.",
+      "explanation": "No information about duplication status.",
+      "metadata": {
+        "raw_atom_id": "fcra.dispute_duplicate_without_new_info"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "The consumer disputed a 30-day late notation on an auto loan. The CRA file shows the dispute was received directly on March 1, the account and month were identified, and the consumer supplied a servicer payment ledger. The CRA sent the dispute and document image to the furnisher on the third business day, completed the reinvestigation in 24 calendar days, received a furnisher response verifying the late payment, reviewed the consumer ledger against the furnisher payment history, recorded the item as verified, and mailed results with the revised report 4 business days after completion.\n",
+    "repair_reasons": [
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_required evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.frivolous_notice_sent",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(3)(B)",
+      "statement": "Notice of the frivolous or irrelevant determination was sent to the consumer.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.frivolous_notice_sent",
+      "atom_type": "boolean",
+      "basis": "not_found",
+      "confidence": 0.6,
+      "evidence": "No frivolous determination indicated; predicate not triggered, and notice not addressed.",
+      "explanation": "Cannot determine since no frivolous finding occurred per narrative.",
+      "metadata": {
+        "raw_atom_id": "fcra.frivolous_notice_sent"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "The consumer disputed a 30-day late notation on an auto loan. The CRA file shows the dispute was received directly on March 1, the account and month were identified, and the consumer supplied a servicer payment ledger. The CRA sent the dispute and document image to the furnisher on the third business day, completed the reinvestigation in 24 calendar days, received a furnisher response verifying the late payment, reviewed the consumer ledger against the furnisher payment history, recorded the item as verified, and mailed results with the revised report 4 business days after completion.\n",
+    "repair_reasons": [
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_required evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.frivolous_reason_identified",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(3)(C)",
+      "statement": "The frivolous or irrelevant notice identified the reasons for the determination.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.frivolous_reason_identified",
+      "atom_type": "boolean",
+      "basis": "not_found",
+      "confidence": 0.6,
+      "evidence": "No frivolous notice discussed.",
+      "explanation": "No predicate frivolous notice to assess.",
+      "metadata": {
+        "raw_atom_id": "fcra.frivolous_reason_identified"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "The consumer disputed a 30-day late notation on an auto loan. The CRA file shows the dispute was received directly on March 1, the account and month were identified, and the consumer supplied a servicer payment ledger. The CRA sent the dispute and document image to the furnisher on the third business day, completed the reinvestigation in 24 calendar days, received a furnisher response verifying the late payment, reviewed the consumer ledger against the furnisher payment history, recorded the item as verified, and mailed results with the revised report 4 business days after completion.\n",
+    "repair_reasons": [
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_required evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.frivolous_missing_info_identified",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(3)(C)",
+      "statement": "The frivolous or irrelevant notice identified information required to investigate.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.frivolous_missing_info_identified",
+      "atom_type": "boolean",
+      "basis": "not_found",
+      "confidence": 0.6,
+      "evidence": "No frivolous notice discussed.",
+      "explanation": "No predicate to evaluate missing info identification.",
+      "metadata": {
+        "raw_atom_id": "fcra.frivolous_missing_info_identified"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "The consumer disputed a 30-day late notation on an auto loan. The CRA file shows the dispute was received directly on March 1, the account and month were identified, and the consumer supplied a servicer payment ledger. The CRA sent the dispute and document image to the furnisher on the third business day, completed the reinvestigation in 24 calendar days, received a furnisher response verifying the late payment, reviewed the consumer ledger against the furnisher payment history, recorded the item as verified, and mailed results with the revised report 4 business days after completion.\n",
+    "repair_reasons": [
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_required evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "numeric",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.business_days_to_frivolous_notice",
+      "notes": "",
+      "numeric_unit": "business_days",
+      "source_span": "15 U.S.C. 1681i(a)(3)(B)",
+      "statement": "Business days from frivolous or irrelevant determination to consumer notice.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "atom_type": "numeric",
+      "basis": "not_found",
+      "confidence": 0.6,
+      "evidence": "No frivolous determination or notice timing in narrative.",
+      "explanation": "Numeric value not stated or computable.",
+      "metadata": {
+        "raw_atom_id": "fcra.business_days_to_frivolous_notice"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "The consumer disputed a 30-day late notation on an auto loan. The CRA file shows the dispute was received directly on March 1, the account and month were identified, and the consumer supplied a servicer payment ledger. The CRA sent the dispute and document image to the furnisher on the third business day, completed the reinvestigation in 24 calendar days, received a furnisher response verifying the late payment, reviewed the consumer ledger against the furnisher payment history, recorded the item as verified, and mailed results with the revised report 4 business days after completion.\n",
+    "repair_reasons": [
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_required evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.cra_compared_own_file",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)",
+      "statement": "The CRA compared the dispute against its own file contents.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.cra_compared_own_file",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.55,
+      "evidence": "Narrative mentions CRA file shows the dispute receipt but does not state comparison with own file.",
+      "explanation": "No explicit statement of comparison to own file contents.",
+      "metadata": {
+        "raw_atom_id": "fcra.cra_compared_own_file"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "The consumer disputed a 30-day late notation on an auto loan. The CRA file shows the dispute was received directly on March 1, the account and month were identified, and the consumer supplied a servicer payment ledger. The CRA sent the dispute and document image to the furnisher on the third business day, completed the reinvestigation in 24 calendar days, received a furnisher response verifying the late payment, reviewed the consumer ledger against the furnisher payment history, recorded the item as verified, and mailed results with the revised report 4 business days after completion.\n",
+    "repair_reasons": [
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.later_relevant_info_received",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(2)(B)",
+      "statement": "Additional relevant information was received from the consumer after furnisher notice and before the reinvestigation deadline.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.later_relevant_info_received",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Narrative does not mention additional information after furnisher notice.",
+      "explanation": "No discussion of post-notice consumer submissions.",
+      "metadata": {
+        "raw_atom_id": "fcra.later_relevant_info_received"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "The consumer disputed a 30-day late notation on an auto loan. The CRA file shows the dispute was received directly on March 1, the account and month were identified, and the consumer supplied a servicer payment ledger. The CRA sent the dispute and document image to the furnisher on the third business day, completed the reinvestigation in 24 calendar days, received a furnisher response verifying the late payment, reviewed the consumer ledger against the furnisher payment history, recorded the item as verified, and mailed results with the revised report 4 business days after completion.\n",
+    "repair_reasons": [
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.later_relevant_info_forwarded",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(2)(B)",
+      "statement": "Later relevant information was promptly provided to the furnisher.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.later_relevant_info_forwarded",
+      "atom_type": "boolean",
+      "basis": "not_found",
+      "confidence": 0.6,
+      "evidence": "No later information mentioned.",
+      "explanation": "Predicate not addressed.",
+      "metadata": {
+        "raw_atom_id": "fcra.later_relevant_info_forwarded"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "The consumer disputed a 30-day late notation on an auto loan. The CRA file shows the dispute was received directly on March 1, the account and month were identified, and the consumer supplied a servicer payment ledger. The CRA sent the dispute and document image to the furnisher on the third business day, completed the reinvestigation in 24 calendar days, received a furnisher response verifying the late payment, reviewed the consumer ledger against the furnisher payment history, recorded the item as verified, and mailed results with the revised report 4 business days after completion.\n",
+    "repair_reasons": [
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.additional_relevant_info_received_in_30_days",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)(B)",
+      "statement": "The consumer provided additional relevant information during the initial 30-day period.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.additional_relevant_info_received_in_30_days",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Narrative does not mention additional information during the 30-day period.",
+      "explanation": "Silent on additional consumer information after initial submission.",
+      "metadata": {
+        "raw_atom_id": "fcra.additional_relevant_info_received_in_30_days"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "The consumer disputed a 30-day late notation on an auto loan. The CRA file shows the dispute was received directly on March 1, the account and month were identified, and the consumer supplied a servicer payment ledger. The CRA sent the dispute and document image to the furnisher on the third business day, completed the reinvestigation in 24 calendar days, received a furnisher response verifying the late payment, reviewed the consumer ledger against the furnisher payment history, recorded the item as verified, and mailed results with the revised report 4 business days after completion.\n",
+    "repair_reasons": [
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_modified",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "statement": "The disputed item was modified as appropriate.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.item_modified",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Narrative says 'revised report' but item was verified; modification not stated.",
+      "explanation": "'Revised report' is ambiguous about whether disputed item itself was modified; verification suggests not, but unclear.",
+      "metadata": {
+        "raw_atom_id": "fcra.item_modified"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "The consumer disputed a 30-day late notation on an auto loan. The CRA file shows the dispute was received directly on March 1, the account and month were identified, and the consumer supplied a servicer payment ledger. The CRA sent the dispute and document image to the furnisher on the third business day, completed the reinvestigation in 24 calendar days, received a furnisher response verifying the late payment, reviewed the consumer ledger against the furnisher payment history, recorded the item as verified, and mailed results with the revised report 4 business days after completion.\n",
+    "repair_reasons": [
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.notice_states_reinvestigation_completed",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(6)",
+      "statement": "The results notice states that the reinvestigation is completed.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.notice_states_reinvestigation_completed",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.55,
+      "evidence": "Narrative does not quote the notice contents.",
+      "explanation": "Contents of notice not described.",
+      "metadata": {
+        "raw_atom_id": "fcra.notice_states_reinvestigation_completed"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "The consumer disputed a 30-day late notation on an auto loan. The CRA file shows the dispute was received directly on March 1, the account and month were identified, and the consumer supplied a servicer payment ledger. The CRA sent the dispute and document image to the furnisher on the third business day, completed the reinvestigation in 24 calendar days, received a furnisher response verifying the late payment, reviewed the consumer ledger against the furnisher payment history, recorded the item as verified, and mailed results with the revised report 4 business days after completion.\n",
+    "repair_reasons": [
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  }
+]
+
+Return ONLY this JSON shape:
+{
+  "bindings": [
+    {
+      "atom_id": "atom id from REPAIR_ATOMS",
+      "status": "bound|undetermined|error",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["source id"],
+      "evidence": "short exact evidence or summary",
+      "explanation": "why this basis is appropriate",
+      "confidence": 0.0
+    }
+  ]
+}

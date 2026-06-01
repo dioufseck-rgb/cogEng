@@ -1,0 +1,88 @@
+{
+  "n400.medical_disability_exception_approved": {
+    "atom_id": "n400.medical_disability_exception_approved",
+    "basis": "inferred_from_record",
+    "confidence": 0.85,
+    "evidence": "Packet does not mention a medical disability exception; English and civics tests were administered and passed.",
+    "explanation": "Because the applicant took and passed the English and civics tests, no medical disability exception was invoked. The conditional exception branch is not applicable.",
+    "source_ids": [
+      "intake_summary",
+      "test_results"
+    ],
+    "status": "bound",
+    "value": false
+  },
+  "n400.reading_requirement_satisfied": {
+    "atom_id": "n400.reading_requirement_satisfied",
+    "basis": "inferred_from_record",
+    "confidence": 0.85,
+    "evidence": "English test passed.",
+    "explanation": "The English test encompasses reading, writing, and speaking subcomponents; an overall pass implies the reading subcomponent was satisfied.",
+    "source_ids": [
+      "test_results"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "n400.reexamination_passed_or_exception": {
+    "atom_id": "n400.reexamination_passed_or_exception",
+    "basis": "inferred_from_record",
+    "confidence": 0.85,
+    "evidence": "Tests passed on the record; no reexamination event indicated.",
+    "explanation": "Since the tests were passed and no reexamination was triggered, the conditional reexamination requirement is not applicable.",
+    "source_ids": [
+      "test_results"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "n400.simplified_civics_administered_when_applicable": {
+    "atom_id": "n400.simplified_civics_administered_when_applicable",
+    "basis": "inferred_from_record",
+    "confidence": 0.85,
+    "evidence": "Applicant is 37 years old with 6 years LPR; simplified civics applies to older long-term LPRs (e.g., 65/20).",
+    "explanation": "The applicant does not meet the age/LPR-duration criteria that would trigger simplified civics, so the 'when applicable' condition is absent and the atom binds true.",
+    "source_ids": [
+      "intake_summary",
+      "test_results"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "n400.speaking_requirement_satisfied": {
+    "atom_id": "n400.speaking_requirement_satisfied",
+    "basis": "inferred_from_record",
+    "confidence": 0.85,
+    "evidence": "English test passed.",
+    "explanation": "The English test encompasses reading, writing, and speaking subcomponents; an overall pass implies the speaking subcomponent was satisfied.",
+    "source_ids": [
+      "test_results"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "n400.two_test_opportunities_completed_if_initial_fail": {
+    "atom_id": "n400.two_test_opportunities_completed_if_initial_fail",
+    "basis": "inferred_from_record",
+    "confidence": 0.9,
+    "evidence": "English and civics tests passed; no initial failure is reported.",
+    "explanation": "The triggering condition (initial fail) is clearly absent, so the conditional retest requirement does not apply and binds true.",
+    "source_ids": [
+      "test_results"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "n400.writing_requirement_satisfied": {
+    "atom_id": "n400.writing_requirement_satisfied",
+    "basis": "inferred_from_record",
+    "confidence": 0.85,
+    "evidence": "English test passed.",
+    "explanation": "The English test encompasses reading, writing, and speaking subcomponents; an overall pass implies the writing subcomponent was satisfied.",
+    "source_ids": [
+      "test_results"
+    ],
+    "status": "bound",
+    "value": true
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.absence_6_to_12_months",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["travel_table"],
+      "evidence": "Travel table lists one 21-day trip and no other travel.",
+      "explanation": "Within the applicant's declared travel history (closed-world scope), the only trip is 21 days, so no 6-to-12-month absence is present in the declared trips.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.days_absent_trip_1",
+      "status": "bound",
+      "value": 21,
+      "basis": "explicit_positive",
+      "source_ids": ["travel_table"],
+      "evidence": "Travel table: one trip lasted 21 days.",
+      "explanation": "The first (and only) declared trip is explicitly 21 days.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "n400.days_absent_trip_2",
+      "status": "undetermined",
+      "value": null,
+      "basis": "closed_world_absence",
+      "source_ids": ["travel_table"],
+      "evidence": "Travel table lists one 21-day trip and no other travel.",
+      "explanation": "No second trip exists within the declared travel table; numeric value cannot be extracted.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.days_absent_trip_3",
+      "status": "undetermined",
+      "value": null,
+      "basis": "closed_world_absence",
+      "source_ids": ["travel_table"],
+      "evidence": "Travel table lists one 21-day trip and no other travel.",
+      "explanation": "No third trip declared; no numeric value available.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.days_absent_trip_4",
+      "status": "undetermined",
+      "value": null,
+      "basis": "closed_world_absence",
+      "source_ids": ["travel_table"],
+      "evidence": "Travel table lists one 21-day trip and no other travel.",
+      "explanation": "No fourth trip declared; no numeric value available.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.rebuttal_no_residence_abandoned",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No 6-to-12-month absence is declared; no rebuttal evidence in record.",
+      "explanation": "The antecedent condition (6-12 month absence) does not appear and no rebuttal evidence is provided; atom cannot be answered.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "n400.maintained_us_home",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not address whether a U.S. home was maintained during absences.",
+      "explanation": "No source affirmatively addresses U.S. home maintenance; narrative silence is not closed-world.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "n400.maintained_us_family_ties",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not address family ties.",
+      "explanation": "No source affirmatively addresses U.S. family ties; absence in narrative is open-world.",
+      "confidence": 0.7
+    }
+  ]
+}

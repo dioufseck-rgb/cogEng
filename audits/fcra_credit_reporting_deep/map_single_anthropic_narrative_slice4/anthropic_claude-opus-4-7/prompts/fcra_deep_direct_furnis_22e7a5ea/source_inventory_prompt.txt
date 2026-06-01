@@ -1,0 +1,1435 @@
+You are producing a governed Map record for a policy engine.
+
+You are NOT deciding policy outcomes. Your job is only:
+1. inventory the evidence sources, and
+2. bind every listed atom independently with value, epistemic basis, source ids,
+   evidence, explanation, and confidence.
+
+The deterministic RuleKit engine will decide the policy determinations later.
+Do not infer a binding from the desired or likely determination outcome.
+
+Critical binding rules:
+- Treat each atom independently.
+- Return one binding object for every atom in ATOMS.
+- Do NOT bind an atom to false merely because an open narrative does not mention it.
+- If the only reason for false is "not mentioned", return status "undetermined"
+  and basis "open_world_absence".
+- If a source affirmatively says a fact is absent and that source has a relevant
+  closed-world scope, false may use basis "closed_world_absence".
+- If sources conflict, return status "undetermined" and basis
+  "conflicting_evidence"; do not choose a winner.
+- If the atom cannot be answered from the evidence, return status
+  "undetermined" and basis "not_found".
+- For numeric atoms, extract only stated or directly computed values requested
+  by the atom; otherwise return "undetermined".
+
+For each source, return:
+- source_id
+- source_type
+- title
+- as_of_date if stated
+- closed_world_scopes: factual universes where absence from this source can
+  support a negative atom binding
+- limitations
+
+Allowed basis values:
+explicit_positive, explicit_negative, closed_world_absence, open_world_absence,
+inferred_from_record, conflicting_evidence, computed, looked_up, not_found.
+
+CASE NARRATIVE
+==============
+The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.
+
+
+DECLARED SOURCES
+================
+[]
+
+ATOMS
+=====
+[
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.consumer_statement_filed",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(b)",
+      "statement": "The consumer filed a brief statement of dispute after reinvestigation did not resolve the dispute.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.subsequent_reports_note_dispute",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(c)",
+      "statement": "Subsequent reports containing the information clearly note the consumer's dispute and statement or summary.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.consumer_disputed_item",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)(A)",
+      "statement": "The consumer disputed an item.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_in_consumer_file",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)(A)",
+      "statement": "The disputed item is contained in the consumer's file at a consumer reporting agency.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.dispute_about_completeness",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)(A)",
+      "statement": "The dispute concerns completeness of the item.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.dispute_about_accuracy",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)(A)",
+      "statement": "The dispute concerns accuracy of the item.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.notice_direct_to_cra",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)(A)",
+      "statement": "The consumer notified the consumer reporting agency directly.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.notice_through_reseller",
+      "notes": "Applies when a reseller forwards the dispute.",
+      "source_span": "15 U.S.C. 1681i(a)(1)(A)",
+      "statement": "The consumer notified the consumer reporting agency indirectly through a reseller.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.consumer_identity_sufficient",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(3)",
+      "statement": "The packet contains sufficient consumer identity information to investigate.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.account_identified",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(3)",
+      "statement": "The disputed account or tradeline is identified.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.disputed_field_identified",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(3)",
+      "statement": "The specific disputed field or information is identified.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.basis_explained",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(3)",
+      "statement": "The dispute explains the basis for the claimed inaccuracy or incompleteness.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.consumer_submission_authentic",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)(A)",
+      "statement": "The dispute submission appears authentic to the consumer or authorized representative.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.frivolous_determination_made",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(3)",
+      "statement": "The institution determined the dispute was frivolous or irrelevant.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.dispute_duplicate_without_new_info",
+      "notes": "",
+      "source_span": "12 CFR 1022.43(f)(1)(ii)",
+      "statement": "The dispute is substantially the same as a prior dispute and contains no new required information.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.insufficient_information_to_investigate",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(3)",
+      "statement": "The consumer failed to provide sufficient information to investigate the disputed information.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.frivolous_notice_sent",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(3)(B)",
+      "statement": "Notice of the frivolous or irrelevant determination was sent to the consumer.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.frivolous_reason_identified",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(3)(C)",
+      "statement": "The frivolous or irrelevant notice identified the reasons for the determination.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.frivolous_missing_info_identified",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(3)(C)",
+      "statement": "The frivolous or irrelevant notice identified information required to investigate.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "numeric",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.business_days_to_frivolous_notice",
+      "notes": "",
+      "numeric_unit": "business_days",
+      "source_span": "15 U.S.C. 1681i(a)(3)(B)",
+      "statement": "Business days from frivolous or irrelevant determination to consumer notice.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.cra_reviewed_all_consumer_info",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(4)",
+      "statement": "The CRA reviewed all relevant information submitted by the consumer.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.cra_considered_primary_source_documents",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(4)",
+      "statement": "The CRA considered primary source documents submitted by the consumer.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.cra_compared_furnisher_response",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)",
+      "statement": "The CRA compared the furnisher response against the consumer's dispute basis.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.cra_compared_own_file",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)",
+      "statement": "The CRA compared the dispute against its own file contents.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.cra_reasonable_reinvestigation_performed",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)",
+      "statement": "The CRA performed a reasonable reinvestigation of the disputed item.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.dispositive_info_not_ignored",
+      "notes": "",
+      "source_span": "CFPB Circular 2022-07",
+      "statement": "Dispositive or potentially dispositive consumer information was not ignored.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.automated_code_only",
+      "notes": "",
+      "source_span": "CFPB Circular 2022-07",
+      "statement": "The investigation consisted only of automated dispute coding without meaningful document review.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.human_review_of_documents_performed",
+      "notes": "",
+      "source_span": "CFPB Circular 2022-07",
+      "statement": "A human or equivalent document-review process evaluated material primary documents.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.furnished_by_furnisher",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(2)",
+      "statement": "The disputed item was provided by a furnisher.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.expedited_deleted_within_3_business_days",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(8)",
+      "statement": "The dispute was resolved by deletion within 3 business days after receipt.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.cra_notified_furnisher",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(2)",
+      "statement": "The consumer reporting agency notified the furnisher of the dispute.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "numeric",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.business_days_to_notify_furnisher",
+      "notes": "",
+      "numeric_unit": "business_days",
+      "source_span": "15 U.S.C. 1681i(a)(2)",
+      "statement": "Business days from CRA receipt of dispute to furnisher notice.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.notice_included_all_relevant_info",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(2)",
+      "statement": "The CRA's furnisher notice included all relevant information received from the consumer.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.primary_documents_forwarded",
+      "notes": "",
+      "source_span": "CFPB Circular 2022-07",
+      "statement": "Primary source documents submitted by the consumer were forwarded or made available to the furnisher.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.later_relevant_info_received",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(2)(B)",
+      "statement": "Additional relevant information was received from the consumer after furnisher notice and before the reinvestigation deadline.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.later_relevant_info_forwarded",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(2)(B)",
+      "statement": "Later relevant information was promptly provided to the furnisher.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.reinvestigation_completed",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)",
+      "statement": "The consumer reporting agency completed the reinvestigation.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "numeric",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.days_to_complete_reinvestigation",
+      "notes": "",
+      "numeric_unit": "calendar_days",
+      "source_span": "15 U.S.C. 1681i(a)(1)",
+      "statement": "Calendar days from dispute receipt to reinvestigation completion.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.additional_relevant_info_received_in_30_days",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)(B)",
+      "statement": "The consumer provided additional relevant information during the initial 30-day period.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.direct_dispute_received_by_furnisher",
+      "notes": "",
+      "source_span": "12 CFR 1022.43",
+      "statement": "The furnisher received a direct dispute notice from the consumer.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.direct_dispute_public_record_only",
+      "notes": "",
+      "source_span": "12 CFR 1022.43(b)",
+      "statement": "The direct dispute concerns only public-record information outside direct-furnisher dispute scope.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.direct_dispute_fraud_alert_only",
+      "notes": "",
+      "source_span": "12 CFR 1022.43(b)",
+      "statement": "The direct dispute concerns only fraud alerts or active duty alerts outside direct-furnisher dispute scope.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.direct_dispute_at_proper_address",
+      "notes": "",
+      "source_span": "12 CFR 1022.43(c)",
+      "statement": "The direct dispute was sent to a proper furnisher dispute address.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.direct_dispute_identifies_account",
+      "notes": "",
+      "source_span": "12 CFR 1022.43(d)",
+      "statement": "The direct dispute identifies the account or relationship in dispute.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.direct_dispute_identifies_specific_info",
+      "notes": "",
+      "source_span": "12 CFR 1022.43(d)",
+      "statement": "The direct dispute identifies the specific information being disputed.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.direct_dispute_explains_basis",
+      "notes": "",
+      "source_span": "12 CFR 1022.43(d)",
+      "statement": "The direct dispute explains the basis for the dispute.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.direct_dispute_supporting_docs_supplied",
+      "notes": "",
+      "source_span": "12 CFR 1022.43(d)",
+      "statement": "The consumer supplied supporting documentation reasonably required by the furnisher.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.direct_dispute_subject_within_scope",
+      "notes": "",
+      "source_span": "12 CFR 1022.43(a)",
+      "statement": "The direct dispute concerns covered account or relationship information bearing on creditworthiness or similar attributes.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_found_inaccurate",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "statement": "The reinvestigation found the disputed item inaccurate.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_found_incomplete",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "statement": "The reinvestigation found the disputed item incomplete.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_cannot_be_verified",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "statement": "The disputed item could not be verified.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.direct_furnisher_investigation_conducted",
+      "notes": "",
+      "source_span": "12 CFR 1022.43(e)",
+      "statement": "The furnisher conducted a reasonable investigation of a qualifying direct dispute.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.direct_furnisher_reviewed_info",
+      "notes": "",
+      "source_span": "12 CFR 1022.43(e)",
+      "statement": "The furnisher reviewed all relevant information provided by the consumer with the direct dispute notice.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.direct_furnisher_results_reported_to_consumer",
+      "notes": "",
+      "source_span": "12 CFR 1022.43(e)",
+      "statement": "The furnisher reported direct-dispute investigation results to the consumer within the applicable period.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.direct_furnisher_corrected_cras",
+      "notes": "",
+      "source_span": "12 CFR 1022.43(e)",
+      "statement": "The furnisher notified CRAs and provided corrections when the direct investigation found reported information inaccurate.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_verified_as_accurate",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)",
+      "statement": "The disputed item was verified as complete and accurate after reasonable reinvestigation.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_status_recorded_current",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)",
+      "statement": "The current status of the disputed information was recorded.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_deleted",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "statement": "The disputed item was deleted from the consumer's file.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_modified",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "statement": "The disputed item was modified as appropriate.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.results_notice_sent",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(6)",
+      "statement": "The CRA sent written reinvestigation results to the consumer.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "numeric",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.business_days_to_results_notice",
+      "notes": "",
+      "numeric_unit": "business_days",
+      "source_span": "15 U.S.C. 1681i(a)(6)",
+      "statement": "Business days from reinvestigation completion to results notice.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.notice_states_reinvestigation_completed",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(6)",
+      "statement": "The results notice states that the reinvestigation is completed.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.revised_consumer_report_provided",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(6)",
+      "statement": "The results notice included a consumer report based on the revised file.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.procedure_description_right_disclosed",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(6)",
+      "statement": "The results notice disclosed the right to request the procedure used.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.furnisher_contact_disclosed_if_available",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(6)",
+      "statement": "The procedure-right notice includes furnisher contact information when reasonably available.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.consumer_statement_right_disclosed",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(6)",
+      "statement": "The results notice disclosed the right to add a consumer statement.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.notification_right_disclosed",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(6)",
+      "statement": "The results notice disclosed the right to request notifications of deletion or dispute notation.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_reinserted",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)(B)",
+      "statement": "Previously deleted information was reinserted into the consumer's file.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.furnisher_certified_accuracy_for_reinsertion",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)(B)",
+      "statement": "The furnisher certified the reinserted information as complete and accurate.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.reinsertion_notice_sent",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)(B)",
+      "statement": "Written notice of reinsertion was sent to the consumer.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "numeric",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.business_days_to_reinsertion_notice",
+      "notes": "",
+      "numeric_unit": "business_days",
+      "source_span": "15 U.S.C. 1681i(a)(5)(B)",
+      "statement": "Business days from reinsertion to consumer notice.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.reinsertion_notice_identifies_furnisher",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)(B)",
+      "statement": "The reinsertion notice identified the furnisher's business name and address if reasonably available.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.reinsertion_notice_includes_statement_right",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)(B)",
+      "statement": "The reinsertion notice told the consumer of the right to add a statement.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.procedures_prevent_reappearance",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)(C)",
+      "statement": "The CRA maintained reasonable procedures designed to prevent improper reappearance of deleted information.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.furnisher_received_cra_notice",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681s-2(b)",
+      "statement": "The furnisher received CRA notice of the consumer dispute.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.furnisher_investigation_conducted",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681s-2(b)",
+      "statement": "The furnisher conducted an investigation of the disputed information.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.furnisher_reviewed_all_cra_info",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681s-2(b)",
+      "statement": "The furnisher reviewed all relevant information provided by the CRA.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.furnisher_reported_results_to_cra",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681s-2(b)",
+      "statement": "The furnisher reported investigation results to the CRA.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "numeric",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.days_to_furnisher_complete",
+      "notes": "",
+      "numeric_unit": "calendar_days",
+      "source_span": "15 U.S.C. 1681s-2(b)",
+      "statement": "Calendar days from CRA dispute notice to furnisher completion of required investigation, review, and reports.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.furnisher_reported_inaccuracy_to_other_cras",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681s-2(b)",
+      "statement": "The furnisher reported incomplete or inaccurate findings to other nationwide CRAs to which it furnished the information.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.furnisher_modified_item",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681s-2(b)",
+      "statement": "The furnisher modified the disputed information for reporting purposes.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.furnisher_deleted_item",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681s-2(b)",
+      "statement": "The furnisher deleted the disputed information for reporting purposes.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.furnisher_blocked_item",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681s-2(b)",
+      "statement": "The furnisher permanently blocked reporting of the disputed information.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.reseller_received_dispute",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(f)",
+      "statement": "A reseller received the consumer dispute.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.reseller_item_due_to_reseller_error",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(f)",
+      "statement": "The incomplete or inaccurate item resulted from an act or omission of the reseller.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.reseller_corrected_or_deleted",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(f)",
+      "statement": "The reseller corrected or deleted information caused by its act or omission.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "numeric",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.days_to_reseller_correct_delete",
+      "notes": "",
+      "numeric_unit": "calendar_days",
+      "source_span": "15 U.S.C. 1681i(f)",
+      "statement": "Days from reseller receipt to correction or deletion by reseller.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.reseller_conveyed_to_cra",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(f)",
+      "statement": "The reseller conveyed the dispute and all relevant information to the source CRA.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "numeric",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.business_days_to_reseller_conveyance",
+      "notes": "",
+      "numeric_unit": "business_days",
+      "source_span": "15 U.S.C. 1681i(f)",
+      "statement": "Business days from reseller receipt to conveyance to the CRA.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.reseller_reconveyed_results_to_consumer",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(f)",
+      "statement": "The reseller reconveyed the CRA completion notice to the consumer.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n"
+  }
+]
+
+Return ONLY this JSON shape:
+{
+  "sources": [
+    {
+      "source_id": "source id",
+      "source_type": "source type",
+      "title": "short title",
+      "as_of_date": "YYYY-MM-DD or null",
+      "closed_world_scopes": ["scope"],
+      "limitations": "limitations"
+    }
+  ],
+  "bindings": [
+    {
+      "atom_id": "atom id from ATOMS",
+      "status": "bound|undetermined|error",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["source id"],
+      "evidence": "short exact evidence or summary",
+      "explanation": "why this basis is appropriate",
+      "confidence": 0.0
+    }
+  ]
+}

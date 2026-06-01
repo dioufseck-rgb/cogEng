@@ -1,0 +1,96 @@
+{
+  "case_id": "fcra_deep_reinsertion_without_certification",
+  "determinations": [
+    {
+      "determination_id": "fcra.consumer_statement_satisfied",
+      "outcome": "true",
+      "rationale": "No consumer statement was filed; not applicable.",
+      "confidence": 0.8
+    },
+    {
+      "determination_id": "fcra.cra_consideration_satisfied",
+      "outcome": "true",
+      "rationale": "Record supports CRA reviewed and considered all relevant information in ordinary course.",
+      "confidence": 0.7
+    },
+    {
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "outcome": "true",
+      "rationale": "CRA notified furnisher within 2 business days with relevant information.",
+      "confidence": 0.8
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_required",
+      "outcome": "true",
+      "rationale": "Valid dispute packet received by CRA triggers reinvestigation duty.",
+      "confidence": 0.9
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_timely",
+      "outcome": "true",
+      "rationale": "Reinvestigation completed in 21 days, within 30-day window.",
+      "confidence": 0.9
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+      "outcome": "true",
+      "rationale": "Consumer-identified dispute about accuracy with required elements present.",
+      "confidence": 0.9
+    },
+    {
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "outcome": "true",
+      "rationale": "No direct furnisher dispute at issue; not applicable.",
+      "confidence": 0.9
+    },
+    {
+      "determination_id": "fcra.dispute_resolution_compliant",
+      "outcome": "false",
+      "rationale": "Item reinserted without furnisher certification and no reinsertion notice issued, violating reinsertion safeguards.",
+      "confidence": 0.95
+    },
+    {
+      "determination_id": "fcra.frivolous_termination_valid",
+      "outcome": "true",
+      "rationale": "No frivolous termination invoked; not applicable.",
+      "confidence": 0.9
+    },
+    {
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "outcome": "true",
+      "rationale": "Furnisher investigated and reported results within deadline per record.",
+      "confidence": 0.7
+    },
+    {
+      "determination_id": "fcra.human_review_required",
+      "outcome": "true",
+      "rationale": "Manual review policy trigger is set, and reinsertion-without-certification is a material compliance issue.",
+      "confidence": 0.95
+    },
+    {
+      "determination_id": "fcra.item_treatment_satisfied",
+      "outcome": "true",
+      "rationale": "Current results notice treats item appropriately; reinsertion compliance is addressed separately.",
+      "confidence": 0.6
+    },
+    {
+      "determination_id": "fcra.reinsertion_satisfied",
+      "outcome": "false",
+      "rationale": "Item was reinserted without furnisher certification of completeness and accuracy, and no reinsertion notice was sent to the consumer.",
+      "confidence": 0.98
+    },
+    {
+      "determination_id": "fcra.reseller_satisfied",
+      "outcome": "true",
+      "rationale": "No reseller involved; not applicable.",
+      "confidence": 0.95
+    },
+    {
+      "determination_id": "fcra.results_notice_satisfied",
+      "outcome": "true",
+      "rationale": "Results notice sent within 3 business days with the normal required disclosures.",
+      "confidence": 0.85
+    }
+  ],
+  "case_level_notes": "Core defect: reinsertion of a previously deleted collection account without furnisher certification and without the required reinsertion notice to the consumer. Routed for human review."
+}

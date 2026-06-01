@@ -1,0 +1,107 @@
+{
+  "cases": [
+    {
+      "case_id": "fcra_deep_clean_verified",
+      "expected_outcomes": {
+        "fcra.consumer_statement_satisfied": "true",
+        "fcra.cra_consideration_satisfied": "true",
+        "fcra.cra_furnisher_notice_satisfied": "true",
+        "fcra.cra_reinvestigation_required": "true",
+        "fcra.cra_reinvestigation_timely": "true",
+        "fcra.cra_reinvestigation_trigger_valid": "true",
+        "fcra.direct_furnisher_satisfied": "true",
+        "fcra.dispute_resolution_compliant": "true",
+        "fcra.frivolous_termination_valid": "false",
+        "fcra.furnisher_indirect_satisfied": "true",
+        "fcra.human_review_required": "false",
+        "fcra.item_treatment_satisfied": "true",
+        "fcra.reinsertion_satisfied": "true",
+        "fcra.reseller_satisfied": "true",
+        "fcra.results_notice_satisfied": "true"
+      },
+      "metadata": {
+        "source": "narrative_only_fcra_deep"
+      },
+      "narrative": "The consumer disputed a 30-day late notation on an auto loan. The CRA file shows the dispute was received directly on March 1, the account and month were identified, and the consumer supplied a servicer payment ledger. The CRA sent the dispute and document image to the furnisher on the third business day, completed the reinvestigation in 24 calendar days, received a furnisher response verifying the late payment, reviewed the consumer ledger against the furnisher payment history, recorded the item as verified, and mailed results with the revised report 4 business days after completion.\n",
+      "title": "Clean verified auto-loan dispute"
+    },
+    {
+      "case_id": "fcra_deep_missing_forwarded_bank_statement",
+      "expected_outcomes": {
+        "fcra.consumer_statement_satisfied": "true",
+        "fcra.cra_consideration_satisfied": "false",
+        "fcra.cra_furnisher_notice_satisfied": "false",
+        "fcra.cra_reinvestigation_required": "true",
+        "fcra.cra_reinvestigation_timely": "true",
+        "fcra.cra_reinvestigation_trigger_valid": "true",
+        "fcra.direct_furnisher_satisfied": "true",
+        "fcra.dispute_resolution_compliant": "false",
+        "fcra.frivolous_termination_valid": "false",
+        "fcra.furnisher_indirect_satisfied": "true",
+        "fcra.human_review_required": "true",
+        "fcra.item_treatment_satisfied": "true",
+        "fcra.reinsertion_satisfied": "true",
+        "fcra.reseller_satisfied": "true",
+        "fcra.results_notice_satisfied": "true"
+      },
+      "metadata": {
+        "source": "narrative_only_fcra_deep"
+      },
+      "narrative": "The consumer disputed a charged-off credit card balance and attached bank statements plus a creditor letter showing a settlement payment. The CRA coded the dispute and sent a generic \"claims paid\" code to the furnisher on day 4, but the processing log says the document images were not sent or made available. The furnisher verified the old balance. The CRA completed within 29 days and sent a timely results notice.\n",
+      "title": "Bank statement not forwarded to furnisher"
+    },
+    {
+      "case_id": "fcra_deep_direct_furnisher_valid_not_corrected",
+      "expected_outcomes": {
+        "fcra.consumer_statement_satisfied": "true",
+        "fcra.cra_consideration_satisfied": "true",
+        "fcra.cra_furnisher_notice_satisfied": "true",
+        "fcra.cra_reinvestigation_required": "true",
+        "fcra.cra_reinvestigation_timely": "true",
+        "fcra.cra_reinvestigation_trigger_valid": "true",
+        "fcra.direct_furnisher_satisfied": "false",
+        "fcra.dispute_resolution_compliant": "false",
+        "fcra.frivolous_termination_valid": "false",
+        "fcra.furnisher_indirect_satisfied": "true",
+        "fcra.human_review_required": "false",
+        "fcra.item_treatment_satisfied": "true",
+        "fcra.reinsertion_satisfied": "true",
+        "fcra.reseller_satisfied": "true",
+        "fcra.results_notice_satisfied": "true"
+      },
+      "metadata": {
+        "source": "narrative_only_fcra_deep"
+      },
+      "narrative": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n",
+      "title": "Direct furnisher dispute found inaccurate but CRAs not corrected"
+    },
+    {
+      "case_id": "fcra_deep_mixed_file_identity_theft_ambiguous",
+      "expected_outcomes": {
+        "fcra.consumer_statement_satisfied": "true",
+        "fcra.cra_consideration_satisfied": "undetermined",
+        "fcra.cra_furnisher_notice_satisfied": "undetermined",
+        "fcra.cra_reinvestigation_required": "true",
+        "fcra.cra_reinvestigation_timely": "undetermined",
+        "fcra.cra_reinvestigation_trigger_valid": "true",
+        "fcra.direct_furnisher_satisfied": "true",
+        "fcra.dispute_resolution_compliant": "undetermined",
+        "fcra.frivolous_termination_valid": "false",
+        "fcra.furnisher_indirect_satisfied": "undetermined",
+        "fcra.human_review_required": "true",
+        "fcra.item_treatment_satisfied": "undetermined",
+        "fcra.reinsertion_satisfied": "true",
+        "fcra.reseller_satisfied": "true",
+        "fcra.results_notice_satisfied": "undetermined"
+      },
+      "metadata": {
+        "source": "narrative_only_fcra_deep"
+      },
+      "narrative": "The consumer disputes three collection accounts as \"not mine\" and says an identity theft affidavit is being prepared. The packet includes a police incident number but not the actual identity theft report, two addresses for a person with a similar name, and inconsistent dates across the CRA file and furnisher response. The CRA has not yet received enough material to decide whether the items are mixed-file, identity-theft, or verified consumer obligations.\n",
+      "title": "Mixed-file not-mine dispute with incomplete identity theft packet"
+    }
+  ],
+  "metadata": {
+    "purpose": "Narrative-only FCRA deep cases for production-like LLM Map and direct disposition comparison; structured gold facts/defaults removed."
+  }
+}

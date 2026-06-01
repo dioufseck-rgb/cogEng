@@ -1,0 +1,155 @@
+You are adjudicating a policy case directly.
+
+This is a governed-style direct baseline for research. Unlike RuleKit, you are
+still deciding the policy dispositions yourself, but you must apply conservative
+evidence discipline similar to a governed Map + engine flow.
+
+Important:
+- Return only JSON.
+- Do not invent facts not in the case packet.
+- Do not infer a satisfied determination merely because the packet looks clean.
+- Use "undetermined" when required facts are missing, conflicting, approximate,
+  source-limited, or outside the case packet's natural scope.
+- Treat source-scope carefully: absence from an open narrative is not proof of
+  absence; absence from an official/checking source may matter only within its
+  closed-world scope.
+- If a case has pending, inconsistent, missing, source-limited, or complex facts,
+  preserve that uncertainty or mark human-review-related determinations
+  accordingly.
+- For each determination, identify the material facts relied on, uncertainty
+  flags, and whether human review should be considered.
+- Use "true" when the determination is satisfied.
+- Use "false" when the determination is not satisfied.
+
+POLICY SUMMARY
+==============
+Selected N-400 naturalization eligibility benchmark. The applicant must satisfy core threshold requirements, an applicable residence track, continuous residence, physical presence, state or USCIS district residence, good moral character, English and civics requirements or accepted exceptions, and oath/attachment requirements. Certain missing, inconsistent, pending, or complex facts require human review. Numeric requirements are represented with typed arithmetic and comparison nodes where possible.
+
+SELECTED DETERMINATIONS
+=======================
+[
+  {
+    "description": "Continuous residence is satisfied for this benchmark scope.",
+    "determination_id": "n400.continuous_residence_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 3"
+  },
+  {
+    "description": "Physical presence is satisfied under the selected track.",
+    "determination_id": "n400.physical_presence_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 4"
+  },
+  {
+    "description": "State or USCIS district residence is satisfied.",
+    "determination_id": "n400.state_residence_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part D, Ch. 2-4"
+  },
+  {
+    "description": "English requirement is met or an accepted exception applies.",
+    "determination_id": "n400.english_requirement_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part E"
+  },
+  {
+    "description": "Civics requirement is met or an accepted exception applies.",
+    "determination_id": "n400.civics_requirement_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part E"
+  },
+  {
+    "description": "Attachment to the Constitution and oath-related requirements are satisfied.",
+    "determination_id": "n400.oath_attachment_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part J"
+  },
+  {
+    "description": "Selected good moral character bars and review triggers do not defeat eligibility.",
+    "determination_id": "n400.good_moral_character_satisfied",
+    "source_span": "USCIS Policy Manual, Vol. 12, Part F"
+  },
+  {
+    "description": "The case contains a benchmark human-review trigger.",
+    "determination_id": "n400.human_review_required",
+    "source_span": "RuleKit benchmark governance trigger"
+  }
+]
+
+CASE PACKET
+===========
+{
+  "case_id": "tier1_one_year_absence_no_exception",
+  "narrative": "The passport and CBP travel-history printout show departure from the United States on January 4, 2021 and re-entry on February 10, 2022. The packet contains no N-470 preservation approval, no qualifying employment-abroad approval, no military service exception, and no religious-vocation exception. The applicant statement says the trip was for family reasons.",
+  "structured_fields": {
+    "default_binding_groups": [
+      {
+        "apply_when": "missing_or_undetermined",
+        "atom_ids": [
+          "n400.complex_absence_pattern",
+          "n400.inconsistent_travel_history",
+          "n400.evidence_missing_critical_dates",
+          "n400.unresolved_tax_issue",
+          "n400.disputed_selective_service_issue",
+          "n400.pending_criminal_charge",
+          "n400.unresolved_arrest_disposition",
+          "n400.possible_false_testimony",
+          "n400.possible_gmc_discretion_issue",
+          "n400.accommodation_or_disability_documentation_unclear",
+          "n400.name_identity_record_conflict",
+          "n400.interpreter_or_understanding_issue",
+          "n400.legal_exception_claimed_needs_review",
+          "n400.outside_benchmark_scope"
+        ],
+        "basis": "explicit_negative",
+        "evidence": "The case packet does not state this review trigger within the benchmark scope.",
+        "explanation": "Scoped benchmark default for absent human-review trigger atoms.",
+        "value": false
+      }
+    ],
+    "evidence": {
+      "n400.absence_6_to_12_months": "The absence exceeded one year, not merely six to twelve months.",
+      "n400.absence_over_one_year": "Travel history shows an absence exceeding one year.",
+      "n400.days_absent_trip_1": "CBP travel history: January 4, 2021 to February 10, 2022, more than one year."
+    },
+    "evidence_sources": [
+      {
+        "closed_world_scopes": [
+          "us_entry_exit_events"
+        ],
+        "limitations": "Synthetic benchmark travel-history source.",
+        "source_id": "cbp_history",
+        "source_type": "cbp_travel_history",
+        "title": "CBP travel-history printout"
+      },
+      {
+        "closed_world_scopes": [
+          "submitted_exception_documents"
+        ],
+        "limitations": "Shows no exception document included.",
+        "source_id": "packet_index",
+        "source_type": "case_packet_index",
+        "title": "Case packet index"
+      }
+    ]
+  },
+  "title": "One-year absence with no preservation exception"
+}
+
+Return ONLY this JSON shape:
+{
+  "case_id": "tier1_one_year_absence_no_exception",
+  "determinations": [
+    {
+      "determination_id": "id from SELECTED DETERMINATIONS",
+      "outcome": "true|false|undetermined",
+      "rationale": "brief reason based on the case packet",
+      "confidence": 0.0,
+      "material_facts": [
+        {
+          "fact": "short fact",
+          "source": "source title/id or narrative",
+          "basis": "explicit|closed_world_absence|open_world_absence|inferred|missing|conflicting"
+        }
+      ],
+      "uncertainty_flags": ["missing fact, source limitation, conflict, or empty"],
+      "human_review_considered": true,
+      "anti_overclaim_check": "why this is not overclaiming beyond the packet"
+    }
+  ],
+  "case_level_notes": "brief note or empty string"
+}

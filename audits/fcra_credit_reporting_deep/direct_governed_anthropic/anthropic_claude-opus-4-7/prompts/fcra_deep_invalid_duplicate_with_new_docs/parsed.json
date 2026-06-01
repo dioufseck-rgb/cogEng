@@ -1,0 +1,306 @@
+{
+  "case_id": "fcra_deep_invalid_duplicate_with_new_docs",
+  "case_level_notes": "CRA improperly invoked frivolous/duplicate termination despite a new servicer correction letter; multiple duties unmet and human review is required.",
+  "determinations": [
+    {
+      "anti_overclaim_check": "Packet does not show statement stage was reached.",
+      "confidence": 0.5,
+      "determination_id": "fcra.consumer_statement_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Reinvestigation not completed; frivolous termination invoked",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "No consumer statement was filed because reinvestigation was terminated; downstream statement handling cannot be assessed and the termination itself appears invalid.",
+      "uncertainty_flags": [
+        "not applicable path blocked by invalid termination"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Directly supported by fact and narrative.",
+      "confidence": 0.9,
+      "determination_id": "fcra.cra_consideration_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "cra_reviewed_all_consumer_info = false",
+          "source": "structured_fields"
+        },
+        {
+          "basis": "explicit",
+          "fact": "New servicer correction letter not previously supplied was included",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "false",
+      "rationale": "CRA did not review all consumer information and did not consider the new servicer correction letter before terminating as duplicate/frivolous.",
+      "uncertainty_flags": []
+    },
+    {
+      "anti_overclaim_check": "Explicit facts.",
+      "confidence": 0.95,
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "cra_notified_furnisher = false",
+          "source": "structured_fields"
+        },
+        {
+          "basis": "explicit",
+          "fact": "furnisher_received_cra_notice = false",
+          "source": "structured_fields"
+        }
+      ],
+      "outcome": "false",
+      "rationale": "CRA did not notify the furnisher; case was closed without reinvestigation.",
+      "uncertainty_flags": []
+    },
+    {
+      "anti_overclaim_check": "Trigger elements supported by narrative and inferred binding.",
+      "confidence": 0.9,
+      "determination_id": "fcra.cra_reinvestigation_required",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Consumer disputed accuracy of mortgage late payment",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "New servicer correction letter included",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "dispute_duplicate_without_new_info = false",
+          "source": "structured_fields"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "Valid dispute with new primary-source documentation triggers reinvestigation; the duplicate/frivolous basis is not supported because new info was provided.",
+      "uncertainty_flags": []
+    },
+    {
+      "anti_overclaim_check": "Explicit fact.",
+      "confidence": 0.9,
+      "determination_id": "fcra.cra_reinvestigation_timely",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "reinvestigation_completed = false",
+          "source": "structured_fields"
+        }
+      ],
+      "outcome": "false",
+      "rationale": "No reinvestigation was conducted, so timing duty was not met.",
+      "uncertainty_flags": []
+    },
+    {
+      "anti_overclaim_check": "Supported by narrative and default bindings.",
+      "confidence": 0.85,
+      "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Dispute about mortgage late payment with servicer correction letter",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "Dispute identifies consumer, account, field, and basis with new supporting document; trigger elements present.",
+      "uncertainty_flags": []
+    },
+    {
+      "anti_overclaim_check": "Not asserting compliance; flagging as undetermined.",
+      "confidence": 0.6,
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "human_review_considered": false,
+      "material_facts": [
+        {
+          "basis": "open_world_absence",
+          "fact": "No direct dispute to furnisher indicated",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "No direct-to-furnisher dispute is described; packet concerns CRA path.",
+      "uncertainty_flags": [
+        "not applicable scenario but not explicitly closed"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Multiple explicit non-compliances.",
+      "confidence": 0.95,
+      "determination_id": "fcra.dispute_resolution_compliant",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Frivolous termination invoked without missing-info identification despite new docs",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "reinvestigation_completed = false",
+          "source": "structured_fields"
+        }
+      ],
+      "outcome": "false",
+      "rationale": "CRA invalidly terminated as frivolous despite new documentation; no reinvestigation, no furnisher notice, no proper results notice.",
+      "uncertainty_flags": []
+    },
+    {
+      "anti_overclaim_check": "Explicit and narrative-supported.",
+      "confidence": 0.95,
+      "determination_id": "fcra.frivolous_termination_valid",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "New servicer correction letter included",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "frivolous_missing_info_identified = false",
+          "source": "structured_fields"
+        },
+        {
+          "basis": "explicit",
+          "fact": "insufficient_information_to_investigate = false",
+          "source": "structured_fields"
+        }
+      ],
+      "outcome": "false",
+      "rationale": "Termination invalid because new primary-source document (servicer correction letter) was supplied, dispute_duplicate_without_new_info is false, and notice did not identify any missing information.",
+      "uncertainty_flags": []
+    },
+    {
+      "anti_overclaim_check": "Not asserting satisfaction.",
+      "confidence": 0.7,
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "furnisher_received_cra_notice = false",
+          "source": "structured_fields"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "Furnisher was never notified, so duties did not arise; not properly 'satisfied' since the upstream CRA failure prevents assessment.",
+      "uncertainty_flags": [
+        "duties not triggered due to CRA failure"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Explicit trigger.",
+      "confidence": 0.95,
+      "determination_id": "fcra.human_review_required",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "manual_review_policy_trigger = true",
+          "source": "structured_fields"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Invalid duplicate termination despite new docs",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "Manual review policy trigger present; invalid frivolous termination and new primary-source document warrant human review.",
+      "uncertainty_flags": []
+    },
+    {
+      "anti_overclaim_check": "Supported by explicit facts.",
+      "confidence": 0.85,
+      "determination_id": "fcra.item_treatment_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "reinvestigation_completed = false",
+          "source": "structured_fields"
+        },
+        {
+          "basis": "explicit",
+          "fact": "item_verified_as_accurate = false",
+          "source": "structured_fields"
+        }
+      ],
+      "outcome": "false",
+      "rationale": "No reinvestigation occurred; item treatment duty cannot be satisfied given invalid termination and unreviewed correction letter.",
+      "uncertainty_flags": []
+    },
+    {
+      "anti_overclaim_check": "Not asserting satisfaction.",
+      "confidence": 0.7,
+      "determination_id": "fcra.reinsertion_satisfied",
+      "human_review_considered": false,
+      "material_facts": [
+        {
+          "basis": "closed_world_absence",
+          "fact": "No reinsertion indicators in packet",
+          "source": "structured_fields"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "No deletion or reinsertion event occurred.",
+      "uncertainty_flags": [
+        "not applicable"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Not asserting satisfaction.",
+      "confidence": 0.7,
+      "determination_id": "fcra.reseller_satisfied",
+      "human_review_considered": false,
+      "material_facts": [
+        {
+          "basis": "closed_world_absence",
+          "fact": "No reseller facts in packet",
+          "source": "structured_fields"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "No reseller involvement indicated.",
+      "uncertainty_flags": [
+        "not applicable"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Explicit facts.",
+      "confidence": 0.9,
+      "determination_id": "fcra.results_notice_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "results_notice_sent = false",
+          "source": "structured_fields"
+        },
+        {
+          "basis": "explicit",
+          "fact": "frivolous_missing_info_identified = false",
+          "source": "structured_fields"
+        }
+      ],
+      "outcome": "false",
+      "rationale": "results_notice_sent = false; frivolous notice failed to identify missing information required by policy when invoking termination.",
+      "uncertainty_flags": []
+    }
+  ]
+}

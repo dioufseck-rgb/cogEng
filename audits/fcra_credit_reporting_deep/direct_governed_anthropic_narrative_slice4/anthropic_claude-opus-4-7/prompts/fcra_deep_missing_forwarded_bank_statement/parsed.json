@@ -1,0 +1,288 @@
+{
+  "case_id": "fcra_deep_missing_forwarded_bank_statement",
+  "case_level_notes": "Core defect: CRA transmitted only a generic code and failed to forward consumer's primary-source settlement documents to the furnisher, producing an unreliable verification despite timely processing. Human review warranted.",
+  "determinations": [
+    {
+      "anti_overclaim_check": "Trigger elements are explicit in narrative.",
+      "confidence": 0.85,
+      "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+      "human_review_considered": false,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Consumer disputed charged-off balance with bank statements and creditor letter showing settlement",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "Consumer disputed a specific item (charged-off credit card balance) and provided basis with supporting documents.",
+      "uncertainty_flags": []
+    },
+    {
+      "anti_overclaim_check": "Follows from valid trigger.",
+      "confidence": 0.85,
+      "determination_id": "fcra.cra_reinvestigation_required",
+      "human_review_considered": false,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Valid dispute received by CRA",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "Valid trigger and no valid frivolous termination indicated; reinvestigation required.",
+      "uncertainty_flags": []
+    },
+    {
+      "anti_overclaim_check": "Policy requires all relevant information including primary source documents; narrative is explicit they were not transmitted.",
+      "confidence": 0.9,
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "human_review_considered": false,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Generic 'claims paid' code sent on day 4",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Processing log states document images were not sent or made available",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "false",
+      "rationale": "CRA sent notice on day 4 (within 5 business days) but failed to include all relevant information \u2014 document images (bank statements, creditor letter) were not forwarded; only a generic code was sent.",
+      "uncertainty_flags": []
+    },
+    {
+      "anti_overclaim_check": "Timing facts explicit.",
+      "confidence": 0.95,
+      "determination_id": "fcra.cra_reinvestigation_timely",
+      "human_review_considered": false,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Completed within 29 days",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "CRA completed within 29 days, inside the 30-day window.",
+      "uncertainty_flags": []
+    },
+    {
+      "anti_overclaim_check": "Policy explicitly states automated coding alone is insufficient when primary documents require review.",
+      "confidence": 0.85,
+      "determination_id": "fcra.cra_consideration_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "CRA coded dispute and sent generic code only",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Bank statements and creditor settlement letter were primary source documents",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "false",
+      "rationale": "CRA relied on automated coding without forwarding primary source documents; reasonableness standard not met when primary documents require review.",
+      "uncertainty_flags": []
+    },
+    {
+      "anti_overclaim_check": "Material conflict between settlement evidence and furnisher's verified balance indicates treatment likely incorrect.",
+      "confidence": 0.7,
+      "determination_id": "fcra.item_treatment_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Furnisher verified old balance without receiving settlement documents",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "false",
+      "rationale": "Furnisher verified the old balance but verification was based on incomplete information (settlement evidence not forwarded). Item likely should have been modified or deemed unverifiable; outcome of verified status is unreliable.",
+      "uncertainty_flags": [
+        "material evidence conflict between settlement letter and verified balance"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Cannot confirm content elements from packet.",
+      "confidence": 0.6,
+      "determination_id": "fcra.results_notice_satisfied",
+      "human_review_considered": false,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Timely results notice sent",
+          "source": "narrative"
+        },
+        {
+          "basis": "missing",
+          "fact": "Content elements not described",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "Narrative states notice was timely but does not detail required content elements (right to procedure description, furnisher contact, statement right, deletion notification right, revised report).",
+      "uncertainty_flags": [
+        "missing fact"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Open-world absence; cannot determine.",
+      "confidence": 0.5,
+      "determination_id": "fcra.consumer_statement_satisfied",
+      "human_review_considered": false,
+      "material_facts": [
+        {
+          "basis": "missing",
+          "fact": "No mention of consumer statement",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "Packet does not indicate whether consumer filed a brief statement after reinvestigation.",
+      "uncertainty_flags": [
+        "missing fact"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Reinsertion provisions inapplicable when nothing was deleted.",
+      "confidence": 0.85,
+      "determination_id": "fcra.reinsertion_satisfied",
+      "human_review_considered": false,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Item was verified, not deleted",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "No deletion or reinsertion occurred; not applicable.",
+      "uncertainty_flags": []
+    },
+    {
+      "anti_overclaim_check": "Reseller scope absent from narrative.",
+      "confidence": 0.85,
+      "determination_id": "fcra.reseller_satisfied",
+      "human_review_considered": false,
+      "material_facts": [
+        {
+          "basis": "open_world_absence",
+          "fact": "No reseller mentioned",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "No reseller involvement indicated; not applicable.",
+      "uncertainty_flags": []
+    },
+    {
+      "anti_overclaim_check": "No termination occurred.",
+      "confidence": 0.9,
+      "determination_id": "fcra.frivolous_termination_valid",
+      "human_review_considered": false,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "CRA processed the dispute rather than terminating",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "No frivolous termination invoked; not applicable.",
+      "uncertainty_flags": []
+    },
+    {
+      "anti_overclaim_check": "Verification appears inconsistent with settlement evidence; defect originates partly with CRA but furnisher's verification of the old balance is suspect.",
+      "confidence": 0.6,
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Furnisher verified old balance",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Furnisher only received generic code, not documents",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "false",
+      "rationale": "Furnisher verified old balance, but did so without the relevant primary documents (not provided by CRA). However, the furnisher cannot review relevant info not provided. The furnisher's investigation was inherently incomplete because CRA's notice lacked the documents; the furnisher duty to review 'all relevant information provided by the agency' was technically met, but verifying despite settlement evidence existing elsewhere may indicate insufficient investigation. Material conflict remains.",
+      "uncertainty_flags": [
+        "conflict"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Direct-dispute path not triggered.",
+      "confidence": 0.9,
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "human_review_considered": false,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Dispute went through CRA, not directly to furnisher",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "No direct dispute to furnisher indicated; not applicable.",
+      "uncertainty_flags": []
+    },
+    {
+      "anti_overclaim_check": "Routing policy explicitly triggers human review on unresolved material conflicts.",
+      "confidence": 0.9,
+      "determination_id": "fcra.human_review_required",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Primary documents not forwarded",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Settlement letter conflicts with verified old balance",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "Material evidence conflict: settlement documents vs. furnisher's verification of old balance; primary source documents were not forwarded to furnisher \u2014 routing criteria met.",
+      "uncertainty_flags": [
+        "conflict"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Compliance fails on multiple obligations explicitly evidenced.",
+      "confidence": 0.9,
+      "determination_id": "fcra.dispute_resolution_compliant",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Documents not forwarded to furnisher",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Generic coding used",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "false",
+      "rationale": "CRA failed to transmit relevant primary documents to furnisher and relied on automated coding, undermining reasonableness and item-treatment outcomes.",
+      "uncertainty_flags": [
+        "conflict"
+      ]
+    }
+  ]
+}

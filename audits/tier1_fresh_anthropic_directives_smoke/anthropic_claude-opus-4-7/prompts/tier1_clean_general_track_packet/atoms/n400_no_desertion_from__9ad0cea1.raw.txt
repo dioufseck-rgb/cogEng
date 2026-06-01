@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.no_communist_party_bar_or_exception",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary", "oath_worksheet"],
+      "evidence": "Narrative does not mention communist party membership; oath worksheet records attachment to Constitution but does not close world on disqualifying affiliations.",
+      "explanation": "No source affirmatively addresses communist party membership; oath worksheet's limitations explicitly state it does not close the world on disqualifying affiliations.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.no_totalitarian_party_bar_or_exception",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary", "oath_worksheet"],
+      "evidence": "No mention of totalitarian party membership; oath worksheet does not close world on disqualifying affiliations.",
+      "explanation": "Silence in narrative cannot support false; no closed-world source covers this universe.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.no_advocacy_overthrow",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["oath_worksheet"],
+      "evidence": "Oath worksheet states attachment to the Constitution but does not close world on disqualifying beliefs.",
+      "explanation": "Attachment to Constitution is suggestive but the source explicitly does not close the world on disqualifying beliefs; no affirmative finding of no-advocacy.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.no_desertion_from_us_armed_forces",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary"],
+      "evidence": "Narrative does not mention military service or desertion.",
+      "explanation": "No affirmative evidence on desertion issue; silence cannot establish false.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.no_title_of_nobility_issue",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary"],
+      "evidence": "Narrative does not mention any title of nobility.",
+      "explanation": "No affirmative evidence; silence cannot establish false.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.truthful_oath_related_answers",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["interview_worksheet", "oath_worksheet"],
+      "evidence": "USCIS interview worksheet reports no false testimony issue; oath worksheet records willingness and attachment to Constitution.",
+      "explanation": "Interview worksheet affirmatively records no false testimony issue (closed-world for false testimony observed during interview); supports inference that oath-related answers are truthful.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "n400.murder_conviction",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["fbi_check"],
+      "evidence": "FBI check reports no aggravated felony convictions; does not specifically address murder convictions.",
+      "explanation": "FBI check is a criminal_history_check with closed-world scope for criminal_convictions, but it only affirmatively states no aggravated felony, not no murder conviction specifically. Without an explicit statement on murder, cannot bind false via closed-world absence on this specific atom.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "n400.aggravated_felony_after_1990",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["fbi_check"],
+      "evidence": "FBI check reports no aggravated felony convictions.",
+      "explanation": "FBI criminal history check is a criminal_history_check source with closed-world scope for criminal_convictions, and it affirmatively reports no aggravated felony convictions; satisfies required source type for false binding.",
+      "confidence": 0.85
+    }
+  ]
+}

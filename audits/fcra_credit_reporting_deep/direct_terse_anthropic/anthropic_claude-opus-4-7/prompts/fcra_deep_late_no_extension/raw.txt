@@ -1,0 +1,96 @@
+{
+  "case_id": "fcra_deep_late_no_extension",
+  "determinations": [
+    {
+      "determination_id": "fcra.consumer_statement_satisfied",
+      "outcome": "true",
+      "rationale": "No consumer statement was filed; not applicable.",
+      "confidence": 0.9
+    },
+    {
+      "determination_id": "fcra.cra_consideration_satisfied",
+      "outcome": "true",
+      "rationale": "CRA reviewed all consumer info, considered primary documents, compared furnisher response and own file per defaults.",
+      "confidence": 0.8
+    },
+    {
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "outcome": "true",
+      "rationale": "Furnisher notified within 2 business days, within the 5 business day limit, with relevant info forwarded.",
+      "confidence": 0.9
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_required",
+      "outcome": "true",
+      "rationale": "Valid dispute received directly by CRA with all required elements; no frivolous termination.",
+      "confidence": 0.95
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_timely",
+      "outcome": "false",
+      "rationale": "Reinvestigation completed in 38 days with no additional info from consumer to trigger 45-day extension; exceeded 30-day deadline.",
+      "confidence": 0.98
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+      "outcome": "true",
+      "rationale": "Consumer disputed accuracy of an item in file with sufficient identification and basis; direct notice to CRA.",
+      "confidence": 0.95
+    },
+    {
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "outcome": "true",
+      "rationale": "No direct furnisher dispute in record; not applicable.",
+      "confidence": 0.9
+    },
+    {
+      "determination_id": "fcra.dispute_resolution_compliant",
+      "outcome": "false",
+      "rationale": "Reinvestigation completed after 38 days without a valid extension, violating the 30-day deadline.",
+      "confidence": 0.95
+    },
+    {
+      "determination_id": "fcra.frivolous_termination_valid",
+      "outcome": "true",
+      "rationale": "No frivolous termination was made; not applicable.",
+      "confidence": 0.9
+    },
+    {
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "outcome": "true",
+      "rationale": "Furnisher investigated, reviewed info, and reported results within 28 days per defaults.",
+      "confidence": 0.8
+    },
+    {
+      "determination_id": "fcra.human_review_required",
+      "outcome": "false",
+      "rationale": "No identity theft, mixed file, court order, missing documents, date conflicts, or manual review triggers present.",
+      "confidence": 0.85
+    },
+    {
+      "determination_id": "fcra.item_treatment_satisfied",
+      "outcome": "true",
+      "rationale": "Item verified as accurate per defaults; status recorded as current.",
+      "confidence": 0.85
+    },
+    {
+      "determination_id": "fcra.reinsertion_satisfied",
+      "outcome": "true",
+      "rationale": "No reinsertion occurred; not applicable.",
+      "confidence": 0.95
+    },
+    {
+      "determination_id": "fcra.reseller_satisfied",
+      "outcome": "true",
+      "rationale": "No reseller involvement; not applicable.",
+      "confidence": 0.95
+    },
+    {
+      "determination_id": "fcra.results_notice_satisfied",
+      "outcome": "true",
+      "rationale": "Results notice mailed within 2 business days of completion and otherwise complete with all required disclosures.",
+      "confidence": 0.9
+    }
+  ],
+  "case_level_notes": "Primary defect: CRA exceeded the 30-day reinvestigation deadline (38 days) with no qualifying extension since no additional consumer information was provided during the initial 30 days."
+}

@@ -1,0 +1,540 @@
+{
+  "sources": [
+    {
+      "source_id": "cra_file",
+      "source_type": "cra_reinvestigation_record",
+      "title": "CRA File - Auto Loan 30-Day Late Dispute",
+      "as_of_date": null,
+      "closed_world_scopes": [
+        "cra_handling_of_dispute",
+        "cra_timeline_events",
+        "cra_actions_taken",
+        "furnisher_response_to_cra",
+        "consumer_submissions_to_cra"
+      ],
+      "limitations": "Narrative summary of CRA file; does not detail content of results notice disclosures, furnisher's internal investigation steps, furnisher reporting to other CRAs, or any reseller activity."
+    }
+  ],
+  "bindings": [
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["cra_file"],
+      "evidence": "Consumer disputed a 30-day late notation; nature framed as accuracy challenge, not specified as completeness.",
+      "explanation": "Record does not state whether the dispute concerns completeness; cannot be inferred from a generic late-notation dispute.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["cra_file"],
+      "evidence": "No mention of a prior dispute.",
+      "explanation": "Absence of any reference to a prior substantially similar dispute does not affirmatively establish duplicate-or-not.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["cra_file"],
+      "evidence": "Account and month identified; consumer supplied servicer payment ledger; CRA proceeded with reinvestigation.",
+      "explanation": "Record affirmatively shows sufficient information was provided and the CRA conducted a reinvestigation.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["cra_file"],
+      "evidence": "No frivolous/irrelevant determination made.",
+      "explanation": "No frivolous determination occurred, so the numeric interval is not applicable/extractable.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.cra_reviewed_all_consumer_info",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["cra_file"],
+      "evidence": "CRA 'reviewed the consumer ledger against the furnisher payment history'.",
+      "explanation": "Record explicitly states the CRA reviewed the consumer-submitted ledger; no other consumer-submitted info is indicated.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.cra_considered_primary_source_documents",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["cra_file"],
+      "evidence": "CRA reviewed the consumer ledger (servicer payment ledger) against the furnisher payment history.",
+      "explanation": "Servicer payment ledger functions as a primary source document and the CRA reviewed it.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.cra_compared_furnisher_response",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["cra_file"],
+      "evidence": "CRA 'reviewed the consumer ledger against the furnisher payment history' after receiving furnisher response.",
+      "explanation": "Record explicitly describes comparison between furnisher response and the consumer's dispute basis (ledger).",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.cra_compared_own_file",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["cra_file"],
+      "evidence": "Record describes comparison of consumer ledger to furnisher history; no explicit mention of comparing to CRA's own file.",
+      "explanation": "Cannot confirm or deny CRA-file comparison from the narrative.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.cra_reasonable_reinvestigation_performed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["cra_file"],
+      "evidence": "CRA forwarded dispute and image, received furnisher response, reviewed ledger vs. payment history, recorded result.",
+      "explanation": "Whether the steps amount to a 'reasonable' reinvestigation is a policy/legal characterization; not directly answered as a fact.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.dispositive_info_not_ignored",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["cra_file"],
+      "evidence": "CRA reviewed the consumer ledger against the furnisher payment history.",
+      "explanation": "Record indicates the consumer's potentially dispositive ledger was reviewed rather than ignored.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "fcra.automated_code_only",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["cra_file"],
+      "evidence": "CRA forwarded document image to furnisher and reviewed consumer ledger against furnisher payment history.",
+      "explanation": "Record describes substantive document review, inconsistent with code-only automated handling.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.human_review_of_documents_performed",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["cra_file"],
+      "evidence": "CRA 'reviewed the consumer ledger against the furnisher payment history'.",
+      "explanation": "Described comparative document review reflects a human/equivalent review process.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "fcra.furnished_by_furnisher",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["cra_file"],
+      "evidence": "Dispute concerns an auto loan tradeline; CRA sent dispute to 'the furnisher' who responded with payment history.",
+      "explanation": "Record indicates the item is furnished by a furnisher who responded to the dispute notice.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.expedited_deleted_within_3_business_days",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["cra_file"],
+      "evidence": "Item was 'recorded as verified' after a 24-day reinvestigation; not deleted.",
+      "explanation": "Record affirmatively shows no deletion occurred within 3 business days.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.cra_notified_furnisher",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["cra_file"],
+      "evidence": "CRA 'sent the dispute and document image to the furnisher on the third business day'.",
+      "explanation": "Explicitly stated the CRA notified the furnisher.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.business_days_to_notify_furnisher",
+      "status": "bound",
+      "value": 3,
+      "basis": "explicit_positive",
+      "source_ids": ["cra_file"],
+      "evidence": "'sent the dispute and document image to the furnisher on the third business day'.",
+      "explanation": "Stated directly in the record.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.notice_included_all_relevant_info",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["cra_file"],
+      "evidence": "CRA sent both the dispute and the document image to the furnisher.",
+      "explanation": "Forwarding the dispute together with the consumer-submitted document image indicates inclusion of relevant information.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "fcra.primary_documents_forwarded",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["cra_file"],
+      "evidence": "CRA sent the 'dispute and document image to the furnisher'.",
+      "explanation": "Record explicitly states the consumer-submitted document image was forwarded to the furnisher.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.later_relevant_info_received",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["cra_file"],
+      "evidence": "No mention of any post-notice consumer submissions.",
+      "explanation": "Absence of mention does not affirmatively establish that no later info was received.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.later_relevant_info_forwarded",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["cra_file"],
+      "evidence": "No mention of later relevant info or its forwarding.",
+      "explanation": "Cannot bind without affirmative evidence either way.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.reinvestigation_completed",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["cra_file"],
+      "evidence": "CRA 'completed the reinvestigation in 24 calendar days'.",
+      "explanation": "Explicit statement of completion.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "fcra.days_to_complete_reinvestigation",
+      "status": "bound",
+      "value": 24,
+      "basis": "explicit_positive",
+      "source_ids": ["cra_file"],
+      "evidence": "'completed the reinvestigation in 24 calendar days'.",
+      "explanation": "Stated directly in the record.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "fcra.additional_relevant_info_received_in_30_days",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["cra_file"],
+      "evidence": "No mention of additional consumer submissions during the period.",
+      "explanation": "Absence is not affirmative evidence of no submission.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.item_found_inaccurate",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["cra_file"],
+      "evidence": "Item 'recorded as verified'; furnisher 'verifying the late payment'.",
+      "explanation": "Record affirmatively states verification, not a finding of inaccuracy.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.item_found_incomplete",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["cra_file"],
+      "evidence": "Item 'recorded as verified'.",
+      "explanation": "Verification finding affirmatively contradicts an incompleteness finding.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["cra_file"],
+      "evidence": "Furnisher response 'verifying the late payment'; item 'recorded as verified'.",
+      "explanation": "Record affirmatively states the item was verified.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.item_verified_as_accurate",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["cra_file"],
+      "evidence": "Furnisher response 'verifying the late payment'; CRA 'recorded the item as verified'.",
+      "explanation": "Explicit statement of verification.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.item_status_recorded_current",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["cra_file"],
+      "evidence": "CRA 'recorded the item as verified'.",
+      "explanation": "Recording the current status of the disputed information is stated.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.item_deleted",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["cra_file"],
+      "evidence": "Item 'recorded as verified', not deleted.",
+      "explanation": "Verification record is inconsistent with deletion.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.item_modified",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["cra_file"],
+      "evidence": "Item verified; 'revised report' was mailed but the source of revision is not specified.",
+      "explanation": "Record mentions a 'revised report' but does not clarify whether the disputed item itself was modified.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.results_notice_sent",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["cra_file"],
+      "evidence": "CRA 'mailed results with the revised report 4 business days after completion'.",
+      "explanation": "Explicit statement that results were mailed.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.business_days_to_results_notice",
+      "status": "bound",
+      "value": 4,
+      "basis": "explicit_positive",
+      "source_ids": ["cra_file"],
+      "evidence": "'mailed results with the revised report 4 business days after completion'.",
+      "explanation": "Stated directly.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.notice_states_reinvestigation_completed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["cra_file"],
+      "evidence": "Results were mailed but content language of the notice is not described.",
+      "explanation": "No detail about the notice's specific statements.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.revised_consumer_report_provided",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["cra_file"],
+      "evidence": "Results were mailed 'with the revised report'.",
+      "explanation": "Explicit reference to inclusion of a revised report.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.procedure_description_right_disclosed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["cra_file"],
+      "evidence": "Content of disclosures in results notice not described.",
+      "explanation": "Cannot determine whether procedure-right disclosure was included.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.furnisher_contact_disclosed_if_available",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["cra_file"],
+      "evidence": "No description of disclosure contents.",
+      "explanation": "Insufficient detail.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.consumer_statement_right_disclosed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["cra_file"],
+      "evidence": "No description of disclosure contents.",
+      "explanation": "Insufficient detail.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.notification_right_disclosed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["cra_file"],
+      "evidence": "No description of disclosure contents.",
+      "explanation": "Insufficient detail.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.business_days_to_reinsertion_notice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["cra_file"],
+      "evidence": "No reinsertion event described.",
+      "explanation": "Item was not deleted, so no reinsertion timeline is applicable or stated.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.procedures_prevent_reappearance",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["cra_file"],
+      "evidence": "No mention of CRA's procedural controls.",
+      "explanation": "Record does not address general procedures designed to prevent improper reappearance.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.furnisher_received_cra_notice",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["cra_file"],
+      "evidence": "CRA sent dispute and image to furnisher; furnisher returned a response.",
+      "explanation": "Furnisher's response implies receipt of the CRA notice.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.furnisher_investigation_conducted",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["cra_file"],
+      "evidence": "Furnisher 'verifying the late payment' in its response with payment history.",
+      "explanation": "Furnisher's verification response implies it conducted an investigation.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "fcra.furnisher_reviewed_all_cra_info",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["cra_file"],
+      "evidence": "Furnisher returned a verification but record does not detail what materials it reviewed.",
+      "explanation": "Cannot determine the scope of furnisher's internal review from the CRA's narrative.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.furnisher_reported_results_to_cra",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["cra_file"],
+      "evidence": "CRA 'received a furnisher response verifying the late payment'.",
+      "explanation": "Furnisher reported results to CRA.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.days_to_furnisher_complete",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["cra_file"],
+      "evidence": "Furnisher response timestamp not stated; only CRA's overall 24-day completion noted.",
+      "explanation": "Insufficient data to compute the furnisher-specific interval.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.furnisher_reported_inaccuracy_to_other_cras",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["cra_file"],
+      "evidence": "Furnisher verified the item; no finding of inaccuracy and no mention of other CRAs.",
+      "explanation": "Trigger condition (inaccuracy finding) absent; downstream reporting cannot be assessed.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.furnisher_modified_item",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["cra_file"],
+      "evidence": "Furnisher 'verifying the late payment'; item recorded as verified.",
+      "explanation": "Verification response is inconsistent with modification.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.furnisher_deleted_item",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["cra_file"],
+      "evidence": "Furnisher verified the late payment; item recorded as verified.",
+      "explanation": "Verification is inconsistent with deletion.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.furnisher_blocked_item",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["cra_file"],
+      "evidence": "Item verified, not blocked.",
+      "explanation": "Verification is inconsistent with a permanent block.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.direct_dispute_subject_within_scope",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["cra_file"],
+      "evidence": "Dispute was 'received directly' by the CRA, not described as a direct dispute to the furnisher.",
+      "explanation": "12 CFR 1022.43 governs direct disputes to furnishers; record describes a CRA-routed dispute, so direct-dispute scope cannot be affirmatively bound.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.days_to_reseller_correct_delete",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["cra_file"],
+      "evidence": "No reseller mentioned.",
+      "explanation": "No reseller in record; cannot extract.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.business_days_to_reseller_conveyance",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["cra_file"],
+      "evidence": "No reseller mentioned.",
+      "explanation": "No reseller in record; cannot extract.",
+      "confidence": 0.9
+    }
+  ]
+}

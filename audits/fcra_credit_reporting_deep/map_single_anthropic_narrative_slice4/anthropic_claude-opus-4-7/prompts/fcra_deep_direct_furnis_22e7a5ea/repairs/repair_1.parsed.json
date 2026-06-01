@@ -1,0 +1,194 @@
+{
+  "fcra.business_days_to_frivolous_notice": {
+    "atom_id": "fcra.business_days_to_frivolous_notice",
+    "basis": "not_found",
+    "confidence": 0.9,
+    "evidence": "No timing data and no frivolous notice in the record.",
+    "explanation": "Numeric value is not stated or derivable from the narrative.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.consumer_identity_sufficient": {
+    "atom_id": "fcra.consumer_identity_sufficient",
+    "basis": "open_world_absence",
+    "confidence": 0.5,
+    "evidence": "Consumer identified the credit-card account and supplied payoff statement, but identity-information sufficiency is not described.",
+    "explanation": "Account identification is mentioned but identity-information sufficiency is not within stated scopes.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": false
+  },
+  "fcra.consumer_statement_filed": {
+    "atom_id": "fcra.consumer_statement_filed",
+    "basis": "open_world_absence",
+    "confidence": 0.5,
+    "evidence": "Narrative does not mention any 1681i(b) consumer statement of dispute.",
+    "explanation": "Statement-of-dispute filing is not within the narrative's closed-world scopes; silence is not affirmative.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": false
+  },
+  "fcra.cra_considered_primary_source_documents": {
+    "atom_id": "fcra.cra_considered_primary_source_documents",
+    "basis": "open_world_absence",
+    "confidence": 0.5,
+    "evidence": "Narrative does not describe any CRA review of documents.",
+    "explanation": "CRA-side document consideration is outside the narrative's stated scope.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": false
+  },
+  "fcra.cra_reviewed_all_consumer_info": {
+    "atom_id": "fcra.cra_reviewed_all_consumer_info",
+    "basis": "open_world_absence",
+    "confidence": 0.5,
+    "evidence": "Narrative is silent on CRA actions; closed-world scopes cover only furnisher handling and furnisher-to-CRA notifications.",
+    "explanation": "CRA-side review is outside the narrative's stated scope.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": false
+  },
+  "fcra.dispute_about_completeness": {
+    "atom_id": "fcra.dispute_about_completeness",
+    "basis": "explicit_negative",
+    "confidence": 0.8,
+    "evidence": "Consumer identified 'the inaccurate balance' and attached payoff statement; dispute is about accuracy, not completeness.",
+    "explanation": "Narrative explicitly characterizes the dispute as one over accuracy of the balance, not completeness.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.dispute_duplicate_without_new_info": {
+    "atom_id": "fcra.dispute_duplicate_without_new_info",
+    "basis": "inferred_from_record",
+    "confidence": 0.7,
+    "evidence": "Narrative describes a single dispute with new substantive evidence (final payoff statement); no prior duplicate dispute is indicated.",
+    "explanation": "Closed-world scope of furnisher dispute handling shows a single substantive dispute; duplicate-without-new-info branch is not applicable.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.frivolous_determination_made": {
+    "atom_id": "fcra.frivolous_determination_made",
+    "basis": "explicit_negative",
+    "confidence": 0.85,
+    "evidence": "Furnisher 'agreed internally that the balance was wrong'; no frivolous determination occurred.",
+    "explanation": "The furnisher's agreement on the merits is inconsistent with a frivolous/irrelevant determination.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.frivolous_missing_info_identified": {
+    "atom_id": "fcra.frivolous_missing_info_identified",
+    "basis": "inferred_from_record",
+    "confidence": 0.8,
+    "evidence": "No frivolous determination occurred; furnisher resolved the merits.",
+    "explanation": "Conditional support tied to a non-occurring frivolous determination; branch not applicable.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.frivolous_notice_sent": {
+    "atom_id": "fcra.frivolous_notice_sent",
+    "basis": "inferred_from_record",
+    "confidence": 0.8,
+    "evidence": "No frivolous determination was made; furnisher agreed the dispute was meritorious.",
+    "explanation": "Conditional 'if frivolous determination made' branch is not triggered, so this notice requirement is not applicable.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.frivolous_reason_identified": {
+    "atom_id": "fcra.frivolous_reason_identified",
+    "basis": "inferred_from_record",
+    "confidence": 0.8,
+    "evidence": "No frivolous determination occurred; furnisher concluded the balance was wrong.",
+    "explanation": "Conditional support tied to a frivolous determination that did not occur; branch not applicable.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.insufficient_information_to_investigate": {
+    "atom_id": "fcra.insufficient_information_to_investigate",
+    "basis": "explicit_negative",
+    "confidence": 0.85,
+    "evidence": "Furnisher 'agreed internally that the balance was wrong' after receiving the dispute and payoff statement.",
+    "explanation": "The furnisher's ability to reach a substantive conclusion shows information was sufficient to investigate.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.item_in_consumer_file": {
+    "atom_id": "fcra.item_in_consumer_file",
+    "basis": "open_world_absence",
+    "confidence": 0.5,
+    "evidence": "Narrative describes furnisher direct-dispute handling; does not affirmatively state the item is in the consumer's CRA file.",
+    "explanation": "CRA file contents are not within the narrative's closed-world scopes.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": false
+  },
+  "fcra.notice_direct_to_cra": {
+    "atom_id": "fcra.notice_direct_to_cra",
+    "basis": "explicit_negative",
+    "confidence": 0.75,
+    "evidence": "Consumer 'sent a direct dispute to the furnisher's published dispute address'; narrative frames the dispute as direct-to-furnisher only.",
+    "explanation": "Narrative affirmatively characterizes this as a direct-to-furnisher dispute, not a CRA notice.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.notice_through_reseller": {
+    "atom_id": "fcra.notice_through_reseller",
+    "basis": "explicit_negative",
+    "confidence": 0.8,
+    "evidence": "Narrative describes a direct dispute to the furnisher; no reseller is involved.",
+    "explanation": "Narrative's direct-to-furnisher framing precludes a reseller pathway.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.subsequent_reports_note_dispute": {
+    "atom_id": "fcra.subsequent_reports_note_dispute",
+    "basis": "open_world_absence",
+    "confidence": 0.5,
+    "evidence": "Narrative does not describe subsequent reports or dispute notations.",
+    "explanation": "Subsequent report content is outside the narrative's described scope.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": false
+  }
+}

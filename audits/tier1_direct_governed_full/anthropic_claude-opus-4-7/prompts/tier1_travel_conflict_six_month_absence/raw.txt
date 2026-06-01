@@ -1,0 +1,169 @@
+{
+  "case_id": "tier1_travel_conflict_six_month_absence",
+  "determinations": [
+    {
+      "determination_id": "n400.continuous_residence_satisfied",
+      "outcome": "undetermined",
+      "rationale": "Objective records (passport, CBP) show an absence of approximately 198 days, which exceeds six months and triggers a rebuttable presumption of broken continuous residence. The applicant's travel table conflicts with these records (172 days vs 198 days). While ties evidence exists, the conflict and the 6-12 month absence require adjudicator review.",
+      "confidence": 0.8,
+      "material_facts": [
+        {
+          "fact": "CBP and passport show March 1, 2022 to September 15, 2022 (~198 days)",
+          "source": "cbp_history / passport_stamps",
+          "basis": "explicit"
+        },
+        {
+          "fact": "Applicant travel table lists 172 days ending August 20, 2022",
+          "source": "n400_travel_table",
+          "basis": "conflicting"
+        },
+        {
+          "fact": "Applicant statement claims no absence over six months",
+          "source": "narrative",
+          "basis": "conflicting"
+        },
+        {
+          "fact": "Lease, bank, and family records show maintained US ties during absence",
+          "source": "residence_evidence",
+          "basis": "explicit"
+        }
+      ],
+      "uncertainty_flags": ["conflict between applicant-declared travel and objective records", "absence exceeds 6 months triggering presumption"],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Not asserting satisfied because the record conflict and 6-12 month absence cannot be cleanly resolved within the packet."
+    },
+    {
+      "determination_id": "n400.physical_presence_satisfied",
+      "outcome": "undetermined",
+      "rationale": "The packet does not provide total days of physical presence over the five-year period, and the trip duration is itself disputed between sources. Cannot determine if the 30-month threshold is met.",
+      "confidence": 0.85,
+      "material_facts": [
+        {
+          "fact": "Trip duration disputed: 172 days (table) vs ~198 days (CBP/passport)",
+          "source": "n400_travel_table / cbp_history",
+          "basis": "conflicting"
+        },
+        {
+          "fact": "No aggregate physical presence calculation provided",
+          "source": "narrative",
+          "basis": "missing"
+        }
+      ],
+      "uncertainty_flags": ["missing aggregate physical presence data", "conflicting trip-length sources"],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Packet does not contain the data needed to confirm 30-month physical presence."
+    },
+    {
+      "determination_id": "n400.state_residence_satisfied",
+      "outcome": "undetermined",
+      "rationale": "Packet does not specify state/USCIS district residence duration; lease records exist but no claim about three-month state residence is made.",
+      "confidence": 0.8,
+      "material_facts": [
+        {
+          "fact": "Lease records exist for the period abroad",
+          "source": "residence_evidence",
+          "basis": "explicit"
+        },
+        {
+          "fact": "No explicit three-month state/district residence claim",
+          "source": "narrative",
+          "basis": "missing"
+        }
+      ],
+      "uncertainty_flags": ["missing explicit state/district residence period"],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Cannot affirm without explicit residence-period facts."
+    },
+    {
+      "determination_id": "n400.english_requirement_satisfied",
+      "outcome": "undetermined",
+      "rationale": "Packet contains no facts addressing English ability or any claimed exception.",
+      "confidence": 0.9,
+      "material_facts": [
+        {
+          "fact": "No facts about English ability in packet",
+          "source": "narrative",
+          "basis": "missing"
+        }
+      ],
+      "uncertainty_flags": ["missing English-requirement facts"],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Not inferring satisfaction absent any facts."
+    },
+    {
+      "determination_id": "n400.civics_requirement_satisfied",
+      "outcome": "undetermined",
+      "rationale": "Packet contains no facts addressing civics knowledge or exceptions.",
+      "confidence": 0.9,
+      "material_facts": [
+        {
+          "fact": "No facts about civics knowledge in packet",
+          "source": "narrative",
+          "basis": "missing"
+        }
+      ],
+      "uncertainty_flags": ["missing civics-requirement facts"],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Not inferring satisfaction absent any facts."
+    },
+    {
+      "determination_id": "n400.oath_attachment_satisfied",
+      "outcome": "undetermined",
+      "rationale": "No facts addressing attachment to the Constitution or oath-related issues are in the packet.",
+      "confidence": 0.9,
+      "material_facts": [
+        {
+          "fact": "No oath/attachment facts present",
+          "source": "narrative",
+          "basis": "missing"
+        }
+      ],
+      "uncertainty_flags": ["missing oath/attachment facts"],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Not inferring satisfaction absent any facts."
+    },
+    {
+      "determination_id": "n400.good_moral_character_satisfied",
+      "outcome": "undetermined",
+      "rationale": "The discrepancy between the applicant's personal statement ('never stayed outside US more than six months') and the objective CBP/passport records showing ~198 days raises a possible false-testimony or candor concern relevant to GMC that requires review.",
+      "confidence": 0.75,
+      "material_facts": [
+        {
+          "fact": "Applicant statement contradicts objective records about >6-month absence",
+          "source": "narrative vs cbp_history/passport_stamps",
+          "basis": "conflicting"
+        }
+      ],
+      "uncertainty_flags": ["possible candor/false-testimony concern", "no other GMC facts provided"],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Not affirming GMC given conflicting statements; not affirming a bar absent intent findings."
+    },
+    {
+      "determination_id": "n400.human_review_required",
+      "outcome": "true",
+      "rationale": "The packet contains an inconsistent travel history (applicant table vs passport/CBP), a complex absence pattern with a 6-12 month absence triggering rebuttable presumption, and a potential candor issue between the personal statement and objective records — all benchmark human-review triggers.",
+      "confidence": 0.95,
+      "material_facts": [
+        {
+          "fact": "Travel table (172 days, ending Aug 20) conflicts with passport/CBP (re-entry Sep 15, ~198 days)",
+          "source": "n400_travel_table / cbp_history / passport_stamps",
+          "basis": "conflicting"
+        },
+        {
+          "fact": "Absence between 6 and 12 months",
+          "source": "cbp_history",
+          "basis": "explicit"
+        },
+        {
+          "fact": "Applicant statement denies any >6-month absence, contrary to records",
+          "source": "narrative",
+          "basis": "conflicting"
+        }
+      ],
+      "uncertainty_flags": ["inconsistent travel history", "complex absence pattern", "possible false testimony"],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Triggers are directly evidenced in the packet."
+    }
+  ],
+  "case_level_notes": "Core issue: conflict between applicant-declared travel (172 days) and objective records (~198 days), creating both a continuous-residence presumption issue and a candor/GMC concern. Multiple determinations cannot be resolved within the packet."
+}

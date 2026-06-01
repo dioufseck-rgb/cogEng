@@ -101,7 +101,13 @@ def _parser() -> argparse.ArgumentParser:
     template.add_argument("path", help="output .json/.yaml/.yml path")
     template.add_argument(
         "--example",
-        choices=["sample", "prior-auth-typed", "fcra-dispute", "uscis-n400"],
+        choices=[
+            "sample",
+            "prior-auth-typed",
+            "fcra-dispute",
+            "fcra-credit-reporting-deep",
+            "uscis-n400",
+        ],
         default="sample",
         help="seed example to write (default: sample)",
     )
@@ -763,6 +769,12 @@ def template_seed(example: str) -> PolicyWorkspaceSeed:
         return prior_auth_typed_seed()
     if example == "fcra-dispute":
         return fcra_dispute_seed()
+    if example == "fcra-credit-reporting-deep":
+        return load_policy_workspace_seed(
+            Path(__file__).parent
+            / "example_seeds"
+            / "fcra_credit_reporting_dispute_deep.yaml"
+        )
     if example == "uscis-n400":
         return load_policy_workspace_seed(
             Path(__file__).parent / "example_seeds" / "uscis_n400_selected.json"

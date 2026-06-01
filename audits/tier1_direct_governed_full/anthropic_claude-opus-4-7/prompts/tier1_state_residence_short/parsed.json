@@ -1,0 +1,162 @@
+{
+  "case_id": "tier1_state_residence_short",
+  "case_level_notes": "Case is narrowly scoped to district residence; the two-month duration falls short of the three-month threshold, defeating the state/district residence determination and triggering human review. Other determinations lack supporting facts and remain undetermined.",
+  "determinations": [
+    {
+      "anti_overclaim_check": "Not claiming satisfaction without underlying evidence in the packet.",
+      "confidence": 0.6,
+      "determination_id": "n400.continuous_residence_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Packet focuses on two months of district residence only",
+          "source": "narrative"
+        },
+        {
+          "basis": "missing",
+          "fact": "No facts on LPR continuous residence period",
+          "source": "case packet"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "The packet only addresses district residence duration; no facts about continuous residence as an LPR are provided.",
+      "uncertainty_flags": [
+        "missing fact"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Cannot infer satisfaction from absence of data.",
+      "confidence": 0.6,
+      "determination_id": "n400.physical_presence_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "missing",
+          "fact": "No physical presence days stated",
+          "source": "case packet"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "No physical presence data is provided in the case packet.",
+      "uncertainty_flags": [
+        "missing fact"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Based directly on the stated two-month duration, below the standard three-month threshold.",
+      "confidence": 0.9,
+      "determination_id": "n400.state_residence_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Two months of residence in current USCIS district before filing",
+          "source": "residence_worksheet"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Lease start date and utility bill corroborate two months",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "false",
+      "rationale": "Applicant moved into the current USCIS district only two months before filing, which falls short of the three-month state/district residence requirement.",
+      "uncertainty_flags": []
+    },
+    {
+      "anti_overclaim_check": "Absence of evidence is not satisfaction.",
+      "confidence": 0.6,
+      "determination_id": "n400.english_requirement_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "missing",
+          "fact": "No English evidence provided",
+          "source": "case packet"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "No facts about English ability or exceptions are present in the case packet.",
+      "uncertainty_flags": [
+        "missing fact"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Absence of evidence is not satisfaction.",
+      "confidence": 0.6,
+      "determination_id": "n400.civics_requirement_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "missing",
+          "fact": "No civics evidence provided",
+          "source": "case packet"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "No facts about civics knowledge or exceptions are present in the case packet.",
+      "uncertainty_flags": [
+        "missing fact"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Cannot affirm without supporting facts.",
+      "confidence": 0.6,
+      "determination_id": "n400.oath_attachment_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "missing",
+          "fact": "No oath/attachment evidence provided",
+          "source": "case packet"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "No facts about oath or attachment to the Constitution are present in the case packet.",
+      "uncertainty_flags": [
+        "missing fact"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Defaults only negate review triggers within scope; do not establish positive GMC.",
+      "confidence": 0.5,
+      "determination_id": "n400.good_moral_character_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "closed_world_absence",
+          "fact": "Default negatives for review-trigger atoms within scope",
+          "source": "structured_fields.default_binding_groups"
+        },
+        {
+          "basis": "missing",
+          "fact": "No affirmative GMC facts provided",
+          "source": "case packet"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "The packet contains scoped negative defaults for review triggers but no affirmative GMC evidence; the case is focused narrowly on district residence.",
+      "uncertainty_flags": [
+        "source limitation",
+        "missing fact"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Trigger is grounded in an explicit packet fact (short district residence) that conflicts with the eligibility threshold.",
+      "confidence": 0.85,
+      "determination_id": "n400.human_review_required",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Two months of district residence before filing",
+          "source": "residence_worksheet"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "District residence of only two months is below the standard threshold and renders the application ineligible at filing under the residence track, warranting human review.",
+      "uncertainty_flags": []
+    }
+  ]
+}

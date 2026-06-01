@@ -1,0 +1,96 @@
+{
+  "case_id": "fcra_deep_unverifiable_not_deleted",
+  "determinations": [
+    {
+      "determination_id": "fcra.consumer_statement_satisfied",
+      "outcome": "true",
+      "rationale": "No consumer statement filed; not applicable.",
+      "confidence": 0.8
+    },
+    {
+      "determination_id": "fcra.cra_consideration_satisfied",
+      "outcome": "false",
+      "rationale": "CRA log shows item could not be verified yet tradeline remained unchanged, indicating dispositive information was effectively ignored.",
+      "confidence": 0.85
+    },
+    {
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "outcome": "true",
+      "rationale": "Furnisher notified within 2 business days with relevant info forwarded per default bindings.",
+      "confidence": 0.8
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_required",
+      "outcome": "true",
+      "rationale": "Consumer disputed accuracy of an item in file directly to CRA with sufficient identifying information.",
+      "confidence": 0.95
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_timely",
+      "outcome": "true",
+      "rationale": "Reinvestigation completed in 22 days, within 30-day window.",
+      "confidence": 0.95
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+      "outcome": "true",
+      "rationale": "Valid dispute packet with consumer ID, account ID, disputed field, and basis.",
+      "confidence": 0.95
+    },
+    {
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "outcome": "true",
+      "rationale": "No direct dispute to furnisher; not applicable.",
+      "confidence": 0.9
+    },
+    {
+      "determination_id": "fcra.dispute_resolution_compliant",
+      "outcome": "false",
+      "rationale": "Unverifiable item was not deleted or modified, violating treatment requirement and reasonable reinvestigation duty.",
+      "confidence": 0.95
+    },
+    {
+      "determination_id": "fcra.frivolous_termination_valid",
+      "outcome": "true",
+      "rationale": "No frivolous termination invoked; not applicable.",
+      "confidence": 0.9
+    },
+    {
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "outcome": "false",
+      "rationale": "Furnisher did not produce account-level documentation and did not modify, delete, or block the unverifiable item.",
+      "confidence": 0.9
+    },
+    {
+      "determination_id": "fcra.human_review_required",
+      "outcome": "true",
+      "rationale": "Primary source documents are missing and consumer alleges not-mine with unverifiable item left reporting—material conflict requiring human review.",
+      "confidence": 0.9
+    },
+    {
+      "determination_id": "fcra.item_treatment_satisfied",
+      "outcome": "false",
+      "rationale": "Item could not be verified but was neither deleted nor modified; tradeline remained unchanged.",
+      "confidence": 0.98
+    },
+    {
+      "determination_id": "fcra.reinsertion_satisfied",
+      "outcome": "true",
+      "rationale": "No deletion or reinsertion occurred; not applicable.",
+      "confidence": 0.9
+    },
+    {
+      "determination_id": "fcra.reseller_satisfied",
+      "outcome": "true",
+      "rationale": "No reseller involved; not applicable.",
+      "confidence": 0.9
+    },
+    {
+      "determination_id": "fcra.results_notice_satisfied",
+      "outcome": "true",
+      "rationale": "Results notice sent within 4 business days with required disclosures per default bindings.",
+      "confidence": 0.7
+    }
+  ],
+  "case_level_notes": "Core violation: unverifiable collection account was not deleted or modified, and source documents are missing—routing to human review."
+}

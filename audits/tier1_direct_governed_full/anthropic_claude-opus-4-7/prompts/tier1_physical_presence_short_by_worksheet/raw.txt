@@ -1,0 +1,144 @@
+{
+  "case_id": "tier1_physical_presence_short_by_worksheet",
+  "determinations": [
+    {
+      "determination_id": "n400.continuous_residence_satisfied",
+      "outcome": "undetermined",
+      "rationale": "The packet only addresses physical presence; no facts establish continuous residence under the five-year track.",
+      "confidence": 0.7,
+      "material_facts": [
+        {
+          "fact": "Narrative scope limited to physical presence worksheet.",
+          "source": "narrative",
+          "basis": "open_world_absence"
+        }
+      ],
+      "uncertainty_flags": ["missing fact", "source limitation"],
+      "human_review_considered": false,
+      "anti_overclaim_check": "No continuous-residence facts provided; not asserting satisfaction."
+    },
+    {
+      "determination_id": "n400.physical_presence_satisfied",
+      "outcome": "false",
+      "rationale": "Worksheet shows 24 months physical presence during the five-year period, below the 30-month (half of 5 years) statutory requirement for the general track.",
+      "confidence": 0.95,
+      "material_facts": [
+        {
+          "fact": "24 months physically present during the five-year statutory period.",
+          "source": "presence_worksheet",
+          "basis": "explicit"
+        },
+        {
+          "fact": "Applicant is on the general five-year track.",
+          "source": "narrative",
+          "basis": "explicit"
+        }
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Determination based directly on worksheet total compared to the general-track threshold."
+    },
+    {
+      "determination_id": "n400.state_residence_satisfied",
+      "outcome": "undetermined",
+      "rationale": "Binding directive marks state/district residence as out of scope for this packet.",
+      "confidence": 0.9,
+      "material_facts": [
+        {
+          "fact": "Packet does not establish state/district residence facts.",
+          "source": "binding_directives",
+          "basis": "explicit"
+        }
+      ],
+      "uncertainty_flags": ["source limitation"],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Respecting out_of_scope directive rather than inferring."
+    },
+    {
+      "determination_id": "n400.english_requirement_satisfied",
+      "outcome": "undetermined",
+      "rationale": "No facts about English ability or exceptions provided.",
+      "confidence": 0.8,
+      "material_facts": [
+        {
+          "fact": "Narrative limited to physical presence.",
+          "source": "narrative",
+          "basis": "open_world_absence"
+        }
+      ],
+      "uncertainty_flags": ["missing fact"],
+      "human_review_considered": false,
+      "anti_overclaim_check": "No English-related evidence; cannot affirm or deny."
+    },
+    {
+      "determination_id": "n400.civics_requirement_satisfied",
+      "outcome": "undetermined",
+      "rationale": "No facts about civics testing or exceptions provided.",
+      "confidence": 0.8,
+      "material_facts": [
+        {
+          "fact": "Narrative limited to physical presence.",
+          "source": "narrative",
+          "basis": "open_world_absence"
+        }
+      ],
+      "uncertainty_flags": ["missing fact"],
+      "human_review_considered": false,
+      "anti_overclaim_check": "No civics-related evidence; cannot affirm or deny."
+    },
+    {
+      "determination_id": "n400.oath_attachment_satisfied",
+      "outcome": "undetermined",
+      "rationale": "Packet provides no facts regarding attachment or oath.",
+      "confidence": 0.8,
+      "material_facts": [
+        {
+          "fact": "No oath/attachment facts in packet.",
+          "source": "narrative",
+          "basis": "open_world_absence"
+        }
+      ],
+      "uncertainty_flags": ["missing fact"],
+      "human_review_considered": false,
+      "anti_overclaim_check": "No basis to assert satisfaction."
+    },
+    {
+      "determination_id": "n400.good_moral_character_satisfied",
+      "outcome": "undetermined",
+      "rationale": "Default bindings mark GMC review triggers as not present, but no affirmative GMC evidence is provided either.",
+      "confidence": 0.6,
+      "material_facts": [
+        {
+          "fact": "GMC review triggers absent per default binding scope.",
+          "source": "default_binding_groups",
+          "basis": "closed_world_absence"
+        },
+        {
+          "fact": "No affirmative GMC evidence provided.",
+          "source": "narrative",
+          "basis": "open_world_absence"
+        }
+      ],
+      "uncertainty_flags": ["missing fact"],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Absence of triggers is not affirmative proof of GMC."
+    },
+    {
+      "determination_id": "n400.human_review_required",
+      "outcome": "false",
+      "rationale": "Default bindings explicitly negate all benchmark human-review triggers within scope; physical presence shortfall is a clear numeric disqualification rather than a review trigger.",
+      "confidence": 0.85,
+      "material_facts": [
+        {
+          "fact": "All listed human-review trigger atoms default to false within benchmark scope.",
+          "source": "default_binding_groups",
+          "basis": "closed_world_absence"
+        }
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Based on explicit default binding for absent review triggers."
+    }
+  ],
+  "case_level_notes": "Physical presence is clearly short (24 of required 30 months); other branches remain undetermined due to scope of packet."
+}

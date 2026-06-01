@@ -1,0 +1,395 @@
+You are adjudicating a policy case directly.
+
+This is a baseline for research. Unlike RuleKit, you are being asked to decide
+the policy dispositions yourself from the policy summary and case packet.
+
+Important:
+- Return only JSON.
+- Do not invent facts not in the case packet.
+- Use "undetermined" when required facts are missing, conflicting, or too
+  approximate for a policy determination.
+- Use "true" when the determination is satisfied.
+- Use "false" when the determination is not satisfied.
+- If the case has missing, inconsistent, pending, or complex facts, mark
+  human-review-related determinations accordingly.
+
+POLICY SUMMARY
+==============
+Bounded benchmark policy for consumer reporting disputes.
+
+1. Consumer reporting agency reinvestigation trigger. If the completeness or
+accuracy of an item in a consumer's file is disputed by the consumer and the
+consumer reporting agency receives notice directly or through a reseller, the
+agency must conduct a reasonable reinvestigation unless a valid frivolous or
+irrelevant termination applies. A valid dispute packet identifies the consumer,
+identifies the account or item, identifies the disputed field or information,
+and explains the basis for the dispute.
+
+2. Time to complete reinvestigation. The agency must complete the
+reinvestigation within 30 calendar days after receipt of the dispute notice.
+The period may extend to 45 days if the consumer provides additional relevant
+information during the initial 30-day period. The extension does not apply
+where the agency determines within the initial period that the item is
+inaccurate, incomplete, or cannot be verified.
+
+3. Furnisher notice by the agency. Before the end of the fifth business day
+after receiving the consumer's dispute, the agency must notify the furnisher
+of the disputed information when the item was provided by a furnisher, and the
+notice must include all relevant information received from the consumer. Later
+relevant information received during the reinvestigation period must be
+promptly provided to the furnisher. Primary source documents submitted by the
+consumer, such as bank statements, creditor letters, account statements,
+police reports, identity theft affidavits, court orders, or billing
+statements, are relevant when they bear on the disputed information.
+
+4. Consideration and reasonableness. The agency must review and consider all
+relevant consumer information. A reasonable reinvestigation compares the
+consumer submission, furnisher response, agency file, prior dispute history
+where relevant, and public-record source where relevant. Automated dispute
+coding alone is not sufficient when primary documents or material conflicts
+require review.
+
+5. Treatment of inaccurate, incomplete, or unverifiable information. If the
+item is inaccurate, incomplete, or cannot be verified, the agency must delete
+or modify it as appropriate and record the current status. If no defect is
+found after a reasonable reinvestigation, the item may remain verified.
+
+6. Results notice. Within 5 business days after completing the
+reinvestigation, the agency must provide written results to the consumer. The
+notice must state that the reinvestigation is completed, include a consumer
+report based on the revised file, disclose the right to request a description
+of the procedure used, disclose furnisher contact information if reasonably
+available, disclose the right to add a consumer statement, and disclose the
+right to request notification of deletion or dispute notation.
+
+7. Reinsertion. Deleted information may not be reinserted unless the furnisher
+certifies that it is complete and accurate. If reinserted, the agency must
+notify the consumer in writing within 5 business days, identify the furnisher,
+provide the consumer's right to add a statement, and maintain reasonable
+procedures designed to prevent improper reappearance.
+
+8. Frivolous or irrelevant disputes. The agency may terminate a
+reinvestigation if it reasonably determines that the dispute is frivolous or
+irrelevant, including because the consumer failed to provide sufficient
+information to investigate. The agency must notify the consumer within 5
+business days after that determination, provide the reasons, and identify any
+information required to investigate.
+
+9. Reseller disputes. A reseller receiving a dispute must determine within 5
+business days whether the item is incomplete or inaccurate because of a
+reseller act or omission. If so, the reseller must correct or delete within 20
+days. If not, the reseller must convey the dispute and all relevant consumer
+information to the consumer reporting agency that supplied the information and
+reconvey the agency's completion notice to the consumer.
+
+10. Furnisher duties after agency notice. A furnisher receiving agency notice
+of a dispute must investigate the disputed information, review all relevant
+information provided by the agency, report results to the agency, report
+incomplete or inaccurate findings to other nationwide consumer reporting
+agencies to which it furnished the information, and modify, delete, or
+permanently block information that is inaccurate, incomplete, or unverifiable.
+The furnisher must complete those actions before the agency's applicable
+reinvestigation deadline.
+
+11. Furnisher direct disputes. A furnisher receiving a qualifying direct
+dispute must investigate when the notice is sent to a proper address, identifies
+the account or relationship, identifies the specific disputed information,
+explains the basis for the dispute, includes reasonably required supporting
+documentation, and concerns covered account or relationship information. The
+furnisher need not investigate direct disputes outside the regulatory scope,
+including disputes solely about public records, fraud alerts, active duty
+alerts, information from another furnisher, or disputes reasonably believed to
+be submitted by a credit repair organization. A furnisher that invokes a
+frivolous or irrelevant direct-dispute determination must notify the consumer
+within 5 business days, state reasons, and identify information needed to
+investigate.
+
+12. Consumer statement and subsequent reporting. If the reinvestigation does
+not resolve the dispute and the consumer files a brief statement, subsequent
+reports containing the disputed information must clearly note that it is
+disputed and include the statement or an accurate codification or summary,
+unless there are reasonable grounds to believe the statement is frivolous or
+irrelevant.
+
+13. Human-review routing. Human review is required when material evidence
+conflicts remain unresolved, identity theft or mixed-file evidence is
+plausible but incomplete, a court order or legal-liability issue changes the
+ordinary fact-verification path, a veteran medical debt claim may require the
+special deletion process, primary source documents are missing from the record,
+material dates conflict, or the institution's manual review policy is
+triggered.
+
+
+SELECTED DETERMINATIONS
+=======================
+[
+  {
+    "description": "Consumer statement handling is satisfied or not applicable.",
+    "determination_id": "fcra.consumer_statement_satisfied",
+    "source_span": "15 U.S.C. 1681i(b)-(c)"
+  },
+  {
+    "description": "CRA consideration and reasonableness duties are satisfied.",
+    "determination_id": "fcra.cra_consideration_satisfied",
+    "source_span": "15 U.S.C. 1681i(a)(4)"
+  },
+  {
+    "description": "CRA furnisher-notice transmission duties are satisfied.",
+    "determination_id": "fcra.cra_furnisher_notice_satisfied",
+    "source_span": "15 U.S.C. 1681i(a)(2)"
+  },
+  {
+    "description": "The CRA is required to conduct a reinvestigation.",
+    "determination_id": "fcra.cra_reinvestigation_required",
+    "source_span": "15 U.S.C. 1681i(a)(1)"
+  },
+  {
+    "description": "CRA reinvestigation timing is satisfied.",
+    "determination_id": "fcra.cra_reinvestigation_timely",
+    "source_span": "15 U.S.C. 1681i(a)(1)"
+  },
+  {
+    "description": "A valid CRA reinvestigation trigger exists.",
+    "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+    "source_span": "15 U.S.C. 1681i(a)(1)"
+  },
+  {
+    "description": "Furnisher direct-dispute duties are satisfied or not applicable.",
+    "determination_id": "fcra.direct_furnisher_satisfied",
+    "source_span": "12 CFR 1022.43"
+  },
+  {
+    "description": "Selected credit-reporting dispute obligations are satisfied.",
+    "determination_id": "fcra.dispute_resolution_compliant",
+    "source_span": "benchmark root"
+  },
+  {
+    "description": "Any frivolous or irrelevant termination is valid.",
+    "determination_id": "fcra.frivolous_termination_valid",
+    "source_span": "15 U.S.C. 1681i(a)(3)"
+  },
+  {
+    "description": "Furnisher duties after CRA notice are satisfied or not applicable.",
+    "determination_id": "fcra.furnisher_indirect_satisfied",
+    "source_span": "15 U.S.C. 1681s-2(b)"
+  },
+  {
+    "description": "The packet requires human review routing.",
+    "determination_id": "fcra.human_review_required",
+    "source_span": "benchmark routing policy"
+  },
+  {
+    "description": "Inaccurate, incomplete, or unverifiable information is treated correctly.",
+    "determination_id": "fcra.item_treatment_satisfied",
+    "source_span": "15 U.S.C. 1681i(a)(5)"
+  },
+  {
+    "description": "Reinsertion safeguards are satisfied or not applicable.",
+    "determination_id": "fcra.reinsertion_satisfied",
+    "source_span": "15 U.S.C. 1681i(a)(5)(B)"
+  },
+  {
+    "description": "Reseller dispute duties are satisfied or not applicable.",
+    "determination_id": "fcra.reseller_satisfied",
+    "source_span": "15 U.S.C. 1681i(f)"
+  },
+  {
+    "description": "CRA results notice duties are satisfied.",
+    "determination_id": "fcra.results_notice_satisfied",
+    "source_span": "15 U.S.C. 1681i(a)(6)"
+  }
+]
+
+CASE PACKET
+===========
+{
+  "case_id": "fcra_deep_clean_verified",
+  "narrative": "The consumer disputed a 30-day late notation on an auto loan. The CRA file shows the dispute was received directly on March 1, the account and month were identified, and the consumer supplied a servicer payment ledger. The CRA sent the dispute and document image to the furnisher on the third business day, completed the reinvestigation in 24 calendar days, received a furnisher response verifying the late payment, reviewed the consumer ledger against the furnisher payment history, recorded the item as verified, and mailed results with the revised report 4 business days after completion.\n",
+  "structured_fields": {
+    "default_binding_groups": [
+      {
+        "apply_when": "missing_or_undetermined",
+        "atom_ids": [
+          "fcra.consumer_disputed_item",
+          "fcra.item_in_consumer_file",
+          "fcra.dispute_about_accuracy",
+          "fcra.notice_direct_to_cra",
+          "fcra.consumer_identity_sufficient",
+          "fcra.account_identified",
+          "fcra.disputed_field_identified",
+          "fcra.basis_explained",
+          "fcra.consumer_submission_authentic",
+          "fcra.cra_received_dispute_date_known",
+          "fcra.reinvestigation_completed",
+          "fcra.furnished_by_furnisher",
+          "fcra.furnisher_address_available",
+          "fcra.cra_notified_furnisher",
+          "fcra.notice_included_all_relevant_info",
+          "fcra.primary_documents_forwarded",
+          "fcra.cra_reviewed_all_consumer_info",
+          "fcra.cra_considered_primary_source_documents",
+          "fcra.cra_compared_furnisher_response",
+          "fcra.cra_compared_own_file",
+          "fcra.cra_checked_prior_dispute_history",
+          "fcra.cra_resolved_internal_inconsistency",
+          "fcra.cra_reasonable_reinvestigation_performed",
+          "fcra.dispositive_info_not_ignored",
+          "fcra.item_verified_as_accurate",
+          "fcra.item_status_recorded_current",
+          "fcra.results_notice_sent",
+          "fcra.notice_states_reinvestigation_completed",
+          "fcra.revised_consumer_report_provided",
+          "fcra.procedure_description_right_disclosed",
+          "fcra.furnisher_contact_disclosed_if_available",
+          "fcra.consumer_statement_right_disclosed",
+          "fcra.notification_right_disclosed",
+          "fcra.procedures_prevent_reappearance",
+          "fcra.furnisher_received_cra_notice",
+          "fcra.furnisher_investigation_conducted",
+          "fcra.furnisher_reviewed_all_cra_info",
+          "fcra.furnisher_reported_results_to_cra",
+          "fcra.direct_dispute_subject_within_scope",
+          "fcra.human_review_of_documents_performed"
+        ],
+        "basis": "inferred_from_record",
+        "evidence": "Ordinary-course dispute packet supports this process fact.",
+        "value": true
+      },
+      {
+        "apply_when": "missing_or_undetermined",
+        "atom_ids": [
+          "fcra.dispute_about_completeness",
+          "fcra.notice_through_reseller",
+          "fcra.consumer_authorized_representative",
+          "fcra.dispute_not_credit_repair_org_form",
+          "fcra.dispute_duplicate_without_new_info",
+          "fcra.insufficient_information_to_investigate",
+          "fcra.frivolous_determination_made",
+          "fcra.frivolous_reason_identified",
+          "fcra.frivolous_missing_info_identified",
+          "fcra.frivolous_notice_sent",
+          "fcra.additional_relevant_info_received_in_30_days",
+          "fcra.info_found_inaccurate_during_30_days",
+          "fcra.info_found_incomplete_during_30_days",
+          "fcra.info_unverifiable_during_30_days",
+          "fcra.later_relevant_info_received",
+          "fcra.later_relevant_info_forwarded",
+          "fcra.expedited_deleted_within_3_business_days",
+          "fcra.consumer_telephone_notice_of_expedited_deletion",
+          "fcra.expedited_written_confirmation_sent",
+          "fcra.cra_checked_public_record_source",
+          "fcra.consumer_info_dispositive",
+          "fcra.automated_code_only",
+          "fcra.item_found_inaccurate",
+          "fcra.item_found_incomplete",
+          "fcra.item_cannot_be_verified",
+          "fcra.item_deleted",
+          "fcra.item_modified",
+          "fcra.furnisher_certified_accuracy_for_reinsertion",
+          "fcra.item_reinserted",
+          "fcra.reinsertion_notice_sent",
+          "fcra.reinsertion_notice_identifies_furnisher",
+          "fcra.reinsertion_notice_includes_statement_right",
+          "fcra.deleted_item_reappeared_without_certification",
+          "fcra.procedure_description_requested",
+          "fcra.procedure_description_sent",
+          "fcra.consumer_statement_filed",
+          "fcra.subsequent_reports_note_dispute",
+          "fcra.reseller_received_dispute",
+          "fcra.reseller_item_due_to_reseller_error",
+          "fcra.reseller_corrected_or_deleted",
+          "fcra.reseller_conveyed_to_cra",
+          "fcra.reseller_reconveyed_results_to_consumer",
+          "fcra.reseller_reinvestigation_chosen",
+          "fcra.furnisher_reported_inaccuracy_to_other_cras",
+          "fcra.furnisher_modified_item",
+          "fcra.furnisher_deleted_item",
+          "fcra.furnisher_blocked_item",
+          "fcra.direct_dispute_received_by_furnisher",
+          "fcra.direct_dispute_at_proper_address",
+          "fcra.direct_dispute_identifies_account",
+          "fcra.direct_dispute_identifies_specific_info",
+          "fcra.direct_dispute_explains_basis",
+          "fcra.direct_dispute_supporting_docs_supplied",
+          "fcra.direct_dispute_public_record_only",
+          "fcra.direct_dispute_fraud_alert_only",
+          "fcra.direct_furnisher_investigation_conducted",
+          "fcra.direct_furnisher_reviewed_info",
+          "fcra.direct_furnisher_results_reported_to_consumer",
+          "fcra.direct_furnisher_corrected_cras",
+          "fcra.identity_theft_claimed",
+          "fcra.identity_theft_report_supplied",
+          "fcra.mixed_file_claimed",
+          "fcra.legal_liability_dispute_only",
+          "fcra.court_order_supplied",
+          "fcra.conflicting_furnisher_and_consumer_docs",
+          "fcra.pending_litigation_affects_account",
+          "fcra.medical_debt_veteran_claimed",
+          "fcra.source_documents_missing",
+          "fcra.material_date_conflict",
+          "fcra.consumer_alleges_not_mine",
+          "fcra.manual_review_policy_trigger"
+        ],
+        "basis": "explicit_negative",
+        "evidence": "The case packet does not state this fact or trigger in the modeled scope.",
+        "value": false
+      }
+    ],
+    "evidence_sources": [
+      {
+        "closed_world_scopes": [
+          "consumer_dispute_packet"
+        ],
+        "source_id": "consumer_dispute",
+        "source_type": "consumer_dispute_letter",
+        "title": "Consumer dispute letter"
+      },
+      {
+        "closed_world_scopes": [
+          "cra_processing_dates",
+          "cra_actions"
+        ],
+        "source_id": "cra_log",
+        "source_type": "cra_dispute_processing_log",
+        "title": "CRA dispute processing log"
+      },
+      {
+        "closed_world_scopes": [
+          "furnisher_response"
+        ],
+        "source_id": "furnisher_acdv",
+        "source_type": "furnisher_dispute_response",
+        "title": "Furnisher dispute response"
+      },
+      {
+        "closed_world_scopes": [
+          "results_notice"
+        ],
+        "source_id": "results_notice",
+        "source_type": "cra_results_notice",
+        "title": "CRA results notice"
+      }
+    ],
+    "facts": {
+      "fcra.business_days_to_notify_furnisher": 3,
+      "fcra.business_days_to_results_notice": 4,
+      "fcra.days_to_complete_reinvestigation": 24,
+      "fcra.days_to_furnisher_complete": 18
+    }
+  },
+  "title": "Clean verified auto-loan dispute"
+}
+
+Return ONLY this JSON shape:
+{
+  "case_id": "fcra_deep_clean_verified",
+  "determinations": [
+    {
+      "determination_id": "id from SELECTED DETERMINATIONS",
+      "outcome": "true|false|undetermined",
+      "rationale": "brief reason based on the case packet",
+      "confidence": 0.0
+    }
+  ],
+  "case_level_notes": "brief note or empty string"
+}

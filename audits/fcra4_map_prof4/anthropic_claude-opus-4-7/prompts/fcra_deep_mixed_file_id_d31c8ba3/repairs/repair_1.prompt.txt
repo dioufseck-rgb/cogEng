@@ -1,0 +1,695 @@
+You are repairing selected atom bindings for a governed policy engine.
+
+You are NOT deciding policy outcomes. The deterministic engine has already
+identified these atoms as unresolved on a load-bearing trace. Your job is only
+to revisit the listed atom bindings from the case packet and return improved
+bindings where the evidence supports them.
+
+Rules:
+- Treat each atom independently.
+- Do not change an atom just to make a determination true or false.
+- If the case packet still does not support a value, keep it undetermined.
+- If a conditional support atom is phrased like "if needed", "if applicable",
+  "if initial fail", or "when applicable", and the triggering condition is
+  clearly absent, it may bind true with basis "inferred_from_record" because the
+  branch is not applicable.
+- Return one binding object for every atom in REPAIR_ATOMS.
+
+Allowed basis values:
+explicit_positive, explicit_negative, closed_world_absence, open_world_absence,
+inferred_from_record, conflicting_evidence, computed, looked_up, not_found.
+
+CASE NARRATIVE
+==============
+The consumer disputes three collection accounts as "not mine" and says an identity theft affidavit is being prepared. The packet includes a police incident number but not the actual identity theft report, two addresses for a person with a similar name, and inconsistent dates across the CRA file and furnisher response. The CRA has not yet received enough material to decide whether the items are mixed-file, identity-theft, or verified consumer obligations.
+
+
+SOURCE INVENTORY
+================
+[
+  {
+    "as_of_date": null,
+    "closed_world_scopes": [],
+    "limitations": "Narrative summary describing an in-progress dispute where the CRA has not yet received enough material to decide; does not affirmatively report procedural steps taken or not taken, nor any dates, timelines, or final outcomes.",
+    "metadata": {},
+    "source_id": "case_narrative",
+    "source_type": "case_narrative",
+    "title": "Consumer dispute case narrative"
+  }
+]
+
+REPAIR_ATOMS
+============
+[
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.dispute_duplicate_without_new_info",
+      "notes": "",
+      "source_span": "12 CFR 1022.43(f)(1)(ii)",
+      "statement": "The dispute is substantially the same as a prior dispute and contains no new required information.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Narrative does not mention any prior dispute or duplicate submission.",
+      "explanation": "No information about prior disputes; cannot determine duplicate status.",
+      "metadata": {
+        "raw_atom_id": "fcra.dispute_duplicate_without_new_info"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    "relevant_evidence": "The consumer disputes three collection accounts as \"not mine\" and says an identity theft affidavit is being prepared. The packet includes a police incident number but not the actual identity theft report, two addresses for a person with a similar name, and inconsistent dates across the CRA file and furnisher response. The CRA has not yet received enough material to decide whether the items are mixed-file, identity-theft, or verified consumer obligations.\n",
+    "repair_reasons": [
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.frivolous_termination_valid evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.insufficient_information_to_investigate",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(3)",
+      "statement": "The consumer failed to provide sufficient information to investigate the disputed information.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "atom_type": "boolean",
+      "basis": "conflicting_evidence",
+      "confidence": 0.5,
+      "evidence": "CRA 'has not yet received enough material to decide,' but the packet does include a police incident number, addresses, and inconsistent dates; identity theft affidavit is being prepared but not submitted.",
+      "explanation": "The narrative suggests incomplete information but does not affirmatively characterize the dispute as insufficient for any investigation; the determination is pending.",
+      "metadata": {
+        "raw_atom_id": "fcra.insufficient_information_to_investigate"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    "relevant_evidence": "The consumer disputes three collection accounts as \"not mine\" and says an identity theft affidavit is being prepared. The packet includes a police incident number but not the actual identity theft report, two addresses for a person with a similar name, and inconsistent dates across the CRA file and furnisher response. The CRA has not yet received enough material to decide whether the items are mixed-file, identity-theft, or verified consumer obligations.\n",
+    "repair_reasons": [
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.frivolous_termination_valid evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "numeric",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.business_days_to_frivolous_notice",
+      "notes": "",
+      "numeric_unit": "business_days",
+      "source_span": "15 U.S.C. 1681i(a)(3)(B)",
+      "statement": "Business days from frivolous or irrelevant determination to consumer notice.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "atom_type": "numeric",
+      "basis": "not_found",
+      "confidence": 0.9,
+      "evidence": "No dates or notices referenced regarding a frivolous determination.",
+      "explanation": "No numeric data available to extract.",
+      "metadata": {
+        "raw_atom_id": "fcra.business_days_to_frivolous_notice"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "The consumer disputes three collection accounts as \"not mine\" and says an identity theft affidavit is being prepared. The packet includes a police incident number but not the actual identity theft report, two addresses for a person with a similar name, and inconsistent dates across the CRA file and furnisher response. The CRA has not yet received enough material to decide whether the items are mixed-file, identity-theft, or verified consumer obligations.\n",
+    "repair_reasons": [
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_reinvestigation_timely evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.frivolous_termination_valid evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.results_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.cra_reviewed_all_consumer_info",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(4)",
+      "statement": "The CRA reviewed all relevant information submitted by the consumer.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.cra_reviewed_all_consumer_info",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Narrative states CRA has not yet decided; does not describe review steps taken.",
+      "explanation": "Process is in-progress; no affirmative statement about review of consumer information.",
+      "metadata": {
+        "raw_atom_id": "fcra.cra_reviewed_all_consumer_info"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    "relevant_evidence": "The consumer disputes three collection accounts as \"not mine\" and says an identity theft affidavit is being prepared. The packet includes a police incident number but not the actual identity theft report, two addresses for a person with a similar name, and inconsistent dates across the CRA file and furnisher response. The CRA has not yet received enough material to decide whether the items are mixed-file, identity-theft, or verified consumer obligations.\n",
+    "repair_reasons": [
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.cra_considered_primary_source_documents",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(4)",
+      "statement": "The CRA considered primary source documents submitted by the consumer.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.cra_considered_primary_source_documents",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Narrative does not describe what the CRA considered.",
+      "explanation": "No evidence about CRA's consideration of primary source documents.",
+      "metadata": {
+        "raw_atom_id": "fcra.cra_considered_primary_source_documents"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    "relevant_evidence": "The consumer disputes three collection accounts as \"not mine\" and says an identity theft affidavit is being prepared. The packet includes a police incident number but not the actual identity theft report, two addresses for a person with a similar name, and inconsistent dates across the CRA file and furnisher response. The CRA has not yet received enough material to decide whether the items are mixed-file, identity-theft, or verified consumer obligations.\n",
+    "repair_reasons": [
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.cra_compared_furnisher_response",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)",
+      "statement": "The CRA compared the furnisher response against the consumer's dispute basis.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.cra_compared_furnisher_response",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Narrative notes inconsistent dates across CRA file and furnisher response but does not state CRA performed a comparison.",
+      "explanation": "Comparison action by CRA is not affirmatively described.",
+      "metadata": {
+        "raw_atom_id": "fcra.cra_compared_furnisher_response"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    "relevant_evidence": "The consumer disputes three collection accounts as \"not mine\" and says an identity theft affidavit is being prepared. The packet includes a police incident number but not the actual identity theft report, two addresses for a person with a similar name, and inconsistent dates across the CRA file and furnisher response. The CRA has not yet received enough material to decide whether the items are mixed-file, identity-theft, or verified consumer obligations.\n",
+    "repair_reasons": [
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.cra_compared_own_file",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)",
+      "statement": "The CRA compared the dispute against its own file contents.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.cra_compared_own_file",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "No statement of CRA comparing dispute against its own file.",
+      "explanation": "No affirmative evidence of this comparison action.",
+      "metadata": {
+        "raw_atom_id": "fcra.cra_compared_own_file"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    "relevant_evidence": "The consumer disputes three collection accounts as \"not mine\" and says an identity theft affidavit is being prepared. The packet includes a police incident number but not the actual identity theft report, two addresses for a person with a similar name, and inconsistent dates across the CRA file and furnisher response. The CRA has not yet received enough material to decide whether the items are mixed-file, identity-theft, or verified consumer obligations.\n",
+    "repair_reasons": [
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.cra_reasonable_reinvestigation_performed",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)",
+      "statement": "The CRA performed a reasonable reinvestigation of the disputed item.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.cra_reasonable_reinvestigation_performed",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "CRA has not yet decided; reinvestigation in progress.",
+      "explanation": "No affirmative statement that a reasonable reinvestigation was completed.",
+      "metadata": {
+        "raw_atom_id": "fcra.cra_reasonable_reinvestigation_performed"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    "relevant_evidence": "The consumer disputes three collection accounts as \"not mine\" and says an identity theft affidavit is being prepared. The packet includes a police incident number but not the actual identity theft report, two addresses for a person with a similar name, and inconsistent dates across the CRA file and furnisher response. The CRA has not yet received enough material to decide whether the items are mixed-file, identity-theft, or verified consumer obligations.\n",
+    "repair_reasons": [
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.dispositive_info_not_ignored",
+      "notes": "",
+      "source_span": "CFPB Circular 2022-07",
+      "statement": "Dispositive or potentially dispositive consumer information was not ignored.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.dispositive_info_not_ignored",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "No information regarding CRA's handling of dispositive information.",
+      "explanation": "Cannot determine whether dispositive information was or was not ignored.",
+      "metadata": {
+        "raw_atom_id": "fcra.dispositive_info_not_ignored"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    "relevant_evidence": "The consumer disputes three collection accounts as \"not mine\" and says an identity theft affidavit is being prepared. The packet includes a police incident number but not the actual identity theft report, two addresses for a person with a similar name, and inconsistent dates across the CRA file and furnisher response. The CRA has not yet received enough material to decide whether the items are mixed-file, identity-theft, or verified consumer obligations.\n",
+    "repair_reasons": [
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.automated_code_only",
+      "notes": "",
+      "source_span": "CFPB Circular 2022-07",
+      "statement": "The investigation consisted only of automated dispute coding without meaningful document review.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.automated_code_only",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Narrative does not describe the CRA's investigation method.",
+      "explanation": "No evidence about automated coding vs. document review.",
+      "metadata": {
+        "raw_atom_id": "fcra.automated_code_only"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    "relevant_evidence": "The consumer disputes three collection accounts as \"not mine\" and says an identity theft affidavit is being prepared. The packet includes a police incident number but not the actual identity theft report, two addresses for a person with a similar name, and inconsistent dates across the CRA file and furnisher response. The CRA has not yet received enough material to decide whether the items are mixed-file, identity-theft, or verified consumer obligations.\n",
+    "repair_reasons": [
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.human_review_of_documents_performed",
+      "notes": "",
+      "source_span": "CFPB Circular 2022-07",
+      "statement": "A human or equivalent document-review process evaluated material primary documents.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.human_review_of_documents_performed",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "No reference to human review of documents.",
+      "explanation": "Cannot determine whether a human review occurred.",
+      "metadata": {
+        "raw_atom_id": "fcra.human_review_of_documents_performed"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    "relevant_evidence": "The consumer disputes three collection accounts as \"not mine\" and says an identity theft affidavit is being prepared. The packet includes a police incident number but not the actual identity theft report, two addresses for a person with a similar name, and inconsistent dates across the CRA file and furnisher response. The CRA has not yet received enough material to decide whether the items are mixed-file, identity-theft, or verified consumer obligations.\n",
+    "repair_reasons": [
+      "fcra.cra_consideration_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.expedited_deleted_within_3_business_days",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(8)",
+      "statement": "The dispute was resolved by deletion within 3 business days after receipt.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.expedited_deleted_within_3_business_days",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.7,
+      "evidence": "No mention of deletion within any timeframe.",
+      "explanation": "No evidence of expedited deletion.",
+      "metadata": {
+        "raw_atom_id": "fcra.expedited_deleted_within_3_business_days"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    "relevant_evidence": "The consumer disputes three collection accounts as \"not mine\" and says an identity theft affidavit is being prepared. The packet includes a police incident number but not the actual identity theft report, two addresses for a person with a similar name, and inconsistent dates across the CRA file and furnisher response. The CRA has not yet received enough material to decide whether the items are mixed-file, identity-theft, or verified consumer obligations.\n",
+    "repair_reasons": [
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "numeric",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.business_days_to_notify_furnisher",
+      "notes": "",
+      "numeric_unit": "business_days",
+      "source_span": "15 U.S.C. 1681i(a)(2)",
+      "statement": "Business days from CRA receipt of dispute to furnisher notice.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.business_days_to_notify_furnisher",
+      "atom_type": "numeric",
+      "basis": "not_found",
+      "confidence": 0.9,
+      "evidence": "No dates given for CRA receipt or furnisher notification.",
+      "explanation": "No numeric data extractable.",
+      "metadata": {
+        "raw_atom_id": "fcra.business_days_to_notify_furnisher"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "The consumer disputes three collection accounts as \"not mine\" and says an identity theft affidavit is being prepared. The packet includes a police incident number but not the actual identity theft report, two addresses for a person with a similar name, and inconsistent dates across the CRA file and furnisher response. The CRA has not yet received enough material to decide whether the items are mixed-file, identity-theft, or verified consumer obligations.\n",
+    "repair_reasons": [
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.notice_included_all_relevant_info",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(2)",
+      "statement": "The CRA's furnisher notice included all relevant information received from the consumer.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.notice_included_all_relevant_info",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "No description of contents of the CRA's notice to the furnisher.",
+      "explanation": "Cannot determine completeness of the furnisher notice.",
+      "metadata": {
+        "raw_atom_id": "fcra.notice_included_all_relevant_info"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    "relevant_evidence": "The consumer disputes three collection accounts as \"not mine\" and says an identity theft affidavit is being prepared. The packet includes a police incident number but not the actual identity theft report, two addresses for a person with a similar name, and inconsistent dates across the CRA file and furnisher response. The CRA has not yet received enough material to decide whether the items are mixed-file, identity-theft, or verified consumer obligations.\n",
+    "repair_reasons": [
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.primary_documents_forwarded",
+      "notes": "",
+      "source_span": "CFPB Circular 2022-07",
+      "statement": "Primary source documents submitted by the consumer were forwarded or made available to the furnisher.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.primary_documents_forwarded",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "No statement about forwarding documents to the furnisher.",
+      "explanation": "Cannot determine whether documents were forwarded.",
+      "metadata": {
+        "raw_atom_id": "fcra.primary_documents_forwarded"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    "relevant_evidence": "The consumer disputes three collection accounts as \"not mine\" and says an identity theft affidavit is being prepared. The packet includes a police incident number but not the actual identity theft report, two addresses for a person with a similar name, and inconsistent dates across the CRA file and furnisher response. The CRA has not yet received enough material to decide whether the items are mixed-file, identity-theft, or verified consumer obligations.\n",
+    "repair_reasons": [
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.later_relevant_info_received",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(2)(B)",
+      "statement": "Additional relevant information was received from the consumer after furnisher notice and before the reinvestigation deadline.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.later_relevant_info_received",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.55,
+      "evidence": "Identity theft affidavit is 'being prepared' but not stated as received.",
+      "explanation": "Possibility of forthcoming information exists, but no affirmative receipt is described.",
+      "metadata": {
+        "raw_atom_id": "fcra.later_relevant_info_received"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    "relevant_evidence": "The consumer disputes three collection accounts as \"not mine\" and says an identity theft affidavit is being prepared. The packet includes a police incident number but not the actual identity theft report, two addresses for a person with a similar name, and inconsistent dates across the CRA file and furnisher response. The CRA has not yet received enough material to decide whether the items are mixed-file, identity-theft, or verified consumer obligations.\n",
+    "repair_reasons": [
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.dispute_resolution_compliant evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  }
+]
+
+Return ONLY this JSON shape:
+{
+  "bindings": [
+    {
+      "atom_id": "atom id from REPAIR_ATOMS",
+      "status": "bound|undetermined|error",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["source id"],
+      "evidence": "short exact evidence or summary",
+      "explanation": "why this basis is appropriate",
+      "confidence": 0.0
+    }
+  ]
+}

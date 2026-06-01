@@ -1,0 +1,161 @@
+{
+  "case_id": "tier1_english_failed_civics_passed_no_exception",
+  "case_level_notes": "English requirement is not met and no exception is claimed or documented; civics is passed. Other eligibility pillars are outside the packet's narrative scope and remain undetermined.",
+  "determinations": [
+    {
+      "anti_overclaim_check": "No residence facts provided; cannot affirm satisfaction.",
+      "confidence": 0.8,
+      "determination_id": "n400.continuous_residence_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "open_world_absence",
+          "fact": "Packet narrative addresses only English/civics testing.",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "The case packet focuses on test results; it does not contain facts about continuous residence.",
+      "uncertainty_flags": [
+        "missing fact"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Absence of physical presence facts precludes affirmation.",
+      "confidence": 0.8,
+      "determination_id": "n400.physical_presence_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "open_world_absence",
+          "fact": "Narrative limited to testing outcomes.",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "No physical presence facts are included in the packet.",
+      "uncertainty_flags": [
+        "missing fact"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Cannot infer state residence from absent information.",
+      "confidence": 0.8,
+      "determination_id": "n400.state_residence_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "open_world_absence",
+          "fact": "Narrative limited to testing outcomes.",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "No state/USCIS district residence facts present in the packet.",
+      "uncertainty_flags": [
+        "missing fact"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Explicit failure with no exception claimed or documented in the relevant closed-world sources.",
+      "confidence": 0.95,
+      "determination_id": "n400.english_requirement_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "English reading and writing components failed.",
+          "source": "test_results"
+        },
+        {
+          "basis": "closed_world_absence",
+          "fact": "No approved medical disability exception in packet.",
+          "source": "packet_index"
+        },
+        {
+          "basis": "explicit",
+          "fact": "No age-and-LPR English exception claimed.",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "false",
+      "rationale": "Test record explicitly shows English reading and writing failed, and the packet states no medical disability exception is included and no age-and-LPR exception is claimed.",
+      "uncertainty_flags": []
+    },
+    {
+      "anti_overclaim_check": "Directly supported by the test result record.",
+      "confidence": 0.95,
+      "determination_id": "n400.civics_requirement_satisfied",
+      "human_review_considered": false,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Civics test passed.",
+          "source": "test_results"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "The test record explicitly states the applicant passed the civics test.",
+      "uncertainty_flags": []
+    },
+    {
+      "anti_overclaim_check": "Cannot affirm without supporting facts.",
+      "confidence": 0.8,
+      "determination_id": "n400.oath_attachment_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "open_world_absence",
+          "fact": "No oath/attachment facts in packet.",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "Packet does not address oath or attachment to the Constitution.",
+      "uncertainty_flags": [
+        "missing fact"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Absence in open narrative is not proof of compliance.",
+      "confidence": 0.8,
+      "determination_id": "n400.good_moral_character_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "open_world_absence",
+          "fact": "No GMC facts presented.",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "Packet contains no GMC-related facts within scope.",
+      "uncertainty_flags": [
+        "missing fact"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Flagging review based on explicit failure, not speculation.",
+      "confidence": 0.85,
+      "determination_id": "n400.human_review_required",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "English components failed.",
+          "source": "test_results"
+        },
+        {
+          "basis": "closed_world_absence",
+          "fact": "No exception documented or claimed.",
+          "source": "packet_index"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "Failure of the English component without any claimed or documented exception is a substantive eligibility obstacle warranting human review of next steps (e.g., reexamination or denial).",
+      "uncertainty_flags": [
+        "source limitation: only current test result available"
+      ]
+    }
+  ]
+}

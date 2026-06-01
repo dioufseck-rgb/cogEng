@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.spouse_track_residence_consistent",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["intake_summary"],
+      "evidence": "No mention of spouse or marriage to a U.S. citizen in the narrative.",
+      "explanation": "No evidence regarding spouse track is present; cannot characterize consistency with spouse-based naturalization.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "n400.english_test_passed",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["test_results"],
+      "evidence": "English test passed.",
+      "explanation": "Test record explicitly states the applicant passed the English test.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "n400.reading_requirement_satisfied",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["test_results"],
+      "evidence": "English test passed.",
+      "explanation": "Passing the English test encompasses the reading component as part of the standard English requirement.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.writing_requirement_satisfied",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["test_results"],
+      "evidence": "English test passed.",
+      "explanation": "Passing the English test encompasses the writing component as part of the standard English requirement.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.speaking_requirement_satisfied",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["test_results"],
+      "evidence": "English test passed.",
+      "explanation": "Passing the English test encompasses the speaking component as part of the standard English requirement.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "n400.age_years",
+      "status": "bound",
+      "value": 37,
+      "basis": "explicit_positive",
+      "source_ids": ["intake_summary"],
+      "evidence": "applicant age is 37.",
+      "explanation": "Intake summary explicitly states the applicant's age.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "n400.years_as_lpr",
+      "status": "bound",
+      "value": 6,
+      "basis": "explicit_positive",
+      "source_ids": ["intake_summary"],
+      "evidence": "has been an LPR for 6 years.",
+      "explanation": "Intake summary explicitly states years as LPR.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "n400.medical_disability_exception_approved",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary"],
+      "evidence": "No mention of medical disability exception in any source.",
+      "explanation": "Narrative does not mention any medical disability exception; absence of mention in open-world narrative cannot affirm false.",
+      "confidence": 0.9
+    }
+  ]
+}

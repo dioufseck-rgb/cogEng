@@ -1,0 +1,335 @@
+{
+    "metadata":  {
+                     "name":  "USCIS N-400 Tier 1 broad evidence packets",
+                     "purpose":  "Controlled broad-scope evidence packets for governed Map evaluation across residence, physical presence, English/civics, oath, GMC, and review-trigger atom families.",
+                     "target_atoms":  [
+                                          "n400.age_years",
+                                          "n400.years_as_lpr",
+                                          "n400.days_absent_trip_1",
+                                          "n400.absence_6_to_12_months",
+                                          "n400.absence_over_one_year",
+                                          "n400.maintained_us_home",
+                                          "n400.maintained_us_family_ties",
+                                          "n400.months_physical_presence_5yr",
+                                          "n400.months_state_or_district_residence",
+                                          "n400.english_test_passed",
+                                          "n400.civics_test_passed",
+                                          "n400.medical_disability_exception_approved",
+                                          "n400.willing_to_take_oath",
+                                          "n400.attachment_to_constitution",
+                                          "n400.pending_criminal_charge",
+                                          "n400.aggravated_felony_after_1990",
+                                          "n400.false_testimony_for_immigration_benefit",
+                                          "n400.inconsistent_travel_history",
+                                          "n400.evidence_missing_critical_dates"
+                                      ]
+                 },
+    "cases":  [
+                  {
+                      "case_id":  "tier1_clean_general_track_packet",
+                      "title":  "Clean general five-year packet",
+                      "narrative":  "The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue.",
+                      "expected_outcomes":  {
+                                                "n400.civics_requirement_satisfied":  "true",
+                                                "n400.continuous_residence_satisfied":  "true",
+                                                "n400.english_requirement_satisfied":  "true",
+                                                "n400.good_moral_character_satisfied":  "true",
+                                                "n400.human_review_required":  "false",
+                                                "n400.oath_attachment_satisfied":  "true",
+                                                "n400.physical_presence_satisfied":  "true",
+                                                "n400.state_residence_satisfied":  "true"
+                                            },
+                      "structured_fields":  {
+                                                "evidence_sources":  [
+                                                                         {
+                                                                             "source_id":  "intake_summary",
+                                                                             "source_type":  "n400_intake_summary",
+                                                                             "title":  "N-400 intake summary",
+                                                                             "closed_world_scopes":  [
+
+                                                                                                     ],
+                                                                             "limitations":  "Applicant and preparer supplied summary."
+                                                                         },
+                                                                         {
+                                                                             "source_id":  "travel_table",
+                                                                             "source_type":  "travel_history_table",
+                                                                             "title":  "N-400 travel table",
+                                                                             "closed_world_scopes":  [
+                                                                                                         "declared_travel_history"
+                                                                                                     ],
+                                                                             "limitations":  "Applicant-declared travel table."
+                                                                         },
+                                                                         {
+                                                                             "source_id":  "presence_worksheet",
+                                                                             "source_type":  "physical_presence_worksheet",
+                                                                             "title":  "Physical presence worksheet",
+                                                                             "closed_world_scopes":  [
+
+                                                                                                     ],
+                                                                             "limitations":  "Structured worksheet in packet."
+                                                                         },
+                                                                         {
+                                                                             "source_id":  "test_results",
+                                                                             "source_type":  "naturalization_test_record",
+                                                                             "title":  "English and civics test result",
+                                                                             "closed_world_scopes":  [
+
+                                                                                                     ],
+                                                                             "limitations":  "Current test result only."
+                                                                         },
+                                                                         {
+                                                                             "source_id":  "oath_worksheet",
+                                                                             "source_type":  "oath_attachment_worksheet",
+                                                                             "title":  "Oath and attachment worksheet",
+                                                                             "closed_world_scopes":  [
+
+                                                                                                     ],
+                                                                             "limitations":  "Current oath worksheet only."
+                                                                         },
+                                                                         {
+                                                                             "source_id":  "fbi_check",
+                                                                             "source_type":  "criminal_history_check",
+                                                                             "title":  "FBI criminal history check",
+                                                                             "closed_world_scopes":  [
+                                                                                                         "criminal_convictions"
+                                                                                                     ],
+                                                                             "limitations":  "Synthetic benchmark source."
+                                                                         },
+                                                                         {
+                                                                             "source_id":  "docket_search",
+                                                                             "source_type":  "court_docket_search",
+                                                                             "title":  "Court docket search",
+                                                                             "closed_world_scopes":  [
+                                                                                                         "pending_criminal_charges"
+                                                                                                     ],
+                                                                             "limitations":  "Synthetic benchmark source."
+                                                                         },
+                                                                         {
+                                                                             "source_id":  "interview_worksheet",
+                                                                             "source_type":  "uscis_interview_record",
+                                                                             "title":  "USCIS interview worksheet",
+                                                                             "closed_world_scopes":  [
+                                                                                                         "false_testimony_for_immigration_benefit"
+                                                                                                     ],
+                                                                             "limitations":  "Synthetic benchmark source."
+                                                                         }
+                                                                     ],
+                                                "evidence":  {
+                                                                 "n400.age_years":  "Intake summary: applicant age is 37.",
+                                                                 "n400.years_as_lpr":  "Intake summary: applicant has been an LPR for 6 years.",
+                                                                 "n400.days_absent_trip_1":  "Travel table: one trip lasted 21 days.",
+                                                                 "n400.months_physical_presence_5yr":  "Physical presence worksheet: 41 months physically present.",
+                                                                 "n400.months_state_or_district_residence":  "Residence worksheet: 9 months in same USCIS district.",
+                                                                 "n400.english_test_passed":  "Naturalization test record: English test passed.",
+                                                                 "n400.civics_test_passed":  "Naturalization test record: civics test passed.",
+                                                                 "n400.willing_to_take_oath":  "Oath worksheet: applicant willing to take the oath.",
+                                                                 "n400.attachment_to_constitution":  "Oath worksheet: attachment to the Constitution recorded.",
+                                                                 "n400.aggravated_felony_after_1990":  "FBI check: no aggravated felony convictions.",
+                                                                 "n400.pending_criminal_charge":  "Docket search: no pending criminal charges.",
+                                                                 "n400.false_testimony_for_immigration_benefit":  "USCIS interview worksheet: no false testimony issue."
+                                                             },
+                                                "default_binding_groups":  [
+                                                                               {
+                                                                                   "atom_ids":  [
+                                                                                                    "n400.complex_absence_pattern",
+                                                                                                    "n400.inconsistent_travel_history",
+                                                                                                    "n400.evidence_missing_critical_dates",
+                                                                                                    "n400.unresolved_tax_issue",
+                                                                                                    "n400.disputed_selective_service_issue",
+                                                                                                    "n400.pending_criminal_charge",
+                                                                                                    "n400.unresolved_arrest_disposition",
+                                                                                                    "n400.possible_false_testimony",
+                                                                                                    "n400.possible_gmc_discretion_issue",
+                                                                                                    "n400.accommodation_or_disability_documentation_unclear",
+                                                                                                    "n400.name_identity_record_conflict",
+                                                                                                    "n400.interpreter_or_understanding_issue",
+                                                                                                    "n400.legal_exception_claimed_needs_review",
+                                                                                                    "n400.outside_benchmark_scope"
+                                                                                                ],
+                                                                                   "value":  false,
+                                                                                   "basis":  "explicit_negative",
+                                                                                   "apply_when":  "missing_or_undetermined",
+                                                                                   "evidence":  "The case packet does not state this review trigger within the benchmark scope.",
+                                                                                   "explanation":  "Scoped benchmark default for absent human-review trigger atoms."
+                                                                               },
+                                                                               {
+                                                                                   "atom_ids":  [
+                                                                                                    "n400.travel_records_complete",
+                                                                                                    "n400.passport_records_support_travel",
+                                                                                                    "n400.no_unexplained_trip_gaps",
+                                                                                                    "n400.no_break_in_residence_from_absence",
+                                                                                                    "n400.months_after_absence_reestablished_if_needed",
+                                                                                                    "n400.physical_presence_calculation_reliable",
+                                                                                                    "n400.us_entry_exit_records_consistent",
+                                                                                                    "n400.no_unresolved_physical_presence_gap",
+                                                                                                    "n400.stat_period_selected_correctly",
+                                                                                                    "n400.early_filing_window_applied_correctly",
+                                                                                                    "n400.jurisdiction_matches_residence",
+                                                                                                    "n400.spouse_track_residence_consistent",
+                                                                                                    "n400.favorable_to_good_order",
+                                                                                                    "n400.willing_to_bear_arms_or_noncombatant_or_civilian_work_if_required",
+                                                                                                    "n400.no_communist_party_bar_or_exception",
+                                                                                                    "n400.no_totalitarian_party_bar_or_exception",
+                                                                                                    "n400.no_advocacy_overthrow",
+                                                                                                    "n400.no_desertion_from_us_armed_forces",
+                                                                                                    "n400.no_title_of_nobility_issue",
+                                                                                                    "n400.truthful_oath_related_answers",
+                                                                                                    "n400.selective_service_registered_or_exempt",
+                                                                                                    "n400.tax_filing_compliant_or_explained",
+                                                                                                    "n400.child_support_compliant_or_explained"
+                                                                                                ],
+                                                                                   "value":  true,
+                                                                                   "basis":  "inferred_from_record",
+                                                                                   "apply_when":  "missing_or_undetermined",
+                                                                                   "evidence":  "The clean packet supplies complete ordinary-course records and states no issue for this scope atom.",
+                                                                                   "explanation":  "Clean-packet scope default for non-load-bearing support atoms."
+                                                                               }
+                                                                           ],
+                                                "binding_directives":  [
+                                                                           {
+                                                                               "kind":  "closed_world_absence",
+                                                                               "atom_ids":  [
+                                                                                                "n400.murder_conviction",
+                                                                                                "n400.aggravated_felony_after_1990",
+                                                                                                "n400.persecution_participation",
+                                                                                                "n400.genocide_participation",
+                                                                                                "n400.torture_participation",
+                                                                                                "n400.extrajudicial_killing_participation",
+                                                                                                "n400.controlled_substance_violation_except_single_marijuana_30g",
+                                                                                                "n400.admission_to_drug_offense",
+                                                                                                "n400.drug_trafficking",
+                                                                                                "n400.habitual_drunkard",
+                                                                                                "n400.illegal_gambling_principal_income",
+                                                                                                "n400.multiple_gambling_convictions",
+                                                                                                "n400.prostitution_or_commercialized_vice",
+                                                                                                "n400.alien_smuggling",
+                                                                                                "n400.polygamy",
+                                                                                                "n400.false_testimony_for_immigration_benefit",
+                                                                                                "n400.failure_to_support_dependents",
+                                                                                                "n400.adultery_destroyed_marriage",
+                                                                                                "n400.unlawful_voting",
+                                                                                                "n400.false_claim_us_citizenship",
+                                                                                                "n400.failure_register_selective_service_willful",
+                                                                                                "n400.tax_noncompliance_willful",
+                                                                                                "n400.fraud_or_deceit",
+                                                                                                "n400.identity_document_fraud",
+                                                                                                "n400.domestic_violence",
+                                                                                                "n400.child_abuse",
+                                                                                                "n400.violation_protective_order",
+                                                                                                "n400.unlawful_harassment_or_stalking",
+                                                                                                "n400.manslaughter_or_violent_crime",
+                                                                                                "n400.dui_pattern_or_reckless_endangerment",
+                                                                                                "n400.unpaid_restitution_or_court_orders",
+                                                                                                "n400.probation_parole_uncompleted",
+                                                                                                "n400.pending_criminal_charge",
+                                                                                                "n400.unresolved_arrest_disposition",
+                                                                                                "n400.misrepresentation_material_to_benefit",
+                                                                                                "n400.unlawful_voting_registration",
+                                                                                                "n400.removal_order_after_filing",
+                                                                                                "n400.terrorism_related_activity",
+                                                                                                "n400.nazi_persecution_related",
+                                                                                                "n400.serious_immigration_violation",
+                                                                                                "n400.sham_marriage_for_benefit",
+                                                                                                "n400.smuggling_family_member_without_exception",
+                                                                                                "n400.failure_to_pay_taxes",
+                                                                                                "n400.social_security_fraud",
+                                                                                                "n400.welfare_fraud",
+                                                                                                "n400.prison_180_days_or_more"
+                                                                                            ],
+                                                                               "source_ids":  [
+                                                                                                  "fbi_check",
+                                                                                                  "docket_search",
+                                                                                                  "interview_worksheet"
+                                                                                              ],
+                                                                               "evidence":  "The clean packet includes official checks and no listed good-moral-character bar is present.",
+                                                                               "explanation":  "Packet directive for absent selected negative bars."
+                                                                           }
+                                                                       ],
+                                                "default_bindings":  {
+                                                                         "n400.days_absent_trip_2":  {
+                                                                                                         "value":  0,
+                                                                                                         "basis":  "computed",
+                                                                                                         "apply_when":  "missing_or_undetermined",
+                                                                                                         "evidence":  "Travel table lists one 21-day trip and no other travel."
+                                                                                                     },
+                                                                         "n400.days_absent_trip_3":  {
+                                                                                                         "value":  0,
+                                                                                                         "basis":  "computed",
+                                                                                                         "apply_when":  "missing_or_undetermined",
+                                                                                                         "evidence":  "Travel table lists one 21-day trip and no other travel."
+                                                                                                     },
+                                                                         "n400.days_absent_trip_4":  {
+                                                                                                         "value":  0,
+                                                                                                         "basis":  "computed",
+                                                                                                         "apply_when":  "missing_or_undetermined",
+                                                                                                         "evidence":  "Travel table lists one 21-day trip and no other travel."
+                                                                                                     },
+                                                                         "n400.absence_6_to_12_months":  {
+                                                                                                             "value":  false,
+                                                                                                             "basis":  "computed",
+                                                                                                             "apply_when":  "missing_or_undetermined",
+                                                                                                             "evidence":  "The only listed trip lasted 21 days."
+                                                                                                         },
+                                                                         "n400.absence_over_one_year":  {
+                                                                                                            "value":  false,
+                                                                                                            "basis":  "computed",
+                                                                                                            "apply_when":  "missing_or_undetermined",
+                                                                                                            "evidence":  "The only listed trip lasted 21 days."
+                                                                                                        },
+                                                                         "n400.no_absence_over_one_year":  {
+                                                                                                               "value":  true,
+                                                                                                               "basis":  "computed",
+                                                                                                               "apply_when":  "missing_or_undetermined",
+                                                                                                               "evidence":  "The only listed trip lasted 21 days."
+                                                                                                           },
+                                                                         "n400.days_imprisoned_statutory_period":  {
+                                                                                                                       "value":  0,
+                                                                                                                       "basis":  "closed_world_absence",
+                                                                                                                       "source_ids":  [
+                                                                                                                                          "fbi_check",
+                                                                                                                                          "docket_search"
+                                                                                                                                      ],
+                                                                                                                       "apply_when":  "missing_or_undetermined",
+                                                                                                                       "evidence":  "FBI check and docket search report no relevant criminal disposition."
+                                                                                                                   },
+                                                                         "n400.filing_under_3yr_spouse":  {
+                                                                                                              "value":  false,
+                                                                                                              "basis":  "explicit_negative",
+                                                                                                              "apply_when":  "missing_or_undetermined",
+                                                                                                              "evidence":  "The case is a general five-year packet."
+                                                                                                          }
+                                                                     }
+                                            },
+                      "metadata":  {
+                                       "expected_bindings":  {
+                                                                 "n400.age_years":  {
+                                                                                        "ideal_status":  "bound",
+                                                                                        "ideal_value":  37
+                                                                                    },
+                                                                 "n400.years_as_lpr":  {
+                                                                                           "ideal_status":  "bound",
+                                                                                           "ideal_value":  6
+                                                                                       },
+                                                                 "n400.days_absent_trip_1":  {
+                                                                                                 "ideal_status":  "bound",
+                                                                                                 "ideal_value":  21
+                                                                                             },
+                                                                 "n400.months_physical_presence_5yr":  {
+                                                                                                           "ideal_status":  "bound",
+                                                                                                           "ideal_value":  41
+                                                                                                       },
+                                                                 "n400.english_test_passed":  {
+                                                                                                  "ideal_status":  "bound",
+                                                                                                  "ideal_value":  true,
+                                                                                                  "ideal_basis":  "explicit_positive"
+                                                                                              },
+                                                                 "n400.aggravated_felony_after_1990":  {
+                                                                                                           "ideal_status":  "bound",
+                                                                                                           "ideal_value":  false,
+                                                                                                           "ideal_basis":  "closed_world_absence"
+                                                                                                       }
+                                                             }
+                                   }
+                  }
+              ]
+}

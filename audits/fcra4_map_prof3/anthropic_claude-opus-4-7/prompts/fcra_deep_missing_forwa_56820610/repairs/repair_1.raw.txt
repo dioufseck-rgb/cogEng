@@ -1,0 +1,164 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "No prior dispute referenced; consumer submitted new supporting documents (bank statements, creditor letter).",
+      "explanation": "Narrative describes a fresh dispute with new documentation; the duplicate-without-new-info branch is not applicable.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Consumer attached bank statements and creditor letter; CRA proceeded to code dispute and notify furnisher rather than declaring insufficiency.",
+      "explanation": "CRA's behavior of opening and processing the dispute indicates the insufficient-information branch was not triggered.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "bound",
+      "value": 0,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "No frivolous/irrelevant determination occurred; CRA processed and completed the reinvestigation.",
+      "explanation": "Conditional timing atom; triggering frivolous determination is clearly absent, so the branch is not applicable.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.cra_compared_furnisher_response",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative says furnisher 'verified the old balance' but does not state CRA compared the response against dispute basis.",
+      "explanation": "Record is silent on the comparison step; cannot infer either way.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.cra_compared_own_file",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not describe CRA comparing dispute to its own file contents.",
+      "explanation": "Procedural step not addressed; insufficient evidence to bind.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.cra_reasonable_reinvestigation_performed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "conflicting_evidence",
+      "source_ids": ["case_narrative"],
+      "evidence": "CRA met timing and obtained furnisher verification, but failed to forward document images and used a generic code.",
+      "explanation": "Reasonableness is a policy-level characterization with mixed indicators; engine must decide.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.additional_relevant_info_received_in_30_days",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative describes only the initial submission; CRA processing steps are explicitly enumerated and include no additional consumer submissions.",
+      "explanation": "Under the case's closed-world scope on CRA processing steps, no later consumer info events are described.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.business_days_to_notify_furnisher",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative says CRA notified furnisher 'on day 4' without specifying business vs. calendar days.",
+      "explanation": "Unit ambiguity prevents binding a business-days value.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.later_relevant_info_received",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "No later consumer submission referenced; CRA processing steps closed-world scope.",
+      "explanation": "Within enumerated processing steps, no later consumer information event is described.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.later_relevant_info_forwarded",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "No later relevant information was received, so the forwarding obligation is not triggered.",
+      "explanation": "Conditional 'if later info received' atom; triggering condition is absent, so branch is not applicable.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "fcra.item_status_recorded_current",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not mention recording the current status of the disputed item.",
+      "explanation": "Not addressed in the record; cannot infer either way.",
+      "confidence": 0.55
+    },
+    {
+      "atom_id": "fcra.business_days_to_results_notice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative characterizes results notice as 'timely' but provides no day count from completion.",
+      "explanation": "No numeric value extractable from the record.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.notice_states_reinvestigation_completed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Results-notice contents are not enumerated per source limitations.",
+      "explanation": "Source explicitly notes it does not enumerate results-notice contents.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.revised_consumer_report_provided",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Results-notice contents not enumerated.",
+      "explanation": "Source limitations preclude binding on notice attachments.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.procedure_description_right_disclosed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Results-notice contents not enumerated.",
+      "explanation": "Source limitations preclude binding on notice disclosures.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.furnisher_contact_disclosed_if_available",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Results-notice contents not enumerated; cannot determine whether furnisher contact info was included.",
+      "explanation": "Triggering condition (procedure-right notice contents) is not described in the record, but the underlying procedure-right disclosure itself is also not established, so the conditional cannot be cleanly inferred as inapplicable.",
+      "confidence": 0.55
+    }
+  ]
+}

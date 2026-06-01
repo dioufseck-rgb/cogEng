@@ -284,6 +284,7 @@ def create_candidate_program(
     atoms: list[AtomDeclaration],
     nodes: list[NodeDeclaration] | None = None,
     constants: dict[str, Decimal] | None = None,
+    metadata_extras: dict[str, Any] | None = None,
 ) -> DeterminationProgram:
     """Create a candidate DeterminationProgram using the full contract vocabulary.
 
@@ -324,7 +325,11 @@ def create_candidate_program(
             routing=det.routing,
         )
     return DeterminationProgram(
-        metadata=ProgramMetadata(name=program_name, version=version),
+        metadata=ProgramMetadata(
+            name=program_name,
+            version=version,
+            extras=metadata_extras or {},
+        ),
         constants=constants or {},
         nodes=node_specs,
         map_spec=MapSpec(atoms=atom_specs),

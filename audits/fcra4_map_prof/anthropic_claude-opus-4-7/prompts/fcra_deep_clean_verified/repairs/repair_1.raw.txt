@@ -1,0 +1,164 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.consumer_statement_filed",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Reinvestigation verified the item; narrative does not indicate consumer filed a brief statement, but this atom is conditional on unresolved dispute (from consumer's perspective) - the consumer statement branch is not triggered as a required step here.",
+      "explanation": "Conditional support atom: a consumer brief statement is filed at the consumer's option after reinvestigation; since the narrative does not show this branch was triggered or required, the atom can bind true as not-applicable.",
+      "confidence": 0.55
+    },
+    {
+      "atom_id": "fcra.subsequent_reports_note_dispute",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "No consumer statement filed per narrative; subsequent-report notation obligation under 1681i(c) attaches when a statement/summary exists.",
+      "explanation": "Conditional/when-applicable atom: triggering condition (existence of a consumer statement) is absent, so this branch is not applicable and may bind true.",
+      "confidence": 0.55
+    },
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Consumer disputed a 30-day late notation; narrative does not characterize the dispute as concerning completeness specifically.",
+      "explanation": "Narrative frames the dispute as challenging accuracy of a late notation; completeness not stated and cannot be inferred either way.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.consumer_identity_sufficient",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "CRA file identified the account and month, accepted the dispute, forwarded it to the furnisher, and completed the reinvestigation without any identity-related rejection or frivolous determination.",
+      "explanation": "The CRA's processing of the dispute through completion implies the packet contained sufficient identity information to investigate.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.consumer_submission_authentic",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Dispute was 'received directly' from the consumer, CRA proceeded with reinvestigation without raising authenticity concerns.",
+      "explanation": "Direct receipt and full processing of the dispute supports inference of authentic submission; no contrary indication.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "No prior dispute mentioned; CRA accepted and fully reinvestigated rather than treating as duplicate.",
+      "explanation": "CRA conducting a full reinvestigation and not invoking the duplicate-dispute exception indicates the dispute was not treated as a duplicate without new information.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.frivolous_notice_sent",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative shows full reinvestigation completed; no frivolous/irrelevant determination was made.",
+      "explanation": "Conditional support atom: triggering condition (a frivolous/irrelevant determination) is clearly absent, so this branch is not applicable.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "fcra.frivolous_reason_identified",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "No frivolous/irrelevant determination occurred; reinvestigation proceeded to completion.",
+      "explanation": "Triggering condition absent; conditional atom may bind true as not-applicable.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "fcra.frivolous_missing_info_identified",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "No frivolous/irrelevant determination occurred.",
+      "explanation": "Triggering condition absent; conditional atom may bind true as not-applicable.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "bound",
+      "value": 0,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "No frivolous/irrelevant determination occurred; no such notice was required.",
+      "explanation": "Conditional numeric: triggering condition absent, so timing requirement is not applicable; binding as 0 reflects no such event occurred.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.cra_compared_own_file",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "The CRA file shows the dispute, account, and month were identified, and the CRA reviewed the consumer ledger against the furnisher payment history to record the item as verified.",
+      "explanation": "Identifying the disputed item in the CRA file and conducting a reinvestigation that referenced the file's information implies comparison against the CRA's own file contents.",
+      "confidence": 0.65
+    },
+    {
+      "atom_id": "fcra.later_relevant_info_received",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative describes only the initial consumer ledger; no additional submissions after furnisher notice are mentioned.",
+      "explanation": "Closed-world recount of CRA workflow steps shows no later consumer submission; supports binding false.",
+      "confidence": 0.65
+    },
+    {
+      "atom_id": "fcra.later_relevant_info_forwarded",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "No later relevant information was received per narrative; forwarding obligation not triggered.",
+      "explanation": "Conditional support atom: triggering condition (later relevant info received) absent, so branch is not applicable.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.additional_relevant_info_received_in_30_days",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative enumerates CRA workflow steps; no additional consumer information during the 30-day period is mentioned.",
+      "explanation": "Closed-world scope of recounted workflow shows no additional submissions; supports false.",
+      "confidence": 0.65
+    },
+    {
+      "atom_id": "fcra.item_modified",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "CRA 'recorded the item as verified' after reviewing ledger against furnisher history.",
+      "explanation": "Verification of the disputed item indicates the item was not modified; 'revised report' references reissuance of results, not modification of the disputed late notation.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.notice_states_reinvestigation_completed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative says CRA 'mailed results with the revised report' but does not describe specific notice language.",
+      "explanation": "Contents of the results notice are not described; cannot affirmatively bind that it states reinvestigation was completed.",
+      "confidence": 0.55
+    }
+  ]
+}

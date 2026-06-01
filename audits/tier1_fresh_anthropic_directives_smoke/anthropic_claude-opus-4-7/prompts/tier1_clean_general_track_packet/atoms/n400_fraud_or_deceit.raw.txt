@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "n400.unlawful_voting",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary"],
+      "evidence": "Narrative does not mention voting history.",
+      "explanation": "No source has closed-world scope over voting history; absence in narrative is not dispositive.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.false_claim_us_citizenship",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary", "interview_worksheet"],
+      "evidence": "Interview worksheet notes no false testimony issue but does not specifically address false claims to citizenship.",
+      "explanation": "No source closes the world on false citizenship claims; only false testimony at interview is covered.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.failure_register_selective_service_willful",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary"],
+      "evidence": "No mention of Selective Service registration status.",
+      "explanation": "No source provides closed-world coverage of Selective Service registration.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.tax_noncompliance_willful",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary"],
+      "evidence": "No mention of tax compliance.",
+      "explanation": "No source covers tax obligations; absence cannot support a false binding.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.fraud_or_deceit",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary", "interview_worksheet"],
+      "evidence": "Interview worksheet covers only false testimony at interview; no broader fraud finding addressed.",
+      "explanation": "No source has closed-world scope over fraud/deceit generally.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.identity_document_fraud",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["intake_summary"],
+      "evidence": "No mention of identity or document fraud.",
+      "explanation": "No source closes the world on identity/document fraud.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "n400.domestic_violence",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["fbi_check", "docket_search"],
+      "evidence": "FBI check reports no aggravated felony convictions; docket search reports no pending charges.",
+      "explanation": "FBI/docket scopes cover convictions and pending charges, not the underlying conduct of domestic violence; cannot bind false.",
+      "confidence": 0.55
+    },
+    {
+      "atom_id": "n400.child_abuse",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["fbi_check", "docket_search"],
+      "evidence": "FBI check reports no aggravated felony convictions; docket search reports no pending charges.",
+      "explanation": "Closed-world scopes cover convictions/pending charges, not the conduct of child abuse itself; cannot bind false.",
+      "confidence": 0.55
+    }
+  ]
+}

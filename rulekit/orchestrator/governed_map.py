@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import re
 from math import ceil
 from time import perf_counter
 from typing import Any
@@ -373,11 +374,22 @@ class GovernedEvidenceMapStep:
             atom_id: binding.model_copy(deep=True)
             for atom_id, binding in prebound_result.map_record.bindings.items()
         }
+        profile_default_count = apply_program_map_profile_defaults(
+            program,
+            case,
+            bindings,
+            source=context.substrate_id,
+        )
+        profiled_prebound_record = prebound_result.map_record.model_copy(deep=True)
+        profiled_prebound_record.bindings = {
+            atom_id: binding.model_copy(deep=True)
+            for atom_id, binding in bindings.items()
+        }
         selected_atoms = self._selected_atom_ids(program)
         llm_atoms, llm_atom_selection = _initial_llm_atom_selection(
             program,
             context,
-            prebound_result.map_record,
+            profiled_prebound_record,
             selected_atoms,
         )
         artifacts["prebinding"] = {
@@ -390,6 +402,7 @@ class GovernedEvidenceMapStep:
                 "default_binding_count",
                 0,
             ),
+            "profile_default_count": profile_default_count,
         }
         if self.single_map_call:
             sources = self._bind_single_map_call(
@@ -463,6 +476,7 @@ class GovernedEvidenceMapStep:
         )
         total_default_count = (
             int(prebound_result.map_record.metadata.get("default_binding_count", 0))
+            + profile_default_count
             + default_count
         )
         return MapStepResult(
@@ -485,6 +499,7 @@ class GovernedEvidenceMapStep:
                         "default_binding_count",
                         0,
                     ),
+                    "profile_default_binding_count": profile_default_count,
                     "post_llm_default_binding_count": default_count,
                     "selected_atom_count": len(selected_atoms),
                     "llm_atom_count": len(llm_atoms),
@@ -1043,10 +1058,17 @@ def _binding_from_payload(
         basis = BindingBasis(str(raw_basis).lower()) if raw_basis else BindingBasis.NOT_FOUND
     except ValueError:
         basis = BindingBasis.NOT_FOUND
+    value = payload.get("value", "undetermined")
+    metadata = {"raw_atom_id": payload.get("atom_id")}
+    if atom_type == "numeric" and isinstance(value, bool):
+        status = AtomBindingStatus.UNDETERMINED
+        basis = BindingBasis.NOT_FOUND
+        metadata["invalid_numeric_boolean"] = True
+        value = "undetermined"
     return AtomBindingRecord(
         atom_id=atom_id,
         atom_type=atom_type,
-        value=payload.get("value", "undetermined"),
+        value=value,
         status=status,
         basis=basis,
         source_ids=[str(item) for item in payload.get("source_ids", [])],
@@ -1054,8 +1076,158 @@ def _binding_from_payload(
         explanation=payload.get("explanation"),
         confidence=payload.get("confidence"),
         source="governed_llm",
-        metadata={"raw_atom_id": payload.get("atom_id")},
+        metadata=metadata,
     )
+
+
+def apply_program_map_profile_defaults(
+    program: DeterminationProgram,
+    case: CaseExample,
+    bindings: dict[str, AtomBindingRecord],
+    *,
+    source: str | None = None,
+) -> int:
+    """Apply policy-authored narrative Map defaults from metadata.extras.
+
+    This keeps domain-specific mapping discipline in policy data rather than
+    Python modules. A producer can ship `metadata.extras.map_profile` with
+    narrative-matched default rules for scoped absence, non-applicability, and
+    routing cues.
+    """
+    profile = program.metadata.extras.get("map_profile")
+    if not isinstance(profile, dict):
+        return 0
+    rules = profile.get("default_rules")
+    if not isinstance(rules, list):
+        return 0
+
+    applied = 0
+    narrative = case.narrative or ""
+    for rule in rules:
+        if not isinstance(rule, dict):
+            continue
+        if not _profile_rule_matches(rule, narrative):
+            continue
+        atom_ids = rule.get("atom_ids", rule.get("atoms"))
+        if not isinstance(atom_ids, list):
+            continue
+        for raw_atom_id in atom_ids:
+            atom_id = str(raw_atom_id)
+            if atom_id not in program.map_spec.atoms:
+                continue
+            existing = bindings.get(atom_id)
+            apply_when = str(rule.get("apply_when", "missing_or_undetermined"))
+            if not _profile_should_apply(existing, apply_when):
+                continue
+            atom = program.map_spec.atoms[atom_id]
+            value = rule.get("value", "undetermined")
+            status = _profile_status_from_value(value)
+            bindings[atom_id] = AtomBindingRecord(
+                atom_id=atom_id,
+                atom_type=atom.atom_type,
+                value=value,
+                status=status,
+                basis=_profile_basis_for(value, status, rule.get("basis")),
+                evidence=str(rule.get("evidence") or rule.get("description") or ""),
+                explanation=str(
+                    rule.get("explanation")
+                    or "policy map profile default applied from narrative scope"
+                ),
+                confidence=float(rule["confidence"])
+                if rule.get("confidence") is not None
+                else None,
+                source=source or "program_map_profile",
+                metadata={
+                    "case_default": True,
+                    "map_profile_default": True,
+                    "default_kind": rule.get("kind", "map_profile"),
+                    "rule_id": rule.get("id"),
+                    "default_apply_when": apply_when,
+                    "replaced_status": existing.status.value if existing else None,
+                    "replaced_basis": existing.basis.value if existing and existing.basis else None,
+                },
+            )
+            applied += 1
+    return applied
+
+
+def _profile_rule_matches(rule: dict[str, Any], narrative: str) -> bool:
+    text = narrative.lower()
+    if_any = _string_list(rule.get("if_any"))
+    if_all = _string_list(rule.get("if_all"))
+    unless_any = _string_list(rule.get("unless_any"))
+    unless_all = _string_list(rule.get("unless_all"))
+    if_regex_any = _string_list(rule.get("if_regex_any"))
+    unless_regex_any = _string_list(rule.get("unless_regex_any"))
+
+    if if_any and not any(term.lower() in text for term in if_any):
+        return False
+    if if_all and not all(term.lower() in text for term in if_all):
+        return False
+    if unless_any and any(term.lower() in text for term in unless_any):
+        return False
+    if unless_all and all(term.lower() in text for term in unless_all):
+        return False
+    if if_regex_any and not any(
+        re.search(pattern, narrative, re.IGNORECASE) for pattern in if_regex_any
+    ):
+        return False
+    if unless_regex_any and any(
+        re.search(pattern, narrative, re.IGNORECASE)
+        for pattern in unless_regex_any
+    ):
+        return False
+    return True
+
+
+def _string_list(value: Any) -> list[str]:
+    if isinstance(value, list):
+        return [str(item) for item in value]
+    if isinstance(value, str):
+        return [value]
+    return []
+
+
+def _profile_should_apply(
+    existing: AtomBindingRecord | None,
+    apply_when: str,
+) -> bool:
+    if apply_when == "always":
+        return True
+    if existing is None:
+        return True
+    if apply_when == "missing":
+        return existing.value is None
+    if apply_when == "missing_or_not_found":
+        return existing.basis == BindingBasis.NOT_FOUND
+    if existing.status != AtomBindingStatus.BOUND:
+        return True
+    return existing.basis in {
+        BindingBasis.NOT_FOUND,
+        BindingBasis.OPEN_WORLD_ABSENCE,
+    }
+
+
+def _profile_status_from_value(value: Any) -> AtomBindingStatus:
+    if value is None or str(value).lower() == "undetermined":
+        return AtomBindingStatus.UNDETERMINED
+    return AtomBindingStatus.BOUND
+
+
+def _profile_basis_for(
+    value: Any,
+    status: AtomBindingStatus,
+    declared_basis: Any,
+) -> BindingBasis:
+    if declared_basis:
+        return BindingBasis(str(declared_basis))
+    if status == AtomBindingStatus.UNDETERMINED:
+        return BindingBasis.NOT_FOUND
+    if isinstance(value, bool):
+        return BindingBasis.EXPLICIT_POSITIVE if value else BindingBasis.EXPLICIT_NEGATIVE
+    if str(value).lower() == "false":
+        return BindingBasis.EXPLICIT_NEGATIVE
+    return BindingBasis.INFERRED_FROM_RECORD
 
 
 def _sources_from_map_record(map_record: MapExtractionRecord) -> list[EvidenceSource]:
@@ -1259,4 +1431,5 @@ __all__ = [
     "build_batch_atom_binding_prompt",
     "build_single_map_prompt",
     "build_repair_atom_binding_prompt",
+    "apply_program_map_profile_defaults",
 ]

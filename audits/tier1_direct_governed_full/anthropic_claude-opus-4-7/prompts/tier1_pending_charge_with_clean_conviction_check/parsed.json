@@ -1,0 +1,166 @@
+{
+  "case_id": "tier1_pending_charge_with_clean_conviction_check",
+  "case_level_notes": "Pending felony charge with unresolved disposition requires human review; GMC and overall eligibility cannot be affirmed on this record.",
+  "determinations": [
+    {
+      "anti_overclaim_check": "Not asserting satisfaction without supporting facts.",
+      "confidence": 0.6,
+      "determination_id": "n400.continuous_residence_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "missing",
+          "fact": "No continuous residence data in packet",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "The packet does not address continuous residence facts; scope is focused on criminal record issues.",
+      "uncertainty_flags": [
+        "missing fact"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Cannot affirm without facts.",
+      "confidence": 0.6,
+      "determination_id": "n400.physical_presence_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "missing",
+          "fact": "No physical presence facts present",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "No physical presence data is provided in the case packet.",
+      "uncertainty_flags": [
+        "missing fact"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Not inferring without evidence.",
+      "confidence": 0.6,
+      "determination_id": "n400.state_residence_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "missing",
+          "fact": "No state residence data",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "No state/district residence information provided.",
+      "uncertainty_flags": [
+        "missing fact"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Cannot affirm without facts.",
+      "confidence": 0.6,
+      "determination_id": "n400.english_requirement_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "missing",
+          "fact": "No English requirement data",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "No information on English ability or applicable exceptions.",
+      "uncertainty_flags": [
+        "missing fact"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Cannot affirm without facts.",
+      "confidence": 0.6,
+      "determination_id": "n400.civics_requirement_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "missing",
+          "fact": "No civics data",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "No information on civics requirement or exception.",
+      "uncertainty_flags": [
+        "missing fact"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Cannot affirm without facts.",
+      "confidence": 0.6,
+      "determination_id": "n400.oath_attachment_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "missing",
+          "fact": "No oath/attachment data",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "No oath/attachment evidence in the packet.",
+      "uncertainty_flags": [
+        "missing fact"
+      ]
+    },
+    {
+      "anti_overclaim_check": "FBI conviction-scope cleanliness does not resolve pending charges; not overclaiming satisfaction.",
+      "confidence": 0.85,
+      "determination_id": "n400.good_moral_character_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "closed_world_absence",
+          "fact": "No aggravated felony convictions per FBI check",
+          "source": "fbi_check"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Pending felony charge with future hearing date",
+          "source": "county_docket"
+        },
+        {
+          "basis": "missing",
+          "fact": "Applicant claims dismissal but no order provided",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "While the FBI check shows no aggravated felony conviction, the county docket reports a pending felony charge with a hearing after the interview, and no dismissal order is provided. GMC determination cannot be made on the existing record.",
+      "uncertainty_flags": [
+        "pending charge unresolved",
+        "missing dismissal documentation"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Trigger is explicitly supported by the docket evidence in the packet.",
+      "confidence": 0.95,
+      "determination_id": "n400.human_review_required",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Pending felony charge on county docket",
+          "source": "county_docket"
+        },
+        {
+          "basis": "missing",
+          "fact": "No dismissal order included despite applicant claim",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "A pending felony charge with no dismissal order constitutes a benchmark human-review trigger (pending_criminal_charge and unresolved_arrest_disposition).",
+      "uncertainty_flags": [
+        "unresolved disposition"
+      ]
+    }
+  ]
+}

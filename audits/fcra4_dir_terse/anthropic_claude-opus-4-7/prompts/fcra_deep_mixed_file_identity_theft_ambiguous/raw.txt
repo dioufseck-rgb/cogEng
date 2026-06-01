@@ -1,0 +1,96 @@
+{
+  "case_id": "fcra_deep_mixed_file_identity_theft_ambiguous",
+  "determinations": [
+    {
+      "determination_id": "fcra.consumer_statement_satisfied",
+      "outcome": "undetermined",
+      "rationale": "Reinvestigation not yet complete; no indication consumer has filed a statement.",
+      "confidence": 0.6
+    },
+    {
+      "determination_id": "fcra.cra_consideration_satisfied",
+      "outcome": "undetermined",
+      "rationale": "CRA has not yet received sufficient material to evaluate mixed-file vs identity theft vs verified; consideration is in progress.",
+      "confidence": 0.6
+    },
+    {
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "outcome": "undetermined",
+      "rationale": "Packet does not indicate whether the CRA transmitted notice to the furnishers within 5 business days.",
+      "confidence": 0.6
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_required",
+      "outcome": "true",
+      "rationale": "Consumer disputed accuracy of three collection accounts as 'not mine'; this triggers reinvestigation duty.",
+      "confidence": 0.85
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_timely",
+      "outcome": "undetermined",
+      "rationale": "No dates establishing the elapsed reinvestigation timeline are provided.",
+      "confidence": 0.7
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+      "outcome": "true",
+      "rationale": "Dispute identifies consumer, accounts, disputed field (ownership), and basis (not mine/identity theft).",
+      "confidence": 0.75
+    },
+    {
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "outcome": "undetermined",
+      "rationale": "No direct furnisher dispute referenced in the packet.",
+      "confidence": 0.6
+    },
+    {
+      "determination_id": "fcra.dispute_resolution_compliant",
+      "outcome": "undetermined",
+      "rationale": "Multiple compliance elements pending; insufficient information and conflicting facts.",
+      "confidence": 0.7
+    },
+    {
+      "determination_id": "fcra.frivolous_termination_valid",
+      "outcome": "undetermined",
+      "rationale": "No frivolous determination has been invoked in the packet, but identity theft affidavit is missing which could support such a finding.",
+      "confidence": 0.55
+    },
+    {
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "outcome": "undetermined",
+      "rationale": "Furnisher response is mentioned but contains inconsistent dates; satisfaction of duties unclear.",
+      "confidence": 0.6
+    },
+    {
+      "determination_id": "fcra.human_review_required",
+      "outcome": "true",
+      "rationale": "Mixed-file/identity theft evidence is plausible but incomplete, primary source documents (identity theft affidavit, report) missing, and material dates conflict.",
+      "confidence": 0.9
+    },
+    {
+      "determination_id": "fcra.item_treatment_satisfied",
+      "outcome": "undetermined",
+      "rationale": "Verifiability cannot yet be determined; items have not been classified.",
+      "confidence": 0.7
+    },
+    {
+      "determination_id": "fcra.reinsertion_satisfied",
+      "outcome": "undetermined",
+      "rationale": "No reinsertion event indicated.",
+      "confidence": 0.6
+    },
+    {
+      "determination_id": "fcra.reseller_satisfied",
+      "outcome": "undetermined",
+      "rationale": "No reseller involvement indicated.",
+      "confidence": 0.6
+    },
+    {
+      "determination_id": "fcra.results_notice_satisfied",
+      "outcome": "undetermined",
+      "rationale": "Reinvestigation has not been completed; no results notice issued yet.",
+      "confidence": 0.7
+    }
+  ],
+  "case_level_notes": "Case requires human review due to incomplete identity theft documentation, possible mixed-file indicators, and conflicting dates between CRA file and furnisher response."
+}

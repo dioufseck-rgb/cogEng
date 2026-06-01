@@ -1,0 +1,282 @@
+{
+  "cases": [
+    {
+      "case_id": "fcra_deep_clean_verified",
+      "expected_outcomes": {
+        "fcra.consumer_statement_satisfied": "true",
+        "fcra.cra_consideration_satisfied": "true",
+        "fcra.cra_furnisher_notice_satisfied": "true",
+        "fcra.cra_reinvestigation_required": "true",
+        "fcra.cra_reinvestigation_timely": "true",
+        "fcra.cra_reinvestigation_trigger_valid": "true",
+        "fcra.direct_furnisher_satisfied": "true",
+        "fcra.dispute_resolution_compliant": "true",
+        "fcra.frivolous_termination_valid": "false",
+        "fcra.furnisher_indirect_satisfied": "true",
+        "fcra.human_review_required": "false",
+        "fcra.item_treatment_satisfied": "true",
+        "fcra.reinsertion_satisfied": "true",
+        "fcra.reseller_satisfied": "true",
+        "fcra.results_notice_satisfied": "true"
+      },
+      "metadata": {
+        "source": "narrative_only_fcra_deep"
+      },
+      "narrative": "The consumer disputed a 30-day late notation on an auto loan. The CRA file shows the dispute was received directly on March 1, the account and month were identified, and the consumer supplied a servicer payment ledger. The CRA sent the dispute and document image to the furnisher on the third business day, completed the reinvestigation in 24 calendar days, received a furnisher response verifying the late payment, reviewed the consumer ledger against the furnisher payment history, recorded the item as verified, and mailed results with the revised report 4 business days after completion.\n",
+      "title": "Clean verified auto-loan dispute"
+    },
+    {
+      "case_id": "fcra_deep_missing_forwarded_bank_statement",
+      "expected_outcomes": {
+        "fcra.consumer_statement_satisfied": "true",
+        "fcra.cra_consideration_satisfied": "false",
+        "fcra.cra_furnisher_notice_satisfied": "false",
+        "fcra.cra_reinvestigation_required": "true",
+        "fcra.cra_reinvestigation_timely": "true",
+        "fcra.cra_reinvestigation_trigger_valid": "true",
+        "fcra.direct_furnisher_satisfied": "true",
+        "fcra.dispute_resolution_compliant": "false",
+        "fcra.frivolous_termination_valid": "false",
+        "fcra.furnisher_indirect_satisfied": "true",
+        "fcra.human_review_required": "true",
+        "fcra.item_treatment_satisfied": "true",
+        "fcra.reinsertion_satisfied": "true",
+        "fcra.reseller_satisfied": "true",
+        "fcra.results_notice_satisfied": "true"
+      },
+      "metadata": {
+        "source": "narrative_only_fcra_deep"
+      },
+      "narrative": "The consumer disputed a charged-off credit card balance and attached bank statements plus a creditor letter showing a settlement payment. The CRA coded the dispute and sent a generic \"claims paid\" code to the furnisher on day 4, but the processing log says the document images were not sent or made available. The furnisher verified the old balance. The CRA completed within 29 days and sent a timely results notice.\n",
+      "title": "Bank statement not forwarded to furnisher"
+    },
+    {
+      "case_id": "fcra_deep_late_no_extension",
+      "expected_outcomes": {
+        "fcra.consumer_statement_satisfied": "true",
+        "fcra.cra_consideration_satisfied": "true",
+        "fcra.cra_furnisher_notice_satisfied": "true",
+        "fcra.cra_reinvestigation_required": "true",
+        "fcra.cra_reinvestigation_timely": "false",
+        "fcra.cra_reinvestigation_trigger_valid": "true",
+        "fcra.direct_furnisher_satisfied": "true",
+        "fcra.dispute_resolution_compliant": "false",
+        "fcra.frivolous_termination_valid": "false",
+        "fcra.furnisher_indirect_satisfied": "true",
+        "fcra.human_review_required": "false",
+        "fcra.item_treatment_satisfied": "true",
+        "fcra.reinsertion_satisfied": "true",
+        "fcra.reseller_satisfied": "true",
+        "fcra.results_notice_satisfied": "true"
+      },
+      "metadata": {
+        "source": "narrative_only_fcra_deep"
+      },
+      "narrative": "The dispute was received directly on April 2. No later consumer submission was received during the initial 30-day period. The CRA completed the reinvestigation after 38 calendar days, then mailed an otherwise complete results notice two business days later.\n",
+      "title": "Late CRA reinvestigation without extension"
+    },
+    {
+      "case_id": "fcra_deep_45_day_extension_with_correction",
+      "expected_outcomes": {
+        "fcra.consumer_statement_satisfied": "true",
+        "fcra.cra_consideration_satisfied": "true",
+        "fcra.cra_furnisher_notice_satisfied": "true",
+        "fcra.cra_reinvestigation_required": "true",
+        "fcra.cra_reinvestigation_timely": "true",
+        "fcra.cra_reinvestigation_trigger_valid": "true",
+        "fcra.direct_furnisher_satisfied": "true",
+        "fcra.dispute_resolution_compliant": "true",
+        "fcra.frivolous_termination_valid": "false",
+        "fcra.furnisher_indirect_satisfied": "true",
+        "fcra.human_review_required": "false",
+        "fcra.item_treatment_satisfied": "true",
+        "fcra.reinsertion_satisfied": "true",
+        "fcra.reseller_satisfied": "true",
+        "fcra.results_notice_satisfied": "true"
+      },
+      "metadata": {
+        "source": "narrative_only_fcra_deep"
+      },
+      "narrative": "The consumer disputed the date of first delinquency and sent additional account statements on day 18. The CRA forwarded the later material to the furnisher, completed the reinvestigation in 43 calendar days, found the date incomplete, modified the tradeline, recorded current status, and sent complete written results within 5 business days.\n",
+      "title": "Forty-five-day extension with modified tradeline"
+    },
+    {
+      "case_id": "fcra_deep_unverifiable_not_deleted",
+      "expected_outcomes": {
+        "fcra.consumer_statement_satisfied": "true",
+        "fcra.cra_consideration_satisfied": "true",
+        "fcra.cra_furnisher_notice_satisfied": "true",
+        "fcra.cra_reinvestigation_required": "true",
+        "fcra.cra_reinvestigation_timely": "true",
+        "fcra.cra_reinvestigation_trigger_valid": "true",
+        "fcra.direct_furnisher_satisfied": "true",
+        "fcra.dispute_resolution_compliant": "false",
+        "fcra.frivolous_termination_valid": "false",
+        "fcra.furnisher_indirect_satisfied": "false",
+        "fcra.human_review_required": "true",
+        "fcra.item_treatment_satisfied": "false",
+        "fcra.reinsertion_satisfied": "true",
+        "fcra.reseller_satisfied": "true",
+        "fcra.results_notice_satisfied": "true"
+      },
+      "metadata": {
+        "source": "narrative_only_fcra_deep"
+      },
+      "narrative": "A collection account was disputed as not belonging to the consumer. The furnisher did not produce account-level documentation and the CRA log says the account could not be verified. The tradeline nevertheless remained unchanged on the revised file.\n",
+      "title": "Collection account unverifiable but left reporting"
+    },
+    {
+      "case_id": "fcra_deep_valid_frivolous_missing_account",
+      "expected_outcomes": {
+        "fcra.consumer_statement_satisfied": "true",
+        "fcra.cra_consideration_satisfied": "true",
+        "fcra.cra_furnisher_notice_satisfied": "true",
+        "fcra.cra_reinvestigation_required": "false",
+        "fcra.cra_reinvestigation_timely": "true",
+        "fcra.cra_reinvestigation_trigger_valid": "false",
+        "fcra.direct_furnisher_satisfied": "true",
+        "fcra.dispute_resolution_compliant": "true",
+        "fcra.frivolous_termination_valid": "true",
+        "fcra.furnisher_indirect_satisfied": "true",
+        "fcra.human_review_required": "false",
+        "fcra.item_treatment_satisfied": "true",
+        "fcra.reinsertion_satisfied": "true",
+        "fcra.reseller_satisfied": "true",
+        "fcra.results_notice_satisfied": "true"
+      },
+      "metadata": {
+        "source": "narrative_only_fcra_deep"
+      },
+      "narrative": "The consumer wrote \"something is wrong on my report\" but did not identify the account, furnish a report excerpt, or explain which item was disputed. The CRA made a frivolous-or-irrelevant determination and mailed a notice three business days later explaining that the account and disputed information were needed.\n",
+      "title": "Valid frivolous termination for missing account identity"
+    },
+    {
+      "case_id": "fcra_deep_invalid_duplicate_with_new_docs",
+      "expected_outcomes": {
+        "fcra.consumer_statement_satisfied": "true",
+        "fcra.cra_consideration_satisfied": "false",
+        "fcra.cra_furnisher_notice_satisfied": "false",
+        "fcra.cra_reinvestigation_required": "true",
+        "fcra.cra_reinvestigation_timely": "false",
+        "fcra.cra_reinvestigation_trigger_valid": "true",
+        "fcra.direct_furnisher_satisfied": "true",
+        "fcra.dispute_resolution_compliant": "false",
+        "fcra.frivolous_termination_valid": "false",
+        "fcra.furnisher_indirect_satisfied": "true",
+        "fcra.human_review_required": "true",
+        "fcra.item_treatment_satisfied": "false",
+        "fcra.reinsertion_satisfied": "true",
+        "fcra.reseller_satisfied": "true",
+        "fcra.results_notice_satisfied": "false"
+      },
+      "metadata": {
+        "source": "narrative_only_fcra_deep"
+      },
+      "narrative": "The consumer had disputed the same mortgage late payment before, but the new packet included a servicer correction letter not previously supplied. The CRA marked it duplicate/frivolous and closed it without reinvestigation. The notice did not identify any missing information.\n",
+      "title": "Improper duplicate-dispute termination despite new proof"
+    },
+    {
+      "case_id": "fcra_deep_reinsertion_without_certification",
+      "expected_outcomes": {
+        "fcra.consumer_statement_satisfied": "true",
+        "fcra.cra_consideration_satisfied": "true",
+        "fcra.cra_furnisher_notice_satisfied": "true",
+        "fcra.cra_reinvestigation_required": "true",
+        "fcra.cra_reinvestigation_timely": "true",
+        "fcra.cra_reinvestigation_trigger_valid": "true",
+        "fcra.direct_furnisher_satisfied": "true",
+        "fcra.dispute_resolution_compliant": "false",
+        "fcra.frivolous_termination_valid": "false",
+        "fcra.furnisher_indirect_satisfied": "true",
+        "fcra.human_review_required": "true",
+        "fcra.item_treatment_satisfied": "true",
+        "fcra.reinsertion_satisfied": "false",
+        "fcra.reseller_satisfied": "true",
+        "fcra.results_notice_satisfied": "true"
+      },
+      "metadata": {
+        "source": "narrative_only_fcra_deep"
+      },
+      "narrative": "A collection account was deleted after a prior reinvestigation. Two weeks later it reappeared. The CRA file contains no furnisher certification of completeness and accuracy, and the consumer did not receive a reinsertion notice. The later results notice otherwise contains the normal disclosures.\n",
+      "title": "Deleted account reinserted without certification notice"
+    },
+    {
+      "case_id": "fcra_deep_direct_furnisher_valid_not_corrected",
+      "expected_outcomes": {
+        "fcra.consumer_statement_satisfied": "true",
+        "fcra.cra_consideration_satisfied": "true",
+        "fcra.cra_furnisher_notice_satisfied": "true",
+        "fcra.cra_reinvestigation_required": "true",
+        "fcra.cra_reinvestigation_timely": "true",
+        "fcra.cra_reinvestigation_trigger_valid": "true",
+        "fcra.direct_furnisher_satisfied": "false",
+        "fcra.dispute_resolution_compliant": "false",
+        "fcra.frivolous_termination_valid": "false",
+        "fcra.furnisher_indirect_satisfied": "true",
+        "fcra.human_review_required": "false",
+        "fcra.item_treatment_satisfied": "true",
+        "fcra.reinsertion_satisfied": "true",
+        "fcra.reseller_satisfied": "true",
+        "fcra.results_notice_satisfied": "true"
+      },
+      "metadata": {
+        "source": "narrative_only_fcra_deep"
+      },
+      "narrative": "The consumer sent a direct dispute to the furnisher's published dispute address, identifying the credit-card account, the inaccurate balance, and attaching the final payoff statement. The furnisher agreed internally that the balance was wrong and reported results to the consumer, but the log shows it did not notify the CRAs or provide the correction.\n",
+      "title": "Direct furnisher dispute found inaccurate but CRAs not corrected"
+    },
+    {
+      "case_id": "fcra_deep_reseller_forwarding_path",
+      "expected_outcomes": {
+        "fcra.consumer_statement_satisfied": "true",
+        "fcra.cra_consideration_satisfied": "true",
+        "fcra.cra_furnisher_notice_satisfied": "true",
+        "fcra.cra_reinvestigation_required": "true",
+        "fcra.cra_reinvestigation_timely": "true",
+        "fcra.cra_reinvestigation_trigger_valid": "true",
+        "fcra.direct_furnisher_satisfied": "true",
+        "fcra.dispute_resolution_compliant": "true",
+        "fcra.frivolous_termination_valid": "false",
+        "fcra.furnisher_indirect_satisfied": "true",
+        "fcra.human_review_required": "false",
+        "fcra.item_treatment_satisfied": "true",
+        "fcra.reinsertion_satisfied": "true",
+        "fcra.reseller_satisfied": "true",
+        "fcra.results_notice_satisfied": "true"
+      },
+      "metadata": {
+        "source": "narrative_only_fcra_deep"
+      },
+      "narrative": "The consumer disputed a mortgage account through a tenant-screening reseller. The reseller determined within 2 business days that the alleged inaccuracy was not caused by the reseller and conveyed the dispute packet and attachments to the source CRA. The CRA completed the reinvestigation, and the reseller reconveyed the completion notice to the consumer.\n",
+      "title": "Reseller receives dispute and forwards source-CRA item"
+    },
+    {
+      "case_id": "fcra_deep_mixed_file_identity_theft_ambiguous",
+      "expected_outcomes": {
+        "fcra.consumer_statement_satisfied": "true",
+        "fcra.cra_consideration_satisfied": "undetermined",
+        "fcra.cra_furnisher_notice_satisfied": "undetermined",
+        "fcra.cra_reinvestigation_required": "true",
+        "fcra.cra_reinvestigation_timely": "undetermined",
+        "fcra.cra_reinvestigation_trigger_valid": "true",
+        "fcra.direct_furnisher_satisfied": "true",
+        "fcra.dispute_resolution_compliant": "undetermined",
+        "fcra.frivolous_termination_valid": "false",
+        "fcra.furnisher_indirect_satisfied": "undetermined",
+        "fcra.human_review_required": "true",
+        "fcra.item_treatment_satisfied": "undetermined",
+        "fcra.reinsertion_satisfied": "true",
+        "fcra.reseller_satisfied": "true",
+        "fcra.results_notice_satisfied": "undetermined"
+      },
+      "metadata": {
+        "source": "narrative_only_fcra_deep"
+      },
+      "narrative": "The consumer disputes three collection accounts as \"not mine\" and says an identity theft affidavit is being prepared. The packet includes a police incident number but not the actual identity theft report, two addresses for a person with a similar name, and inconsistent dates across the CRA file and furnisher response. The CRA has not yet received enough material to decide whether the items are mixed-file, identity-theft, or verified consumer obligations.\n",
+      "title": "Mixed-file not-mine dispute with incomplete identity theft packet"
+    }
+  ],
+  "metadata": {
+    "purpose": "Narrative-only FCRA deep cases for production-like LLM Map and direct disposition comparison; structured gold facts/defaults removed."
+  }
+}

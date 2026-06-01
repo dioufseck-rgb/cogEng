@@ -1,0 +1,194 @@
+{
+  "fcra.additional_relevant_info_received_in_30_days": {
+    "atom_id": "fcra.additional_relevant_info_received_in_30_days",
+    "basis": "closed_world_absence",
+    "confidence": 0.75,
+    "evidence": "CRA file mentions only the initial March 1 submission with ledger; no additional consumer submissions during the period.",
+    "explanation": "consumer_submissions_to_cra is within the closed-world scope; absence supports a negative binding, which also means no 15-day extension is triggered.",
+    "source_ids": [
+      "cra_file"
+    ],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.business_days_to_frivolous_notice": {
+    "atom_id": "fcra.business_days_to_frivolous_notice",
+    "basis": "inferred_from_record",
+    "confidence": 0.9,
+    "evidence": "No frivolous or irrelevant determination was made; CRA proceeded with reinvestigation and verified the item.",
+    "explanation": "Conditional support atom: the triggering condition (frivolous determination) is clearly absent, so the timing requirement does not apply.",
+    "source_ids": [
+      "cra_file"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.business_days_to_reinsertion_notice": {
+    "atom_id": "fcra.business_days_to_reinsertion_notice",
+    "basis": "inferred_from_record",
+    "confidence": 0.9,
+    "evidence": "Item was verified, not deleted; no reinsertion event occurred.",
+    "explanation": "Conditional support atom: the triggering condition (reinsertion of previously deleted item) is absent, so the timing requirement does not apply.",
+    "source_ids": [
+      "cra_file"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.consumer_statement_right_disclosed": {
+    "atom_id": "fcra.consumer_statement_right_disclosed",
+    "basis": "open_world_absence",
+    "confidence": 0.5,
+    "evidence": "Source explicitly does not detail content of results notice disclosures.",
+    "explanation": "Disclosure content is outside the available record scope.",
+    "source_ids": [
+      "cra_file"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.cra_compared_own_file": {
+    "atom_id": "fcra.cra_compared_own_file",
+    "basis": "open_world_absence",
+    "confidence": 0.5,
+    "evidence": "Narrative describes comparison of consumer ledger to furnisher payment history; no mention of comparing to CRA's own file.",
+    "explanation": "Record neither confirms nor denies CRA-file comparison; cannot bind.",
+    "source_ids": [
+      "cra_file"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.cra_reasonable_reinvestigation_performed": {
+    "atom_id": "fcra.cra_reasonable_reinvestigation_performed",
+    "basis": "inferred_from_record",
+    "confidence": 0.7,
+    "evidence": "CRA forwarded dispute and document image to furnisher, received furnisher response, reviewed consumer ledger against furnisher payment history, recorded result, and mailed results.",
+    "explanation": "The described steps (notice to furnisher, review of submitted evidence against furnisher records, recording outcome) are consistent with a reasonable reinvestigation under the record.",
+    "source_ids": [
+      "cra_file"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.dispute_about_completeness": {
+    "atom_id": "fcra.dispute_about_completeness",
+    "basis": "open_world_absence",
+    "confidence": 0.5,
+    "evidence": "Consumer disputed a 30-day late notation; nature of dispute (accuracy vs. completeness) not specified.",
+    "explanation": "Record does not characterize the dispute as one of completeness; cannot infer either way from the narrative.",
+    "source_ids": [
+      "cra_file"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.dispute_duplicate_without_new_info": {
+    "atom_id": "fcra.dispute_duplicate_without_new_info",
+    "basis": "closed_world_absence",
+    "confidence": 0.75,
+    "evidence": "CRA file describes a dispute received March 1 with a servicer payment ledger; no prior dispute referenced.",
+    "explanation": "The CRA file source scope covers cra_handling_of_dispute and consumer_submissions_to_cra; absence of any prior substantially similar dispute within that closed scope supports a negative binding.",
+    "source_ids": [
+      "cra_file"
+    ],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.furnisher_contact_disclosed_if_available": {
+    "atom_id": "fcra.furnisher_contact_disclosed_if_available",
+    "basis": "open_world_absence",
+    "confidence": 0.5,
+    "evidence": "Source explicitly does not detail content of results notice disclosures.",
+    "explanation": "Disclosure content is outside the available record scope.",
+    "source_ids": [
+      "cra_file"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.item_modified": {
+    "atom_id": "fcra.item_modified",
+    "basis": "inferred_from_record",
+    "confidence": 0.7,
+    "evidence": "Furnisher response verified the late payment and the item was recorded as verified.",
+    "explanation": "An item recorded as verified after reinvestigation was not modified; the 'revised report' reflects the verified status update, not modification of the disputed item.",
+    "source_ids": [
+      "cra_file"
+    ],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.later_relevant_info_forwarded": {
+    "atom_id": "fcra.later_relevant_info_forwarded",
+    "basis": "inferred_from_record",
+    "confidence": 0.85,
+    "evidence": "No later relevant information from the consumer was received during the reinvestigation.",
+    "explanation": "Conditional support atom: the triggering condition (later relevant info received) is absent, so the forwarding requirement does not apply.",
+    "source_ids": [
+      "cra_file"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.later_relevant_info_received": {
+    "atom_id": "fcra.later_relevant_info_received",
+    "basis": "closed_world_absence",
+    "confidence": 0.75,
+    "evidence": "CRA file describes only the initial March 1 submission with servicer ledger; no later consumer submissions referenced.",
+    "explanation": "consumer_submissions_to_cra is within the closed-world scope of the CRA file; absence supports a negative binding.",
+    "source_ids": [
+      "cra_file"
+    ],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.notice_states_reinvestigation_completed": {
+    "atom_id": "fcra.notice_states_reinvestigation_completed",
+    "basis": "open_world_absence",
+    "confidence": 0.5,
+    "evidence": "Results were mailed but the source's stated limitation excludes details of results-notice disclosures.",
+    "explanation": "Source inventory expressly notes it does not detail content of results notice disclosures; cannot bind.",
+    "source_ids": [
+      "cra_file"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.notification_right_disclosed": {
+    "atom_id": "fcra.notification_right_disclosed",
+    "basis": "open_world_absence",
+    "confidence": 0.5,
+    "evidence": "Source explicitly does not detail content of results notice disclosures.",
+    "explanation": "Disclosure content is outside the available record scope.",
+    "source_ids": [
+      "cra_file"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.procedure_description_right_disclosed": {
+    "atom_id": "fcra.procedure_description_right_disclosed",
+    "basis": "open_world_absence",
+    "confidence": 0.5,
+    "evidence": "Source explicitly does not detail content of results notice disclosures.",
+    "explanation": "Disclosure content is outside the available record scope.",
+    "source_ids": [
+      "cra_file"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.procedures_prevent_reappearance": {
+    "atom_id": "fcra.procedures_prevent_reappearance",
+    "basis": "inferred_from_record",
+    "confidence": 0.8,
+    "evidence": "No deletion occurred; item was verified and retained.",
+    "explanation": "Conditional support atom: the triggering condition (deleted information at risk of reappearance) is absent, so the procedure requirement does not apply on this trace.",
+    "source_ids": [
+      "cra_file"
+    ],
+    "status": "bound",
+    "value": true
+  }
+}

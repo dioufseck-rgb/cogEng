@@ -1,0 +1,96 @@
+{
+  "case_id": "fcra_deep_missing_forwarded_bank_statement",
+  "determinations": [
+    {
+      "determination_id": "fcra.consumer_statement_satisfied",
+      "outcome": "undetermined",
+      "rationale": "No information about a consumer statement filing.",
+      "confidence": 0.6
+    },
+    {
+      "determination_id": "fcra.cra_consideration_satisfied",
+      "outcome": "false",
+      "rationale": "CRA relied on automated coding alone despite primary documents (bank statements, creditor letter) requiring review.",
+      "confidence": 0.9
+    },
+    {
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "outcome": "false",
+      "rationale": "The notice did not include all relevant information; document images were not forwarded to the furnisher.",
+      "confidence": 0.95
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_required",
+      "outcome": "true",
+      "rationale": "Consumer disputed accuracy of an item with identifying details and basis.",
+      "confidence": 0.95
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_timely",
+      "outcome": "true",
+      "rationale": "Completed within 29 days, under the 30-day limit.",
+      "confidence": 0.9
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+      "outcome": "true",
+      "rationale": "Valid dispute identifying consumer, account, disputed field, and basis with supporting documents.",
+      "confidence": 0.9
+    },
+    {
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "outcome": "true",
+      "rationale": "No direct dispute to the furnisher is described; not applicable.",
+      "confidence": 0.8
+    },
+    {
+      "determination_id": "fcra.dispute_resolution_compliant",
+      "outcome": "false",
+      "rationale": "CRA failed to forward relevant primary documents and conducted only automated coding, undermining reasonable reinvestigation.",
+      "confidence": 0.95
+    },
+    {
+      "determination_id": "fcra.frivolous_termination_valid",
+      "outcome": "true",
+      "rationale": "No frivolous termination was invoked; not applicable.",
+      "confidence": 0.85
+    },
+    {
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "outcome": "false",
+      "rationale": "Furnisher verified the old balance without having received the relevant primary documents; investigation could not be reasonable on the record available, but at minimum CRA's failure prevented proper duty performance.",
+      "confidence": 0.7
+    },
+    {
+      "determination_id": "fcra.human_review_required",
+      "outcome": "true",
+      "rationale": "Primary source documents (bank statements, creditor letter) were not forwarded; material evidence conflict between settlement documentation and verified balance.",
+      "confidence": 0.9
+    },
+    {
+      "determination_id": "fcra.item_treatment_satisfied",
+      "outcome": "false",
+      "rationale": "Item remained verified without a reasonable reinvestigation considering the primary documents showing settlement.",
+      "confidence": 0.9
+    },
+    {
+      "determination_id": "fcra.reinsertion_satisfied",
+      "outcome": "true",
+      "rationale": "No deletion or reinsertion is at issue; not applicable.",
+      "confidence": 0.9
+    },
+    {
+      "determination_id": "fcra.reseller_satisfied",
+      "outcome": "true",
+      "rationale": "No reseller involvement described; not applicable.",
+      "confidence": 0.9
+    },
+    {
+      "determination_id": "fcra.results_notice_satisfied",
+      "outcome": "undetermined",
+      "rationale": "Results notice was timely, but case does not confirm all required disclosures (procedure description, furnisher contact, statement right, deletion notification right).",
+      "confidence": 0.6
+    }
+  ],
+  "case_level_notes": "CRA failed to forward primary source documents to the furnisher and relied on automated coding, rendering the reinvestigation unreasonable despite timely completion. Human review warranted."
+}

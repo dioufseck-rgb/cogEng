@@ -1,0 +1,164 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.consumer_statement_filed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not mention any consumer statement of dispute filed after reinvestigation.",
+      "explanation": "This is a §1681i(b) CRA-side process; the narrative concerns a furnisher direct dispute and does not address whether a consumer statement was filed. Silence is not affirmative negation.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.subsequent_reports_note_dispute",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not describe contents of any subsequent consumer reports.",
+      "explanation": "Downstream CRA report content is outside the narrative's scope; cannot determine.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.item_in_consumer_file",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Furnisher reports the credit-card account; the dispute is about the balance the furnisher has been reporting; the log tracks whether the furnisher notified the CRAs about the correction.",
+      "explanation": "The narrative presupposes the disputed credit-card account/balance is being furnished and tracked in CRA files (the correction would need to go to CRAs). It is reasonably inferable from the record that the item exists in the consumer's CRA file.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "The dispute identifies an 'inaccurate balance' supported by a payoff statement.",
+      "explanation": "The dispute is framed as accuracy of the balance, not completeness of the item. The §1681i(a)(1)(A) trigger is disjunctive (accuracy OR completeness); this atom specifically asks about completeness, which is not what is at issue here.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.notice_direct_to_cra",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative states the consumer 'sent a direct dispute to the furnisher's published dispute address' — the dispute channel was furnisher-direct, not to a CRA.",
+      "explanation": "The narrative affirmatively characterizes this as a direct-to-furnisher dispute, with no CRA notification by the consumer described. This is a furnisher direct dispute scenario (§1681s-2(a)(8)), not a CRA dispute.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "fcra.notice_through_reseller",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative describes a direct dispute to the furnisher; no reseller is involved.",
+      "explanation": "The dispute path is explicitly consumer → furnisher, not via a reseller. The source inventory also notes reseller involvement is not covered, supporting that this branch is inapplicable.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.consumer_identity_sufficient",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Consumer identified the credit-card account, sent dispute to the furnisher's published address, and the furnisher processed it, internally agreed the balance was wrong, and reported results to the consumer.",
+      "explanation": "The furnisher was able to identify the account, evaluate the dispute, reach a substantive conclusion, and send results back to the consumer, which makes identity sufficiency reasonably inferable from the record.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.consumer_submission_authentic",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Furnisher accepted and acted upon the dispute, agreed the balance was wrong, and reported results back to the consumer; no authenticity issue is raised.",
+      "explanation": "The furnisher's substantive processing and return of results to the consumer indicates the submission was treated as authentic; record does not surface any authenticity dispute.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.frivolous_determination_made",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "Furnisher 'agreed internally that the balance was wrong and reported results to the consumer.'",
+      "explanation": "A substantive agreement that the dispute had merit is incompatible with a frivolous/irrelevant determination. The record affirmatively negates a frivolous determination.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative describes a single dispute supported by the final payoff statement; no prior dispute is referenced and the furnisher substantively investigated.",
+      "explanation": "The furnisher treated the dispute as warranting investigation and agreed with it, which is inconsistent with treating it as a duplicate of a prior dispute lacking new information.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "Furnisher actually investigated and 'agreed internally that the balance was wrong'; consumer attached the final payoff statement.",
+      "explanation": "The information provided was sufficient for the furnisher to investigate and reach a substantive conclusion, which affirmatively negates an insufficient-information finding.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.frivolous_notice_sent",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "No frivolous or irrelevant determination was made; furnisher agreed with the dispute.",
+      "explanation": "This is a conditional support atom: the triggering condition (frivolous determination) is clearly absent, so the branch is not applicable and may bind true under the conditional-branch rule.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.frivolous_reason_identified",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "No frivolous or irrelevant determination was made.",
+      "explanation": "Conditional support: the triggering condition (frivolous determination) is absent; branch inapplicable, binds true.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.frivolous_missing_info_identified",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "No frivolous or irrelevant determination was made.",
+      "explanation": "Conditional support: triggering condition (frivolous determination) is absent; branch inapplicable, binds true.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No frivolous determination occurred and no timing information is given in the narrative.",
+      "explanation": "Because no frivolous determination was made, the numeric measure is not applicable and not computable from the record; source inventory also notes timing in days is not covered.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "fcra.cra_reviewed_all_consumer_info",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative addresses only furnisher conduct on a direct dispute; CRA-side review is not described.",
+      "explanation": "Source inventory explicitly notes it does not cover CRA-side events; cannot determine CRA review.",
+      "confidence": 0.65
+    }
+  ]
+}

@@ -1,0 +1,226 @@
+{
+  "case_count": 1,
+  "case_runs": [
+    {
+      "case_id": "tier1_clean_general_track_packet",
+      "cost": {
+        "estimated_cost_usd": 0.093315,
+        "input_tokens": 3636,
+        "latency_s": 12.956058399999165,
+        "output_tokens": 517,
+        "total_tokens": 4153
+      },
+      "parsed": {
+        "case_id": "tier1_clean_general_track_packet",
+        "case_level_notes": "Clean general five-year track; all eligibility prongs satisfied.",
+        "determinations": [
+          {
+            "confidence": 0.95,
+            "determination_id": "n400.continuous_residence_satisfied",
+            "outcome": "true",
+            "rationale": "LPR for 6 years (exceeds 5-year requirement); only one 21-day trip, no absence over 6 months breaking continuous residence."
+          },
+          {
+            "confidence": 0.97,
+            "determination_id": "n400.physical_presence_satisfied",
+            "outcome": "true",
+            "rationale": "41 months physical presence in the 5-year period exceeds the 30-month requirement."
+          },
+          {
+            "confidence": 0.96,
+            "determination_id": "n400.state_residence_satisfied",
+            "outcome": "true",
+            "rationale": "9 months in same USCIS district exceeds the 3-month requirement."
+          },
+          {
+            "confidence": 0.97,
+            "determination_id": "n400.english_requirement_satisfied",
+            "outcome": "true",
+            "rationale": "English test passed per naturalization test record."
+          },
+          {
+            "confidence": 0.97,
+            "determination_id": "n400.civics_requirement_satisfied",
+            "outcome": "true",
+            "rationale": "Civics test passed per naturalization test record."
+          },
+          {
+            "confidence": 0.95,
+            "determination_id": "n400.oath_attachment_satisfied",
+            "outcome": "true",
+            "rationale": "Applicant willing to take the oath; attachment to the Constitution recorded on oath worksheet."
+          },
+          {
+            "confidence": 0.93,
+            "determination_id": "n400.good_moral_character_satisfied",
+            "outcome": "true",
+            "rationale": "FBI check shows no aggravated felony, docket search shows no pending charges, interview worksheet shows no false testimony; no GMC bars present."
+          },
+          {
+            "confidence": 0.9,
+            "determination_id": "n400.human_review_required",
+            "outcome": "false",
+            "rationale": "Clean packet; no missing, inconsistent, pending, or complex facts triggering review within benchmark scope."
+          }
+        ]
+      },
+      "prompt": "You are adjudicating a policy case directly.\n\nThis is a baseline for research. Unlike RuleKit, you are being asked to decide\nthe policy dispositions yourself from the policy summary and case packet.\n\nImportant:\n- Return only JSON.\n- Do not invent facts not in the case packet.\n- Use \"undetermined\" when required facts are missing, conflicting, or too\n  approximate for a policy determination.\n- Use \"true\" when the determination is satisfied.\n- Use \"false\" when the determination is not satisfied.\n- If the case has missing, inconsistent, pending, or complex facts, mark\n  human-review-related determinations accordingly.\n\nPOLICY SUMMARY\n==============\nSelected N-400 naturalization eligibility benchmark. The applicant must satisfy core threshold requirements, an applicable residence track, continuous residence, physical presence, state or USCIS district residence, good moral character, English and civics requirements or accepted exceptions, and oath/attachment requirements. Certain missing, inconsistent, pending, or complex facts require human review. Numeric requirements are represented with typed arithmetic and comparison nodes where possible.\n\nSELECTED DETERMINATIONS\n=======================\n[\n  {\n    \"description\": \"Continuous residence is satisfied for this benchmark scope.\",\n    \"determination_id\": \"n400.continuous_residence_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part D, Ch. 3\"\n  },\n  {\n    \"description\": \"Physical presence is satisfied under the selected track.\",\n    \"determination_id\": \"n400.physical_presence_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part D, Ch. 4\"\n  },\n  {\n    \"description\": \"State or USCIS district residence is satisfied.\",\n    \"determination_id\": \"n400.state_residence_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part D, Ch. 2-4\"\n  },\n  {\n    \"description\": \"English requirement is met or an accepted exception applies.\",\n    \"determination_id\": \"n400.english_requirement_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part E\"\n  },\n  {\n    \"description\": \"Civics requirement is met or an accepted exception applies.\",\n    \"determination_id\": \"n400.civics_requirement_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part E\"\n  },\n  {\n    \"description\": \"Attachment to the Constitution and oath-related requirements are satisfied.\",\n    \"determination_id\": \"n400.oath_attachment_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part J\"\n  },\n  {\n    \"description\": \"Selected good moral character bars and review triggers do not defeat eligibility.\",\n    \"determination_id\": \"n400.good_moral_character_satisfied\",\n    \"source_span\": \"USCIS Policy Manual, Vol. 12, Part F\"\n  },\n  {\n    \"description\": \"The case contains a benchmark human-review trigger.\",\n    \"determination_id\": \"n400.human_review_required\",\n    \"source_span\": \"RuleKit benchmark governance trigger\"\n  }\n]\n\nCASE PACKET\n===========\n{\n  \"case_id\": \"tier1_clean_general_track_packet\",\n  \"narrative\": \"The packet includes a permanent resident card, N-400 intake summary, travel table, English/civics results, oath worksheet, FBI criminal history check, court docket search, and USCIS interview worksheet. The applicant is 37 years old and has been an LPR for 6 years. The travel table lists one 21-day trip and no other travel. Physical presence worksheet states 41 months present in the United States during the five-year period. Residence worksheet states 9 months in the same USCIS district. English test passed, civics test passed, applicant is willing to take the oath, and the oath worksheet states attachment to the Constitution. FBI check reports no aggravated felony convictions. Docket search reports no pending criminal charges. USCIS interview worksheet reports no false testimony issue.\",\n  \"structured_fields\": {\n    \"binding_directives\": [\n      {\n        \"atom_ids\": [\n          \"n400.murder_conviction\",\n          \"n400.aggravated_felony_after_1990\",\n          \"n400.persecution_participation\",\n          \"n400.genocide_participation\",\n          \"n400.torture_participation\",\n          \"n400.extrajudicial_killing_participation\",\n          \"n400.controlled_substance_violation_except_single_marijuana_30g\",\n          \"n400.admission_to_drug_offense\",\n          \"n400.drug_trafficking\",\n          \"n400.habitual_drunkard\",\n          \"n400.illegal_gambling_principal_income\",\n          \"n400.multiple_gambling_convictions\",\n          \"n400.prostitution_or_commercialized_vice\",\n          \"n400.alien_smuggling\",\n          \"n400.polygamy\",\n          \"n400.false_testimony_for_immigration_benefit\",\n          \"n400.failure_to_support_dependents\",\n          \"n400.adultery_destroyed_marriage\",\n          \"n400.unlawful_voting\",\n          \"n400.false_claim_us_citizenship\",\n          \"n400.failure_register_selective_service_willful\",\n          \"n400.tax_noncompliance_willful\",\n          \"n400.fraud_or_deceit\",\n          \"n400.identity_document_fraud\",\n          \"n400.domestic_violence\",\n          \"n400.child_abuse\",\n          \"n400.violation_protective_order\",\n          \"n400.unlawful_harassment_or_stalking\",\n          \"n400.manslaughter_or_violent_crime\",\n          \"n400.dui_pattern_or_reckless_endangerment\",\n          \"n400.unpaid_restitution_or_court_orders\",\n          \"n400.probation_parole_uncompleted\",\n          \"n400.pending_criminal_charge\",\n          \"n400.unresolved_arrest_disposition\",\n          \"n400.misrepresentation_material_to_benefit\",\n          \"n400.unlawful_voting_registration\",\n          \"n400.removal_order_after_filing\",\n          \"n400.terrorism_related_activity\",\n          \"n400.nazi_persecution_related\",\n          \"n400.serious_immigration_violation\",\n          \"n400.sham_marriage_for_benefit\",\n          \"n400.smuggling_family_member_without_exception\",\n          \"n400.failure_to_pay_taxes\",\n          \"n400.social_security_fraud\",\n          \"n400.welfare_fraud\",\n          \"n400.prison_180_days_or_more\"\n        ],\n        \"evidence\": \"The clean packet includes official checks and no listed good-moral-character bar is present.\",\n        \"explanation\": \"Packet directive for absent selected negative bars.\",\n        \"kind\": \"closed_world_absence\",\n        \"source_ids\": [\n          \"fbi_check\",\n          \"docket_search\",\n          \"interview_worksheet\"\n        ]\n      }\n    ],\n    \"default_binding_groups\": [\n      {\n        \"apply_when\": \"missing_or_undetermined\",\n        \"atom_ids\": [\n          \"n400.complex_absence_pattern\",\n          \"n400.inconsistent_travel_history\",\n          \"n400.evidence_missing_critical_dates\",\n          \"n400.unresolved_tax_issue\",\n          \"n400.disputed_selective_service_issue\",\n          \"n400.pending_criminal_charge\",\n          \"n400.unresolved_arrest_disposition\",\n          \"n400.possible_false_testimony\",\n          \"n400.possible_gmc_discretion_issue\",\n          \"n400.accommodation_or_disability_documentation_unclear\",\n          \"n400.name_identity_record_conflict\",\n          \"n400.interpreter_or_understanding_issue\",\n          \"n400.legal_exception_claimed_needs_review\",\n          \"n400.outside_benchmark_scope\"\n        ],\n        \"basis\": \"explicit_negative\",\n        \"evidence\": \"The case packet does not state this review trigger within the benchmark scope.\",\n        \"explanation\": \"Scoped benchmark default for absent human-review trigger atoms.\",\n        \"value\": false\n      },\n      {\n        \"apply_when\": \"missing_or_undetermined\",\n        \"atom_ids\": [\n          \"n400.travel_records_complete\",\n          \"n400.passport_records_support_travel\",\n          \"n400.no_unexplained_trip_gaps\",\n          \"n400.no_break_in_residence_from_absence\",\n          \"n400.months_after_absence_reestablished_if_needed\",\n          \"n400.physical_presence_calculation_reliable\",\n          \"n400.us_entry_exit_records_consistent\",\n          \"n400.no_unresolved_physical_presence_gap\",\n          \"n400.stat_period_selected_correctly\",\n          \"n400.early_filing_window_applied_correctly\",\n          \"n400.jurisdiction_matches_residence\",\n          \"n400.spouse_track_residence_consistent\",\n          \"n400.favorable_to_good_order\",\n          \"n400.willing_to_bear_arms_or_noncombatant_or_civilian_work_if_required\",\n          \"n400.no_communist_party_bar_or_exception\",\n          \"n400.no_totalitarian_party_bar_or_exception\",\n          \"n400.no_advocacy_overthrow\",\n          \"n400.no_desertion_from_us_armed_forces\",\n          \"n400.no_title_of_nobility_issue\",\n          \"n400.truthful_oath_related_answers\",\n          \"n400.selective_service_registered_or_exempt\",\n          \"n400.tax_filing_compliant_or_explained\",\n          \"n400.child_support_compliant_or_explained\"\n        ],\n        \"basis\": \"inferred_from_record\",\n        \"evidence\": \"The clean packet supplies complete ordinary-course records and states no issue for this scope atom.\",\n        \"explanation\": \"Clean-packet scope default for non-load-bearing support atoms.\",\n        \"value\": true\n      }\n    ],\n    \"default_bindings\": {\n      \"n400.absence_6_to_12_months\": {\n        \"apply_when\": \"missing_or_undetermined\",\n        \"basis\": \"computed\",\n        \"evidence\": \"The only listed trip lasted 21 days.\",\n        \"value\": false\n      },\n      \"n400.absence_over_one_year\": {\n        \"apply_when\": \"missing_or_undetermined\",\n        \"basis\": \"computed\",\n        \"evidence\": \"The only listed trip lasted 21 days.\",\n        \"value\": false\n      },\n      \"n400.days_absent_trip_2\": {\n        \"apply_when\": \"missing_or_undetermined\",\n        \"basis\": \"computed\",\n        \"evidence\": \"Travel table lists one 21-day trip and no other travel.\",\n        \"value\": 0\n      },\n      \"n400.days_absent_trip_3\": {\n        \"apply_when\": \"missing_or_undetermined\",\n        \"basis\": \"computed\",\n        \"evidence\": \"Travel table lists one 21-day trip and no other travel.\",\n        \"value\": 0\n      },\n      \"n400.days_absent_trip_4\": {\n        \"apply_when\": \"missing_or_undetermined\",\n        \"basis\": \"computed\",\n        \"evidence\": \"Travel table lists one 21-day trip and no other travel.\",\n        \"value\": 0\n      },\n      \"n400.days_imprisoned_statutory_period\": {\n        \"apply_when\": \"missing_or_undetermined\",\n        \"basis\": \"closed_world_absence\",\n        \"evidence\": \"FBI check and docket search report no relevant criminal disposition.\",\n        \"source_ids\": [\n          \"fbi_check\",\n          \"docket_search\"\n        ],\n        \"value\": 0\n      },\n      \"n400.filing_under_3yr_spouse\": {\n        \"apply_when\": \"missing_or_undetermined\",\n        \"basis\": \"explicit_negative\",\n        \"evidence\": \"The case is a general five-year packet.\",\n        \"value\": false\n      },\n      \"n400.no_absence_over_one_year\": {\n        \"apply_when\": \"missing_or_undetermined\",\n        \"basis\": \"computed\",\n        \"evidence\": \"The only listed trip lasted 21 days.\",\n        \"value\": true\n      }\n    },\n    \"evidence\": {\n      \"n400.age_years\": \"Intake summary: applicant age is 37.\",\n      \"n400.aggravated_felony_after_1990\": \"FBI check: no aggravated felony convictions.\",\n      \"n400.attachment_to_constitution\": \"Oath worksheet: attachment to the Constitution recorded.\",\n      \"n400.civics_test_passed\": \"Naturalization test record: civics test passed.\",\n      \"n400.days_absent_trip_1\": \"Travel table: one trip lasted 21 days.\",\n      \"n400.english_test_passed\": \"Naturalization test record: English test passed.\",\n      \"n400.false_testimony_for_immigration_benefit\": \"USCIS interview worksheet: no false testimony issue.\",\n      \"n400.months_physical_presence_5yr\": \"Physical presence worksheet: 41 months physically present.\",\n      \"n400.months_state_or_district_residence\": \"Residence worksheet: 9 months in same USCIS district.\",\n      \"n400.pending_criminal_charge\": \"Docket search: no pending criminal charges.\",\n      \"n400.willing_to_take_oath\": \"Oath worksheet: applicant willing to take the oath.\",\n      \"n400.years_as_lpr\": \"Intake summary: applicant has been an LPR for 6 years.\"\n    },\n    \"evidence_sources\": [\n      {\n        \"closed_world_scopes\": [],\n        \"limitations\": \"Applicant and preparer supplied summary.\",\n        \"source_id\": \"intake_summary\",\n        \"source_type\": \"n400_intake_summary\",\n        \"title\": \"N-400 intake summary\"\n      },\n      {\n        \"closed_world_scopes\": [\n          \"declared_travel_history\"\n        ],\n        \"limitations\": \"Applicant-declared travel table.\",\n        \"source_id\": \"travel_table\",\n        \"source_type\": \"travel_history_table\",\n        \"title\": \"N-400 travel table\"\n      },\n      {\n        \"closed_world_scopes\": [],\n        \"limitations\": \"Structured worksheet in packet.\",\n        \"source_id\": \"presence_worksheet\",\n        \"source_type\": \"physical_presence_worksheet\",\n        \"title\": \"Physical presence worksheet\"\n      },\n      {\n        \"closed_world_scopes\": [],\n        \"limitations\": \"Current test result only.\",\n        \"source_id\": \"test_results\",\n        \"source_type\": \"naturalization_test_record\",\n        \"title\": \"English and civics test result\"\n      },\n      {\n        \"closed_world_scopes\": [],\n        \"limitations\": \"Current oath worksheet only.\",\n        \"source_id\": \"oath_worksheet\",\n        \"source_type\": \"oath_attachment_worksheet\",\n        \"title\": \"Oath and attachment worksheet\"\n      },\n      {\n        \"closed_world_scopes\": [\n          \"criminal_convictions\"\n        ],\n        \"limitations\": \"Synthetic benchmark source.\",\n        \"source_id\": \"fbi_check\",\n        \"source_type\": \"criminal_history_check\",\n        \"title\": \"FBI criminal history check\"\n      },\n      {\n        \"closed_world_scopes\": [\n          \"pending_criminal_charges\"\n        ],\n        \"limitations\": \"Synthetic benchmark source.\",\n        \"source_id\": \"docket_search\",\n        \"source_type\": \"court_docket_search\",\n        \"title\": \"Court docket search\"\n      },\n      {\n        \"closed_world_scopes\": [\n          \"false_testimony_for_immigration_benefit\"\n        ],\n        \"limitations\": \"Synthetic benchmark source.\",\n        \"source_id\": \"interview_worksheet\",\n        \"source_type\": \"uscis_interview_record\",\n        \"title\": \"USCIS interview worksheet\"\n      }\n    ]\n  },\n  \"title\": \"Clean general five-year packet\"\n}\n\nReturn ONLY this JSON shape:\n{\n  \"case_id\": \"tier1_clean_general_track_packet\",\n  \"determinations\": [\n    {\n      \"determination_id\": \"id from SELECTED DETERMINATIONS\",\n      \"outcome\": \"true|false|undetermined\",\n      \"rationale\": \"brief reason based on the case packet\",\n      \"confidence\": 0.0\n    }\n  ],\n  \"case_level_notes\": \"brief note or empty string\"\n}\n",
+      "raw_response": "{\n  \"case_id\": \"tier1_clean_general_track_packet\",\n  \"determinations\": [\n    {\n      \"determination_id\": \"n400.continuous_residence_satisfied\",\n      \"outcome\": \"true\",\n      \"rationale\": \"LPR for 6 years (exceeds 5-year requirement); only one 21-day trip, no absence over 6 months breaking continuous residence.\",\n      \"confidence\": 0.95\n    },\n    {\n      \"determination_id\": \"n400.physical_presence_satisfied\",\n      \"outcome\": \"true\",\n      \"rationale\": \"41 months physical presence in the 5-year period exceeds the 30-month requirement.\",\n      \"confidence\": 0.97\n    },\n    {\n      \"determination_id\": \"n400.state_residence_satisfied\",\n      \"outcome\": \"true\",\n      \"rationale\": \"9 months in same USCIS district exceeds the 3-month requirement.\",\n      \"confidence\": 0.96\n    },\n    {\n      \"determination_id\": \"n400.english_requirement_satisfied\",\n      \"outcome\": \"true\",\n      \"rationale\": \"English test passed per naturalization test record.\",\n      \"confidence\": 0.97\n    },\n    {\n      \"determination_id\": \"n400.civics_requirement_satisfied\",\n      \"outcome\": \"true\",\n      \"rationale\": \"Civics test passed per naturalization test record.\",\n      \"confidence\": 0.97\n    },\n    {\n      \"determination_id\": \"n400.oath_attachment_satisfied\",\n      \"outcome\": \"true\",\n      \"rationale\": \"Applicant willing to take the oath; attachment to the Constitution recorded on oath worksheet.\",\n      \"confidence\": 0.95\n    },\n    {\n      \"determination_id\": \"n400.good_moral_character_satisfied\",\n      \"outcome\": \"true\",\n      \"rationale\": \"FBI check shows no aggravated felony, docket search shows no pending charges, interview worksheet shows no false testimony; no GMC bars present.\",\n      \"confidence\": 0.93\n    },\n    {\n      \"determination_id\": \"n400.human_review_required\",\n      \"outcome\": \"false\",\n      \"rationale\": \"Clean packet; no missing, inconsistent, pending, or complex facts triggering review within benchmark scope.\",\n      \"confidence\": 0.9\n    }\n  ],\n  \"case_level_notes\": \"Clean general five-year track; all eligibility prongs satisfied.\"\n}"
+    }
+  ],
+  "dispositions": [
+    {
+      "case_id": "tier1_clean_general_track_packet",
+      "case_title": "Clean general five-year packet",
+      "confidence": 0.95,
+      "cost": {
+        "estimated_cost_usd": 0.093315,
+        "input_tokens": 3636,
+        "latency_s": 12.956058399999165,
+        "output_tokens": 517,
+        "total_tokens": 4153
+      },
+      "determination_id": "n400.continuous_residence_satisfied",
+      "disposition_id": "direct_disp_752b94064f8e4ea8981af60a7d52659f",
+      "matches_reference": true,
+      "outcome": "true",
+      "rationale": "LPR for 6 years (exceeds 5-year requirement); only one 21-day trip, no absence over 6 months breaking continuous residence.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "tier1_clean_general_track_packet",
+      "case_title": "Clean general five-year packet",
+      "confidence": 0.97,
+      "cost": {
+        "estimated_cost_usd": 0.093315,
+        "input_tokens": 3636,
+        "latency_s": 12.956058399999165,
+        "output_tokens": 517,
+        "total_tokens": 4153
+      },
+      "determination_id": "n400.physical_presence_satisfied",
+      "disposition_id": "direct_disp_115757d82d0a4774a235b1e68bc9202e",
+      "matches_reference": true,
+      "outcome": "true",
+      "rationale": "41 months physical presence in the 5-year period exceeds the 30-month requirement.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "tier1_clean_general_track_packet",
+      "case_title": "Clean general five-year packet",
+      "confidence": 0.96,
+      "cost": {
+        "estimated_cost_usd": 0.093315,
+        "input_tokens": 3636,
+        "latency_s": 12.956058399999165,
+        "output_tokens": 517,
+        "total_tokens": 4153
+      },
+      "determination_id": "n400.state_residence_satisfied",
+      "disposition_id": "direct_disp_8c45d93e0bcb4e439f6442919250cdd7",
+      "matches_reference": true,
+      "outcome": "true",
+      "rationale": "9 months in same USCIS district exceeds the 3-month requirement.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "tier1_clean_general_track_packet",
+      "case_title": "Clean general five-year packet",
+      "confidence": 0.97,
+      "cost": {
+        "estimated_cost_usd": 0.093315,
+        "input_tokens": 3636,
+        "latency_s": 12.956058399999165,
+        "output_tokens": 517,
+        "total_tokens": 4153
+      },
+      "determination_id": "n400.english_requirement_satisfied",
+      "disposition_id": "direct_disp_fe734775a2564e3cb911afb2ff804101",
+      "matches_reference": true,
+      "outcome": "true",
+      "rationale": "English test passed per naturalization test record.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "tier1_clean_general_track_packet",
+      "case_title": "Clean general five-year packet",
+      "confidence": 0.97,
+      "cost": {
+        "estimated_cost_usd": 0.093315,
+        "input_tokens": 3636,
+        "latency_s": 12.956058399999165,
+        "output_tokens": 517,
+        "total_tokens": 4153
+      },
+      "determination_id": "n400.civics_requirement_satisfied",
+      "disposition_id": "direct_disp_d151cd063d5d48f58848a34a57591e9e",
+      "matches_reference": true,
+      "outcome": "true",
+      "rationale": "Civics test passed per naturalization test record.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "tier1_clean_general_track_packet",
+      "case_title": "Clean general five-year packet",
+      "confidence": 0.95,
+      "cost": {
+        "estimated_cost_usd": 0.093315,
+        "input_tokens": 3636,
+        "latency_s": 12.956058399999165,
+        "output_tokens": 517,
+        "total_tokens": 4153
+      },
+      "determination_id": "n400.oath_attachment_satisfied",
+      "disposition_id": "direct_disp_e2be728e4e5f47118fa21eaf8be3858f",
+      "matches_reference": true,
+      "outcome": "true",
+      "rationale": "Applicant willing to take the oath; attachment to the Constitution recorded on oath worksheet.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "tier1_clean_general_track_packet",
+      "case_title": "Clean general five-year packet",
+      "confidence": 0.93,
+      "cost": {
+        "estimated_cost_usd": 0.093315,
+        "input_tokens": 3636,
+        "latency_s": 12.956058399999165,
+        "output_tokens": 517,
+        "total_tokens": 4153
+      },
+      "determination_id": "n400.good_moral_character_satisfied",
+      "disposition_id": "direct_disp_0dffec5f75a54680943b33f492465c41",
+      "matches_reference": true,
+      "outcome": "true",
+      "rationale": "FBI check shows no aggravated felony, docket search shows no pending charges, interview worksheet shows no false testimony; no GMC bars present.",
+      "reference_outcome": "true"
+    },
+    {
+      "case_id": "tier1_clean_general_track_packet",
+      "case_title": "Clean general five-year packet",
+      "confidence": 0.9,
+      "cost": {
+        "estimated_cost_usd": 0.093315,
+        "input_tokens": 3636,
+        "latency_s": 12.956058399999165,
+        "output_tokens": 517,
+        "total_tokens": 4153
+      },
+      "determination_id": "n400.human_review_required",
+      "disposition_id": "direct_disp_6acfaee8df8345169ab820ede68b736a",
+      "matches_reference": true,
+      "outcome": "false",
+      "rationale": "Clean packet; no missing, inconsistent, pending, or complex facts triggering review within benchmark scope.",
+      "reference_outcome": "false"
+    }
+  ],
+  "map_mode": "direct_llm_disposition",
+  "program": {
+    "atom_count": 140,
+    "determination_count": 11,
+    "name": "USCIS N-400 Benchmark Workspace",
+    "node_count": 208,
+    "version": "bounded benchmark: USCIS Policy Manual Volume 12 selected concepts"
+  },
+  "prompt_style": "terse"
+}

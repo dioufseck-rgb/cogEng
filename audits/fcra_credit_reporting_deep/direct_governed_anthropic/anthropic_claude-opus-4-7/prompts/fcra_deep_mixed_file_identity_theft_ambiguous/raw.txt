@@ -1,0 +1,201 @@
+{
+  "case_id": "fcra_deep_mixed_file_identity_theft_ambiguous",
+  "determinations": [
+    {
+      "determination_id": "fcra.consumer_statement_satisfied",
+      "outcome": "undetermined",
+      "rationale": "Reinvestigation is not complete and no consumer statement has been filed yet; whether statement handling will be needed depends on unresolved outcome.",
+      "confidence": 0.5,
+      "material_facts": [
+        {"fact": "Reinvestigation not yet complete", "source": "narrative", "basis": "explicit"},
+        {"fact": "No consumer statement filed in record", "source": "consumer_dispute", "basis": "closed_world_absence"}
+      ],
+      "uncertainty_flags": ["reinvestigation incomplete"],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Cannot determine satisfaction when downstream process steps remain pending."
+    },
+    {
+      "determination_id": "fcra.cra_consideration_satisfied",
+      "outcome": "undetermined",
+      "rationale": "CRA has not yet received enough material to decide; review/consideration of primary documents is unresolved.",
+      "confidence": 0.7,
+      "material_facts": [
+        {"fact": "CRA has not received enough material to decide", "source": "narrative", "basis": "explicit"},
+        {"fact": "Source documents missing", "source": "narrative", "basis": "explicit"},
+        {"fact": "Conflicting furnisher/consumer docs", "source": "narrative", "basis": "explicit"}
+      ],
+      "uncertainty_flags": ["missing primary documents", "conflict"],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Packet expressly leaves reasonableness facts undetermined."
+    },
+    {
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "outcome": "undetermined",
+      "rationale": "Whether and when the CRA notified the furnisher within 5 business days is not stated; furnisher-notice facts are undetermined.",
+      "confidence": 0.7,
+      "material_facts": [
+        {"fact": "cra_notified_furnisher undetermined", "source": "cra_log", "basis": "missing"},
+        {"fact": "business_days_to_notify_furnisher undetermined", "source": "cra_log", "basis": "missing"}
+      ],
+      "uncertainty_flags": ["missing timing fact"],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Cannot infer transmission compliance from silence."
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_required",
+      "outcome": "true",
+      "rationale": "Consumer disputed accuracy of three items in file directly to CRA, identifying accounts and basis (not mine); trigger elements present and no valid frivolous termination indicated.",
+      "confidence": 0.8,
+      "material_facts": [
+        {"fact": "Consumer disputes three collection accounts as not mine", "source": "narrative", "basis": "explicit"},
+        {"fact": "Items in consumer file", "source": "narrative", "basis": "inferred"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Trigger elements visible in narrative; no contrary fact."
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_timely",
+      "outcome": "undetermined",
+      "rationale": "Days to complete reinvestigation and receipt date are undetermined; reinvestigation not yet completed.",
+      "confidence": 0.8,
+      "material_facts": [
+        {"fact": "days_to_complete_reinvestigation undetermined", "source": "cra_log", "basis": "missing"},
+        {"fact": "reinvestigation_completed undetermined", "source": "cra_log", "basis": "missing"}
+      ],
+      "uncertainty_flags": ["missing dates"],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Timing facts absent."
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+      "outcome": "true",
+      "rationale": "Dispute identifies consumer, accounts, disputed fields (not mine), and basis; valid trigger.",
+      "confidence": 0.8,
+      "material_facts": [
+        {"fact": "Consumer dispute identifying three accounts and basis", "source": "consumer_dispute", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Trigger elements present in packet."
+    },
+    {
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "outcome": "undetermined",
+      "rationale": "No direct furnisher dispute indicated in packet; scope unclear given identity-theft/mixed-file ambiguity.",
+      "confidence": 0.5,
+      "material_facts": [
+        {"fact": "No direct dispute facts asserted", "source": "narrative", "basis": "open_world_absence"}
+      ],
+      "uncertainty_flags": ["scope unclear"],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Cannot affirm not-applicable without confirming no direct dispute occurred."
+    },
+    {
+      "determination_id": "fcra.dispute_resolution_compliant",
+      "outcome": "undetermined",
+      "rationale": "Multiple upstream determinations are undetermined and human review is required; cannot affirm overall compliance.",
+      "confidence": 0.9,
+      "material_facts": [
+        {"fact": "Source documents missing", "source": "narrative", "basis": "explicit"},
+        {"fact": "Material date conflict", "source": "narrative", "basis": "explicit"},
+        {"fact": "Identity theft claimed without report", "source": "narrative", "basis": "explicit"}
+      ],
+      "uncertainty_flags": ["missing documents", "date conflict", "identity theft pending"],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Overall compliance cannot be claimed when process steps unresolved."
+    },
+    {
+      "determination_id": "fcra.frivolous_termination_valid",
+      "outcome": "undetermined",
+      "rationale": "No frivolous determination was made; not applicable but identity theft affidavit pending could later raise sufficiency issues.",
+      "confidence": 0.6,
+      "material_facts": [
+        {"fact": "No frivolous determination indicated", "source": "narrative", "basis": "open_world_absence"}
+      ],
+      "uncertainty_flags": ["pending identity theft submission"],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Not asserting validity since no termination occurred and sufficiency is contested."
+    },
+    {
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "outcome": "undetermined",
+      "rationale": "Furnisher investigation, review, and reporting facts are all undetermined.",
+      "confidence": 0.8,
+      "material_facts": [
+        {"fact": "furnisher_investigation_conducted undetermined", "source": "furnisher_acdv", "basis": "missing"},
+        {"fact": "furnisher_reviewed_all_cra_info undetermined", "source": "furnisher_acdv", "basis": "missing"}
+      ],
+      "uncertainty_flags": ["missing furnisher facts"],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Cannot affirm without furnisher process evidence."
+    },
+    {
+      "determination_id": "fcra.human_review_required",
+      "outcome": "true",
+      "rationale": "Identity theft claim without report, mixed-file claim, material date conflict, missing source documents, and conflicting furnisher/consumer documents all trigger human review routing.",
+      "confidence": 0.95,
+      "material_facts": [
+        {"fact": "Identity theft claimed; report not supplied", "source": "narrative", "basis": "explicit"},
+        {"fact": "Mixed file claimed", "source": "narrative", "basis": "explicit"},
+        {"fact": "Material date conflict", "source": "narrative", "basis": "explicit"},
+        {"fact": "Source documents missing", "source": "narrative", "basis": "explicit"},
+        {"fact": "Conflicting furnisher and consumer documents", "source": "narrative", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Multiple explicit routing triggers present in narrative."
+    },
+    {
+      "determination_id": "fcra.item_treatment_satisfied",
+      "outcome": "undetermined",
+      "rationale": "Verification, deletion, or modification outcomes are unresolved pending reinvestigation.",
+      "confidence": 0.8,
+      "material_facts": [
+        {"fact": "item_verified_as_accurate undetermined", "source": "cra_log", "basis": "missing"},
+        {"fact": "Reinvestigation not complete", "source": "narrative", "basis": "explicit"}
+      ],
+      "uncertainty_flags": ["pending outcome"],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Treatment cannot be evaluated before reinvestigation completes."
+    },
+    {
+      "determination_id": "fcra.reinsertion_satisfied",
+      "outcome": "true",
+      "rationale": "No deletion or reinsertion event present in packet; safeguards not applicable.",
+      "confidence": 0.7,
+      "material_facts": [
+        {"fact": "No reinsertion event", "source": "cra_log", "basis": "closed_world_absence"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Not-applicable supported by closed-world CRA action log."
+    },
+    {
+      "determination_id": "fcra.reseller_satisfied",
+      "outcome": "true",
+      "rationale": "No reseller dispute is indicated; not applicable.",
+      "confidence": 0.8,
+      "material_facts": [
+        {"fact": "No reseller involvement noted", "source": "consumer_dispute", "basis": "closed_world_absence"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": false,
+      "anti_overclaim_check": "No reseller facts in packet."
+    },
+    {
+      "determination_id": "fcra.results_notice_satisfied",
+      "outcome": "undetermined",
+      "rationale": "Reinvestigation not yet complete; results notice not yet sent or its contents unknown.",
+      "confidence": 0.85,
+      "material_facts": [
+        {"fact": "results_notice_sent undetermined", "source": "results_notice", "basis": "missing"},
+        {"fact": "Reinvestigation incomplete", "source": "narrative", "basis": "explicit"}
+      ],
+      "uncertainty_flags": ["pending"],
+      "human_review_considered": true,
+      "anti_overclaim_check": "No results notice evidence in record."
+    }
+  ],
+  "case_level_notes": "Case requires human review for plausible mixed-file/identity-theft analysis with missing primary documents and material date conflicts; most process determinations remain undetermined pending additional evidence."
+}

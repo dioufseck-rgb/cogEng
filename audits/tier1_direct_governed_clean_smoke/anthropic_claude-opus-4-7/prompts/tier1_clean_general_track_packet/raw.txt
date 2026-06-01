@@ -1,0 +1,107 @@
+{
+  "case_id": "tier1_clean_general_track_packet",
+  "determinations": [
+    {
+      "determination_id": "n400.continuous_residence_satisfied",
+      "outcome": "true",
+      "rationale": "Applicant has been an LPR for 6 years, exceeding the 5-year general track requirement, with only one 21-day trip and no absences over 6 months.",
+      "confidence": 0.9,
+      "material_facts": [
+        {"fact": "LPR for 6 years", "source": "intake_summary", "basis": "explicit"},
+        {"fact": "Only one 21-day trip", "source": "travel_table", "basis": "explicit"},
+        {"fact": "No absence over 6 months or 1 year", "source": "travel_table", "basis": "closed_world_absence"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Based on declared travel table within its closed-world scope and explicit LPR duration."
+    },
+    {
+      "determination_id": "n400.physical_presence_satisfied",
+      "outcome": "true",
+      "rationale": "Physical presence worksheet shows 41 months in the 5-year period, exceeding the 30-month general track requirement.",
+      "confidence": 0.9,
+      "material_facts": [
+        {"fact": "41 months physical presence in 5-year period", "source": "presence_worksheet", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Relies only on the explicit worksheet value against the statutory threshold."
+    },
+    {
+      "determination_id": "n400.state_residence_satisfied",
+      "outcome": "true",
+      "rationale": "Residence worksheet records 9 months in the same USCIS district, exceeding the 3-month requirement.",
+      "confidence": 0.9,
+      "material_facts": [
+        {"fact": "9 months in same USCIS district", "source": "presence_worksheet/residence worksheet", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Directly compares explicit duration to statutory threshold."
+    },
+    {
+      "determination_id": "n400.english_requirement_satisfied",
+      "outcome": "true",
+      "rationale": "Naturalization test record confirms English test passed.",
+      "confidence": 0.95,
+      "material_facts": [
+        {"fact": "English test passed", "source": "test_results", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Relies on explicit test result; no exception claim raised."
+    },
+    {
+      "determination_id": "n400.civics_requirement_satisfied",
+      "outcome": "true",
+      "rationale": "Naturalization test record confirms civics test passed.",
+      "confidence": 0.95,
+      "material_facts": [
+        {"fact": "Civics test passed", "source": "test_results", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Relies on explicit test result."
+    },
+    {
+      "determination_id": "n400.oath_attachment_satisfied",
+      "outcome": "true",
+      "rationale": "Oath worksheet records attachment to the Constitution and willingness to take the oath.",
+      "confidence": 0.9,
+      "material_facts": [
+        {"fact": "Attachment to Constitution recorded", "source": "oath_worksheet", "basis": "explicit"},
+        {"fact": "Willing to take the oath", "source": "oath_worksheet", "basis": "explicit"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Explicit oath worksheet evidence; supporting attachment atoms within clean-packet default scope."
+    },
+    {
+      "determination_id": "n400.good_moral_character_satisfied",
+      "outcome": "true",
+      "rationale": "FBI check shows no aggravated felony, docket search shows no pending charges, interview worksheet shows no false testimony, and no other listed GMC bars appear within official source scopes.",
+      "confidence": 0.85,
+      "material_facts": [
+        {"fact": "No aggravated felony convictions", "source": "fbi_check", "basis": "closed_world_absence"},
+        {"fact": "No pending criminal charges", "source": "docket_search", "basis": "closed_world_absence"},
+        {"fact": "No false testimony issue", "source": "interview_worksheet", "basis": "closed_world_absence"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Negative findings drawn only within each official source's closed-world scope, per binding directive."
+    },
+    {
+      "determination_id": "n400.human_review_required",
+      "outcome": "false",
+      "rationale": "No benchmark human-review trigger atoms are present; packet is clean with no inconsistencies, pending matters, or scope concerns.",
+      "confidence": 0.85,
+      "material_facts": [
+        {"fact": "No complex absence, inconsistent travel, missing dates, tax or selective service disputes, or arrest issues listed", "source": "case packet directives", "basis": "explicit_negative"}
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Applies the explicit_negative default group for review-trigger atoms within benchmark scope."
+    }
+  ],
+  "case_level_notes": "Clean general five-year track packet with all thresholds met and no human-review triggers within benchmark scope."
+}

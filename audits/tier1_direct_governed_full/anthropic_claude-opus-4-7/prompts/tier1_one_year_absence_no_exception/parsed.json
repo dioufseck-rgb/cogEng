@@ -1,0 +1,161 @@
+{
+  "case_id": "tier1_one_year_absence_no_exception",
+  "case_level_notes": "Single-trip absence exceeding one year with no qualifying exception breaks continuous residence; many other eligibility elements are outside the packet's scope and remain undetermined.",
+  "determinations": [
+    {
+      "anti_overclaim_check": "Based directly on packet-stated travel dates and closed-world absence of exception documents in the case packet index.",
+      "confidence": 0.9,
+      "determination_id": "n400.continuous_residence_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Departure January 4, 2021 and re-entry February 10, 2022 (over one year absent)",
+          "source": "CBP travel-history printout (cbp_history)"
+        },
+        {
+          "basis": "closed_world_absence",
+          "fact": "No preservation or other qualifying exception documents in packet",
+          "source": "Case packet index (packet_index)"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Applicant statement indicates trip was for family reasons",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "false",
+      "rationale": "Travel history shows a single absence from January 4, 2021 to February 10, 2022, exceeding one year, with no N-470, qualifying employment-abroad, military, or religious-vocation exception in the packet. An absence of one year or more breaks continuous residence.",
+      "uncertainty_flags": []
+    },
+    {
+      "anti_overclaim_check": "No physical presence totals are in the packet, so neither satisfaction nor failure can be asserted.",
+      "confidence": 0.6,
+      "determination_id": "n400.physical_presence_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "missing",
+          "fact": "Only one absence segment is described; no totals provided",
+          "source": "narrative / cbp_history"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "The packet provides a single trip's dates but no aggregate physical presence calculation or statutory period context to compare against the required threshold.",
+      "uncertainty_flags": [
+        "missing fact"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Silence in the narrative on state/district residence is open-world and cannot be treated as satisfied.",
+      "confidence": 0.6,
+      "determination_id": "n400.state_residence_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "missing",
+          "fact": "No state/district residence facts provided",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "The packet contains no information about state or USCIS district residence.",
+      "uncertainty_flags": [
+        "missing fact"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Cannot infer satisfaction from absence in an open-world narrative.",
+      "confidence": 0.6,
+      "determination_id": "n400.english_requirement_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "missing",
+          "fact": "No English-related facts provided",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "The packet does not address English ability or any accepted exception.",
+      "uncertainty_flags": [
+        "missing fact"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Cannot infer satisfaction from absence in an open-world narrative.",
+      "confidence": 0.6,
+      "determination_id": "n400.civics_requirement_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "missing",
+          "fact": "No civics-related facts provided",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "The packet does not address civics ability or any accepted exception.",
+      "uncertainty_flags": [
+        "missing fact"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Open-world silence is not evidence of satisfaction.",
+      "confidence": 0.6,
+      "determination_id": "n400.oath_attachment_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "missing",
+          "fact": "No oath/attachment facts provided",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "The packet provides no information bearing on attachment to the Constitution or oath-related requirements.",
+      "uncertainty_flags": [
+        "missing fact"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Default-false review-trigger atoms only indicate absence of those triggers in scope; they do not affirmatively establish GMC.",
+      "confidence": 0.55,
+      "determination_id": "n400.good_moral_character_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "missing",
+          "fact": "No GMC-relevant facts (taxes, criminal, selective service, etc.) provided",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "The packet does not provide GMC-relevant facts; default human-review trigger atoms are marked false within scope, but the substantive GMC determination cannot be made from packet contents.",
+      "uncertainty_flags": [
+        "missing fact"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Trigger is supported by explicit packet evidence of a continuous-residence-breaking absence without exception.",
+      "confidence": 0.85,
+      "determination_id": "n400.human_review_required",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Absence over one year documented",
+          "source": "CBP travel-history printout"
+        },
+        {
+          "basis": "closed_world_absence",
+          "fact": "No exception documents present",
+          "source": "Case packet index"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "An absence of more than one year without any preservation or statutory exception is a benchmark-significant continuous residence break warranting human review for adjudication and any further claims.",
+      "uncertainty_flags": []
+    }
+  ]
+}

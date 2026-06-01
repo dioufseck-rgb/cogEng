@@ -1,0 +1,55 @@
+{
+  "atom_scope": "all",
+  "batch_size": 1,
+  "cases": "audits\\fcra_credit_reporting_deep\\runtime_cases_narrative_slice4.json",
+  "max_repair_atoms": 16,
+  "model_count": 1,
+  "program": "audits\\fcra_credit_reporting_deep\\rulekit_export_profile2\\program.json",
+  "repair_unresolved": true,
+  "runs": [
+    {
+      "basis_counts": {
+        "closed_world_absence": 1,
+        "conflicting_evidence": 1,
+        "explicit_negative": 138,
+        "explicit_positive": 33,
+        "inferred_from_record": 87,
+        "not_found": 136,
+        "open_world_absence": 84
+      },
+      "case_count": 4,
+      "cost_metrics": {
+        "avg_llm_call_latency_s": 50.19963174286074,
+        "case_count": 4,
+        "estimated_cost_usd": 2.80767,
+        "estimated_input_tokens": 68138,
+        "estimated_output_tokens": 23808,
+        "estimated_total_tokens": 91946,
+        "llm_call_count": 7,
+        "llm_latency_s": 351.3974222000252,
+        "map_latency_s": 351.3974222000252,
+        "pricing_basis": "configured_usd_per_million_tokens",
+        "token_count_basis": "estimated_from_character_count"
+      },
+      "disposition_count": 60,
+      "expected_binding_metrics": {
+        "details": [],
+        "observed_failure_modes": {}
+      },
+      "map_mode": "map_governed_evidence",
+      "matched_disposition_count": 52,
+      "mismatch_count": 8,
+      "model": "claude-opus-4-7",
+      "provider": "anthropic",
+      "selected_atom_count": 32,
+      "validation_action_counts": {
+        "accept": 480
+      },
+      "validation_status_counts": {
+        "valid": 480
+      }
+    }
+  ],
+  "selected_atom_count": 120,
+  "single_map_call": true
+}
