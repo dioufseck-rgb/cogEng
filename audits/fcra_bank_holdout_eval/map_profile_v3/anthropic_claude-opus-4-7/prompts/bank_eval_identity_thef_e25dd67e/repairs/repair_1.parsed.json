@@ -1,0 +1,38 @@
+{
+  "fcra.direct_furnisher_reviewed_info": {
+    "atom_id": "fcra.direct_furnisher_reviewed_info",
+    "basis": "inferred_from_record",
+    "confidence": 0.65,
+    "evidence": "Customer ... included a completed identity-theft report, signed affidavit, and police report. The bank reviewed the account-opening file, concluded the tradeline could not be verified ... blocked further reporting",
+    "explanation": "The furnisher's conclusion that the account could not be verified as the customer's obligation, and its decision to block reporting, is consistent only with having considered the consumer-supplied identity-theft documentation alongside its account-opening file. The record supports an inference that all relevant information submitted with the dispute was reviewed.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.item_found_inaccurate": {
+    "atom_id": "fcra.item_found_inaccurate",
+    "basis": "inferred_from_record",
+    "confidence": 0.7,
+    "evidence": "concluded the tradeline could not be verified as the customer's obligation, blocked further reporting, ... notified the CRAs of the block",
+    "explanation": "The furnisher's conclusion that the tradeline could not be verified as the customer's obligation, coupled with blocking further reporting, functionally constitutes a finding that reporting the item to this consumer was inaccurate. Under 1681i(a)(5), the result here is treated as an inaccuracy finding.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.item_found_incomplete": {
+    "atom_id": "fcra.item_found_incomplete",
+    "basis": "open_world_absence",
+    "confidence": 0.6,
+    "evidence": "Narrative describes a non-verification/block outcome; no language characterizing the item as incomplete.",
+    "explanation": "The narrative frames the outcome as non-verification/inaccuracy rather than incompleteness, and is silent on any incompleteness finding. Silence on this distinct statutory characterization does not support a binding either way.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": false
+  }
+}

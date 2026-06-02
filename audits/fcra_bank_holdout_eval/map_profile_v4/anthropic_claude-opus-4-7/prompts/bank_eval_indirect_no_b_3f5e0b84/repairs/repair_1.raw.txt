@@ -1,0 +1,104 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "Dispute is about a medical collection identity/ownership; no completeness claim and bank confirms it did not furnish the tradeline.",
+      "explanation": "Branch not applicable: narrative does not raise completeness; the bank is not the furnisher of the item.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "No prior dispute or duplicate-submission facts appear in the packet.",
+      "explanation": "Frivolous/duplicate branch is not triggered; the conditional support can bind false as not applicable.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "CRA notice identified the consumer and account reference; bank responded that the item was not furnished by it. No insufficiency was asserted.",
+      "explanation": "No frivolous/insufficient-information finding is indicated; conditional support resolves false because that branch is not triggered.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "No frivolous or irrelevant determination was made, so no frivolous-notice timing applies.",
+      "explanation": "Numeric is not meaningful where the triggering branch is absent; left undetermined because no numeric value is supported.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.item_found_inaccurate",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "Bank's furnisher desk confirmed the account was not furnished by this bank and returned no furnished tradeline; no inaccuracy was found.",
+      "explanation": "No reinvestigation finding of inaccuracy is recorded for this bank as furnisher.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.item_found_incomplete",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "Bank reported no furnished tradeline; no finding of incompleteness.",
+      "explanation": "No incompleteness finding recorded.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "Bank stated it had no furnished tradeline for the item; this is a not-furnished response, not an unverifiable finding by a furnisher of the item.",
+      "explanation": "No unverifiable result was reported by this bank with respect to information it furnished.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "fcra.item_verified_as_accurate",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "Bank responded that it had no furnished tradeline for the item; it did not verify the item as accurate.",
+      "explanation": "A not-furnished response is not a verification-as-accurate finding.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.item_status_recorded_current",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "Bank has no tradeline for this item, so it did not record a current status of the disputed information.",
+      "explanation": "Bank is not the furnisher of this item, so no current status was recorded by it.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.item_deleted",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "Bank had no furnished tradeline to delete; no deletion action is recorded.",
+      "explanation": "No deletion occurred because the bank did not furnish the item.",
+      "confidence": 0.85
+    }
+  ]
+}

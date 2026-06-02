@@ -28,6 +28,8 @@ The tested determinations are:
 - Structured governed Map run: `audits/fcra_bank_customer_disputes_live/anthropic_single_map_repair`
 - Narrative governed Map run: `audits/fcra_bank_customer_disputes_live/anthropic_narrative_single_map_repair`
 - Narrative direct governed run: `audits/fcra_bank_customer_disputes_live/anthropic_direct_governed`
+- Profiled direct run: `audits/fcra_bank_direct_profiled`
+- Tightened profiled direct run: `audits/fcra_bank_direct_profiled_v2`
 - Profile v2 governed Map run: `audits/fcra_bank_profile_v2/map_anthropic`
 - Profile v3 governed Map run: `audits/fcra_bank_profile_v3/map_anthropic`
 
@@ -40,6 +42,8 @@ The tested determinations are:
 | Narrative governed Map + bank profile v2 | 6 | 30 | 23 | 7 | 8 | 232.93s | 61,921 |
 | Narrative governed Map + bank profile v3 | 6 | 30 | 30 | 0 | 1 | 12.95s | 2,201 |
 | Narrative direct governed | 6 | 30 | 10 | 20 | 6 | 131.76s | 23,079 |
+| Narrative direct profiled | 6 | 30 | 26 | 4 | 6 | 125.71s | 67,462 |
+| Narrative direct profiled v2 | 6 | 30 | 29 | 1 | 6 | 132.89s | 69,434 |
 
 Costs were not estimated because pricing was not configured for this run.
 Token counts are the harness estimates derived from prompt/response character
@@ -113,6 +117,34 @@ Direct governed disposition was more conservative than the Map + engine path
 and matched only 10/30 determinations. The direct prompt repeatedly refused to
 infer branch non-applicability or ordinary-course completion when the narrative
 did not explicitly state every procedural detail.
+
+## Improved Direct Baseline
+
+A new `profiled` direct prompt style was added for comparison. It still asks
+the LLM to decide dispositions directly, but it supplies the active perspective
+and filtered Map-profile guidance from the policy artifact. The prompt tells
+the model to use those profile rules as reusable case-shape semantics, while
+still returning direct disposition JSON.
+
+The first profiled run improved direct adjudication from 10/30 to 26/30. Its
+four errors showed the model importing obligations across determination
+boundaries: treating missing CRA-forwarded documents as a bank furnisher
+process failure, treating a downstream CRA-correction failure as item-treatment
+failure, and treating manual review as unresolved item treatment.
+
+The tightened profiled prompt added determination-boundary discipline. It
+reached 29/30. The remaining mismatch is useful: in
+`bank_direct_dispute_corrected_but_not_sent_to_cras`, direct LLM set
+`fcra.human_review_required = true` because it treated the unsent CRA correction
+as a routing trigger. The policy pack's expected outcome is false because that
+gap is already captured by `fcra.direct_furnisher_satisfied = false`, not by
+the separate human-review routing determination.
+
+This is a good comparison point rather than a defect to erase. Direct LLM is
+now much stronger, but it remains one-call-per-case, prompt-sensitive, and
+vulnerable to holistic determination-boundary drift. Governed Map + engine
+v3 remains 30/30 with one Map call total on this case set and far fewer
+estimated tokens.
 
 ## Interpretation
 

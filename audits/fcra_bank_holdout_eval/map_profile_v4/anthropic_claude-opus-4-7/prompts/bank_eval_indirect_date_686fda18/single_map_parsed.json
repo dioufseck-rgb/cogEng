@@ -1,0 +1,245 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Narrative describes dispute about a late payment with inconsistent dates; does not characterize the dispute as one about completeness.",
+      "explanation": "Dispute appears to concern accuracy of a late mark rather than completeness; narrative is silent on completeness specifically, so absence is open-world.",
+      "source_ids": [
+        "narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "basis": "open_world_absence",
+      "confidence": 0.7,
+      "evidence": "Narrative does not mention a prior dispute or duplication.",
+      "explanation": "No indication of duplicate dispute; absence is open-world, defaulting to false per profile guidance for non-mentioned frivolous/duplicate triggers.",
+      "source_ids": [
+        "narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "ACDV packet included the customer's letter and the payment confirmation; narrative does not say information was insufficient.",
+      "explanation": "Narrative shows information was supplied; routing is for date reconciliation, not insufficiency. No affirmative statement of insufficiency.",
+      "source_ids": [
+        "narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "basis": "not_found",
+      "confidence": 0.9,
+      "evidence": "Narrative does not state any frivolous determination or notice timing.",
+      "explanation": "No frivolous determination occurred and no numeric timing is stated; numeric atom cannot be answered.",
+      "source_ids": [
+        "narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.item_found_inaccurate",
+      "basis": "not_found",
+      "confidence": 0.95,
+      "evidence": "The bank has not yet determined whether the furnished late mark is accurate, modified, or unverifiable.",
+      "explanation": "Narrative expressly states the outcome is not yet determined; cannot bind true or false.",
+      "source_ids": [
+        "narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.item_found_incomplete",
+      "basis": "not_found",
+      "confidence": 0.9,
+      "evidence": "Bank has not yet determined the investigation outcome.",
+      "explanation": "Investigation outcome pending manual review; incompleteness finding cannot be determined.",
+      "source_ids": [
+        "narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "basis": "not_found",
+      "confidence": 0.95,
+      "evidence": "Bank has not yet determined whether the furnished late mark is accurate, modified, or unverifiable.",
+      "explanation": "Unverifiability is one of the explicit pending outcomes; cannot be bound.",
+      "source_ids": [
+        "narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.item_verified_as_accurate",
+      "basis": "not_found",
+      "confidence": 0.95,
+      "evidence": "Bank has not yet determined whether the furnished late mark is accurate, modified, or unverifiable.",
+      "explanation": "Verification outcome is pending manual review; cannot bind.",
+      "source_ids": [
+        "narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.item_status_recorded_current",
+      "basis": "not_found",
+      "confidence": 0.8,
+      "evidence": "Narrative does not state whether the current status of the disputed information was recorded.",
+      "explanation": "Investigation is pending; no statement about recording the current status of the item.",
+      "source_ids": [
+        "narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.item_deleted",
+      "basis": "not_found",
+      "confidence": 0.9,
+      "evidence": "Bank has not yet determined whether the late mark is accurate, modified, or unverifiable.",
+      "explanation": "Outcome pending; deletion has not been described or ruled out.",
+      "source_ids": [
+        "narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.item_modified",
+      "basis": "not_found",
+      "confidence": 0.95,
+      "evidence": "Bank has not yet determined whether the furnished late mark is accurate, modified, or unverifiable.",
+      "explanation": "Modification is one of the explicit pending outcomes; cannot be bound.",
+      "source_ids": [
+        "narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.furnisher_investigation_conducted",
+      "basis": "not_found",
+      "confidence": 0.7,
+      "evidence": "Case routed to manual review for date reconciliation; bank has not yet determined an outcome.",
+      "explanation": "Investigation is ongoing; narrative does not affirmatively state the furnisher has conducted or completed an investigation.",
+      "source_ids": [
+        "narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.furnisher_reviewed_all_cra_info",
+      "basis": "not_found",
+      "confidence": 0.7,
+      "evidence": "Narrative describes packet contents and pending manual review, not a completed review of all CRA-transmitted info.",
+      "explanation": "No affirmative statement that the furnisher reviewed all relevant CRA information; review is pending.",
+      "source_ids": [
+        "narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.furnisher_reported_results_to_cra",
+      "basis": "not_found",
+      "confidence": 0.85,
+      "evidence": "Bank has not yet determined the outcome; no mention of reporting results to the CRA.",
+      "explanation": "Investigation pending; no results reported to CRA per the narrative.",
+      "source_ids": [
+        "narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.days_to_furnisher_complete",
+      "basis": "not_found",
+      "confidence": 0.9,
+      "evidence": "Narrative does not state any timing for furnisher completion; investigation is still pending.",
+      "explanation": "No stated or computable number of days; investigation incomplete.",
+      "source_ids": [
+        "narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.furnisher_reported_inaccuracy_to_other_cras",
+      "basis": "not_found",
+      "confidence": 0.8,
+      "evidence": "Investigation outcome pending; no mention of reporting to other nationwide CRAs.",
+      "explanation": "Cannot determine because no inaccuracy finding has been made yet and no other-CRA reporting is described.",
+      "source_ids": [
+        "narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.furnisher_modified_item",
+      "basis": "not_found",
+      "confidence": 0.9,
+      "evidence": "Bank has not yet determined whether the late mark is accurate, modified, or unverifiable.",
+      "explanation": "Modification is a pending possible outcome; cannot be bound either way.",
+      "source_ids": [
+        "narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.furnisher_deleted_item",
+      "basis": "not_found",
+      "confidence": 0.85,
+      "evidence": "Outcome pending manual review; no deletion described.",
+      "explanation": "Deletion has not occurred nor been ruled out; investigation is pending.",
+      "source_ids": [
+        "narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.furnisher_blocked_item",
+      "basis": "not_found",
+      "confidence": 0.8,
+      "evidence": "Narrative does not mention permanent blocking of the disputed information.",
+      "explanation": "No information regarding blocking; outcome pending.",
+      "source_ids": [
+        "narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    }
+  ],
+  "sources": [
+    {
+      "as_of_date": null,
+      "closed_world_scopes": [
+        "dispute_intake_channel",
+        "current_investigation_outcome"
+      ],
+      "limitations": "Short narrative; investigation outcome not yet determined; only summarizes ACDV packet contents and routing decision.",
+      "source_id": "narrative",
+      "source_type": "case_narrative",
+      "title": "Customer L late payment dispute - manual review for date reconciliation"
+    }
+  ]
+}

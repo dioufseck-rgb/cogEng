@@ -1,0 +1,24 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.item_found_incomplete",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "The bank reviewed the account ledger and payment posting system, found the reported information accurate, and sent a written investigation result to the customer.",
+      "explanation": "The narrative closes the investigation outcome as 'accurate' with no indication of partial or incomplete findings. Within the closed-world scope of the dispute investigation outcome, a finding of incompleteness is absent, so the atom binds false.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.direct_furnisher_corrected_cras",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "The bank ... found the reported information accurate, and sent a written investigation result to the customer.",
+      "explanation": "This atom is conditional on the investigation finding the information inaccurate. The narrative establishes that the investigation found the information accurate, so the triggering condition for CRA correction is clearly absent and the conditional support is satisfied vacuously.",
+      "confidence": 0.85
+    }
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "fcra.business_days_to_frivolous_notice": {
+    "atom_id": "fcra.business_days_to_frivolous_notice",
+    "basis": "inferred_from_record",
+    "confidence": 0.9,
+    "evidence": "No frivolous or irrelevant determination was made; branch not applicable.",
+    "explanation": "Conditional support tied to a frivolous determination that did not occur; numeric timing is not triggered, so the branch is not applicable.",
+    "source_ids": [
+      "narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.dispute_about_completeness": {
+    "atom_id": "fcra.dispute_about_completeness",
+    "basis": "inferred_from_record",
+    "confidence": 0.8,
+    "evidence": "Customer L disputed a late payment; inconsistent dates concern accuracy of the late mark, not completeness.",
+    "explanation": "Dispute is characterized as an accuracy dispute about a late payment mark with date inconsistencies. Completeness is not raised; branch is not applicable.",
+    "source_ids": [
+      "narrative"
+    ],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.dispute_duplicate_without_new_info": {
+    "atom_id": "fcra.dispute_duplicate_without_new_info",
+    "basis": "inferred_from_record",
+    "confidence": 0.85,
+    "evidence": "Narrative does not describe a prior dispute or duplication; per profile, no frivolous/duplicate termination is mentioned.",
+    "explanation": "No indication of duplicate dispute; consistent with profile guidance that absence of duplicate/frivolous cues binds false.",
+    "source_ids": [
+      "narrative"
+    ],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.insufficient_information_to_investigate": {
+    "atom_id": "fcra.insufficient_information_to_investigate",
+    "basis": "inferred_from_record",
+    "confidence": 0.8,
+    "evidence": "ACDV packet included the customer's letter and the payment confirmation; case routed for date reconciliation, not insufficiency.",
+    "explanation": "Record affirmatively shows information was supplied and routing reason is date reconciliation, not insufficient information.",
+    "source_ids": [
+      "narrative"
+    ],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.item_cannot_be_verified": {
+    "atom_id": "fcra.item_cannot_be_verified",
+    "basis": "not_found",
+    "confidence": 0.95,
+    "evidence": "Bank has not yet determined whether the late mark is accurate, modified, or unverifiable.",
+    "explanation": "Unverifiability is explicitly one of the pending outcomes; cannot bind.",
+    "source_ids": [
+      "narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.item_deleted": {
+    "atom_id": "fcra.item_deleted",
+    "basis": "not_found",
+    "confidence": 0.9,
+    "evidence": "Bank has not yet determined whether the late mark is accurate, modified, or unverifiable.",
+    "explanation": "Outcome pending manual review; deletion neither described nor ruled out.",
+    "source_ids": [
+      "narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.item_found_inaccurate": {
+    "atom_id": "fcra.item_found_inaccurate",
+    "basis": "not_found",
+    "confidence": 0.95,
+    "evidence": "The bank has not yet determined whether the furnished late mark is accurate, modified, or unverifiable.",
+    "explanation": "Narrative expressly states the outcome is pending manual review; cannot bind.",
+    "source_ids": [
+      "narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.item_found_incomplete": {
+    "atom_id": "fcra.item_found_incomplete",
+    "basis": "not_found",
+    "confidence": 0.9,
+    "evidence": "Investigation outcome pending manual review for date reconciliation.",
+    "explanation": "Outcome not yet determined; cannot bind incompleteness.",
+    "source_ids": [
+      "narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.item_status_recorded_current": {
+    "atom_id": "fcra.item_status_recorded_current",
+    "basis": "not_found",
+    "confidence": 0.8,
+    "evidence": "Narrative does not state whether the current status of the disputed information was recorded; investigation pending.",
+    "explanation": "No statement about recording current status; tied to a not-yet-completed investigation.",
+    "source_ids": [
+      "narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.item_verified_as_accurate": {
+    "atom_id": "fcra.item_verified_as_accurate",
+    "basis": "not_found",
+    "confidence": 0.95,
+    "evidence": "Bank has not yet determined whether the late mark is accurate, modified, or unverifiable.",
+    "explanation": "Verification outcome pending; cannot bind.",
+    "source_ids": [
+      "narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  }
+}

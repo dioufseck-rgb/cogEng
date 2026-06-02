@@ -1,0 +1,24 @@
+{
+  "sources": [
+    {
+      "source_id": "case_narrative",
+      "source_type": "case_narrative",
+      "title": "Customer O direct dispute narrative",
+      "as_of_date": null,
+      "closed_world_scopes": ["direct dispute intake and bank response actions"],
+      "limitations": "Brief narrative; no dates, no document inventory, no CRA list."
+    }
+  ],
+  "bindings": [
+    {
+      "atom_id": "fcra.direct_furnisher_corrected_cras",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["case_narrative"],
+      "evidence": "sent corrected information to the CRAs that had received the inaccurate balance",
+      "explanation": "The narrative affirmatively states the bank sent corrected information to the CRAs that received the inaccurate balance after finding the reported balance inaccurate.",
+      "confidence": 0.95
+    }
+  ]
+}

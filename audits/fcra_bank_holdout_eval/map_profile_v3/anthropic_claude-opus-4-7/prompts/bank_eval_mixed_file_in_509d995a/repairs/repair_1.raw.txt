@@ -1,0 +1,104 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Customer asserted the tradeline belonged to a person with a similar name (identity/accuracy claim), not a completeness claim.",
+      "explanation": "The dispute is characterized as an identity/accuracy mixed-file claim; no completeness aspect is raised, so the atom can be bound false from the record.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative describes a single dispute through the CRA with no reference to any prior dispute.",
+      "explanation": "Absent any prior dispute on the record, the dispute cannot be substantially the same as a prior one; bind false.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "ACDV packet included the customer's letter and two address records; case proceeded to manual review rather than being closed as insufficient.",
+      "explanation": "The record shows the dispute is in manual review with supporting materials, indicating sufficient information to investigate; no insufficiency was declared.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No frivolous/irrelevant determination or related consumer notice is mentioned.",
+      "explanation": "No frivolous determination has occurred, so no day count is available; remains undetermined.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.item_found_inaccurate",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Bank has not yet decided whether item is a mixed-file error or verified obligation; case pending manual review.",
+      "explanation": "Reinvestigation is incomplete; the record cannot support a true or false binding.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.item_found_incomplete",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Case pending manual review; no findings stated about incompleteness.",
+      "explanation": "Reinvestigation outcome is not yet recorded; cannot bind a value.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Conflicting name/DOB fields noted; case pending manual review with no verification conclusion.",
+      "explanation": "Verifiability has not been concluded; cannot bind a value.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.item_verified_as_accurate",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Bank has not yet decided; case pending manual review.",
+      "explanation": "No verification outcome recorded; cannot bind a value.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.item_status_recorded_current",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not address whether current status of the disputed information was recorded.",
+      "explanation": "No information in the record about status recording; cannot bind.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.item_deleted",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Case pending manual review; no deletion action mentioned.",
+      "explanation": "No outcome action recorded; deletion neither affirmed nor denied.",
+      "confidence": 0.8
+    }
+  ]
+}

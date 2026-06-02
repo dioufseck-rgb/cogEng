@@ -348,7 +348,7 @@ def _parser() -> argparse.ArgumentParser:
     direct_eval.add_argument("--llm-max-retries", type=int, default=2)
     direct_eval.add_argument(
         "--prompt-style",
-        choices=["terse", "governed"],
+        choices=["terse", "governed", "profiled"],
         default="terse",
         help="direct-disposition prompt style",
     )

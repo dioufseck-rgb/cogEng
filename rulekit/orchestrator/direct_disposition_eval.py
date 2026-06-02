@@ -123,6 +123,95 @@ Return ONLY this JSON shape:
 """
 
 
+PROFILED_DIRECT_DISPOSITION_PROMPT = """You are adjudicating a policy case directly.
+
+This is a profiled direct baseline for research. Unlike RuleKit, you are still
+deciding the policy dispositions yourself, but you are given the policy pack's
+perspective and Map-profile guidance so that your direct decision uses the same
+case-shape semantics a governed Map would use before deterministic execution.
+
+Important:
+- Return only JSON.
+- Do not invent facts not in the case packet.
+- Use the PROFILE GUIDANCE as reusable interpretation guidance. When its cues
+  match the narrative and its unless-cues do not, apply that rule's case-shape
+  default in your reasoning.
+- A determination described as "satisfied or not applicable" should be "true"
+  when the relevant duty branch is outside the case's natural scope. Do not
+  mark it "undetermined" merely because the narrative omits facts about an
+  inapplicable branch.
+- Separate routing from substantive compliance. Human-review triggers can make
+  human_review_required true without making an investigation/correction duty
+  satisfied.
+- Keep determination boundaries separate. Do not import a missing requirement
+  from one determination into another unless that selected determination's
+  description or profile-guided branch makes it material.
+- In particular, a failed upstream transmission duty can coexist with a
+  satisfied recipient-side duty if the recipient reviewed the materials it
+  actually received and responded as required by its own branch.
+- Do not treat downstream third-party notification/correction failures as item
+  treatment failures unless the item-treatment determination itself requires
+  that downstream act. Item treatment is about the item's verified/current,
+  deleted, or modified status under the selected policy branch.
+- Manual-review routing is not itself proof that item treatment or investigation
+  duties failed or remain unresolved; decide those determinations from their
+  own applicable branch.
+- Treat PROFILE GUIDANCE as controlling benchmark semantics when it matches the
+  narrative and no contrary case fact appears. Do not relitigate a stricter or
+  broader legal theory than the policy pack encoded.
+- Use "false" when a required applicable duty is missing, incomplete, or failed.
+- Use "undetermined" only when an applicable load-bearing fact remains genuinely
+  unresolved after applying the policy text, perspective, case packet, and
+  profile guidance.
+- For each determination, name the decisive branch, material facts, and any
+  profile rule ids you relied on.
+
+POLICY SUMMARY
+==============
+{policy_text}
+
+ACTIVE PERSPECTIVE
+==================
+{active_perspective_json}
+
+PROFILE GUIDANCE
+================
+{profile_guidance_json}
+
+SELECTED DETERMINATIONS
+=======================
+{determinations_json}
+
+CASE PACKET
+===========
+{case_json}
+
+Return ONLY this JSON shape:
+{{
+  "case_id": "{case_id}",
+  "determinations": [
+    {{
+      "determination_id": "id from SELECTED DETERMINATIONS",
+      "outcome": "true|false|undetermined",
+      "rationale": "brief reason based on the case packet",
+      "confidence": 0.0,
+      "decisive_branch": "applicable branch, not-applicable branch, routing trigger, or unresolved branch",
+      "material_facts": [
+        {{
+          "fact": "short fact",
+          "source": "source title/id or narrative",
+          "basis": "explicit|profile_default|inferred|missing|conflicting"
+        }}
+      ],
+      "profile_rule_ids": ["profile rule id or empty"],
+      "anti_overclaim_check": "why this does not overclaim beyond the packet/profile"
+    }}
+  ],
+  "case_level_notes": "brief note or empty string"
+}}
+"""
+
+
 def run_direct_disposition_eval(
     *,
     program_path: str | Path,
@@ -324,6 +413,7 @@ def build_direct_disposition_prompt(
         {
             "determination_id": det_id,
             "description": program.determinations[det_id].description,
+            "determination_kind": program.determinations[det_id].determination_kind,
             "source_span": program.determinations[det_id].source_span,
         }
         for det_id in determinations
@@ -334,13 +424,19 @@ def build_direct_disposition_prompt(
         "narrative": case.narrative,
         "structured_fields": case.structured_fields,
     }
-    template = (
-        GOVERNED_DIRECT_DISPOSITION_PROMPT
-        if prompt_style == "governed"
-        else DIRECT_DISPOSITION_PROMPT
-    )
+    template = _direct_prompt_template(prompt_style)
     return template.format(
         policy_text=policy_text,
+        active_perspective_json=json.dumps(
+            _active_perspective(program),
+            indent=2,
+            sort_keys=True,
+        ),
+        profile_guidance_json=json.dumps(
+            _profile_guidance(program),
+            indent=2,
+            sort_keys=True,
+        ),
         determinations_json=json.dumps(
             determination_payload,
             indent=2,
@@ -349,6 +445,63 @@ def build_direct_disposition_prompt(
         case_json=json.dumps(case_payload, indent=2, sort_keys=True),
         case_id=case.case_id,
     )
+
+
+def _direct_prompt_template(prompt_style: str) -> str:
+    if prompt_style == "governed":
+        return GOVERNED_DIRECT_DISPOSITION_PROMPT
+    if prompt_style == "profiled":
+        return PROFILED_DIRECT_DISPOSITION_PROMPT
+    return DIRECT_DISPOSITION_PROMPT
+
+
+def _active_perspective(program: DeterminationProgram) -> dict[str, Any]:
+    active = program.metadata.extras.get("active_perspective")
+    return active if isinstance(active, dict) else {}
+
+
+def _profile_guidance(program: DeterminationProgram) -> list[dict[str, Any]]:
+    profile = program.metadata.extras.get("map_profile")
+    if not isinstance(profile, dict):
+        return []
+    rules = profile.get("default_rules")
+    if not isinstance(rules, list):
+        return []
+    active = _active_perspective(program).get("perspective_id")
+    guidance: list[dict[str, Any]] = []
+    for rule in rules:
+        if not isinstance(rule, dict):
+            continue
+        allowed = _string_list(rule.get("perspectives") or rule.get("perspective_ids"))
+        if allowed and str(active) not in allowed:
+            continue
+        guidance.append(
+            {
+                key: rule[key]
+                for key in (
+                    "id",
+                    "kind",
+                    "atom_ids",
+                    "value",
+                    "basis",
+                    "if_any",
+                    "if_all",
+                    "unless_any",
+                    "unless_all",
+                    "evidence",
+                )
+                if key in rule
+            }
+        )
+    return guidance
+
+
+def _string_list(value: Any) -> list[str]:
+    if isinstance(value, list):
+        return [str(item) for item in value]
+    if isinstance(value, str):
+        return [value]
+    return []
 
 
 def _policy_text(program: DeterminationProgram, seed_path: str | Path | None) -> str:
@@ -463,6 +616,7 @@ def _safe_name(value: str) -> str:
 
 __all__ = [
     "DIRECT_DISPOSITION_PROMPT",
+    "PROFILED_DIRECT_DISPOSITION_PROMPT",
     "build_direct_disposition_prompt",
     "pricing_from_specs",
     "run_direct_disposition_eval",

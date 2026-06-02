@@ -1,0 +1,102 @@
+{
+  "fcra.business_days_to_frivolous_notice": {
+    "atom_id": "fcra.business_days_to_frivolous_notice",
+    "basis": "open_world_absence",
+    "confidence": 0.5,
+    "evidence": "No frivolous determination referenced; no timing data in packet.",
+    "explanation": "No frivolous/irrelevant determination is in evidence and no business-day count can be derived.",
+    "source_ids": [],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.dispute_about_completeness": {
+    "atom_id": "fcra.dispute_about_completeness",
+    "basis": "closed_world_absence",
+    "confidence": 0.6,
+    "evidence": "Dispute concerns a medical collection; no indication completeness is at issue.",
+    "explanation": "The narrative describes a dispute over an item the bank did not furnish; nothing indicates the dispute is about completeness.",
+    "source_ids": [],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.dispute_duplicate_without_new_info": {
+    "atom_id": "fcra.dispute_duplicate_without_new_info",
+    "basis": "closed_world_absence",
+    "confidence": 0.7,
+    "evidence": "No prior dispute referenced in the packet.",
+    "explanation": "Packet shows no prior dispute history, so duplicate-without-new-info does not apply.",
+    "source_ids": [],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.insufficient_information_to_investigate": {
+    "atom_id": "fcra.insufficient_information_to_investigate",
+    "basis": "closed_world_absence",
+    "confidence": 0.7,
+    "evidence": "CRA notice identified consumer and account reference; bank's reason for non-investigation was that it did not furnish the tradeline.",
+    "explanation": "There is no indication the consumer failed to provide sufficient information; the bank declined because it was not the furnisher.",
+    "source_ids": [],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.item_cannot_be_verified": {
+    "atom_id": "fcra.item_cannot_be_verified",
+    "basis": "closed_world_absence",
+    "confidence": 0.55,
+    "evidence": "Bank responded that it had no furnished tradeline for the item.",
+    "explanation": "The bank's response was non-furnisher status, not an inability-to-verify outcome from a reinvestigation.",
+    "source_ids": [],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.item_found_inaccurate": {
+    "atom_id": "fcra.item_found_inaccurate",
+    "basis": "closed_world_absence",
+    "confidence": 0.6,
+    "evidence": "Bank confirmed it did not furnish the tradeline; no reinvestigation findings reported.",
+    "explanation": "No reinvestigation by the bank occurred because it was not the furnisher; no inaccuracy finding in the record.",
+    "source_ids": [],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.item_found_incomplete": {
+    "atom_id": "fcra.item_found_incomplete",
+    "basis": "closed_world_absence",
+    "confidence": 0.6,
+    "evidence": "Bank confirmed it did not furnish the tradeline; no reinvestigation findings reported.",
+    "explanation": "No incompleteness finding in the record; bank had no tradeline to reinvestigate.",
+    "source_ids": [],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.item_verified_as_accurate": {
+    "atom_id": "fcra.item_verified_as_accurate",
+    "basis": "closed_world_absence",
+    "confidence": 0.6,
+    "evidence": "Bank confirmed it did not furnish the tradeline; no verification of accuracy occurred.",
+    "explanation": "No reinvestigation verifying the item as accurate; the bank disclaimed being the furnisher.",
+    "source_ids": [],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.notice_included_all_relevant_info": {
+    "atom_id": "fcra.notice_included_all_relevant_info",
+    "basis": "inferred_from_record",
+    "confidence": 0.5,
+    "evidence": "CRA notice to the bank identified the consumer and account reference.",
+    "explanation": "The narrative indicates the CRA notice included consumer and account identifying information; no deficiency is alleged.",
+    "source_ids": [],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.primary_documents_forwarded": {
+    "atom_id": "fcra.primary_documents_forwarded",
+    "basis": "open_world_absence",
+    "confidence": 0.5,
+    "evidence": "Packet does not mention primary source documents from the consumer.",
+    "explanation": "No information about whether the consumer submitted primary documents or whether they were forwarded.",
+    "source_ids": [],
+    "status": "undetermined",
+    "value": null
+  }
+}

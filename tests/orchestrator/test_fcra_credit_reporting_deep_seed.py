@@ -5,7 +5,10 @@ from pathlib import Path
 from rulekit.orchestrator.cli import template_seed
 from rulekit.orchestrator.config import load_policy_workspace_seed
 from rulekit.orchestrator.cases import CaseExample
-from rulekit.orchestrator.governed_map import apply_program_map_profile_defaults
+from rulekit.orchestrator.governed_map import (
+    apply_program_map_profile_defaults,
+    build_single_map_prompt,
+)
 from rulekit.orchestrator.map_record import AtomBindingRecord, AtomBindingStatus
 from rulekit.orchestrator.perspectives import (
     list_program_perspectives,
@@ -30,6 +33,13 @@ BANK_CASES_PATH = (
     / "orchestrator"
     / "example_cases"
     / "fcra_bank_customer_disputes.yaml"
+)
+BANK_EVAL_CASES_PATH = (
+    Path(__file__).parents[2]
+    / "rulekit"
+    / "orchestrator"
+    / "example_cases"
+    / "fcra_bank_customer_disputes_eval.yaml"
 )
 
 
@@ -61,7 +71,7 @@ def test_fcra_credit_reporting_deep_seed_runs_end_to_end(tmp_path):
         det.determination_kind == "routing"
         for det in result.program.determinations.values()
     )
-    assert len(result.program.metadata.extras["map_profile"]["default_rules"]) == 47
+    assert len(result.program.metadata.extras["map_profile"]["default_rules"]) == 54
     assert any(
         perspective["perspective_id"] == "bank_furnisher"
         for perspective in result.program.metadata.extras["perspectives"]
@@ -194,6 +204,36 @@ def test_fcra_bank_map_profile_rules_are_perspective_scoped(tmp_path):
     assert bank_bindings["fcra.direct_dispute_identifies_account"].value is False
 
 
+def test_fcra_bank_single_map_prompt_includes_profile_vocabulary(tmp_path):
+    result = run_policy_seed_file(
+        SEED_PATH,
+        tmp_path / "r",
+        program_id="p_fcra_deep",
+    )
+    bank_program = project_program_perspective(result.program, "bank_furnisher")
+    case = CaseExample(
+        case_id="wrong_address",
+        title="Wrong address",
+        narrative=(
+            "Customer mailed a balance dispute to the ordinary customer "
+            "service lockbox, not to the published dispute address."
+        ),
+    )
+
+    prompt = build_single_map_prompt(
+        bank_program,
+        ["fcra.direct_dispute_at_proper_address"],
+        case,
+        [],
+        evidence_by_atom={},
+    )
+
+    assert "ACTIVE PERSPECTIVE" in prompt
+    assert "PROFILE GUIDANCE" in prompt
+    assert "bank_furnisher" in prompt
+    assert "bank_direct_wrong_address" in prompt
+
+
 def test_fcra_bank_customer_dispute_cases_run_against_bank_perspective(tmp_path):
     result = run_policy_seed_file(
         SEED_PATH,
@@ -209,3 +249,16 @@ def test_fcra_bank_customer_dispute_cases_run_against_bank_perspective(tmp_path)
     assert runtime_result["disposition_count"] == 30
     assert runtime_result["matched_disposition_count"] == 30
     assert runtime_result["mismatch_count"] == 0
+
+
+def test_fcra_bank_holdout_eval_cases_are_narrative_only():
+    cases = load_runtime_cases(BANK_EVAL_CASES_PATH)
+
+    assert len(cases) == 18
+    assert all(not case.structured_fields for case in cases)
+    assert sum(len(case.expected_outcomes) for case in cases) == 90
+    assert {
+        expected.expected_value
+        for case in cases
+        for expected in case.expected_outcomes
+    } == {"false", "true", "undetermined"}

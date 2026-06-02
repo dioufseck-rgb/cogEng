@@ -1,0 +1,120 @@
+{
+  "case_id": "bank_eval_indirect_date_conflict_pending",
+  "case_level_notes": "Furnisher indirect investigation and item treatment remain pending due to date-conflict-driven manual review.",
+  "determinations": [
+    {
+      "anti_overclaim_check": "Limited to the transmission duty; does not address downstream investigation outcome.",
+      "confidence": 0.8,
+      "decisive_branch": "CRA transmitted dispute and relevant materials to the furnisher within ordinary timing",
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "ACDV packet included the customer's letter and the payment confirmation",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Dispute came through a CRA",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "bank_indirect_cra_notice_common",
+        "bank_indirect_complete_documents_forwarded",
+        "bank_indirect_cra_notice_timing_default"
+      ],
+      "rationale": "The ACDV packet to the bank included the customer's letter and the payment confirmation, indicating the CRA transmitted relevant information to the furnisher."
+    },
+    {
+      "anti_overclaim_check": "No verified, deleted, or modified status is recorded yet, so outcome cannot be true or false.",
+      "confidence": 0.85,
+      "decisive_branch": "Unresolved item-treatment branch pending reconciliation",
+      "determination_id": "fcra.item_treatment_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Inconsistent dates across CRA file, bank ledger, and customer receipt",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Bank has not yet determined accuracy/modification/unverifiability",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "profile_rule_ids": [
+        "material_date_conflict_route"
+      ],
+      "rationale": "The bank has not yet determined whether the late mark is accurate, modified, or unverifiable; case is pending in manual review with unresolved date conflicts."
+    },
+    {
+      "anti_overclaim_check": "Does not import item-treatment requirement; only that the indirect-furnisher process is not yet completed.",
+      "confidence": 0.85,
+      "decisive_branch": "Furnisher investigation incomplete; results not yet reported to CRA",
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Case routed to manual review for date reconciliation",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Bank has not yet determined the item's status",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "profile_rule_ids": [
+        "manual_review_for_forwarding_failure",
+        "material_date_conflict_route"
+      ],
+      "rationale": "The bank received the CRA notice but has not completed its investigation or reported results back to the CRA; manual review is pending."
+    },
+    {
+      "anti_overclaim_check": "Branch is outside the case's natural scope; marked satisfied/not applicable per instructions.",
+      "confidence": 0.95,
+      "decisive_branch": "Direct-dispute branch not applicable",
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Dispute was submitted through a CRA, not directly to the bank",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "no_direct_furnisher_dispute_mentioned"
+      ],
+      "rationale": "No direct dispute to the bank is described; the direct-dispute branch is not applicable."
+    },
+    {
+      "anti_overclaim_check": "Routing determination is independent of substantive duties.",
+      "confidence": 0.95,
+      "decisive_branch": "Material date conflict routing trigger plus institutional manual-review routing",
+      "determination_id": "fcra.human_review_required",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Inconsistent dates for the same transaction",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Case routed to manual review",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "material_date_conflict_route",
+        "human_review_from_routing_cues"
+      ],
+      "rationale": "Inconsistent material dates across CRA file, bank ledger, and customer receipt trigger human review, and the case has in fact been routed to manual review."
+    }
+  ]
+}

@@ -1,0 +1,422 @@
+You are repairing selected atom bindings for a governed policy engine.
+
+You are NOT deciding policy outcomes. The deterministic engine has already
+identified these atoms as unresolved on a load-bearing trace. Your job is only
+to revisit the listed atom bindings from the case packet and return improved
+bindings where the evidence supports them.
+
+Rules:
+- Treat each atom independently.
+- Do not change an atom just to make a determination true or false.
+- If the case packet still does not support a value, keep it undetermined.
+- If a conditional support atom is phrased like "if needed", "if applicable",
+  "if initial fail", or "when applicable", and the triggering condition is
+  clearly absent, it may bind true with basis "inferred_from_record" because the
+  branch is not applicable.
+- Return one binding object for every atom in REPAIR_ATOMS.
+
+Allowed basis values:
+explicit_positive, explicit_negative, closed_world_absence, open_world_absence,
+inferred_from_record, conflicting_evidence, computed, looked_up, not_found.
+
+CASE NARRATIVE
+==============
+Customer S sent a direct dispute to the bank's published dispute address about a courthouse judgment appearing on the credit report. The customer did not dispute any bank-furnished account balance, payment status, or relationship information. The bank noted that the dispute concerned only public-record information and directed the customer to the reporting source.
+
+
+SOURCE INVENTORY
+================
+[
+  {
+    "as_of_date": null,
+    "closed_world_scopes": [
+      "characterization of the dispute content and subject matter",
+      "furnisher's stated handling of the dispute"
+    ],
+    "limitations": "Narrative is a brief case summary; it describes the dispute subject and bank's response but does not detail procedural steps such as investigation conduct, results reporting, or CRA notifications.",
+    "metadata": {},
+    "source_id": "case_narrative",
+    "source_type": "case_narrative",
+    "title": "Customer S Direct Dispute Narrative"
+  }
+]
+
+REPAIR_ATOMS
+============
+[
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.direct_dispute_identifies_account",
+      "notes": "",
+      "source_span": "12 CFR 1022.43(d)",
+      "statement": "The direct dispute identifies the account or relationship in dispute.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.direct_dispute_identifies_account",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Customer S sent a direct dispute ... about a courthouse judgment appearing on the credit report. The customer did not dispute any bank-furnished account balance, payment status, or relationship information.",
+      "explanation": "Narrative characterizes the dispute as concerning a public-record judgment, not a furnisher account/relationship. It does not affirmatively state whether the dispute identified an account or relationship; this is an open-world absence.",
+      "metadata": {
+        "raw_atom_id": "fcra.direct_dispute_identifies_account"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    "relevant_evidence": "Customer S sent a direct dispute to the bank's published dispute address about a courthouse judgment appearing on the credit report. The customer did not dispute any bank-furnished account balance, payment status, or relationship information. The bank noted that the dispute concerned only public-record information and directed the customer to the reporting source.\n",
+    "repair_reasons": [
+      "fcra.direct_furnisher_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.direct_furnisher_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.direct_dispute_explains_basis",
+      "notes": "",
+      "source_span": "12 CFR 1022.43(d)",
+      "statement": "The direct dispute explains the basis for the dispute.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.direct_dispute_explains_basis",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Narrative describes the subject of the dispute but does not state the consumer's stated basis or reason for disputing.",
+      "explanation": "No affirmative statement about whether the consumer explained the basis for the dispute; absence is open-world.",
+      "metadata": {
+        "raw_atom_id": "fcra.direct_dispute_explains_basis"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    "relevant_evidence": "Customer S sent a direct dispute to the bank's published dispute address about a courthouse judgment appearing on the credit report. The customer did not dispute any bank-furnished account balance, payment status, or relationship information. The bank noted that the dispute concerned only public-record information and directed the customer to the reporting source.\n",
+    "repair_reasons": [
+      "fcra.direct_furnisher_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.direct_furnisher_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.direct_dispute_supporting_docs_supplied",
+      "notes": "",
+      "source_span": "12 CFR 1022.43(d)",
+      "statement": "The consumer supplied supporting documentation reasonably required by the furnisher.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.direct_dispute_supporting_docs_supplied",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Narrative does not mention supporting documentation.",
+      "explanation": "Whether supporting documents were supplied is not addressed; open-world absence.",
+      "metadata": {
+        "raw_atom_id": "fcra.direct_dispute_supporting_docs_supplied"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    "relevant_evidence": "Customer S sent a direct dispute to the bank's published dispute address about a courthouse judgment appearing on the credit report. The customer did not dispute any bank-furnished account balance, payment status, or relationship information. The bank noted that the dispute concerned only public-record information and directed the customer to the reporting source.\n",
+    "repair_reasons": [
+      "fcra.direct_furnisher_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.direct_furnisher_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_found_inaccurate",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "statement": "The reinvestigation found the disputed item inaccurate.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.item_found_inaccurate",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Narrative does not describe any reinvestigation outcome.",
+      "explanation": "No information about a reinvestigation finding; open-world absence.",
+      "metadata": {
+        "raw_atom_id": "fcra.item_found_inaccurate"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    "relevant_evidence": "Customer S sent a direct dispute to the bank's published dispute address about a courthouse judgment appearing on the credit report. The customer did not dispute any bank-furnished account balance, payment status, or relationship information. The bank noted that the dispute concerned only public-record information and directed the customer to the reporting source.\n",
+    "repair_reasons": [
+      "fcra.direct_furnisher_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.direct_furnisher_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_found_incomplete",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "statement": "The reinvestigation found the disputed item incomplete.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.item_found_incomplete",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Narrative does not describe any reinvestigation outcome.",
+      "explanation": "No information about whether the item was found incomplete; open-world absence.",
+      "metadata": {
+        "raw_atom_id": "fcra.item_found_incomplete"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    "relevant_evidence": "Customer S sent a direct dispute to the bank's published dispute address about a courthouse judgment appearing on the credit report. The customer did not dispute any bank-furnished account balance, payment status, or relationship information. The bank noted that the dispute concerned only public-record information and directed the customer to the reporting source.\n",
+    "repair_reasons": [
+      "fcra.direct_furnisher_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.direct_furnisher_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_cannot_be_verified",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "statement": "The disputed item could not be verified.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Narrative does not describe verification status.",
+      "explanation": "No information about verifiability; open-world absence.",
+      "metadata": {
+        "raw_atom_id": "fcra.item_cannot_be_verified"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    "relevant_evidence": "Customer S sent a direct dispute to the bank's published dispute address about a courthouse judgment appearing on the credit report. The customer did not dispute any bank-furnished account balance, payment status, or relationship information. The bank noted that the dispute concerned only public-record information and directed the customer to the reporting source.\n",
+    "repair_reasons": [
+      "fcra.direct_furnisher_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.direct_furnisher_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.direct_furnisher_investigation_conducted",
+      "notes": "",
+      "source_span": "12 CFR 1022.43(e)",
+      "statement": "The furnisher conducted a reasonable investigation of a qualifying direct dispute.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.direct_furnisher_investigation_conducted",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.55,
+      "evidence": "The bank noted that the dispute concerned only public-record information and directed the customer to the reporting source.",
+      "explanation": "The narrative indicates the bank redirected the customer rather than describing an investigation, but does not affirmatively state whether a reasonable investigation was or was not conducted. Open-world absence.",
+      "metadata": {
+        "raw_atom_id": "fcra.direct_furnisher_investigation_conducted"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    "relevant_evidence": "Customer S sent a direct dispute to the bank's published dispute address about a courthouse judgment appearing on the credit report. The customer did not dispute any bank-furnished account balance, payment status, or relationship information. The bank noted that the dispute concerned only public-record information and directed the customer to the reporting source.\n",
+    "repair_reasons": [
+      "fcra.direct_furnisher_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.direct_furnisher_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.direct_furnisher_reviewed_info",
+      "notes": "",
+      "source_span": "12 CFR 1022.43(e)",
+      "statement": "The furnisher reviewed all relevant information provided by the consumer with the direct dispute notice.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.direct_furnisher_reviewed_info",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Narrative does not state whether the furnisher reviewed information provided with the dispute notice.",
+      "explanation": "No affirmative information about review of provided materials; open-world absence.",
+      "metadata": {
+        "raw_atom_id": "fcra.direct_furnisher_reviewed_info"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    "relevant_evidence": "Customer S sent a direct dispute to the bank's published dispute address about a courthouse judgment appearing on the credit report. The customer did not dispute any bank-furnished account balance, payment status, or relationship information. The bank noted that the dispute concerned only public-record information and directed the customer to the reporting source.\n",
+    "repair_reasons": [
+      "fcra.direct_furnisher_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.direct_furnisher_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.direct_furnisher_results_reported_to_consumer",
+      "notes": "",
+      "source_span": "12 CFR 1022.43(e)",
+      "statement": "The furnisher reported direct-dispute investigation results to the consumer within the applicable period.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.direct_furnisher_results_reported_to_consumer",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.55,
+      "evidence": "The bank ... directed the customer to the reporting source.",
+      "explanation": "Narrative mentions redirection but does not state whether formal investigation results were reported to the consumer within any applicable period. Open-world absence.",
+      "metadata": {
+        "raw_atom_id": "fcra.direct_furnisher_results_reported_to_consumer"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    "relevant_evidence": "Customer S sent a direct dispute to the bank's published dispute address about a courthouse judgment appearing on the credit report. The customer did not dispute any bank-furnished account balance, payment status, or relationship information. The bank noted that the dispute concerned only public-record information and directed the customer to the reporting source.\n",
+    "repair_reasons": [
+      "fcra.direct_furnisher_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.direct_furnisher_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.direct_furnisher_corrected_cras",
+      "notes": "",
+      "source_span": "12 CFR 1022.43(e)",
+      "statement": "The furnisher notified CRAs and provided corrections when the direct investigation found reported information inaccurate.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.direct_furnisher_corrected_cras",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Narrative does not mention any CRA notifications or corrections.",
+      "explanation": "No information on whether the furnisher notified CRAs of corrections; open-world absence.",
+      "metadata": {
+        "raw_atom_id": "fcra.direct_furnisher_corrected_cras"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    "relevant_evidence": "Customer S sent a direct dispute to the bank's published dispute address about a courthouse judgment appearing on the credit report. The customer did not dispute any bank-furnished account balance, payment status, or relationship information. The bank noted that the dispute concerned only public-record information and directed the customer to the reporting source.\n",
+    "repair_reasons": [
+      "fcra.direct_furnisher_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  }
+]
+
+Return ONLY this JSON shape:
+{
+  "bindings": [
+    {
+      "atom_id": "atom id from REPAIR_ATOMS",
+      "status": "bound|undetermined|error",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["source id"],
+      "evidence": "short exact evidence or summary",
+      "explanation": "why this basis is appropriate",
+      "confidence": 0.0
+    }
+  ]
+}

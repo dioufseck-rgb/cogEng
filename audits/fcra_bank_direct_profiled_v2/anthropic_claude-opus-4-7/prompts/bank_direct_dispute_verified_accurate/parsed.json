@@ -1,0 +1,128 @@
+{
+  "case_id": "bank_direct_dispute_verified_accurate",
+  "case_level_notes": "",
+  "determinations": [
+    {
+      "anti_overclaim_check": "Marked true under the 'satisfied or not applicable' rule because the CRA path is outside this case's natural scope.",
+      "confidence": 0.9,
+      "decisive_branch": "not-applicable branch (no CRA path)",
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Customer mailed dispute directly to bank's published dispute address",
+          "source": "narrative"
+        },
+        {
+          "basis": "missing",
+          "fact": "No CRA receipt or transmission described",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "no_cra_path_for_direct_furnisher_only",
+        "bank_direct_only_no_cra_notice"
+      ],
+      "rationale": "This is a direct-to-furnisher dispute with no CRA involvement; the CRA furnisher-notice branch is not applicable."
+    },
+    {
+      "anti_overclaim_check": "Item-treatment is judged on its own branch; verification with no defect satisfies \u00a71681i(a)(5).",
+      "confidence": 0.9,
+      "decisive_branch": "no defect found after reasonable investigation; item remains verified",
+      "determination_id": "fcra.item_treatment_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Bank reviewed account ledger and payment posting system",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Bank found the reported information accurate",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "bank_verified_no_defect",
+        "bank_no_defect_found"
+      ],
+      "rationale": "Bank investigated and verified the reported information as accurate; no defect found, so the item may remain verified."
+    },
+    {
+      "anti_overclaim_check": "Treated as satisfied/not applicable because indirect path is outside scope; no overclaim about indirect investigation.",
+      "confidence": 0.9,
+      "decisive_branch": "not-applicable branch (no indirect CRA notice to furnisher)",
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Dispute was direct to the bank only",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "no_cra_path_for_direct_furnisher_only",
+        "bank_direct_only_no_cra_notice"
+      ],
+      "rationale": "No CRA-transmitted indirect dispute occurred; the \u00a71681s-2(b) indirect-furnisher branch is not applicable."
+    },
+    {
+      "anti_overclaim_check": "No CRA-correction duty applies because no inaccuracy was found; all elements of \u00a71022.43 direct-dispute investigation are met.",
+      "confidence": 0.9,
+      "decisive_branch": "direct dispute, no defect found, results reported to consumer",
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Letter sent to bank's published dispute address",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Letter identified auto-loan account and disputed late-payment month with payment confirmation",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Bank reviewed records and found information accurate",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Bank sent written investigation result to customer",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "direct_furnisher_notice_path",
+        "bank_direct_intake_common",
+        "bank_direct_not_exception",
+        "bank_direct_valid_packet_complete",
+        "bank_direct_no_defect_process_completed"
+      ],
+      "rationale": "Qualifying direct dispute packet (account identified, specific information identified, basis explained, supporting payment confirmation supplied, within scope); bank investigated, reviewed information, found no inaccuracy, and reported written results to the consumer."
+    },
+    {
+      "anti_overclaim_check": "No routing cues from the profile guidance match the narrative.",
+      "confidence": 0.88,
+      "decisive_branch": "routing default - no triggers present",
+      "determination_id": "fcra.human_review_required",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Straightforward direct dispute with payment confirmation; no conflict cues",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "false",
+      "profile_rule_ids": [
+        "bank_no_review_triggers"
+      ],
+      "rationale": "No identity theft, mixed-file, court order, missing source documents, date conflicts, or manual-review policy triggers appear in the narrative."
+    }
+  ]
+}

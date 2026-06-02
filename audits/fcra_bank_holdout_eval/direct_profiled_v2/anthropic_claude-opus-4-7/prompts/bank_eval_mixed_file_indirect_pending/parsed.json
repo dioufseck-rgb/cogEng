@@ -1,0 +1,133 @@
+{
+  "case_id": "bank_eval_mixed_file_indirect_pending",
+  "case_level_notes": "Mixed-file dispute is pending resolution; routing triggered and indirect furnisher process not yet complete.",
+  "determinations": [
+    {
+      "anti_overclaim_check": "Limited to the upstream CRA notice transmission; does not opine on downstream investigation outcomes.",
+      "confidence": 0.7,
+      "decisive_branch": "CRA-to-furnisher notice transmitted with relevant consumer information",
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "ACDV packet included customer's letter and two address records",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Dispute came through a CRA",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "bank_indirect_cra_notice_common",
+        "bank_indirect_complete_documents_forwarded"
+      ],
+      "rationale": "The CRA transmitted an ACDV packet to the bank including the consumer's letter and address records. No fact indicates missing relevant information from the CRA transmission."
+    },
+    {
+      "anti_overclaim_check": "Does not declare a defect or verification; reflects genuine unresolved load-bearing fact.",
+      "confidence": 0.8,
+      "decisive_branch": "unresolved item-treatment branch pending review",
+      "determination_id": "fcra.item_treatment_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Bank has not yet decided mixed-file vs verified",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Case pending manual review",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Conflicting name and DOB fields in bank file",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "profile_rule_ids": [
+        "mixed_file_route"
+      ],
+      "rationale": "The bank has not yet decided whether the item is a mixed-file error or verified, and the case is pending manual review. The treatment (verify, modify, delete) is genuinely unresolved."
+    },
+    {
+      "anti_overclaim_check": "Treats incompleteness as failure of an applicable duty, consistent with policy requirement to complete before the deadline.",
+      "confidence": 0.75,
+      "decisive_branch": "indirect furnisher duties incomplete",
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Bank has not yet decided the outcome",
+          "source": "narrative"
+        },
+        {
+          "basis": "missing",
+          "fact": "No report of results back to CRA described",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Conflicting name/DOB fields require resolution",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "false",
+      "profile_rule_ids": [
+        "bank_furnisher_process_completed"
+      ],
+      "rationale": "The bank has not completed its investigation and reported results to the CRA; the case remains pending manual review with unresolved mixed-file conflict. Furnisher duties after CRA notice are not yet completed."
+    },
+    {
+      "anti_overclaim_check": "Marks not-applicable branch as satisfied per instructions for inapplicable duty branches.",
+      "confidence": 0.95,
+      "decisive_branch": "branch not applicable (no direct dispute)",
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Dispute submitted through a CRA, not directly to bank",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "no_direct_furnisher_dispute_mentioned"
+      ],
+      "rationale": "No direct dispute to the furnisher is described; the dispute came through a CRA. The direct-dispute branch is not applicable."
+    },
+    {
+      "anti_overclaim_check": "Routing determination only; does not resolve substantive item treatment.",
+      "confidence": 0.95,
+      "decisive_branch": "mixed-file routing trigger and manual review policy",
+      "determination_id": "fcra.human_review_required",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Customer alleges item belongs to person with similar name",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Conflicting name and DOB fields",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Case pending manual review",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "mixed_file_route",
+        "human_review_from_routing_cues"
+      ],
+      "rationale": "Similar-name claim with conflicting name and DOB fields indicates plausible mixed-file evidence; case is explicitly in manual review. Routing triggers apply."
+    }
+  ]
+}

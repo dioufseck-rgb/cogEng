@@ -1,0 +1,149 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.direct_dispute_identifies_account",
+      "basis": "explicit_positive",
+      "confidence": 0.9,
+      "evidence": "The new message identified the same account and issue",
+      "explanation": "Narrative explicitly states the dispute identified the account.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.direct_dispute_identifies_specific_info",
+      "basis": "explicit_positive",
+      "confidence": 0.85,
+      "evidence": "repeating a balance complaint ... identified the same account and issue",
+      "explanation": "Narrative indicates the specific information (balance) being disputed was identified.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.direct_dispute_explains_basis",
+      "basis": "explicit_negative",
+      "confidence": 0.8,
+      "evidence": "included no new documents or explanation ... the bank ... identified the information needed to investigate further",
+      "explanation": "Narrative affirmatively states no explanation was provided and the bank notified consumer that needed information was missing.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.direct_dispute_supporting_docs_supplied",
+      "basis": "explicit_negative",
+      "confidence": 0.9,
+      "evidence": "included no new documents or explanation",
+      "explanation": "Narrative affirmatively states no supporting documents were supplied.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.item_found_inaccurate",
+      "basis": "open_world_absence",
+      "confidence": 0.7,
+      "evidence": "No statement about a reinvestigation finding inaccuracy.",
+      "explanation": "Narrative does not address whether reinvestigation found item inaccurate.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.item_found_incomplete",
+      "basis": "open_world_absence",
+      "confidence": 0.7,
+      "evidence": "No statement about a reinvestigation finding incompleteness.",
+      "explanation": "Narrative does not address whether item was found incomplete.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "basis": "open_world_absence",
+      "confidence": 0.7,
+      "evidence": "No statement about verification outcome.",
+      "explanation": "Narrative does not address whether the item could not be verified.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.direct_furnisher_investigation_conducted",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Bank sent notice that dispute was substantially the same as prior dispute and identified information needed; no statement that a reasonable investigation of this new dispute was conducted.",
+      "explanation": "Narrative does not affirmatively state a reasonable investigation was conducted on this new submission; cannot determine.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.direct_furnisher_reviewed_info",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Narrative does not state whether the furnisher reviewed all relevant information.",
+      "explanation": "No affirmative statement about review of provided information.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.direct_furnisher_results_reported_to_consumer",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Bank sent a notice about substantial similarity and missing information, not investigation results.",
+      "explanation": "Narrative does not state that investigation results were reported within the applicable period.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.direct_furnisher_corrected_cras",
+      "basis": "open_world_absence",
+      "confidence": 0.7,
+      "evidence": "Narrative is silent on CRA notifications or corrections.",
+      "explanation": "No information in narrative about CRA notifications.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    }
+  ],
+  "sources": [
+    {
+      "as_of_date": null,
+      "closed_world_scopes": [
+        "contents of the consumer's direct dispute message",
+        "bank's responsive notice"
+      ],
+      "limitations": "Brief narrative summary; does not enumerate all facts about the furnisher's internal investigation actions or CRA communications.",
+      "source_id": "case_narrative",
+      "source_type": "case_narrative",
+      "title": "Customer X direct dispute narrative"
+    }
+  ]
+}

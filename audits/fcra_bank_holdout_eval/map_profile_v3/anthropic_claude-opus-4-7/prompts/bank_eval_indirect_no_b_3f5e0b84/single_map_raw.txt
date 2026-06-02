@@ -1,0 +1,267 @@
+{
+  "sources": [
+    {
+      "source_id": "case_narrative",
+      "source_type": "case_narrative",
+      "title": "Customer M CRA Dispute Packet Narrative",
+      "as_of_date": null,
+      "closed_world_scopes": [
+        "whether a direct dispute was sent to the bank",
+        "whether a review trigger appears in the packet",
+        "whether this bank furnished the disputed tradeline"
+      ],
+      "limitations": "Narrative summary only; does not enumerate CRA internal actions, timing details, or document contents."
+    }
+  ],
+  "bindings": [
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative says consumer disputed a medical collection but does not characterize the dispute as about completeness.",
+      "explanation": "No statement in the record indicates whether the dispute concerns completeness.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "No mention of any prior dispute or duplication.",
+      "explanation": "Record does not address whether this dispute is substantially the same as a prior one.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not state whether the consumer's information was insufficient to investigate.",
+      "explanation": "No affirmation or denial regarding sufficiency of consumer information.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No timing information regarding frivolous-or-irrelevant notice to the consumer.",
+      "explanation": "Numeric value not stated or derivable from the record.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.notice_included_all_relevant_info",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative states the CRA notice identified the consumer and account reference but does not confirm it included all relevant information from the consumer.",
+      "explanation": "Record is silent on completeness of CRA notice content.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.primary_documents_forwarded",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not mention forwarding of primary source documents.",
+      "explanation": "No information about primary documents being forwarded or made available.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.item_found_inaccurate",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "No reinvestigation finding is described in the narrative.",
+      "explanation": "Record does not state outcome of CRA reinvestigation regarding inaccuracy.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.item_found_incomplete",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "No reinvestigation finding is described in the narrative.",
+      "explanation": "Record does not state outcome of CRA reinvestigation regarding incompleteness.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not describe a verification outcome by the CRA.",
+      "explanation": "No statement on whether the item could not be verified.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.item_verified_as_accurate",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not describe a verification outcome by the CRA.",
+      "explanation": "Record silent on whether item was verified as accurate.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.item_status_recorded_current",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "No mention of CRA recording the current status of the disputed information.",
+      "explanation": "Record does not address current-status recording.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.item_deleted",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "No mention of deletion from the consumer's file.",
+      "explanation": "Record does not state whether the item was deleted.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.item_modified",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "No mention of modification of the disputed item.",
+      "explanation": "Record silent on modification.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.furnisher_investigation_conducted",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "Bank's furnisher desk confirmed the account was not furnished by this bank and returned a response saying it had no furnished tradeline for the item.",
+      "explanation": "The bank affirmatively responded that it does not furnish the tradeline; no substantive furnisher investigation of the disputed information was conducted.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.furnisher_reviewed_all_cra_info",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "Furnisher desk responded that it had no furnished tradeline for the item; no review of CRA-supplied information regarding a tradeline occurred.",
+      "explanation": "Because the bank is not the furnisher, it did not undertake the review described by the statute; the narrative affirms only a not-our-tradeline response.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.furnisher_reported_results_to_cra",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["case_narrative"],
+      "evidence": "Bank's furnisher desk returned a response saying it had no furnished tradeline for the item.",
+      "explanation": "Narrative affirmatively states the bank returned a response to the CRA notice.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.days_to_furnisher_complete",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No dates or day counts are stated in the narrative.",
+      "explanation": "Cannot extract a numeric value without stated timing.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.furnisher_reported_inaccuracy_to_other_cras",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Bank confirmed the account was not furnished by this bank; it had no furnished tradeline to correct at other CRAs.",
+      "explanation": "Because there is no furnished tradeline, there is nothing to report as inaccurate to other CRAs; the narrative's closed-world scope on furnishing supports a negative.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.furnisher_modified_item",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Bank confirmed no furnished tradeline for the item.",
+      "explanation": "No tradeline exists at this furnisher to modify; closed-world scope on furnishing supports false.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.furnisher_deleted_item",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Bank confirmed no furnished tradeline for the item.",
+      "explanation": "Nothing to delete at this furnisher; closed-world scope supports false.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.furnisher_blocked_item",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Bank confirmed no furnished tradeline for the item.",
+      "explanation": "Nothing to block at this furnisher; closed-world scope supports false.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.direct_dispute_received_by_furnisher",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "No direct dispute was sent to the bank.",
+      "explanation": "Narrative affirmatively states no direct dispute was sent, within its closed-world scope on direct disputes.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.direct_dispute_public_record_only",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No direct dispute exists in the record to characterize.",
+      "explanation": "Without a direct dispute, the scope of any such dispute is not applicable/derivable.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.direct_dispute_fraud_alert_only",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No direct dispute exists in the record to characterize.",
+      "explanation": "Cannot characterize a non-existent direct dispute.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.direct_dispute_at_proper_address",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No direct dispute described; addressing cannot be evaluated.",
+      "explanation": "Atom is not answerable when no direct dispute exists in the record.",
+      "confidence": 0.6
+    },
+    {

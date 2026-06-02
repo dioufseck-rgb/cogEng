@@ -1,0 +1,109 @@
+{
+  "case_id": "bank_direct_dispute_insufficient_information",
+  "case_level_notes": "Direct-only intake with an insufficient packet; primary issue is whether the bank's insufficiency response meets the frivolous/insufficient notice requirements of section 11.",
+  "determinations": [
+    {
+      "anti_overclaim_check": "Marked satisfied because the CRA branch is outside the case's scope, per profile guidance for direct-only intake.",
+      "confidence": 0.9,
+      "decisive_branch": "not-applicable branch (direct-only path)",
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Message arrived at bank's published dispute address",
+          "source": "narrative"
+        },
+        {
+          "basis": "missing",
+          "fact": "No CRA involvement mentioned",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "bank_direct_only_no_cra_notice",
+        "no_cra_path_for_direct_furnisher_only"
+      ],
+      "rationale": "No CRA path exists; the dispute was sent directly to the bank's published dispute address, so CRA furnisher-notice duties are not applicable."
+    },
+    {
+      "anti_overclaim_check": "Treatment duty is not engaged absent an investigation outcome identifying inaccuracy.",
+      "confidence": 0.8,
+      "decisive_branch": "not-applicable branch (no investigation reached treatment stage)",
+      "determination_id": "fcra.item_treatment_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Bank marked packet insufficient and requested missing details",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "bank_direct_insufficient_packet"
+      ],
+      "rationale": "No investigation was conducted because the packet was insufficient; no defect was found and no treatment duty was triggered."
+    },
+    {
+      "anti_overclaim_check": "Indirect branch is outside natural scope; marked satisfied as not applicable.",
+      "confidence": 0.9,
+      "decisive_branch": "not-applicable branch (no CRA notice)",
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Direct-only dispute at bank's dispute address",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "no_cra_path_for_direct_furnisher_only",
+        "bank_direct_only_no_cra_notice"
+      ],
+      "rationale": "No CRA notice to the furnisher occurred; indirect furnisher duties are outside this case's scope."
+    },
+    {
+      "anti_overclaim_check": "Marked false because the packet failed qualifying criteria and the record does not confirm a full compliant frivolous/insufficiency notice with stated reasons and required-information identification.",
+      "confidence": 0.6,
+      "decisive_branch": "applicable branch failed - insufficient packet handling",
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Message did not identify account, field, or documents",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Bank marked it insufficient and requested missing details",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "false",
+      "profile_rule_ids": [
+        "bank_direct_insufficient_packet",
+        "bank_direct_intake_common"
+      ],
+      "rationale": "The direct dispute did not identify the account, the specific disputed field, or include supporting documentation, so it is not a qualifying direct dispute. The bank requested missing details but the profile guidance also requires sending a frivolous/insufficient notice with reasons and identifying needed information within 5 business days; the narrative only shows a request for details, not a complete compliant insufficiency notice with the required disclosures."
+    },
+    {
+      "anti_overclaim_check": "No routing-trigger cues from the profile guidance match the narrative.",
+      "confidence": 0.85,
+      "decisive_branch": "routing default - no triggers",
+      "determination_id": "fcra.human_review_required",
+      "material_facts": [
+        {
+          "basis": "missing",
+          "fact": "Narrative contains no identity-theft, mixed-file, litigation, or document-conflict cues",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "false",
+      "profile_rule_ids": [
+        "bank_no_review_triggers"
+      ],
+      "rationale": "No routing triggers (identity theft, mixed file, court order, missing source documents in a CRA transmission, date conflict, etc.) are present. The dispute is simply insufficient and was handled by requesting more information."
+    }
+  ]
+}

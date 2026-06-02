@@ -1,0 +1,418 @@
+You are repairing selected atom bindings for a governed policy engine.
+
+You are NOT deciding policy outcomes. The deterministic engine has already
+identified these atoms as unresolved on a load-bearing trace. Your job is only
+to revisit the listed atom bindings from the case packet and return improved
+bindings where the evidence supports them.
+
+Rules:
+- Treat each atom independently.
+- Do not change an atom just to make a determination true or false.
+- If the case packet still does not support a value, keep it undetermined.
+- If a conditional support atom is phrased like "if needed", "if applicable",
+  "if initial fail", or "when applicable", and the triggering condition is
+  clearly absent, it may bind true with basis "inferred_from_record" because the
+  branch is not applicable.
+- Return one binding object for every atom in REPAIR_ATOMS.
+
+Allowed basis values:
+explicit_positive, explicit_negative, closed_world_absence, open_world_absence,
+inferred_from_record, conflicting_evidence, computed, looked_up, not_found.
+
+CASE NARRATIVE
+==============
+Customer L disputed a late payment through a CRA. The ACDV packet included the customer's letter and the payment confirmation, but the CRA file, bank ledger, and customer receipt show inconsistent dates for the same transaction. The bank has not yet determined whether the furnished late mark is accurate, modified, or unverifiable, and the case is routed to manual review for date reconciliation.
+
+
+SOURCE INVENTORY
+================
+[
+  {
+    "as_of_date": null,
+    "closed_world_scopes": [
+      "acdv_packet_contents_summary",
+      "current_case_status"
+    ],
+    "limitations": "Narrative is a high-level summary; does not enumerate timeline days, prior dispute history, or post-review furnisher actions. Case is still in manual review.",
+    "metadata": {},
+    "source_id": "case_narrative",
+    "source_type": "case_narrative",
+    "title": "Customer L FCRA Dispute Narrative"
+  }
+]
+
+REPAIR_ATOMS
+============
+[
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.dispute_about_completeness",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)(A)",
+      "statement": "The dispute concerns completeness of the item.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.dispute_about_completeness",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Customer L disputed a late payment; narrative frames dispute as accuracy of date of late mark, not characterized as completeness.",
+      "explanation": "Narrative does not state whether the dispute is about completeness vs. accuracy; cannot determine.",
+      "metadata": {
+        "raw_atom_id": "fcra.dispute_about_completeness"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "Customer L disputed a late payment through a CRA. The ACDV packet included the customer's letter and the payment confirmation, but the CRA file, bank ledger, and customer receipt show inconsistent dates for the same transaction. The bank has not yet determined whether the furnished late mark is accurate, modified, or unverifiable, and the case is routed to manual review for date reconciliation.\n",
+    "repair_reasons": [
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.dispute_duplicate_without_new_info",
+      "notes": "",
+      "source_span": "12 CFR 1022.43(f)(1)(ii)",
+      "statement": "The dispute is substantially the same as a prior dispute and contains no new required information.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "No mention of any prior dispute by Customer L.",
+      "explanation": "Absence of prior-dispute reference in an open-ended narrative does not establish that this is or is not a duplicate.",
+      "metadata": {
+        "raw_atom_id": "fcra.dispute_duplicate_without_new_info"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "Customer L disputed a late payment through a CRA. The ACDV packet included the customer's letter and the payment confirmation, but the CRA file, bank ledger, and customer receipt show inconsistent dates for the same transaction. The bank has not yet determined whether the furnished late mark is accurate, modified, or unverifiable, and the case is routed to manual review for date reconciliation.\n",
+    "repair_reasons": [
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "numeric",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.business_days_to_frivolous_notice",
+      "notes": "",
+      "numeric_unit": "business_days",
+      "source_span": "15 U.S.C. 1681i(a)(3)(B)",
+      "statement": "Business days from frivolous or irrelevant determination to consumer notice.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "atom_type": "numeric",
+      "basis": "not_found",
+      "confidence": 0.9,
+      "evidence": "No frivolous/irrelevant determination or notice timing is described.",
+      "explanation": "Narrative provides no dates supporting a numeric extraction.",
+      "metadata": {
+        "raw_atom_id": "fcra.business_days_to_frivolous_notice"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "Customer L disputed a late payment through a CRA. The ACDV packet included the customer's letter and the payment confirmation, but the CRA file, bank ledger, and customer receipt show inconsistent dates for the same transaction. The bank has not yet determined whether the furnished late mark is accurate, modified, or unverifiable, and the case is routed to manual review for date reconciliation.\n",
+    "repair_reasons": [
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_found_inaccurate",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "statement": "The reinvestigation found the disputed item inaccurate.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.item_found_inaccurate",
+      "atom_type": "boolean",
+      "basis": "inferred_from_record",
+      "confidence": 0.9,
+      "evidence": "The bank has not yet determined whether the furnished late mark is accurate, modified, or unverifiable.",
+      "explanation": "Reinvestigation outcome is pending; cannot bind true or false.",
+      "metadata": {
+        "raw_atom_id": "fcra.item_found_inaccurate"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "Customer L disputed a late payment through a CRA. The ACDV packet included the customer's letter and the payment confirmation, but the CRA file, bank ledger, and customer receipt show inconsistent dates for the same transaction. The bank has not yet determined whether the furnished late mark is accurate, modified, or unverifiable, and the case is routed to manual review for date reconciliation.\n",
+    "repair_reasons": [
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_found_incomplete",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "statement": "The reinvestigation found the disputed item incomplete.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.item_found_incomplete",
+      "atom_type": "boolean",
+      "basis": "inferred_from_record",
+      "confidence": 0.9,
+      "evidence": "Bank has not yet determined accuracy/modification/verifiability; case routed to manual review.",
+      "explanation": "Outcome pending; no finding of incompleteness has been made.",
+      "metadata": {
+        "raw_atom_id": "fcra.item_found_incomplete"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "Customer L disputed a late payment through a CRA. The ACDV packet included the customer's letter and the payment confirmation, but the CRA file, bank ledger, and customer receipt show inconsistent dates for the same transaction. The bank has not yet determined whether the furnished late mark is accurate, modified, or unverifiable, and the case is routed to manual review for date reconciliation.\n",
+    "repair_reasons": [
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_cannot_be_verified",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "statement": "The disputed item could not be verified.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "atom_type": "boolean",
+      "basis": "inferred_from_record",
+      "confidence": 0.9,
+      "evidence": "Bank has not yet determined whether the furnished late mark is unverifiable; manual review pending.",
+      "explanation": "Verifiability determination is explicitly pending.",
+      "metadata": {
+        "raw_atom_id": "fcra.item_cannot_be_verified"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "Customer L disputed a late payment through a CRA. The ACDV packet included the customer's letter and the payment confirmation, but the CRA file, bank ledger, and customer receipt show inconsistent dates for the same transaction. The bank has not yet determined whether the furnished late mark is accurate, modified, or unverifiable, and the case is routed to manual review for date reconciliation.\n",
+    "repair_reasons": [
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_verified_as_accurate",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)",
+      "statement": "The disputed item was verified as complete and accurate after reasonable reinvestigation.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.item_verified_as_accurate",
+      "atom_type": "boolean",
+      "basis": "inferred_from_record",
+      "confidence": 0.9,
+      "evidence": "Bank has not yet determined whether the furnished late mark is accurate.",
+      "explanation": "No verification finding has been made.",
+      "metadata": {
+        "raw_atom_id": "fcra.item_verified_as_accurate"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "Customer L disputed a late payment through a CRA. The ACDV packet included the customer's letter and the payment confirmation, but the CRA file, bank ledger, and customer receipt show inconsistent dates for the same transaction. The bank has not yet determined whether the furnished late mark is accurate, modified, or unverifiable, and the case is routed to manual review for date reconciliation.\n",
+    "repair_reasons": [
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_status_recorded_current",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)",
+      "statement": "The current status of the disputed information was recorded.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.item_status_recorded_current",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Narrative does not state whether the current status of the disputed information was recorded.",
+      "explanation": "Not addressed by the narrative.",
+      "metadata": {
+        "raw_atom_id": "fcra.item_status_recorded_current"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "Customer L disputed a late payment through a CRA. The ACDV packet included the customer's letter and the payment confirmation, but the CRA file, bank ledger, and customer receipt show inconsistent dates for the same transaction. The bank has not yet determined whether the furnished late mark is accurate, modified, or unverifiable, and the case is routed to manual review for date reconciliation.\n",
+    "repair_reasons": [
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_deleted",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "statement": "The disputed item was deleted from the consumer's file.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.item_deleted",
+      "atom_type": "boolean",
+      "basis": "inferred_from_record",
+      "confidence": 0.85,
+      "evidence": "Reinvestigation outcome pending in manual review.",
+      "explanation": "No deletion action stated; outcome not yet determined.",
+      "metadata": {
+        "raw_atom_id": "fcra.item_deleted"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "Customer L disputed a late payment through a CRA. The ACDV packet included the customer's letter and the payment confirmation, but the CRA file, bank ledger, and customer receipt show inconsistent dates for the same transaction. The bank has not yet determined whether the furnished late mark is accurate, modified, or unverifiable, and the case is routed to manual review for date reconciliation.\n",
+    "repair_reasons": [
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_modified",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "statement": "The disputed item was modified as appropriate.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.item_modified",
+      "atom_type": "boolean",
+      "basis": "inferred_from_record",
+      "confidence": 0.9,
+      "evidence": "Bank has not yet determined whether the furnished late mark is modified; manual review pending.",
+      "explanation": "Modification outcome is explicitly pending.",
+      "metadata": {
+        "raw_atom_id": "fcra.item_modified"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "Customer L disputed a late payment through a CRA. The ACDV packet included the customer's letter and the payment confirmation, but the CRA file, bank ledger, and customer receipt show inconsistent dates for the same transaction. The bank has not yet determined whether the furnished late mark is accurate, modified, or unverifiable, and the case is routed to manual review for date reconciliation.\n",
+    "repair_reasons": [
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  }
+]
+
+Return ONLY this JSON shape:
+{
+  "bindings": [
+    {
+      "atom_id": "atom id from REPAIR_ATOMS",
+      "status": "bound|undetermined|error",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["source id"],
+      "evidence": "short exact evidence or summary",
+      "explanation": "why this basis is appropriate",
+      "confidence": 0.0
+    }
+  ]
+}

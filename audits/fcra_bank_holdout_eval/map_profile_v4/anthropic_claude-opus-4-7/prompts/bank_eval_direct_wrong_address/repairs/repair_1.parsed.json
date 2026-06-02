@@ -1,0 +1,102 @@
+{
+  "fcra.account_identified": {
+    "atom_id": "fcra.account_identified",
+    "basis": "explicit_positive",
+    "confidence": 0.95,
+    "evidence": "The letter included an account number",
+    "explanation": "Account number provided in letter identifies the account.",
+    "source_ids": [],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.basis_explained": {
+    "atom_id": "fcra.basis_explained",
+    "basis": "inferred_from_record",
+    "confidence": 0.8,
+    "evidence": "described the disputed balance, and attached a payment receipt",
+    "explanation": "Attached payment receipt explains the basis for the disputed balance.",
+    "source_ids": [],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.consumer_disputed_item": {
+    "atom_id": "fcra.consumer_disputed_item",
+    "basis": "explicit_positive",
+    "confidence": 0.9,
+    "evidence": "Customer R mailed a balance dispute ... described the disputed balance",
+    "explanation": "Narrative explicitly states the consumer disputed the balance.",
+    "source_ids": [],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.consumer_identity_sufficient": {
+    "atom_id": "fcra.consumer_identity_sufficient",
+    "basis": "inferred_from_record",
+    "confidence": 0.7,
+    "evidence": "The letter included an account number",
+    "explanation": "Letter from named Customer R included an account number, supporting sufficient identity to investigate.",
+    "source_ids": [],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.consumer_submission_authentic": {
+    "atom_id": "fcra.consumer_submission_authentic",
+    "basis": "inferred_from_record",
+    "confidence": 0.75,
+    "evidence": "Customer R mailed a balance dispute ... The letter included an account number",
+    "explanation": "Signed letter from named customer with valid account number indicates an authentic consumer submission; no evidence of fraud or impersonation.",
+    "source_ids": [],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.dispute_about_accuracy": {
+    "atom_id": "fcra.dispute_about_accuracy",
+    "basis": "explicit_positive",
+    "confidence": 0.9,
+    "evidence": "described the disputed balance, and attached a payment receipt",
+    "explanation": "Balance dispute with payment receipt is an accuracy dispute.",
+    "source_ids": [],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.dispute_about_completeness": {
+    "atom_id": "fcra.dispute_about_completeness",
+    "basis": "explicit_negative",
+    "confidence": 0.7,
+    "evidence": "described the disputed balance, and attached a payment receipt",
+    "explanation": "Dispute concerns the accuracy of the balance (payment receipt evidence), not completeness of the reporting.",
+    "source_ids": [],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.disputed_field_identified": {
+    "atom_id": "fcra.disputed_field_identified",
+    "basis": "explicit_positive",
+    "confidence": 0.9,
+    "evidence": "described the disputed balance",
+    "explanation": "The specific disputed field (balance) is identified.",
+    "source_ids": [],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.item_in_consumer_file": {
+    "atom_id": "fcra.item_in_consumer_file",
+    "basis": "not_found",
+    "confidence": 0.5,
+    "evidence": "No CRA notice is in the file.",
+    "explanation": "The narrative is a direct-to-bank dispute mailed to the wrong address; there is no record of whether the disputed item is contained in the consumer's CRA file.",
+    "source_ids": [],
+    "status": "undetermined",
+    "value": "undetermined"
+  },
+  "fcra.notice_direct_to_cra": {
+    "atom_id": "fcra.notice_direct_to_cra",
+    "basis": "explicit_negative",
+    "confidence": 0.95,
+    "evidence": "No CRA notice is in the file.",
+    "explanation": "Narrative explicitly states no CRA notice exists; consumer mailed only to the bank lockbox, not to a CRA.",
+    "source_ids": [],
+    "status": "bound",
+    "value": false
+  }
+}

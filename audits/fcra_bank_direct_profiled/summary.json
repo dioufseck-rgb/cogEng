@@ -1,0 +1,40 @@
+{
+  "cases": "audits\\fcra_bank_customer_disputes_live\\fcra_bank_customer_disputes_narrative_only.yaml",
+  "model_count": 1,
+  "program": "audits\\fcra_bank_profile_v3\\bank_furnisher_program.json",
+  "prompt_style": "profiled",
+  "reference_dispositions": null,
+  "runs": [
+    {
+      "case_count": 6,
+      "cost_metrics": {
+        "avg_llm_call_latency_s": 20.952492866674827,
+        "case_count": 6,
+        "estimated_cost_usd": null,
+        "estimated_input_tokens": 60070,
+        "estimated_output_tokens": 7392,
+        "estimated_total_tokens": 67462,
+        "llm_call_count": 6,
+        "llm_latency_s": 125.71495720004896,
+        "pricing_basis": "not_configured",
+        "token_count_basis": "estimated_from_character_count"
+      },
+      "disposition_count": 30,
+      "model": "claude-opus-4-7",
+      "outcome_counts": {
+        "false": 10,
+        "true": 18,
+        "undetermined": 2
+      },
+      "prompt_style": "profiled",
+      "provider": "anthropic",
+      "reference_agreement": {
+        "agreement_rate": 0.8666666666666667,
+        "compared_count": 30,
+        "reference_agree_count": 26,
+        "reference_disagree_count": 4
+      }
+    }
+  ],
+  "seed": "rulekit\\orchestrator\\example_seeds\\fcra_credit_reporting_dispute_deep.yaml"
+}

@@ -1,0 +1,131 @@
+{
+  "case_id": "bank_not_mine_identity_theft_packet_incomplete",
+  "case_level_notes": "Direct-to-furnisher dispute with incomplete identity-theft documentation; case is in manual review.",
+  "determinations": [
+    {
+      "anti_overclaim_check": "Marked satisfied/not-applicable only because the CRA branch is outside this case's natural scope, per profile guidance.",
+      "confidence": 0.85,
+      "decisive_branch": "not-applicable branch (direct furnisher only, no CRA notice)",
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Customer uploaded a direct dispute to the bank",
+          "source": "narrative"
+        },
+        {
+          "basis": "missing",
+          "fact": "No CRA transmission described",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "no_cra_path_for_direct_furnisher_only",
+        "bank_direct_only_no_cra_notice"
+      ],
+      "rationale": "No CRA path is involved; this is a direct-to-bank dispute. The CRA furnisher-notice transmission branch is not applicable."
+    },
+    {
+      "anti_overclaim_check": "Item treatment is judged on its own branch; routing to manual review is not itself proof of treatment failure.",
+      "confidence": 0.6,
+      "decisive_branch": "no defect established; pending manual review does not itself fail item treatment",
+      "determination_id": "fcra.item_treatment_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Customer supplied police incident number but no completed identity-theft report",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Bank could not match documents and routed to manual review",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "bank_direct_invalid_identity_theft_packet_no_completed_process",
+        "missing_identity_theft_report"
+      ],
+      "rationale": "No defect was established because the identity-theft documentation was incomplete; the case was routed to manual review. No deletion/modification duty has been triggered yet on the bank's furnished items."
+    },
+    {
+      "anti_overclaim_check": "Inapplicable branch treated as satisfied per instructions.",
+      "confidence": 0.9,
+      "decisive_branch": "not-applicable branch (no CRA-transmitted dispute)",
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Dispute was uploaded directly to the bank",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "bank_direct_only_no_cra_notice",
+        "no_cra_path_for_direct_furnisher_only"
+      ],
+      "rationale": "No CRA notice to the bank is described; indirect furnisher duties branch is not applicable."
+    },
+    {
+      "anti_overclaim_check": "Failure based on missing supporting docs and absence of any completed direct-dispute action; not importing CRA-side duties.",
+      "confidence": 0.75,
+      "decisive_branch": "qualifying-dispute branch failed: required supporting documentation missing and no completed investigation/results",
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "No completed identity-theft report or affidavit supplied",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Bank routed case to manual review without completing investigation or reporting results to consumer",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "false",
+      "profile_rule_ids": [
+        "bank_direct_identity_theft_packet_missing_docs",
+        "bank_direct_invalid_identity_theft_packet_no_completed_process",
+        "missing_identity_theft_report"
+      ],
+      "rationale": "Direct dispute identifies the accounts and basis (not mine/identity theft) but lacks required supporting documentation (completed identity-theft report or affidavit). The bank did not complete a qualifying investigation or send results; it routed to manual review with no completed direct-dispute process recorded."
+    },
+    {
+      "anti_overclaim_check": "Routing decision based on explicit narrative cues matching profile triggers.",
+      "confidence": 0.95,
+      "decisive_branch": "routing trigger: identity theft + not-mine + missing source documents + manual review policy",
+      "determination_id": "fcra.human_review_required",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Customer alleges identity theft and 'not mine'",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Completed identity-theft report missing",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Bank routed case to manual review",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "identity_theft_route",
+        "not_mine_identity_route",
+        "missing_identity_theft_report",
+        "source_gap_route",
+        "human_review_from_routing_cues",
+        "bank_source_gap_review_route"
+      ],
+      "rationale": "Identity theft is claimed, mixed-file/not-mine evidence is plausible but incomplete, and primary source documentation (identity-theft report) is missing. Manual review policy was triggered."
+    }
+  ]
+}

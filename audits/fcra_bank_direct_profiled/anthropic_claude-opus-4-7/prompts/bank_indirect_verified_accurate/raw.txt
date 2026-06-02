@@ -1,0 +1,69 @@
+{
+  "case_id": "bank_indirect_verified_accurate",
+  "determinations": [
+    {
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "outcome": "true",
+      "rationale": "CRA forwarded an ACDV packet to the bank including the consumer letter, account number, disputed month, and payment-history attachment, indicating timely and complete furnisher notice.",
+      "confidence": 0.85,
+      "decisive_branch": "ordinary CRA-to-furnisher notice path with all relevant info included",
+      "material_facts": [
+        {"fact": "CRA sent ACDV packet with consumer letter and account info", "source": "narrative", "basis": "explicit"},
+        {"fact": "Payment-history attachment included", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["bank_indirect_cra_notice_common", "bank_indirect_complete_documents_forwarded", "bank_indirect_cra_notice_timing_default"],
+      "anti_overclaim_check": "Narrative explicitly describes the ACDV transmission content; no contrary cues about missing documents or untimely notice."
+    },
+    {
+      "determination_id": "fcra.item_treatment_satisfied",
+      "outcome": "true",
+      "rationale": "After investigation, the item was verified accurate; no defect was found, so the item may remain verified with current status.",
+      "confidence": 0.85,
+      "decisive_branch": "no-defect-found branch under 1681i(a)(5)",
+      "material_facts": [
+        {"fact": "Bank verified payment was received after the due date", "source": "narrative", "basis": "explicit"},
+        {"fact": "Verified-as-accurate results reported to CRA", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["bank_verified_no_defect", "ordinary_verified_item_treatment"],
+      "anti_overclaim_check": "Verification supported by direct narrative; not asserting deletion or modification duties since no defect was found."
+    },
+    {
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "outcome": "true",
+      "rationale": "Bank investigated, reviewed CRA-transmitted materials and account records, and reported results to the CRA within the dispute deadline.",
+      "confidence": 0.9,
+      "decisive_branch": "ordinary furnisher indirect completion under 1681s-2(b)",
+      "material_facts": [
+        {"fact": "Bank reviewed account ledger, payment posting, and CRA packet", "source": "narrative", "basis": "explicit"},
+        {"fact": "Reported verified-as-accurate results within deadline", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["ordinary_furnisher_indirect_completed", "bank_furnisher_process_completed", "bank_furnisher_deadline_default", "bank_no_defect_found"],
+      "anti_overclaim_check": "No defect found means no obligation to notify other CRAs of inaccuracy; furnisher duties completed as described."
+    },
+    {
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "outcome": "true",
+      "rationale": "No direct dispute to the bank is described; the direct-dispute branch is not applicable.",
+      "confidence": 0.9,
+      "decisive_branch": "branch not applicable - no direct furnisher dispute",
+      "material_facts": [
+        {"fact": "Dispute was submitted through a CRA, not directly to the bank", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["no_direct_furnisher_dispute_mentioned"],
+      "anti_overclaim_check": "Narrative contains no direct-dispute cues; treating as not applicable per profile guidance."
+    },
+    {
+      "determination_id": "fcra.human_review_required",
+      "outcome": "false",
+      "rationale": "No routing triggers present: no identity theft, mixed-file, missing source documents, date conflicts, court orders, or manual review policy triggers in the narrative.",
+      "confidence": 0.9,
+      "decisive_branch": "no routing triggers - ordinary verified-accurate flow",
+      "material_facts": [
+        {"fact": "Ordinary dispute with complete ACDV packet and verified result", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["bank_no_review_triggers"],
+      "anti_overclaim_check": "None of the unless_any cues for review triggers appear in the narrative."
+    }
+  ],
+  "case_level_notes": ""
+}

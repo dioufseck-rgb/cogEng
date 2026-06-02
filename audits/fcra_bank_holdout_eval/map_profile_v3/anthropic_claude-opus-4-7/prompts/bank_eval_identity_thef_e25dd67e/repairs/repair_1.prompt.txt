@@ -1,0 +1,170 @@
+You are repairing selected atom bindings for a governed policy engine.
+
+You are NOT deciding policy outcomes. The deterministic engine has already
+identified these atoms as unresolved on a load-bearing trace. Your job is only
+to revisit the listed atom bindings from the case packet and return improved
+bindings where the evidence supports them.
+
+Rules:
+- Treat each atom independently.
+- Do not change an atom just to make a determination true or false.
+- If the case packet still does not support a value, keep it undetermined.
+- If a conditional support atom is phrased like "if needed", "if applicable",
+  "if initial fail", or "when applicable", and the triggering condition is
+  clearly absent, it may bind true with basis "inferred_from_record" because the
+  branch is not applicable.
+- Return one binding object for every atom in REPAIR_ATOMS.
+
+Allowed basis values:
+explicit_positive, explicit_negative, closed_world_absence, open_world_absence,
+inferred_from_record, conflicting_evidence, computed, looked_up, not_found.
+
+CASE NARRATIVE
+==============
+Customer U uploaded a direct dispute to the bank's published dispute portal saying an account was not mine and included a completed identity- theft report, signed affidavit, and police report. The bank reviewed the account-opening file, concluded the tradeline could not be verified as the customer's obligation, blocked further reporting, sent results to the customer, and notified the CRAs of the block.
+
+
+SOURCE INVENTORY
+================
+[
+  {
+    "as_of_date": null,
+    "closed_world_scopes": [
+      "actions taken by the bank on this dispute as recounted in the narrative"
+    ],
+    "limitations": "Single narrative summary; lacks dates, timing details, and specific procedural confirmations.",
+    "metadata": {},
+    "source_id": "case_narrative",
+    "source_type": "case_narrative",
+    "title": "Customer U direct dispute narrative"
+  }
+]
+
+REPAIR_ATOMS
+============
+[
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_found_inaccurate",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "statement": "The reinvestigation found the disputed item inaccurate.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.item_found_inaccurate",
+      "atom_type": "boolean",
+      "basis": "not_found",
+      "confidence": 0.6,
+      "evidence": "the bank ... concluded the tradeline could not be verified as the customer's obligation",
+      "explanation": "Narrative states the item could not be verified, not that it was affirmatively found inaccurate; the distinction is left unstated.",
+      "metadata": {
+        "raw_atom_id": "fcra.item_found_inaccurate"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    "relevant_evidence": "Customer U uploaded a direct dispute to the bank's published dispute portal saying an account was not mine and included a completed identity- theft report, signed affidavit, and police report. The bank reviewed the account-opening file, concluded the tradeline could not be verified as the customer's obligation, blocked further reporting, sent results to the customer, and notified the CRAs of the block.\n",
+    "repair_reasons": [
+      "fcra.direct_furnisher_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.direct_furnisher_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_found_incomplete",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "statement": "The reinvestigation found the disputed item incomplete.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.item_found_incomplete",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "No mention of an incompleteness finding in the narrative.",
+      "explanation": "Narrative is silent on whether the item was found incomplete; absence does not establish falsity.",
+      "metadata": {
+        "raw_atom_id": "fcra.item_found_incomplete"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    "relevant_evidence": "Customer U uploaded a direct dispute to the bank's published dispute portal saying an account was not mine and included a completed identity- theft report, signed affidavit, and police report. The bank reviewed the account-opening file, concluded the tradeline could not be verified as the customer's obligation, blocked further reporting, sent results to the customer, and notified the CRAs of the block.\n",
+    "repair_reasons": [
+      "fcra.direct_furnisher_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.direct_furnisher_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.direct_furnisher_reviewed_info",
+      "notes": "",
+      "source_span": "12 CFR 1022.43(e)",
+      "statement": "The furnisher reviewed all relevant information provided by the consumer with the direct dispute notice.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.direct_furnisher_reviewed_info",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.55,
+      "evidence": "The bank reviewed the account-opening file ... [no statement about reviewing the consumer-provided documentation]",
+      "explanation": "Narrative confirms the bank reviewed its own account-opening file but does not explicitly state it reviewed the identity-theft report, affidavit, and police report submitted by the consumer.",
+      "metadata": {
+        "raw_atom_id": "fcra.direct_furnisher_reviewed_info"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    "relevant_evidence": "Customer U uploaded a direct dispute to the bank's published dispute portal saying an account was not mine and included a completed identity- theft report, signed affidavit, and police report. The bank reviewed the account-opening file, concluded the tradeline could not be verified as the customer's obligation, blocked further reporting, sent results to the customer, and notified the CRAs of the block.\n",
+    "repair_reasons": [
+      "fcra.direct_furnisher_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.direct_furnisher_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  }
+]
+
+Return ONLY this JSON shape:
+{
+  "bindings": [
+    {
+      "atom_id": "atom id from REPAIR_ATOMS",
+      "status": "bound|undetermined|error",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["source id"],
+      "evidence": "short exact evidence or summary",
+      "explanation": "why this basis is appropriate",
+      "confidence": 0.0
+    }
+  ]
+}

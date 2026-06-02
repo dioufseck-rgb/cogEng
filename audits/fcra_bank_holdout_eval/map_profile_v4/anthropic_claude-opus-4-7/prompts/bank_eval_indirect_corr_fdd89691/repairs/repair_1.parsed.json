@@ -1,0 +1,38 @@
+{
+  "fcra.business_days_to_frivolous_notice": {
+    "atom_id": "fcra.business_days_to_frivolous_notice",
+    "basis": "not_found",
+    "confidence": 0.9,
+    "evidence": "No frivolous or irrelevant determination is described; no associated timeline is present.",
+    "explanation": "Numeric atom requires a stated or computable timeline tied to a frivolous-notice event; the triggering branch is absent, so no numeric value can be bound.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": 0
+  },
+  "fcra.dispute_duplicate_without_new_info": {
+    "atom_id": "fcra.dispute_duplicate_without_new_info",
+    "basis": "inferred_from_record",
+    "confidence": 0.9,
+    "evidence": "Narrative describes a single CRA-transmitted dispute with payoff confirmation, account number, and disputed balance field; no prior dispute is referenced.",
+    "explanation": "This is a conditional/exception branch (frivolous/duplicate). The triggering condition is clearly absent from the record, so the branch is not applicable and binds false via inferred_from_record.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.furnisher_reported_inaccuracy_to_other_cras": {
+    "atom_id": "fcra.furnisher_reported_inaccuracy_to_other_cras",
+    "basis": "open_world_absence",
+    "confidence": 0.75,
+    "evidence": "Narrative states the bank reported corrected results back to the CRA that transmitted the dispute; it is silent on whether other nationwide CRAs to which the bank furnished were notified.",
+    "explanation": "The source inventory's closed-world scope covers reporting to the transmitting CRA but not whether the furnisher reports to other CRAs. Silence here is open-world absence and cannot be resolved.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": false
+  }
+}

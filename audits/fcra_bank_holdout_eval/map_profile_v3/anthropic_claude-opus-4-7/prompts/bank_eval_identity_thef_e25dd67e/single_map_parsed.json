@@ -1,0 +1,112 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.direct_dispute_supporting_docs_supplied",
+      "basis": "explicit_positive",
+      "confidence": 0.9,
+      "evidence": "included a completed identity-theft report, signed affidavit, and police report",
+      "explanation": "Narrative explicitly states the consumer supplied supporting documentation with the dispute.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.item_found_inaccurate",
+      "basis": "not_found",
+      "confidence": 0.6,
+      "evidence": "the bank ... concluded the tradeline could not be verified as the customer's obligation",
+      "explanation": "Narrative states the item could not be verified, not that it was affirmatively found inaccurate; the distinction is left unstated.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.item_found_incomplete",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "No mention of an incompleteness finding in the narrative.",
+      "explanation": "Narrative is silent on whether the item was found incomplete; absence does not establish falsity.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "basis": "explicit_positive",
+      "confidence": 0.95,
+      "evidence": "concluded the tradeline could not be verified as the customer's obligation",
+      "explanation": "Narrative explicitly states the bank could not verify the disputed item.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.direct_furnisher_investigation_conducted",
+      "basis": "explicit_positive",
+      "confidence": 0.85,
+      "evidence": "The bank reviewed the account-opening file, concluded the tradeline could not be verified ... blocked further reporting, sent results to the customer, and notified the CRAs",
+      "explanation": "Narrative describes the furnisher reviewing records and reaching a conclusion in response to the direct dispute, consistent with conducting an investigation.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.direct_furnisher_reviewed_info",
+      "basis": "open_world_absence",
+      "confidence": 0.55,
+      "evidence": "The bank reviewed the account-opening file ... [no statement about reviewing the consumer-provided documentation]",
+      "explanation": "Narrative confirms the bank reviewed its own account-opening file but does not explicitly state it reviewed the identity-theft report, affidavit, and police report submitted by the consumer.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.direct_furnisher_results_reported_to_consumer",
+      "basis": "explicit_positive",
+      "confidence": 0.7,
+      "evidence": "sent results to the customer",
+      "explanation": "Narrative explicitly states the furnisher sent the results to the customer. Timing within the applicable period is not stated but the reporting act itself is affirmed.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.direct_furnisher_corrected_cras",
+      "basis": "explicit_positive",
+      "confidence": 0.85,
+      "evidence": "blocked further reporting ... and notified the CRAs of the block",
+      "explanation": "Narrative explicitly states the furnisher notified the CRAs of the block following the determination that the item could not be verified.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    }
+  ],
+  "sources": [
+    {
+      "as_of_date": null,
+      "closed_world_scopes": [
+        "actions taken by the bank on this dispute as recounted in the narrative"
+      ],
+      "limitations": "Single narrative summary; lacks dates, timing details, and specific procedural confirmations.",
+      "source_id": "case_narrative",
+      "source_type": "case_narrative",
+      "title": "Customer U direct dispute narrative"
+    }
+  ]
+}

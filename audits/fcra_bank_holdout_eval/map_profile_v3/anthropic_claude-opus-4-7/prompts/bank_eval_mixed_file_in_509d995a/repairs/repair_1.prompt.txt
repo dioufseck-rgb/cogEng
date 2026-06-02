@@ -1,0 +1,425 @@
+You are repairing selected atom bindings for a governed policy engine.
+
+You are NOT deciding policy outcomes. The deterministic engine has already
+identified these atoms as unresolved on a load-bearing trace. Your job is only
+to revisit the listed atom bindings from the case packet and return improved
+bindings where the evidence supports them.
+
+Rules:
+- Treat each atom independently.
+- Do not change an atom just to make a determination true or false.
+- If the case packet still does not support a value, keep it undetermined.
+- If a conditional support atom is phrased like "if needed", "if applicable",
+  "if initial fail", or "when applicable", and the triggering condition is
+  clearly absent, it may bind true with basis "inferred_from_record" because the
+  branch is not applicable.
+- Return one binding object for every atom in REPAIR_ATOMS.
+
+Allowed basis values:
+explicit_positive, explicit_negative, closed_world_absence, open_world_absence,
+inferred_from_record, conflicting_evidence, computed, looked_up, not_found.
+
+CASE NARRATIVE
+==============
+Customer V disputed a loan tradeline through a CRA and said it belonged to a person with a similar name. The ACDV packet included the customer's letter and two address records, but the bank file contains conflicting name and date-of-birth fields. The bank has not yet decided whether the item is a mixed-file error or a verified customer obligation, and the case is pending manual review.
+
+
+SOURCE INVENTORY
+================
+[
+  {
+    "as_of_date": null,
+    "closed_world_scopes": [],
+    "limitations": "Narrative summary only; case is pending manual review, so no investigation outcome, furnisher actions, or timing data are recorded.",
+    "metadata": {},
+    "source_id": "case_narrative",
+    "source_type": "case_narrative",
+    "title": "Customer V CRA Dispute Narrative"
+  }
+]
+
+REPAIR_ATOMS
+============
+[
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.dispute_about_completeness",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)(A)",
+      "statement": "The dispute concerns completeness of the item.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.dispute_about_completeness",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Customer disputed tradeline asserting it belonged to a person with a similar name; narrative frames dispute as accuracy/identity issue, not completeness.",
+      "explanation": "Narrative does not characterize the dispute as one of completeness; it is silent on that characterization.",
+      "metadata": {
+        "raw_atom_id": "fcra.dispute_about_completeness"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "Customer V disputed a loan tradeline through a CRA and said it belonged to a person with a similar name. The ACDV packet included the customer's letter and two address records, but the bank file contains conflicting name and date-of-birth fields. The bank has not yet decided whether the item is a mixed-file error or a verified customer obligation, and the case is pending manual review.\n",
+    "repair_reasons": [
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.dispute_duplicate_without_new_info",
+      "notes": "",
+      "source_span": "12 CFR 1022.43(f)(1)(ii)",
+      "statement": "The dispute is substantially the same as a prior dispute and contains no new required information.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "No mention of any prior dispute.",
+      "explanation": "Narrative does not address whether this dispute is substantially the same as a prior one.",
+      "metadata": {
+        "raw_atom_id": "fcra.dispute_duplicate_without_new_info"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "Customer V disputed a loan tradeline through a CRA and said it belonged to a person with a similar name. The ACDV packet included the customer's letter and two address records, but the bank file contains conflicting name and date-of-birth fields. The bank has not yet decided whether the item is a mixed-file error or a verified customer obligation, and the case is pending manual review.\n",
+    "repair_reasons": [
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.insufficient_information_to_investigate",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(3)",
+      "statement": "The consumer failed to provide sufficient information to investigate the disputed information.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "ACDV packet included customer's letter and two address records; case pending manual review.",
+      "explanation": "Narrative does not state whether the information provided was sufficient or insufficient to investigate.",
+      "metadata": {
+        "raw_atom_id": "fcra.insufficient_information_to_investigate"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "Customer V disputed a loan tradeline through a CRA and said it belonged to a person with a similar name. The ACDV packet included the customer's letter and two address records, but the bank file contains conflicting name and date-of-birth fields. The bank has not yet decided whether the item is a mixed-file error or a verified customer obligation, and the case is pending manual review.\n",
+    "repair_reasons": [
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "numeric",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.business_days_to_frivolous_notice",
+      "notes": "",
+      "numeric_unit": "business_days",
+      "source_span": "15 U.S.C. 1681i(a)(3)(B)",
+      "statement": "Business days from frivolous or irrelevant determination to consumer notice.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "atom_type": "numeric",
+      "basis": "not_found",
+      "confidence": 0.8,
+      "evidence": "No frivolous/irrelevant determination or notice mentioned.",
+      "explanation": "No frivolous determination has occurred, so no day count exists in the record.",
+      "metadata": {
+        "raw_atom_id": "fcra.business_days_to_frivolous_notice"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "Customer V disputed a loan tradeline through a CRA and said it belonged to a person with a similar name. The ACDV packet included the customer's letter and two address records, but the bank file contains conflicting name and date-of-birth fields. The bank has not yet decided whether the item is a mixed-file error or a verified customer obligation, and the case is pending manual review.\n",
+    "repair_reasons": [
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_found_inaccurate",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "statement": "The reinvestigation found the disputed item inaccurate.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.item_found_inaccurate",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.8,
+      "evidence": "Bank has not yet decided whether item is a mixed-file error or a verified customer obligation; case pending manual review.",
+      "explanation": "Reinvestigation has not concluded; no finding of inaccuracy recorded.",
+      "metadata": {
+        "raw_atom_id": "fcra.item_found_inaccurate"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "Customer V disputed a loan tradeline through a CRA and said it belonged to a person with a similar name. The ACDV packet included the customer's letter and two address records, but the bank file contains conflicting name and date-of-birth fields. The bank has not yet decided whether the item is a mixed-file error or a verified customer obligation, and the case is pending manual review.\n",
+    "repair_reasons": [
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_found_incomplete",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "statement": "The reinvestigation found the disputed item incomplete.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.item_found_incomplete",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.8,
+      "evidence": "Case pending manual review; no findings stated.",
+      "explanation": "No reinvestigation finding of incompleteness is recorded.",
+      "metadata": {
+        "raw_atom_id": "fcra.item_found_incomplete"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "Customer V disputed a loan tradeline through a CRA and said it belonged to a person with a similar name. The ACDV packet included the customer's letter and two address records, but the bank file contains conflicting name and date-of-birth fields. The bank has not yet decided whether the item is a mixed-file error or a verified customer obligation, and the case is pending manual review.\n",
+    "repair_reasons": [
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_cannot_be_verified",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "statement": "The disputed item could not be verified.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.7,
+      "evidence": "Case pending manual review; conflicting name and DOB fields noted but no verification conclusion stated.",
+      "explanation": "Narrative does not state that the item could not be verified; review is still in progress.",
+      "metadata": {
+        "raw_atom_id": "fcra.item_cannot_be_verified"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "Customer V disputed a loan tradeline through a CRA and said it belonged to a person with a similar name. The ACDV packet included the customer's letter and two address records, but the bank file contains conflicting name and date-of-birth fields. The bank has not yet decided whether the item is a mixed-file error or a verified customer obligation, and the case is pending manual review.\n",
+    "repair_reasons": [
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_verified_as_accurate",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)",
+      "statement": "The disputed item was verified as complete and accurate after reasonable reinvestigation.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.item_verified_as_accurate",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.8,
+      "evidence": "Bank has not yet decided; case pending manual review.",
+      "explanation": "No verification outcome has been recorded yet.",
+      "metadata": {
+        "raw_atom_id": "fcra.item_verified_as_accurate"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "Customer V disputed a loan tradeline through a CRA and said it belonged to a person with a similar name. The ACDV packet included the customer's letter and two address records, but the bank file contains conflicting name and date-of-birth fields. The bank has not yet decided whether the item is a mixed-file error or a verified customer obligation, and the case is pending manual review.\n",
+    "repair_reasons": [
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_status_recorded_current",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)",
+      "statement": "The current status of the disputed information was recorded.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.item_status_recorded_current",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "No mention of recording current status of the disputed information.",
+      "explanation": "Narrative does not address whether current status was recorded.",
+      "metadata": {
+        "raw_atom_id": "fcra.item_status_recorded_current"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "Customer V disputed a loan tradeline through a CRA and said it belonged to a person with a similar name. The ACDV packet included the customer's letter and two address records, but the bank file contains conflicting name and date-of-birth fields. The bank has not yet decided whether the item is a mixed-file error or a verified customer obligation, and the case is pending manual review.\n",
+    "repair_reasons": [
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_deleted",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "statement": "The disputed item was deleted from the consumer's file.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.item_deleted",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.8,
+      "evidence": "Case pending manual review; no deletion action mentioned.",
+      "explanation": "No outcome action recorded; deletion neither affirmed nor denied.",
+      "metadata": {
+        "raw_atom_id": "fcra.item_deleted"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "Customer V disputed a loan tradeline through a CRA and said it belonged to a person with a similar name. The ACDV packet included the customer's letter and two address records, but the bank file contains conflicting name and date-of-birth fields. The bank has not yet decided whether the item is a mixed-file error or a verified customer obligation, and the case is pending manual review.\n",
+    "repair_reasons": [
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  }
+]
+
+Return ONLY this JSON shape:
+{
+  "bindings": [
+    {
+      "atom_id": "atom id from REPAIR_ATOMS",
+      "status": "bound|undetermined|error",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["source id"],
+      "evidence": "short exact evidence or summary",
+      "explanation": "why this basis is appropriate",
+      "confidence": 0.0
+    }
+  ]
+}

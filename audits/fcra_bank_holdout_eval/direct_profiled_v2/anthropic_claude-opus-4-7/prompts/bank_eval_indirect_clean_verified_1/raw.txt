@@ -1,0 +1,69 @@
+{
+  "case_id": "bank_eval_indirect_clean_verified_1",
+  "determinations": [
+    {
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "outcome": "true",
+      "rationale": "CRA transmitted an ACDV packet to the bank including the consumer's letter, account number, disputed month, and payment-history attachment, satisfying the CRA-to-furnisher notice duty with all relevant information.",
+      "confidence": 0.9,
+      "decisive_branch": "CRA notified furnisher with all relevant information",
+      "material_facts": [
+        {"fact": "CRA sent ACDV packet including customer's letter and payment-history attachment", "source": "narrative", "basis": "explicit"},
+        {"fact": "Packet identified account number and disputed month", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["bank_indirect_cra_notice_common", "bank_indirect_complete_documents_forwarded", "bank_indirect_cra_notice_timing_default"],
+      "anti_overclaim_check": "Conclusion based solely on stated ACDV transmission contents; no inference beyond described packet."
+    },
+    {
+      "determination_id": "fcra.item_treatment_satisfied",
+      "outcome": "true",
+      "rationale": "Bank verified the late payment as accurate after comparing ledger and lockbox posting history; under policy 5, no defect found means the item may remain verified.",
+      "confidence": 0.9,
+      "decisive_branch": "No defect found after reasonable reinvestigation; item remains verified",
+      "material_facts": [
+        {"fact": "Bank verified payment posted after grace period", "source": "narrative", "basis": "explicit"},
+        {"fact": "Verified-as-accurate result reported", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["bank_verified_no_defect", "ordinary_verified_item_treatment"],
+      "anti_overclaim_check": "No deletion/modification claimed; verified-accurate treatment matches policy 5 default."
+    },
+    {
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "outcome": "true",
+      "rationale": "Bank received CRA notice, investigated by comparing ledger and lockbox history, reviewed CRA-transmitted information, and reported verified-as-accurate results to the CRA within the dispute deadline.",
+      "confidence": 0.92,
+      "decisive_branch": "Ordinary furnisher indirect investigation completed with no defect found",
+      "material_facts": [
+        {"fact": "Bank compared ledger and lockbox posting history", "source": "narrative", "basis": "explicit"},
+        {"fact": "Reported verified-as-accurate results back to CRA within deadline", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["ordinary_furnisher_indirect_completed", "bank_furnisher_process_completed", "bank_furnisher_deadline_default", "bank_no_defect_found"],
+      "anti_overclaim_check": "Because no inaccuracy was found, downstream correction duties to other CRAs are not triggered."
+    },
+    {
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "outcome": "true",
+      "rationale": "Narrative explicitly states no direct dispute was sent to the bank; direct-furnisher branch is not applicable, so the duty is satisfied or not applicable.",
+      "confidence": 0.95,
+      "decisive_branch": "Direct-dispute branch not applicable",
+      "material_facts": [
+        {"fact": "No direct dispute was sent to the bank", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["no_direct_furnisher_dispute_mentioned"],
+      "anti_overclaim_check": "Marked satisfied/not-applicable per instructions for inapplicable branches."
+    },
+    {
+      "determination_id": "fcra.human_review_required",
+      "outcome": "false",
+      "rationale": "No routing triggers present: no identity theft, mixed-file, not-mine claim, missing source documents, date conflicts, court order, or manual review policy trigger. Ordinary verified-as-accurate ACDV processing.",
+      "confidence": 0.9,
+      "decisive_branch": "No routing trigger applicable",
+      "material_facts": [
+        {"fact": "Clean ACDV verification with complete packet and consistent records", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["bank_no_review_triggers"],
+      "anti_overclaim_check": "No narrative cue triggers human review routing."
+    }
+  ],
+  "case_level_notes": ""
+}

@@ -1,0 +1,72 @@
+{
+  "case_id": "bank_eval_direct_corrected_not_sent",
+  "determinations": [
+    {
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "outcome": "true",
+      "rationale": "No CRA-transmitted dispute path is involved; the dispute came directly to the bank. The CRA furnisher-notice branch is not applicable.",
+      "confidence": 0.9,
+      "decisive_branch": "not-applicable branch (direct-only dispute, no CRA path)",
+      "material_facts": [
+        {"fact": "Customer submitted dispute directly to bank's published dispute address", "source": "narrative", "basis": "explicit"},
+        {"fact": "No CRA notice to the bank is described", "source": "narrative", "basis": "missing"}
+      ],
+      "profile_rule_ids": ["bank_direct_only_no_cra_notice", "no_cra_path_for_direct_furnisher_only"],
+      "anti_overclaim_check": "Marked true because the branch is outside the case's natural scope, per direct-only profile guidance."
+    },
+    {
+      "determination_id": "fcra.item_treatment_satisfied",
+      "outcome": "true",
+      "rationale": "The bank found the balance inaccurate and modified the account record internally, recording corrected status. Item treatment concerns the item's modification/verified/deleted status, which was performed. Downstream CRA notification failure is treated under a separate determination.",
+      "confidence": 0.8,
+      "decisive_branch": "modification of inaccurate item",
+      "material_facts": [
+        {"fact": "Bank agreed balance was inaccurate", "source": "narrative", "basis": "explicit"},
+        {"fact": "Bank modified the account record internally", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["bank_direct_defect_found_corrected_internally"],
+      "anti_overclaim_check": "Per instructions, item treatment is about the item's status under the selected branch, not downstream third-party notification."
+    },
+    {
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "outcome": "true",
+      "rationale": "No CRA-transmitted indirect dispute occurred; the indirect furnisher-duty branch is not applicable to this direct-only dispute.",
+      "confidence": 0.9,
+      "decisive_branch": "not-applicable branch (no indirect CRA notice)",
+      "material_facts": [
+        {"fact": "Dispute submitted directly to bank, not via CRA", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["bank_direct_only_no_cra_notice"],
+      "anti_overclaim_check": "Satisfied or not applicable per scope-not-applicable instruction."
+    },
+    {
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "outcome": "false",
+      "rationale": "The bank investigated, found the item inaccurate, modified it internally, and reported results to the consumer, but failed to report the correction to the CRAs that had received the inaccurate balance. The furnisher duty to correct CRAs after finding an inaccuracy is unsatisfied.",
+      "confidence": 0.9,
+      "decisive_branch": "direct furnisher duty incomplete (no correction sent to CRAs)",
+      "material_facts": [
+        {"fact": "Direct dispute received at bank's published dispute address with payoff confirmation", "source": "narrative", "basis": "explicit"},
+        {"fact": "Bank found balance inaccurate and modified record internally", "source": "narrative", "basis": "explicit"},
+        {"fact": "Investigation result mailed to customer", "source": "narrative", "basis": "explicit"},
+        {"fact": "Bank file does not show corrected information sent to CRAs", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["bank_direct_intake_common", "bank_direct_valid_packet_complete", "bank_direct_defect_found_corrected_internally", "bank_direct_correction_not_sent_to_cras"],
+      "anti_overclaim_check": "The 12 CFR 1022.43 / 1681s-2 duty includes correcting CRAs when inaccuracy found; the case explicitly states this was not done."
+    },
+    {
+      "determination_id": "fcra.human_review_required",
+      "outcome": "false",
+      "rationale": "No identity theft, mixed-file, source-gap, date conflict, litigation, or manual-review policy trigger is present in the narrative. The defect was clear and resolved internally.",
+      "confidence": 0.8,
+      "decisive_branch": "routing default - no triggers present",
+      "material_facts": [
+        {"fact": "No identity theft, mixed-file, court order, or source-document gap described", "source": "narrative", "basis": "missing"},
+        {"fact": "Issue is a documented furnisher-side failure to forward correction, not an evidentiary conflict", "source": "narrative", "basis": "inferred"}
+      ],
+      "profile_rule_ids": ["bank_no_review_triggers"],
+      "anti_overclaim_check": "Routing decided on its own branch; substantive furnisher failure does not by itself require human review."
+    }
+  ],
+  "case_level_notes": "Direct-dispute investigation was substantively performed and consumer was notified, but downstream CRA correction step (1022.43 / 1681s-2(b)) was not completed, making the direct-furnisher duty unsatisfied."
+}

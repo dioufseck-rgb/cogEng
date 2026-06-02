@@ -205,6 +205,9 @@ You are NOT deciding policy outcomes. Your job is only:
 
 The deterministic RuleKit engine will decide the policy determinations later.
 Do not infer a binding from the desired or likely determination outcome.
+Use the ACTIVE PERSPECTIVE and PROFILE GUIDANCE only as mapping vocabulary:
+they may clarify aliases, case-shape defaults, and branch scope, but you are
+still binding atoms rather than deciding determinations.
 
 Critical binding rules:
 - Treat each atom independently.
@@ -237,6 +240,14 @@ inferred_from_record, conflicting_evidence, computed, looked_up, not_found.
 CASE NARRATIVE
 ==============
 {narrative}
+
+ACTIVE PERSPECTIVE
+==================
+{active_perspective}
+
+PROFILE GUIDANCE
+================
+{profile_guidance}
 
 DECLARED SOURCES
 ================
@@ -280,6 +291,9 @@ You are NOT deciding policy outcomes. The deterministic engine has already
 identified these atoms as unresolved on a load-bearing trace. Your job is only
 to revisit the listed atom bindings from the case packet and return improved
 bindings where the evidence supports them.
+Use the ACTIVE PERSPECTIVE and PROFILE GUIDANCE only as mapping vocabulary:
+they may clarify aliases, case-shape defaults, and branch scope, but you are
+still binding atoms rather than deciding determinations.
 
 Rules:
 - Treat each atom independently.
@@ -298,6 +312,14 @@ inferred_from_record, conflicting_evidence, computed, looked_up, not_found.
 CASE NARRATIVE
 ==============
 {narrative}
+
+ACTIVE PERSPECTIVE
+==================
+{active_perspective}
+
+PROFILE GUIDANCE
+================
+{profile_guidance}
 
 SOURCE INVENTORY
 ================
@@ -898,6 +920,16 @@ def build_single_map_prompt(
         )
     return SINGLE_MAP_PROMPT.format(
         narrative=case.narrative,
+        active_perspective=json.dumps(
+            _active_perspective(program),
+            indent=2,
+            sort_keys=True,
+        ),
+        profile_guidance=json.dumps(
+            _profile_guidance(program),
+            indent=2,
+            sort_keys=True,
+        ),
         declared_sources=json.dumps(
             [source.model_dump(mode="json") for source in declared_sources],
             indent=2,
@@ -936,6 +968,16 @@ def build_repair_atom_binding_prompt(
         )
     return REPAIR_ATOM_BINDING_PROMPT.format(
         narrative=case.narrative,
+        active_perspective=json.dumps(
+            _active_perspective(program),
+            indent=2,
+            sort_keys=True,
+        ),
+        profile_guidance=json.dumps(
+            _profile_guidance(program),
+            indent=2,
+            sort_keys=True,
+        ),
         sources_json=json.dumps(
             [source.model_dump(mode="json") for source in sources],
             indent=2,
@@ -1151,6 +1193,49 @@ def apply_program_map_profile_defaults(
             )
             applied += 1
     return applied
+
+
+def _active_perspective(program: DeterminationProgram) -> dict[str, Any]:
+    active = program.metadata.extras.get("active_perspective")
+    return active if isinstance(active, dict) else {}
+
+
+def _profile_guidance(program: DeterminationProgram) -> list[dict[str, Any]]:
+    profile = program.metadata.extras.get("map_profile")
+    if not isinstance(profile, dict):
+        return []
+    rules = profile.get("default_rules")
+    if not isinstance(rules, list):
+        return []
+    active = _active_perspective(program).get("perspective_id")
+    guidance: list[dict[str, Any]] = []
+    for rule in rules:
+        if not isinstance(rule, dict):
+            continue
+        allowed = _string_list(rule.get("perspectives") or rule.get("perspective_ids"))
+        if allowed and str(active) not in allowed:
+            continue
+        guidance.append(
+            {
+                key: rule[key]
+                for key in (
+                    "id",
+                    "kind",
+                    "atom_ids",
+                    "value",
+                    "basis",
+                    "if_any",
+                    "if_all",
+                    "unless_any",
+                    "unless_all",
+                    "if_regex_any",
+                    "unless_regex_any",
+                    "evidence",
+                )
+                if key in rule
+            }
+        )
+    return guidance
 
 
 def _profile_rule_applies_to_perspective(

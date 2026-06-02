@@ -1,0 +1,70 @@
+{
+  "case_id": "bank_eval_indirect_late_cra_notice",
+  "determinations": [
+    {
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "outcome": "false",
+      "rationale": "The CRA transmitted the ACDV packet to the bank on the seventh business day after receiving the dispute, exceeding the five-business-day deadline for furnisher notice.",
+      "confidence": 0.9,
+      "decisive_branch": "CRA-to-furnisher 5-business-day notice deadline missed",
+      "material_facts": [
+        {"fact": "Forwarding log shows bank received notice on seventh business day after CRA received dispute", "source": "narrative", "basis": "explicit"},
+        {"fact": "ACDV packet included customer's letter and account documents", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": [],
+      "anti_overclaim_check": "Failure is based on the explicit seventh-business-day fact in the narrative, not inferred timing."
+    },
+    {
+      "determination_id": "fcra.item_treatment_satisfied",
+      "outcome": "true",
+      "rationale": "The bank verified the repossession notation as matching its records; no defect found means the item may remain verified under the policy. Item treatment is decided on its own branch, separate from upstream CRA transmission timing.",
+      "confidence": 0.85,
+      "decisive_branch": "no defect found — item remains verified",
+      "material_facts": [
+        {"fact": "Bank verified the repossession notation matched its records", "source": "narrative", "basis": "explicit"},
+        {"fact": "Bank reported verified-as-accurate results to CRA", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["bank_verified_no_defect", "bank_no_defect_found"],
+      "anti_overclaim_check": "Item treatment branch only requires correct treatment given investigation outcome; upstream transmission delay is not imported here."
+    },
+    {
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "outcome": "true",
+      "rationale": "The bank reviewed the materials it received, investigated, and reported results to the CRA within the dispute deadline. A failed upstream CRA transmission duty can coexist with a satisfied recipient-side furnisher duty.",
+      "confidence": 0.85,
+      "decisive_branch": "ordinary furnisher indirect investigation completed",
+      "material_facts": [
+        {"fact": "Bank investigated the dispute", "source": "narrative", "basis": "explicit"},
+        {"fact": "Bank reported verified-as-accurate results to CRA within dispute deadline", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["ordinary_furnisher_indirect_completed", "bank_furnisher_process_completed"],
+      "anti_overclaim_check": "Furnisher duty assessed on what bank received and did, not on CRA's transmission timing."
+    },
+    {
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "outcome": "true",
+      "rationale": "No direct dispute to the bank is described; the direct-furnisher branch is not applicable.",
+      "confidence": 0.95,
+      "decisive_branch": "branch not applicable — no direct dispute",
+      "material_facts": [
+        {"fact": "Dispute was submitted to CRA and transmitted via ACDV, not directly to bank", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["no_direct_furnisher_dispute_mentioned"],
+      "anti_overclaim_check": "Marked satisfied/not-applicable per instructions; no direct-dispute facts to evaluate."
+    },
+    {
+      "determination_id": "fcra.human_review_required",
+      "outcome": "false",
+      "rationale": "Narrative contains no routing triggers — no identity theft, mixed-file, not-mine, missing source documents, date conflicts, court orders, or manual review policy triggers. The verified match is straightforward.",
+      "confidence": 0.85,
+      "decisive_branch": "no review triggers present",
+      "material_facts": [
+        {"fact": "Bank records matched the disputed notation", "source": "narrative", "basis": "explicit"},
+        {"fact": "No identity theft, mixed-file, or document conflict described", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["bank_no_review_triggers"],
+      "anti_overclaim_check": "Late CRA transmission is not itself a routing trigger under the profile; routing assessed on its own branch."
+    }
+  ],
+  "case_level_notes": "CRA missed the 5-business-day furnisher notice deadline, but the bank's recipient-side furnisher duties and item treatment were independently satisfied."
+}

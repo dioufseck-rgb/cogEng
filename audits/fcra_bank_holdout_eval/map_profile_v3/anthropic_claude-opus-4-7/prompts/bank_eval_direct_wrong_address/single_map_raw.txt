@@ -1,0 +1,274 @@
+{
+  "sources": [
+    {
+      "source_id": "case_narrative",
+      "source_type": "case_narrative",
+      "title": "Customer R balance dispute intake narrative",
+      "as_of_date": null,
+      "closed_world_scopes": [
+        "contents of the consumer's mailed dispute packet",
+        "bank intake handling of the dispute",
+        "presence of CRA notice in the file"
+      ],
+      "limitations": "Narrative is brief and does not describe CRA-side processing, furnisher-side investigation, prior dispute history, or downstream outcomes."
+    }
+  ],
+  "bindings": [
+    {
+      "atom_id": "fcra.consumer_disputed_item",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["case_narrative"],
+      "evidence": "Customer R mailed a balance dispute ... described the disputed balance.",
+      "explanation": "Narrative affirmatively states the consumer disputed a balance item.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.item_in_consumer_file",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No CRA notice is in the file.",
+      "explanation": "Narrative does not state whether the disputed balance appears in the consumer's CRA file.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "described the disputed balance, and attached a payment receipt",
+      "explanation": "Narrative characterizes the dispute as about the balance but does not specify completeness as the theory.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.dispute_about_accuracy",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "balance dispute ... described the disputed balance, and attached a payment receipt",
+      "explanation": "A balance dispute supported by a payment receipt is on its face an accuracy challenge to the reported balance.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.notice_direct_to_cra",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "Customer R mailed a balance dispute to the bank's ordinary customer service lockbox ... No CRA notice is in the file.",
+      "explanation": "Narrative affirmatively states the dispute went to the bank, not a CRA, and no CRA notice exists in the file.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.consumer_identity_sufficient",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "The letter included an account number ...",
+      "explanation": "Narrative mentions an account number but does not describe consumer identifying information (name, address, SSN, etc.) sufficient to evaluate identity adequacy.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.account_identified",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["case_narrative"],
+      "evidence": "The letter included an account number",
+      "explanation": "Narrative affirmatively states the letter included an account number identifying the account.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.disputed_field_identified",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["case_narrative"],
+      "evidence": "described the disputed balance",
+      "explanation": "The narrative states the letter described the disputed balance, identifying balance as the disputed field.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.basis_explained",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "described the disputed balance, and attached a payment receipt",
+      "explanation": "Describing the disputed balance and attaching a payment receipt constitutes an explanation of the basis (payment not credited).",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "fcra.consumer_submission_authentic",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Customer R mailed a balance dispute ... The letter included an account number",
+      "explanation": "Narrative treats the letter as Customer R's own submission; no indication of forgery or third-party origin.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "No mention of any prior dispute.",
+      "explanation": "Narrative is silent about prior disputes; cannot determine whether this is a duplicate without new information.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Intake staff forwarded a generic request for the customer to resubmit the dispute to the proper furnisher dispute address.",
+      "explanation": "Intake redirected on address grounds, not on a sufficiency-of-information determination; no characterization of information sufficiency for investigation is made.",
+      "confidence": 0.55
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative provides no dates or frivolous/irrelevant determination.",
+      "explanation": "No frivolous/irrelevant determination or timing is stated.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.furnished_by_furnisher",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Intake staff forwarded a generic request for the customer to resubmit the dispute to the proper furnisher dispute address.",
+      "explanation": "Narrative implies the bank is a furnisher (it has a furnisher dispute address) but does not affirmatively state the disputed item was reported by the bank to a CRA.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.cra_notified_furnisher",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No CRA notice is in the file.",
+      "explanation": "Narrative addresses what is in the bank's file, not what a CRA did; CRA actions are outside the closed-world scope.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.business_days_to_notify_furnisher",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No CRA dates provided.",
+      "explanation": "Narrative provides no timing information regarding any CRA-to-furnisher notification.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.notice_included_all_relevant_info",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No CRA notice referenced.",
+      "explanation": "No CRA notice is described, so its contents cannot be evaluated.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.primary_documents_forwarded",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Intake staff forwarded a generic request for the customer to resubmit ...",
+      "explanation": "Narrative describes a request to resubmit but is silent on whether the payment receipt or other primary documents were forwarded to a furnisher dispute channel.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.item_found_inaccurate",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No reinvestigation outcome described.",
+      "explanation": "Narrative does not describe any reinvestigation outcome.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.item_found_incomplete",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No reinvestigation outcome described.",
+      "explanation": "Narrative does not describe any reinvestigation outcome.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No verification process described.",
+      "explanation": "Narrative does not address verification.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.item_verified_as_accurate",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No reinvestigation described.",
+      "explanation": "Narrative does not describe verification or reinvestigation outcomes.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.item_status_recorded_current",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative silent on recording status.",
+      "explanation": "No information about recording current status of the disputed item.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.item_deleted",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative silent on deletion.",
+      "explanation": "No information about deletion of the disputed item.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.item_modified",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative silent on modification.",
+      "explanation": "No information about modification of the disputed item.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.furnisher_received_cra_notice",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "No CRA notice is in the file.",
+      "explanation": "Narrative affir

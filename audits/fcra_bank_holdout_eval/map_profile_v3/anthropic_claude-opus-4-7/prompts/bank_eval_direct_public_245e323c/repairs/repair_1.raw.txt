@@ -1,0 +1,104 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.direct_dispute_identifies_account",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "The customer did not dispute any bank-furnished account balance, payment status, or relationship information; dispute concerned only a courthouse judgment.",
+      "explanation": "Narrative characterizes the dispute as solely about a public-record judgment, not any furnisher-reported account or relationship. The closed-world scope covers characterization of dispute content, so absence of any account/relationship identification can be inferred.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.direct_dispute_explains_basis",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative describes the subject (a courthouse judgment) but does not state the consumer's stated basis or reason for disputing.",
+      "explanation": "Whether the consumer explained a basis is not addressed; the source's closed-world scope does not cover this aspect, so absence remains open-world.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.direct_dispute_supporting_docs_supplied",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not mention supporting documentation.",
+      "explanation": "Whether supporting documents were supplied is not addressed and falls outside the source's closed-world scopes.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.item_found_inaccurate",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not describe any reinvestigation outcome.",
+      "explanation": "No information about a reinvestigation finding; outside closed-world scopes.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.item_found_incomplete",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not describe any reinvestigation outcome.",
+      "explanation": "No information about whether the item was found incomplete; outside closed-world scopes.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not describe verification status.",
+      "explanation": "No information about verifiability; outside closed-world scopes.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.direct_furnisher_investigation_conducted",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "The bank noted that the dispute concerned only public-record information and directed the customer to the reporting source.",
+      "explanation": "The source's closed-world scope covers the furnisher's stated handling of the dispute. The bank's handling was to redirect the consumer to the reporting source rather than investigate; this supports an inference that no furnisher investigation was conducted.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.direct_furnisher_reviewed_info",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "The bank noted that the dispute concerned only public-record information and directed the customer to the reporting source.",
+      "explanation": "Furnisher handling is within the closed-world scope; the described handling was to redirect, not to review provided information, supporting an inference that no such review occurred.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "fcra.direct_furnisher_results_reported_to_consumer",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "The bank ... directed the customer to the reporting source.",
+      "explanation": "Furnisher handling is within the closed-world scope; the recorded handling is redirection rather than reporting investigation results, supporting an inference that no investigation results were reported.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "fcra.direct_furnisher_corrected_cras",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "The bank noted that the dispute concerned only public-record information and directed the customer to the reporting source; no investigation occurred and no inaccuracy was found.",
+      "explanation": "This atom is conditional on the direct investigation having found information inaccurate. The triggering condition is clearly absent (no furnisher investigation; dispute concerned only public-record data), so the branch is not applicable and binds true.",
+      "confidence": 0.8
+    }
+  ]
+}

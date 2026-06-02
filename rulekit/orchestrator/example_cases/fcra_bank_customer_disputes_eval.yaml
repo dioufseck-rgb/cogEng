@@ -1,0 +1,309 @@
+metadata:
+  name: FCRA bank customer dispute holdout evaluation cases
+  perspective: bank_furnisher
+  purpose: >
+    Narrative-only holdout cases for comparing governed RuleKit Map + engine
+    against the profiled direct-LLM disposition baseline. These cases were
+    authored after the six-case tuning set and intentionally include paraphrase,
+    confounders, branch non-applicability, routing triggers, and unresolved
+    facts.
+  determinations:
+    - fcra.cra_furnisher_notice_satisfied
+    - fcra.item_treatment_satisfied
+    - fcra.furnisher_indirect_satisfied
+    - fcra.direct_furnisher_satisfied
+    - fcra.human_review_required
+
+cases:
+  - case_id: bank_eval_indirect_clean_verified_1
+    title: Indirect ACDV packet verifies late payment
+    narrative: >
+      Customer H disputed a mortgage late mark through a consumer reporting
+      agency. The CRA sent the bank an ACDV packet with the customer's letter,
+      the account number, the disputed month, and a payment-history attachment.
+      The bank compared the ledger and lockbox posting history, verified that
+      the payment posted after the grace period, and reported verified-as-
+      accurate results back to the CRA within the dispute deadline. No direct
+      dispute was sent to the bank.
+    expected_outcomes:
+      fcra.cra_furnisher_notice_satisfied: "true"
+      fcra.item_treatment_satisfied: "true"
+      fcra.furnisher_indirect_satisfied: "true"
+      fcra.direct_furnisher_satisfied: "true"
+      fcra.human_review_required: "false"
+
+  - case_id: bank_eval_indirect_corrected_and_reported
+    title: Indirect CRA dispute found inaccurate and corrected
+    narrative: >
+      Customer I disputed an overstated revolving balance through a CRA. The
+      CRA notice to the bank included the customer's payoff confirmation, the
+      account number, and the disputed balance field. The bank found the balance
+      was inaccurate, modified the furnished balance to zero, and reported
+      investigation results and the corrected balance back to the CRA within the
+      dispute deadline.
+    expected_outcomes:
+      fcra.cra_furnisher_notice_satisfied: "true"
+      fcra.item_treatment_satisfied: "true"
+      fcra.furnisher_indirect_satisfied: "true"
+      fcra.direct_furnisher_satisfied: "true"
+      fcra.human_review_required: "false"
+
+  - case_id: bank_eval_indirect_missing_docs_review
+    title: CRA notice omits referenced proof and bank reviews packet received
+    narrative: >
+      Customer J disputed a charged-off card through a CRA and said settlement
+      papers showed the balance was wrong. The CRA notice to the bank contained
+      the account number and dispute code but did not include the settlement
+      letter or bank-statement images. The bank reviewed the materials it
+      received, responded to the CRA, recorded the item as verified from the
+      bank ledger, and opened manual review because source documents were
+      missing from the transmission.
+    expected_outcomes:
+      fcra.cra_furnisher_notice_satisfied: "false"
+      fcra.item_treatment_satisfied: "true"
+      fcra.furnisher_indirect_satisfied: "true"
+      fcra.direct_furnisher_satisfied: "true"
+      fcra.human_review_required: "true"
+
+  - case_id: bank_eval_indirect_late_cra_notice
+    title: CRA forwards furnisher notice after fifth business day
+    narrative: >
+      Customer K disputed an auto-loan repossession notation with a CRA. The CRA
+      sent the bank an ACDV packet with the customer's letter and account
+      documents, but the forwarding log shows the bank received the notice on
+      the seventh business day after the CRA received the dispute. The bank
+      investigated, verified that the repossession notation matched its records,
+      and reported verified-as-accurate results back to the CRA within the
+      dispute deadline.
+    expected_outcomes:
+      fcra.cra_furnisher_notice_satisfied: "false"
+      fcra.item_treatment_satisfied: "true"
+      fcra.furnisher_indirect_satisfied: "true"
+      fcra.direct_furnisher_satisfied: "true"
+      fcra.human_review_required: "false"
+
+  - case_id: bank_eval_indirect_date_conflict_pending
+    title: Conflicting dates prevent final furnisher result
+    narrative: >
+      Customer L disputed a late payment through a CRA. The ACDV packet included
+      the customer's letter and the payment confirmation, but the CRA file,
+      bank ledger, and customer receipt show inconsistent dates for the same
+      transaction. The bank has not yet determined whether the furnished late
+      mark is accurate, modified, or unverifiable, and the case is routed to
+      manual review for date reconciliation.
+    expected_outcomes:
+      fcra.cra_furnisher_notice_satisfied: "true"
+      fcra.item_treatment_satisfied: "undetermined"
+      fcra.furnisher_indirect_satisfied: "undetermined"
+      fcra.direct_furnisher_satisfied: "true"
+      fcra.human_review_required: "true"
+
+  - case_id: bank_eval_indirect_no_bank_furnishing
+    title: CRA notice names account not furnished by bank
+    narrative: >
+      Customer M disputed a medical collection through a CRA. The CRA notice to
+      the bank identified the consumer and account reference, but the bank's
+      furnisher desk confirmed the account was not furnished by this bank and
+      returned a response saying it had no furnished tradeline for the item. No
+      direct dispute was sent to the bank, and no review trigger appears in the
+      packet.
+    expected_outcomes:
+      fcra.cra_furnisher_notice_satisfied: "true"
+      fcra.item_treatment_satisfied: "true"
+      fcra.furnisher_indirect_satisfied: "true"
+      fcra.direct_furnisher_satisfied: "true"
+      fcra.human_review_required: "false"
+
+  - case_id: bank_eval_direct_verified_auto
+    title: Direct dispute verified after payment review
+    narrative: >
+      Customer N mailed a direct dispute to the bank's published dispute
+      address. The letter identified the auto-loan account, the allegedly
+      inaccurate late-payment month, and included a copy of the customer's
+      online payment confirmation. The bank reviewed the account ledger and
+      payment posting system, found the reported information accurate, and sent
+      a written investigation result to the customer.
+    expected_outcomes:
+      fcra.cra_furnisher_notice_satisfied: "true"
+      fcra.item_treatment_satisfied: "true"
+      fcra.furnisher_indirect_satisfied: "true"
+      fcra.direct_furnisher_satisfied: "true"
+      fcra.human_review_required: "false"
+
+  - case_id: bank_eval_direct_corrected_and_sent
+    title: Direct dispute corrected and CRAs notified
+    narrative: >
+      Customer O submitted a direct dispute to the bank's published dispute
+      address with a payoff confirmation showing a reported balance was
+      overstated. The bank agreed that the balance was inaccurate, modified the
+      account record internally, sent a written result to the customer, and
+      sent corrected information to the CRAs that had received the inaccurate
+      balance.
+    expected_outcomes:
+      fcra.cra_furnisher_notice_satisfied: "true"
+      fcra.item_treatment_satisfied: "true"
+      fcra.furnisher_indirect_satisfied: "true"
+      fcra.direct_furnisher_satisfied: "true"
+      fcra.human_review_required: "false"
+
+  - case_id: bank_eval_direct_corrected_not_sent
+    title: Direct dispute corrected internally but CRAs not notified
+    narrative: >
+      Customer P submitted a direct dispute to the bank's published dispute
+      address with a payoff confirmation showing a reported balance was
+      overstated. The bank agreed that the balance was inaccurate and modified
+      the account record internally. The investigation result was mailed to the
+      customer, but the bank file does not show that corrected information was
+      sent to the CRAs that had received the inaccurate balance.
+    expected_outcomes:
+      fcra.cra_furnisher_notice_satisfied: "true"
+      fcra.item_treatment_satisfied: "true"
+      fcra.furnisher_indirect_satisfied: "true"
+      fcra.direct_furnisher_satisfied: "false"
+      fcra.human_review_required: "false"
+
+  - case_id: bank_eval_direct_short_message_insufficient
+    title: Direct message lacks account and disputed field
+    narrative: >
+      Customer Q sent the bank a short message saying the bank's credit
+      reporting was wrong but did not identify the account, the specific
+      reported field, or any supporting documents. The message arrived at the
+      bank's published dispute address. The bank marked the packet as
+      insufficient and requested the missing account and issue details.
+    expected_outcomes:
+      fcra.cra_furnisher_notice_satisfied: "true"
+      fcra.item_treatment_satisfied: "true"
+      fcra.furnisher_indirect_satisfied: "true"
+      fcra.direct_furnisher_satisfied: "false"
+      fcra.human_review_required: "false"
+
+  - case_id: bank_eval_direct_wrong_address
+    title: Direct dispute sent to ordinary customer service address
+    narrative: >
+      Customer R mailed a balance dispute to the bank's ordinary customer
+      service lockbox, not to the published dispute address. The letter included
+      an account number, described the disputed balance, and attached a payment
+      receipt. Intake staff forwarded a generic request for the customer to
+      resubmit the dispute to the proper furnisher dispute address. No CRA
+      notice is in the file.
+    expected_outcomes:
+      fcra.cra_furnisher_notice_satisfied: "true"
+      fcra.item_treatment_satisfied: "true"
+      fcra.furnisher_indirect_satisfied: "true"
+      fcra.direct_furnisher_satisfied: "false"
+      fcra.human_review_required: "false"
+
+  - case_id: bank_eval_direct_public_record_only
+    title: Direct dispute concerns courthouse judgment only
+    narrative: >
+      Customer S sent a direct dispute to the bank's published dispute address
+      about a courthouse judgment appearing on the credit report. The customer
+      did not dispute any bank-furnished account balance, payment status, or
+      relationship information. The bank noted that the dispute concerned only
+      public-record information and directed the customer to the reporting
+      source.
+    expected_outcomes:
+      fcra.cra_furnisher_notice_satisfied: "true"
+      fcra.item_treatment_satisfied: "true"
+      fcra.furnisher_indirect_satisfied: "true"
+      fcra.direct_furnisher_satisfied: "true"
+      fcra.human_review_required: "false"
+
+  - case_id: bank_eval_identity_theft_missing_report
+    title: Not-mine dispute lacks completed identity theft report
+    narrative: >
+      Customer T uploaded a dispute saying two reported accounts are "not mine"
+      and appear to involve identity theft. The customer supplied a police
+      incident number but no completed identity-theft report or affidavit. The
+      bank could not match the uploaded documents to the account-opening file
+      without additional identity-theft documentation and routed the case to
+      manual review.
+    expected_outcomes:
+      fcra.cra_furnisher_notice_satisfied: "true"
+      fcra.item_treatment_satisfied: "true"
+      fcra.furnisher_indirect_satisfied: "true"
+      fcra.direct_furnisher_satisfied: "false"
+      fcra.human_review_required: "true"
+
+  - case_id: bank_eval_identity_theft_complete_blocked
+    title: Identity theft report supplied and tradeline blocked
+    narrative: >
+      Customer U uploaded a direct dispute to the bank's published dispute
+      portal saying an account was not mine and included a completed identity-
+      theft report, signed affidavit, and police report. The bank reviewed the
+      account-opening file, concluded the tradeline could not be verified as the
+      customer's obligation, blocked further reporting, sent results to the
+      customer, and notified the CRAs of the block.
+    expected_outcomes:
+      fcra.cra_furnisher_notice_satisfied: "true"
+      fcra.item_treatment_satisfied: "true"
+      fcra.furnisher_indirect_satisfied: "true"
+      fcra.direct_furnisher_satisfied: "true"
+      fcra.human_review_required: "true"
+
+  - case_id: bank_eval_mixed_file_indirect_pending
+    title: Similar-name mixed-file dispute remains unresolved
+    narrative: >
+      Customer V disputed a loan tradeline through a CRA and said it belonged
+      to a person with a similar name. The ACDV packet included the customer's
+      letter and two address records, but the bank file contains conflicting
+      name and date-of-birth fields. The bank has not yet decided whether the
+      item is a mixed-file error or a verified customer obligation, and the case
+      is pending manual review.
+    expected_outcomes:
+      fcra.cra_furnisher_notice_satisfied: "true"
+      fcra.item_treatment_satisfied: "undetermined"
+      fcra.furnisher_indirect_satisfied: "undetermined"
+      fcra.direct_furnisher_satisfied: "true"
+      fcra.human_review_required: "true"
+
+  - case_id: bank_eval_veteran_medical_deleted
+    title: Veteran medical-debt tradeline deleted after CRA notice
+    narrative: >
+      Customer W disputed a medical-debt tradeline through a CRA and stated the
+      debt was subject to veteran medical-debt deletion rules. The CRA notice to
+      the bank included the customer's letter, VA documentation, and account
+      reference. The bank reviewed the packet, deleted the furnished medical
+      tradeline, reported the deletion back to the CRA within the dispute
+      deadline, and routed the packet for policy review because of the veteran
+      medical-debt claim.
+    expected_outcomes:
+      fcra.cra_furnisher_notice_satisfied: "true"
+      fcra.item_treatment_satisfied: "true"
+      fcra.furnisher_indirect_satisfied: "true"
+      fcra.direct_furnisher_satisfied: "true"
+      fcra.human_review_required: "true"
+
+  - case_id: bank_eval_duplicate_no_new_info
+    title: Repeat direct dispute contains no new information
+    narrative: >
+      Customer X submitted a direct dispute to the bank's published dispute
+      address repeating a balance complaint that the bank had investigated two
+      weeks earlier. The new message identified the same account and issue but
+      included no new documents or explanation. The bank sent a notice stating
+      the dispute was substantially the same as the prior dispute and identified
+      the information needed to investigate further.
+    expected_outcomes:
+      fcra.cra_furnisher_notice_satisfied: "true"
+      fcra.item_treatment_satisfied: "true"
+      fcra.furnisher_indirect_satisfied: "true"
+      fcra.direct_furnisher_satisfied: "false"
+      fcra.human_review_required: "false"
+
+  - case_id: bank_eval_dual_channel_cra_and_direct
+    title: Consumer sends both CRA dispute and direct bank packet
+    narrative: >
+      Customer Y disputed a late-payment notation through a CRA and also mailed
+      a direct dispute to the bank's published dispute address. The CRA sent the
+      bank an ACDV packet with the customer's letter, account number, disputed
+      month, and payment-history attachment. The direct letter identified the
+      same account and month and included the customer's payment confirmation.
+      The bank reviewed both packets, found the reported information accurate,
+      sent a written result to the customer, and reported verified-as-accurate
+      results back to the CRA within the dispute deadline.
+    expected_outcomes:
+      fcra.cra_furnisher_notice_satisfied: "true"
+      fcra.item_treatment_satisfied: "true"
+      fcra.furnisher_indirect_satisfied: "true"
+      fcra.direct_furnisher_satisfied: "true"
+      fcra.human_review_required: "false"

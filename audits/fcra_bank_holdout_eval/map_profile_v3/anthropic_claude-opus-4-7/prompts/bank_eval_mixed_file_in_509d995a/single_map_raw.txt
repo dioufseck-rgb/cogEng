@@ -1,0 +1,204 @@
+{
+  "sources": [
+    {
+      "source_id": "case_narrative",
+      "source_type": "case_narrative",
+      "title": "Customer V CRA Dispute Narrative",
+      "as_of_date": null,
+      "closed_world_scopes": [],
+      "limitations": "Narrative summary only; case is pending manual review, so no investigation outcome, furnisher actions, or timing data are recorded."
+    }
+  ],
+  "bindings": [
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Customer disputed tradeline asserting it belonged to a person with a similar name; narrative frames dispute as accuracy/identity issue, not completeness.",
+      "explanation": "Narrative does not characterize the dispute as one of completeness; it is silent on that characterization.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "No mention of any prior dispute.",
+      "explanation": "Narrative does not address whether this dispute is substantially the same as a prior one.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "ACDV packet included customer's letter and two address records; case pending manual review.",
+      "explanation": "Narrative does not state whether the information provided was sufficient or insufficient to investigate.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No frivolous/irrelevant determination or notice mentioned.",
+      "explanation": "No frivolous determination has occurred, so no day count exists in the record.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.item_found_inaccurate",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Bank has not yet decided whether item is a mixed-file error or a verified customer obligation; case pending manual review.",
+      "explanation": "Reinvestigation has not concluded; no finding of inaccuracy recorded.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.item_found_incomplete",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Case pending manual review; no findings stated.",
+      "explanation": "No reinvestigation finding of incompleteness is recorded.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Case pending manual review; conflicting name and DOB fields noted but no verification conclusion stated.",
+      "explanation": "Narrative does not state that the item could not be verified; review is still in progress.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.item_verified_as_accurate",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Bank has not yet decided; case pending manual review.",
+      "explanation": "No verification outcome has been recorded yet.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.item_status_recorded_current",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "No mention of recording current status of the disputed information.",
+      "explanation": "Narrative does not address whether current status was recorded.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.item_deleted",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Case pending manual review; no deletion action mentioned.",
+      "explanation": "No outcome action recorded; deletion neither affirmed nor denied.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.item_modified",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Case pending manual review; no modification action mentioned.",
+      "explanation": "No outcome action recorded; modification neither affirmed nor denied.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.furnisher_investigation_conducted",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "ACDV packet received; case pending manual review.",
+      "explanation": "Narrative does not state that the furnisher has conducted (completed) an investigation; review is pending.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.furnisher_reviewed_all_cra_info",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "ACDV packet included customer letter and two address records; review pending.",
+      "explanation": "Narrative does not confirm that the furnisher reviewed all relevant CRA-provided information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.furnisher_reported_results_to_cra",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Case pending manual review; no reporting back to CRA mentioned.",
+      "explanation": "No statement that the furnisher has reported results.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.days_to_furnisher_complete",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No dates provided for CRA notice or furnisher completion; investigation not complete.",
+      "explanation": "No timing data available to compute calendar days.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.furnisher_reported_inaccuracy_to_other_cras",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "No mention of reporting to other CRAs; no inaccuracy finding yet.",
+      "explanation": "Narrative is silent on whether any inaccuracy was reported to other CRAs.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.furnisher_modified_item",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Case pending manual review; no modification action mentioned.",
+      "explanation": "No statement that the furnisher modified the item.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.furnisher_deleted_item",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Case pending manual review; no deletion action mentioned.",
+      "explanation": "No statement that the furnisher deleted the item.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.furnisher_blocked_item",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Case pending manual review; no blocking action mentioned.",
+      "explanation": "No statement that the furnisher permanently blocked reporting.",
+      "confidence": 0.8
+    }
+  ]
+}

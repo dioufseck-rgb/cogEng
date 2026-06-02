@@ -1,0 +1,113 @@
+{
+  "case_id": "bank_direct_dispute_insufficient_information",
+  "case_level_notes": "Direct-only intake with insufficient packet. CRA-path determinations are not applicable; direct furnisher duty marked false because required frivolous/irrelevant consumer notice elements are not shown.",
+  "determinations": [
+    {
+      "anti_overclaim_check": "Marking true reflects branch inapplicability under profile guidance, not a finding that a CRA notice was sent.",
+      "confidence": 0.9,
+      "decisive_branch": "not-applicable branch (no CRA path)",
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Dispute arrived at the bank's published dispute address, not via a CRA",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "no_cra_path_for_direct_furnisher_only",
+        "bank_direct_only_no_cra_notice"
+      ],
+      "rationale": "No CRA-transmitted dispute is described; the dispute came directly to the bank's published address. The CRA furnisher-notice branch is not applicable to this direct-only intake."
+    },
+    {
+      "anti_overclaim_check": "Item treatment is judged on its own branch; no defect-found facts exist to require deletion/modification.",
+      "confidence": 0.75,
+      "decisive_branch": "not-applicable branch (no defect found requiring treatment)",
+      "determination_id": "fcra.item_treatment_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Bank marked packet insufficient and requested missing details",
+          "source": "narrative"
+        },
+        {
+          "basis": "missing",
+          "fact": "No finding of inaccuracy or unverifiability stated",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "bank_direct_insufficient_packet"
+      ],
+      "rationale": "The bank found the direct dispute insufficient and did not reach a finding of inaccurate, incomplete, or unverifiable information. With no defect identified through a qualifying process, no delete/modify treatment was triggered."
+    },
+    {
+      "anti_overclaim_check": "True reflects inapplicability of the indirect branch, not affirmative performance of indirect duties.",
+      "confidence": 0.9,
+      "decisive_branch": "not-applicable branch (no CRA notice to furnisher)",
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Only a direct dispute to the bank is described",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "no_cra_path_for_direct_furnisher_only",
+        "bank_direct_only_no_cra_notice"
+      ],
+      "rationale": "No CRA-transmitted indirect dispute reached the bank, so the indirect furnisher-duty branch is not applicable."
+    },
+    {
+      "anti_overclaim_check": "Outcome reflects that the duty branch applied (direct dispute received) but required frivolous-notice elements are not shown; not overclaiming beyond record.",
+      "confidence": 0.6,
+      "decisive_branch": "insufficient direct dispute packet branch",
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Message did not identify account, field, or documents",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Bank requested missing details",
+          "source": "narrative"
+        },
+        {
+          "basis": "missing",
+          "fact": "No explicit frivolous/irrelevant notice with reasons documented",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "false",
+      "profile_rule_ids": [
+        "bank_direct_insufficient_packet"
+      ],
+      "rationale": "The direct dispute packet failed to identify the account, the specific disputed information, the basis, or supporting documents. Under 12 CFR 1022.43, the furnisher need not investigate an insufficient packet, but it must notify the consumer of frivolous/irrelevant determination with reasons and identify information required. The bank requested missing details but the narrative does not show a compliant frivolous/irrelevant notice with reasons within 5 business days."
+    },
+    {
+      "anti_overclaim_check": "Absence of routing triggers in narrative supports false; not inferring triggers not stated.",
+      "confidence": 0.85,
+      "decisive_branch": "routing default (no triggers)",
+      "determination_id": "fcra.human_review_required",
+      "material_facts": [
+        {
+          "basis": "missing",
+          "fact": "No routing trigger cues in narrative",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "false",
+      "profile_rule_ids": [
+        "bank_no_review_triggers"
+      ],
+      "rationale": "No identity theft, mixed-file, court order, missing source documents, date conflicts, or manual review policy triggers appear. The insufficient packet was handled by requesting more info, not escalated for review."
+    }
+  ]
+}

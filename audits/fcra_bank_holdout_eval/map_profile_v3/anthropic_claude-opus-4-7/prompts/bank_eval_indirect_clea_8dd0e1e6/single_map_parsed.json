@@ -1,0 +1,258 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "basis": "inferred_from_record",
+      "confidence": 0.7,
+      "evidence": "Customer H disputed a mortgage late mark ... verified that the payment posted after the grace period",
+      "explanation": "The dispute is characterized as challenging the accuracy of a late mark (whether the payment was late), not the completeness of the item.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Narrative does not mention any prior dispute on this item.",
+      "explanation": "No information about prior disputes is provided; cannot determine if this is substantially the same as a prior dispute.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "basis": "inferred_from_record",
+      "confidence": 0.8,
+      "evidence": "ACDV packet with the customer's letter, the account number, the disputed month, and a payment-history attachment ... the bank compared the ledger and lockbox posting history",
+      "explanation": "Furnisher actually conducted the investigation using the provided information, indicating sufficient information was available.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "basis": "not_found",
+      "confidence": 0.9,
+      "evidence": "No frivolous/irrelevant determination or notice timing mentioned.",
+      "explanation": "Narrative does not indicate any frivolous-or-irrelevant determination or related notice timing.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": 0
+    },
+    {
+      "atom_id": "fcra.furnisher_investigation_conducted",
+      "basis": "explicit_positive",
+      "confidence": 0.95,
+      "evidence": "The bank compared the ledger and lockbox posting history, verified that the payment posted after the grace period",
+      "explanation": "Narrative explicitly describes the furnisher's investigation activities.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.furnisher_reviewed_all_cra_info",
+      "basis": "inferred_from_record",
+      "confidence": 0.8,
+      "evidence": "ACDV packet with the customer's letter, the account number, the disputed month, and a payment-history attachment ... bank compared the ledger and lockbox posting history",
+      "explanation": "Narrative indicates the bank used the ACDV packet contents (customer letter, account, disputed month, payment history) in conducting the investigation, supporting that all relevant CRA-provided info was reviewed.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.furnisher_reported_results_to_cra",
+      "basis": "explicit_positive",
+      "confidence": 0.95,
+      "evidence": "reported verified-as-accurate results back to the CRA within the dispute deadline",
+      "explanation": "Narrative explicitly states results were reported to the CRA.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.direct_dispute_received_by_furnisher",
+      "basis": "explicit_negative",
+      "confidence": 0.98,
+      "evidence": "No direct dispute was sent to the bank.",
+      "explanation": "Narrative explicitly negates receipt of a direct dispute.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.direct_dispute_public_record_only",
+      "basis": "not_found",
+      "confidence": 0.7,
+      "evidence": "No direct dispute was sent to the bank.",
+      "explanation": "No direct dispute exists, so its subject scope is not applicable/determinable.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.direct_dispute_fraud_alert_only",
+      "basis": "not_found",
+      "confidence": 0.7,
+      "evidence": "No direct dispute was sent to the bank.",
+      "explanation": "No direct dispute exists, so its subject scope is not applicable/determinable.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.direct_dispute_at_proper_address",
+      "basis": "not_found",
+      "confidence": 0.7,
+      "evidence": "No direct dispute was sent to the bank.",
+      "explanation": "No direct dispute was sent; proper-address attribute is inapplicable/undetermined.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.direct_dispute_identifies_account",
+      "basis": "not_found",
+      "confidence": 0.7,
+      "evidence": "No direct dispute was sent to the bank.",
+      "explanation": "No direct dispute exists to evaluate this attribute.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.direct_dispute_identifies_specific_info",
+      "basis": "not_found",
+      "confidence": 0.7,
+      "evidence": "No direct dispute was sent to the bank.",
+      "explanation": "No direct dispute exists to evaluate this attribute.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.direct_dispute_explains_basis",
+      "basis": "not_found",
+      "confidence": 0.7,
+      "evidence": "No direct dispute was sent to the bank.",
+      "explanation": "No direct dispute exists to evaluate this attribute.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.direct_dispute_supporting_docs_supplied",
+      "basis": "not_found",
+      "confidence": 0.7,
+      "evidence": "No direct dispute was sent to the bank.",
+      "explanation": "No direct dispute exists; supporting-docs attribute is undetermined.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.direct_dispute_subject_within_scope",
+      "basis": "not_found",
+      "confidence": 0.7,
+      "evidence": "No direct dispute was sent to the bank.",
+      "explanation": "No direct dispute exists to evaluate subject-matter scope.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.direct_furnisher_investigation_conducted",
+      "basis": "inferred_from_record",
+      "confidence": 0.85,
+      "evidence": "No direct dispute was sent to the bank.",
+      "explanation": "Because no direct dispute reached the furnisher, no direct-dispute investigation under 1022.43(e) was conducted.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.direct_furnisher_reviewed_info",
+      "basis": "inferred_from_record",
+      "confidence": 0.85,
+      "evidence": "No direct dispute was sent to the bank.",
+      "explanation": "No direct dispute notice was received, so no direct-dispute information could be reviewed.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.direct_furnisher_results_reported_to_consumer",
+      "basis": "inferred_from_record",
+      "confidence": 0.8,
+      "evidence": "No direct dispute was sent to the bank; results were reported to the CRA.",
+      "explanation": "No direct-dispute investigation occurred, so no direct-dispute results were reported to the consumer.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.direct_furnisher_corrected_cras",
+      "basis": "not_found",
+      "confidence": 0.7,
+      "evidence": "Bank verified-as-accurate; no inaccuracy finding indicated, and no direct dispute occurred.",
+      "explanation": "This atom concerns the direct-dispute pathway; no direct dispute occurred and the verification found accuracy, so corrective notification to CRAs is not described/applicable.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    }
+  ],
+  "sources": [
+    {
+      "as_of_date": null,
+      "closed_world_scopes": [
+        "channel through which dispute reached the furnisher",
+        "contents of the ACDV packet from the CRA",
+        "actions the bank took in response to the ACDV"
+      ],
+      "limitations": "Brief narrative; does not enumerate prior dispute history, exact timing in business days, or whether the furnisher transmitted any corrections to other CRAs.",
+      "source_id": "case_narrative",
+      "source_type": "case_narrative",
+      "title": "Customer H ACDV dispute narrative"
+    }
+  ]
+}

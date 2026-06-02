@@ -1,0 +1,64 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "CRA notice included payoff confirmation, account number, and disputed balance field; bank investigated and found inaccuracy.",
+      "explanation": "The dispute was processed substantively with new supporting information (payoff confirmation) and resulted in a correction, indicating it was not a duplicate without new information.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "bound",
+      "value": null,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Bank found the balance was inaccurate and corrected it; no frivolous/irrelevant determination occurred.",
+      "explanation": "This is a conditional timing atom that applies only when a frivolous/irrelevant determination is made. The triggering condition is clearly absent because the dispute was investigated on the merits, so the branch is not applicable.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.item_found_incomplete",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Bank found the balance was inaccurate and modified it to zero.",
+      "explanation": "The narrative characterizes the finding as inaccurate (overstated balance corrected to zero), not incomplete. The investigation result is described affirmatively as an accuracy correction.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.item_status_recorded_current",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "The CRA notice to the bank included the account number and the disputed balance field.",
+      "explanation": "The CRA's notice to the furnisher conveyed the current status of the disputed information (account number and balance field), reflecting that the current status was captured in the dispute record.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.furnisher_reported_inaccuracy_to_other_cras",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative mentions only reporting corrected results back to the CRA that sent the notice.",
+      "explanation": "The narrative is silent on whether other nationwide CRAs receiving the same furnished data were notified; absence alone does not support a closed-world false.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.furnisher_blocked_item",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Bank modified the furnished balance to zero and reported the corrected balance back to the CRA.",
+      "explanation": "The furnisher corrected/modified the reported balance rather than permanently blocking reporting of the item; continued reporting (with correction) is inconsistent with a permanent block.",
+      "confidence": 0.8
+    }
+  ]
+}

@@ -327,6 +327,15 @@ metadata:
         basis: inferred_from_record
         if_any: [not mine, identity theft, mixed-file, similar name, not yet received enough material, inconsistent dates]
         evidence: Narrative contains a routing cue requiring human review.
+      - id: bank_indirect_not_furnished_by_bank
+        kind: branch_not_applicable
+        perspectives: [bank_furnisher]
+        atom_ids:
+          - fcra.furnished_by_furnisher
+        value: false
+        basis: explicit_negative
+        if_any: [not furnished by this bank, no furnished tradeline]
+        evidence: Bank record states the disputed item was not furnished by this bank.
       - id: bank_indirect_cra_notice_common
         kind: scope_supported_true
         perspectives: [bank_furnisher]
@@ -355,7 +364,17 @@ metadata:
         value: 3
         basis: inferred_from_record
         if_any: [ACDV packet, CRA notice to the bank, through a consumer reporting agency, through a CRA]
+        unless_any: [sixth business day, seventh business day, eighth business day, ninth business day, tenth business day]
         evidence: Operational ACDV receipt is treated as a timely CRA-to-furnisher notice absent contrary timing facts.
+      - id: bank_indirect_late_cra_notice_seven_business_days
+        kind: explicit_numeric
+        perspectives: [bank_furnisher]
+        atom_ids:
+          - fcra.business_days_to_notify_furnisher
+        value: 7
+        basis: explicit_positive
+        if_any: [seventh business day]
+        evidence: Narrative states the CRA-to-furnisher notice arrived on the seventh business day.
       - id: bank_indirect_complete_documents_forwarded
         kind: scope_supported_true
         perspectives: [bank_furnisher]
@@ -449,6 +468,40 @@ metadata:
         basis: inferred_from_record
         if_any: [direct dispute to the bank, mailed a direct dispute, submitted a direct dispute, uploaded a dispute, short message]
         evidence: Customer submitted a direct dispute to the bank for bank-furnished account information.
+      - id: bank_direct_wrong_address
+        kind: explicit_negative
+        perspectives: [bank_furnisher]
+        atom_ids:
+          - fcra.direct_dispute_at_proper_address
+        value: false
+        basis: explicit_negative
+        if_any: [ordinary customer service lockbox, not to the published dispute address, wrong address]
+        evidence: Direct dispute was not sent to the bank's published furnisher dispute address.
+      - id: bank_direct_wrong_address_received
+        kind: scope_supported_true
+        perspectives: [bank_furnisher]
+        atom_ids:
+          - fcra.direct_dispute_received_by_furnisher
+          - fcra.direct_dispute_identifies_account
+          - fcra.direct_dispute_identifies_specific_info
+          - fcra.direct_dispute_explains_basis
+          - fcra.direct_dispute_supporting_docs_supplied
+          - fcra.direct_dispute_subject_within_scope
+        value: true
+        basis: inferred_from_record
+        if_any: [ordinary customer service lockbox, not to the published dispute address]
+        evidence: Wrong-address direct dispute was received and described the account dispute, but not at the proper address.
+      - id: bank_direct_public_record_only_exception
+        kind: scope_supported_true
+        perspectives: [bank_furnisher]
+        atom_ids:
+          - fcra.direct_dispute_received_by_furnisher
+          - fcra.direct_dispute_at_proper_address
+          - fcra.direct_dispute_public_record_only
+        value: true
+        basis: explicit_positive
+        if_any: [public-record information, courthouse judgment, public record]
+        evidence: Direct dispute concerns only public-record information outside direct-furnisher investigation scope.
       - id: bank_direct_not_exception
         kind: explicit_negative
         perspectives: [bank_furnisher]
@@ -458,6 +511,7 @@ metadata:
         value: false
         basis: explicit_negative
         if_any: [direct dispute to the bank, mailed a direct dispute, submitted a direct dispute, uploaded a dispute, short message]
+        unless_any: [public-record information, courthouse judgment, public record, fraud alert, active duty alert]
         evidence: Direct bank dispute concerns account reporting, not a public-record-only or fraud-alert-only exception.
       - id: bank_direct_only_no_cra_notice
         kind: branch_not_applicable
@@ -601,6 +655,31 @@ metadata:
         basis: explicit_positive
         if_any: [source documents that were missing, missing from the transmission, routed the case to manual review]
         evidence: Missing material source documents or explicit escalation triggers bank manual review.
+      - id: bank_veteran_medical_debt_review_route
+        kind: routing_trigger
+        perspectives: [bank_furnisher]
+        atom_ids:
+          - fcra.medical_debt_veteran_claimed
+          - fcra.manual_review_policy_trigger
+        value: true
+        basis: explicit_positive
+        if_any: [veteran medical-debt, veteran medical debt, VA documentation]
+        evidence: Veteran medical-debt claim triggers bank policy review.
+      - id: bank_veteran_medical_debt_deleted
+        kind: scope_supported_true
+        perspectives: [bank_furnisher]
+        atom_ids:
+          - fcra.item_deleted
+          - fcra.item_status_recorded_current
+          - fcra.furnisher_deleted_item
+          - fcra.furnisher_reported_results_to_cra
+          - fcra.furnisher_reported_inaccuracy_to_other_cras
+          - fcra.furnisher_investigation_conducted
+          - fcra.furnisher_reviewed_all_cra_info
+        value: true
+        basis: inferred_from_record
+        if_any: [deleted the furnished medical tradeline, reported the deletion back to the CRA]
+        evidence: Bank deleted the veteran medical-debt tradeline and reported the deletion after review.
       - id: bank_no_review_triggers
         kind: routing_default
         perspectives: [bank_furnisher]
@@ -619,7 +698,7 @@ metadata:
           - fcra.manual_review_policy_trigger
         value: false
         basis: explicit_negative
-        unless_any: [identity theft, not mine, manual review, mixed-file, similar name, court order, litigation, veteran medical, source documents that were missing, missing from the transmission, inconsistent dates]
+        unless_any: [identity theft, not mine, manual review, mixed-file, similar name, court order, litigation, veteran medical, veteran medical-debt, source documents that were missing, missing from the transmission, inconsistent dates, VA documentation]
         evidence: Bank dispute narrative does not contain a human-review routing trigger.
 policy_text: |
   Bounded benchmark policy for consumer reporting disputes.

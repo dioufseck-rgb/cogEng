@@ -1,0 +1,125 @@
+{
+  "case_id": "bank_indirect_missing_documents_escalated",
+  "case_level_notes": "CRA's incomplete forwarding undermines both CRA furnisher-notice and the furnisher's ability to fully complete indirect duties; bank appropriately escalated to manual review.",
+  "determinations": [
+    {
+      "anti_overclaim_check": "Based directly on narrative statement that source documents were missing from the CRA transmission.",
+      "confidence": 0.9,
+      "decisive_branch": "applicable branch - notice must include all relevant consumer information",
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "CRA notice did not include settlement letter or bank-statement images referenced by consumer",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Notice contained account number and dispute code only",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "false",
+      "profile_rule_ids": [
+        "bank_indirect_primary_documents_missing",
+        "primary_documents_not_forwarded"
+      ],
+      "rationale": "The CRA notice to the bank omitted the settlement letter and bank-statement images that the consumer referenced, so the notice did not include all relevant information received from the consumer."
+    },
+    {
+      "anti_overclaim_check": "Does not assume an outcome where the narrative shows ongoing review and missing primary documents.",
+      "confidence": 0.75,
+      "decisive_branch": "unresolved branch - final item treatment pending manual review",
+      "determination_id": "fcra.item_treatment_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Bank opened a manual review",
+          "source": "narrative"
+        },
+        {
+          "basis": "missing",
+          "fact": "No final disposition (verified, modified, or deleted) recorded",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "profile_rule_ids": [
+        "bank_source_gap_review_route"
+      ],
+      "rationale": "The bank opened a manual review and the narrative does not state a final disposition of the disputed item (verified, deleted, or modified). Because primary documents were missing, whether the item is accurate, inaccurate, or unverifiable remains unresolved."
+    },
+    {
+      "anti_overclaim_check": "The bank's investigation is in progress via manual review and was based on incomplete inputs; recording it as satisfied would overclaim completion.",
+      "confidence": 0.7,
+      "decisive_branch": "applicable branch - furnisher must review all relevant CRA-provided information",
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Bank reviewed only the materials it received from CRA",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Referenced source documents were missing from CRA transmission",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Bank responded to CRA and opened manual review",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "false",
+      "profile_rule_ids": [
+        "manual_review_for_forwarding_failure",
+        "bank_furnisher_process_completed"
+      ],
+      "rationale": "The bank could not have reviewed all relevant consumer information because the CRA did not forward the consumer's primary source documents. The bank's response was based only on the partial materials it received, so the furnisher's duty to review all relevant information provided by the agency was not fully met as to the missing documents, and the bank itself escalated to manual review."
+    },
+    {
+      "anti_overclaim_check": "Treated as satisfied/not applicable per profile guidance for an inapplicable branch, not as a substantive finding.",
+      "confidence": 0.95,
+      "decisive_branch": "not-applicable branch - no direct dispute path",
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Dispute came through a CRA, not the bank's direct dispute address",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "no_direct_furnisher_dispute_mentioned"
+      ],
+      "rationale": "No direct dispute to the bank is described; the dispute came through a CRA. Direct furnisher dispute duties are outside the natural scope of this case."
+    },
+    {
+      "anti_overclaim_check": "Routing flag is independent of substantive compliance and is supported directly by explicit routing cues in the narrative.",
+      "confidence": 0.95,
+      "decisive_branch": "routing trigger - missing source documents and manual review policy",
+      "determination_id": "fcra.human_review_required",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Source documents missing from CRA transmission",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Bank opened manual review",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "manual_review_for_forwarding_failure",
+        "bank_source_gap_review_route",
+        "source_gap_route"
+      ],
+      "rationale": "Primary source documents referenced by the consumer were missing from the CRA transmission, and the bank explicitly opened a manual review. This matches the routing trigger for missing source documents and forwarding failure."
+    }
+  ]
+}

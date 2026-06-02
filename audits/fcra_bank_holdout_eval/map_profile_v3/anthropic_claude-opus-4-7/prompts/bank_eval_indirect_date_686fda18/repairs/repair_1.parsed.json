@@ -1,0 +1,122 @@
+{
+  "fcra.business_days_to_frivolous_notice": {
+    "atom_id": "fcra.business_days_to_frivolous_notice",
+    "basis": "not_found",
+    "confidence": 0.9,
+    "evidence": "No frivolous/irrelevant determination or notice timing is described.",
+    "explanation": "Narrative provides no numeric timing data; cannot extract a value.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.dispute_about_completeness": {
+    "atom_id": "fcra.dispute_about_completeness",
+    "basis": "inferred_from_record",
+    "confidence": 0.8,
+    "evidence": "Customer L disputed a late payment; inconsistent dates across CRA file, bank ledger, and customer receipt; case routed for date reconciliation.",
+    "explanation": "The dispute is characterized as an accuracy issue (date of the late mark), not completeness. The narrative's framing supports a negative binding.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.dispute_duplicate_without_new_info": {
+    "atom_id": "fcra.dispute_duplicate_without_new_info",
+    "basis": "closed_world_absence",
+    "confidence": 0.6,
+    "evidence": "No mention of any prior dispute by Customer L; ACDV packet contents summarized without reference to prior dispute history.",
+    "explanation": "Although the narrative's closed-world scope covers ACDV packet contents and current case status, it does not enumerate prior dispute history. Without any indication of a prior dispute, the duplicate-without-new-info condition is not supported; binding false as not established.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.item_cannot_be_verified": {
+    "atom_id": "fcra.item_cannot_be_verified",
+    "basis": "open_world_absence",
+    "confidence": 0.9,
+    "evidence": "Bank has not yet determined whether the furnished late mark is unverifiable; manual review pending.",
+    "explanation": "Verifiability determination is explicitly pending; cannot bind true or false.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.item_deleted": {
+    "atom_id": "fcra.item_deleted",
+    "basis": "open_world_absence",
+    "confidence": 0.85,
+    "evidence": "Reinvestigation outcome pending in manual review; no deletion action stated.",
+    "explanation": "Outcome not yet determined; deletion remains possible after reconciliation.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.item_found_inaccurate": {
+    "atom_id": "fcra.item_found_inaccurate",
+    "basis": "open_world_absence",
+    "confidence": 0.9,
+    "evidence": "The bank has not yet determined whether the furnished late mark is accurate, modified, or unverifiable.",
+    "explanation": "Reinvestigation outcome is explicitly pending in manual review; the determination remains genuinely undetermined.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.item_found_incomplete": {
+    "atom_id": "fcra.item_found_incomplete",
+    "basis": "open_world_absence",
+    "confidence": 0.9,
+    "evidence": "Bank has not yet determined accuracy/modification/verifiability; case routed to manual review.",
+    "explanation": "Reinvestigation outcome pending; no finding of incompleteness has been made and one could still be reached.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.item_modified": {
+    "atom_id": "fcra.item_modified",
+    "basis": "open_world_absence",
+    "confidence": 0.9,
+    "evidence": "Bank has not yet determined whether the furnished late mark is modified; manual review pending.",
+    "explanation": "Modification outcome is explicitly pending; cannot bind true or false.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.item_status_recorded_current": {
+    "atom_id": "fcra.item_status_recorded_current",
+    "basis": "open_world_absence",
+    "confidence": 0.6,
+    "evidence": "Narrative does not state whether the current status of the disputed information was recorded.",
+    "explanation": "Recording of current status is not addressed; outside the narrative's enumerated scope.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.item_verified_as_accurate": {
+    "atom_id": "fcra.item_verified_as_accurate",
+    "basis": "open_world_absence",
+    "confidence": 0.9,
+    "evidence": "Bank has not yet determined whether the furnished late mark is accurate.",
+    "explanation": "No verification finding has been made; reinvestigation pending.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  }
+}

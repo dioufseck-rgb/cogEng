@@ -1,12 +1,16 @@
 from __future__ import annotations
 
 from rulekit.orchestrator.cases import CaseExample
+from rulekit.orchestrator.config import load_policy_workspace_seed
 from rulekit.orchestrator.direct_disposition_eval import (
     _expected_outcomes_from_cases,
     build_direct_disposition_prompt,
     summarize_direct_run,
 )
+from rulekit.orchestrator.perspectives import project_program_perspective
+from rulekit.orchestrator.workflow import run_policy_seed_file
 from tests.orchestrator.test_map_governance import _program
+from tests.orchestrator.test_fcra_credit_reporting_deep_seed import SEED_PATH
 
 
 def test_direct_disposition_prompt_contains_case_and_determinations():
@@ -53,6 +57,40 @@ def test_governed_direct_prompt_requests_uncertainty_and_source_checks():
     assert "uncertainty_flags" in prompt
     assert "anti_overclaim_check" in prompt
     assert "closed-world scope" in prompt
+
+
+def test_profiled_direct_prompt_includes_perspective_and_profile_rules(tmp_path):
+    result = run_policy_seed_file(
+        SEED_PATH,
+        tmp_path / "r",
+        program_id="p_fcra_deep",
+    )
+    bank_program = project_program_perspective(result.program, "bank_furnisher")
+    seed = load_policy_workspace_seed(SEED_PATH)
+    case = CaseExample(
+        case_id="bank_direct_short_message",
+        title="Bank direct short message",
+        narrative=(
+            "Customer sent the bank a short message saying the credit reporting "
+            "is wrong but did not identify the account."
+        ),
+        structured_fields={},
+        expected_outcomes=[],
+    )
+
+    prompt = build_direct_disposition_prompt(
+        program=bank_program,
+        policy_text=seed.policy_text,
+        case=case,
+        determinations=["fcra.direct_furnisher_satisfied"],
+        prompt_style="profiled",
+    )
+
+    assert "profiled direct baseline" in prompt
+    assert "ACTIVE PERSPECTIVE" in prompt
+    assert "bank_furnisher" in prompt
+    assert "bank_direct_insufficient_packet" in prompt
+    assert "satisfied or not applicable" in prompt
 
 
 def test_direct_summary_reports_reference_agreement_and_costs():

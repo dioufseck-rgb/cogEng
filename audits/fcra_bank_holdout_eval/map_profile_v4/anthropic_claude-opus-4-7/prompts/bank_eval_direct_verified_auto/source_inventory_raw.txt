@@ -1,0 +1,54 @@
+{
+  "sources": [
+    {
+      "source_id": "case_narrative",
+      "source_type": "case_narrative",
+      "title": "Customer N direct dispute narrative",
+      "as_of_date": null,
+      "closed_world_scopes": ["bank direct-dispute intake and investigation outcome", "bank investigation result reported to consumer"],
+      "limitations": "Brief narrative; does not address CRA-transmitted notice path or post-investigation CRA correction reporting."
+    }
+  ],
+  "bindings": [
+    {
+      "atom_id": "fcra.item_found_inaccurate",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "the bank ... found the reported information accurate",
+      "explanation": "Narrative affirmatively states the bank found the reported information accurate, which is the negation of finding it inaccurate.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.item_found_incomplete",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "found the reported information accurate",
+      "explanation": "Bank's investigation result was 'accurate' with no indication of incompleteness; closed-world bank investigation outcome supports negative.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "The bank reviewed the account ledger and payment posting system, found the reported information accurate",
+      "explanation": "Bank verified the item via ledger and payment posting system, so the item was verified rather than unverifiable.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.direct_furnisher_corrected_cras",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "found the reported information accurate, and sent a written investigation result to the customer",
+      "explanation": "Because the bank found the information accurate, no inaccuracy correction to CRAs was triggered; the conditional CRA-correction action did not occur.",
+      "confidence": 0.9
+    }
+  ]
+}
