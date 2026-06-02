@@ -1,0 +1,389 @@
+metadata:
+  name: FCRA bank customer dispute adjudication cases
+  perspective: bank_furnisher
+  purpose: >
+    Synthetic customer dispute packets for testing the bank/furnisher
+    perspective of the FCRA credit-reporting benchmark. These cases model a
+    bank adjudicating disputes it receives directly from customers or
+    indirectly through CRA ACDV-style notices.
+  common_binding_groups:
+    no_review_triggers: &no_review_triggers
+      atom_ids:
+        - fcra.identity_theft_claimed
+        - fcra.identity_theft_report_supplied
+        - fcra.mixed_file_claimed
+        - fcra.legal_liability_dispute_only
+        - fcra.court_order_supplied
+        - fcra.conflicting_furnisher_and_consumer_docs
+        - fcra.pending_litigation_affects_account
+        - fcra.medical_debt_veteran_claimed
+        - fcra.source_documents_missing
+        - fcra.material_date_conflict
+        - fcra.consumer_alleges_not_mine
+        - fcra.manual_review_policy_trigger
+      value: false
+      basis: explicit_negative
+      evidence: The bank packet does not contain a review-triggering allegation or conflict.
+    no_direct_dispute: &no_direct_dispute
+      atom_ids:
+        - fcra.direct_dispute_received_by_furnisher
+        - fcra.direct_dispute_at_proper_address
+        - fcra.direct_dispute_identifies_account
+        - fcra.direct_dispute_identifies_specific_info
+        - fcra.direct_dispute_explains_basis
+        - fcra.direct_dispute_supporting_docs_supplied
+        - fcra.direct_dispute_subject_within_scope
+        - fcra.direct_dispute_public_record_only
+        - fcra.direct_dispute_fraud_alert_only
+        - fcra.direct_furnisher_investigation_conducted
+        - fcra.direct_furnisher_reviewed_info
+        - fcra.direct_furnisher_results_reported_to_consumer
+        - fcra.direct_furnisher_corrected_cras
+      value: false
+      basis: explicit_negative
+      evidence: The bank did not receive a direct consumer dispute for this case.
+    no_cra_notice: &no_cra_notice
+      atom_ids:
+        - fcra.consumer_disputed_item
+        - fcra.item_in_consumer_file
+        - fcra.dispute_about_accuracy
+        - fcra.dispute_about_completeness
+        - fcra.notice_direct_to_cra
+        - fcra.notice_through_reseller
+        - fcra.consumer_identity_sufficient
+        - fcra.account_identified
+        - fcra.disputed_field_identified
+        - fcra.basis_explained
+        - fcra.consumer_submission_authentic
+        - fcra.furnished_by_furnisher
+        - fcra.cra_notified_furnisher
+        - fcra.notice_included_all_relevant_info
+        - fcra.primary_documents_forwarded
+        - fcra.furnisher_received_cra_notice
+      value: false
+      basis: explicit_negative
+      evidence: The bank packet is direct-to-furnisher only; no CRA notice is in scope.
+    indirect_cra_trigger: &indirect_cra_trigger
+      atom_ids:
+        - fcra.consumer_disputed_item
+        - fcra.item_in_consumer_file
+        - fcra.dispute_about_accuracy
+        - fcra.notice_direct_to_cra
+        - fcra.consumer_identity_sufficient
+        - fcra.account_identified
+        - fcra.disputed_field_identified
+        - fcra.basis_explained
+        - fcra.consumer_submission_authentic
+        - fcra.furnished_by_furnisher
+        - fcra.cra_notified_furnisher
+        - fcra.notice_included_all_relevant_info
+        - fcra.primary_documents_forwarded
+        - fcra.furnisher_received_cra_notice
+      value: true
+      basis: inferred_from_record
+      evidence: The CRA notice package identifies the disputed bank account and transmits relevant consumer information.
+    no_frivolous_termination: &no_frivolous_termination
+      atom_ids:
+        - fcra.frivolous_determination_made
+        - fcra.dispute_duplicate_without_new_info
+        - fcra.insufficient_information_to_investigate
+        - fcra.frivolous_notice_sent
+        - fcra.frivolous_reason_identified
+        - fcra.frivolous_missing_info_identified
+      value: false
+      basis: explicit_negative
+      evidence: The bank record does not show a frivolous or irrelevant termination.
+    no_later_info: &no_later_info
+      atom_ids:
+        - fcra.additional_relevant_info_received_in_30_days
+        - fcra.later_relevant_info_received
+        - fcra.later_relevant_info_forwarded
+        - fcra.expedited_deleted_within_3_business_days
+      value: false
+      basis: explicit_negative
+      evidence: No later relevant information or expedited deletion path is recorded.
+    no_defect_verified: &no_defect_verified
+      atom_ids:
+        - fcra.item_found_inaccurate
+        - fcra.item_found_incomplete
+        - fcra.item_cannot_be_verified
+        - fcra.item_deleted
+        - fcra.item_modified
+        - fcra.furnisher_modified_item
+        - fcra.furnisher_deleted_item
+        - fcra.furnisher_blocked_item
+      value: false
+      basis: explicit_negative
+      evidence: The bank investigation did not find a reportable defect.
+    verified_current: &verified_current
+      atom_ids:
+        - fcra.item_verified_as_accurate
+        - fcra.item_status_recorded_current
+      value: true
+      basis: inferred_from_record
+      evidence: The bank verified the item as accurate and current.
+    furnisher_indirect_process: &furnisher_indirect_process
+      atom_ids:
+        - fcra.furnisher_investigation_conducted
+        - fcra.furnisher_reviewed_all_cra_info
+        - fcra.furnisher_reported_results_to_cra
+      value: true
+      basis: inferred_from_record
+      evidence: The bank investigation log shows review and response to the CRA.
+
+cases:
+  - case_id: bank_indirect_verified_accurate
+    title: Indirect CRA dispute verified as accurate
+    narrative: >
+      Customer A disputed a 30-day late notation through a consumer reporting
+      agency. The CRA sent the bank an ACDV packet with the customer's letter,
+      the account number, the disputed month, and a payment-history attachment.
+      The bank reviewed the account ledger, payment posting records, and the CRA
+      packet, verified that the payment was received after the due date, and
+      reported verified-as-accurate results back to the CRA within the dispute
+      deadline.
+    expected_outcomes:
+      fcra.cra_furnisher_notice_satisfied: "true"
+      fcra.direct_furnisher_satisfied: "true"
+      fcra.furnisher_indirect_satisfied: "true"
+      fcra.human_review_required: "false"
+      fcra.item_treatment_satisfied: "true"
+    structured_fields:
+      evidence_sources:
+        - {source_id: acdv_packet, source_type: cra_dispute_notice, title: CRA ACDV packet, closed_world_scopes: [cra_transmission]}
+        - {source_id: bank_ledger, source_type: bank_account_records, title: Bank account ledger, closed_world_scopes: [bank_account_history]}
+        - {source_id: bank_investigation_log, source_type: furnisher_dispute_log, title: Bank investigation log, closed_world_scopes: [bank_dispute_actions]}
+      default_binding_groups:
+        - *no_review_triggers
+        - *no_direct_dispute
+        - *indirect_cra_trigger
+        - *no_frivolous_termination
+        - *no_later_info
+        - *no_defect_verified
+        - *verified_current
+        - *furnisher_indirect_process
+      facts:
+        fcra.business_days_to_notify_furnisher: 3
+        fcra.days_to_furnisher_complete: 18
+
+  - case_id: bank_indirect_missing_documents_escalated
+    title: CRA notice omits customer documents but bank escalates
+    narrative: >
+      Customer B disputed a charged-off credit card balance through a CRA and
+      said settlement records proved the balance was wrong. The CRA notice to
+      the bank contained the account number and dispute code but did not include
+      the settlement letter or bank-statement images referenced by the customer.
+      The bank reviewed the materials it received, responded to the CRA, and
+      opened a manual review because the customer referenced source documents
+      that were missing from the transmission.
+    expected_outcomes:
+      fcra.cra_furnisher_notice_satisfied: "false"
+      fcra.direct_furnisher_satisfied: "true"
+      fcra.furnisher_indirect_satisfied: "true"
+      fcra.human_review_required: "true"
+      fcra.item_treatment_satisfied: "true"
+    structured_fields:
+      evidence_sources:
+        - {source_id: acdv_packet, source_type: cra_dispute_notice, title: CRA ACDV packet, closed_world_scopes: [cra_transmission]}
+        - {source_id: bank_investigation_log, source_type: furnisher_dispute_log, title: Bank investigation log, closed_world_scopes: [bank_dispute_actions]}
+      default_binding_groups:
+        - *no_direct_dispute
+        - *indirect_cra_trigger
+        - *no_frivolous_termination
+        - *no_later_info
+        - *no_defect_verified
+        - *verified_current
+        - *furnisher_indirect_process
+      facts:
+        fcra.notice_included_all_relevant_info: false
+        fcra.primary_documents_forwarded: false
+        fcra.source_documents_missing: true
+        fcra.manual_review_policy_trigger: true
+        fcra.business_days_to_notify_furnisher: 4
+        fcra.days_to_furnisher_complete: 17
+
+  - case_id: bank_direct_dispute_verified_accurate
+    title: Direct bank dispute verified and reported to customer
+    narrative: >
+      Customer C mailed a direct dispute to the bank's published dispute
+      address. The letter identified the auto-loan account, the allegedly
+      inaccurate late-payment month, and included a copy of the customer's
+      online payment confirmation. The bank reviewed the account ledger and
+      payment posting system, found the reported information accurate, and sent
+      a written investigation result to the customer.
+    expected_outcomes:
+      fcra.cra_furnisher_notice_satisfied: "true"
+      fcra.direct_furnisher_satisfied: "true"
+      fcra.furnisher_indirect_satisfied: "true"
+      fcra.human_review_required: "false"
+      fcra.item_treatment_satisfied: "true"
+    structured_fields:
+      evidence_sources:
+        - {source_id: customer_direct_dispute, source_type: direct_furnisher_dispute, title: Customer direct dispute letter, closed_world_scopes: [direct_dispute_packet]}
+        - {source_id: bank_ledger, source_type: bank_account_records, title: Bank account ledger, closed_world_scopes: [bank_account_history]}
+        - {source_id: bank_investigation_log, source_type: furnisher_dispute_log, title: Bank investigation log, closed_world_scopes: [bank_dispute_actions]}
+      default_binding_groups:
+        - *no_review_triggers
+        - *no_cra_notice
+        - *no_frivolous_termination
+        - *no_later_info
+        - *no_defect_verified
+        - *verified_current
+      facts:
+        fcra.direct_dispute_received_by_furnisher: true
+        fcra.direct_dispute_at_proper_address: true
+        fcra.direct_dispute_identifies_account: true
+        fcra.direct_dispute_identifies_specific_info: true
+        fcra.direct_dispute_explains_basis: true
+        fcra.direct_dispute_supporting_docs_supplied: true
+        fcra.direct_dispute_subject_within_scope: true
+        fcra.direct_dispute_public_record_only: false
+        fcra.direct_dispute_fraud_alert_only: false
+        fcra.direct_furnisher_investigation_conducted: true
+        fcra.direct_furnisher_reviewed_info: true
+        fcra.direct_furnisher_results_reported_to_consumer: true
+
+  - case_id: bank_direct_dispute_corrected_but_not_sent_to_cras
+    title: Direct dispute found inaccurate but CRA corrections not sent
+    narrative: >
+      Customer D submitted a direct dispute to the bank's published dispute
+      address with a payoff confirmation showing that a reported balance was
+      overstated. The bank agreed that the balance was inaccurate and modified
+      the account record internally. The investigation result was mailed to the
+      customer, but the bank file does not show that corrected information was
+      sent to the CRAs that had received the inaccurate balance.
+    expected_outcomes:
+      fcra.cra_furnisher_notice_satisfied: "true"
+      fcra.direct_furnisher_satisfied: "false"
+      fcra.furnisher_indirect_satisfied: "true"
+      fcra.human_review_required: "false"
+      fcra.item_treatment_satisfied: "true"
+    structured_fields:
+      evidence_sources:
+        - {source_id: customer_direct_dispute, source_type: direct_furnisher_dispute, title: Customer direct dispute letter, closed_world_scopes: [direct_dispute_packet]}
+        - {source_id: payoff_confirmation, source_type: customer_source_document, title: Payoff confirmation, closed_world_scopes: []}
+        - {source_id: bank_investigation_log, source_type: furnisher_dispute_log, title: Bank investigation log, closed_world_scopes: [bank_dispute_actions]}
+      default_binding_groups:
+        - *no_review_triggers
+        - *no_cra_notice
+        - *no_frivolous_termination
+        - *no_later_info
+      facts:
+        fcra.item_found_inaccurate: true
+        fcra.item_found_incomplete: false
+        fcra.item_cannot_be_verified: false
+        fcra.item_verified_as_accurate: false
+        fcra.item_modified: true
+        fcra.item_status_recorded_current: true
+        fcra.furnisher_modified_item: true
+        fcra.furnisher_deleted_item: false
+        fcra.furnisher_blocked_item: false
+        fcra.direct_dispute_received_by_furnisher: true
+        fcra.direct_dispute_at_proper_address: true
+        fcra.direct_dispute_identifies_account: true
+        fcra.direct_dispute_identifies_specific_info: true
+        fcra.direct_dispute_explains_basis: true
+        fcra.direct_dispute_supporting_docs_supplied: true
+        fcra.direct_dispute_subject_within_scope: true
+        fcra.direct_dispute_public_record_only: false
+        fcra.direct_dispute_fraud_alert_only: false
+        fcra.direct_furnisher_investigation_conducted: true
+        fcra.direct_furnisher_reviewed_info: true
+        fcra.direct_furnisher_results_reported_to_consumer: true
+        fcra.direct_furnisher_corrected_cras: false
+
+  - case_id: bank_not_mine_identity_theft_packet_incomplete
+    title: Not-mine identity theft dispute missing report
+    narrative: >
+      Customer E called and uploaded a dispute saying two reported accounts are
+      "not mine" and appear to involve identity theft. The customer supplied a
+      police incident number but no completed identity-theft report or affidavit.
+      The bank could not match the uploaded documents to the account-opening
+      file without additional identity-theft documentation and routed the case
+      to manual review.
+    expected_outcomes:
+      fcra.cra_furnisher_notice_satisfied: "true"
+      fcra.direct_furnisher_satisfied: "false"
+      fcra.furnisher_indirect_satisfied: "true"
+      fcra.human_review_required: "true"
+      fcra.item_treatment_satisfied: "true"
+    structured_fields:
+      evidence_sources:
+        - {source_id: customer_direct_dispute, source_type: direct_furnisher_dispute, title: Customer direct dispute upload, closed_world_scopes: [direct_dispute_packet]}
+        - {source_id: bank_review_note, source_type: manual_review_note, title: Manual review note, closed_world_scopes: [bank_review_actions]}
+      default_binding_groups:
+        - *no_cra_notice
+        - *no_frivolous_termination
+        - *no_later_info
+      facts:
+        fcra.identity_theft_claimed: true
+        fcra.identity_theft_report_supplied: false
+        fcra.consumer_alleges_not_mine: true
+        fcra.manual_review_policy_trigger: true
+        fcra.source_documents_missing: true
+        fcra.mixed_file_claimed: false
+        fcra.legal_liability_dispute_only: false
+        fcra.court_order_supplied: false
+        fcra.conflicting_furnisher_and_consumer_docs: false
+        fcra.pending_litigation_affects_account: false
+        fcra.medical_debt_veteran_claimed: false
+        fcra.material_date_conflict: false
+        fcra.direct_dispute_received_by_furnisher: true
+        fcra.direct_dispute_at_proper_address: true
+        fcra.direct_dispute_identifies_account: true
+        fcra.direct_dispute_identifies_specific_info: true
+        fcra.direct_dispute_explains_basis: true
+        fcra.direct_dispute_supporting_docs_supplied: false
+        fcra.direct_dispute_subject_within_scope: true
+        fcra.direct_dispute_public_record_only: false
+        fcra.direct_dispute_fraud_alert_only: false
+        fcra.direct_furnisher_investigation_conducted: undetermined
+        fcra.direct_furnisher_reviewed_info: undetermined
+        fcra.direct_furnisher_results_reported_to_consumer: undetermined
+        fcra.item_found_inaccurate: undetermined
+        fcra.item_found_incomplete: undetermined
+        fcra.item_cannot_be_verified: undetermined
+        fcra.item_verified_as_accurate: undetermined
+        fcra.item_status_recorded_current: undetermined
+
+  - case_id: bank_direct_dispute_insufficient_information
+    title: Direct dispute lacks account and specific information
+    narrative: >
+      Customer F sent the bank a short message saying "your credit reporting is
+      wrong" but did not identify the account, the specific reported field, or
+      any supporting documents. The message arrived at the bank's published
+      dispute address. The bank marked the direct dispute packet as insufficient
+      and requested the missing account and issue details.
+    expected_outcomes:
+      fcra.cra_furnisher_notice_satisfied: "true"
+      fcra.direct_furnisher_satisfied: "false"
+      fcra.furnisher_indirect_satisfied: "true"
+      fcra.human_review_required: "false"
+      fcra.item_treatment_satisfied: "true"
+    structured_fields:
+      evidence_sources:
+        - {source_id: customer_message, source_type: direct_furnisher_dispute, title: Customer dispute message, closed_world_scopes: [direct_dispute_packet]}
+        - {source_id: bank_intake_note, source_type: furnisher_dispute_log, title: Bank intake note, closed_world_scopes: [bank_dispute_actions]}
+      default_binding_groups:
+        - *no_review_triggers
+        - *no_cra_notice
+        - *no_frivolous_termination
+        - *no_later_info
+      facts:
+        fcra.direct_dispute_received_by_furnisher: true
+        fcra.direct_dispute_at_proper_address: true
+        fcra.direct_dispute_identifies_account: false
+        fcra.direct_dispute_identifies_specific_info: false
+        fcra.direct_dispute_explains_basis: false
+        fcra.direct_dispute_supporting_docs_supplied: false
+        fcra.direct_dispute_subject_within_scope: true
+        fcra.direct_dispute_public_record_only: false
+        fcra.direct_dispute_fraud_alert_only: false
+        fcra.direct_furnisher_investigation_conducted: false
+        fcra.direct_furnisher_reviewed_info: false
+        fcra.direct_furnisher_results_reported_to_consumer: false
+        fcra.item_found_inaccurate: undetermined
+        fcra.item_found_incomplete: undetermined
+        fcra.item_cannot_be_verified: undetermined
+        fcra.item_verified_as_accurate: undetermined
+        fcra.item_status_recorded_current: undetermined

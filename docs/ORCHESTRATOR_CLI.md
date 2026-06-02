@@ -180,6 +180,17 @@ determination roots, keeps the needed DAG closure, routing triggers, and atom
 bindings, and writes a smaller valid `DeterminationProgram` for that actor
 role.
 
+Run the bank/furnisher perspective against the packaged customer dispute case
+set:
+
+```powershell
+rulekit-orchestrator adjudicate `
+  --program review_bundle/bank_furnisher_program.json `
+  --cases rulekit/orchestrator/example_cases/fcra_bank_customer_disputes.yaml `
+  --out runtime_results/bank_furnisher `
+  --json
+```
+
 Run governed Map prompts across multiple LLM providers:
 
 ```powershell

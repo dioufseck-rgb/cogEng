@@ -14,6 +14,7 @@ from rulekit.orchestrator.perspectives import (
 from rulekit.orchestrator.workflow import run_policy_seed_file
 from rulekit.contract import BindingBasis
 from rulekit.contract.validators import validate_program
+from rulekit.runtime import adjudicate_cases, load_runtime_cases
 
 
 SEED_PATH = (
@@ -22,6 +23,13 @@ SEED_PATH = (
     / "orchestrator"
     / "example_seeds"
     / "fcra_credit_reporting_dispute_deep.yaml"
+)
+BANK_CASES_PATH = (
+    Path(__file__).parents[2]
+    / "rulekit"
+    / "orchestrator"
+    / "example_cases"
+    / "fcra_bank_customer_disputes.yaml"
 )
 
 
@@ -138,3 +146,20 @@ def test_fcra_credit_reporting_bank_perspective_projects_role_scoped_program(tmp
     )
     assert "fcra.furnisher_received_cra_notice" in bank_program.map_spec.atoms
     assert "fcra.direct_dispute_received_by_furnisher" in bank_program.map_spec.atoms
+
+
+def test_fcra_bank_customer_dispute_cases_run_against_bank_perspective(tmp_path):
+    result = run_policy_seed_file(
+        SEED_PATH,
+        tmp_path / "r",
+        program_id="p_fcra_deep",
+    )
+    bank_program = project_program_perspective(result.program, "bank_furnisher")
+    cases = load_runtime_cases(BANK_CASES_PATH)
+
+    runtime_result = adjudicate_cases(bank_program, cases)
+
+    assert runtime_result["case_count"] == 6
+    assert runtime_result["disposition_count"] == 30
+    assert runtime_result["matched_disposition_count"] == 30
+    assert runtime_result["mismatch_count"] == 0
