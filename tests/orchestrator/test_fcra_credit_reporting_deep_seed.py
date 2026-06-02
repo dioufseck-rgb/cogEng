@@ -7,8 +7,13 @@ from rulekit.orchestrator.config import load_policy_workspace_seed
 from rulekit.orchestrator.cases import CaseExample
 from rulekit.orchestrator.governed_map import apply_program_map_profile_defaults
 from rulekit.orchestrator.map_record import AtomBindingRecord, AtomBindingStatus
+from rulekit.orchestrator.perspectives import (
+    list_program_perspectives,
+    project_program_perspective,
+)
 from rulekit.orchestrator.workflow import run_policy_seed_file
 from rulekit.contract import BindingBasis
+from rulekit.contract.validators import validate_program
 
 
 SEED_PATH = (
@@ -49,6 +54,10 @@ def test_fcra_credit_reporting_deep_seed_runs_end_to_end(tmp_path):
         for det in result.program.determinations.values()
     )
     assert len(result.program.metadata.extras["map_profile"]["default_rules"]) == 24
+    assert any(
+        perspective["perspective_id"] == "bank_furnisher"
+        for perspective in result.program.metadata.extras["perspectives"]
+    )
 
 
 def test_fcra_credit_reporting_deep_template_is_available():
@@ -93,3 +102,39 @@ def test_fcra_credit_reporting_map_profile_applies_without_domain_python(tmp_pat
     assert bindings["fcra.item_reinserted"].value is False
     assert bindings["fcra.consumer_statement_filed"].value is False
     assert bindings["fcra.reseller_received_dispute"].metadata["map_profile_default"] is True
+
+
+def test_fcra_credit_reporting_bank_perspective_projects_role_scoped_program(tmp_path):
+    result = run_policy_seed_file(
+        SEED_PATH,
+        tmp_path / "r",
+        program_id="p_fcra_deep",
+    )
+    program = result.program
+
+    perspectives = list_program_perspectives(program)
+    assert [perspective.perspective_id for perspective in perspectives] == [
+        "bank_furnisher",
+        "cra_dispute",
+    ]
+
+    bank_program = project_program_perspective(program, "bank_furnisher")
+
+    assert validate_program(bank_program).ok
+    assert set(bank_program.determinations) == {
+        "fcra.cra_furnisher_notice_satisfied",
+        "fcra.direct_furnisher_satisfied",
+        "fcra.furnisher_indirect_satisfied",
+        "fcra.human_review_required",
+        "fcra.item_treatment_satisfied",
+    }
+    assert "fcra.reseller_satisfied" not in bank_program.determinations
+    assert "fcra.dispute_resolution_compliant" not in bank_program.determinations
+    assert len(bank_program.nodes) < len(program.nodes)
+    assert len(bank_program.map_spec.atoms) < len(program.map_spec.atoms)
+    assert (
+        bank_program.metadata.extras["active_perspective"]["perspective_id"]
+        == "bank_furnisher"
+    )
+    assert "fcra.furnisher_received_cra_notice" in bank_program.map_spec.atoms
+    assert "fcra.direct_dispute_received_by_furnisher" in bank_program.map_spec.atoms

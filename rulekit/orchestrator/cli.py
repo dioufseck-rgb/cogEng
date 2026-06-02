@@ -24,6 +24,10 @@ from rulekit.orchestrator.map_governance_eval import (
     parse_price_spec,
     run_map_governance_eval,
 )
+from rulekit.orchestrator.perspectives import (
+    list_program_perspectives,
+    project_program_perspective,
+)
 from rulekit.orchestrator.workflow import (
     apply_persisted_program_edits,
     add_persisted_case,
@@ -80,6 +84,8 @@ def main(argv: list[str] | None = None) -> int:
             return _map_eval(args)
         if args.command == "direct-eval":
             return _direct_eval(args)
+        if args.command == "perspective":
+            return _perspective(args)
     except Exception as exc:  # pragma: no cover - exercised through return behavior
         if args.json:
             print(json.dumps({"ok": False, "error": str(exc)}, indent=2, sort_keys=True))
@@ -356,6 +362,26 @@ def _parser() -> argparse.ArgumentParser:
         ),
     )
     direct_eval.add_argument("--json", action="store_true", help="print JSON summary")
+
+    perspective = subcommands.add_parser(
+        "perspective",
+        help="list or export role-scoped policy perspectives",
+    )
+    perspective_subcommands = perspective.add_subparsers(dest="perspective_command")
+    perspective_list = perspective_subcommands.add_parser(
+        "list",
+        help="list perspectives declared by a program",
+    )
+    perspective_list.add_argument("--program", required=True, help="program.json path")
+    perspective_list.add_argument("--json", action="store_true", help="print JSON summary")
+    perspective_export = perspective_subcommands.add_parser(
+        "export",
+        help="export a role-scoped DeterminationProgram",
+    )
+    perspective_export.add_argument("--program", required=True, help="program.json path")
+    perspective_export.add_argument("--perspective", required=True, help="perspective id")
+    perspective_export.add_argument("--out", required=True, help="output program.json path")
+    perspective_export.add_argument("--json", action="store_true", help="print JSON summary")
     return parser
 
 
@@ -629,6 +655,41 @@ def _direct_eval(args: argparse.Namespace) -> int:
     payload = {"ok": True, **result}
     _print(payload, args.json)
     return 0
+
+
+def _perspective(args: argparse.Namespace) -> int:
+    if args.perspective_command is None:
+        raise ValueError("perspective requires a subcommand")
+    program = load_program(args.program)
+    if args.perspective_command == "list":
+        perspectives = list_program_perspectives(program)
+        payload = {
+            "ok": True,
+            "program": args.program,
+            "perspectives": [
+                perspective.model_dump(mode="json")
+                for perspective in perspectives
+            ],
+        }
+        _print(payload, args.json)
+        return 0
+    if args.perspective_command == "export":
+        projected = project_program_perspective(program, args.perspective)
+        out = Path(args.out)
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(projected.model_dump_json(indent=2), encoding="utf-8")
+        payload = {
+            "ok": True,
+            "program": args.program,
+            "perspective": args.perspective,
+            "out": str(out),
+            "atom_count": len(projected.map_spec.atoms),
+            "node_count": len(projected.nodes),
+            "determination_count": len(projected.determinations),
+        }
+        _print(payload, args.json)
+        return 0
+    raise ValueError(f"unsupported perspective subcommand {args.perspective_command!r}")
 
 
 def _print(payload: dict[str, Any], as_json: bool) -> None:

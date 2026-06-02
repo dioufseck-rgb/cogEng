@@ -1,6 +1,6 @@
 # Tomorrow Work: Co-Authored Determination Packs
 
-Last updated: 2026-06-01
+Last updated: 2026-06-02
 
 ## Where We Are
 
@@ -32,6 +32,7 @@ determination pack workflow:
 
 ```text
 policy material
+  -> perspective and actor role
   -> Builder agent draft
   -> human review and edits
   -> validated DeterminationProgram
@@ -39,6 +40,22 @@ policy material
   -> benchmark cases
   -> approval record
   -> deployed runtime package
+```
+
+The policy is not a single neutral object in practice. It is a
+multi-perspective source. A bank, CRA, consumer, regulator, and reviewer can
+read the same legal material but need different role-scoped determinations,
+evidence duties, defaults, and routing triggers.
+
+RuleKit should therefore support perspective-scoped determination packs:
+
+```text
+policy source
+  -> perspective
+  -> role-scoped determinations
+  -> role-scoped DAG projection
+  -> role-scoped Map profile and evidence duties
+  -> runtime disposition
 ```
 
 ## Priority 1: Formalize The Pack Boundary
@@ -58,12 +75,25 @@ Minimum package contents:
 The pack should make it clear what the engine consumes directly and what exists
 for governance, review, testing, and deployment.
 
+Perspective support is now part of the pack boundary. A single source policy
+may declare several views, such as:
+
+- bank as furnisher/direct-dispute recipient
+- CRA as reinvestigation actor
+- consumer as appellant/requester
+- regulator as auditor/enforcement reviewer
+
+The first implementation slice declares FCRA perspectives in policy metadata
+and can project the bank/furnisher view into a smaller valid
+`DeterminationProgram` without creating domain-specific Python.
+
 ## Priority 2: Builder Agent Draft Output
 
 Add a draft contract for Builder-generated proposals.
 
 The Builder should produce proposals for:
 
+- perspectives and actor roles
 - atoms
 - typed nodes
 - determinations
@@ -106,6 +136,7 @@ The Builder UI should make the pack reviewable without requiring YAML editing.
 
 Near-term UI surfaces:
 
+- perspective selector
 - DAG view by determination
 - atom catalog with source spans
 - Map profile/default review
@@ -142,6 +173,8 @@ Next domain:
 
 Small but important engineering tasks:
 
+- expose perspective list/export in CLI and eventually UI
+- ensure perspective projections preserve validation, routing triggers, and Map metadata
 - make workflow persistence robust on nested/long Windows paths
 - write incremental benchmark outputs so long LLM runs are resumable
 - reduce prompt size by selecting only load-bearing unresolved atoms
@@ -153,10 +186,10 @@ Small but important engineering tasks:
 The next milestone is reached when a user can:
 
 1. start from a policy source and a target determination list;
-2. let the Builder draft a determination pack;
-3. review the DAG, atoms, routing, Map profile, and test cases in the UI;
-4. run benchmark cases across one or more LLM providers;
-5. inspect mismatches, traces, and costs;
-6. approve a versioned pack;
-7. run new case packets through the same exported artifact in the CLI/runtime.
-
+2. choose or define the operating perspective;
+3. let the Builder draft a determination pack;
+4. review the DAG, atoms, routing, Map profile, and test cases in the UI;
+5. run benchmark cases across one or more LLM providers;
+6. inspect mismatches, traces, and costs;
+7. approve a versioned pack;
+8. run new case packets through the same exported artifact in the CLI/runtime.

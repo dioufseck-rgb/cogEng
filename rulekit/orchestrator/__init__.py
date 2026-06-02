@@ -139,6 +139,12 @@ from rulekit.orchestrator.persistence import (
     save_trajectory,
     save_workspace,
 )
+from rulekit.orchestrator.perspectives import (
+    PerspectiveSpec,
+    get_program_perspective,
+    list_program_perspectives,
+    project_program_perspective,
+)
 from rulekit.orchestrator.program_edit import (
     ProgramEditKind,
     ProgramEditOperation,
@@ -307,6 +313,10 @@ __all__ = [
     "save_step_run",
     "save_trajectory",
     "save_workspace",
+    "PerspectiveSpec",
+    "get_program_perspective",
+    "list_program_perspectives",
+    "project_program_perspective",
     "ProgramEditKind",
     "ProgramEditOperation",
     "ProgramEditResult",

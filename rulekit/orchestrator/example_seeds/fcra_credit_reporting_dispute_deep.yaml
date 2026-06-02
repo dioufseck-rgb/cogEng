@@ -16,6 +16,59 @@ metadata:
     - 15 U.S.C. 1681i
     - 15 U.S.C. 1681s-2
     - 12 CFR 1022.43
+  perspectives:
+    - perspective_id: bank_furnisher
+      label: Bank as furnisher and direct-dispute recipient
+      actor: bank
+      role: furnisher
+      description: >
+        Role-scoped view for a bank that furnishes account information to CRAs
+        and may receive either CRA-transmitted indirect disputes or direct
+        consumer disputes at its published dispute address.
+      primary_determinations:
+        - fcra.furnisher_indirect_satisfied
+        - fcra.direct_furnisher_satisfied
+      support_determinations:
+        - fcra.cra_furnisher_notice_satisfied
+        - fcra.item_treatment_satisfied
+      routing_determinations:
+        - fcra.human_review_required
+      evidence_duties:
+        - Identify whether the dispute arrived through a CRA notice, directly from the consumer, or both.
+        - Confirm whether the bank received all relevant information transmitted by the CRA.
+        - Review account records, payment history, consumer documents, and CRA-transmitted material.
+        - Report investigation results to the CRA when the dispute is indirect.
+        - Report direct-dispute results to the consumer when the dispute is direct.
+        - Correct, delete, block, or report corrections when information is inaccurate, incomplete, or unverifiable.
+        - Route identity-theft, mixed-file, litigation, conflicting-document, and missing-source-document cases to review.
+      map_profile_rule_ids:
+        - ordinary_furnisher_indirect_completed
+        - direct_furnisher_notice_path
+        - no_direct_furnisher_dispute_mentioned
+        - no_cra_path_for_direct_furnisher_only
+        - manual_review_for_forwarding_failure
+    - perspective_id: cra_dispute
+      label: CRA reinvestigation and dispute-processing view
+      actor: consumer_reporting_agency
+      role: cra
+      description: >
+        Role-scoped view for the CRA's reinvestigation, forwarding, notice,
+        reinsertion, consumer-statement, and overall dispute-resolution duties.
+      primary_determinations:
+        - fcra.cra_reinvestigation_trigger_valid
+        - fcra.frivolous_termination_valid
+        - fcra.cra_reinvestigation_required
+        - fcra.cra_reinvestigation_timely
+        - fcra.cra_furnisher_notice_satisfied
+        - fcra.cra_consideration_satisfied
+        - fcra.item_treatment_satisfied
+        - fcra.results_notice_satisfied
+        - fcra.reinsertion_satisfied
+        - fcra.reseller_satisfied
+        - fcra.consumer_statement_satisfied
+        - fcra.dispute_resolution_compliant
+      routing_determinations:
+        - fcra.human_review_required
   map_profile:
     default_rules:
       - id: no_frivolous_termination_mentioned

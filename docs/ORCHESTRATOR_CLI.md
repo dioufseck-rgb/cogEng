@@ -156,6 +156,30 @@ engine consumes. It maps each runtime case to atom bindings, evaluates the
 requested determinations, and writes `summary.json`, `map_records.json`,
 `map_validation_reports.json`, `dispositions.json`, and `results.json`.
 
+List role-scoped perspectives declared by an exported program:
+
+```powershell
+rulekit-orchestrator perspective list `
+  --program review_bundle/program.json `
+  --json
+```
+
+Export a perspective-scoped program, for example the bank/furnisher view of the
+FCRA benchmark:
+
+```powershell
+rulekit-orchestrator perspective export `
+  --program review_bundle/program.json `
+  --perspective bank_furnisher `
+  --out review_bundle/bank_furnisher_program.json `
+  --json
+```
+
+Perspective export does not create new domain logic. It follows the declared
+determination roots, keeps the needed DAG closure, routing triggers, and atom
+bindings, and writes a smaller valid `DeterminationProgram` for that actor
+role.
+
 Run governed Map prompts across multiple LLM providers:
 
 ```powershell
