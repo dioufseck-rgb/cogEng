@@ -156,6 +156,13 @@ from rulekit.orchestrator.projections import (
     build_trajectory_projection,
     build_workspace_index_projection,
 )
+from rulekit.orchestrator.propositions import (
+    AssertionStatus,
+    CanonicalProposition,
+    SourcePosture,
+    apply_case_proposition_bindings,
+    propositions_from_case,
+)
 from rulekit.orchestrator.runner import (
     run_step_and_record,
     run_stochastic_step_and_record,

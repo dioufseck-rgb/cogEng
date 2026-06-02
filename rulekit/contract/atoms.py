@@ -69,6 +69,8 @@ class AtomBindingPolicy(BaseModel):
     )
     required_source_types_for_true: list[str] = Field(default_factory=list)
     required_source_types_for_false: list[str] = Field(default_factory=list)
+    required_source_postures_for_true: list[str] = Field(default_factory=list)
+    required_source_postures_for_false: list[str] = Field(default_factory=list)
     open_world_absence_behavior: Literal[
         "undetermined",
         "human_review",

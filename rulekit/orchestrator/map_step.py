@@ -20,6 +20,7 @@ from rulekit.orchestrator.map_record import (
     AtomBindingStatus,
     MapExtractionRecord,
 )
+from rulekit.orchestrator.propositions import apply_case_proposition_bindings
 from rulekit.schema import Atom
 
 
@@ -122,6 +123,12 @@ class PreboundFactsMapStep:
                 ),
                 source=context.substrate_id,
             )
+        proposition_binding_count = apply_case_proposition_bindings(
+            program,
+            case,
+            bindings,
+            source=context.substrate_id,
+        )
         default_count = apply_case_default_bindings(
             program,
             case,
@@ -140,6 +147,7 @@ class PreboundFactsMapStep:
                 metadata={
                     "map_step_id": self.spec.map_step_id,
                     "fact_count": len(facts),
+                    "proposition_binding_count": proposition_binding_count,
                     "default_binding_count": default_count,
                     "reviewer_hint_count": len(reviewer_hints),
                     "reviewer_hints": [

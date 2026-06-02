@@ -51,6 +51,8 @@ evidence sources and identify what each source can and cannot support.
 For each source, return:
 - source_id
 - source_type
+- source_posture if clear, such as claimant_assertion, institutional_record,
+  official_record, third_party_record, expert_record, system_log, or unknown
 - title
 - as_of_date if stated
 - closed_world_scopes: factual universes where absence from this source can
@@ -76,6 +78,7 @@ Return ONLY this JSON shape:
     {{
       "source_id": "source id",
       "source_type": "source type",
+      "source_posture": "source posture or null",
       "title": "short title",
       "as_of_date": "YYYY-MM-DD or null",
       "closed_world_scopes": ["scope"],
@@ -227,6 +230,8 @@ Critical binding rules:
 For each source, return:
 - source_id
 - source_type
+- source_posture if clear, such as claimant_assertion, institutional_record,
+  official_record, third_party_record, expert_record, system_log, or unknown
 - title
 - as_of_date if stated
 - closed_world_scopes: factual universes where absence from this source can
@@ -263,6 +268,7 @@ Return ONLY this JSON shape:
     {{
       "source_id": "source id",
       "source_type": "source type",
+      "source_posture": "source posture or null",
       "title": "short title",
       "as_of_date": "YYYY-MM-DD or null",
       "closed_world_scopes": ["scope"],

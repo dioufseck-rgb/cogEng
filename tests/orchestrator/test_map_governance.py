@@ -115,6 +115,167 @@ def test_prebound_map_step_reads_declared_binding_basis_and_validation_affects_e
     assert result["map_validation_reports"][0]["ok"] is False
 
 
+def test_claimant_asserted_proposition_does_not_bind_as_established_fact():
+    program = _payment_program()
+    case = CaseExample(
+        case_id="member_assertion",
+        title="Member assertion only",
+        narrative="The member says the payment was on time.",
+        structured_fields={
+            "evidence_sources": [
+                {
+                    "source_id": "member_statement",
+                    "source_type": "member_statement",
+                    "source_posture": "claimant_assertion",
+                    "title": "Member narrative",
+                }
+            ],
+            "propositions": [
+                {
+                    "proposition_id": "p1",
+                    "atom_id": "test.payment_timely",
+                    "value": True,
+                    "assertion_status": "asserted",
+                    "source_posture": "claimant_assertion",
+                    "speaker": "member",
+                    "source_ids": ["member_statement"],
+                    "evidence_text": "The member says the payment was on time.",
+                }
+            ],
+        },
+        expected_outcomes=[
+            ExpectedOutcome(
+                determination_id="test.payment_timely_determination",
+                expected_value="undetermined",
+            )
+        ],
+    )
+
+    result = adjudicate_cases(program, [case], map_step=PreboundFactsMapStep())
+
+    binding = result["map_records"][0]["bindings"]["test.payment_timely"]
+    assert result["matched_disposition_count"] == 1
+    assert binding["status"] == "undetermined"
+    assert binding["value"] == "undetermined"
+    assert binding["metadata"]["assertion_status"] == "asserted"
+    assert binding["metadata"]["source_posture"] == "claimant_assertion"
+
+
+def test_established_record_proposition_binds_when_source_posture_is_allowed():
+    program = _payment_program()
+    case = CaseExample(
+        case_id="record_established",
+        title="Record established",
+        narrative="The bank ledger shows the payment posted before the due date.",
+        structured_fields={
+            "evidence_sources": [
+                {
+                    "source_id": "bank_ledger",
+                    "source_type": "ledger",
+                    "source_posture": "institutional_record",
+                    "title": "Bank ledger",
+                }
+            ],
+            "propositions": [
+                {
+                    "proposition_id": "p1",
+                    "atom_id": "test.payment_timely",
+                    "value": True,
+                    "assertion_status": "established",
+                    "source_posture": "institutional_record",
+                    "source_ids": ["bank_ledger"],
+                    "evidence_text": "Ledger shows payment posted before due date.",
+                }
+            ],
+        },
+        expected_outcomes=[
+            ExpectedOutcome(
+                determination_id="test.payment_timely_determination",
+                expected_value="true",
+            )
+        ],
+    )
+
+    result = adjudicate_cases(program, [case], map_step=PreboundFactsMapStep())
+
+    binding = result["map_records"][0]["bindings"]["test.payment_timely"]
+    assert result["matched_disposition_count"] == 1
+    assert binding["status"] == "bound"
+    assert binding["value"] is True
+    assert binding["basis"] == "explicit_positive"
+
+
+def test_profile_concept_vocabulary_expands_only_established_propositions():
+    program = _payment_program()
+    program.metadata.extras["map_profile"] = {
+        "concepts": {
+            "payment_posted_before_due_date": {
+                "lexical_cues": [
+                    "paid before the due date",
+                    "posted before the due date",
+                ],
+                "atom_bindings": [
+                    {
+                        "id": "payment_timely_from_record",
+                        "atom_id": "test.payment_timely",
+                        "value": True,
+                        "accepted_assertion_statuses": ["established"],
+                        "accepted_source_postures": ["institutional_record"],
+                    }
+                ],
+            }
+        }
+    }
+    asserted_case = CaseExample(
+        case_id="asserted_concept",
+        title="Asserted concept",
+        narrative="The member says payment was posted before the due date.",
+        structured_fields={
+            "propositions": [
+                {
+                    "proposition_id": "p1",
+                    "canonical_concept": "payment_posted_before_due_date",
+                    "assertion_status": "asserted",
+                    "source_posture": "claimant_assertion",
+                    "evidence_text": "The member says payment was posted before the due date.",
+                }
+            ]
+        },
+    )
+    established_case = CaseExample(
+        case_id="established_concept",
+        title="Established concept",
+        narrative="The bank ledger shows payment was posted before the due date.",
+        structured_fields={
+            "propositions": [
+                {
+                    "proposition_id": "p1",
+                    "canonical_concept": "payment_posted_before_due_date",
+                    "assertion_status": "established",
+                    "source_posture": "institutional_record",
+                    "evidence_text": "The bank ledger shows payment was posted before the due date.",
+                }
+            ]
+        },
+    )
+
+    asserted = PreboundFactsMapStep().run(
+        program,
+        asserted_case,
+        MapStepContext(program_id="profile_vocab"),
+    )
+    established = PreboundFactsMapStep().run(
+        program,
+        established_case,
+        MapStepContext(program_id="profile_vocab"),
+    )
+
+    assert asserted.map_record.bindings["test.payment_timely"].status == (
+        AtomBindingStatus.UNDETERMINED
+    )
+    assert established.map_record.bindings["test.payment_timely"].value is True
+
+
 def test_governed_map_step_records_prompts_basis_and_raw_responses():
     program = _program()
     case = CaseExample(
@@ -733,6 +894,41 @@ def _two_atom_program() -> DeterminationProgram:
                 id="test.compliant",
                 description="Both conditions are satisfied.",
                 root_node="n_root",
+            )
+        },
+        production_record=ProductionRecord(produced_by="test"),
+    )
+
+
+def _payment_program() -> DeterminationProgram:
+    atom_id = "test.payment_timely"
+    return DeterminationProgram(
+        metadata=ProgramMetadata(name="Payment posture test", version="0.1"),
+        map_spec=MapSpec(
+            atoms={
+                atom_id: BooleanAtom(
+                    id=atom_id,
+                    statement="The payment was made on time.",
+                    source_span="test",
+                    evaluation_mode=EvaluationMode.CHARACTERIZED,
+                    binding_policy=AtomBindingPolicy(
+                        required_source_postures_for_true=["institutional_record"],
+                    ),
+                )
+            }
+        ),
+        nodes={
+            "n_payment_timely": AtomRef(
+                node_id="n_payment_timely",
+                provenance=Provenance.STRUCTURAL,
+                atom_id=atom_id,
+            )
+        },
+        determinations={
+            "test.payment_timely_determination": DeterminationSpec(
+                id="test.payment_timely_determination",
+                description="The payment was timely.",
+                root_node="n_payment_timely",
             )
         },
         production_record=ProductionRecord(produced_by="test"),

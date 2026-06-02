@@ -20,6 +20,7 @@ class EvidenceSource(BaseModel):
 
     source_id: str
     source_type: str
+    source_posture: str | None = None
     title: str = ""
     as_of_date: str | None = None
     closed_world_scopes: list[str] = Field(default_factory=list)
@@ -81,6 +82,7 @@ def validate_map_record(
 ) -> MapValidationReport:
     """Check a Map record against per-atom binding policies."""
     source_types = _source_types_by_id(evidence_sources or [])
+    source_postures = _source_postures_by_id(evidence_sources or [])
     entries: list[MapBindingValidationEntry] = []
     for atom_id, binding in sorted(map_record.bindings.items()):
         atom = program.map_spec.atoms.get(atom_id)
@@ -172,6 +174,26 @@ def validate_map_record(
                     binding,
                     policy.invalid_binding_behavior,
                     "binding does not cite a required source type",
+                )
+            )
+            continue
+        required_source_postures = (
+            policy.required_source_postures_for_true
+            if value_kind == "true"
+            else policy.required_source_postures_for_false
+            if value_kind == "false"
+            else []
+        )
+        if required_source_postures and not _has_required_source_posture(
+            binding.source_ids,
+            required_source_postures,
+            source_postures,
+        ):
+            entries.append(
+                _invalid(
+                    binding,
+                    policy.invalid_binding_behavior,
+                    "binding does not cite a required source posture",
                 )
             )
             continue
@@ -289,6 +311,19 @@ def _source_types_by_id(sources: list[EvidenceSource]) -> dict[str, str]:
     return {source.source_id: source.source_type for source in sources}
 
 
+def _source_postures_by_id(sources: list[EvidenceSource]) -> dict[str, str]:
+    postures: dict[str, str] = {}
+    for source in sources:
+        posture = (
+            source.source_posture
+            or source.metadata.get("source_posture")
+            or source.metadata.get("posture")
+        )
+        if posture is not None:
+            postures[source.source_id] = str(posture)
+    return postures
+
+
 def _has_required_source_type(
     source_ids: list[str],
     required: list[str],
@@ -296,6 +331,15 @@ def _has_required_source_type(
 ) -> bool:
     present = {source_types.get(source_id) for source_id in source_ids}
     return any(source_type in present for source_type in required)
+
+
+def _has_required_source_posture(
+    source_ids: list[str],
+    required: list[str],
+    source_postures: dict[str, str],
+) -> bool:
+    present = {source_postures.get(source_id) for source_id in source_ids}
+    return any(source_posture in present for source_posture in required)
 
 
 __all__ = [
