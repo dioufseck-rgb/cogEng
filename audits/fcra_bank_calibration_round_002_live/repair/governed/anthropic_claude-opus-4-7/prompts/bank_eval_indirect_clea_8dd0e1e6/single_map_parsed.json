@@ -1,0 +1,102 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Narrative says customer disputed a mortgage late mark but does not characterize the dispute as concerning completeness specifically.",
+      "explanation": "The dispute is described as challenging a late mark (accuracy-oriented) but the narrative does not affirm or deny that it concerns completeness; not enumerated.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Narrative does not mention any prior dispute or duplicate-status determination.",
+      "explanation": "No information about prior disputes or duplication; absence is not within a closed-world scope here.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "basis": "inferred_from_record",
+      "confidence": 0.85,
+      "evidence": "ACDV packet included customer's letter, account number, disputed month, and payment-history attachment; bank conducted and completed investigation.",
+      "explanation": "The bank successfully investigated using the supplied information, indicating information was sufficient.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "basis": "not_found",
+      "confidence": 0.9,
+      "evidence": "No frivolous or irrelevant determination is described in the narrative.",
+      "explanation": "No frivolous-notice event occurred to measure, so no numeric value can be extracted.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.furnisher_investigation_conducted",
+      "basis": "explicit_positive",
+      "confidence": 0.95,
+      "evidence": "The bank compared the ledger and lockbox posting history, verified that the payment posted after the grace period.",
+      "explanation": "Narrative explicitly describes the bank conducting an investigation of the disputed item.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.furnisher_reviewed_all_cra_info",
+      "basis": "inferred_from_record",
+      "confidence": 0.85,
+      "evidence": "Bank compared ledger and lockbox posting history against ACDV packet contents (customer letter, account number, disputed month, payment-history attachment).",
+      "explanation": "The investigation utilized the materials transmitted by the CRA, supporting review of all relevant information provided.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.furnisher_reported_results_to_cra",
+      "basis": "explicit_positive",
+      "confidence": 0.97,
+      "evidence": "Reported verified-as-accurate results back to the CRA within the dispute deadline.",
+      "explanation": "Narrative explicitly states the bank reported investigation results to the CRA.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    }
+  ],
+  "sources": [
+    {
+      "as_of_date": null,
+      "closed_world_scopes": [
+        "dispute_channel",
+        "furnisher_investigation_steps",
+        "furnisher_response_to_cra"
+      ],
+      "limitations": "Brief operational narrative; does not enumerate every procedural detail or prior dispute history.",
+      "source_id": "case_narrative",
+      "source_type": "case_narrative",
+      "title": "Customer H mortgage late mark CRA dispute narrative"
+    }
+  ]
+}

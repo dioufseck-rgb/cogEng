@@ -1,0 +1,214 @@
+{
+  "cases": [
+    {
+      "case_id": "bank_eval_direct_public_record_only",
+      "expected_outcomes": [
+        {
+          "determination_id": "fcra.cra_furnisher_notice_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.item_treatment_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.furnisher_indirect_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.direct_furnisher_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.human_review_required",
+          "expected_value": "false",
+          "rationale": null
+        }
+      ],
+      "metadata": {},
+      "narrative": "Customer S sent a direct dispute to the bank's published dispute address about a courthouse judgment appearing on the credit report. The customer did not dispute any bank-furnished account balance, payment status, or relationship information. The bank noted that the dispute concerned only public-record information and directed the customer to the reporting source.\n",
+      "provenance": "authored",
+      "structured_fields": {},
+      "title": "Direct dispute concerns courthouse judgment only"
+    },
+    {
+      "case_id": "bank_eval_indirect_date_conflict_pending",
+      "expected_outcomes": [
+        {
+          "determination_id": "fcra.cra_furnisher_notice_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.item_treatment_satisfied",
+          "expected_value": "undetermined",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.furnisher_indirect_satisfied",
+          "expected_value": "undetermined",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.direct_furnisher_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.human_review_required",
+          "expected_value": "true",
+          "rationale": null
+        }
+      ],
+      "metadata": {},
+      "narrative": "Customer L disputed a late payment through a CRA. The ACDV packet included the customer's letter and the payment confirmation, but the CRA file, bank ledger, and customer receipt show inconsistent dates for the same transaction. The bank has not yet determined whether the furnished late mark is accurate, modified, or unverifiable, and the case is routed to manual review for date reconciliation.\n",
+      "provenance": "authored",
+      "structured_fields": {},
+      "title": "Conflicting dates prevent final furnisher result"
+    },
+    {
+      "case_id": "bank_eval_veteran_medical_deleted",
+      "expected_outcomes": [
+        {
+          "determination_id": "fcra.cra_furnisher_notice_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.item_treatment_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.furnisher_indirect_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.direct_furnisher_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.human_review_required",
+          "expected_value": "true",
+          "rationale": null
+        }
+      ],
+      "metadata": {},
+      "narrative": "Customer W disputed a medical-debt tradeline through a CRA and stated the debt was subject to veteran medical-debt deletion rules. The CRA notice to the bank included the customer's letter, VA documentation, and account reference. The bank reviewed the packet, deleted the furnished medical tradeline, reported the deletion back to the CRA within the dispute deadline, and routed the packet for policy review because of the veteran medical-debt claim.\n",
+      "provenance": "authored",
+      "structured_fields": {},
+      "title": "Veteran medical-debt tradeline deleted after CRA notice"
+    },
+    {
+      "case_id": "bank_eval_indirect_corrected_and_reported",
+      "expected_outcomes": [
+        {
+          "determination_id": "fcra.cra_furnisher_notice_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.item_treatment_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.furnisher_indirect_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.direct_furnisher_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.human_review_required",
+          "expected_value": "false",
+          "rationale": null
+        }
+      ],
+      "metadata": {},
+      "narrative": "Customer I disputed an overstated revolving balance through a CRA. The CRA notice to the bank included the customer's payoff confirmation, the account number, and the disputed balance field. The bank found the balance was inaccurate, modified the furnished balance to zero, and reported investigation results and the corrected balance back to the CRA within the dispute deadline.\n",
+      "provenance": "authored",
+      "structured_fields": {},
+      "title": "Indirect CRA dispute found inaccurate and corrected"
+    },
+    {
+      "case_id": "bank_eval_identity_theft_missing_report",
+      "expected_outcomes": [
+        {
+          "determination_id": "fcra.cra_furnisher_notice_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.item_treatment_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.furnisher_indirect_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.direct_furnisher_satisfied",
+          "expected_value": "false",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.human_review_required",
+          "expected_value": "true",
+          "rationale": null
+        }
+      ],
+      "metadata": {},
+      "narrative": "Customer T uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n",
+      "provenance": "authored",
+      "structured_fields": {},
+      "title": "Not-mine dispute lacks completed identity theft report"
+    },
+    {
+      "case_id": "bank_eval_indirect_no_bank_furnishing",
+      "expected_outcomes": [
+        {
+          "determination_id": "fcra.cra_furnisher_notice_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.item_treatment_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.furnisher_indirect_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.direct_furnisher_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.human_review_required",
+          "expected_value": "false",
+          "rationale": null
+        }
+      ],
+      "metadata": {},
+      "narrative": "Customer M disputed a medical collection through a CRA. The CRA notice to the bank identified the consumer and account reference, but the bank's furnisher desk confirmed the account was not furnished by this bank and returned a response saying it had no furnished tradeline for the item. No direct dispute was sent to the bank, and no review trigger appears in the packet.\n",
+      "provenance": "authored",
+      "structured_fields": {},
+      "title": "CRA notice names account not furnished by bank"
+    }
+  ]
+}

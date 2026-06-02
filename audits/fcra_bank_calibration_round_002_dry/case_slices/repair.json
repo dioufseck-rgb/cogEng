@@ -1,0 +1,214 @@
+{
+  "cases": [
+    {
+      "case_id": "bank_eval_mixed_file_indirect_pending",
+      "expected_outcomes": [
+        {
+          "determination_id": "fcra.cra_furnisher_notice_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.item_treatment_satisfied",
+          "expected_value": "undetermined",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.furnisher_indirect_satisfied",
+          "expected_value": "undetermined",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.direct_furnisher_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.human_review_required",
+          "expected_value": "true",
+          "rationale": null
+        }
+      ],
+      "metadata": {},
+      "narrative": "Customer V disputed a loan tradeline through a CRA and said it belonged to a person with a similar name. The ACDV packet included the customer's letter and two address records, but the bank file contains conflicting name and date-of-birth fields. The bank has not yet decided whether the item is a mixed-file error or a verified customer obligation, and the case is pending manual review.\n",
+      "provenance": "authored",
+      "structured_fields": {},
+      "title": "Similar-name mixed-file dispute remains unresolved"
+    },
+    {
+      "case_id": "bank_eval_indirect_missing_docs_review",
+      "expected_outcomes": [
+        {
+          "determination_id": "fcra.cra_furnisher_notice_satisfied",
+          "expected_value": "false",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.item_treatment_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.furnisher_indirect_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.direct_furnisher_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.human_review_required",
+          "expected_value": "true",
+          "rationale": null
+        }
+      ],
+      "metadata": {},
+      "narrative": "Customer J disputed a charged-off card through a CRA and said settlement papers showed the balance was wrong. The CRA notice to the bank contained the account number and dispute code but did not include the settlement letter or bank-statement images. The bank reviewed the materials it received, responded to the CRA, recorded the item as verified from the bank ledger, and opened manual review because source documents were missing from the transmission.\n",
+      "provenance": "authored",
+      "structured_fields": {},
+      "title": "CRA notice omits referenced proof and bank reviews packet received"
+    },
+    {
+      "case_id": "bank_eval_indirect_clean_verified_1",
+      "expected_outcomes": [
+        {
+          "determination_id": "fcra.cra_furnisher_notice_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.item_treatment_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.furnisher_indirect_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.direct_furnisher_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.human_review_required",
+          "expected_value": "false",
+          "rationale": null
+        }
+      ],
+      "metadata": {},
+      "narrative": "Customer H disputed a mortgage late mark through a consumer reporting agency. The CRA sent the bank an ACDV packet with the customer's letter, the account number, the disputed month, and a payment-history attachment. The bank compared the ledger and lockbox posting history, verified that the payment posted after the grace period, and reported verified-as- accurate results back to the CRA within the dispute deadline. No direct dispute was sent to the bank.\n",
+      "provenance": "authored",
+      "structured_fields": {},
+      "title": "Indirect ACDV packet verifies late payment"
+    },
+    {
+      "case_id": "bank_eval_direct_wrong_address",
+      "expected_outcomes": [
+        {
+          "determination_id": "fcra.cra_furnisher_notice_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.item_treatment_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.furnisher_indirect_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.direct_furnisher_satisfied",
+          "expected_value": "false",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.human_review_required",
+          "expected_value": "false",
+          "rationale": null
+        }
+      ],
+      "metadata": {},
+      "narrative": "Customer R mailed a balance dispute to the bank's ordinary customer service lockbox, not to the published dispute address. The letter included an account number, described the disputed balance, and attached a payment receipt. Intake staff forwarded a generic request for the customer to resubmit the dispute to the proper furnisher dispute address. No CRA notice is in the file.\n",
+      "provenance": "authored",
+      "structured_fields": {},
+      "title": "Direct dispute sent to ordinary customer service address"
+    },
+    {
+      "case_id": "bank_eval_identity_theft_complete_blocked",
+      "expected_outcomes": [
+        {
+          "determination_id": "fcra.cra_furnisher_notice_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.item_treatment_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.furnisher_indirect_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.direct_furnisher_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.human_review_required",
+          "expected_value": "true",
+          "rationale": null
+        }
+      ],
+      "metadata": {},
+      "narrative": "Customer U uploaded a direct dispute to the bank's published dispute portal saying an account was not mine and included a completed identity- theft report, signed affidavit, and police report. The bank reviewed the account-opening file, concluded the tradeline could not be verified as the customer's obligation, blocked further reporting, sent results to the customer, and notified the CRAs of the block.\n",
+      "provenance": "authored",
+      "structured_fields": {},
+      "title": "Identity theft report supplied and tradeline blocked"
+    },
+    {
+      "case_id": "bank_eval_duplicate_no_new_info",
+      "expected_outcomes": [
+        {
+          "determination_id": "fcra.cra_furnisher_notice_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.item_treatment_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.furnisher_indirect_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.direct_furnisher_satisfied",
+          "expected_value": "false",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.human_review_required",
+          "expected_value": "false",
+          "rationale": null
+        }
+      ],
+      "metadata": {},
+      "narrative": "Customer X submitted a direct dispute to the bank's published dispute address repeating a balance complaint that the bank had investigated two weeks earlier. The new message identified the same account and issue but included no new documents or explanation. The bank sent a notice stating the dispute was substantially the same as the prior dispute and identified the information needed to investigate further.\n",
+      "provenance": "authored",
+      "structured_fields": {},
+      "title": "Repeat direct dispute contains no new information"
+    }
+  ]
+}

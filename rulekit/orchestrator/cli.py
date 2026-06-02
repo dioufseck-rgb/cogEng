@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 from typing import Any
 
+from rulekit.orchestrator.calibration_eval import run_calibration_eval
 from rulekit.orchestrator.config import load_policy_workspace_seed, save_policy_workspace_seed
 from rulekit.orchestrator.direct_disposition_eval import (
     pricing_from_specs,
@@ -84,6 +85,8 @@ def main(argv: list[str] | None = None) -> int:
             return _map_eval(args)
         if args.command == "direct-eval":
             return _direct_eval(args)
+        if args.command == "calibration-eval":
+            return _calibration_eval(args)
         if args.command == "perspective":
             return _perspective(args)
     except Exception as exc:  # pragma: no cover - exercised through return behavior
@@ -362,6 +365,87 @@ def _parser() -> argparse.ArgumentParser:
         ),
     )
     direct_eval.add_argument("--json", action="store_true", help="print JSON summary")
+
+    calibration = subcommands.add_parser(
+        "calibration-eval",
+        help="run split-safe calibration/repair-loop evaluation slices",
+    )
+    calibration.add_argument("--program", required=True, help="program.json path")
+    calibration.add_argument("--cases", required=True, help="JSON/YAML labeled cases file")
+    calibration.add_argument("--out", required=True, help="output evidence directory")
+    calibration.add_argument("--round-id", default="round_001")
+    calibration.add_argument("--split-seed", type=int, default=17)
+    calibration.add_argument(
+        "--split-strategy",
+        choices=["stratified", "shuffle"],
+        default="stratified",
+        help="case split strategy; stratified balances scenario/failure-mode groups",
+    )
+    calibration.add_argument("--repair-count", type=int, required=True)
+    calibration.add_argument("--validation-count", type=int, required=True)
+    calibration.add_argument("--final-holdout-count", type=int, default=None)
+    calibration.add_argument(
+        "--run-final",
+        action="store_true",
+        help="release and run the locked final holdout slice",
+    )
+    calibration.add_argument(
+        "--model",
+        action="append",
+        default=[],
+        help="provider:model for governed Map runs; may repeat",
+    )
+    calibration.add_argument(
+        "--run-direct",
+        action="store_true",
+        help="also run the direct-disposition baseline on allowed slices",
+    )
+    calibration.add_argument(
+        "--direct-model",
+        action="append",
+        default=[],
+        help="provider:model for direct runs; defaults to --model when omitted",
+    )
+    calibration.add_argument(
+        "--seed",
+        default=None,
+        help="optional policy workspace seed containing benchmark policy text for direct runs",
+    )
+    calibration.add_argument(
+        "--determination",
+        action="append",
+        default=[],
+        help="determination id to evaluate; may repeat; defaults to all",
+    )
+    calibration.add_argument("--atom", action="append", default=[], help="atom id to bind; may repeat")
+    calibration.add_argument(
+        "--atom-scope",
+        choices=["all", "determination-slice"],
+        default="determination-slice",
+    )
+    calibration.add_argument("--max-atoms", type=int, default=None)
+    calibration.add_argument("--batch-size", type=int, default=1)
+    calibration.add_argument("--single-map-call", action="store_true")
+    calibration.add_argument("--repair-unresolved", action="store_true")
+    calibration.add_argument("--max-repair-atoms", type=int, default=12)
+    calibration.add_argument("--llm-max-tokens", type=int, default=4096)
+    calibration.add_argument("--llm-timeout", type=float, default=120.0)
+    calibration.add_argument("--llm-max-retries", type=int, default=2)
+    calibration.add_argument(
+        "--direct-prompt-style",
+        choices=["terse", "governed", "profiled"],
+        default="profiled",
+    )
+    calibration.add_argument(
+        "--price",
+        action="append",
+        default=[],
+        help=(
+            "optional estimated pricing as "
+            "provider:model=input_usd_per_million,output_usd_per_million; may repeat"
+        ),
+    )
+    calibration.add_argument("--json", action="store_true", help="print JSON summary")
 
     perspective = subcommands.add_parser(
         "perspective",
@@ -651,6 +735,41 @@ def _direct_eval(args: argparse.Namespace) -> int:
         max_retries=args.llm_max_retries,
         pricing=pricing_from_specs(args.price),
         prompt_style=args.prompt_style,
+    )
+    payload = {"ok": True, **result}
+    _print(payload, args.json)
+    return 0
+
+
+def _calibration_eval(args: argparse.Namespace) -> int:
+    result = run_calibration_eval(
+        program_path=args.program,
+        cases_path=args.cases,
+        output_dir=args.out,
+        repair_count=args.repair_count,
+        validation_count=args.validation_count,
+        final_holdout_count=args.final_holdout_count,
+        seed=args.split_seed,
+        split_strategy=args.split_strategy,
+        round_id=args.round_id,
+        model_specs=args.model or None,
+        run_direct=args.run_direct,
+        direct_model_specs=args.direct_model or None,
+        seed_path=args.seed,
+        determinations=args.determination or None,
+        atom_ids=args.atom or None,
+        atom_scope=args.atom_scope,
+        max_atoms=args.max_atoms,
+        batch_size=args.batch_size,
+        single_map_call=args.single_map_call,
+        repair_unresolved=args.repair_unresolved,
+        max_repair_atoms=args.max_repair_atoms,
+        max_tokens=args.llm_max_tokens,
+        timeout=args.llm_timeout,
+        max_retries=args.llm_max_retries,
+        price_specs=args.price,
+        direct_prompt_style=args.direct_prompt_style,
+        run_final=args.run_final,
     )
     payload = {"ok": True, **result}
     _print(payload, args.json)

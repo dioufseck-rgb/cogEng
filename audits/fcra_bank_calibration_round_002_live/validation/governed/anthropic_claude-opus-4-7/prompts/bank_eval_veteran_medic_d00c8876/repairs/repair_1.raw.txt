@@ -1,0 +1,64 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Dispute framed as a veteran medical-debt deletion claim, not a completeness challenge.",
+      "explanation": "The dispute concerns whether the tradeline should be deleted under veteran medical-debt rules, not whether reported information is incomplete. The completeness branch is not applicable.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "No frivolous or irrelevant determination is described in the narrative.",
+      "explanation": "The frivolous-notice branch is clearly not applicable per profile guidance (no_frivolous_termination_mentioned). A numeric value cannot be bound; the triggering condition is absent.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.item_found_inaccurate",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Bank deleted the tradeline under veteran medical-debt policy treatment, not based on an inaccuracy finding.",
+      "explanation": "Narrative attributes deletion to veteran medical-debt deletion rules and policy review, not to a determination that the item was inaccurate. The inaccuracy branch is not the basis for action.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.item_found_incomplete",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Deletion was based on veteran medical-debt policy, not an incompleteness finding.",
+      "explanation": "Narrative does not describe an incompleteness determination; deletion is attributable to policy treatment, so the incompleteness branch is not applicable.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Bank reviewed the packet and deleted under policy; no unverifiability finding is described.",
+      "explanation": "Deletion was driven by veteran medical-debt policy treatment, not by an inability to verify the item. The unverifiability branch is not the basis for action.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.furnisher_blocked_item",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative describes deletion of the tradeline, not a permanent block.",
+      "explanation": "The bank's action was deletion and reporting of the deletion to the CRA; no permanent block (a distinct action typically tied to identity-theft block requests) is described or triggered.",
+      "confidence": 0.75
+    }
+  ]
+}

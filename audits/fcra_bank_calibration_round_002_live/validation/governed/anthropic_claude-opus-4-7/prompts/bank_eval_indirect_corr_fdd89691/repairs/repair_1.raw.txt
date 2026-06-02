@@ -1,0 +1,34 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative describes a single CRA-transmitted dispute with no mention of any prior or duplicate dispute.",
+      "explanation": "Frivolous/duplicate branch is not applicable; profile guidance treats absence of frivolous/duplicate cues as a scoped branch_not_applicable false.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "undetermined",
+      "value": 0,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not describe any frivolous or irrelevant determination or related consumer notice.",
+      "explanation": "No frivolous determination occurred; the numeric value cannot be computed and no triggering condition exists to bind it.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.furnisher_reported_inaccuracy_to_other_cras",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative states the bank reported corrected balance back to the CRA but is silent on other nationwide CRAs.",
+      "explanation": "The narrative addresses only the originating CRA; whether other CRAs received the correction is not in the record, so absence is open-world and remains undetermined.",
+      "confidence": 0.6
+    }
+  ]
+}

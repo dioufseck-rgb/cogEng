@@ -1,0 +1,125 @@
+{
+  "cases": "rulekit\\orchestrator\\example_cases\\fcra_bank_customer_disputes_eval.yaml",
+  "final_holdout_locked": true,
+  "round_id": "fcra_bank_round_002",
+  "run_final": false,
+  "seed": 20260602,
+  "split_strategy": "stratified",
+  "splits": {
+    "final_holdout": [
+      {
+        "case_id": "bank_eval_indirect_late_cra_notice",
+        "expected_outcome_count": 5,
+        "split_group": "late_notice",
+        "title": "CRA forwards furnisher notice after fifth business day"
+      },
+      {
+        "case_id": "bank_eval_dual_channel_cra_and_direct",
+        "expected_outcome_count": 5,
+        "split_group": "dual_channel",
+        "title": "Consumer sends both CRA dispute and direct bank packet"
+      },
+      {
+        "case_id": "bank_eval_direct_verified_auto",
+        "expected_outcome_count": 5,
+        "split_group": "verified",
+        "title": "Direct dispute verified after payment review"
+      },
+      {
+        "case_id": "bank_eval_direct_corrected_and_sent",
+        "expected_outcome_count": 5,
+        "split_group": "correction_complete",
+        "title": "Direct dispute corrected and CRAs notified"
+      },
+      {
+        "case_id": "bank_eval_direct_short_message_insufficient",
+        "expected_outcome_count": 5,
+        "split_group": "insufficient_packet",
+        "title": "Direct message lacks account and disputed field"
+      },
+      {
+        "case_id": "bank_eval_direct_corrected_not_sent",
+        "expected_outcome_count": 5,
+        "split_group": "notification_gap",
+        "title": "Direct dispute corrected internally but CRAs not notified"
+      }
+    ],
+    "repair": [
+      {
+        "case_id": "bank_eval_mixed_file_indirect_pending",
+        "expected_outcome_count": 5,
+        "split_group": "mixed_file",
+        "title": "Similar-name mixed-file dispute remains unresolved"
+      },
+      {
+        "case_id": "bank_eval_indirect_missing_docs_review",
+        "expected_outcome_count": 5,
+        "split_group": "missing_docs",
+        "title": "CRA notice omits referenced proof and bank reviews packet received"
+      },
+      {
+        "case_id": "bank_eval_indirect_clean_verified_1",
+        "expected_outcome_count": 5,
+        "split_group": "verified",
+        "title": "Indirect ACDV packet verifies late payment"
+      },
+      {
+        "case_id": "bank_eval_direct_wrong_address",
+        "expected_outcome_count": 5,
+        "split_group": "wrong_address",
+        "title": "Direct dispute sent to ordinary customer service address"
+      },
+      {
+        "case_id": "bank_eval_identity_theft_complete_blocked",
+        "expected_outcome_count": 5,
+        "split_group": "identity_theft",
+        "title": "Identity theft report supplied and tradeline blocked"
+      },
+      {
+        "case_id": "bank_eval_duplicate_no_new_info",
+        "expected_outcome_count": 5,
+        "split_group": "duplicate_repeat",
+        "title": "Repeat direct dispute contains no new information"
+      }
+    ],
+    "reserve": [],
+    "validation": [
+      {
+        "case_id": "bank_eval_direct_public_record_only",
+        "expected_outcome_count": 5,
+        "split_group": "public_record",
+        "title": "Direct dispute concerns courthouse judgment only"
+      },
+      {
+        "case_id": "bank_eval_indirect_date_conflict_pending",
+        "expected_outcome_count": 5,
+        "split_group": "date_conflict",
+        "title": "Conflicting dates prevent final furnisher result"
+      },
+      {
+        "case_id": "bank_eval_veteran_medical_deleted",
+        "expected_outcome_count": 5,
+        "split_group": "veteran_medical",
+        "title": "Veteran medical-debt tradeline deleted after CRA notice"
+      },
+      {
+        "case_id": "bank_eval_indirect_corrected_and_reported",
+        "expected_outcome_count": 5,
+        "split_group": "correction_complete",
+        "title": "Indirect CRA dispute found inaccurate and corrected"
+      },
+      {
+        "case_id": "bank_eval_identity_theft_missing_report",
+        "expected_outcome_count": 5,
+        "split_group": "identity_theft",
+        "title": "Not-mine dispute lacks completed identity theft report"
+      },
+      {
+        "case_id": "bank_eval_indirect_no_bank_furnishing",
+        "expected_outcome_count": 5,
+        "split_group": "not_furnished",
+        "title": "CRA notice names account not furnished by bank"
+      }
+    ]
+  }
+}

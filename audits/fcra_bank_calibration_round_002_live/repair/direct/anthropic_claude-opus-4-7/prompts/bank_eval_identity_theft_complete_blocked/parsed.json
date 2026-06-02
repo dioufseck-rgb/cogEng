@@ -1,0 +1,125 @@
+{
+  "case_id": "bank_eval_identity_theft_complete_blocked",
+  "case_level_notes": "Direct-dispute case with complete identity-theft documentation; bank blocked unverifiable tradeline and notified CRAs.",
+  "determinations": [
+    {
+      "anti_overclaim_check": "Marked satisfied/not-applicable per perspective override since the CRA-notice branch is outside this case's natural scope.",
+      "confidence": 0.9,
+      "decisive_branch": "not-applicable branch (no CRA path for direct furnisher only)",
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Customer uploaded a direct dispute to the bank's published portal",
+          "source": "narrative"
+        },
+        {
+          "basis": "missing",
+          "fact": "No CRA-transmitted dispute is described",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "no_cra_path_for_direct_furnisher_only",
+        "bank_direct_only_no_cra_notice"
+      ],
+      "rationale": "This is a direct-to-furnisher dispute; no CRA-transmission branch applies from the bank-furnisher perspective."
+    },
+    {
+      "anti_overclaim_check": "Treatment is decided on its own branch (block of unverifiable item); manual review routing does not negate this.",
+      "confidence": 0.88,
+      "decisive_branch": "item treatment under unverifiable finding \u2014 blocked/deleted",
+      "determination_id": "fcra.item_treatment_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Bank concluded the tradeline could not be verified as the customer's obligation",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Bank blocked further reporting and notified CRAs of the block",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [],
+      "rationale": "Bank found the tradeline could not be verified as the customer's obligation and blocked further reporting, which is appropriate treatment under section 5."
+    },
+    {
+      "anti_overclaim_check": "Satisfied/not-applicable because the indirect branch is outside scope per perspective override.",
+      "confidence": 0.88,
+      "decisive_branch": "not-applicable branch (no CRA furnisher notice)",
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Dispute arrived directly at the bank's published portal, not via a CRA",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "bank_direct_only_no_cra_notice",
+        "no_cra_path_for_direct_furnisher_only"
+      ],
+      "rationale": "No CRA-transmitted indirect dispute path is present; the indirect furnisher-duty branch is not applicable."
+    },
+    {
+      "anti_overclaim_check": "All required direct-dispute elements are present in the narrative; no contrary facts.",
+      "confidence": 0.9,
+      "decisive_branch": "direct furnisher duties completed with corrective action",
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Direct dispute submitted to bank's published dispute portal",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Packet included completed identity-theft report, affidavit, and police report",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Bank reviewed account-opening file and concluded tradeline unverifiable",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Bank blocked reporting, sent results to consumer, and notified CRAs",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "direct_furnisher_notice_path",
+        "bank_direct_intake_common",
+        "bank_direct_valid_packet_complete"
+      ],
+      "rationale": "Qualifying direct dispute at the proper address with a completed identity-theft report, affidavit, and police report; bank investigated, reviewed records, blocked the tradeline, sent results to consumer, and notified CRAs of the block."
+    },
+    {
+      "anti_overclaim_check": "Routing is independent of substantive compliance; identity-theft cues trigger review per policy section 13.",
+      "confidence": 0.9,
+      "decisive_branch": "routing trigger (identity theft / not mine)",
+      "determination_id": "fcra.human_review_required",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Customer alleged account was 'not mine' and claimed identity theft",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "identity_theft_route",
+        "not_mine_identity_route",
+        "human_review_from_routing_cues"
+      ],
+      "rationale": "Identity theft claim with not-mine allegation is a routing trigger for human review even when documentation is complete."
+    }
+  ]
+}

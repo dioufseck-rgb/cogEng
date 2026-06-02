@@ -1,0 +1,72 @@
+{
+  "case_id": "bank_eval_direct_public_record_only",
+  "determinations": [
+    {
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "outcome": "true",
+      "rationale": "No CRA-transmitted dispute path applies; the dispute was direct to the bank only, so CRA furnisher-notice transmission duties are outside the case's natural scope.",
+      "confidence": 0.9,
+      "decisive_branch": "not-applicable branch: no CRA path for direct-furnisher-only dispute",
+      "material_facts": [
+        {"fact": "Customer sent dispute directly to bank's published dispute address", "source": "narrative", "basis": "explicit"},
+        {"fact": "No CRA receipt or transmission mentioned", "source": "narrative", "basis": "missing"}
+      ],
+      "profile_rule_ids": ["no_cra_path_for_direct_furnisher_only", "bank_direct_only_no_cra_notice"],
+      "anti_overclaim_check": "Marks satisfied because the CRA-transmission branch is inapplicable to a direct-only public-record dispute; not asserting any affirmative CRA notice occurred."
+    },
+    {
+      "determination_id": "fcra.item_treatment_satisfied",
+      "outcome": "true",
+      "rationale": "The disputed item is a public-record courthouse judgment, not bank-furnished account information. No furnisher item-treatment duty arises.",
+      "confidence": 0.9,
+      "decisive_branch": "not-applicable branch: not furnished by this bank / outside furnisher scope",
+      "material_facts": [
+        {"fact": "Dispute concerns courthouse judgment, a public record", "source": "narrative", "basis": "explicit"},
+        {"fact": "Customer did not dispute any bank-furnished account information", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["bank_indirect_not_furnished_by_bank", "bank_direct_public_record_only_exception"],
+      "anti_overclaim_check": "Item treatment branch inapplicable since the item is not furnished by the bank; no claim of verification or deletion is made."
+    },
+    {
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "outcome": "true",
+      "rationale": "No CRA notice was sent to the bank and no bank-furnished item is at issue, so indirect furnisher duties are not applicable.",
+      "confidence": 0.95,
+      "decisive_branch": "not-applicable branch: no CRA notice and item not furnished by bank",
+      "material_facts": [
+        {"fact": "Dispute submitted directly to the bank only", "source": "narrative", "basis": "explicit"},
+        {"fact": "Disputed item is a public-record judgment, not bank-furnished", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["no_cra_path_for_direct_furnisher_only", "bank_indirect_not_furnished_by_bank"],
+      "anti_overclaim_check": "Branch override allows satisfaction via not-applicable conditions; no fabrication of investigation steps."
+    },
+    {
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "outcome": "true",
+      "rationale": "Direct dispute concerns solely public-record information, which is outside the regulatory scope of furnisher direct-dispute investigation. The bank appropriately directed the customer to the reporting source.",
+      "confidence": 0.9,
+      "decisive_branch": "not-applicable branch: public-record-only exception under 12 CFR 1022.43",
+      "material_facts": [
+        {"fact": "Direct dispute sent to bank's published dispute address", "source": "narrative", "basis": "explicit"},
+        {"fact": "Dispute concerns only a courthouse judgment (public record)", "source": "narrative", "basis": "explicit"},
+        {"fact": "No bank-furnished account information disputed", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["bank_direct_public_record_only_exception"],
+      "anti_overclaim_check": "Policy section 11 explicitly excludes public-record-only disputes from direct-furnisher investigation duties."
+    },
+    {
+      "determination_id": "fcra.human_review_required",
+      "outcome": "false",
+      "rationale": "No routing triggers present: no identity theft, mixed-file, missing source documents, date conflicts, court-order liability issue, veteran medical debt, or manual-review policy trigger. The bank properly recognized the public-record exception.",
+      "confidence": 0.9,
+      "decisive_branch": "routing default: no review triggers",
+      "material_facts": [
+        {"fact": "Dispute clearly concerns only public-record information", "source": "narrative", "basis": "explicit"},
+        {"fact": "No conflicting evidence, identity theft, or missing documents alleged", "source": "narrative", "basis": "missing"}
+      ],
+      "profile_rule_ids": ["bank_no_review_triggers"],
+      "anti_overclaim_check": "No narrative cue triggers any listed routing condition."
+    }
+  ],
+  "case_level_notes": "Direct-only public-record dispute falls within the regulatory exception; bank's direction to reporting source is consistent with the policy pack."
+}

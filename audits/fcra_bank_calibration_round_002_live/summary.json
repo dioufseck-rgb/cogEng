@@ -1,0 +1,168 @@
+{
+  "case_count": 18,
+  "cases": "rulekit\\orchestrator\\example_cases\\fcra_bank_customer_disputes_eval.yaml",
+  "direct": {
+    "repair": [
+      {
+        "case_count": 6,
+        "cost_metrics": {
+          "avg_llm_call_latency_s": 21.495098216658032,
+          "case_count": 6,
+          "estimated_cost_usd": null,
+          "estimated_input_tokens": 72016,
+          "estimated_output_tokens": 7640,
+          "estimated_total_tokens": 79656,
+          "llm_call_count": 6,
+          "llm_latency_s": 128.9705892999482,
+          "pricing_basis": "not_configured",
+          "token_count_basis": "estimated_from_character_count"
+        },
+        "disposition_count": 30,
+        "model": "claude-opus-4-7",
+        "outcome_counts": {
+          "false": 5,
+          "true": 23,
+          "undetermined": 2
+        },
+        "prompt_style": "profiled",
+        "provider": "anthropic",
+        "reference_agreement": {
+          "agreement_rate": 0.9666666666666667,
+          "compared_count": 30,
+          "reference_agree_count": 29,
+          "reference_disagree_count": 1
+        }
+      }
+    ],
+    "validation": [
+      {
+        "case_count": 6,
+        "cost_metrics": {
+          "avg_llm_call_latency_s": 19.268032299999806,
+          "case_count": 6,
+          "estimated_cost_usd": null,
+          "estimated_input_tokens": 71981,
+          "estimated_output_tokens": 6876,
+          "estimated_total_tokens": 78857,
+          "llm_call_count": 6,
+          "llm_latency_s": 115.60819379999884,
+          "pricing_basis": "not_configured",
+          "token_count_basis": "estimated_from_character_count"
+        },
+        "disposition_count": 30,
+        "model": "claude-opus-4-7",
+        "outcome_counts": {
+          "false": 5,
+          "true": 23,
+          "undetermined": 2
+        },
+        "prompt_style": "profiled",
+        "provider": "anthropic",
+        "reference_agreement": {
+          "agreement_rate": 0.9333333333333333,
+          "compared_count": 30,
+          "reference_agree_count": 28,
+          "reference_disagree_count": 2
+        }
+      }
+    ]
+  },
+  "governed": {
+    "repair": [
+      {
+        "basis_counts": {
+          "closed_world_absence": 1,
+          "explicit_negative": 171,
+          "explicit_positive": 16,
+          "inferred_from_record": 88,
+          "not_found": 117,
+          "open_world_absence": 15
+        },
+        "case_count": 6,
+        "cost_metrics": {
+          "avg_llm_call_latency_s": 24.505022766655504,
+          "case_count": 6,
+          "estimated_cost_usd": null,
+          "estimated_input_tokens": 80742,
+          "estimated_output_tokens": 9516,
+          "estimated_total_tokens": 90258,
+          "llm_call_count": 6,
+          "llm_latency_s": 147.03013659993303,
+          "map_latency_s": 147.03013659993303,
+          "pricing_basis": "not_configured",
+          "token_count_basis": "estimated_from_character_count"
+        },
+        "disposition_count": 30,
+        "expected_binding_metrics": {
+          "details": [],
+          "observed_failure_modes": {}
+        },
+        "map_mode": "map_governed_evidence",
+        "matched_disposition_count": 28,
+        "mismatch_count": 2,
+        "model": "claude-opus-4-7",
+        "provider": "anthropic",
+        "selected_atom_count": 20,
+        "validation_action_counts": {
+          "accept": 408
+        },
+        "validation_status_counts": {
+          "valid": 408
+        }
+      }
+    ],
+    "validation": [
+      {
+        "basis_counts": {
+          "closed_world_absence": 1,
+          "explicit_negative": 182,
+          "explicit_positive": 11,
+          "inferred_from_record": 90,
+          "not_found": 117,
+          "open_world_absence": 7
+        },
+        "case_count": 6,
+        "cost_metrics": {
+          "avg_llm_call_latency_s": 122.07551614000113,
+          "case_count": 6,
+          "estimated_cost_usd": null,
+          "estimated_input_tokens": 63773,
+          "estimated_output_tokens": 6971,
+          "estimated_total_tokens": 70744,
+          "llm_call_count": 5,
+          "llm_latency_s": 610.3775807000056,
+          "map_latency_s": 610.3775807000056,
+          "pricing_basis": "not_configured",
+          "token_count_basis": "estimated_from_character_count"
+        },
+        "disposition_count": 30,
+        "expected_binding_metrics": {
+          "details": [],
+          "observed_failure_modes": {}
+        },
+        "map_mode": "map_governed_evidence",
+        "matched_disposition_count": 27,
+        "mismatch_count": 3,
+        "model": "claude-opus-4-7",
+        "provider": "anthropic",
+        "selected_atom_count": 0,
+        "validation_action_counts": {
+          "accept": 408
+        },
+        "validation_status_counts": {
+          "valid": 408
+        }
+      }
+    ]
+  },
+  "program": "audits\\fcra_bank_profile_v6\\bank_furnisher_program.json",
+  "round_id": "fcra_bank_round_002",
+  "run_final": false,
+  "split_counts": {
+    "final_holdout": 6,
+    "repair": 6,
+    "reserve": 0,
+    "validation": 6
+  },
+  "split_strategy": "stratified"
+}

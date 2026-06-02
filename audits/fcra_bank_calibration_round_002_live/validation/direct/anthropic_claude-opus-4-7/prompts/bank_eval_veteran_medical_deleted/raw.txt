@@ -1,0 +1,70 @@
+{
+  "case_id": "bank_eval_veteran_medical_deleted",
+  "determinations": [
+    {
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "outcome": "true",
+      "rationale": "CRA transmitted a complete furnisher notice including the consumer letter, VA documentation, and account reference; bank received it in the ordinary course.",
+      "confidence": 0.85,
+      "decisive_branch": "CRA-to-furnisher notice transmitted with all relevant information",
+      "material_facts": [
+        {"fact": "CRA notice included the customer's letter, VA documentation, and account reference", "source": "narrative", "basis": "explicit"},
+        {"fact": "Bank received and reviewed the packet", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["bank_indirect_cra_notice_common", "bank_indirect_complete_documents_forwarded", "bank_indirect_cra_notice_timing_default"],
+      "anti_overclaim_check": "Narrative shows complete forwarding; no facts indicate late or incomplete CRA notice."
+    },
+    {
+      "determination_id": "fcra.item_treatment_satisfied",
+      "outcome": "true",
+      "rationale": "Bank deleted the furnished medical tradeline after review, consistent with policy deletion treatment for veteran medical debt.",
+      "confidence": 0.9,
+      "decisive_branch": "policy deletion treatment (veteran medical-debt deletion)",
+      "material_facts": [
+        {"fact": "Veteran medical-debt claim raised with VA documentation", "source": "narrative", "basis": "explicit"},
+        {"fact": "Bank deleted the furnished medical tradeline", "source": "narrative", "basis": "explicit"},
+        {"fact": "Deletion reported to CRA within dispute deadline", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["bank_veteran_medical_debt_deleted"],
+      "anti_overclaim_check": "Item-treatment focuses on deletion status; downstream notification is separate."
+    },
+    {
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "outcome": "true",
+      "rationale": "Bank investigated, reviewed CRA-transmitted materials, deleted the item, and reported the deletion back to the CRA within the deadline.",
+      "confidence": 0.88,
+      "decisive_branch": "furnisher indirect duties completed",
+      "material_facts": [
+        {"fact": "Bank reviewed the CRA packet", "source": "narrative", "basis": "explicit"},
+        {"fact": "Bank deleted the tradeline and reported deletion to CRA within deadline", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["bank_veteran_medical_debt_deleted", "ordinary_furnisher_indirect_completed", "bank_furnisher_process_completed"],
+      "anti_overclaim_check": "Investigation, review, results reporting, and correction action are all present in the narrative."
+    },
+    {
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "outcome": "true",
+      "rationale": "No direct dispute to the bank is described; the direct-furnisher branch is not applicable.",
+      "confidence": 0.9,
+      "decisive_branch": "branch not applicable (no direct dispute)",
+      "material_facts": [
+        {"fact": "Dispute was filed through a CRA, not directly with the bank", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["no_direct_furnisher_dispute_mentioned"],
+      "anti_overclaim_check": "Marking 'satisfied or not applicable' true because the direct-dispute branch is outside the case scope."
+    },
+    {
+      "determination_id": "fcra.human_review_required",
+      "outcome": "true",
+      "rationale": "Veteran medical-debt claim triggered the bank's policy review routing.",
+      "confidence": 0.95,
+      "decisive_branch": "routing trigger (veteran medical-debt)",
+      "material_facts": [
+        {"fact": "Bank routed the packet for policy review because of the veteran medical-debt claim", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["bank_veteran_medical_debt_review_route"],
+      "anti_overclaim_check": "Routing is independent of substantive compliance; both can be true."
+    }
+  ],
+  "case_level_notes": ""
+}

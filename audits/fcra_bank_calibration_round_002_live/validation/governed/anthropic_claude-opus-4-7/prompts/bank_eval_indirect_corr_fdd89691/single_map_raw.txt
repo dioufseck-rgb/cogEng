@@ -1,0 +1,214 @@
+{
+  "sources": [
+    {
+      "source_id": "case_narrative",
+      "source_type": "narrative",
+      "title": "Customer I CRA Dispute Narrative",
+      "as_of_date": null,
+      "closed_world_scopes": ["dispute channel", "CRA notice contents", "furnisher investigation outcome and reporting"],
+      "limitations": "Brief narrative; does not detail every procedural element such as frivolous determinations, deadlines in exact days, or whether other CRAs were notified."
+    }
+  ],
+  "bindings": [
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "Customer disputed an overstated revolving balance — an accuracy dispute, not completeness.",
+      "explanation": "The narrative frames the dispute as an inaccurate (overstated) balance, indicating accuracy rather than completeness.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not mention any prior dispute or duplicate submission.",
+      "explanation": "No information about prior disputes is provided; absence is not affirmative denial.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "CRA notice included payoff confirmation, account number, and disputed balance field; bank conducted investigation and found the balance inaccurate.",
+      "explanation": "The bank successfully investigated and reached a determination, indicating sufficient information was supplied.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "undetermined",
+      "value": 0,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not describe a frivolous determination or related notice.",
+      "explanation": "No frivolous determination is mentioned, so the numeric atom cannot be computed.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.notice_included_all_relevant_info",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "CRA notice to the bank included the customer's payoff confirmation, the account number, and the disputed balance field.",
+      "explanation": "Narrative affirmatively lists the relevant consumer-supplied information transmitted with the CRA notice.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.primary_documents_forwarded",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "The CRA notice to the bank included the customer's payoff confirmation.",
+      "explanation": "The payoff confirmation is a primary source document that was forwarded with the CRA notice.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.item_deleted",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "Bank modified the furnished balance to zero rather than deleting the item.",
+      "explanation": "Modification, not deletion, was the action taken; deletion is affirmatively not described.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.item_status_recorded_current",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Bank reported the corrected balance back to the CRA.",
+      "explanation": "Reporting the corrected balance reflects the current status of the disputed information.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "fcra.item_found_inaccurate",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["case_narrative"],
+      "evidence": "The bank found the balance was inaccurate.",
+      "explanation": "Narrative explicitly states the investigation found the balance inaccurate.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.item_found_incomplete",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "Investigation result described as inaccurate (and corrected), not incomplete.",
+      "explanation": "The narrative characterizes the defect as inaccuracy, not incompleteness.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "Bank reached a verification outcome (inaccurate) and corrected it.",
+      "explanation": "Reaching a defect determination implies the item could be evaluated; not unverifiable.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.item_verified_as_accurate",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "Bank found the balance inaccurate, not accurate.",
+      "explanation": "Affirmative finding of inaccuracy contradicts verified-as-accurate.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.item_modified",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["case_narrative"],
+      "evidence": "Bank modified the furnished balance to zero.",
+      "explanation": "Narrative explicitly states the item was modified.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.furnisher_investigation_conducted",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Bank found the balance was inaccurate and reported investigation results back to the CRA.",
+      "explanation": "Reaching findings and reporting investigation results demonstrates that an investigation was conducted.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.furnisher_reviewed_all_cra_info",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "CRA notice included payoff confirmation, account number, and disputed balance field; bank reached an accurate finding identifying the inaccuracy.",
+      "explanation": "The bank's correct identification of the inaccuracy based on the transmitted materials implies review of the CRA-provided information.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.furnisher_reported_results_to_cra",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["case_narrative"],
+      "evidence": "Bank reported investigation results and the corrected balance back to the CRA within the dispute deadline.",
+      "explanation": "Narrative explicitly states the furnisher reported results to the CRA.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.furnisher_reported_inaccuracy_to_other_cras",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative only mentions reporting back to the CRA that sent the notice; it does not address other nationwide CRAs.",
+      "explanation": "Absence of mention of other CRAs is not an affirmative denial.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.furnisher_modified_item",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["case_narrative"],
+      "evidence": "Bank modified the furnished balance to zero and reported the corrected balance back to the CRA.",
+      "explanation": "Narrative explicitly states the furnisher modified the furnished information.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.furnisher_deleted_item",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "Bank modified the balance rather than deleting the item.",
+      "explanation": "Modification action is affirmatively described, not deletion.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.furnisher_blocked_item",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "Bank modified the balance and continued reporting the corrected balance; no blocking described.",
+      "explanation": "Reporting the corrected balance is inconsistent with permanently blocking the item.",
+      "confidence": 0.85
+    }
+  ]
+}

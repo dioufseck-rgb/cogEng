@@ -1,0 +1,214 @@
+{
+  "cases": [
+    {
+      "case_id": "bank_eval_indirect_late_cra_notice",
+      "expected_outcomes": [
+        {
+          "determination_id": "fcra.cra_furnisher_notice_satisfied",
+          "expected_value": "false",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.item_treatment_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.furnisher_indirect_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.direct_furnisher_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.human_review_required",
+          "expected_value": "false",
+          "rationale": null
+        }
+      ],
+      "metadata": {},
+      "narrative": "Customer K disputed an auto-loan repossession notation with a CRA. The CRA sent the bank an ACDV packet with the customer's letter and account documents, but the forwarding log shows the bank received the notice on the seventh business day after the CRA received the dispute. The bank investigated, verified that the repossession notation matched its records, and reported verified-as-accurate results back to the CRA within the dispute deadline.\n",
+      "provenance": "authored",
+      "structured_fields": {},
+      "title": "CRA forwards furnisher notice after fifth business day"
+    },
+    {
+      "case_id": "bank_eval_dual_channel_cra_and_direct",
+      "expected_outcomes": [
+        {
+          "determination_id": "fcra.cra_furnisher_notice_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.item_treatment_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.furnisher_indirect_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.direct_furnisher_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.human_review_required",
+          "expected_value": "false",
+          "rationale": null
+        }
+      ],
+      "metadata": {},
+      "narrative": "Customer Y disputed a late-payment notation through a CRA and also mailed a direct dispute to the bank's published dispute address. The CRA sent the bank an ACDV packet with the customer's letter, account number, disputed month, and payment-history attachment. The direct letter identified the same account and month and included the customer's payment confirmation. The bank reviewed both packets, found the reported information accurate, sent a written result to the customer, and reported verified-as-accurate results back to the CRA within the dispute deadline.\n",
+      "provenance": "authored",
+      "structured_fields": {},
+      "title": "Consumer sends both CRA dispute and direct bank packet"
+    },
+    {
+      "case_id": "bank_eval_direct_verified_auto",
+      "expected_outcomes": [
+        {
+          "determination_id": "fcra.cra_furnisher_notice_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.item_treatment_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.furnisher_indirect_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.direct_furnisher_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.human_review_required",
+          "expected_value": "false",
+          "rationale": null
+        }
+      ],
+      "metadata": {},
+      "narrative": "Customer N mailed a direct dispute to the bank's published dispute address. The letter identified the auto-loan account, the allegedly inaccurate late-payment month, and included a copy of the customer's online payment confirmation. The bank reviewed the account ledger and payment posting system, found the reported information accurate, and sent a written investigation result to the customer.\n",
+      "provenance": "authored",
+      "structured_fields": {},
+      "title": "Direct dispute verified after payment review"
+    },
+    {
+      "case_id": "bank_eval_direct_corrected_and_sent",
+      "expected_outcomes": [
+        {
+          "determination_id": "fcra.cra_furnisher_notice_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.item_treatment_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.furnisher_indirect_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.direct_furnisher_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.human_review_required",
+          "expected_value": "false",
+          "rationale": null
+        }
+      ],
+      "metadata": {},
+      "narrative": "Customer O submitted a direct dispute to the bank's published dispute address with a payoff confirmation showing a reported balance was overstated. The bank agreed that the balance was inaccurate, modified the account record internally, sent a written result to the customer, and sent corrected information to the CRAs that had received the inaccurate balance.\n",
+      "provenance": "authored",
+      "structured_fields": {},
+      "title": "Direct dispute corrected and CRAs notified"
+    },
+    {
+      "case_id": "bank_eval_direct_short_message_insufficient",
+      "expected_outcomes": [
+        {
+          "determination_id": "fcra.cra_furnisher_notice_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.item_treatment_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.furnisher_indirect_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.direct_furnisher_satisfied",
+          "expected_value": "false",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.human_review_required",
+          "expected_value": "false",
+          "rationale": null
+        }
+      ],
+      "metadata": {},
+      "narrative": "Customer Q sent the bank a short message saying the bank's credit reporting was wrong but did not identify the account, the specific reported field, or any supporting documents. The message arrived at the bank's published dispute address. The bank marked the packet as insufficient and requested the missing account and issue details.\n",
+      "provenance": "authored",
+      "structured_fields": {},
+      "title": "Direct message lacks account and disputed field"
+    },
+    {
+      "case_id": "bank_eval_direct_corrected_not_sent",
+      "expected_outcomes": [
+        {
+          "determination_id": "fcra.cra_furnisher_notice_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.item_treatment_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.furnisher_indirect_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.direct_furnisher_satisfied",
+          "expected_value": "false",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.human_review_required",
+          "expected_value": "false",
+          "rationale": null
+        }
+      ],
+      "metadata": {},
+      "narrative": "Customer P submitted a direct dispute to the bank's published dispute address with a payoff confirmation showing a reported balance was overstated. The bank agreed that the balance was inaccurate and modified the account record internally. The investigation result was mailed to the customer, but the bank file does not show that corrected information was sent to the CRAs that had received the inaccurate balance.\n",
+      "provenance": "authored",
+      "structured_fields": {},
+      "title": "Direct dispute corrected internally but CRAs not notified"
+    }
+  ]
+}

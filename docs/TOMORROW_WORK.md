@@ -169,7 +169,62 @@ Next domain:
 - include arithmetic thresholds, documentation requirements, exceptions,
   contraindications, appeal evidence, and human-review triggers
 
-## Priority 6: Fix Runtime Friction
+## Priority 6: Split-Based Calibration And Repair Loop
+
+Policy packs should come with labeled calibration cases. These cases must be
+used with explicit split discipline. Splits should be seeded and stratified so
+the same scenario family or failure mode is not overrepresented in repair,
+validation, or final holdout:
+
+```text
+X labeled cases
+  -> repair slices used to discover artifact gaps
+  -> rolling validation slices used to reject overfitted repairs
+  -> locked final holdout used once after the artifact is frozen
+```
+
+The Builder may use LLMs to propose changes, but accepted changes must become
+explicit, versioned policy-pack artifacts: DAG nodes, perspective overrides,
+Map profile rules, routing semantics, atoms, and regression cases. Runtime
+disposition must not silently improvise new legal branches.
+
+Near-term command shape:
+
+```text
+rulekit-orchestrator calibration-eval \
+  --program program.json \
+  --cases labeled_cases.yaml \
+  --out audits/policy/calibration_round_001 \
+  --repair-count 20 \
+  --validation-count 20 \
+  --final-holdout-count 80 \
+  --model anthropic:claude-opus-4-7 \
+  --single-map-call \
+  --repair-unresolved
+```
+
+The command should:
+
+- create deterministic or seeded case splits;
+- scramble/stratify cases by explicit `split_group` metadata when present,
+  and by generic scenario labels when metadata is absent;
+- tag every case as `repair`, `validation`, or `final_holdout`;
+- run governed Map + engine only on allowed slices;
+- optionally run direct LLM comparison on allowed slices;
+- classify mismatches by direction and likely failure type;
+- replay candidate artifact repairs before spending new LLM calls;
+- reject repairs that regress validation cases;
+- preserve the final holdout as untouched until a `--final` run;
+- write `repair_report.md`, `split_manifest.json`, `candidate_patches.json`,
+  `replay_before_after.json`, `regression_summary.json`, and
+  `open_design_questions.md`.
+
+This is the empirical discipline for co-authored determination packs. It also
+becomes a product workflow: customers can provide labeled seed cases, iterate
+with the Builder on the repair/calibration split, and receive an honest final
+holdout report at pack approval time.
+
+## Priority 7: Fix Runtime Friction
 
 Small but important engineering tasks:
 

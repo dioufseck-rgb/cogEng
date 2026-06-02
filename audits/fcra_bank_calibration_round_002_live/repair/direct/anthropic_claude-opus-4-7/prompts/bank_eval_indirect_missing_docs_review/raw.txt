@@ -1,0 +1,69 @@
+{
+  "case_id": "bank_eval_indirect_missing_docs_review",
+  "determinations": [
+    {
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "outcome": "false",
+      "rationale": "The CRA's notice to the bank omitted the referenced settlement letter and bank-statement images, so the CRA did not include all relevant information from the consumer as required.",
+      "confidence": 0.85,
+      "decisive_branch": "CRA-to-furnisher notice path: primary documents not forwarded",
+      "material_facts": [
+        {"fact": "CRA notice contained account number and dispute code but not the settlement letter or bank-statement images", "source": "narrative", "basis": "explicit"},
+        {"fact": "Source documents were missing from the transmission", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["bank_indirect_primary_documents_missing", "primary_documents_not_forwarded"],
+      "anti_overclaim_check": "Determination scoped to CRA transmission completeness; does not assert other downstream failures."
+    },
+    {
+      "determination_id": "fcra.item_treatment_satisfied",
+      "outcome": "true",
+      "rationale": "The bank, on the materials it received, reviewed and verified the item against its ledger; under the bank-perspective item-treatment override the verified/current status branch is satisfied. Downstream CRA transmission failure is treated under a separate determination.",
+      "confidence": 0.7,
+      "decisive_branch": "Item verified as accurate and recorded current (no defect found by furnisher on materials received)",
+      "material_facts": [
+        {"fact": "Bank reviewed the materials it received and recorded the item as verified from the bank ledger", "source": "narrative", "basis": "explicit"},
+        {"fact": "No reseller, reinsertion, or veteran-medical branch in play", "source": "profile defaults", "basis": "profile_default"}
+      ],
+      "profile_rule_ids": ["bank_verified_no_defect", "bank_no_defect_found", "ordinary_verified_item_treatment"],
+      "anti_overclaim_check": "Item-treatment determination concerns verified/current status of the item under the selected branch and does not import the CRA transmission failure."
+    },
+    {
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "outcome": "true",
+      "rationale": "The bank received the CRA notice, investigated using the materials it actually received, and reported results back to the CRA. The recipient-side furnisher duty is satisfied even though the CRA's upstream transmission was incomplete.",
+      "confidence": 0.8,
+      "decisive_branch": "Furnisher indirect duties: investigation conducted, reviewed CRA-transmitted info, results reported",
+      "material_facts": [
+        {"fact": "Bank reviewed materials received and responded to the CRA", "source": "narrative", "basis": "explicit"},
+        {"fact": "Bank recorded the item as verified from its ledger", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["ordinary_furnisher_indirect_completed", "bank_furnisher_process_completed", "bank_indirect_cra_notice_common"],
+      "anti_overclaim_check": "Per instructions, a failed upstream CRA transmission can coexist with a satisfied recipient-side furnisher duty where the recipient reviewed what it received."
+    },
+    {
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "outcome": "true",
+      "rationale": "No direct furnisher dispute was sent to the bank; the direct-dispute branch is not applicable and treated as satisfied.",
+      "confidence": 0.95,
+      "decisive_branch": "Branch not applicable: no direct furnisher dispute mentioned",
+      "material_facts": [
+        {"fact": "Dispute came via the CRA, not directly to the bank", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["no_direct_furnisher_dispute_mentioned", "no_cra_path_for_direct_furnisher_only"],
+      "anti_overclaim_check": "Not-applicable branch returns true per policy guidance on inapplicable duty branches."
+    },
+    {
+      "determination_id": "fcra.human_review_required",
+      "outcome": "true",
+      "rationale": "Source documents were missing from the CRA transmission and the bank explicitly opened manual review, triggering the human-review routing condition.",
+      "confidence": 0.95,
+      "decisive_branch": "Routing trigger: missing primary source documents and manual-review policy invoked",
+      "material_facts": [
+        {"fact": "Bank opened manual review because source documents were missing from transmission", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["manual_review_for_forwarding_failure", "bank_source_gap_review_route", "source_gap_route"],
+      "anti_overclaim_check": "Routing is separate from substantive duties; manual-review routing does not by itself fail item-treatment or furnisher-indirect determinations."
+    }
+  ],
+  "case_level_notes": "Upstream CRA transmission duty fails (missing source documents); recipient-side furnisher duty is satisfied on materials actually received; case is routed to human review."
+}

@@ -1,0 +1,72 @@
+{
+  "case_id": "bank_eval_direct_wrong_address",
+  "determinations": [
+    {
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "outcome": "true",
+      "rationale": "No CRA notice is in the file and no CRA path is implicated; the CRA furnisher-notice transmission branch is outside the natural scope of this direct-only case.",
+      "confidence": 0.85,
+      "decisive_branch": "not-applicable branch (no CRA dispute path)",
+      "material_facts": [
+        {"fact": "No CRA notice is in the file.", "source": "narrative", "basis": "explicit"},
+        {"fact": "Dispute was sent directly to the bank, not via a CRA.", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["no_cra_path_for_direct_furnisher_only", "bank_direct_only_no_cra_notice"],
+      "anti_overclaim_check": "Marked true on a not-applicable basis since the determination is outside the natural scope; not asserting any affirmative CRA transmission occurred."
+    },
+    {
+      "determination_id": "fcra.item_treatment_satisfied",
+      "outcome": "true",
+      "rationale": "No CRA-required item treatment branch is in scope; the direct dispute was not at the proper address, so no furnisher-side item treatment duty was triggered by a qualifying dispute. The item-treatment determination is outside the natural scope of this case.",
+      "confidence": 0.7,
+      "decisive_branch": "not-applicable branch (no qualifying dispute triggering treatment)",
+      "material_facts": [
+        {"fact": "Direct dispute sent to ordinary customer service lockbox, not the published dispute address.", "source": "narrative", "basis": "explicit"},
+        {"fact": "Bank asked customer to resubmit to proper address; no investigation conducted.", "source": "narrative", "basis": "explicit"},
+        {"fact": "No CRA notice in file.", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["bank_direct_wrong_address", "bank_direct_only_no_cra_notice"],
+      "anti_overclaim_check": "Item treatment is about the item's status; no qualifying trigger requires treatment here, so not-applicable disposition is appropriate without asserting verification or correction."
+    },
+    {
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "outcome": "true",
+      "rationale": "No CRA notice was received by the bank; the indirect furnisher duty branch is not applicable.",
+      "confidence": 0.9,
+      "decisive_branch": "not-applicable branch (no CRA notice received)",
+      "material_facts": [
+        {"fact": "No CRA notice is in the file.", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["bank_direct_only_no_cra_notice", "no_cra_path_for_direct_furnisher_only"],
+      "anti_overclaim_check": "Satisfied via not-applicable branch per perspective override; not asserting any indirect investigation occurred."
+    },
+    {
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "outcome": "false",
+      "rationale": "The direct dispute was received but not at the bank's published dispute address, so the qualifying-notice precondition fails. The dispute concerns account-balance reporting (not a public-record or fraud-alert exception), so it is not outside regulatory scope. The bank only sent a resubmission request and did not investigate; no qualifying direct-dispute investigation, results report to consumer, or CRA correction is recorded.",
+      "confidence": 0.85,
+      "decisive_branch": "applicable branch failed — wrong address precondition and no investigation performed",
+      "material_facts": [
+        {"fact": "Dispute mailed to ordinary customer service lockbox, not the published dispute address.", "source": "narrative", "basis": "explicit"},
+        {"fact": "Letter identified account, described disputed balance, attached payment receipt.", "source": "narrative", "basis": "explicit"},
+        {"fact": "Bank only sent a generic resubmission request; no investigation conducted or results reported.", "source": "narrative", "basis": "explicit"},
+        {"fact": "Dispute concerns account balance, not a public-record-only or fraud-alert-only subject.", "source": "narrative", "basis": "inferred"}
+      ],
+      "profile_rule_ids": ["bank_direct_wrong_address", "bank_direct_wrong_address_received", "bank_direct_wrong_address_not_exception"],
+      "anti_overclaim_check": "Even if the wrong-address precondition makes a full investigation duty debatable, the duty to investigate/report results was not satisfied on its applicable branch; not asserting a frivolous-termination notice that was not in the record."
+    },
+    {
+      "determination_id": "fcra.human_review_required",
+      "outcome": "false",
+      "rationale": "No identity-theft, mixed-file, court order, veteran medical, missing-source-document, or material-date-conflict triggers appear. The case is a routine intake-routing issue (wrong address) without a manual-review trigger.",
+      "confidence": 0.8,
+      "decisive_branch": "routing default — no triggers present",
+      "material_facts": [
+        {"fact": "Narrative contains no identity-theft, mixed-file, litigation, veteran-medical, or document-conflict cues.", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["bank_no_review_triggers"],
+      "anti_overclaim_check": "Not routing to human review absent a profile-recognized trigger; intake misrouting alone is not a manual-review trigger here."
+    }
+  ],
+  "case_level_notes": "Direct dispute reached the bank but at the wrong address; the bank's only action was a resubmission request, so the direct-furnisher duty branch fails on its applicable test. CRA and indirect branches are not applicable."
+}

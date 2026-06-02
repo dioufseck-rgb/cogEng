@@ -1,0 +1,258 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "basis": "inferred_from_record",
+      "confidence": 0.6,
+      "evidence": "Customer disputed a late payment with inconsistent dates among CRA file, bank ledger, and customer receipt.",
+      "explanation": "Dispute concerns accuracy of the late mark (date reconciliation), not completeness of the item. Narrative frames the issue as accuracy, not missing information.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "basis": "open_world_absence",
+      "confidence": 0.7,
+      "evidence": "Narrative does not mention any prior dispute or duplication.",
+      "explanation": "No information about prior disputes or duplication is provided.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "ACDV packet included the customer's letter and the payment confirmation; case routed to manual review for date reconciliation.",
+      "explanation": "Narrative shows documents were provided and the bank is reconciling dates; it does not affirmatively state information was insufficient to investigate.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "basis": "not_found",
+      "confidence": 0.9,
+      "evidence": "No frivolous/irrelevant determination or notice timing is described.",
+      "explanation": "No numeric value present in evidence for this atom.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.medical_debt_veteran_claimed",
+      "basis": "open_world_absence",
+      "confidence": 0.85,
+      "evidence": "Narrative does not reference veteran or medical debt.",
+      "explanation": "No mention of veteran medical debt; cannot affirm or deny.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.item_deleted",
+      "basis": "explicit_negative",
+      "confidence": 0.85,
+      "evidence": "The bank has not yet determined whether the furnished late mark is accurate, modified, or unverifiable; case routed to manual review.",
+      "explanation": "Investigation is pending; no deletion has occurred as of the narrative.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.item_status_recorded_current",
+      "basis": "open_world_absence",
+      "confidence": 0.7,
+      "evidence": "Bank has not yet determined the item's disposition; routed to manual review.",
+      "explanation": "Narrative does not affirmatively state that current status was recorded.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.item_found_inaccurate",
+      "basis": "explicit_negative",
+      "confidence": 0.85,
+      "evidence": "The bank has not yet determined whether the furnished late mark is accurate, modified, or unverifiable.",
+      "explanation": "Investigation pending; no finding of inaccuracy has been made.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.item_found_incomplete",
+      "basis": "explicit_negative",
+      "confidence": 0.85,
+      "evidence": "Bank has not yet determined accuracy/modification/unverifiability; case in manual review.",
+      "explanation": "No finding of incompleteness has been made.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "basis": "explicit_negative",
+      "confidence": 0.85,
+      "evidence": "Bank has not yet determined whether the furnished late mark is accurate, modified, or unverifiable.",
+      "explanation": "Verification status pending; no finding of unverifiability has been made.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.item_verified_as_accurate",
+      "basis": "explicit_negative",
+      "confidence": 0.9,
+      "evidence": "Bank has not yet determined whether the furnished late mark is accurate, modified, or unverifiable.",
+      "explanation": "Investigation pending; no verification-as-accurate has been made.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.item_modified",
+      "basis": "explicit_negative",
+      "confidence": 0.85,
+      "evidence": "Bank has not yet determined whether the furnished late mark is accurate, modified, or unverifiable.",
+      "explanation": "No modification has been made; investigation pending.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.furnisher_investigation_conducted",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Case is routed to manual review for date reconciliation; investigation is in progress.",
+      "explanation": "Investigation activity has begun (routing/review) but completion of an investigation is not affirmed; ambiguous whether the duty has been performed.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.furnisher_reviewed_all_cra_info",
+      "basis": "open_world_absence",
+      "confidence": 0.55,
+      "evidence": "ACDV packet contents are described; narrative does not state the bank has completed review of all CRA-transmitted info.",
+      "explanation": "Whether all relevant CRA-transmitted material was reviewed is not affirmatively stated.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.furnisher_reported_results_to_cra",
+      "basis": "explicit_negative",
+      "confidence": 0.8,
+      "evidence": "The bank has not yet determined whether the furnished late mark is accurate, modified, or unverifiable, and the case is routed to manual review.",
+      "explanation": "Because no investigation result has been determined, no result has been reported back to the CRA.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.days_to_furnisher_complete",
+      "basis": "not_found",
+      "confidence": 0.9,
+      "evidence": "No timing information is provided; investigation is incomplete.",
+      "explanation": "No numeric value can be extracted or computed.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.furnisher_reported_inaccuracy_to_other_cras",
+      "basis": "explicit_negative",
+      "confidence": 0.8,
+      "evidence": "Bank has not yet determined accuracy; case is in manual review.",
+      "explanation": "No inaccuracy finding exists, so no report to other CRAs has occurred.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.furnisher_modified_item",
+      "basis": "explicit_negative",
+      "confidence": 0.85,
+      "evidence": "Bank has not yet determined whether the late mark is accurate, modified, or unverifiable.",
+      "explanation": "No modification action has been taken by the furnisher.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.furnisher_deleted_item",
+      "basis": "explicit_negative",
+      "confidence": 0.85,
+      "evidence": "Bank has not yet determined disposition; case routed to manual review.",
+      "explanation": "No deletion action has been taken by the furnisher.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.furnisher_blocked_item",
+      "basis": "explicit_negative",
+      "confidence": 0.85,
+      "evidence": "Bank has not yet determined disposition; no blocking action described.",
+      "explanation": "No blocking action has been taken by the furnisher; disposition pending.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    }
+  ],
+  "sources": [
+    {
+      "as_of_date": null,
+      "closed_world_scopes": [
+        "dispute intake channel",
+        "current investigation status",
+        "routing decision"
+      ],
+      "limitations": "Narrative is brief; investigation is in progress (routed to manual review). It does not enumerate every furnisher action, deadlines, or final dispositions.",
+      "source_id": "case_narrative",
+      "source_type": "case_narrative",
+      "title": "Customer L late-payment dispute narrative"
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "case_id": "bank_eval_duplicate_no_new_info",
+  "determinations": [
+    {
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "outcome": "true",
+      "rationale": "No CRA-transmitted dispute occurred; the dispute was a direct-to-furnisher submission, so the CRA furnisher-notice transmission branch is not applicable.",
+      "confidence": 0.9,
+      "decisive_branch": "not-applicable branch (no CRA notice path)",
+      "material_facts": [
+        {"fact": "Direct dispute submitted to bank's published dispute address", "source": "narrative", "basis": "explicit"},
+        {"fact": "No CRA involvement described", "source": "narrative", "basis": "missing"}
+      ],
+      "profile_rule_ids": ["no_cra_path_for_direct_furnisher_only", "bank_direct_only_no_cra_notice"],
+      "anti_overclaim_check": "Marked satisfied because the CRA transmission branch is outside this case's natural scope, per perspective guidance."
+    },
+    {
+      "determination_id": "fcra.item_treatment_satisfied",
+      "outcome": "true",
+      "rationale": "No CRA-furnished item treatment is at issue here; the case is a direct dispute that the bank reasonably treated as substantially the same as a prior dispute (frivolous/duplicate handling). The item-treatment determination's branches (not-CRA-required, not-furnished, deletion treatment, etc.) are outside the natural scope of this duplicate-direct-dispute narrative.",
+      "confidence": 0.75,
+      "decisive_branch": "not-applicable branch (no CRA-driven item treatment required)",
+      "material_facts": [
+        {"fact": "Duplicate direct dispute with no new information", "source": "narrative", "basis": "explicit"},
+        {"fact": "Bank issued duplicate/insufficient-information notice", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["no_cra_path_for_direct_furnisher_only"],
+      "anti_overclaim_check": "Item treatment relates to verified/deleted/modified status; this branch is not engaged by a duplicate direct dispute with no investigation outcome required."
+    },
+    {
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "outcome": "true",
+      "rationale": "No CRA notice was received by the bank; the indirect furnisher-duty branch is not applicable.",
+      "confidence": 0.95,
+      "decisive_branch": "not-applicable branch (no CRA notice to furnisher)",
+      "material_facts": [
+        {"fact": "Dispute was sent directly to the bank, not via a CRA", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["no_cra_path_for_direct_furnisher_only", "bank_direct_only_no_cra_notice"],
+      "anti_overclaim_check": "Direct-only dispute means the indirect branch is outside scope, consistent with perspective override."
+    },
+    {
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "outcome": "true",
+      "rationale": "The direct dispute was substantially the same as a prior dispute and contained no new information or documentation. The bank reasonably treated it as frivolous/irrelevant under 12 CFR 1022.43 and sent the consumer a notice stating the dispute was substantially the same and identifying the information needed to investigate further, satisfying the frivolous direct-dispute notice requirements.",
+      "confidence": 0.85,
+      "decisive_branch": "frivolous/irrelevant direct-dispute termination with proper consumer notice",
+      "material_facts": [
+        {"fact": "Direct dispute sent to bank's published dispute address", "source": "narrative", "basis": "explicit"},
+        {"fact": "Repeated a prior balance complaint investigated two weeks earlier", "source": "narrative", "basis": "explicit"},
+        {"fact": "Included no new documents or explanation", "source": "narrative", "basis": "explicit"},
+        {"fact": "Bank sent notice stating dispute was substantially the same and identified information needed to investigate", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": [],
+      "anti_overclaim_check": "Outcome rests on explicit narrative facts that match the policy's frivolous-direct-dispute notice elements (reasons stated, information needed identified); timing within 5 business days is not contradicted."
+    },
+    {
+      "determination_id": "fcra.human_review_required",
+      "outcome": "false",
+      "rationale": "Narrative contains no human-review routing triggers: no identity theft, mixed file, court order, veteran medical debt, missing source documents, date conflict, or manual review policy trigger. A duplicate dispute with no new information does not require human review.",
+      "confidence": 0.9,
+      "decisive_branch": "routing default (no triggers present)",
+      "material_facts": [
+        {"fact": "No identity theft, mixed file, litigation, or conflicting documents mentioned", "source": "narrative", "basis": "missing"},
+        {"fact": "Duplicate dispute lacking new information", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["bank_no_review_triggers"],
+      "anti_overclaim_check": "No routing cue from the profile guidance is present in the narrative."
+    }
+  ],
+  "case_level_notes": "Direct-only duplicate dispute handled with a frivolous/insufficient-information notice; CRA-side branches are not applicable."
+}

@@ -1,0 +1,277 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "basis": "inferred_from_record",
+      "confidence": 0.7,
+      "evidence": "Customer said the tradeline belonged to a person with a similar name (a not-mine/mixed-file dispute about ownership/accuracy, not completeness).",
+      "explanation": "Dispute is framed as ownership/identity (mixed-file) rather than completeness of an admitted item.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Narrative does not mention any prior dispute or duplicate submission.",
+      "explanation": "No information about prior disputes; cannot affirm or deny duplicate status.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Bank has not yet decided; case pending manual review. No statement that the consumer's submission was insufficient.",
+      "explanation": "No affirmative finding of insufficiency; investigation pending.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "basis": "not_found",
+      "confidence": 0.9,
+      "evidence": "No frivolous determination or related notice timing stated.",
+      "explanation": "Numeric value not stated or computable from evidence.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.medical_debt_veteran_claimed",
+      "basis": "open_world_absence",
+      "confidence": 0.85,
+      "evidence": "Narrative is a loan tradeline dispute; no mention of veteran medical debt.",
+      "explanation": "Per profile default (bank_no_review_triggers) absent any veteran-medical cue; no such cue present.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.item_deleted",
+      "basis": "inferred_from_record",
+      "confidence": 0.85,
+      "evidence": "Case is pending manual review; bank has not yet decided treatment.",
+      "explanation": "Narrative affirmatively states no decision yet, so no deletion has occurred.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.item_status_recorded_current",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "No statement that the current status of the disputed item was recorded.",
+      "explanation": "Pending review; recording of current status not addressed.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.item_found_inaccurate",
+      "basis": "inferred_from_record",
+      "confidence": 0.8,
+      "evidence": "Bank has not yet decided whether mixed-file or verified obligation; review pending.",
+      "explanation": "No finding of inaccuracy has been made because investigation is incomplete.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.item_found_incomplete",
+      "basis": "inferred_from_record",
+      "confidence": 0.8,
+      "evidence": "Pending manual review; no finding made.",
+      "explanation": "No determination of incompleteness has been reached.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "basis": "inferred_from_record",
+      "confidence": 0.8,
+      "evidence": "Bank has not yet decided whether item is mixed-file or verified; case pending.",
+      "explanation": "No unverifiable finding has been reached.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.item_verified_as_accurate",
+      "basis": "inferred_from_record",
+      "confidence": 0.85,
+      "evidence": "Bank has not yet decided whether item is a mixed-file error or verified customer obligation.",
+      "explanation": "Narrative explicitly states no verification has been concluded.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.item_modified",
+      "basis": "inferred_from_record",
+      "confidence": 0.8,
+      "evidence": "Case pending manual review; no modification action described.",
+      "explanation": "No modification has occurred because investigation is incomplete.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.furnisher_investigation_conducted",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Case is 'pending manual review'; narrative does not state whether the s-2(b) investigation has been completed or only commenced.",
+      "explanation": "Routing to manual review is described but no completed/ongoing investigation status is affirmed or denied.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.furnisher_reviewed_all_cra_info",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Narrative notes ACDV included customer letter and two address records but does not confirm complete bank review of all transmitted material.",
+      "explanation": "Review status not addressed; pending manual review.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.furnisher_reported_results_to_cra",
+      "basis": "inferred_from_record",
+      "confidence": 0.85,
+      "evidence": "Bank has not yet decided; case pending manual review.",
+      "explanation": "No results have been determined, so none have been reported to the CRA.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.days_to_furnisher_complete",
+      "basis": "not_found",
+      "confidence": 0.9,
+      "evidence": "No dates or day counts are provided; investigation is still pending.",
+      "explanation": "Numeric value not stated or computable.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.furnisher_reported_inaccuracy_to_other_cras",
+      "basis": "inferred_from_record",
+      "confidence": 0.8,
+      "evidence": "No finding of inaccuracy has been made; investigation pending.",
+      "explanation": "Without any inaccuracy finding, no such report could have been made.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.furnisher_modified_item",
+      "basis": "inferred_from_record",
+      "confidence": 0.8,
+      "evidence": "Case pending; no modification described.",
+      "explanation": "No furnisher modification has occurred during pending review.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.furnisher_deleted_item",
+      "basis": "inferred_from_record",
+      "confidence": 0.85,
+      "evidence": "Bank has not yet decided; case pending manual review.",
+      "explanation": "No deletion action by the furnisher has occurred.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.furnisher_blocked_item",
+      "basis": "inferred_from_record",
+      "confidence": 0.8,
+      "evidence": "Case pending; no blocking action described.",
+      "explanation": "No blocking has occurred during pending review.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    }
+  ],
+  "sources": [
+    {
+      "as_of_date": null,
+      "closed_world_scopes": [
+        "dispute channel mentioned",
+        "current case status"
+      ],
+      "limitations": "Brief narrative; pending manual review; outcomes not yet decided.",
+      "source_id": "case_narrative",
+      "source_type": "narrative",
+      "title": "Case narrative \u2014 Customer V CRA dispute"
+    },
+    {
+      "as_of_date": null,
+      "closed_world_scopes": [
+        "contents transmitted by CRA in this ACDV"
+      ],
+      "limitations": "Described only summarily in the narrative.",
+      "source_id": "acdv_packet",
+      "source_type": "dispute_packet",
+      "title": "ACDV packet (customer letter + two address records)"
+    },
+    {
+      "as_of_date": null,
+      "closed_world_scopes": [
+        "bank-recorded name and DOB fields"
+      ],
+      "limitations": "Contains conflicting name and DOB fields; investigation not complete.",
+      "source_id": "bank_file",
+      "source_type": "internal_record",
+      "title": "Bank account file"
+    }
+  ]
+}

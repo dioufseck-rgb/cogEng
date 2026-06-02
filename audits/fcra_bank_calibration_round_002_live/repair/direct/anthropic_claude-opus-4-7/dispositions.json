@@ -1,0 +1,542 @@
+[
+  {
+    "case_id": "bank_eval_mixed_file_indirect_pending",
+    "case_title": "Similar-name mixed-file dispute remains unresolved",
+    "confidence": 0.75,
+    "cost": {
+      "estimated_cost_usd": null,
+      "input_tokens": 11996,
+      "latency_s": 20.653814799996326,
+      "output_tokens": 1245,
+      "total_tokens": 13241
+    },
+    "determination_id": "fcra.cra_furnisher_notice_satisfied",
+    "disposition_id": "direct_disp_947b3e7a540246dda260c06901dfb8fc",
+    "matches_reference": true,
+    "outcome": "true",
+    "rationale": "The CRA transmitted an ACDV packet including the customer's letter and address records to the bank, satisfying the CRA's furnisher-notice transmission duty from the bank's recipient perspective.",
+    "reference_outcome": "true"
+  },
+  {
+    "case_id": "bank_eval_mixed_file_indirect_pending",
+    "case_title": "Similar-name mixed-file dispute remains unresolved",
+    "confidence": 0.8,
+    "cost": {
+      "estimated_cost_usd": null,
+      "input_tokens": 11996,
+      "latency_s": 20.653814799996326,
+      "output_tokens": 1245,
+      "total_tokens": 13241
+    },
+    "determination_id": "fcra.item_treatment_satisfied",
+    "disposition_id": "direct_disp_575ce3e0c7cb4f5281328fdd97ff571a",
+    "matches_reference": true,
+    "outcome": "undetermined",
+    "rationale": "The bank has not yet decided whether the item is a mixed-file error or verified obligation; item status remains unresolved pending manual review.",
+    "reference_outcome": "undetermined"
+  },
+  {
+    "case_id": "bank_eval_mixed_file_indirect_pending",
+    "case_title": "Similar-name mixed-file dispute remains unresolved",
+    "confidence": 0.8,
+    "cost": {
+      "estimated_cost_usd": null,
+      "input_tokens": 11996,
+      "latency_s": 20.653814799996326,
+      "output_tokens": 1245,
+      "total_tokens": 13241
+    },
+    "determination_id": "fcra.furnisher_indirect_satisfied",
+    "disposition_id": "direct_disp_940ac465854f4f629308ed9c7f61f2ef",
+    "matches_reference": true,
+    "outcome": "undetermined",
+    "rationale": "The bank received the CRA notice but has not completed its investigation or reported results back to the CRA; matter is pending manual review.",
+    "reference_outcome": "undetermined"
+  },
+  {
+    "case_id": "bank_eval_mixed_file_indirect_pending",
+    "case_title": "Similar-name mixed-file dispute remains unresolved",
+    "confidence": 0.9,
+    "cost": {
+      "estimated_cost_usd": null,
+      "input_tokens": 11996,
+      "latency_s": 20.653814799996326,
+      "output_tokens": 1245,
+      "total_tokens": 13241
+    },
+    "determination_id": "fcra.direct_furnisher_satisfied",
+    "disposition_id": "direct_disp_531621d1d8c64e718c4100f3aa90c7fe",
+    "matches_reference": true,
+    "outcome": "true",
+    "rationale": "No direct dispute to the bank is described; the direct-furnisher branch is not applicable.",
+    "reference_outcome": "true"
+  },
+  {
+    "case_id": "bank_eval_mixed_file_indirect_pending",
+    "case_title": "Similar-name mixed-file dispute remains unresolved",
+    "confidence": 0.95,
+    "cost": {
+      "estimated_cost_usd": null,
+      "input_tokens": 11996,
+      "latency_s": 20.653814799996326,
+      "output_tokens": 1245,
+      "total_tokens": 13241
+    },
+    "determination_id": "fcra.human_review_required",
+    "disposition_id": "direct_disp_ec1f798300e443ac91852e6096c4ef7c",
+    "matches_reference": true,
+    "outcome": "true",
+    "rationale": "Similar-name mixed-file evidence with conflicting name and DOB fields, plus explicit pending manual review, trigger human-review routing.",
+    "reference_outcome": "true"
+  },
+  {
+    "case_id": "bank_eval_indirect_missing_docs_review",
+    "case_title": "CRA notice omits referenced proof and bank reviews packet received",
+    "confidence": 0.85,
+    "cost": {
+      "estimated_cost_usd": null,
+      "input_tokens": 12017,
+      "latency_s": 21.800313399988227,
+      "output_tokens": 1291,
+      "total_tokens": 13308
+    },
+    "determination_id": "fcra.cra_furnisher_notice_satisfied",
+    "disposition_id": "direct_disp_6f7346d4a4564d51b086d56e7feab780",
+    "matches_reference": true,
+    "outcome": "false",
+    "rationale": "The CRA's notice to the bank omitted the referenced settlement letter and bank-statement images, so the CRA did not include all relevant information from the consumer as required.",
+    "reference_outcome": "false"
+  },
+  {
+    "case_id": "bank_eval_indirect_missing_docs_review",
+    "case_title": "CRA notice omits referenced proof and bank reviews packet received",
+    "confidence": 0.7,
+    "cost": {
+      "estimated_cost_usd": null,
+      "input_tokens": 12017,
+      "latency_s": 21.800313399988227,
+      "output_tokens": 1291,
+      "total_tokens": 13308
+    },
+    "determination_id": "fcra.item_treatment_satisfied",
+    "disposition_id": "direct_disp_94f5fe5e886043eba15f9cdac6fb325c",
+    "matches_reference": true,
+    "outcome": "true",
+    "rationale": "The bank, on the materials it received, reviewed and verified the item against its ledger; under the bank-perspective item-treatment override the verified/current status branch is satisfied. Downstream CRA transmission failure is treated under a separate determination.",
+    "reference_outcome": "true"
+  },
+  {
+    "case_id": "bank_eval_indirect_missing_docs_review",
+    "case_title": "CRA notice omits referenced proof and bank reviews packet received",
+    "confidence": 0.8,
+    "cost": {
+      "estimated_cost_usd": null,
+      "input_tokens": 12017,
+      "latency_s": 21.800313399988227,
+      "output_tokens": 1291,
+      "total_tokens": 13308
+    },
+    "determination_id": "fcra.furnisher_indirect_satisfied",
+    "disposition_id": "direct_disp_1dd0d94b51784226ad1e9aef4285af62",
+    "matches_reference": true,
+    "outcome": "true",
+    "rationale": "The bank received the CRA notice, investigated using the materials it actually received, and reported results back to the CRA. The recipient-side furnisher duty is satisfied even though the CRA's upstream transmission was incomplete.",
+    "reference_outcome": "true"
+  },
+  {
+    "case_id": "bank_eval_indirect_missing_docs_review",
+    "case_title": "CRA notice omits referenced proof and bank reviews packet received",
+    "confidence": 0.95,
+    "cost": {
+      "estimated_cost_usd": null,
+      "input_tokens": 12017,
+      "latency_s": 21.800313399988227,
+      "output_tokens": 1291,
+      "total_tokens": 13308
+    },
+    "determination_id": "fcra.direct_furnisher_satisfied",
+    "disposition_id": "direct_disp_3a0a4fc3847948bc8b984c3e4a680246",
+    "matches_reference": true,
+    "outcome": "true",
+    "rationale": "No direct furnisher dispute was sent to the bank; the direct-dispute branch is not applicable and treated as satisfied.",
+    "reference_outcome": "true"
+  },
+  {
+    "case_id": "bank_eval_indirect_missing_docs_review",
+    "case_title": "CRA notice omits referenced proof and bank reviews packet received",
+    "confidence": 0.95,
+    "cost": {
+      "estimated_cost_usd": null,
+      "input_tokens": 12017,
+      "latency_s": 21.800313399988227,
+      "output_tokens": 1291,
+      "total_tokens": 13308
+    },
+    "determination_id": "fcra.human_review_required",
+    "disposition_id": "direct_disp_9d9288b3939c4018bf766e80bf3f76be",
+    "matches_reference": true,
+    "outcome": "true",
+    "rationale": "Source documents were missing from the CRA transmission and the bank explicitly opened manual review, triggering the human-review routing condition.",
+    "reference_outcome": "true"
+  },
+  {
+    "case_id": "bank_eval_indirect_clean_verified_1",
+    "case_title": "Indirect ACDV packet verifies late payment",
+    "confidence": 0.85,
+    "cost": {
+      "estimated_cost_usd": null,
+      "input_tokens": 12011,
+      "latency_s": 20.008546800003387,
+      "output_tokens": 1144,
+      "total_tokens": 13155
+    },
+    "determination_id": "fcra.cra_furnisher_notice_satisfied",
+    "disposition_id": "direct_disp_4e433a95995c41f1a0eaebdf42100614",
+    "matches_reference": true,
+    "outcome": "true",
+    "rationale": "The CRA transmitted an ACDV packet to the bank including the customer's letter, account number, disputed month, and payment-history attachment. From the bank's perspective, it received the CRA notice with relevant information.",
+    "reference_outcome": "true"
+  },
+  {
+    "case_id": "bank_eval_indirect_clean_verified_1",
+    "case_title": "Indirect ACDV packet verifies late payment",
+    "confidence": 0.9,
+    "cost": {
+      "estimated_cost_usd": null,
+      "input_tokens": 12011,
+      "latency_s": 20.008546800003387,
+      "output_tokens": 1144,
+      "total_tokens": 13155
+    },
+    "determination_id": "fcra.item_treatment_satisfied",
+    "disposition_id": "direct_disp_8196626d413a4f59a2405e91e8ba6b98",
+    "matches_reference": true,
+    "outcome": "true",
+    "rationale": "Bank verified the late payment as accurate after comparing ledger and lockbox posting history; no defect was found, so the item may remain verified and current.",
+    "reference_outcome": "true"
+  },
+  {
+    "case_id": "bank_eval_indirect_clean_verified_1",
+    "case_title": "Indirect ACDV packet verifies late payment",
+    "confidence": 0.9,
+    "cost": {
+      "estimated_cost_usd": null,
+      "input_tokens": 12011,
+      "latency_s": 20.008546800003387,
+      "output_tokens": 1144,
+      "total_tokens": 13155
+    },
+    "determination_id": "fcra.furnisher_indirect_satisfied",
+    "disposition_id": "direct_disp_62bdf45e968c4ee0a7420bdd29429984",
+    "matches_reference": true,
+    "outcome": "true",
+    "rationale": "Bank received CRA notice, conducted investigation by comparing ledger and lockbox posting history, reviewed CRA-transmitted materials, and reported verified-accurate results to the CRA within the deadline.",
+    "reference_outcome": "true"
+  },
+  {
+    "case_id": "bank_eval_indirect_clean_verified_1",
+    "case_title": "Indirect ACDV packet verifies late payment",
+    "confidence": 0.95,
+    "cost": {
+      "estimated_cost_usd": null,
+      "input_tokens": 12011,
+      "latency_s": 20.008546800003387,
+      "output_tokens": 1144,
+      "total_tokens": 13155
+    },
+    "determination_id": "fcra.direct_furnisher_satisfied",
+    "disposition_id": "direct_disp_82e02992b8d548f9b63bd9fa299c8e5a",
+    "matches_reference": true,
+    "outcome": "true",
+    "rationale": "Narrative explicitly states no direct dispute was sent to the bank, so the direct-furnisher branch is not applicable.",
+    "reference_outcome": "true"
+  },
+  {
+    "case_id": "bank_eval_indirect_clean_verified_1",
+    "case_title": "Indirect ACDV packet verifies late payment",
+    "confidence": 0.9,
+    "cost": {
+      "estimated_cost_usd": null,
+      "input_tokens": 12011,
+      "latency_s": 20.008546800003387,
+      "output_tokens": 1144,
+      "total_tokens": 13155
+    },
+    "determination_id": "fcra.human_review_required",
+    "disposition_id": "direct_disp_6bb2fa4fe1624d95a72452bdc4be948f",
+    "matches_reference": true,
+    "outcome": "false",
+    "rationale": "No routing triggers are present: no identity theft, mixed-file, court order, veteran medical debt, missing source documents, conflicting dates, or manual-review policy trigger appears in the narrative.",
+    "reference_outcome": "false"
+  },
+  {
+    "case_id": "bank_eval_direct_wrong_address",
+    "case_title": "Direct dispute sent to ordinary customer service address",
+    "confidence": 0.85,
+    "cost": {
+      "estimated_cost_usd": null,
+      "input_tokens": 11991,
+      "latency_s": 24.223133799998323,
+      "output_tokens": 1437,
+      "total_tokens": 13428
+    },
+    "determination_id": "fcra.cra_furnisher_notice_satisfied",
+    "disposition_id": "direct_disp_298eeb6d2cb14502ab4ad63f20ec8a9a",
+    "matches_reference": true,
+    "outcome": "true",
+    "rationale": "No CRA notice is in the file and no CRA path is implicated; the CRA furnisher-notice transmission branch is outside the natural scope of this direct-only case.",
+    "reference_outcome": "true"
+  },
+  {
+    "case_id": "bank_eval_direct_wrong_address",
+    "case_title": "Direct dispute sent to ordinary customer service address",
+    "confidence": 0.7,
+    "cost": {
+      "estimated_cost_usd": null,
+      "input_tokens": 11991,
+      "latency_s": 24.223133799998323,
+      "output_tokens": 1437,
+      "total_tokens": 13428
+    },
+    "determination_id": "fcra.item_treatment_satisfied",
+    "disposition_id": "direct_disp_a8eb0079b72a449e9d076767fdad4111",
+    "matches_reference": true,
+    "outcome": "true",
+    "rationale": "No CRA-required item treatment branch is in scope; the direct dispute was not at the proper address, so no furnisher-side item treatment duty was triggered by a qualifying dispute. The item-treatment determination is outside the natural scope of this case.",
+    "reference_outcome": "true"
+  },
+  {
+    "case_id": "bank_eval_direct_wrong_address",
+    "case_title": "Direct dispute sent to ordinary customer service address",
+    "confidence": 0.9,
+    "cost": {
+      "estimated_cost_usd": null,
+      "input_tokens": 11991,
+      "latency_s": 24.223133799998323,
+      "output_tokens": 1437,
+      "total_tokens": 13428
+    },
+    "determination_id": "fcra.furnisher_indirect_satisfied",
+    "disposition_id": "direct_disp_2c5490e53fa847fbbdc5cfee25eaf684",
+    "matches_reference": true,
+    "outcome": "true",
+    "rationale": "No CRA notice was received by the bank; the indirect furnisher duty branch is not applicable.",
+    "reference_outcome": "true"
+  },
+  {
+    "case_id": "bank_eval_direct_wrong_address",
+    "case_title": "Direct dispute sent to ordinary customer service address",
+    "confidence": 0.85,
+    "cost": {
+      "estimated_cost_usd": null,
+      "input_tokens": 11991,
+      "latency_s": 24.223133799998323,
+      "output_tokens": 1437,
+      "total_tokens": 13428
+    },
+    "determination_id": "fcra.direct_furnisher_satisfied",
+    "disposition_id": "direct_disp_6e22fff4f3444649b56c2d718757c41f",
+    "matches_reference": true,
+    "outcome": "false",
+    "rationale": "The direct dispute was received but not at the bank's published dispute address, so the qualifying-notice precondition fails. The dispute concerns account-balance reporting (not a public-record or fraud-alert exception), so it is not outside regulatory scope. The bank only sent a resubmission request and did not investigate; no qualifying direct-dispute investigation, results report to consumer, or CRA correction is recorded.",
+    "reference_outcome": "false"
+  },
+  {
+    "case_id": "bank_eval_direct_wrong_address",
+    "case_title": "Direct dispute sent to ordinary customer service address",
+    "confidence": 0.8,
+    "cost": {
+      "estimated_cost_usd": null,
+      "input_tokens": 11991,
+      "latency_s": 24.223133799998323,
+      "output_tokens": 1437,
+      "total_tokens": 13428
+    },
+    "determination_id": "fcra.human_review_required",
+    "disposition_id": "direct_disp_26b9393303104702b57e6947bd6a08db",
+    "matches_reference": true,
+    "outcome": "false",
+    "rationale": "No identity-theft, mixed-file, court order, veteran medical, missing-source-document, or material-date-conflict triggers appear. The case is a routine intake-routing issue (wrong address) without a manual-review trigger.",
+    "reference_outcome": "false"
+  },
+  {
+    "case_id": "bank_eval_identity_theft_complete_blocked",
+    "case_title": "Identity theft report supplied and tradeline blocked",
+    "confidence": 0.9,
+    "cost": {
+      "estimated_cost_usd": null,
+      "input_tokens": 12003,
+      "latency_s": 19.247540499985917,
+      "output_tokens": 1187,
+      "total_tokens": 13190
+    },
+    "determination_id": "fcra.cra_furnisher_notice_satisfied",
+    "disposition_id": "direct_disp_6348ede42eae48208c999f44b84f26db",
+    "matches_reference": true,
+    "outcome": "true",
+    "rationale": "This is a direct-to-furnisher dispute; no CRA-transmission branch applies from the bank-furnisher perspective.",
+    "reference_outcome": "true"
+  },
+  {
+    "case_id": "bank_eval_identity_theft_complete_blocked",
+    "case_title": "Identity theft report supplied and tradeline blocked",
+    "confidence": 0.88,
+    "cost": {
+      "estimated_cost_usd": null,
+      "input_tokens": 12003,
+      "latency_s": 19.247540499985917,
+      "output_tokens": 1187,
+      "total_tokens": 13190
+    },
+    "determination_id": "fcra.item_treatment_satisfied",
+    "disposition_id": "direct_disp_c634218212774d088f2bb33c0ef1f89c",
+    "matches_reference": true,
+    "outcome": "true",
+    "rationale": "Bank found the tradeline could not be verified as the customer's obligation and blocked further reporting, which is appropriate treatment under section 5.",
+    "reference_outcome": "true"
+  },
+  {
+    "case_id": "bank_eval_identity_theft_complete_blocked",
+    "case_title": "Identity theft report supplied and tradeline blocked",
+    "confidence": 0.88,
+    "cost": {
+      "estimated_cost_usd": null,
+      "input_tokens": 12003,
+      "latency_s": 19.247540499985917,
+      "output_tokens": 1187,
+      "total_tokens": 13190
+    },
+    "determination_id": "fcra.furnisher_indirect_satisfied",
+    "disposition_id": "direct_disp_43cd9a770674400a9294284713e48b20",
+    "matches_reference": true,
+    "outcome": "true",
+    "rationale": "No CRA-transmitted indirect dispute path is present; the indirect furnisher-duty branch is not applicable.",
+    "reference_outcome": "true"
+  },
+  {
+    "case_id": "bank_eval_identity_theft_complete_blocked",
+    "case_title": "Identity theft report supplied and tradeline blocked",
+    "confidence": 0.9,
+    "cost": {
+      "estimated_cost_usd": null,
+      "input_tokens": 12003,
+      "latency_s": 19.247540499985917,
+      "output_tokens": 1187,
+      "total_tokens": 13190
+    },
+    "determination_id": "fcra.direct_furnisher_satisfied",
+    "disposition_id": "direct_disp_1dac430d53784b77ae86bc15b71d3ed8",
+    "matches_reference": true,
+    "outcome": "true",
+    "rationale": "Qualifying direct dispute at the proper address with a completed identity-theft report, affidavit, and police report; bank investigated, reviewed records, blocked the tradeline, sent results to consumer, and notified CRAs of the block.",
+    "reference_outcome": "true"
+  },
+  {
+    "case_id": "bank_eval_identity_theft_complete_blocked",
+    "case_title": "Identity theft report supplied and tradeline blocked",
+    "confidence": 0.9,
+    "cost": {
+      "estimated_cost_usd": null,
+      "input_tokens": 12003,
+      "latency_s": 19.247540499985917,
+      "output_tokens": 1187,
+      "total_tokens": 13190
+    },
+    "determination_id": "fcra.human_review_required",
+    "disposition_id": "direct_disp_f5def546f9d740c3a0263940b252aaeb",
+    "matches_reference": true,
+    "outcome": "true",
+    "rationale": "Identity theft claim with not-mine allegation is a routing trigger for human review even when documentation is complete.",
+    "reference_outcome": "true"
+  },
+  {
+    "case_id": "bank_eval_duplicate_no_new_info",
+    "case_title": "Repeat direct dispute contains no new information",
+    "confidence": 0.9,
+    "cost": {
+      "estimated_cost_usd": null,
+      "input_tokens": 11998,
+      "latency_s": 23.03723999997601,
+      "output_tokens": 1336,
+      "total_tokens": 13334
+    },
+    "determination_id": "fcra.cra_furnisher_notice_satisfied",
+    "disposition_id": "direct_disp_318aa082cf024a6f9bad00e7da77bb85",
+    "matches_reference": true,
+    "outcome": "true",
+    "rationale": "No CRA-transmitted dispute occurred; the dispute was a direct-to-furnisher submission, so the CRA furnisher-notice transmission branch is not applicable.",
+    "reference_outcome": "true"
+  },
+  {
+    "case_id": "bank_eval_duplicate_no_new_info",
+    "case_title": "Repeat direct dispute contains no new information",
+    "confidence": 0.75,
+    "cost": {
+      "estimated_cost_usd": null,
+      "input_tokens": 11998,
+      "latency_s": 23.03723999997601,
+      "output_tokens": 1336,
+      "total_tokens": 13334
+    },
+    "determination_id": "fcra.item_treatment_satisfied",
+    "disposition_id": "direct_disp_964859f2c5104015bd82f5b63e95a6bd",
+    "matches_reference": true,
+    "outcome": "true",
+    "rationale": "No CRA-furnished item treatment is at issue here; the case is a direct dispute that the bank reasonably treated as substantially the same as a prior dispute (frivolous/duplicate handling). The item-treatment determination's branches (not-CRA-required, not-furnished, deletion treatment, etc.) are outside the natural scope of this duplicate-direct-dispute narrative.",
+    "reference_outcome": "true"
+  },
+  {
+    "case_id": "bank_eval_duplicate_no_new_info",
+    "case_title": "Repeat direct dispute contains no new information",
+    "confidence": 0.95,
+    "cost": {
+      "estimated_cost_usd": null,
+      "input_tokens": 11998,
+      "latency_s": 23.03723999997601,
+      "output_tokens": 1336,
+      "total_tokens": 13334
+    },
+    "determination_id": "fcra.furnisher_indirect_satisfied",
+    "disposition_id": "direct_disp_1569956a8a014c20b72ce00288845984",
+    "matches_reference": true,
+    "outcome": "true",
+    "rationale": "No CRA notice was received by the bank; the indirect furnisher-duty branch is not applicable.",
+    "reference_outcome": "true"
+  },
+  {
+    "case_id": "bank_eval_duplicate_no_new_info",
+    "case_title": "Repeat direct dispute contains no new information",
+    "confidence": 0.85,
+    "cost": {
+      "estimated_cost_usd": null,
+      "input_tokens": 11998,
+      "latency_s": 23.03723999997601,
+      "output_tokens": 1336,
+      "total_tokens": 13334
+    },
+    "determination_id": "fcra.direct_furnisher_satisfied",
+    "disposition_id": "direct_disp_70e2c6a60b4645c79059e292386d0953",
+    "matches_reference": false,
+    "outcome": "true",
+    "rationale": "The direct dispute was substantially the same as a prior dispute and contained no new information or documentation. The bank reasonably treated it as frivolous/irrelevant under 12 CFR 1022.43 and sent the consumer a notice stating the dispute was substantially the same and identifying the information needed to investigate further, satisfying the frivolous direct-dispute notice requirements.",
+    "reference_outcome": "false"
+  },
+  {
+    "case_id": "bank_eval_duplicate_no_new_info",
+    "case_title": "Repeat direct dispute contains no new information",
+    "confidence": 0.9,
+    "cost": {
+      "estimated_cost_usd": null,
+      "input_tokens": 11998,
+      "latency_s": 23.03723999997601,
+      "output_tokens": 1336,
+      "total_tokens": 13334
+    },
+    "determination_id": "fcra.human_review_required",
+    "disposition_id": "direct_disp_3034bf5090da4ad89948ba3028adaf10",
+    "matches_reference": true,
+    "outcome": "false",
+    "rationale": "Narrative contains no human-review routing triggers: no identity theft, mixed file, court order, veteran medical debt, missing source documents, date conflict, or manual review policy trigger. A duplicate dispute with no new information does not require human review.",
+    "reference_outcome": "false"
+  }
+]
