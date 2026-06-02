@@ -25,6 +25,10 @@ confounders, branch non-applicability, routing triggers, and unresolved facts.
   `audits/fcra_bank_holdout_eval/map_profile_v3`
 - Vocabulary-expanded governed Map run:
   `audits/fcra_bank_holdout_eval/map_profile_v4`
+- Perspective/default governed Map run:
+  `audits/fcra_bank_holdout_eval/map_profile_v5`
+- Latest deterministic replay over v5 live Map records:
+  `audits/fcra_bank_holdout_eval/map_profile_v6_replay_v5_bindings_plus_defaults`
 - Direct profiled run:
   `audits/fcra_bank_holdout_eval/direct_profiled_v2`
 
@@ -34,6 +38,8 @@ confounders, branch non-applicability, routing triggers, and unresolved facts.
 |---|---:|---:|---:|---:|---:|---:|---:|---:|
 | Governed Map + engine | 18 | 90 | 78 | 12 | 86.67% | 22 | 481.12s | 122,003 |
 | Governed Map + engine v4 vocab | 18 | 90 | 84 | 6 | 93.33% | 18 | 390.32s | 251,705 |
+| Governed Map + engine v5 perspective/defaults | 18 | 90 | 87 | 3 | 96.67% | 16 | 347.49s | 222,694 |
+| Governed Map + engine v6 replay | 18 | 90 | 89 | 1 | 98.89% | 0 | n/a | n/a |
 | Profiled direct LLM | 18 | 90 | 85 | 5 | 94.44% | 18 | 361.88s | 206,490 |
 
 Costs were not estimated because pricing was not configured. Token counts are
@@ -58,6 +64,20 @@ Governed Map + engine v4 vocabulary:
 | `undetermined` | `true` | 4 |
 | `undetermined` | `false` | 1 |
 | `false` | `true` | 1 |
+
+Governed Map + engine v5 perspective/defaults:
+
+| Actual | Expected | Count |
+|---|---|---:|
+| `undetermined` | `false` | 1 |
+| `false` | `undetermined` | 1 |
+| `false` | `true` | 1 |
+
+Governed Map + engine v6 replay:
+
+| Actual | Expected | Count |
+|---|---|---:|
+| `false` | `undetermined` | 1 |
 
 Profiled direct LLM:
 
@@ -116,6 +136,32 @@ The remaining v4 misses are now narrower:
   than true, meaning deletion/defect semantics for special medical-debt deletion
   need a clearer DAG/profile treatment.
 
+The v5 live run added bank-perspective node overrides and explicit no-direct
+profile defaults. It reduced governed misses from six to three. The remaining
+three were:
+
+- one conservative `undetermined` where expected was `false`
+  (`bank_eval_direct_wrong_address`);
+- one wrong `false` where expected was `undetermined`
+  (`bank_eval_mixed_file_indirect_pending`);
+- one wrong `false` where expected was `true`
+  (`bank_eval_veteran_medical_deleted`).
+
+The latest v6 replay fixed two more issues without another LLM call:
+
+- stable false paths are no longer overridden to `undetermined` solely because
+  unrelated validation-error atoms remain unresolved; conflicting evidence still
+  forces cautious `undetermined`;
+- bank-perspective policy deletion now satisfies item treatment when the item is
+  deleted and recorded current for a routed veteran medical-debt claim.
+
+The only residual mismatch is `bank_eval_mixed_file_indirect_pending`, where
+RuleKit still returns `false` for item treatment and the benchmark expects
+`undetermined`. This is the correct remaining architecture question: pending
+manual-review state should probably suppress substantive treatment conclusions
+until the routing workflow resolves, rather than being patched as a phrase-level
+Map default.
+
 ## Direct LLM Failure Pattern
 
 The profiled direct prompt performs strongly on the holdout set: 85/90. Its
@@ -142,6 +188,8 @@ Headline accuracy still narrowly favors the improved direct prompt on this
 holdout:
 
 - direct profiled: 94.44%;
+- governed Map + engine v6 replay: 98.89%;
+- governed Map + engine v5 live: 96.67%;
 - governed Map + engine v4 vocabulary: 93.33%;
 - governed Map + engine v3: 86.67%.
 

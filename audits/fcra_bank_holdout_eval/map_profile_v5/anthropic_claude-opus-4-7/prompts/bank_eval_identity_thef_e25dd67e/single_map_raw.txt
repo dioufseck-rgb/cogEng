@@ -1,0 +1,94 @@
+{
+  "sources": [
+    {
+      "source_id": "case_narrative",
+      "source_type": "case_narrative",
+      "title": "Customer U direct dispute narrative",
+      "as_of_date": null,
+      "closed_world_scopes": ["bank dispute intake actions", "bank investigation outcome", "bank reporting to consumer and CRAs"],
+      "limitations": "Brief narrative; does not state timing details or exhaustive procedural steps."
+    }
+  ],
+  "bindings": [
+    {
+      "atom_id": "fcra.direct_dispute_supporting_docs_supplied",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["case_narrative"],
+      "evidence": "included a completed identity-theft report, signed affidavit, and police report",
+      "explanation": "Narrative explicitly states the consumer supplied a completed identity-theft report, affidavit, and police report as supporting documentation.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.item_found_inaccurate",
+      "status": "bound",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "concluded the tradeline could not be verified as the customer's obligation",
+      "explanation": "Narrative characterizes the outcome as unverifiable rather than affirmatively inaccurate; no statement that the item was found inaccurate.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.item_found_incomplete",
+      "status": "bound",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "concluded the tradeline could not be verified as the customer's obligation; blocked further reporting",
+      "explanation": "Narrative does not state the item was found incomplete; the characterized outcome was non-verifiability.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["case_narrative"],
+      "evidence": "the tradeline could not be verified as the customer's obligation",
+      "explanation": "Narrative explicitly states the bank could not verify the tradeline as the customer's obligation.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.direct_furnisher_investigation_conducted",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "The bank reviewed the account-opening file, concluded the tradeline could not be verified",
+      "explanation": "Bank's review of the account-opening file and reaching a verification conclusion constitutes an investigation of the direct dispute.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.direct_furnisher_reviewed_info",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "The bank reviewed the account-opening file [in response to the dispute that included identity-theft report, affidavit, police report]",
+      "explanation": "Narrative describes the bank performing review in response to the consumer's submitted materials; reasonable inference of relevant information review.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "fcra.direct_furnisher_results_reported_to_consumer",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["case_narrative"],
+      "evidence": "sent results to the customer",
+      "explanation": "Narrative explicitly states the bank sent results to the customer.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.direct_furnisher_corrected_cras",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["case_narrative"],
+      "evidence": "blocked further reporting ... and notified the CRAs of the block",
+      "explanation": "Narrative explicitly states the bank blocked further reporting and notified the CRAs, which constitutes notifying CRAs of the corrective action.",
+      "confidence": 0.9
+    }
+  ]
+}

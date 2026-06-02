@@ -1,0 +1,86 @@
+{
+  "fcra.business_days_to_frivolous_notice": {
+    "atom_id": "fcra.business_days_to_frivolous_notice",
+    "basis": "not_found",
+    "confidence": 0.9,
+    "evidence": "No frivolous/irrelevant determination or related notice timing described.",
+    "explanation": "No numeric value can be extracted; no frivolous determination occurred, so the timing atom remains undetermined.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.dispute_about_completeness": {
+    "atom_id": "fcra.dispute_about_completeness",
+    "basis": "inferred_from_record",
+    "confidence": 0.7,
+    "evidence": "Customer disputed the tradeline invoking veteran medical-debt deletion rules, not completeness of the item.",
+    "explanation": "Dispute intake is a closed-world scope in the source inventory. The narrative characterizes the dispute as invoking a deletion rule (an accuracy/eligibility-style claim), not a completeness claim, so completeness can be bound false.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.dispute_duplicate_without_new_info": {
+    "atom_id": "fcra.dispute_duplicate_without_new_info",
+    "basis": "explicit_negative",
+    "confidence": 0.85,
+    "evidence": "Narrative does not describe any prior dispute, duplicate submission, or frivolous/irrelevant indicia.",
+    "explanation": "Per profile guidance no_frivolous_termination_mentioned, absence of duplicate/frivolous trigger words supports explicit_negative false.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.furnisher_blocked_item": {
+    "atom_id": "fcra.furnisher_blocked_item",
+    "basis": "inferred_from_record",
+    "confidence": 0.8,
+    "evidence": "Narrative describes deletion of the tradeline, not a permanent block of reporting.",
+    "explanation": "Bank action on tradeline is a closed-world scope; deletion is distinct from blocking and no blocking action is recorded, so this atom can be bound false.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.item_cannot_be_verified": {
+    "atom_id": "fcra.item_cannot_be_verified",
+    "basis": "inferred_from_record",
+    "confidence": 0.8,
+    "evidence": "Bank reviewed the packet and deleted under veteran medical-debt rules; no statement of unverifiability.",
+    "explanation": "Bank investigation outcome is a closed-world scope; deletion was policy-driven rather than for verification failure, so the unverifiability characterization is bound false.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.item_found_inaccurate": {
+    "atom_id": "fcra.item_found_inaccurate",
+    "basis": "inferred_from_record",
+    "confidence": 0.7,
+    "evidence": "Bank deleted the furnished medical tradeline under veteran medical-debt deletion rules; no statement that the item was found inaccurate.",
+    "explanation": "Bank investigation outcome is a closed-world scope. The deletion was driven by veteran medical-debt policy rather than an inaccuracy finding, so the inaccuracy characterization can be bound false.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.item_found_incomplete": {
+    "atom_id": "fcra.item_found_incomplete",
+    "basis": "inferred_from_record",
+    "confidence": 0.8,
+    "evidence": "Narrative does not describe an incompleteness finding; deletion was driven by veteran medical-debt deletion rules.",
+    "explanation": "Bank investigation outcome is a closed-world scope; no incompleteness finding is recorded, so the atom can be bound false.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": false
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative describes a single dispute with no mention of any prior dispute or duplicate filing.",
+      "explanation": "No frivolous/duplicate trigger is present in the narrative; profile guidance treats absence of such cues as a not-applicable branch.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "ACDV packet included the customer's letter and two address records; case is pending manual review (not closed as insufficient).",
+      "explanation": "The bank did not terminate the investigation as insufficient; it routed to manual review with usable identifying material. No frivolous/insufficient determination is indicated.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not mention any frivolous/irrelevant determination or related notice timing.",
+      "explanation": "No frivolous determination occurred; no numeric value is stated or derivable.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.item_found_inaccurate",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "The bank has not yet decided whether the item is a mixed-file error or a verified customer obligation; case pending manual review.",
+      "explanation": "No reinvestigation outcome of inaccuracy has been reached; pending review means no affirmative inaccuracy finding exists on the record.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.item_found_incomplete",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Case is pending manual review; no finding of incompleteness recorded.",
+      "explanation": "No completed determination of incompleteness exists on the record.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Case is pending manual review; no unverifiability finding recorded.",
+      "explanation": "No completed determination of unverifiability exists on the record.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.item_verified_as_accurate",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "The bank has not yet decided whether the item is a mixed-file error or a verified customer obligation.",
+      "explanation": "Narrative expressly states no verification decision has been made; therefore the item is not verified-as-accurate on the record.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.item_status_recorded_current",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Case is pending manual review; no recording of current status described.",
+      "explanation": "Because no investigation outcome has been reached, no current-status recording has occurred.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.item_deleted",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Case is pending manual review; no deletion action described.",
+      "explanation": "No deletion has occurred because no final action has been taken.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.item_modified",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Case is pending manual review; no modification action described.",
+      "explanation": "No modification has occurred because no final action has been taken.",
+      "confidence": 0.85
+    }
+  ]
+}

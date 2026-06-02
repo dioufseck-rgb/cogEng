@@ -1,0 +1,66 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.item_found_inaccurate",
+      "basis": "explicit_negative",
+      "confidence": 0.95,
+      "evidence": "the bank ... found the reported information accurate",
+      "explanation": "Narrative affirmatively states the bank found the reported information accurate, which directly negates a finding of inaccuracy.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.item_found_incomplete",
+      "basis": "explicit_negative",
+      "confidence": 0.9,
+      "evidence": "found the reported information accurate",
+      "explanation": "Bank's verified-accurate result within its closed-world investigation scope negates an 'incomplete' finding (per guidance bank_no_defect_found / bank_direct_defect_complements_false).",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "basis": "explicit_negative",
+      "confidence": 0.95,
+      "evidence": "found the reported information accurate",
+      "explanation": "Bank verified the information as accurate, which directly contradicts an 'unverifiable' result.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.direct_furnisher_corrected_cras",
+      "basis": "closed_world_absence",
+      "confidence": 0.85,
+      "evidence": "found the reported information accurate, and sent a written investigation result to the customer",
+      "explanation": "Because the bank found the information accurate, no correction to CRAs was triggered; within the closed-world scope of the bank's investigation outcome, the corrective notification to CRAs did not occur (and was not required).",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    }
+  ],
+  "sources": [
+    {
+      "as_of_date": null,
+      "closed_world_scopes": [
+        "bank direct-dispute intake",
+        "bank investigation outcome",
+        "bank response to consumer"
+      ],
+      "limitations": "Brief narrative; does not detail CRA communications or downstream correction notices.",
+      "source_id": "case_narrative",
+      "source_type": "case_narrative",
+      "title": "Customer N direct dispute narrative"
+    }
+  ]
+}

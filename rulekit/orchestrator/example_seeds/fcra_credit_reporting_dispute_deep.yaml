@@ -47,6 +47,10 @@ metadata:
         - no_direct_furnisher_dispute_mentioned
         - no_cra_path_for_direct_furnisher_only
         - manual_review_for_forwarding_failure
+      node_overrides:
+        - {node_id: n_policy_deletion_treatment, kind: and, provenance: structural, children: [n_veteran_medical, n_deleted, n_item_status_current], surface_label: bank-perspective policy deletion treatment, source_span: bank-furnisher perspective override}
+        - {node_id: n_item_treatment_satisfied, kind: or, provenance: structural, children: [n_not_cra_required, n_not_furnished_by_furnisher, n_policy_deletion_treatment, n_item_treatment_if_required], surface_label: bank-perspective item treatment satisfied or not applicable, source_span: bank-furnisher perspective override}
+        - {node_id: n_furnisher_indirect_satisfied, kind: or, provenance: structural, children: [n_not_cra_required, n_no_furnisher_cra_notice, n_not_furnished_by_furnisher, n_furnisher_indirect_met], surface_label: bank-perspective furnisher indirect duties satisfied or not applicable, source_span: bank-furnisher perspective override}
     - perspective_id: cra_dispute
       label: CRA reinvestigation and dispute-processing view
       actor: consumer_reporting_agency
@@ -137,6 +141,29 @@ metadata:
         basis: explicit_negative
         unless_any: [direct dispute, furnisher's published dispute address, furnisher dispute address, bank's published dispute address, uploaded a dispute, short message]
         evidence: Narrative does not describe a direct dispute sent to the furnisher.
+      - id: bank_no_direct_dispute_explicit
+        kind: branch_not_applicable
+        perspectives: [bank_furnisher]
+        atom_ids:
+          - fcra.direct_dispute_received_by_furnisher
+          - fcra.direct_dispute_at_proper_address
+          - fcra.direct_dispute_identifies_account
+          - fcra.direct_dispute_identifies_specific_info
+          - fcra.direct_dispute_explains_basis
+          - fcra.direct_dispute_supporting_docs_supplied
+          - fcra.direct_dispute_subject_within_scope
+          - fcra.direct_dispute_public_record_only
+          - fcra.direct_dispute_fraud_alert_only
+          - fcra.direct_furnisher_investigation_conducted
+          - fcra.direct_furnisher_reviewed_info
+          - fcra.direct_furnisher_results_reported_to_consumer
+          - fcra.direct_furnisher_corrected_cras
+        value: false
+        basis: explicit_negative
+        if_regex_any:
+          - '\bno\s+direct\s+dispute\b'
+          - '\bdirect\s+dispute\s+was\s+not\s+sent\b'
+        evidence: Narrative explicitly states no direct furnisher dispute was sent to the bank.
       - id: ordinary_cra_dispute_trigger
         kind: scope_supported_true
         atom_ids:
@@ -491,6 +518,17 @@ metadata:
         basis: inferred_from_record
         if_any: [ordinary customer service lockbox, not to the published dispute address]
         evidence: Wrong-address direct dispute was received and described the account dispute, but not at the proper address.
+      - id: bank_direct_wrong_address_not_exception
+        kind: explicit_negative
+        perspectives: [bank_furnisher]
+        atom_ids:
+          - fcra.direct_dispute_public_record_only
+          - fcra.direct_dispute_fraud_alert_only
+        value: false
+        basis: explicit_negative
+        if_any: [ordinary customer service lockbox, not to the published dispute address, wrong address]
+        unless_any: [public-record information, courthouse judgment, public record, fraud alert, active duty alert]
+        evidence: Wrong-address direct dispute concerns account reporting, not a public-record-only or fraud-alert-only exception.
       - id: bank_direct_public_record_only_exception
         kind: scope_supported_true
         perspectives: [bank_furnisher]

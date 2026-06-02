@@ -5,8 +5,9 @@ from collections.abc import Iterable
 from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field
+from pydantic import TypeAdapter
 
-from rulekit.contract import DeterminationProgram, MapSpec
+from rulekit.contract import AnyNodeSpec, DeterminationProgram, MapSpec
 
 
 class PerspectiveSpec(BaseModel):
@@ -24,6 +25,7 @@ class PerspectiveSpec(BaseModel):
     routing_determinations: list[str] = Field(default_factory=list)
     evidence_duties: list[str] = Field(default_factory=list)
     map_profile_rule_ids: list[str] = Field(default_factory=list)
+    node_overrides: list[dict[str, Any]] = Field(default_factory=list)
 
     @property
     def determination_ids(self) -> list[str]:
@@ -83,6 +85,11 @@ def project_program_perspective(
             f"{', '.join(missing)}"
         )
 
+    source_nodes = dict(program.nodes)
+    for override in perspective.node_overrides:
+        node = TypeAdapter(AnyNodeSpec).validate_python(override)
+        source_nodes[node.node_id] = node
+
     included_dets: set[str] = set()
     included_nodes: set[str] = set()
     included_atoms: set[str] = set()
@@ -102,7 +109,7 @@ def project_program_perspective(
     def include_node(node_id: str) -> None:
         if node_id in included_nodes:
             return
-        node = program.nodes[node_id]
+        node = source_nodes[node_id]
         included_nodes.add(node_id)
         for atom_id in _node_atom_refs(node):
             included_atoms.add(atom_id)
@@ -133,8 +140,8 @@ def project_program_perspective(
         update={
             "metadata": metadata,
             "nodes": {
-                node_id: program.nodes[node_id]
-                for node_id in program.nodes
+                node_id: source_nodes[node_id]
+                for node_id in source_nodes
                 if node_id in included_nodes
             },
             "map_spec": MapSpec(

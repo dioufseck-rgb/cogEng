@@ -1,0 +1,129 @@
+{
+  "sources": [
+    {
+      "source_id": "case_narrative",
+      "source_type": "case_narrative",
+      "title": "Customer W veteran medical-debt CRA dispute",
+      "as_of_date": null,
+      "closed_world_scopes": [
+        "dispute intake channel",
+        "bank investigation outcome",
+        "bank action on tradeline",
+        "routing actions taken by bank"
+      ],
+      "limitations": "Brief narrative; does not address completeness vs accuracy framing, prior dispute history, or sufficiency assessment explicitly."
+    }
+  ],
+  "bindings": [
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative says customer disputed the tradeline and invoked veteran medical-debt deletion rules but does not characterize the dispute as about completeness vs accuracy.",
+      "explanation": "No affirmative statement that the dispute concerns completeness; absence is not closed-world for this characterization.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "bound",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not describe any prior dispute or duplicate submission.",
+      "explanation": "Per profile guidance (no_frivolous_termination_mentioned), absence of duplicate/frivolous indicia supports false; no trigger words present.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Bank reviewed the packet (customer's letter, VA documentation, account reference) and acted on it by deleting the tradeline.",
+      "explanation": "The bank was able to investigate and reach a deletion outcome, indicating sufficient information.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No frivolous/irrelevant determination or related notice timing described.",
+      "explanation": "No numeric value can be extracted because no frivolous determination occurred in the narrative.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.item_found_inaccurate",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Bank deleted the tradeline after review but narrative does not state that the item was found inaccurate; deletion was tied to the veteran medical-debt claim.",
+      "explanation": "Deletion does not necessarily imply an inaccuracy finding; no affirmative inaccuracy statement and no closed-world scope precluding it.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.item_found_incomplete",
+      "status": "bound",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not state the item was found incomplete.",
+      "explanation": "No mention of incompleteness finding; deletion characterization does not support incompleteness.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "status": "bound",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not state the item could not be verified.",
+      "explanation": "No affirmative unverifiability statement; bank acted by deleting under veteran medical-debt policy rather than for verification failure.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.item_verified_as_accurate",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Bank deleted the furnished medical tradeline rather than verifying it as accurate.",
+      "explanation": "Within the closed-world scope of bank investigation outcome, deletion is mutually exclusive with verified-as-accurate.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.item_modified",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Bank deleted the tradeline; no modification described.",
+      "explanation": "Within the closed-world scope of bank action on the tradeline, the action was deletion, not modification.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.furnisher_modified_item",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Bank (furnisher) deleted the tradeline rather than modifying it.",
+      "explanation": "Closed-world scope of furnisher action on disputed item; deletion is reported, no modification.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.furnisher_blocked_item",
+      "status": "bound",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative describes deletion, not a permanent block of reporting.",
+      "explanation": "No mention of a blocking action; deletion is distinct from blocking and the narrative does not foreclose a separate block.",
+      "confidence": 0.7
+    }
+  ]
+}

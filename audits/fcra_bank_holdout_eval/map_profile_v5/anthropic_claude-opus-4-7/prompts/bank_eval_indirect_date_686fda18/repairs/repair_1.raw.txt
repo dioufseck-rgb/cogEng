@@ -1,0 +1,104 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Customer L disputed a late payment with inconsistent dates for the same transaction.",
+      "explanation": "The dispute concerns accuracy of the late-payment mark and date reconciliation, not completeness of the item. The completeness branch is not applicable.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No frivolous or irrelevant determination mentioned in the narrative.",
+      "explanation": "Numeric timing cannot be bound without a frivolous determination event; no such event is in the record.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.item_found_inaccurate",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Bank has not yet determined whether the furnished late mark is accurate, modified, or unverifiable.",
+      "explanation": "Investigation outcome explicitly pending manual review; cannot bind true or false.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.item_found_incomplete",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Open outcomes listed are accurate, modified, or unverifiable; incompleteness is not among them and the dispute is not about completeness.",
+      "explanation": "Narrative limits the open outcome set to accurate/modified/unverifiable, and the dispute concerns date accuracy. Incompleteness branch is not applicable.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Bank has not yet determined whether the furnished late mark is accurate, modified, or unverifiable.",
+      "explanation": "Unverifiability is explicitly listed as one of the still-open possibilities under manual review.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.item_verified_as_accurate",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Bank has not yet determined whether the furnished late mark is accurate, modified, or unverifiable.",
+      "explanation": "Accuracy is one of the still-open possibilities pending manual review.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.item_status_recorded_current",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Case routed to manual review; no statement that current status was recorded.",
+      "explanation": "Status recording typically follows conclusion of reinvestigation, which has not occurred.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.item_deleted",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Open outcomes are accurate/modified/unverifiable; deletion not among them but outcome still pending.",
+      "explanation": "Although deletion is not among the listed open outcomes, the investigation is explicitly pending, so a deletion determination cannot be firmly ruled in or out.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.item_modified",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Bank has not yet determined whether the furnished late mark is accurate, modified, or unverifiable.",
+      "explanation": "Modification is explicitly listed as one of the still-open possibilities under manual review.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.furnisher_investigation_conducted",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Case is routed to manual review for date reconciliation; bank has not yet determined the outcome.",
+      "explanation": "Investigation is in progress and no completion is affirmed; cannot bind true or false.",
+      "confidence": 0.75
+    }
+  ]
+}

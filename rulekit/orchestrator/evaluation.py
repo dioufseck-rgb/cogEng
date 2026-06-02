@@ -241,10 +241,7 @@ def _is_uncertain(binding: AtomBindingRecord) -> bool:
 
 
 def _forces_false_uncertainty_override(binding: AtomBindingRecord) -> bool:
-    return (
-        binding.basis == BindingBasis.CONFLICTING_EVIDENCE
-        or binding.status == AtomBindingStatus.ERROR
-    )
+    return binding.basis == BindingBasis.CONFLICTING_EVIDENCE
 
 
 def _leaf_atoms(trace: list[dict[str, Any]]) -> list[str]:

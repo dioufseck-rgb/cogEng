@@ -71,7 +71,7 @@ def test_fcra_credit_reporting_deep_seed_runs_end_to_end(tmp_path):
         det.determination_kind == "routing"
         for det in result.program.determinations.values()
     )
-    assert len(result.program.metadata.extras["map_profile"]["default_rules"]) == 54
+    assert len(result.program.metadata.extras["map_profile"]["default_rules"]) == 56
     assert any(
         perspective["perspective_id"] == "bank_furnisher"
         for perspective in result.program.metadata.extras["perspectives"]
@@ -156,6 +156,16 @@ def test_fcra_credit_reporting_bank_perspective_projects_role_scoped_program(tmp
     )
     assert "fcra.furnisher_received_cra_notice" in bank_program.map_spec.atoms
     assert "fcra.direct_dispute_received_by_furnisher" in bank_program.map_spec.atoms
+    assert "n_not_furnished_by_furnisher" in bank_program.nodes[
+        "n_item_treatment_satisfied"
+    ].children
+    assert "n_policy_deletion_treatment" in bank_program.nodes[
+        "n_item_treatment_satisfied"
+    ].children
+    assert "n_policy_deletion_treatment" in bank_program.nodes
+    assert "n_not_furnished_by_furnisher" in bank_program.nodes[
+        "n_furnisher_indirect_satisfied"
+    ].children
 
 
 def test_fcra_bank_map_profile_rules_are_perspective_scoped(tmp_path):
@@ -202,6 +212,38 @@ def test_fcra_bank_map_profile_rules_are_perspective_scoped(tmp_path):
     assert program_bindings["fcra.direct_dispute_subject_within_scope"].value == "undetermined"
     assert bank_bindings["fcra.direct_dispute_subject_within_scope"].value is True
     assert bank_bindings["fcra.direct_dispute_identifies_account"].value is False
+
+
+def test_fcra_bank_map_profile_handles_explicit_no_direct_dispute(tmp_path):
+    result = run_policy_seed_file(
+        SEED_PATH,
+        tmp_path / "r",
+        program_id="p_fcra_deep",
+    )
+    bank_program = project_program_perspective(result.program, "bank_furnisher")
+    case = CaseExample(
+        case_id="bank_no_direct_dispute",
+        title="No direct furnisher dispute",
+        narrative=(
+            "The CRA notice was sent to the bank, but no direct dispute was "
+            "sent to the bank."
+        ),
+    )
+    bindings = {
+        atom_id: AtomBindingRecord(
+            atom_id=atom_id,
+            atom_type=atom.atom_type,
+            value="undetermined",
+            status=AtomBindingStatus.UNDETERMINED,
+            basis=BindingBasis.NOT_FOUND,
+        )
+        for atom_id, atom in bank_program.map_spec.atoms.items()
+    }
+
+    apply_program_map_profile_defaults(bank_program, case, bindings)
+
+    assert bindings["fcra.direct_dispute_received_by_furnisher"].value is False
+    assert bindings["fcra.direct_dispute_subject_within_scope"].value is False
 
 
 def test_fcra_bank_single_map_prompt_includes_profile_vocabulary(tmp_path):

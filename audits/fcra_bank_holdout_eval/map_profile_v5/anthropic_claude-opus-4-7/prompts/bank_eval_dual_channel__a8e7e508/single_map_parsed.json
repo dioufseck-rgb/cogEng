@@ -1,0 +1,78 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.direct_dispute_identifies_account",
+      "basis": "explicit_positive",
+      "confidence": 0.95,
+      "evidence": "The direct letter identified the same account and month",
+      "explanation": "Narrative explicitly states the direct dispute letter identified the account.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.direct_dispute_identifies_specific_info",
+      "basis": "explicit_positive",
+      "confidence": 0.9,
+      "evidence": "The direct letter identified the same account and month (late-payment notation for that month)",
+      "explanation": "Narrative says the direct letter identified the same disputed month tied to the late-payment notation, identifying the specific information disputed.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.direct_dispute_explains_basis",
+      "basis": "inferred_from_record",
+      "confidence": 0.8,
+      "evidence": "included the customer's payment confirmation",
+      "explanation": "The dispute of a late-payment notation accompanied by a payment confirmation conveys the basis (payment was made/timely), supporting an inference that the basis is explained.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.direct_dispute_supporting_docs_supplied",
+      "basis": "explicit_positive",
+      "confidence": 0.9,
+      "evidence": "included the customer's payment confirmation",
+      "explanation": "Narrative explicitly states supporting documentation (payment confirmation) was supplied with the direct dispute.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.direct_furnisher_corrected_cras",
+      "basis": "inferred_from_record",
+      "confidence": 0.85,
+      "evidence": "found the reported information accurate ... reported verified-as-accurate results back to the CRA",
+      "explanation": "Because the bank found the information accurate, no inaccuracy-triggered correction to CRAs was required or made; the atom's condition (correction when found inaccurate) is not satisfied.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    }
+  ],
+  "sources": [
+    {
+      "as_of_date": null,
+      "closed_world_scopes": [
+        "dispute intake channels",
+        "furnisher investigation outcome",
+        "furnisher response actions"
+      ],
+      "limitations": "Single-paragraph narrative; does not enumerate every documentary attachment or correction action.",
+      "source_id": "case_narrative",
+      "source_type": "case_narrative",
+      "title": "Customer Y dispute narrative"
+    }
+  ]
+}

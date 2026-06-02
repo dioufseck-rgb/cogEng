@@ -200,6 +200,35 @@ def test_conflicting_evidence_preserves_undetermined_over_false_dag_path():
     ]
 
 
+def test_error_atom_does_not_override_stable_false_dag_path():
+    program = _program()
+    case = _case("case_error_non_load_bearing", "false")
+    map_record = map_record_from_values(
+        program,
+        case,
+        {"fcba.credit_extended": False},
+        program_id="prog_fcba",
+        evidence={
+            "fcba.credit_extended": "not an extension of credit",
+            "fcba.unauthorized": "authorization status missing",
+        },
+    )
+    missing = map_record.bindings["fcba.unauthorized"]
+    missing.status = AtomBindingStatus.ERROR
+    missing.value = "undetermined"
+    missing.basis = BindingBasis.NOT_FOUND
+
+    records = exercise_program_on_case_with_map_record(
+        program,
+        case,
+        map_record,
+        program_id="prog_fcba",
+    )
+
+    assert records[0].outcome == "false"
+    assert "evidence_uncertainty_override" not in records[0].metadata
+
+
 def test_routing_determination_treats_missing_triggers_as_false():
     program = _program().model_copy(deep=True)
     program.determinations["fcba.human_review_required"] = DeterminationSpec(

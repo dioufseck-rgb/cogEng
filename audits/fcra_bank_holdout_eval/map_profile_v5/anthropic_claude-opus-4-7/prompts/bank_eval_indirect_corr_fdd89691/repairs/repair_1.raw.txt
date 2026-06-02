@@ -1,0 +1,34 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["narrative_001"],
+      "evidence": "No prior dispute or duplicate dispute mentioned; narrative describes a single CRA-transmitted dispute.",
+      "explanation": "Profile guidance treats absence of frivolous/duplicate language as explicit_negative in this closed-world scope; the conditional duplicate branch is clearly not triggered.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "bound",
+      "value": 0,
+      "basis": "inferred_from_record",
+      "source_ids": ["narrative_001"],
+      "evidence": "No frivolous or irrelevant determination occurred; narrative shows the bank investigated and corrected.",
+      "explanation": "The frivolous-notice branch is not applicable, so the business-day count to a frivolous notice is inferentially zero/not triggered per the conditional-support rule.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.furnisher_reported_inaccuracy_to_other_cras",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["narrative_001"],
+      "evidence": "The bank found the balance was inaccurate, modified the furnished balance to zero, and reported investigation results and the corrected balance back to the CRA within the dispute deadline.",
+      "explanation": "Narrative describes that the bank, upon finding the inaccuracy, modified the furnished balance and reported the correction back to the CRA. Combined with the bank-furnisher process completion guidance, this supports that the corrected information was reported to the CRA receiving the furnished data; the narrative does not indicate furnishing to other CRAs was withheld, and the closed-world scope for bank_furnisher_outcome supports binding true.",
+      "confidence": 0.6
+    }
+  ]
+}

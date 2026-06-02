@@ -1,0 +1,102 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Narrative describes a dispute about a late mark; characterizes accuracy of posting timing but is silent on completeness framing.",
+      "explanation": "Narrative does not affirmatively characterize the dispute as one about completeness, and absence is not within a closed-world scope for completeness characterization.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Narrative does not mention any prior dispute or duplicate determination.",
+      "explanation": "No affirmative statement that this is or is not a duplicate; absence here is open-world (no closed-world scope on prior-dispute history).",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "basis": "inferred_from_record",
+      "confidence": 0.85,
+      "evidence": "ACDV packet included customer's letter, account number, disputed month, and payment-history attachment; the bank completed the investigation and reported results.",
+      "explanation": "Because the furnisher successfully conducted and completed the investigation using the provided information, the record affirmatively supports that information was sufficient.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "basis": "not_found",
+      "confidence": 0.9,
+      "evidence": "No frivolous or irrelevant determination is described, so no notice-timing value is stated.",
+      "explanation": "Numeric value cannot be extracted; the underlying event (frivolous determination) is not present in the record.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": 0
+    },
+    {
+      "atom_id": "fcra.furnisher_investigation_conducted",
+      "basis": "inferred_from_record",
+      "confidence": 0.95,
+      "evidence": "'The bank compared the ledger and lockbox posting history, verified that the payment posted after the grace period.'",
+      "explanation": "Narrative explicitly describes investigative steps comparing ledger and lockbox history and verifying the posting timing.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.furnisher_reviewed_all_cra_info",
+      "basis": "inferred_from_record",
+      "confidence": 0.85,
+      "evidence": "ACDV packet included customer's letter, account number, disputed month, and payment-history attachment; bank compared ledger and lockbox posting history against this material.",
+      "explanation": "Narrative describes the bank using all elements transmitted by the CRA in its review, supporting affirmative binding.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.furnisher_reported_results_to_cra",
+      "basis": "explicit_positive",
+      "confidence": 0.98,
+      "evidence": "'reported verified-as-accurate results back to the CRA within the dispute deadline.'",
+      "explanation": "Narrative explicitly states the furnisher reported investigation results to the CRA.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    }
+  ],
+  "sources": [
+    {
+      "as_of_date": null,
+      "closed_world_scopes": [
+        "dispute_channel",
+        "furnisher_investigation_steps",
+        "furnisher_response_to_cra"
+      ],
+      "limitations": "Brief operational narrative; does not state internal CRA classifications (frivolous/duplicate), nor numeric timing detail beyond 'within the dispute deadline'.",
+      "source_id": "case_narrative",
+      "source_type": "case_narrative",
+      "title": "Customer H mortgage late-mark indirect dispute narrative"
+    }
+  ]
+}
