@@ -1,0 +1,275 @@
+{
+  "sources": [
+    {
+      "source_id": "narrative_1",
+      "source_type": "case_narrative",
+      "title": "Consumer Statement of Dispute After Verified Reinvestigation",
+      "as_of_date": null,
+      "closed_world_scopes": [
+        "reinsertion branch applicability",
+        "reseller branch applicability",
+        "direct furnisher dispute branch applicability",
+        "subsequent report dispute notation",
+        "consumer statement filing"
+      ],
+      "limitations": "Concise narrative; does not provide numeric timing, does not detail every procedural step of the reinvestigation, results notice contents, or furnisher pipeline specifics."
+    }
+  ],
+  "bindings": [
+    {
+      "atom_id": "fcra.consumer_statement_filed",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["narrative_1"],
+      "evidence": "the consumer filed a concise statement of dispute with the CRA. The CRA accepted the statement.",
+      "explanation": "Narrative affirmatively states a consumer statement of dispute was filed and accepted.",
+      "confidence": 0.97
+    },
+    {
+      "atom_id": "fcra.subsequent_reports_note_dispute",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["narrative_1"],
+      "evidence": "Later reports that included the same item did not note that the item was disputed and did not include or summarize the consumer's statement.",
+      "explanation": "Narrative explicitly states subsequent reports failed to note dispute or include/summarize the statement.",
+      "confidence": 0.97
+    },
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_1"],
+      "evidence": "Narrative refers to a disputed personal-loan item without characterizing it as a completeness dispute.",
+      "explanation": "Nature of the dispute (accuracy vs completeness) is not specified.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.notice_direct_to_cra",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["narrative_1"],
+      "evidence": "the consumer filed a concise statement of dispute with the CRA",
+      "explanation": "Narrative indicates the consumer interacted directly with the CRA; no reseller/furnisher path applies.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_1"],
+      "evidence": "No mention of duplicate or substantially-same dispute.",
+      "explanation": "Narrative does not address duplicate-dispute treatment.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_1"],
+      "evidence": "No mention of insufficient consumer information.",
+      "explanation": "Narrative does not address sufficiency of consumer information.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "undetermined",
+      "value": false,
+      "basis": "not_found",
+      "source_ids": ["narrative_1"],
+      "evidence": "No frivolous determination or related timing is described.",
+      "explanation": "Numeric value cannot be extracted or computed.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.cra_reviewed_all_consumer_info",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["narrative_1"],
+      "evidence": "an otherwise timely and reasonable reinvestigation verified a disputed personal-loan item",
+      "explanation": "Reinvestigation is characterized as reasonable, implying review of relevant consumer information.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "fcra.cra_considered_primary_source_documents",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_1"],
+      "evidence": "Narrative does not address primary-source documents.",
+      "explanation": "Whether primary source documents were considered is not stated.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.cra_compared_furnisher_response",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["narrative_1"],
+      "evidence": "an otherwise timely and reasonable reinvestigation verified a disputed personal-loan item",
+      "explanation": "A reasonable reinvestigation resulting in verification implies comparison of furnisher response to the dispute basis.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.cra_compared_own_file",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_1"],
+      "evidence": "Narrative does not address comparison against own file contents.",
+      "explanation": "No direct statement about CRA's own-file comparison.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.cra_reasonable_reinvestigation_performed",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["narrative_1"],
+      "evidence": "an otherwise timely and reasonable reinvestigation verified a disputed personal-loan item",
+      "explanation": "Narrative explicitly characterizes the reinvestigation as reasonable.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.dispositive_info_not_ignored",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_1"],
+      "evidence": "No discussion of dispositive information handling.",
+      "explanation": "Narrative does not address dispositive-info treatment.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.automated_code_only",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_1"],
+      "evidence": "Narrative does not describe the investigation mechanism.",
+      "explanation": "No information about automated coding versus human review.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.human_review_of_documents_performed",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_1"],
+      "evidence": "No description of human document review.",
+      "explanation": "Narrative is silent on document-review process.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.furnished_by_furnisher",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["narrative_1"],
+      "evidence": "a disputed personal-loan item",
+      "explanation": "A personal-loan item on a credit file is typically furnished by a furnisher; narrative treats it as such.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.expedited_deleted_within_3_business_days",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["narrative_1"],
+      "evidence": "reinvestigation verified a disputed personal-loan item",
+      "explanation": "Item was verified, not deleted; expedited-deletion path did not occur.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.cra_notified_furnisher",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_1"],
+      "evidence": "Narrative says reinvestigation was reasonable but does not state furnisher notification expressly.",
+      "explanation": "Although implied by a reasonable reinvestigation, the specific furnisher-notice fact is not affirmatively stated.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.business_days_to_notify_furnisher",
+      "status": "undetermined",
+      "value": false,
+      "basis": "not_found",
+      "source_ids": ["narrative_1"],
+      "evidence": "No numeric timing provided.",
+      "explanation": "Days from receipt to furnisher notice are not stated.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.notice_included_all_relevant_info",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_1"],
+      "evidence": "Narrative does not describe contents of CRA-to-furnisher notice.",
+      "explanation": "No basis to evaluate completeness of furnisher notice.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.primary_documents_forwarded",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_1"],
+      "evidence": "Narrative does not address primary documents.",
+      "explanation": "No information about forwarding of primary documents.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.later_relevant_info_received",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_1"],
+      "evidence": "Narrative does not describe later submissions during reinvestigation.",
+      "explanation": "Receipt of later information is not addressed.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.later_relevant_info_forwarded",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_1"],
+      "evidence": "Narrative does not describe forwarding later info.",
+      "explanation": "Fact not addressed.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.reinvestigation_completed",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["narrative_1"],
+      "evidence": "an otherwise timely and reasonable reinvestigation verified a disputed personal-loan item",
+      "explanation": "Reinvestigation was completed and yielded a verification.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.days_to_complete_reinvestigation",
+      "status": "undetermined",
+      "value": false,
+      "basis": "not_found",
+      "source_ids": ["narrative_1"],
+      "evidence": "Reinvestigation was characterized as timely but no number of days is stated.",
+      "explanation": "Numeric value is not provided or computable.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.additional_relevant_info_received_in_30_days",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_1"],
+      "evidence": "

@@ -1,0 +1,713 @@
+You are adjudicating a policy case directly.
+
+This is a profiled direct baseline for research. Unlike RuleKit, you are still
+deciding the policy dispositions yourself, but you are given the policy pack's
+perspective and Map-profile guidance so that your direct decision uses the same
+case-shape semantics a governed Map would use before deterministic execution.
+
+Important:
+- Return only JSON.
+- Do not invent facts not in the case packet.
+- Use the PROFILE GUIDANCE as reusable interpretation guidance. When its cues
+  match the narrative and its unless-cues do not, apply that rule's case-shape
+  default in your reasoning.
+- A determination described as "satisfied or not applicable" should be "true"
+  when the relevant duty branch is outside the case's natural scope. Do not
+  mark it "undetermined" merely because the narrative omits facts about an
+  inapplicable branch.
+- Separate routing from substantive compliance. Human-review triggers can make
+  human_review_required true without making an investigation/correction duty
+  satisfied.
+- Keep determination boundaries separate. Do not import a missing requirement
+  from one determination into another unless that selected determination's
+  description or profile-guided branch makes it material.
+- In particular, a failed upstream transmission duty can coexist with a
+  satisfied recipient-side duty if the recipient reviewed the materials it
+  actually received and responded as required by its own branch.
+- Do not treat downstream third-party notification/correction failures as item
+  treatment failures unless the item-treatment determination itself requires
+  that downstream act. Item treatment is about the item's verified/current,
+  deleted, or modified status under the selected policy branch.
+- Manual-review routing is not itself proof that item treatment or investigation
+  duties failed or remain unresolved; decide those determinations from their
+  own applicable branch.
+- Treat PROFILE GUIDANCE as controlling benchmark semantics when it matches the
+  narrative and no contrary case fact appears. Do not relitigate a stricter or
+  broader legal theory than the policy pack encoded.
+- Use "false" when a required applicable duty is missing, incomplete, or failed.
+- Use "undetermined" only when an applicable load-bearing fact remains genuinely
+  unresolved after applying the policy text, perspective, case packet, and
+  profile guidance.
+- For each determination, name the decisive branch, material facts, and any
+  profile rule ids you relied on.
+
+POLICY SUMMARY
+==============
+Bounded benchmark policy for consumer reporting disputes.
+
+1. Consumer reporting agency reinvestigation trigger. If the completeness or
+accuracy of an item in a consumer's file is disputed by the consumer and the
+consumer reporting agency receives notice directly or through a reseller, the
+agency must conduct a reasonable reinvestigation unless a valid frivolous or
+irrelevant termination applies. A valid dispute packet identifies the consumer,
+identifies the account or item, identifies the disputed field or information,
+and explains the basis for the dispute.
+
+2. Time to complete reinvestigation. The agency must complete the
+reinvestigation within 30 calendar days after receipt of the dispute notice.
+The period may extend to 45 days if the consumer provides additional relevant
+information during the initial 30-day period. The extension does not apply
+where the agency determines within the initial period that the item is
+inaccurate, incomplete, or cannot be verified.
+
+3. Furnisher notice by the agency. Before the end of the fifth business day
+after receiving the consumer's dispute, the agency must notify the furnisher
+of the disputed information when the item was provided by a furnisher, and the
+notice must include all relevant information received from the consumer. Later
+relevant information received during the reinvestigation period must be
+promptly provided to the furnisher. Primary source documents submitted by the
+consumer, such as bank statements, creditor letters, account statements,
+police reports, identity theft affidavits, court orders, or billing
+statements, are relevant when they bear on the disputed information.
+
+4. Consideration and reasonableness. The agency must review and consider all
+relevant consumer information. A reasonable reinvestigation compares the
+consumer submission, furnisher response, agency file, prior dispute history
+where relevant, and public-record source where relevant. Automated dispute
+coding alone is not sufficient when primary documents or material conflicts
+require review.
+
+5. Treatment of inaccurate, incomplete, or unverifiable information. If the
+item is inaccurate, incomplete, or cannot be verified, the agency must delete
+or modify it as appropriate and record the current status. If no defect is
+found after a reasonable reinvestigation, the item may remain verified.
+
+6. Results notice. Within 5 business days after completing the
+reinvestigation, the agency must provide written results to the consumer. The
+notice must state that the reinvestigation is completed, include a consumer
+report based on the revised file, disclose the right to request a description
+of the procedure used, disclose furnisher contact information if reasonably
+available, disclose the right to add a consumer statement, and disclose the
+right to request notification of deletion or dispute notation.
+
+7. Reinsertion. Deleted information may not be reinserted unless the furnisher
+certifies that it is complete and accurate. If reinserted, the agency must
+notify the consumer in writing within 5 business days, identify the furnisher,
+provide the consumer's right to add a statement, and maintain reasonable
+procedures designed to prevent improper reappearance.
+
+8. Frivolous or irrelevant disputes. The agency may terminate a
+reinvestigation if it reasonably determines that the dispute is frivolous or
+irrelevant, including because the consumer failed to provide sufficient
+information to investigate. The agency must notify the consumer within 5
+business days after that determination, provide the reasons, and identify any
+information required to investigate.
+
+9. Reseller disputes. A reseller receiving a dispute must determine within 5
+business days whether the item is incomplete or inaccurate because of a
+reseller act or omission. If so, the reseller must correct or delete within 20
+days. If not, the reseller must convey the dispute and all relevant consumer
+information to the consumer reporting agency that supplied the information and
+reconvey the agency's completion notice to the consumer.
+
+10. Furnisher duties after agency notice. A furnisher receiving agency notice
+of a dispute must investigate the disputed information, review all relevant
+information provided by the agency, report results to the agency, report
+incomplete or inaccurate findings to other nationwide consumer reporting
+agencies to which it furnished the information, and modify, delete, or
+permanently block information that is inaccurate, incomplete, or unverifiable.
+The furnisher must complete those actions before the agency's applicable
+reinvestigation deadline.
+
+11. Furnisher direct disputes. A furnisher receiving a qualifying direct
+dispute must investigate when the notice is sent to a proper address, identifies
+the account or relationship, identifies the specific disputed information,
+explains the basis for the dispute, includes reasonably required supporting
+documentation, and concerns covered account or relationship information. The
+furnisher need not investigate direct disputes outside the regulatory scope,
+including disputes solely about public records, fraud alerts, active duty
+alerts, information from another furnisher, or disputes reasonably believed to
+be submitted by a credit repair organization. A furnisher that invokes a
+frivolous or irrelevant direct-dispute determination must notify the consumer
+within 5 business days, state reasons, and identify information needed to
+investigate.
+
+12. Consumer statement and subsequent reporting. If the reinvestigation does
+not resolve the dispute and the consumer files a brief statement, subsequent
+reports containing the disputed information must clearly note that it is
+disputed and include the statement or an accurate codification or summary,
+unless there are reasonable grounds to believe the statement is frivolous or
+irrelevant.
+
+13. Human-review routing. Human review is required when material evidence
+conflicts remain unresolved, identity theft or mixed-file evidence is
+plausible but incomplete, a court order or legal-liability issue changes the
+ordinary fact-verification path, a veteran medical debt claim may require the
+special deletion process, primary source documents are missing from the record,
+material dates conflict, or the institution's manual review policy is
+triggered.
+
+
+ACTIVE PERSPECTIVE
+==================
+{}
+
+PROFILE GUIDANCE
+================
+[
+  {
+    "atom_ids": [
+      "fcra.frivolous_determination_made",
+      "fcra.frivolous_notice_sent",
+      "fcra.frivolous_reason_identified",
+      "fcra.frivolous_missing_info_identified"
+    ],
+    "basis": "explicit_negative",
+    "evidence": "Narrative does not state a frivolous or irrelevant termination.",
+    "id": "no_frivolous_termination_mentioned",
+    "kind": "scoped_absence",
+    "unless_any": [
+      "frivolous",
+      "irrelevant",
+      "duplicate"
+    ],
+    "value": false
+  },
+  {
+    "atom_ids": [
+      "fcra.notice_through_reseller",
+      "fcra.reseller_received_dispute",
+      "fcra.reseller_item_due_to_reseller_error",
+      "fcra.reseller_corrected_or_deleted",
+      "fcra.reseller_conveyed_to_cra",
+      "fcra.reseller_reconveyed_results_to_consumer",
+      "fcra.reseller_reinvestigation_chosen"
+    ],
+    "basis": "explicit_negative",
+    "evidence": "Narrative does not describe reseller involvement.",
+    "id": "no_reseller_branch_mentioned",
+    "kind": "branch_not_applicable",
+    "unless_any": [
+      "reseller",
+      "tenant-screening"
+    ],
+    "value": false
+  },
+  {
+    "atom_ids": [
+      "fcra.item_reinserted",
+      "fcra.furnisher_certified_accuracy_for_reinsertion",
+      "fcra.reinsertion_notice_sent",
+      "fcra.reinsertion_notice_identifies_furnisher",
+      "fcra.reinsertion_notice_includes_statement_right",
+      "fcra.deleted_item_reappeared_without_certification"
+    ],
+    "basis": "explicit_negative",
+    "evidence": "Narrative does not describe deletion followed by reinsertion or reappearance.",
+    "id": "no_reinsertion_branch_mentioned",
+    "kind": "branch_not_applicable",
+    "unless_any": [
+      "reinserted",
+      "reinsertion",
+      "reappeared",
+      "reappears"
+    ],
+    "value": false
+  },
+  {
+    "atom_ids": [
+      "fcra.consumer_statement_filed",
+      "fcra.subsequent_reports_note_dispute"
+    ],
+    "basis": "explicit_negative",
+    "evidence": "Narrative does not state that a consumer statement was filed.",
+    "id": "no_consumer_statement_mentioned",
+    "kind": "branch_not_applicable",
+    "unless_any": [
+      "consumer statement",
+      "statement of dispute"
+    ],
+    "value": false
+  },
+  {
+    "atom_ids": [
+      "fcra.direct_dispute_received_by_furnisher",
+      "fcra.direct_dispute_at_proper_address",
+      "fcra.direct_dispute_identifies_account",
+      "fcra.direct_dispute_identifies_specific_info",
+      "fcra.direct_dispute_explains_basis",
+      "fcra.direct_dispute_supporting_docs_supplied",
+      "fcra.direct_dispute_public_record_only",
+      "fcra.direct_dispute_fraud_alert_only",
+      "fcra.direct_furnisher_investigation_conducted",
+      "fcra.direct_furnisher_reviewed_info",
+      "fcra.direct_furnisher_results_reported_to_consumer",
+      "fcra.direct_furnisher_corrected_cras"
+    ],
+    "basis": "explicit_negative",
+    "evidence": "Narrative does not describe a direct dispute sent to the furnisher.",
+    "id": "no_direct_furnisher_dispute_mentioned",
+    "kind": "branch_not_applicable",
+    "unless_any": [
+      "direct dispute",
+      "furnisher's published dispute address",
+      "furnisher dispute address"
+    ],
+    "value": false
+  },
+  {
+    "atom_ids": [
+      "fcra.consumer_disputed_item",
+      "fcra.item_in_consumer_file",
+      "fcra.dispute_about_accuracy",
+      "fcra.consumer_identity_sufficient",
+      "fcra.account_identified",
+      "fcra.disputed_field_identified",
+      "fcra.basis_explained",
+      "fcra.consumer_submission_authentic"
+    ],
+    "basis": "inferred_from_record",
+    "evidence": "Narrative describes a consumer dispute identifying an item and basis.",
+    "id": "ordinary_cra_dispute_trigger",
+    "if_any": [
+      "consumer disputed",
+      "disputed a",
+      "disputes"
+    ],
+    "kind": "scope_supported_true",
+    "value": true
+  },
+  {
+    "atom_ids": [
+      "fcra.notice_direct_to_cra"
+    ],
+    "basis": "inferred_from_record",
+    "evidence": "Narrative states direct CRA receipt.",
+    "id": "direct_cra_notice",
+    "if_any": [
+      "CRA file shows the dispute was received directly",
+      "received directly",
+      "dispute was received directly",
+      "CRA coded",
+      "CRA log",
+      "CRA has not yet received"
+    ],
+    "kind": "scope_supported_true",
+    "value": true
+  },
+  {
+    "atom_ids": [
+      "fcra.cra_reviewed_all_consumer_info",
+      "fcra.cra_considered_primary_source_documents",
+      "fcra.cra_compared_furnisher_response",
+      "fcra.cra_compared_own_file",
+      "fcra.cra_reasonable_reinvestigation_performed",
+      "fcra.dispositive_info_not_ignored",
+      "fcra.human_review_of_documents_performed"
+    ],
+    "basis": "inferred_from_record",
+    "evidence": "Narrative describes ordinary-course review of consumer and furnisher information.",
+    "id": "ordinary_cra_review_completed",
+    "if_any": [
+      "reviewed the consumer ledger against the furnisher payment history",
+      "reviewed consumer ledger",
+      "compared",
+      "sent complete written results"
+    ],
+    "kind": "scope_supported_true",
+    "unless_any": [
+      "not sent or made available",
+      "not forwarded",
+      "not yet received enough material"
+    ],
+    "value": true
+  },
+  {
+    "atom_ids": [
+      "fcra.item_verified_as_accurate",
+      "fcra.item_status_recorded_current"
+    ],
+    "basis": "inferred_from_record",
+    "evidence": "Narrative states the item was verified and recorded.",
+    "id": "ordinary_verified_item_treatment",
+    "if_any": [
+      "recorded the item as verified",
+      "verifying the late payment"
+    ],
+    "kind": "scope_supported_true",
+    "value": true
+  },
+  {
+    "atom_ids": [
+      "fcra.results_notice_sent",
+      "fcra.notice_states_reinvestigation_completed",
+      "fcra.revised_consumer_report_provided",
+      "fcra.procedure_description_right_disclosed",
+      "fcra.furnisher_contact_disclosed_if_available",
+      "fcra.consumer_statement_right_disclosed",
+      "fcra.notification_right_disclosed"
+    ],
+    "basis": "inferred_from_record",
+    "evidence": "Narrative describes a complete written results notice with revised report.",
+    "id": "ordinary_results_notice_complete",
+    "if_any": [
+      "mailed results with the revised report",
+      "sent complete written results",
+      "otherwise complete results notice"
+    ],
+    "kind": "scope_supported_true",
+    "value": true
+  },
+  {
+    "atom_ids": [
+      "fcra.furnisher_received_cra_notice",
+      "fcra.furnisher_investigation_conducted",
+      "fcra.furnisher_reviewed_all_cra_info",
+      "fcra.furnisher_reported_results_to_cra"
+    ],
+    "basis": "inferred_from_record",
+    "evidence": "Narrative describes furnisher response to CRA dispute notice.",
+    "id": "ordinary_furnisher_indirect_completed",
+    "if_any": [
+      "received a furnisher response verifying",
+      "furnisher response verifying",
+      "furnisher verified"
+    ],
+    "kind": "scope_supported_true",
+    "unless_any": [
+      "not sent or made available",
+      "not forwarded"
+    ],
+    "value": true
+  },
+  {
+    "atom_ids": [
+      "fcra.notice_through_reseller",
+      "fcra.reseller_received_dispute"
+    ],
+    "basis": "explicit_positive",
+    "evidence": "Narrative describes reseller receipt of the dispute.",
+    "id": "reseller_notice_path",
+    "if_any": [
+      "reseller",
+      "tenant-screening"
+    ],
+    "kind": "scope_supported_true",
+    "value": true
+  },
+  {
+    "atom_ids": [
+      "fcra.direct_dispute_received_by_furnisher",
+      "fcra.direct_dispute_at_proper_address",
+      "fcra.direct_dispute_identifies_account",
+      "fcra.direct_dispute_identifies_specific_info",
+      "fcra.direct_dispute_explains_basis",
+      "fcra.direct_dispute_supporting_docs_supplied",
+      "fcra.direct_dispute_subject_within_scope"
+    ],
+    "basis": "explicit_positive",
+    "evidence": "Narrative describes a qualifying direct furnisher dispute packet.",
+    "id": "direct_furnisher_notice_path",
+    "if_any": [
+      "furnisher's published dispute address",
+      "direct dispute to the furnisher"
+    ],
+    "kind": "scope_supported_true",
+    "value": true
+  },
+  {
+    "atom_ids": [
+      "fcra.notice_direct_to_cra",
+      "fcra.notice_through_reseller"
+    ],
+    "basis": "explicit_negative",
+    "evidence": "Narrative describes only a direct-to-furnisher dispute, not CRA receipt.",
+    "id": "no_cra_path_for_direct_furnisher_only",
+    "if_any": [
+      "furnisher's published dispute address",
+      "direct dispute to the furnisher"
+    ],
+    "kind": "branch_not_applicable",
+    "unless_any": [
+      "CRA file shows",
+      "source CRA",
+      "through a tenant-screening reseller"
+    ],
+    "value": false
+  },
+  {
+    "atom_ids": [
+      "fcra.primary_documents_forwarded",
+      "fcra.notice_included_all_relevant_info",
+      "fcra.cra_considered_primary_source_documents",
+      "fcra.dispositive_info_not_ignored"
+    ],
+    "basis": "explicit_negative",
+    "evidence": "Narrative states primary documents were not forwarded or made available.",
+    "id": "primary_documents_not_forwarded",
+    "if_any": [
+      "not sent or made available",
+      "were not sent",
+      "were not forwarded"
+    ],
+    "kind": "explicit_negative",
+    "value": false
+  },
+  {
+    "atom_ids": [
+      "fcra.automated_code_only"
+    ],
+    "basis": "explicit_positive",
+    "evidence": "Narrative describes generic dispute coding.",
+    "id": "automated_code_only_from_generic_code",
+    "if_any": [
+      "generic \"claims paid\" code",
+      "coded the dispute"
+    ],
+    "kind": "explicit_positive",
+    "value": true
+  },
+  {
+    "atom_ids": [
+      "fcra.manual_review_policy_trigger",
+      "fcra.conflicting_furnisher_and_consumer_docs"
+    ],
+    "basis": "inferred_from_record",
+    "evidence": "Missing primary-document forwarding and contrary furnisher verification trigger review.",
+    "id": "manual_review_for_forwarding_failure",
+    "if_any": [
+      "not sent or made available",
+      "old balance despite settlement documents"
+    ],
+    "kind": "routing_trigger",
+    "value": true
+  },
+  {
+    "atom_ids": [
+      "fcra.consumer_alleges_not_mine"
+    ],
+    "basis": "explicit_positive",
+    "evidence": "Narrative contains a not-mine dispute.",
+    "id": "not_mine_identity_route",
+    "if_any": [
+      "not mine",
+      "not belonging to the consumer"
+    ],
+    "kind": "routing_trigger",
+    "value": true
+  },
+  {
+    "atom_ids": [
+      "fcra.identity_theft_claimed"
+    ],
+    "basis": "explicit_positive",
+    "evidence": "Narrative mentions identity theft.",
+    "id": "identity_theft_route",
+    "if_any": [
+      "identity theft"
+    ],
+    "kind": "routing_trigger",
+    "value": true
+  },
+  {
+    "atom_ids": [
+      "fcra.mixed_file_claimed"
+    ],
+    "basis": "inferred_from_record",
+    "evidence": "Narrative describes mixed-file or similar-name evidence.",
+    "id": "mixed_file_route",
+    "if_any": [
+      "mixed-file",
+      "similar name"
+    ],
+    "kind": "routing_trigger",
+    "value": true
+  },
+  {
+    "atom_ids": [
+      "fcra.identity_theft_report_supplied"
+    ],
+    "basis": "explicit_negative",
+    "evidence": "Narrative states identity theft documentation is incomplete.",
+    "id": "missing_identity_theft_report",
+    "if_any": [
+      "not the actual identity theft report",
+      "affidavit is being prepared"
+    ],
+    "kind": "routing_trigger",
+    "value": false
+  },
+  {
+    "atom_ids": [
+      "fcra.source_documents_missing"
+    ],
+    "basis": "explicit_positive",
+    "evidence": "Narrative states source material is missing.",
+    "id": "source_gap_route",
+    "if_any": [
+      "not yet received enough material",
+      "not the actual identity theft report"
+    ],
+    "kind": "routing_trigger",
+    "value": true
+  },
+  {
+    "atom_ids": [
+      "fcra.material_date_conflict"
+    ],
+    "basis": "explicit_positive",
+    "evidence": "Narrative states material dates are inconsistent.",
+    "id": "material_date_conflict_route",
+    "if_any": [
+      "inconsistent dates"
+    ],
+    "kind": "routing_trigger",
+    "value": true
+  },
+  {
+    "atom_ids": [
+      "fcra.manual_review_policy_trigger"
+    ],
+    "basis": "inferred_from_record",
+    "evidence": "Narrative contains a routing cue requiring human review.",
+    "id": "human_review_from_routing_cues",
+    "if_any": [
+      "not mine",
+      "identity theft",
+      "mixed-file",
+      "similar name",
+      "not yet received enough material",
+      "inconsistent dates"
+    ],
+    "kind": "routing_trigger",
+    "value": true
+  }
+]
+
+SELECTED DETERMINATIONS
+=======================
+[
+  {
+    "description": "Consumer statement handling is satisfied or not applicable.",
+    "determination_id": "fcra.consumer_statement_satisfied",
+    "determination_kind": "adjudication",
+    "source_span": "15 U.S.C. 1681i(b)-(c)"
+  },
+  {
+    "description": "CRA consideration and reasonableness duties are satisfied.",
+    "determination_id": "fcra.cra_consideration_satisfied",
+    "determination_kind": "adjudication",
+    "source_span": "15 U.S.C. 1681i(a)(4)"
+  },
+  {
+    "description": "CRA furnisher-notice transmission duties are satisfied.",
+    "determination_id": "fcra.cra_furnisher_notice_satisfied",
+    "determination_kind": "adjudication",
+    "source_span": "15 U.S.C. 1681i(a)(2)"
+  },
+  {
+    "description": "The CRA is required to conduct a reinvestigation.",
+    "determination_id": "fcra.cra_reinvestigation_required",
+    "determination_kind": "adjudication",
+    "source_span": "15 U.S.C. 1681i(a)(1)"
+  },
+  {
+    "description": "CRA reinvestigation timing is satisfied.",
+    "determination_id": "fcra.cra_reinvestigation_timely",
+    "determination_kind": "adjudication",
+    "source_span": "15 U.S.C. 1681i(a)(1)"
+  },
+  {
+    "description": "A valid CRA reinvestigation trigger exists.",
+    "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+    "determination_kind": "adjudication",
+    "source_span": "15 U.S.C. 1681i(a)(1)"
+  },
+  {
+    "description": "Furnisher direct-dispute duties are satisfied or not applicable.",
+    "determination_id": "fcra.direct_furnisher_satisfied",
+    "determination_kind": "adjudication",
+    "source_span": "12 CFR 1022.43"
+  },
+  {
+    "description": "Selected credit-reporting dispute obligations are satisfied.",
+    "determination_id": "fcra.dispute_resolution_compliant",
+    "determination_kind": "adjudication",
+    "source_span": "benchmark root"
+  },
+  {
+    "description": "Any frivolous or irrelevant termination is valid.",
+    "determination_id": "fcra.frivolous_termination_valid",
+    "determination_kind": "adjudication",
+    "source_span": "15 U.S.C. 1681i(a)(3)"
+  },
+  {
+    "description": "Furnisher duties after CRA notice are satisfied or not applicable.",
+    "determination_id": "fcra.furnisher_indirect_satisfied",
+    "determination_kind": "adjudication",
+    "source_span": "15 U.S.C. 1681s-2(b)"
+  },
+  {
+    "description": "The packet requires human review routing.",
+    "determination_id": "fcra.human_review_required",
+    "determination_kind": "routing",
+    "source_span": "benchmark routing policy"
+  },
+  {
+    "description": "Inaccurate, incomplete, or unverifiable information is treated correctly.",
+    "determination_id": "fcra.item_treatment_satisfied",
+    "determination_kind": "adjudication",
+    "source_span": "15 U.S.C. 1681i(a)(5)"
+  },
+  {
+    "description": "Reinsertion safeguards are satisfied or not applicable.",
+    "determination_id": "fcra.reinsertion_satisfied",
+    "determination_kind": "adjudication",
+    "source_span": "15 U.S.C. 1681i(a)(5)(B)"
+  },
+  {
+    "description": "Reseller dispute duties are satisfied or not applicable.",
+    "determination_id": "fcra.reseller_satisfied",
+    "determination_kind": "adjudication",
+    "source_span": "15 U.S.C. 1681i(f)"
+  },
+  {
+    "description": "CRA results notice duties are satisfied.",
+    "determination_id": "fcra.results_notice_satisfied",
+    "determination_kind": "adjudication",
+    "source_span": "15 U.S.C. 1681i(a)(6)"
+  }
+]
+
+CASE PACKET
+===========
+{
+  "case_id": "cra_logic_clean_conflict_pending_manual_review",
+  "narrative": "The consumer disputed a late-payment month directly with the CRA and the intake packet was valid. The CRA notified the furnisher on the third business day and forwarded the consumer's payment receipt. The consumer's receipt, the CRA file, and the furnisher response show materially conflicting dates for the same payment. The CRA has not yet resolved the conflict, has not completed the reinvestigation, has not determined whether the item should be verified, deleted, or modified, and has not sent final results. The case is routed to manual review because of the material date conflict and conflicting documents. No reseller, reinsertion, consumer-statement, or direct-furnisher branch applies.\n",
+  "structured_fields": {},
+  "title": "Clear conflict leaves substantive disposition undetermined"
+}
+
+Return ONLY this JSON shape:
+{
+  "case_id": "cra_logic_clean_conflict_pending_manual_review",
+  "determinations": [
+    {
+      "determination_id": "id from SELECTED DETERMINATIONS",
+      "outcome": "true|false|undetermined",
+      "rationale": "brief reason based on the case packet",
+      "confidence": 0.0,
+      "decisive_branch": "applicable branch, not-applicable branch, routing trigger, or unresolved branch",
+      "material_facts": [
+        {
+          "fact": "short fact",
+          "source": "source title/id or narrative",
+          "basis": "explicit|profile_default|inferred|missing|conflicting"
+        }
+      ],
+      "profile_rule_ids": ["profile rule id or empty"],
+      "anti_overclaim_check": "why this does not overclaim beyond the packet/profile"
+    }
+  ],
+  "case_level_notes": "brief note or empty string"
+}

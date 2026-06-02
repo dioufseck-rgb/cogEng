@@ -1,0 +1,281 @@
+{
+  "case_id": "cra_logic_expedited_deletion_short_circuits_furnisher_notice",
+  "case_level_notes": "Expedited deletion within 3 business days mooted furnisher transmission and indirect furnisher duties; results-notice completeness is the only unresolved point.",
+  "determinations": [
+    {
+      "anti_overclaim_check": "Marking true only because branch is outside case scope.",
+      "confidence": 0.9,
+      "decisive_branch": "not-applicable branch",
+      "determination_id": "fcra.consumer_statement_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "No consumer-statement branch applies",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "no_consumer_statement_mentioned"
+      ],
+      "rationale": "No consumer statement filed; branch not applicable."
+    },
+    {
+      "anti_overclaim_check": "Consideration duty refers to CRA's own review; expedited deletion resolves item without need for furnisher response.",
+      "confidence": 0.75,
+      "decisive_branch": "reasonable reinvestigation completed via expedited deletion",
+      "determination_id": "fcra.cra_consideration_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "CRA deleted disputed item within 3 business days",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Current deleted status recorded",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [],
+      "rationale": "CRA reviewed the dispute and opted for expedited deletion, an acceptable disposition resolving the item in consumer's favor."
+    },
+    {
+      "anti_overclaim_check": "Policy text requires notice within 5 business days when item was provided by furnisher; expedited deletion before that window removed the item from the file, making the duty moot under case-shape semantics.",
+      "confidence": 0.6,
+      "decisive_branch": "deletion mooted furnisher notice obligation",
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Deletion occurred within 3 business days, before furnisher notice deadline",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "No furnisher transmission sent due to expedited deletion",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [],
+      "rationale": "Item was deleted before the 5-business-day furnisher notice deadline; with the item removed there was no longer a disputed item requiring furnisher notice."
+    },
+    {
+      "anti_overclaim_check": "Direct from explicit facts.",
+      "confidence": 0.95,
+      "decisive_branch": "ordinary CRA dispute trigger",
+      "determination_id": "fcra.cra_reinvestigation_required",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Consumer disputed tradeline directly with CRA",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Identified item, basis, sufficient identity",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "ordinary_cra_dispute_trigger",
+        "direct_cra_notice"
+      ],
+      "rationale": "Consumer disputed accuracy of an item in file with sufficient identity, account, field, and basis identification."
+    },
+    {
+      "anti_overclaim_check": "Explicit timing fact.",
+      "confidence": 0.95,
+      "decisive_branch": "timely completion",
+      "determination_id": "fcra.cra_reinvestigation_timely",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Deletion within 3 business days",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [],
+      "rationale": "Resolution (deletion) and notice completed within 3 business days, well within 30-day limit."
+    },
+    {
+      "anti_overclaim_check": "Direct from explicit facts.",
+      "confidence": 0.95,
+      "decisive_branch": "valid dispute packet",
+      "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Dispute identified item and basis with sufficient identity info",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "ordinary_cra_dispute_trigger"
+      ],
+      "rationale": "Valid dispute packet: consumer, item, field, and basis identified."
+    },
+    {
+      "anti_overclaim_check": "Branch outside case scope.",
+      "confidence": 0.95,
+      "decisive_branch": "not-applicable branch",
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "No direct-furnisher branch applies",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "no_direct_furnisher_dispute_mentioned"
+      ],
+      "rationale": "No direct furnisher dispute branch applies."
+    },
+    {
+      "anti_overclaim_check": "Aggregate reflects per-determination outcomes.",
+      "confidence": 0.75,
+      "decisive_branch": "aggregate compliance",
+      "determination_id": "fcra.dispute_resolution_compliant",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Expedited deletion with written confirmation",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [],
+      "rationale": "All applicable duties satisfied: timely deletion, results notice, current status recorded, no reinsertion. Inapplicable branches do not apply."
+    },
+    {
+      "anti_overclaim_check": "Branch outside case scope.",
+      "confidence": 0.95,
+      "decisive_branch": "not-applicable branch",
+      "determination_id": "fcra.frivolous_termination_valid",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "No frivolous termination in narrative",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "no_frivolous_termination_mentioned"
+      ],
+      "rationale": "No frivolous termination occurred; branch not applicable."
+    },
+    {
+      "anti_overclaim_check": "Furnisher duties trigger only on agency notice; none was issued, so the branch is outside scope.",
+      "confidence": 0.7,
+      "decisive_branch": "not-applicable branch (no agency notice sent due to deletion)",
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "No furnisher transmission was sent",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [],
+      "rationale": "No furnisher notice was sent because deletion mooted it; furnisher had no agency notice to act on, so its post-notice duties are not applicable."
+    },
+    {
+      "anti_overclaim_check": "Narrative lacks any routing cue.",
+      "confidence": 0.85,
+      "decisive_branch": "no routing trigger",
+      "determination_id": "fcra.human_review_required",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "No conflict, identity theft, or missing-document indicators",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "false",
+      "profile_rule_ids": [],
+      "rationale": "No routing triggers present: no identity theft, mixed file, missing docs, conflicting dates, or manual policy triggers; CRA resolved via expedited deletion."
+    },
+    {
+      "anti_overclaim_check": "Explicit deletion and status recording.",
+      "confidence": 0.95,
+      "decisive_branch": "deletion path",
+      "determination_id": "fcra.item_treatment_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Item deleted; current deleted status recorded",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [],
+      "rationale": "Item deleted and current deleted status recorded, consistent with treatment requirements."
+    },
+    {
+      "anti_overclaim_check": "Branch outside case scope.",
+      "confidence": 0.95,
+      "decisive_branch": "not-applicable branch",
+      "determination_id": "fcra.reinsertion_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "No reinsertion occurred",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "no_reinsertion_branch_mentioned"
+      ],
+      "rationale": "No reinsertion occurred; branch not applicable."
+    },
+    {
+      "anti_overclaim_check": "Branch outside case scope.",
+      "confidence": 0.95,
+      "decisive_branch": "not-applicable branch",
+      "determination_id": "fcra.reseller_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "No reseller branch applies",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "no_reseller_branch_mentioned"
+      ],
+      "rationale": "No reseller involved; branch not applicable."
+    },
+    {
+      "anti_overclaim_check": "Narrative does not specify the seven results-notice elements; cannot affirmatively conclude completeness.",
+      "confidence": 0.55,
+      "decisive_branch": "results notice contents unresolved",
+      "determination_id": "fcra.results_notice_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Written confirmation sent",
+          "source": "narrative"
+        },
+        {
+          "basis": "missing",
+          "fact": "Required disclosure elements not described",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "profile_rule_ids": [],
+      "rationale": "CRA telephoned consumer and sent written confirmation of deletion, but narrative does not confirm the notice included all required disclosures (procedure-description right, furnisher contact, consumer statement right, notification right, revised report)."
+    }
+  ]
+}

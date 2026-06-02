@@ -1,0 +1,124 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.consumer_statement_filed",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "the consumer filed a concise statement of dispute with the CRA. The CRA accepted the statement.",
+      "explanation": "Narrative explicitly states the consumer filed a brief statement of dispute after the reinvestigation verified the item.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.subsequent_reports_note_dispute",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "Later reports that included the same item did not note that the item was disputed and did not include or summarize the consumer's statement.",
+      "explanation": "Narrative explicitly states subsequent reports failed to note the dispute or include/summarize the statement.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "bound",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative describes a disputed personal-loan item verified after reinvestigation but does not characterize the dispute as one about completeness.",
+      "explanation": "No indication the dispute concerned completeness rather than accuracy; absence cannot be inferred as positive or negative under closed-world, treat as open-world absence resolving false for branch purposes.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.notice_direct_to_cra",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "the consumer filed a concise statement of dispute with the CRA ... No reinsertion, reseller, or direct-furnisher dispute branch applies.",
+      "explanation": "Narrative indicates the consumer interacted directly with the CRA for both the underlying dispute and the statement; no reseller or direct-furnisher branch applies.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "Narrative describes a single reinvestigation; no mention of a prior substantially similar dispute.",
+      "explanation": "Profile guidance treats absence of any frivolous/duplicate language as explicit_negative for these atoms.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "an otherwise timely and reasonable reinvestigation verified a disputed personal-loan item",
+      "explanation": "Reinvestigation was completed and verified the item, implying sufficient information was provided.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "Narrative does not describe a frivolous/irrelevant determination.",
+      "explanation": "No frivolous determination occurred, so the conditional timing metric is not applicable; numeric value remains undetermined but branch is inapplicable.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.cra_reviewed_all_consumer_info",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "an otherwise timely and reasonable reinvestigation verified a disputed personal-loan item",
+      "explanation": "Characterization of the reinvestigation as 'reasonable' supports the inference that the CRA reviewed all relevant consumer information.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.cra_considered_primary_source_documents",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "an otherwise timely and reasonable reinvestigation verified a disputed personal-loan item",
+      "explanation": "A 'reasonable' reinvestigation in the ordinary course is inferred to have considered the consumer's primary source materials.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.cra_compared_furnisher_response",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "an otherwise timely and reasonable reinvestigation verified a disputed personal-loan item",
+      "explanation": "Verification of the item through a reasonable reinvestigation implies comparison of the furnisher response against the dispute.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.cra_compared_own_file",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "an otherwise timely and reasonable reinvestigation verified a disputed personal-loan item",
+      "explanation": "A reasonable reinvestigation is inferred to include comparison against the CRA's own file contents.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "fcra.cra_reasonable_reinvestigation_performed",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "an otherwise timely and reasonable reinvestigation verified a disputed personal-loan item",
+      "explanation": "Narrative explicitly characterizes the reinvestigation as timely and reasonable.",
+      "confidence": 0.95
+    }
+  ]
+}

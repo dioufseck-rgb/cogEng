@@ -1,0 +1,277 @@
+{
+  "case_id": "cra_logic_late_results_notice_after_timely_reinvestigation",
+  "case_level_notes": "Reinvestigation was timely and substantively compliant; only the results-notice deadline was missed.",
+  "determinations": [
+    {
+      "anti_overclaim_check": "Marked true under not-applicable per policy guidance.",
+      "confidence": 0.9,
+      "decisive_branch": "not-applicable branch",
+      "determination_id": "fcra.consumer_statement_satisfied",
+      "material_facts": [
+        {
+          "basis": "profile_default",
+          "fact": "Narrative does not mention a consumer statement",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "no_consumer_statement_mentioned"
+      ],
+      "rationale": "No consumer statement was filed; branch not applicable."
+    },
+    {
+      "anti_overclaim_check": "Based on explicit reasonable review language.",
+      "confidence": 0.9,
+      "decisive_branch": "ordinary review completed",
+      "determination_id": "fcra.cra_consideration_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "CRA reasonably reviewed consumer and furnisher records",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "ordinary_cra_review_completed"
+      ],
+      "rationale": "CRA reasonably reviewed consumer and furnisher records."
+    },
+    {
+      "anti_overclaim_check": "Directly supported by narrative.",
+      "confidence": 0.95,
+      "decisive_branch": "timely furnisher notice with all relevant info",
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Notified furnisher on second business day",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Forwarded all relevant information",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [],
+      "rationale": "CRA notified furnisher on second business day with all relevant information, within 5 business days."
+    },
+    {
+      "anti_overclaim_check": "Trigger elements present.",
+      "confidence": 0.95,
+      "decisive_branch": "ordinary CRA dispute trigger",
+      "determination_id": "fcra.cra_reinvestigation_required",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Consumer disputed accuracy with identified account/field/basis",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "ordinary_cra_dispute_trigger",
+        "direct_cra_notice"
+      ],
+      "rationale": "Valid dispute triggered the reinvestigation duty."
+    },
+    {
+      "anti_overclaim_check": "Directly supported.",
+      "confidence": 0.98,
+      "decisive_branch": "within 30-day deadline",
+      "determination_id": "fcra.cra_reinvestigation_timely",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Completed in 26 days",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [],
+      "rationale": "Reinvestigation completed in 26 days, within 30-day limit."
+    },
+    {
+      "anti_overclaim_check": "All four elements explicitly present.",
+      "confidence": 0.95,
+      "decisive_branch": "valid dispute packet",
+      "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Account, field, basis identified",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "ordinary_cra_dispute_trigger"
+      ],
+      "rationale": "Dispute identifies consumer, account, disputed field, and basis."
+    },
+    {
+      "anti_overclaim_check": "Branch outside case scope.",
+      "confidence": 0.9,
+      "decisive_branch": "not-applicable branch",
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Dispute went directly to CRA, not furnisher",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "no_direct_furnisher_dispute_mentioned"
+      ],
+      "rationale": "No direct furnisher dispute path described; not applicable."
+    },
+    {
+      "anti_overclaim_check": "Failure flows from explicit untimely results notice.",
+      "confidence": 0.95,
+      "decisive_branch": "results notice timing failure",
+      "determination_id": "fcra.dispute_resolution_compliant",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Results notice sent on 8th business day after completion",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "false",
+      "profile_rule_ids": [],
+      "rationale": "Results notice was sent on 8th business day after completion, exceeding the 5-business-day deadline."
+    },
+    {
+      "anti_overclaim_check": "Branch outside case scope.",
+      "confidence": 0.95,
+      "decisive_branch": "not-applicable branch",
+      "determination_id": "fcra.frivolous_termination_valid",
+      "material_facts": [
+        {
+          "basis": "profile_default",
+          "fact": "No frivolous determination mentioned",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "no_frivolous_termination_mentioned"
+      ],
+      "rationale": "No frivolous termination was invoked; not applicable."
+    },
+    {
+      "anti_overclaim_check": "Based on verification reference; downstream third-party notification not required here.",
+      "confidence": 0.85,
+      "decisive_branch": "ordinary furnisher indirect completed",
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Furnisher verified item as accurate",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "ordinary_furnisher_indirect_completed"
+      ],
+      "rationale": "Furnisher received CRA notice and provided verification response."
+    },
+    {
+      "anti_overclaim_check": "Late results notice is a substantive timing failure, not a review trigger.",
+      "confidence": 0.9,
+      "decisive_branch": "no routing triggers",
+      "determination_id": "fcra.human_review_required",
+      "material_facts": [
+        {
+          "basis": "inferred",
+          "fact": "Ordinary verified dispute with no conflicts or missing documents",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "false",
+      "profile_rule_ids": [],
+      "rationale": "No routing triggers (identity theft, mixed-file, missing docs, date conflict, manual policy) present."
+    },
+    {
+      "anti_overclaim_check": "Item treatment branch separate from results-notice timing.",
+      "confidence": 0.95,
+      "decisive_branch": "verified item treatment",
+      "determination_id": "fcra.item_treatment_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Recorded as current and verified",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "ordinary_verified_item_treatment"
+      ],
+      "rationale": "Item verified as accurate and recorded as current."
+    },
+    {
+      "anti_overclaim_check": "Branch outside case scope.",
+      "confidence": 0.95,
+      "decisive_branch": "not-applicable branch",
+      "determination_id": "fcra.reinsertion_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Item verified, not deleted",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "no_reinsertion_branch_mentioned"
+      ],
+      "rationale": "No deletion or reinsertion described; not applicable."
+    },
+    {
+      "anti_overclaim_check": "Branch outside case scope.",
+      "confidence": 0.95,
+      "decisive_branch": "not-applicable branch",
+      "determination_id": "fcra.reseller_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Direct CRA dispute, no reseller",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "no_reseller_branch_mentioned"
+      ],
+      "rationale": "No reseller involvement; not applicable."
+    },
+    {
+      "anti_overclaim_check": "Timing requirement is explicit in policy section 6.",
+      "confidence": 0.97,
+      "decisive_branch": "untimely results notice",
+      "determination_id": "fcra.results_notice_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Notice sent on 8th business day after completion",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Required disclosures and revised report included",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "false",
+      "profile_rule_ids": [],
+      "rationale": "Results notice sent on 8th business day after completion, exceeding the 5-business-day deadline despite complete content."
+    }
+  ]
+}

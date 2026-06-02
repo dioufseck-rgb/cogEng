@@ -1,0 +1,124 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "Consumer disputed a late-payment notation with a servicer correction letter identifying the disputed field and basis.",
+      "explanation": "The dispute concerns accuracy of the late-payment mark (whether the late should be reported), not completeness of the tradeline. No indication the dispute is about missing/incomplete information.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.notice_direct_to_cra",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "The CRA ... marked the submission as duplicate and frivolous, closed the file ... did not notify the furnisher.",
+      "explanation": "Narrative shows the CRA directly received and processed the consumer's submission; no reseller or direct-furnisher path is described.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.frivolous_determination_made",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "The CRA ... marked the submission as duplicate and frivolous, closed the file without reinvestigation.",
+      "explanation": "Narrative explicitly states the CRA made a frivolous/duplicate determination.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "this new packet included a servicer correction letter that had not been supplied in the prior dispute ... The new letter was dispositive if accepted.",
+      "explanation": "Although the underlying item is the same, the packet contained new, previously unsupplied, dispositive information, so it is not substantially the same without new required information.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "The letter identified the account, disputed field, and basis ... The new letter was dispositive if accepted.",
+      "explanation": "The submission identified account, field, and basis and was dispositive, so the consumer provided sufficient information to investigate.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.frivolous_notice_sent",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "sent a closure notice that did not identify missing information.",
+      "explanation": "A closure notice associated with the frivolous determination was sent to the consumer.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.frivolous_reason_identified",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "marked the submission as duplicate and frivolous ... sent a closure notice.",
+      "explanation": "The closure notice characterized the submission as duplicate/frivolous, which identifies the reason for the determination. Narrative only flags the missing-information defect, not a missing reason.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.frivolous_missing_info_identified",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "sent a closure notice that did not identify missing information.",
+      "explanation": "Narrative explicitly states the closure notice did not identify the information required to investigate.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": null,
+      "explanation": "Narrative does not provide dates or a number of business days between the determination and the notice.",
+      "confidence": 0.0
+    },
+    {
+      "atom_id": "fcra.cra_reviewed_all_consumer_info",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "did not review the new letter.",
+      "explanation": "Narrative explicitly states the CRA did not review the new servicer correction letter submitted by the consumer.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.cra_considered_primary_source_documents",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "did not review the new letter ... The new letter was dispositive if accepted.",
+      "explanation": "The servicer correction letter is a primary source document; the CRA did not consider it.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.cra_compared_furnisher_response",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "closed the file without reinvestigation, did not notify the furnisher.",
+      "explanation": "Because the CRA did not notify the furnisher and closed without reinvestigation, there was no furnisher response to compare against the consumer's basis.",
+      "confidence": 0.9
+    }
+  ]
+}

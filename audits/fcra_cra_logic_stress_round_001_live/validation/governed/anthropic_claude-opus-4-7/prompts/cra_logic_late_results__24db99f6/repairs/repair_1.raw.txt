@@ -1,0 +1,124 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.consumer_disputed_item",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "The consumer sent a direct CRA dispute about an auto-loan late-payment month",
+      "explanation": "Narrative explicitly states the consumer disputed an item with the CRA.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.item_in_consumer_file",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "evidence": "auto-loan late-payment month ... CRA notified the furnisher ... recorded the item as current and verified",
+      "source_ids": [],
+      "explanation": "The CRA processed and recorded the disputed item, indicating it was contained in the consumer's file.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative describes dispute about a late-payment month (accuracy), not completeness.",
+      "explanation": "Record describes accuracy dispute; no indication the dispute concerned completeness.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.dispute_about_accuracy",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "direct CRA dispute about an auto-loan late-payment month ... verified the item as accurate",
+      "explanation": "The dispute concerns accuracy of the late-payment month.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.notice_direct_to_cra",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "The consumer sent a direct CRA dispute",
+      "explanation": "Narrative explicitly states the consumer disputed directly to the CRA.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.consumer_identity_sufficient",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "identified the account and disputed field ... CRA notified the furnisher on the second business day ... reasonably reviewed",
+      "explanation": "The CRA was able to identify the consumer's account and proceed with reinvestigation, indicating sufficient identity information.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.account_identified",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "identified the account and disputed field",
+      "explanation": "Narrative explicitly states the consumer identified the account.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.disputed_field_identified",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "identified the account and disputed field",
+      "explanation": "Narrative explicitly states the disputed field was identified.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.basis_explained",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "gave a clear basis",
+      "explanation": "Narrative explicitly states the consumer gave a clear basis for the dispute.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.consumer_submission_authentic",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "The consumer sent a direct CRA dispute ... CRA notified the furnisher ... reasonably reviewed",
+      "explanation": "Narrative treats the submission as a legitimate consumer dispute; no indication of authenticity issues.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "No indication of a prior duplicate dispute; CRA proceeded with full reinvestigation.",
+      "explanation": "The narrative does not describe the dispute as a duplicate, and the CRA conducted a full reinvestigation rather than terminating.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "identified the account and disputed field, and gave a clear basis ... reasonably reviewed the consumer and furnisher records",
+      "explanation": "The CRA proceeded with a reasonable reinvestigation, indicating sufficient information was provided.",
+      "confidence": 0.9
+    }
+  ]
+}

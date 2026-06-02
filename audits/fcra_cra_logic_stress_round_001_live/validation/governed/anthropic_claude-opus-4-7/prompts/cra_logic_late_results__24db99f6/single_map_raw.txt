@@ -1,0 +1,272 @@
+{
+  "sources": [
+    {
+      "source_id": "case_narrative",
+      "source_type": "case_narrative",
+      "title": "Case narrative of CRA dispute and reinvestigation",
+      "as_of_date": null,
+      "closed_world_scopes": [
+        "dispute channel (direct CRA vs reseller vs direct furnisher)",
+        "reinvestigation steps performed by CRA",
+        "results notice contents and timing",
+        "furnisher response in indirect dispute"
+      ],
+      "limitations": "Narrative is a summary; does not enumerate every possible fact such as identity theft, reinsertion, frivolous termination, or reseller involvement."
+    }
+  ],
+  "bindings": [
+    {
+      "atom_id": "fcra.consumer_disputed_item",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["case_narrative"],
+      "evidence": "The consumer sent a direct CRA dispute about an auto-loan late-payment month.",
+      "explanation": "Narrative explicitly states the consumer disputed an item.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "fcra.item_in_consumer_file",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Dispute about an auto-loan late-payment month; CRA reviewed and recorded the item as current and verified.",
+      "explanation": "The CRA had the disputed item in its file to review and record, implying it was in the consumer's file.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative describes dispute about a late-payment month but does not characterize it as completeness.",
+      "explanation": "Narrative does not affirmatively say the dispute is about completeness; cannot determine.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.dispute_about_accuracy",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Dispute about an auto-loan late-payment month with a clear basis; item ultimately verified as accurate.",
+      "explanation": "A dispute over whether a late-payment month is correct is an accuracy dispute.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.notice_direct_to_cra",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["case_narrative"],
+      "evidence": "The consumer sent a direct CRA dispute.",
+      "explanation": "Narrative explicitly states the dispute was sent directly to the CRA.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "fcra.consumer_identity_sufficient",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "CRA proceeded with reinvestigation, notified furnisher, and reviewed records.",
+      "explanation": "CRA successfully investigated the dispute, implying identity information was sufficient.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.account_identified",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["case_narrative"],
+      "evidence": "Identified the account and disputed field.",
+      "explanation": "Narrative explicitly says the account was identified.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "fcra.disputed_field_identified",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["case_narrative"],
+      "evidence": "Identified the account and disputed field.",
+      "explanation": "Narrative explicitly says the disputed field was identified.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "fcra.basis_explained",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["case_narrative"],
+      "evidence": "Gave a clear basis.",
+      "explanation": "Narrative explicitly says the consumer gave a clear basis.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "fcra.consumer_submission_authentic",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "CRA processed the dispute as a consumer dispute without authenticity issues noted.",
+      "explanation": "CRA's acceptance and full processing imply submission was treated as authentic.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not mention any prior duplicate dispute.",
+      "explanation": "No information about prior duplicate disputes; cannot determine.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "CRA conducted a reasonable reinvestigation, including review of records.",
+      "explanation": "CRA was able to investigate, implying information was sufficient.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "undetermined",
+      "value": false,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No frivolous determination is described.",
+      "explanation": "No frivolous termination occurred, so no business-day count applies.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.cra_reviewed_all_consumer_info",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "CRA reasonably reviewed the consumer and furnisher records; forwarded all relevant information.",
+      "explanation": "Narrative describes a reasonable review of consumer records.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.cra_considered_primary_source_documents",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative mentions records review generally but does not specifically describe primary source documents.",
+      "explanation": "Narrative does not affirm or deny review of primary source documents.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.cra_compared_furnisher_response",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Reasonably reviewed the consumer and furnisher records.",
+      "explanation": "Review of both consumer and furnisher records implies comparison.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.cra_compared_own_file",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative describes review of consumer and furnisher records, not a specific comparison against the CRA's own file.",
+      "explanation": "No explicit statement about comparison against CRA's own file.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.cra_reasonable_reinvestigation_performed",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["case_narrative"],
+      "evidence": "Reasonably reviewed the consumer and furnisher records.",
+      "explanation": "Narrative explicitly characterizes the review as reasonable.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.dispositive_info_not_ignored",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Reasonable reinvestigation reviewed consumer and furnisher records.",
+      "explanation": "No indication that dispositive consumer information was ignored.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.automated_code_only",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Reasonably reviewed the consumer and furnisher records.",
+      "explanation": "Description of substantive review contradicts an automated-code-only process.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.human_review_of_documents_performed",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative says CRA reasonably reviewed records but does not specify human document review.",
+      "explanation": "The narrative does not explicitly confirm a human review of documents.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.furnished_by_furnisher",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "CRA notified the furnisher and reviewed furnisher records about the auto-loan late-payment.",
+      "explanation": "The item being investigated through a furnisher confirms it was furnished by a furnisher.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.expedited_deleted_within_3_business_days",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "CRA completed reinvestigation in 26 days and verified the item as accurate.",
+      "explanation": "Item was verified and not deleted, and process took 26 days, so no expedited 3-day deletion.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.cra_notified_furnisher",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["case_narrative"],
+      "evidence": "The CRA notified the furnisher on the second business day.",
+      "explanation": "Narrative explicitly states CRA notified the furnisher.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "fcra.business_days_to_notify_furnisher",
+      "status": "bound",
+      "value": 2,
+      "basis": "explicit_positive",
+      "source_ids": ["case_narrative"],
+      "evidence": "CRA notified the furnisher on the second business day.",
+      "explanation": "Narrative explicitly states 2 business days.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "fcra.notice_included_all_relevant_info",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",

@@ -1,0 +1,194 @@
+{
+  "case_id": "cra_logic_clean_conflict_pending_manual_review",
+  "determinations": [
+    {
+      "determination_id": "fcra.consumer_statement_satisfied",
+      "outcome": "true",
+      "rationale": "No consumer statement branch applies per narrative.",
+      "confidence": 0.9,
+      "decisive_branch": "not applicable - no consumer statement filed",
+      "material_facts": [
+        {"fact": "No consumer-statement branch applies", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["no_consumer_statement_mentioned"],
+      "anti_overclaim_check": "Marked satisfied because branch is outside case scope."
+    },
+    {
+      "determination_id": "fcra.cra_consideration_satisfied",
+      "outcome": "undetermined",
+      "rationale": "CRA has not resolved the material date conflict and has not completed its review; reasonableness of consideration cannot yet be assessed.",
+      "confidence": 0.8,
+      "decisive_branch": "unresolved - reinvestigation pending manual review",
+      "material_facts": [
+        {"fact": "Materially conflicting dates remain unresolved", "source": "narrative", "basis": "explicit"},
+        {"fact": "Reinvestigation not completed", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["material_date_conflict_route"],
+      "anti_overclaim_check": "Not asserting failure or success while review is pending."
+    },
+    {
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "outcome": "true",
+      "rationale": "CRA notified the furnisher on the third business day and forwarded the consumer's receipt.",
+      "confidence": 0.95,
+      "decisive_branch": "timely furnisher notice with relevant info",
+      "material_facts": [
+        {"fact": "Notified furnisher on third business day", "source": "narrative", "basis": "explicit"},
+        {"fact": "Forwarded payment receipt", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": [],
+      "anti_overclaim_check": "Based on explicit facts about transmission timing and content."
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_required",
+      "outcome": "true",
+      "rationale": "Valid intake packet, item in file disputed for accuracy, received directly by CRA.",
+      "confidence": 0.95,
+      "decisive_branch": "direct CRA dispute trigger",
+      "material_facts": [
+        {"fact": "Consumer disputed directly with CRA", "source": "narrative", "basis": "explicit"},
+        {"fact": "Intake packet was valid", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["ordinary_cra_dispute_trigger", "direct_cra_notice"],
+      "anti_overclaim_check": "Based on explicit narrative."
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_timely",
+      "outcome": "undetermined",
+      "rationale": "Reinvestigation not yet completed; record does not show deadline elapsed or met.",
+      "confidence": 0.75,
+      "decisive_branch": "unresolved - completion pending",
+      "material_facts": [
+        {"fact": "CRA has not completed reinvestigation", "source": "narrative", "basis": "explicit"},
+        {"fact": "No date facts establishing timeliness", "source": "narrative", "basis": "missing"}
+      ],
+      "profile_rule_ids": [],
+      "anti_overclaim_check": "Cannot conclude timely or untimely without completion or deadline facts."
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+      "outcome": "true",
+      "rationale": "Valid intake packet identifies consumer, item, field, and basis.",
+      "confidence": 0.95,
+      "decisive_branch": "valid dispute packet received directly",
+      "material_facts": [
+        {"fact": "Intake packet was valid", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["ordinary_cra_dispute_trigger"],
+      "anti_overclaim_check": "Narrative explicitly affirms validity."
+    },
+    {
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "outcome": "true",
+      "rationale": "No direct furnisher dispute branch applies.",
+      "confidence": 0.95,
+      "decisive_branch": "not applicable",
+      "material_facts": [
+        {"fact": "No direct-furnisher branch applies", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["no_direct_furnisher_dispute_mentioned"],
+      "anti_overclaim_check": "Branch explicitly out of scope."
+    },
+    {
+      "determination_id": "fcra.dispute_resolution_compliant",
+      "outcome": "undetermined",
+      "rationale": "Substantive consideration, timing, item treatment, and results notice are unresolved pending manual review.",
+      "confidence": 0.8,
+      "decisive_branch": "unresolved - manual review pending",
+      "material_facts": [
+        {"fact": "Final results not sent", "source": "narrative", "basis": "explicit"},
+        {"fact": "Item disposition not determined", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["material_date_conflict_route"],
+      "anti_overclaim_check": "Root cannot be confirmed compliant while load-bearing sub-determinations remain undetermined."
+    },
+    {
+      "determination_id": "fcra.frivolous_termination_valid",
+      "outcome": "true",
+      "rationale": "No frivolous termination invoked; branch not applicable.",
+      "confidence": 0.95,
+      "decisive_branch": "not applicable",
+      "material_facts": [
+        {"fact": "No frivolous determination in record", "source": "narrative", "basis": "profile_default"}
+      ],
+      "profile_rule_ids": ["no_frivolous_termination_mentioned"],
+      "anti_overclaim_check": "Branch outside scope; marked satisfied/NA per profile."
+    },
+    {
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "outcome": "undetermined",
+      "rationale": "Furnisher responded, but conflicting dates remain and furnisher's modify/delete duty depends on unresolved investigation outcome.",
+      "confidence": 0.6,
+      "decisive_branch": "unresolved - pending conflict resolution",
+      "material_facts": [
+        {"fact": "Furnisher response shows conflicting dates", "source": "narrative", "basis": "explicit"},
+        {"fact": "Investigation outcome not determined", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": [],
+      "anti_overclaim_check": "Cannot confirm full furnisher compliance while record shows unresolved conflict."
+    },
+    {
+      "determination_id": "fcra.human_review_required",
+      "outcome": "true",
+      "rationale": "Material date conflict and conflicting documents trigger manual review.",
+      "confidence": 0.98,
+      "decisive_branch": "routing trigger - material date conflict",
+      "material_facts": [
+        {"fact": "Case routed to manual review", "source": "narrative", "basis": "explicit"},
+        {"fact": "Materially conflicting dates", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["material_date_conflict_route", "human_review_from_routing_cues"],
+      "anti_overclaim_check": "Routing flag based on explicit narrative."
+    },
+    {
+      "determination_id": "fcra.item_treatment_satisfied",
+      "outcome": "undetermined",
+      "rationale": "CRA has not determined whether to verify, delete, or modify the item.",
+      "confidence": 0.9,
+      "decisive_branch": "unresolved - disposition pending",
+      "material_facts": [
+        {"fact": "No determination of verify/delete/modify yet", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": [],
+      "anti_overclaim_check": "Treatment cannot be evaluated before disposition."
+    },
+    {
+      "determination_id": "fcra.reinsertion_satisfied",
+      "outcome": "true",
+      "rationale": "No reinsertion branch applies.",
+      "confidence": 0.95,
+      "decisive_branch": "not applicable",
+      "material_facts": [
+        {"fact": "No reinsertion branch applies", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["no_reinsertion_branch_mentioned"],
+      "anti_overclaim_check": "Branch explicitly out of scope."
+    },
+    {
+      "determination_id": "fcra.reseller_satisfied",
+      "outcome": "true",
+      "rationale": "No reseller branch applies.",
+      "confidence": 0.95,
+      "decisive_branch": "not applicable",
+      "material_facts": [
+        {"fact": "No reseller branch applies", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["no_reseller_branch_mentioned"],
+      "anti_overclaim_check": "Branch explicitly out of scope."
+    },
+    {
+      "determination_id": "fcra.results_notice_satisfied",
+      "outcome": "false",
+      "rationale": "Final results have not been sent, though completion is pending; the duty's required act has not occurred.",
+      "confidence": 0.7,
+      "decisive_branch": "results notice not issued",
+      "material_facts": [
+        {"fact": "CRA has not sent final results", "source": "narrative", "basis": "explicit"},
+        {"fact": "Reinvestigation not completed", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": [],
+      "anti_overclaim_check": "Marked false because the required notice has not issued; however acknowledges completion is still pending."
+    }
+  ],
+  "case_level_notes": "Substantive dispositions remain pending due to unresolved material date conflict; case routed to manual review."
+}

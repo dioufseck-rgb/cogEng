@@ -1,0 +1,124 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative describes a dispute of a mortgage tradeline, with no mention of completeness as the basis.",
+      "explanation": "No indication the dispute concerned completeness; the dispute is framed as accuracy of a tradeline.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.notice_direct_to_cra",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "Consumer disputed through a reseller; reseller conveyed the dispute packet to the source CRA.",
+      "explanation": "The dispute reached the CRA via the reseller channel, not directly from the consumer.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not describe any prior substantially similar dispute.",
+      "explanation": "No indication this dispute is a duplicate of a prior dispute lacking new information.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "Source CRA completed a reasonable reinvestigation, notified the furnisher, verified the item.",
+      "explanation": "The CRA was able to perform a reasonable reinvestigation, so information was sufficient.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "bound",
+      "value": null,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "No frivolous or irrelevant determination was made.",
+      "explanation": "Conditional support atom: the triggering frivolous-determination branch is not applicable, so the numeric measurement is not needed.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.cra_reviewed_all_consumer_info",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "Source CRA completed a reasonable reinvestigation.",
+      "explanation": "A reasonable reinvestigation entails review of relevant consumer-submitted information.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "fcra.cra_considered_primary_source_documents",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "Source CRA completed a reasonable reinvestigation.",
+      "explanation": "Reasonable reinvestigation includes consideration of primary source documents submitted by the consumer.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.cra_compared_furnisher_response",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "Source CRA notified furnisher timely, verified the item, completed reasonable reinvestigation.",
+      "explanation": "Verification implies comparison of furnisher response against the dispute basis.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "fcra.cra_compared_own_file",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "Source CRA completed a reasonable reinvestigation and recorded current status.",
+      "explanation": "Reasonable reinvestigation entails comparison against the CRA's own file.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.cra_reasonable_reinvestigation_performed",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "The source CRA itself completed a reasonable reinvestigation.",
+      "explanation": "Narrative explicitly states a reasonable reinvestigation was performed.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.dispositive_info_not_ignored",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "Source CRA completed a reasonable reinvestigation and verified the item.",
+      "explanation": "No indication dispositive information was ignored; reasonable reinvestigation implies review of all relevant info.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.automated_code_only",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "Source CRA completed a reasonable reinvestigation, notified furnisher, verified the item.",
+      "explanation": "The narrative describes a reasonable reinvestigation rather than mere automated coding.",
+      "confidence": 0.8
+    }
+  ]
+}

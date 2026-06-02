@@ -1,0 +1,281 @@
+{
+  "sources": [
+    {
+      "source_id": "case_narrative",
+      "source_type": "case_narrative",
+      "title": "Consumer dispute and CRA frivolous determination narrative",
+      "as_of_date": null,
+      "closed_world_scopes": [
+        "consumer submission contents",
+        "CRA frivolous notice contents and timing",
+        "CRA reinvestigation actions",
+        "furnisher notice actions",
+        "results notice actions"
+      ],
+      "limitations": "Narrative is summary-level; does not describe reseller, reinsertion, direct-furnisher dispute, or identity-theft branches."
+    }
+  ],
+  "bindings": [
+    {
+      "atom_id": "fcra.consumer_disputed_item",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["case_narrative"],
+      "evidence": "The consumer wrote to the CRA saying ... 'something on my report is wrong.'",
+      "explanation": "Narrative explicitly states the consumer submitted a dispute, however vague.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.item_in_consumer_file",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Submission did not identify an account or specific item.",
+      "explanation": "Whether the (unidentified) item exists in the consumer's file is not addressed by the narrative.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Consumer said only 'something on my report is wrong'; no basis explained.",
+      "explanation": "Narrative does not specify completeness as the dispute subject.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.dispute_about_accuracy",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Consumer said only 'something on my report is wrong'; no basis explained.",
+      "explanation": "Statement 'wrong' is suggestive of accuracy but the narrative says no basis was identified; insufficient to bind true or false.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.notice_direct_to_cra",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["case_narrative"],
+      "evidence": "The consumer wrote to the CRA ...",
+      "explanation": "Narrative states consumer notified the CRA directly.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.consumer_identity_sufficient",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not describe consumer identity details in the submission.",
+      "explanation": "Identity sufficiency not addressed; insufficient information vs. identity are distinct.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.account_identified",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "The submission did not identify an account.",
+      "explanation": "Narrative explicitly states the account was not identified.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.disputed_field_identified",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "The submission did not identify a disputed field.",
+      "explanation": "Narrative explicitly states the disputed field was not identified.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.basis_explained",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "The submission ... did not explain a basis.",
+      "explanation": "Narrative explicitly states no basis was explained.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.consumer_submission_authentic",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not address authenticity.",
+      "explanation": "Authenticity is neither affirmed nor denied.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.frivolous_determination_made",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["case_narrative"],
+      "evidence": "The CRA made a frivolous-or-irrelevant determination.",
+      "explanation": "Narrative directly states the determination was made.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not mention a prior dispute.",
+      "explanation": "No information about duplication; cannot bind.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Submission did not identify an account, disputed field, or basis; CRA said missing information was needed before investigation.",
+      "explanation": "Narrative affirmatively describes that required information was missing and that the CRA identified the missing information.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.frivolous_notice_sent",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["case_narrative"],
+      "evidence": "sent notice 3 business days later",
+      "explanation": "Narrative explicitly states notice of the frivolous determination was sent.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.frivolous_reason_identified",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "explained that this missing information was needed before investigation",
+      "explanation": "Narrative indicates the notice explained the reason (missing required info) for the determination.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.frivolous_missing_info_identified",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["case_narrative"],
+      "evidence": "identified the missing account and disputed information",
+      "explanation": "Narrative explicitly states the notice identified the missing information needed to investigate.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "bound",
+      "value": 3,
+      "basis": "explicit_positive",
+      "source_ids": ["case_narrative"],
+      "evidence": "sent notice 3 business days later",
+      "explanation": "Narrative states the notice was sent 3 business days after the determination.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.cra_reviewed_all_consumer_info",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "No reinvestigation was conducted",
+      "explanation": "Narrative states no reinvestigation occurred, implying no review of consumer info; closed-world scope covers CRA reinvestigation actions.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.cra_considered_primary_source_documents",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "No reinvestigation was conducted",
+      "explanation": "Narrative's closed-world scope of CRA reinvestigation actions affirms no investigative steps occurred.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.cra_compared_furnisher_response",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "no furnisher notice was sent ... No reinvestigation was conducted",
+      "explanation": "No furnisher notice means no furnisher response existed to compare.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.cra_compared_own_file",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "No reinvestigation was conducted",
+      "explanation": "No reinvestigation excludes comparison against CRA file.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.cra_reasonable_reinvestigation_performed",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "No reinvestigation was conducted",
+      "explanation": "Narrative explicitly states no reinvestigation occurred.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.dispositive_info_not_ignored",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Submission did not identify a field or basis; no dispositive information described.",
+      "explanation": "No dispositive consumer information is described in the submission, so the question is not meaningfully answered.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.automated_code_only",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not describe any investigation process.",
+      "explanation": "No reinvestigation occurred at all; whether processing was 'automated code only' is not addressed.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.human_review_of_documents_performed",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "No reinvestigation was conducted",
+      "explanation": "Narrative's closed-world scope of CRA reinvestigation actions excludes any document review.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.furnished_by_furnisher",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Item was not identified.",
+      "explanation": "Disputed item not identified, so its furnisher origin is unknown.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.expedited_deleted_within_3_business_days",
+      "status": "

@@ -1,0 +1,296 @@
+{
+  "case_id": "cra_logic_invalid_duplicate_with_new_material",
+  "case_level_notes": "CRA improperly invoked duplicate/frivolous termination despite new dispositive servicer correction letter, failing reinvestigation, furnisher-notice, consideration, item-treatment, and notice duties; human review required.",
+  "determinations": [
+    {
+      "anti_overclaim_check": "Marked satisfied because the duty branch is outside the case's natural scope.",
+      "confidence": 0.9,
+      "decisive_branch": "not-applicable branch",
+      "determination_id": "fcra.consumer_statement_satisfied",
+      "material_facts": [
+        {
+          "basis": "profile_default",
+          "fact": "Narrative does not mention a consumer statement",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "no_consumer_statement_mentioned"
+      ],
+      "rationale": "No consumer statement was filed; branch not applicable."
+    },
+    {
+      "anti_overclaim_check": "Failure is grounded in explicit narrative facts.",
+      "confidence": 0.95,
+      "decisive_branch": "applicable consideration/reasonableness branch",
+      "determination_id": "fcra.cra_consideration_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "CRA did not review the new letter",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Letter was dispositive if accepted",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "false",
+      "profile_rule_ids": [],
+      "rationale": "CRA did not review the new dispositive servicer correction letter and instead closed the file as duplicate without reinvestigation."
+    },
+    {
+      "anti_overclaim_check": "Directly stated failure.",
+      "confidence": 0.97,
+      "decisive_branch": "applicable furnisher-notice branch",
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "CRA did not notify the furnisher",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "false",
+      "profile_rule_ids": [],
+      "rationale": "CRA did not notify the furnisher of the dispute."
+    },
+    {
+      "anti_overclaim_check": "Trigger is supported; duplicate/frivolous termination was not valid because new material was provided.",
+      "confidence": 0.95,
+      "decisive_branch": "applicable reinvestigation-trigger branch",
+      "determination_id": "fcra.cra_reinvestigation_required",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Letter identified account, disputed field, and basis",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "New servicer correction letter not in prior dispute",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "ordinary_cra_dispute_trigger"
+      ],
+      "rationale": "Consumer submitted a valid dispute packet identifying account, field, and basis with new supporting documentation, triggering the duty."
+    },
+    {
+      "anti_overclaim_check": "An applicable required duty was not completed.",
+      "confidence": 0.9,
+      "decisive_branch": "applicable timing branch",
+      "determination_id": "fcra.cra_reinvestigation_timely",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "File closed without reinvestigation",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "false",
+      "profile_rule_ids": [],
+      "rationale": "No reinvestigation was conducted at all; therefore timely completion of a required reinvestigation was not satisfied."
+    },
+    {
+      "anti_overclaim_check": "Based on explicit packet contents.",
+      "confidence": 0.95,
+      "decisive_branch": "applicable trigger branch",
+      "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Packet identified consumer item, field, basis",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "ordinary_cra_dispute_trigger"
+      ],
+      "rationale": "Dispute packet was complete and included new dispositive material; valid trigger."
+    },
+    {
+      "anti_overclaim_check": "Outside natural scope.",
+      "confidence": 0.9,
+      "decisive_branch": "not-applicable branch",
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "material_facts": [
+        {
+          "basis": "profile_default",
+          "fact": "No direct dispute to furnisher mentioned",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "no_direct_furnisher_dispute_mentioned"
+      ],
+      "rationale": "No direct furnisher dispute described; branch not applicable."
+    },
+    {
+      "anti_overclaim_check": "Aggregates explicit failures of selected sub-duties.",
+      "confidence": 0.97,
+      "decisive_branch": "aggregate compliance branch",
+      "determination_id": "fcra.dispute_resolution_compliant",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Marked duplicate/frivolous despite new dispositive letter",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Closure notice did not identify missing information",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "false",
+      "profile_rule_ids": [],
+      "rationale": "Multiple applicable duties failed: invalid frivolous termination, no furnisher notice, no reinvestigation, no consideration of new evidence, deficient closure notice."
+    },
+    {
+      "anti_overclaim_check": "Directly contradicts validity requirements in policy 8.",
+      "confidence": 0.97,
+      "decisive_branch": "frivolous-termination branch (invalid)",
+      "determination_id": "fcra.frivolous_termination_valid",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "New servicer correction letter submitted",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Closure notice did not identify missing information",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "false",
+      "profile_rule_ids": [],
+      "rationale": "Termination invalid: new dispositive material was submitted, so the dispute was not duplicate/frivolous; closure notice also failed to identify missing information."
+    },
+    {
+      "anti_overclaim_check": "Per instructions, upstream transmission failure does not impose recipient duty; recipient branch is outside scope.",
+      "confidence": 0.85,
+      "decisive_branch": "not-applicable branch (no agency notice received)",
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "CRA did not notify furnisher",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [],
+      "rationale": "CRA never sent notice to furnisher, so the furnisher-side duty under 1681s-2(b) is not triggered. Recipient-side branch is not applicable."
+    },
+    {
+      "anti_overclaim_check": "Routing call distinct from substantive duties.",
+      "confidence": 0.95,
+      "decisive_branch": "routing trigger",
+      "determination_id": "fcra.human_review_required",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Dispositive letter not reviewed",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Invalid duplicate/frivolous closure",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "manual_review_for_forwarding_failure",
+        "human_review_from_routing_cues"
+      ],
+      "rationale": "Primary source documents (servicer correction letter) were not reviewed; material evidence conflict and improper duplicate-termination trigger manual review."
+    },
+    {
+      "anti_overclaim_check": "Without a reasonable reinvestigation the verified-status outcome cannot stand.",
+      "confidence": 0.9,
+      "decisive_branch": "applicable item-treatment branch",
+      "determination_id": "fcra.item_treatment_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "File closed without reinvestigation",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Dispositive letter not considered",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "false",
+      "profile_rule_ids": [],
+      "rationale": "No reasonable reinvestigation was performed, so the item could not be properly verified/modified/deleted; the late-payment notation's status was not properly determined."
+    },
+    {
+      "anti_overclaim_check": "Outside scope.",
+      "confidence": 0.95,
+      "decisive_branch": "not-applicable branch",
+      "determination_id": "fcra.reinsertion_satisfied",
+      "material_facts": [
+        {
+          "basis": "profile_default",
+          "fact": "No reinsertion mentioned",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "no_reinsertion_branch_mentioned"
+      ],
+      "rationale": "No deletion/reinsertion described; branch not applicable."
+    },
+    {
+      "anti_overclaim_check": "Outside scope.",
+      "confidence": 0.95,
+      "decisive_branch": "not-applicable branch",
+      "determination_id": "fcra.reseller_satisfied",
+      "material_facts": [
+        {
+          "basis": "profile_default",
+          "fact": "No reseller mentioned",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "no_reseller_branch_mentioned"
+      ],
+      "rationale": "No reseller involvement described; branch not applicable."
+    },
+    {
+      "anti_overclaim_check": "Notice failure directly stated.",
+      "confidence": 0.93,
+      "decisive_branch": "applicable results/closure notice branch",
+      "determination_id": "fcra.results_notice_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Closure notice did not identify missing information",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Termination invalid",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "false",
+      "profile_rule_ids": [],
+      "rationale": "Closure notice was sent instead of valid results notice; it did not identify missing information and stemmed from an invalid frivolous termination, failing 1681i(a)(6)/(3) notice requirements."
+    }
+  ]
+}

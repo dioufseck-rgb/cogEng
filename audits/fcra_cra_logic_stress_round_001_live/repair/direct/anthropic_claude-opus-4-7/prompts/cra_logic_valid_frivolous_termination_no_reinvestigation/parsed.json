@@ -1,0 +1,299 @@
+{
+  "case_id": "cra_logic_valid_frivolous_termination_no_reinvestigation",
+  "case_level_notes": "Valid frivolous/irrelevant termination eliminates downstream reinvestigation, furnisher-notice, and results-notice duties. Termination notice met statutory timing and content requirements.",
+  "determinations": [
+    {
+      "anti_overclaim_check": "Not applicable branch only; no claim about subsequent reporting compliance beyond scope.",
+      "confidence": 0.9,
+      "decisive_branch": "not applicable - no consumer statement",
+      "determination_id": "fcra.consumer_statement_satisfied",
+      "material_facts": [
+        {
+          "basis": "profile_default",
+          "fact": "Narrative does not mention a consumer statement",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "no_consumer_statement_mentioned"
+      ],
+      "rationale": "No consumer statement was filed; branch not applicable."
+    },
+    {
+      "anti_overclaim_check": "Consideration duty does not attach when termination is valid.",
+      "confidence": 0.85,
+      "decisive_branch": "not applicable - valid frivolous termination",
+      "determination_id": "fcra.cra_consideration_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "CRA made a frivolous-or-irrelevant determination",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Submission lacked account, field, and basis",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [],
+      "rationale": "Dispute was terminated as frivolous due to insufficient information; no reinvestigation duty to perform consideration arose."
+    },
+    {
+      "anti_overclaim_check": "Furnisher-notice duty inapplicable when valid frivolous termination applies.",
+      "confidence": 0.85,
+      "decisive_branch": "not applicable - no reinvestigation triggered",
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "No furnisher notice was sent",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Frivolous termination made",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [],
+      "rationale": "Because dispute was validly terminated as frivolous, the CRA was not obligated to send furnisher notice."
+    },
+    {
+      "anti_overclaim_check": "Determination reflects that reinvestigation was not required, consistent with packet.",
+      "confidence": 0.95,
+      "decisive_branch": "frivolous/irrelevant termination - reinvestigation not required",
+      "determination_id": "fcra.cra_reinvestigation_required",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Submission did not identify account, field, or basis",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "CRA made frivolous determination",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "false",
+      "profile_rule_ids": [],
+      "rationale": "The dispute packet did not identify the account, disputed field, or basis; valid frivolous/irrelevant termination applies, so no reinvestigation was required."
+    },
+    {
+      "anti_overclaim_check": "Timing branch inapplicable when no reinvestigation required.",
+      "confidence": 0.85,
+      "decisive_branch": "not applicable - no reinvestigation required",
+      "determination_id": "fcra.cra_reinvestigation_timely",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "No reinvestigation conducted because of valid termination",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [],
+      "rationale": "No reinvestigation was required; timing duty does not apply."
+    },
+    {
+      "anti_overclaim_check": "Directly based on explicit narrative facts.",
+      "confidence": 0.95,
+      "decisive_branch": "invalid trigger - insufficient dispute packet",
+      "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Consumer wrote only 'something on my report is wrong'",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "No account, field, or basis identified",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "false",
+      "profile_rule_ids": [],
+      "rationale": "Submission failed to identify account, disputed field, or basis, so it is not a valid dispute packet triggering reinvestigation."
+    },
+    {
+      "anti_overclaim_check": "Branch inapplicable per profile guidance.",
+      "confidence": 0.9,
+      "decisive_branch": "not applicable - no direct furnisher dispute",
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Narrative describes only CRA submission",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "no_direct_furnisher_dispute_mentioned"
+      ],
+      "rationale": "No direct furnisher dispute is described; branch not applicable."
+    },
+    {
+      "anti_overclaim_check": "Compliance assessed only within selected branch facts.",
+      "confidence": 0.9,
+      "decisive_branch": "frivolous termination branch - compliant",
+      "determination_id": "fcra.dispute_resolution_compliant",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Notice sent 3 business days after determination",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Notice identified missing account and disputed information",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Notice explained what was needed before investigation",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [],
+      "rationale": "The CRA executed a valid frivolous/irrelevant termination with timely (3 business day) notice that identified the missing account and disputed information and explained what was needed."
+    },
+    {
+      "anti_overclaim_check": "All statutory elements (timing, reasons, identification of needed info) present per narrative.",
+      "confidence": 0.95,
+      "decisive_branch": "valid frivolous/irrelevant termination",
+      "determination_id": "fcra.frivolous_termination_valid",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Submission was insufficient (no account, field, or basis)",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Notice sent 3 business days later",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Notice identified missing info and explained reasons",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [],
+      "rationale": "Dispute lacked sufficient information to investigate; CRA notified consumer within 5 business days, gave reasons, and identified information needed."
+    },
+    {
+      "anti_overclaim_check": "Furnisher indirect duties inapplicable absent agency notice.",
+      "confidence": 0.85,
+      "decisive_branch": "not applicable - no agency notice triggered",
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "No furnisher notice was sent",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [],
+      "rationale": "No CRA-to-furnisher notice was sent because of valid termination; furnisher indirect duties not triggered."
+    },
+    {
+      "anti_overclaim_check": "Routing decided independently from substantive duties.",
+      "confidence": 0.85,
+      "decisive_branch": "no routing trigger present",
+      "determination_id": "fcra.human_review_required",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Narrative contains no identity theft, mixed-file, or conflict cues",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "false",
+      "profile_rule_ids": [],
+      "rationale": "No routing triggers (identity theft, mixed-file, missing documents, date conflicts, manual review policy) appear in this narrative. The case is a clean frivolous termination."
+    },
+    {
+      "anti_overclaim_check": "Item treatment branch only attaches after reinvestigation.",
+      "confidence": 0.85,
+      "decisive_branch": "not applicable - no reinvestigation conducted",
+      "determination_id": "fcra.item_treatment_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "No reinvestigation conducted",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [],
+      "rationale": "No reinvestigation occurred and no defect was found; item treatment duty does not apply."
+    },
+    {
+      "anti_overclaim_check": "Inapplicable branch per profile.",
+      "confidence": 0.95,
+      "decisive_branch": "not applicable - no reinsertion",
+      "determination_id": "fcra.reinsertion_satisfied",
+      "material_facts": [
+        {
+          "basis": "profile_default",
+          "fact": "Narrative has no deletion or reappearance",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "no_reinsertion_branch_mentioned"
+      ],
+      "rationale": "No deletion or reinsertion described; branch not applicable."
+    },
+    {
+      "anti_overclaim_check": "Inapplicable branch per profile.",
+      "confidence": 0.95,
+      "decisive_branch": "not applicable - no reseller path",
+      "determination_id": "fcra.reseller_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Consumer wrote directly to CRA",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "no_reseller_branch_mentioned"
+      ],
+      "rationale": "No reseller involvement described; branch not applicable."
+    },
+    {
+      "anti_overclaim_check": "Results notice duty inapplicable absent reinvestigation completion.",
+      "confidence": 0.85,
+      "decisive_branch": "not applicable - no reinvestigation completed",
+      "determination_id": "fcra.results_notice_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "No results notice sent because no reinvestigation occurred",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Frivolous-termination notice sent within 5 business days",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [],
+      "rationale": "No reinvestigation occurred, so a results notice was not required. The frivolous-termination notice (a separate duty) was timely sent."
+    }
+  ]
+}

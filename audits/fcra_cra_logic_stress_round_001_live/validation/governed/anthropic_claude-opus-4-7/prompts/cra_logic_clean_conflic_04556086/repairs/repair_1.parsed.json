@@ -1,0 +1,122 @@
+{
+  "fcra.automated_code_only": {
+    "atom_id": "fcra.automated_code_only",
+    "basis": "explicit_negative",
+    "confidence": 0.9,
+    "evidence": "Case is routed to manual review because of the material date conflict and conflicting documents.",
+    "explanation": "Manual review routing affirmatively negates automated-code-only handling.",
+    "source_ids": [],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.business_days_to_frivolous_notice": {
+    "atom_id": "fcra.business_days_to_frivolous_notice",
+    "basis": "inferred_from_record",
+    "confidence": 0.8,
+    "evidence": "No frivolous determination was made; branch not applicable.",
+    "explanation": "Conditional support atom whose triggering condition (frivolous determination) is clearly absent, so numeric measurement does not arise.",
+    "source_ids": [],
+    "status": "undetermined",
+    "value": false
+  },
+  "fcra.cra_compared_furnisher_response": {
+    "atom_id": "fcra.cra_compared_furnisher_response",
+    "basis": "open_world_absence",
+    "confidence": 0.7,
+    "evidence": "CRA has not yet resolved the conflict between the documents.",
+    "explanation": "Comparison is pending in manual review; record does not affirm completion.",
+    "source_ids": [],
+    "status": "undetermined",
+    "value": false
+  },
+  "fcra.cra_compared_own_file": {
+    "atom_id": "fcra.cra_compared_own_file",
+    "basis": "open_world_absence",
+    "confidence": 0.7,
+    "evidence": "CRA has not completed reinvestigation; conflict among receipt, CRA file, and furnisher response unresolved.",
+    "explanation": "Record does not affirmatively state CRA compared its own file; reinvestigation incomplete.",
+    "source_ids": [],
+    "status": "undetermined",
+    "value": false
+  },
+  "fcra.cra_considered_primary_source_documents": {
+    "atom_id": "fcra.cra_considered_primary_source_documents",
+    "basis": "open_world_absence",
+    "confidence": 0.7,
+    "evidence": "CRA has not yet completed the reinvestigation; case is in manual review.",
+    "explanation": "Receipt was forwarded but record does not state whether CRA has considered it; reinvestigation pending.",
+    "source_ids": [],
+    "status": "undetermined",
+    "value": false
+  },
+  "fcra.cra_reasonable_reinvestigation_performed": {
+    "atom_id": "fcra.cra_reasonable_reinvestigation_performed",
+    "basis": "open_world_absence",
+    "confidence": 0.8,
+    "evidence": "CRA has not completed the reinvestigation.",
+    "explanation": "Reinvestigation is still pending in manual review, so reasonableness cannot yet be evaluated.",
+    "source_ids": [],
+    "status": "undetermined",
+    "value": false
+  },
+  "fcra.cra_reviewed_all_consumer_info": {
+    "atom_id": "fcra.cra_reviewed_all_consumer_info",
+    "basis": "open_world_absence",
+    "confidence": 0.7,
+    "evidence": "CRA has not yet resolved the conflict or completed the reinvestigation.",
+    "explanation": "Reinvestigation is incomplete and the record does not affirmatively show review of all consumer info; cannot bind true or false.",
+    "source_ids": [],
+    "status": "undetermined",
+    "value": false
+  },
+  "fcra.dispositive_info_not_ignored": {
+    "atom_id": "fcra.dispositive_info_not_ignored",
+    "basis": "open_world_absence",
+    "confidence": 0.7,
+    "evidence": "Reinvestigation pending; case routed to manual review for material date conflict.",
+    "explanation": "Cannot determine whether dispositive info was ignored because the CRA has not yet acted on the materials.",
+    "source_ids": [],
+    "status": "undetermined",
+    "value": false
+  },
+  "fcra.dispute_about_completeness": {
+    "atom_id": "fcra.dispute_about_completeness",
+    "basis": "explicit_negative",
+    "confidence": 0.85,
+    "evidence": "Consumer disputed a late-payment month with conflicting dates - an accuracy dispute, not completeness.",
+    "explanation": "Narrative frames the dispute around date accuracy of a late payment, not completeness of information.",
+    "source_ids": [],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.dispute_duplicate_without_new_info": {
+    "atom_id": "fcra.dispute_duplicate_without_new_info",
+    "basis": "explicit_negative",
+    "confidence": 0.9,
+    "evidence": "Narrative contains no indication of a prior duplicate dispute; intake packet was valid.",
+    "explanation": "No frivolous/duplicate branch applies per profile guidance and narrative.",
+    "source_ids": [],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.insufficient_information_to_investigate": {
+    "atom_id": "fcra.insufficient_information_to_investigate",
+    "basis": "explicit_negative",
+    "confidence": 0.9,
+    "evidence": "The intake packet was valid and the consumer supplied a payment receipt.",
+    "explanation": "Narrative shows the consumer provided sufficient information (receipt, valid intake).",
+    "source_ids": [],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.notice_direct_to_cra": {
+    "atom_id": "fcra.notice_direct_to_cra",
+    "basis": "explicit_positive",
+    "confidence": 0.98,
+    "evidence": "The consumer disputed a late-payment month directly with the CRA.",
+    "explanation": "Narrative explicitly states the consumer notified the CRA directly.",
+    "source_ids": [],
+    "status": "bound",
+    "value": true
+  }
+}

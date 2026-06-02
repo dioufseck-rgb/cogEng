@@ -1,0 +1,271 @@
+{
+  "case_id": "cra_logic_consumer_statement_not_carried_forward",
+  "case_level_notes": "Primary breach is failure to carry the consumer's statement of dispute and dispute notation into subsequent reports under 15 U.S.C. 1681i(c).",
+  "determinations": [
+    {
+      "anti_overclaim_check": "Decision is based on the explicitly described omission, not inferred breaches.",
+      "confidence": 0.95,
+      "decisive_branch": "consumer statement filed; subsequent reports must note dispute and include statement",
+      "determination_id": "fcra.consumer_statement_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Consumer filed a concise statement of dispute, accepted by CRA",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Later reports did not note the item was disputed and did not include or summarize the statement",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "false",
+      "profile_rule_ids": [],
+      "rationale": "Consumer filed a brief statement of dispute that the CRA accepted, but later reports containing the same item did not note the dispute or include/summarize the statement, violating the subsequent-reporting duty."
+    },
+    {
+      "anti_overclaim_check": "Limited to the reasonableness statement in the narrative.",
+      "confidence": 0.9,
+      "decisive_branch": "ordinary CRA review completed",
+      "determination_id": "fcra.cra_consideration_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Otherwise timely and reasonable reinvestigation",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "ordinary_cra_review_completed"
+      ],
+      "rationale": "Narrative states the reinvestigation was otherwise reasonable."
+    },
+    {
+      "anti_overclaim_check": "Assumes ordinary path absent any contrary fact.",
+      "confidence": 0.85,
+      "decisive_branch": "ordinary furnisher notice path within timely reinvestigation",
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Otherwise timely and reasonable reinvestigation verified the item",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [],
+      "rationale": "Narrative indicates an otherwise timely and reasonable reinvestigation with no defect alleged in furnisher-notice transmission."
+    },
+    {
+      "anti_overclaim_check": "Trigger directly supported.",
+      "confidence": 0.95,
+      "decisive_branch": "ordinary CRA dispute trigger",
+      "determination_id": "fcra.cra_reinvestigation_required",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Consumer disputed a personal-loan item",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "ordinary_cra_dispute_trigger"
+      ],
+      "rationale": "Consumer disputed an item and CRA received notice; reinvestigation was required and conducted."
+    },
+    {
+      "anti_overclaim_check": "Directly supported by narrative.",
+      "confidence": 0.95,
+      "decisive_branch": "timely completion within 30 days",
+      "determination_id": "fcra.cra_reinvestigation_timely",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Otherwise timely reinvestigation",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [],
+      "rationale": "Narrative explicitly states the reinvestigation was timely."
+    },
+    {
+      "anti_overclaim_check": "Supported by narrative.",
+      "confidence": 0.9,
+      "decisive_branch": "valid CRA dispute trigger",
+      "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Reinvestigation conducted on disputed personal-loan item",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "ordinary_cra_dispute_trigger"
+      ],
+      "rationale": "Valid dispute packet implied by reasonable reinvestigation having been conducted."
+    },
+    {
+      "anti_overclaim_check": "Branch explicitly excluded.",
+      "confidence": 0.95,
+      "decisive_branch": "not applicable",
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "No direct-furnisher dispute branch applies",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "no_direct_furnisher_dispute_mentioned"
+      ],
+      "rationale": "Narrative explicitly states no direct-furnisher dispute branch applies."
+    },
+    {
+      "anti_overclaim_check": "Aggregated from explicit consumer-statement breach.",
+      "confidence": 0.9,
+      "decisive_branch": "consumer statement subsequent-reporting breach",
+      "determination_id": "fcra.dispute_resolution_compliant",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Later reports omitted dispute notation and statement",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "false",
+      "profile_rule_ids": [],
+      "rationale": "Subsequent reporting failed to note the dispute or include the consumer statement, breaching a selected obligation."
+    },
+    {
+      "anti_overclaim_check": "Branch outside case scope.",
+      "confidence": 0.95,
+      "decisive_branch": "not applicable",
+      "determination_id": "fcra.frivolous_termination_valid",
+      "material_facts": [
+        {
+          "basis": "profile_default",
+          "fact": "No frivolous termination described",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "no_frivolous_termination_mentioned"
+      ],
+      "rationale": "No frivolous or irrelevant termination occurred; branch not applicable."
+    },
+    {
+      "anti_overclaim_check": "No contrary facts; ordinary path assumed.",
+      "confidence": 0.8,
+      "decisive_branch": "ordinary furnisher indirect duties completed",
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Reinvestigation verified the item",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "ordinary_furnisher_indirect_completed"
+      ],
+      "rationale": "Reinvestigation was reasonable and resulted in verification; no indication of furnisher non-compliance."
+    },
+    {
+      "anti_overclaim_check": "Not inferring routing absent cues.",
+      "confidence": 0.85,
+      "decisive_branch": "no routing trigger present",
+      "determination_id": "fcra.human_review_required",
+      "material_facts": [
+        {
+          "basis": "missing",
+          "fact": "No routing cues described",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "false",
+      "profile_rule_ids": [],
+      "rationale": "No routing triggers (identity theft, mixed file, missing primary documents, date conflicts, manual review policy) appear; the issue is a substantive subsequent-reporting failure, not a routing trigger."
+    },
+    {
+      "anti_overclaim_check": "Separate from consumer-statement subsequent-reporting duty.",
+      "confidence": 0.9,
+      "decisive_branch": "verified item appropriately recorded",
+      "determination_id": "fcra.item_treatment_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Reinvestigation verified the personal-loan item",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "ordinary_verified_item_treatment"
+      ],
+      "rationale": "Reinvestigation verified the item; verified status appropriately recorded. Item treatment does not encompass downstream statement-notation."
+    },
+    {
+      "anti_overclaim_check": "Branch outside scope.",
+      "confidence": 0.95,
+      "decisive_branch": "not applicable",
+      "determination_id": "fcra.reinsertion_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "No reinsertion branch applies",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "no_reinsertion_branch_mentioned"
+      ],
+      "rationale": "Narrative explicitly states no reinsertion branch applies."
+    },
+    {
+      "anti_overclaim_check": "Branch outside scope.",
+      "confidence": 0.95,
+      "decisive_branch": "not applicable",
+      "determination_id": "fcra.reseller_satisfied",
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "No reseller branch applies",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "no_reseller_branch_mentioned"
+      ],
+      "rationale": "Narrative explicitly states no reseller branch applies."
+    },
+    {
+      "anti_overclaim_check": "Subsequent-reporting failure is separate from results-notice duty.",
+      "confidence": 0.85,
+      "decisive_branch": "ordinary results notice complete",
+      "determination_id": "fcra.results_notice_satisfied",
+      "material_facts": [
+        {
+          "basis": "inferred",
+          "fact": "Consumer filed a statement after results, indicating notice received",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "profile_rule_ids": [
+        "ordinary_results_notice_complete"
+      ],
+      "rationale": "Reinvestigation was otherwise timely and reasonable; no defect alleged in the results notice itself, and the consumer was able to file a statement."
+    }
+  ]
+}

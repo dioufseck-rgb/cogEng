@@ -41,6 +41,13 @@ BANK_EVAL_CASES_PATH = (
     / "example_cases"
     / "fcra_bank_customer_disputes_eval.yaml"
 )
+CRA_LOGIC_STRESS_CASES_PATH = (
+    Path(__file__).parents[2]
+    / "rulekit"
+    / "orchestrator"
+    / "example_cases"
+    / "fcra_cra_logic_stress_eval.yaml"
+)
 
 
 def test_fcra_credit_reporting_deep_seed_runs_end_to_end(tmp_path):
@@ -299,6 +306,41 @@ def test_fcra_bank_holdout_eval_cases_are_narrative_only():
     assert len(cases) == 18
     assert all(not case.structured_fields for case in cases)
     assert sum(len(case.expected_outcomes) for case in cases) == 90
+    assert {
+        expected.expected_value
+        for case in cases
+        for expected in case.expected_outcomes
+    } == {"false", "true", "undetermined"}
+
+
+def test_fcra_cra_logic_stress_cases_are_full_policy_narrative_only():
+    cases = load_runtime_cases(CRA_LOGIC_STRESS_CASES_PATH)
+
+    assert len(cases) == 12
+    assert all(not case.structured_fields for case in cases)
+    assert all(case.metadata.get("split_group") for case in cases)
+    assert sum(len(case.expected_outcomes) for case in cases) == 180
+    assert {
+        expected.determination_id
+        for case in cases
+        for expected in case.expected_outcomes
+    } == {
+        "fcra.consumer_statement_satisfied",
+        "fcra.cra_consideration_satisfied",
+        "fcra.cra_furnisher_notice_satisfied",
+        "fcra.cra_reinvestigation_required",
+        "fcra.cra_reinvestigation_timely",
+        "fcra.cra_reinvestigation_trigger_valid",
+        "fcra.direct_furnisher_satisfied",
+        "fcra.dispute_resolution_compliant",
+        "fcra.frivolous_termination_valid",
+        "fcra.furnisher_indirect_satisfied",
+        "fcra.human_review_required",
+        "fcra.item_treatment_satisfied",
+        "fcra.reinsertion_satisfied",
+        "fcra.reseller_satisfied",
+        "fcra.results_notice_satisfied",
+    }
     assert {
         expected.expected_value
         for case in cases

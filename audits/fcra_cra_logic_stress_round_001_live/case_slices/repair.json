@@ -1,0 +1,352 @@
+{
+  "cases": [
+    {
+      "case_id": "cra_logic_invalid_duplicate_with_new_material",
+      "expected_outcomes": [
+        {
+          "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.frivolous_termination_valid",
+          "expected_value": "false",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.cra_reinvestigation_required",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.cra_reinvestigation_timely",
+          "expected_value": "false",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.cra_furnisher_notice_satisfied",
+          "expected_value": "false",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.cra_consideration_satisfied",
+          "expected_value": "false",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.item_treatment_satisfied",
+          "expected_value": "false",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.results_notice_satisfied",
+          "expected_value": "false",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.reinsertion_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.furnisher_indirect_satisfied",
+          "expected_value": "false",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.direct_furnisher_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.reseller_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.consumer_statement_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.dispute_resolution_compliant",
+          "expected_value": "false",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.human_review_required",
+          "expected_value": "true",
+          "rationale": null
+        }
+      ],
+      "metadata": {
+        "split_group": "invalid_frivolous_termination"
+      },
+      "narrative": "The consumer disputed the same mortgage late-payment notation that had been disputed before, but this new packet included a servicer correction letter that had not been supplied in the prior dispute. The letter identified the account, disputed field, and basis. The CRA nevertheless marked the submission as duplicate and frivolous, closed the file without reinvestigation, did not notify the furnisher, did not review the new letter, and sent a closure notice that did not identify missing information. The new letter was dispositive if accepted.\n",
+      "provenance": "authored",
+      "structured_fields": {},
+      "title": "Duplicate termination despite new material proof"
+    },
+    {
+      "case_id": "cra_logic_valid_frivolous_termination_no_reinvestigation",
+      "expected_outcomes": [
+        {
+          "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+          "expected_value": "false",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.frivolous_termination_valid",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.cra_reinvestigation_required",
+          "expected_value": "false",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.cra_reinvestigation_timely",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.cra_furnisher_notice_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.cra_consideration_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.item_treatment_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.results_notice_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.reinsertion_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.furnisher_indirect_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.direct_furnisher_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.reseller_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.consumer_statement_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.dispute_resolution_compliant",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.human_review_required",
+          "expected_value": "false",
+          "rationale": null
+        }
+      ],
+      "metadata": {
+        "split_group": "valid_frivolous_termination"
+      },
+      "narrative": "The consumer wrote to the CRA saying only that \"something on my report is wrong.\" The submission did not identify an account, did not identify a disputed field, and did not explain a basis. The CRA made a frivolous-or-irrelevant determination, sent notice 3 business days later, identified the missing account and disputed information, and explained that this missing information was needed before investigation. No reinvestigation was conducted, no furnisher notice was sent, and no results notice was sent.\n",
+      "provenance": "authored",
+      "structured_fields": {},
+      "title": "Valid frivolous termination makes reinvestigation not required"
+    },
+    {
+      "case_id": "cra_logic_expedited_deletion_short_circuits_furnisher_notice",
+      "expected_outcomes": [
+        {
+          "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.frivolous_termination_valid",
+          "expected_value": "false",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.cra_reinvestigation_required",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.cra_reinvestigation_timely",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.cra_furnisher_notice_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.cra_consideration_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.item_treatment_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.results_notice_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.reinsertion_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.furnisher_indirect_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.direct_furnisher_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.reseller_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.consumer_statement_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.dispute_resolution_compliant",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.human_review_required",
+          "expected_value": "false",
+          "rationale": null
+        }
+      ],
+      "metadata": {
+        "split_group": "expedited_deletion"
+      },
+      "narrative": "A consumer disputed a small collection tradeline directly with the CRA, identified the item and basis, and supplied enough identity information. Within 3 business days, before sending any furnisher notice, the CRA deleted the disputed item from the consumer's file, telephoned the consumer with notice of the expedited deletion, and sent written confirmation. The CRA recorded current deleted status and no reinsertion occurred. Because the item was deleted through the expedited path, no furnisher transmission was sent. No direct-furnisher, reseller, or consumer-statement branch applies.\n",
+      "provenance": "authored",
+      "structured_fields": {},
+      "title": "Expedited deletion without furnisher notice"
+    },
+    {
+      "case_id": "cra_logic_reseller_forwarding_late_no_reconveyance",
+      "expected_outcomes": [
+        {
+          "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.frivolous_termination_valid",
+          "expected_value": "false",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.cra_reinvestigation_required",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.cra_reinvestigation_timely",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.cra_furnisher_notice_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.cra_consideration_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.item_treatment_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.results_notice_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.reinsertion_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.furnisher_indirect_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.direct_furnisher_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.reseller_satisfied",
+          "expected_value": "false",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.consumer_statement_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.dispute_resolution_compliant",
+          "expected_value": "false",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.human_review_required",
+          "expected_value": "false",
+          "rationale": null
+        }
+      ],
+      "metadata": {
+        "split_group": "reseller_forwarding_failure"
+      },
+      "narrative": "The consumer disputed a mortgage tradeline through a reseller. The reseller determined that the item came from the source CRA and was not due to reseller error. The reseller conveyed the dispute packet to the source CRA on the eighth business day, not within 5 business days, and never reconveyed the source CRA's completion notice to the consumer. The source CRA itself completed a reasonable reinvestigation, notified the furnisher timely, verified the item, recorded current status, and sent a timely results notice.\n",
+      "provenance": "authored",
+      "structured_fields": {},
+      "title": "Reseller forwards source-CRA dispute late and never reconveys"
+    }
+  ]
+}

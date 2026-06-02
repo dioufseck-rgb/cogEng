@@ -1,0 +1,124 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative describes a dispute about a collection tradeline with no mention of completeness; the dispute concerns the item itself, not its completeness.",
+      "explanation": "No indication that completeness is at issue; accuracy/validity of the item is the dispute basis.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.notice_direct_to_cra",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "A consumer disputed a small collection tradeline directly with the CRA.",
+      "explanation": "Narrative explicitly states the dispute was made directly to the CRA.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not describe a prior duplicate dispute.",
+      "explanation": "No prior dispute referenced; no basis to treat as duplicate.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "Consumer identified the item and basis, and supplied enough identity information.",
+      "explanation": "Narrative explicitly states sufficient information was supplied.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "bound",
+      "value": 0,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "No frivolous/irrelevant determination occurred; expedited deletion path was taken.",
+      "explanation": "Frivolous branch not applicable; conditional support atom binds to 0 because triggering condition is absent.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.cra_reviewed_all_consumer_info",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "CRA acted on the consumer's identification of the item and basis, deleting through the expedited path within 3 business days.",
+      "explanation": "Expedited deletion under 1681i(a)(8) bypasses reinvestigation; CRA evidently reviewed the consumer-supplied information sufficient to act on it.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.cra_considered_primary_source_documents",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "CRA deleted the item via the expedited path based on consumer-supplied identification and basis.",
+      "explanation": "Expedited deletion branch means full reinvestigation document review is not required; condition is not applicable on this trace.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.cra_compared_furnisher_response",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "Because the item was deleted through the expedited path, no furnisher transmission was sent.",
+      "explanation": "No furnisher response existed to compare; branch not applicable under expedited deletion.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.cra_compared_own_file",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "CRA identified and deleted the disputed item from the consumer's file.",
+      "explanation": "Identifying and deleting the specific tradeline from the file implies the CRA referenced its own file in handling the dispute.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.cra_reasonable_reinvestigation_performed",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "CRA deleted the disputed item within 3 business days via the expedited deletion path and notified the consumer.",
+      "explanation": "Expedited deletion under 1681i(a)(8) is a permitted alternative that satisfies reinvestigation obligations.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "fcra.dispositive_info_not_ignored",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "CRA acted on the consumer's dispute by deleting the item; nothing indicates information was ignored.",
+      "explanation": "Acting favorably on the dispute via expedited deletion shows consumer information was not ignored.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.automated_code_only",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative describes expedited deletion with telephone and written notice, not automated coding only.",
+      "explanation": "No indication the handling was limited to automated coding; outcome was deletion.",
+      "confidence": 0.85
+    }
+  ]
+}

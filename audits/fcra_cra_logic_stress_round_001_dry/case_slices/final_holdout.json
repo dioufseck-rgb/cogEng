@@ -1,0 +1,352 @@
+{
+  "cases": [
+    {
+      "case_id": "cra_logic_direct_furnisher_defect_not_corrected",
+      "expected_outcomes": [
+        {
+          "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.frivolous_termination_valid",
+          "expected_value": "false",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.cra_reinvestigation_required",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.cra_reinvestigation_timely",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.cra_furnisher_notice_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.cra_consideration_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.item_treatment_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.results_notice_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.reinsertion_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.furnisher_indirect_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.direct_furnisher_satisfied",
+          "expected_value": "false",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.reseller_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.consumer_statement_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.dispute_resolution_compliant",
+          "expected_value": "false",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.human_review_required",
+          "expected_value": "false",
+          "rationale": null
+        }
+      ],
+      "metadata": {
+        "split_group": "direct_furnisher_correction"
+      },
+      "narrative": "The consumer sent a direct dispute to the furnisher's published dispute address. The notice identified the credit-card account, the specific overstated balance, the payoff basis, and included a payoff statement. The dispute concerned covered account information. The furnisher investigated and reported results to the consumer, found the balance inaccurate, but did not notify CRAs or provide the corrected balance. The separate CRA reinvestigation branch was otherwise timely and reasonable: the CRA received a valid dispute, notified the furnisher within 5 business days, modified the tradeline, recorded current status, and sent complete results within 5 business days.\n",
+      "provenance": "authored",
+      "structured_fields": {},
+      "title": "Qualifying direct furnisher dispute found inaccurate but not corrected to CRAs"
+    },
+    {
+      "case_id": "cra_logic_reinsertion_certified_but_notice_late",
+      "expected_outcomes": [
+        {
+          "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.frivolous_termination_valid",
+          "expected_value": "false",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.cra_reinvestigation_required",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.cra_reinvestigation_timely",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.cra_furnisher_notice_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.cra_consideration_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.item_treatment_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.results_notice_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.reinsertion_satisfied",
+          "expected_value": "false",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.furnisher_indirect_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.direct_furnisher_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.reseller_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.consumer_statement_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.dispute_resolution_compliant",
+          "expected_value": "false",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.human_review_required",
+          "expected_value": "false",
+          "rationale": null
+        }
+      ],
+      "metadata": {
+        "split_group": "reinsertion_notice"
+      },
+      "narrative": "A collection account was deleted after an earlier reinvestigation. The furnisher later certified that the item was complete and accurate, and the CRA reinserted the item. The CRA had procedures to prevent reappearance without certification. The reinsertion notice identified the furnisher and included the consumer-statement right, but the notice was sent on the seventh business day after reinsertion. In the current dispute, the CRA otherwise received a valid direct dispute, notified the furnisher within 5 business days, reasonably reinvestigated, verified the item as accurate, completed within 30 days, and sent a timely results notice.\n",
+      "provenance": "authored",
+      "structured_fields": {},
+      "title": "Reinserted item certified but notice sent late"
+    },
+    {
+      "case_id": "cra_logic_extension_later_info_not_forwarded",
+      "expected_outcomes": [
+        {
+          "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.frivolous_termination_valid",
+          "expected_value": "false",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.cra_reinvestigation_required",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.cra_reinvestigation_timely",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.cra_furnisher_notice_satisfied",
+          "expected_value": "false",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.cra_consideration_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.item_treatment_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.results_notice_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.reinsertion_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.furnisher_indirect_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.direct_furnisher_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.reseller_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.consumer_statement_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.dispute_resolution_compliant",
+          "expected_value": "false",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.human_review_required",
+          "expected_value": "false",
+          "rationale": null
+        }
+      ],
+      "metadata": {
+        "split_group": "conditional_deadline_forwarding"
+      },
+      "narrative": "A consumer disputed the date of first delinquency on a credit-card tradeline directly with the CRA. The initial dispute identified the account, disputed field, and basis. On day 18, the consumer submitted a new payoff letter that was relevant to the same disputed field, extending the reinvestigation deadline to 45 days. The CRA completed the reinvestigation on day 43 and sent complete written results 4 business days later. The CRA sent the original dispute to the furnisher on the third business day, but the later payoff letter was not sent or made available to the furnisher. The CRA reviewed the later letter internally, found the reported delinquency date incomplete, modified the tradeline, recorded current status, and the furnisher also modified the item and reported the correction to other CRAs.\n",
+      "provenance": "authored",
+      "structured_fields": {},
+      "title": "Forty-five-day extension but later information not forwarded"
+    },
+    {
+      "case_id": "cra_logic_reseller_own_error_corrected_timely",
+      "expected_outcomes": [
+        {
+          "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.frivolous_termination_valid",
+          "expected_value": "false",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.cra_reinvestigation_required",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.cra_reinvestigation_timely",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.cra_furnisher_notice_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.cra_consideration_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.item_treatment_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.results_notice_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.reinsertion_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.furnisher_indirect_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.direct_furnisher_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.reseller_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.consumer_statement_satisfied",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.dispute_resolution_compliant",
+          "expected_value": "true",
+          "rationale": null
+        },
+        {
+          "determination_id": "fcra.human_review_required",
+          "expected_value": "false",
+          "rationale": null
+        }
+      ],
+      "metadata": {
+        "split_group": "reseller_own_error"
+      },
+      "narrative": "The consumer disputed a tenant-screening report through a reseller. The reseller determined that the inaccurate rent-balance item came from its own transcription error rather than from the source CRA. The reseller corrected the item and deleted the erroneous balance within 12 days. No source-CRA reinvestigation was required for the reseller's own error. No consumer statement was filed, no reinsertion occurred, and no direct furnisher dispute was sent.\n",
+      "provenance": "authored",
+      "structured_fields": {},
+      "title": "Reseller corrects its own error within 20 days"
+    }
+  ]
+}

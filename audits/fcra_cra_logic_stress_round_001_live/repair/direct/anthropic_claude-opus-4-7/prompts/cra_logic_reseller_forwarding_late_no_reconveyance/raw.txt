@@ -1,0 +1,188 @@
+{
+  "case_id": "cra_logic_reseller_forwarding_late_no_reconveyance",
+  "determinations": [
+    {
+      "determination_id": "fcra.consumer_statement_satisfied",
+      "outcome": "true",
+      "rationale": "No consumer statement was filed; branch not applicable.",
+      "confidence": 0.9,
+      "decisive_branch": "not-applicable branch",
+      "material_facts": [
+        {"fact": "Narrative does not mention a consumer statement", "source": "narrative", "basis": "missing"}
+      ],
+      "profile_rule_ids": ["no_consumer_statement_mentioned"],
+      "anti_overclaim_check": "Marked true as not-applicable per profile guidance."
+    },
+    {
+      "determination_id": "fcra.cra_consideration_satisfied",
+      "outcome": "true",
+      "rationale": "Source CRA performed a reasonable reinvestigation considering the materials it received.",
+      "confidence": 0.85,
+      "decisive_branch": "ordinary CRA review completed",
+      "material_facts": [
+        {"fact": "Source CRA completed a reasonable reinvestigation", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["ordinary_cra_review_completed"],
+      "anti_overclaim_check": "Recipient-side duty assessed on materials actually received; upstream reseller delay does not negate CRA's own reasonableness."
+    },
+    {
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "outcome": "true",
+      "rationale": "Source CRA notified the furnisher timely.",
+      "confidence": 0.9,
+      "decisive_branch": "CRA furnisher notice timely",
+      "material_facts": [
+        {"fact": "Source CRA notified the furnisher timely", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": [],
+      "anti_overclaim_check": "Decided only on the CRA's notice duty, not the reseller forwarding step."
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_required",
+      "outcome": "true",
+      "rationale": "Consumer disputed a tradeline through a reseller; CRA reinvestigation trigger present.",
+      "confidence": 0.9,
+      "decisive_branch": "ordinary CRA dispute trigger via reseller",
+      "material_facts": [
+        {"fact": "Consumer disputed a mortgage tradeline through a reseller", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["ordinary_cra_dispute_trigger", "reseller_notice_path"],
+      "anti_overclaim_check": "Trigger validity is independent of reseller timeliness."
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_timely",
+      "outcome": "true",
+      "rationale": "Source CRA completed reinvestigation and sent timely results notice.",
+      "confidence": 0.85,
+      "decisive_branch": "CRA timing satisfied",
+      "material_facts": [
+        {"fact": "Source CRA sent a timely results notice", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": [],
+      "anti_overclaim_check": "Timing assessed from CRA receipt; reseller's late forwarding is a separate reseller duty."
+    },
+    {
+      "determination_id": "fcra.cra_reinvestigation_trigger_valid",
+      "outcome": "true",
+      "rationale": "Valid dispute packet conveyed through reseller to source CRA.",
+      "confidence": 0.9,
+      "decisive_branch": "valid trigger",
+      "material_facts": [
+        {"fact": "Dispute packet conveyed to source CRA", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["ordinary_cra_dispute_trigger"],
+      "anti_overclaim_check": "Trigger validity not undermined by reseller-side delays."
+    },
+    {
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "outcome": "true",
+      "rationale": "No direct furnisher dispute described; branch not applicable.",
+      "confidence": 0.9,
+      "decisive_branch": "not-applicable branch",
+      "material_facts": [
+        {"fact": "No direct dispute to furnisher", "source": "narrative", "basis": "missing"}
+      ],
+      "profile_rule_ids": ["no_direct_furnisher_dispute_mentioned"],
+      "anti_overclaim_check": "Marked not-applicable per profile."
+    },
+    {
+      "determination_id": "fcra.dispute_resolution_compliant",
+      "outcome": "false",
+      "rationale": "Reseller failed to convey within 5 business days and never reconveyed completion notice to consumer, so overall dispute resolution is non-compliant despite CRA-side compliance.",
+      "confidence": 0.85,
+      "decisive_branch": "reseller duty failure",
+      "material_facts": [
+        {"fact": "Reseller conveyed on the eighth business day", "source": "narrative", "basis": "explicit"},
+        {"fact": "Reseller never reconveyed CRA completion notice", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": [],
+      "anti_overclaim_check": "Root compliance fails because the reseller branch (a selected determination) fails."
+    },
+    {
+      "determination_id": "fcra.frivolous_termination_valid",
+      "outcome": "true",
+      "rationale": "No frivolous termination occurred; branch not applicable.",
+      "confidence": 0.95,
+      "decisive_branch": "not-applicable branch",
+      "material_facts": [
+        {"fact": "No frivolous determination mentioned", "source": "narrative", "basis": "missing"}
+      ],
+      "profile_rule_ids": ["no_frivolous_termination_mentioned"],
+      "anti_overclaim_check": "Marked not-applicable per profile."
+    },
+    {
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "outcome": "true",
+      "rationale": "CRA notified the furnisher timely and CRA verified the item based on furnisher response; ordinary furnisher branch satisfied.",
+      "confidence": 0.75,
+      "decisive_branch": "furnisher responded to CRA notice",
+      "material_facts": [
+        {"fact": "Source CRA notified furnisher timely and verified the item", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["ordinary_furnisher_indirect_completed"],
+      "anti_overclaim_check": "Inferred from verification outcome; no contrary evidence."
+    },
+    {
+      "determination_id": "fcra.human_review_required",
+      "outcome": "false",
+      "rationale": "No routing cues triggered: no identity theft, mixed-file, missing primary documents, date conflicts, or manual policy triggers in the CRA's record.",
+      "confidence": 0.8,
+      "decisive_branch": "no routing trigger",
+      "material_facts": [
+        {"fact": "Narrative describes ordinary reseller-channel dispute with verified outcome", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": [],
+      "anti_overclaim_check": "Reseller procedural failure is not a human-review trigger under the policy."
+    },
+    {
+      "determination_id": "fcra.item_treatment_satisfied",
+      "outcome": "true",
+      "rationale": "Item verified and current status recorded after reasonable reinvestigation.",
+      "confidence": 0.9,
+      "decisive_branch": "verified item treatment",
+      "material_facts": [
+        {"fact": "CRA verified the item and recorded current status", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["ordinary_verified_item_treatment"],
+      "anti_overclaim_check": "Item treatment is about verified/current status, not downstream reseller reconveyance."
+    },
+    {
+      "determination_id": "fcra.reinsertion_satisfied",
+      "outcome": "true",
+      "rationale": "No deletion or reinsertion occurred; branch not applicable.",
+      "confidence": 0.95,
+      "decisive_branch": "not-applicable branch",
+      "material_facts": [
+        {"fact": "No reinsertion described", "source": "narrative", "basis": "missing"}
+      ],
+      "profile_rule_ids": ["no_reinsertion_branch_mentioned"],
+      "anti_overclaim_check": "Marked not-applicable per profile."
+    },
+    {
+      "determination_id": "fcra.reseller_satisfied",
+      "outcome": "false",
+      "rationale": "Reseller conveyed the dispute on the 8th business day (outside 5-day window) and never reconveyed the source CRA's completion notice to the consumer.",
+      "confidence": 0.95,
+      "decisive_branch": "reseller conveyance/reconveyance failed",
+      "material_facts": [
+        {"fact": "Reseller conveyed on eighth business day", "source": "narrative", "basis": "explicit"},
+        {"fact": "Reseller never reconveyed completion notice", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["reseller_notice_path"],
+      "anti_overclaim_check": "Failure is explicit in narrative; both 5-day determination conveyance and reconveyance duties unmet."
+    },
+    {
+      "determination_id": "fcra.results_notice_satisfied",
+      "outcome": "true",
+      "rationale": "Source CRA sent a timely results notice; CRA's own duty satisfied.",
+      "confidence": 0.8,
+      "decisive_branch": "CRA results notice timely",
+      "material_facts": [
+        {"fact": "Source CRA sent a timely results notice", "source": "narrative", "basis": "explicit"}
+      ],
+      "profile_rule_ids": ["ordinary_results_notice_complete"],
+      "anti_overclaim_check": "Reseller's failure to reconvey is a separate reseller duty, not a CRA results-notice defect."
+    }
+  ],
+  "case_level_notes": "CRA-side duties are satisfied; reseller-side conveyance and reconveyance duties failed, so overall dispute resolution is non-compliant."
+}

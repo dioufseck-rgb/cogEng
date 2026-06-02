@@ -1,0 +1,266 @@
+{
+  "sources": [
+    {
+      "source_id": "case_narrative",
+      "source_type": "case_narrative",
+      "title": "Expedited CRA Deletion Case Narrative",
+      "as_of_date": null,
+      "closed_world_scopes": [
+        "CRA dispute handling pathway",
+        "furnisher transmission",
+        "reseller branch",
+        "direct-furnisher dispute branch",
+        "consumer statement branch",
+        "reinsertion branch",
+        "deletion status"
+      ],
+      "limitations": "High-level narrative summary; does not enumerate every procedural disclosure element or numerical timing beyond the 3-business-day expedited window."
+    }
+  ],
+  "bindings": [
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative says consumer 'identified the item and basis' but does not specify whether the basis was completeness or accuracy.",
+      "explanation": "Narrative is silent on whether the dispute concerned completeness specifically.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.notice_direct_to_cra",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["case_narrative"],
+      "evidence": "'A consumer disputed a small collection tradeline directly with the CRA'.",
+      "explanation": "Narrative explicitly states direct CRA notification.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "No prior dispute or duplicate handling described; narrative scopes the dispute-handling pathway.",
+      "explanation": "Narrative's closed-world scope on dispute handling supports negative; profile guidance treats absence of frivolous/duplicate cues as explicit negative.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "'supplied enough identity information' and CRA proceeded to delete.",
+      "explanation": "Narrative affirmatively states identity information was sufficient and CRA acted.",
+      "confidence": 0.92
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No frivolous determination occurred; no such notice timeline given.",
+      "explanation": "No frivolous determination was made, so no numeric value applies or is stated.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.cra_reviewed_all_consumer_info",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative describes expedited deletion path without detailing full review of all consumer-submitted information.",
+      "explanation": "Expedited deletion does not necessarily imply or deny a full review; narrative is silent.",
+      "confidence": 0.55
+    },
+    {
+      "atom_id": "fcra.cra_considered_primary_source_documents",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "No mention of primary source documents.",
+      "explanation": "Narrative does not state whether primary source documents were considered.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.cra_compared_furnisher_response",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "'Because the item was deleted through the expedited path, no furnisher transmission was sent.'",
+      "explanation": "No furnisher response could be compared because no furnisher notice was sent.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.cra_compared_own_file",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not state whether CRA compared dispute to its own file contents.",
+      "explanation": "Silent on internal file comparison.",
+      "confidence": 0.55
+    },
+    {
+      "atom_id": "fcra.cra_reasonable_reinvestigation_performed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative describes expedited deletion rather than a reinvestigation.",
+      "explanation": "Expedited deletion path may obviate the reinvestigation; narrative does not characterize a reinvestigation as performed or omitted.",
+      "confidence": 0.55
+    },
+    {
+      "atom_id": "fcra.dispositive_info_not_ignored",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "No discussion of dispositive consumer information handling.",
+      "explanation": "Narrative is silent on whether any dispositive information was considered or ignored.",
+      "confidence": 0.55
+    },
+    {
+      "atom_id": "fcra.automated_code_only",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "No generic dispute coding or automation-only review described; narrative describes affirmative deletion path.",
+      "explanation": "Closed-world scope on dispute handling supports negative; no automated-only review indicated.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.human_review_of_documents_performed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not describe document review processes.",
+      "explanation": "Silent on whether human review of documents occurred.",
+      "confidence": 0.55
+    },
+    {
+      "atom_id": "fcra.furnished_by_furnisher",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "'a small collection tradeline' and references to a furnisher transmission path that was foregone.",
+      "explanation": "Collection tradelines are furnished by a furnisher; narrative also references a furnisher in connection with the would-be transmission.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.expedited_deleted_within_3_business_days",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["case_narrative"],
+      "evidence": "'Within 3 business days, before sending any furnisher notice, the CRA deleted the disputed item'.",
+      "explanation": "Narrative explicitly states deletion within 3 business days before furnisher notice.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "fcra.cra_notified_furnisher",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "'no furnisher transmission was sent'.",
+      "explanation": "Narrative explicitly denies any furnisher notice was sent.",
+      "confidence": 0.97
+    },
+    {
+      "atom_id": "fcra.business_days_to_notify_furnisher",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No furnisher notice was sent; no timing value applies.",
+      "explanation": "No furnisher notice means no measurable interval to that event.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.notice_included_all_relevant_info",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "'no furnisher transmission was sent'.",
+      "explanation": "There was no furnisher notice, so it could not include relevant information.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.primary_documents_forwarded",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "'no furnisher transmission was sent'.",
+      "explanation": "No transmission to furnisher means primary documents were not forwarded.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.later_relevant_info_received",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative's dispute-handling scope does not describe any later submissions; matter closed via expedited deletion.",
+      "explanation": "Closed-world scope on dispute handling supports negative.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.later_relevant_info_forwarded",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "'no furnisher transmission was sent'.",
+      "explanation": "No transmissions to furnisher occurred at any time.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.reinvestigation_completed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative describes expedited deletion within 3 business days; it does not characterize a 'reinvestigation' as having been completed.",
+      "explanation": "Whether the expedited deletion path counts as 'completing the reinvestigation' is a determination the policy engine must make; narrative does not say.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.days_to_complete_reinvestigation",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative gives 3 business days to deletion but not calendar days to reinvestigation completion.",
+      "explanation": "Unit requested is calendar days; only business-day expedited window is stated, and not as reinvestigation completion.",
+      "confidence": 0.55
+    },
+    {
+      "atom_id": "fcra.additional_relevant_info_received_in_30_days",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "No additional submissions described within dispute handling scope.",
+      "explanation": "Closed-world scope on dispute handling supports negative.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.item_found_inaccurate",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative

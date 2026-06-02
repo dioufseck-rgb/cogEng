@@ -1,0 +1,122 @@
+{
+  "fcra.account_identified": {
+    "atom_id": "fcra.account_identified",
+    "basis": "inferred_from_record",
+    "confidence": 0.9,
+    "evidence": "valid direct dispute about a furnished auto-loan item",
+    "explanation": "The auto-loan item/account is identified in the dispute, enabling notification of the furnisher and reinvestigation.",
+    "source_ids": [],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.basis_explained": {
+    "atom_id": "fcra.basis_explained",
+    "basis": "inferred_from_record",
+    "confidence": 0.8,
+    "evidence": "valid direct dispute about a furnished auto-loan item",
+    "explanation": "Characterization as a 'valid' dispute implies the consumer explained the basis sufficient to trigger reinvestigation.",
+    "source_ids": [],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.consumer_disputed_item": {
+    "atom_id": "fcra.consumer_disputed_item",
+    "basis": "explicit_positive",
+    "confidence": 0.95,
+    "evidence": "The CRA side separately had a valid direct dispute about a furnished auto-loan item",
+    "explanation": "Narrative explicitly describes a valid CRA-side consumer dispute of the auto-loan item.",
+    "source_ids": [],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.consumer_identity_sufficient": {
+    "atom_id": "fcra.consumer_identity_sufficient",
+    "basis": "inferred_from_record",
+    "confidence": 0.85,
+    "evidence": "valid direct dispute ... notified the furnisher timely, completed a reasonable reinvestigation",
+    "explanation": "The dispute is characterized as valid and the CRA was able to forward and reinvestigate, which requires sufficient identity information.",
+    "source_ids": [],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.consumer_submission_authentic": {
+    "atom_id": "fcra.consumer_submission_authentic",
+    "basis": "inferred_from_record",
+    "confidence": 0.8,
+    "evidence": "valid direct dispute about a furnished auto-loan item",
+    "explanation": "A valid consumer dispute that the CRA processed implies authenticity was not in question.",
+    "source_ids": [],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.dispute_about_accuracy": {
+    "atom_id": "fcra.dispute_about_accuracy",
+    "basis": "inferred_from_record",
+    "confidence": 0.85,
+    "evidence": "valid direct dispute about a furnished auto-loan item ... verified that auto-loan item",
+    "explanation": "The CRA verified the item as accurate, which presupposes an accuracy dispute; consistent with ordinary CRA dispute trigger profile guidance.",
+    "source_ids": [],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.dispute_about_completeness": {
+    "atom_id": "fcra.dispute_about_completeness",
+    "basis": "open_world_absence",
+    "confidence": 0.5,
+    "evidence": "Narrative does not specify whether the CRA dispute concerned completeness.",
+    "explanation": "Record only states the dispute was 'valid' without specifying completeness vs accuracy basis.",
+    "source_ids": [],
+    "status": "undetermined",
+    "value": "undetermined"
+  },
+  "fcra.dispute_duplicate_without_new_info": {
+    "atom_id": "fcra.dispute_duplicate_without_new_info",
+    "basis": "inferred_from_record",
+    "confidence": 0.85,
+    "evidence": "valid direct dispute ... completed a reasonable reinvestigation in 24 days",
+    "explanation": "Narrative describes the dispute as valid and reinvestigated rather than terminated as duplicate; profile guidance also indicates no frivolous/duplicate termination is mentioned.",
+    "source_ids": [],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.disputed_field_identified": {
+    "atom_id": "fcra.disputed_field_identified",
+    "basis": "inferred_from_record",
+    "confidence": 0.8,
+    "evidence": "valid direct dispute about a furnished auto-loan item ... verified that auto-loan item, recorded current status",
+    "explanation": "A 'valid' dispute that resulted in verification of the specific auto-loan item implies the disputed field was identified.",
+    "source_ids": [],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.insufficient_information_to_investigate": {
+    "atom_id": "fcra.insufficient_information_to_investigate",
+    "basis": "inferred_from_record",
+    "confidence": 0.9,
+    "evidence": "completed a reasonable reinvestigation in 24 days, verified that auto-loan item",
+    "explanation": "The CRA performed a reasonable reinvestigation and reached a verification result, indicating sufficient information was provided.",
+    "source_ids": [],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.item_in_consumer_file": {
+    "atom_id": "fcra.item_in_consumer_file",
+    "basis": "inferred_from_record",
+    "confidence": 0.9,
+    "evidence": "valid direct dispute about a furnished auto-loan item ... verified that auto-loan item, recorded current status",
+    "explanation": "The auto-loan item was disputed at the CRA, verified, and status recorded, indicating it is in the consumer's file.",
+    "source_ids": [],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.notice_direct_to_cra": {
+    "atom_id": "fcra.notice_direct_to_cra",
+    "basis": "inferred_from_record",
+    "confidence": 0.9,
+    "evidence": "The CRA side separately had a valid direct dispute about a furnished auto-loan item",
+    "explanation": "Narrative indicates the CRA received a direct dispute (as opposed to reseller or furnisher routing).",
+    "source_ids": [],
+    "status": "bound",
+    "value": true
+  }
+}
