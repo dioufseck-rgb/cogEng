@@ -361,6 +361,8 @@ class GovernedEvidenceMapStep:
         pricing: dict[tuple[str, str], tuple[float, float]] | None = None,
         batch_size: int = 1,
         single_map_call: bool = False,
+        incremental_sufficiency: bool = False,
+        max_incremental_rounds: int = 8,
     ):
         self.llm = llm
         self.atom_ids = atom_ids
@@ -369,6 +371,10 @@ class GovernedEvidenceMapStep:
         self.pricing = pricing or {}
         self.batch_size = max(1, batch_size)
         self.single_map_call = single_map_call
+        self.incremental_sufficiency = incremental_sufficiency
+        self.max_incremental_rounds = max(1, max_incremental_rounds)
+        if self.single_map_call and self.incremental_sufficiency:
+            raise ValueError("single_map_call and incremental_sufficiency are mutually exclusive")
         self.spec = MapStepSpec(
             map_step_id=map_step_id,
             name="Governed evidence Map step",
@@ -458,6 +464,19 @@ class GovernedEvidenceMapStep:
                 }
         if self.single_map_call:
             pass
+        elif self.incremental_sufficiency:
+            self._bind_incremental_sufficiency(
+                program,
+                case,
+                context,
+                selected_atoms,
+                llm_atoms,
+                sources,
+                evidence_by_atom,
+                artifacts,
+                call_metrics,
+                bindings,
+            )
         elif self.batch_size == 1:
             self._bind_atoms_one_by_one(
                 program,
@@ -530,6 +549,7 @@ class GovernedEvidenceMapStep:
                     "llm_call_metrics": call_metrics,
                     "prompt_artifacts": artifacts,
                     "single_map_call": self.single_map_call,
+                    "incremental_sufficiency": self.incremental_sufficiency,
                 },
             )
         )
@@ -719,9 +739,13 @@ class GovernedEvidenceMapStep:
         artifacts: dict[str, Any],
         call_metrics: list[dict[str, Any]],
         bindings: dict[str, AtomBindingRecord],
+        *,
+        stage_name_prefix: str = "map_governed_atom_batch",
+        batch_metadata: dict[str, Any] | None = None,
     ) -> None:
-        artifacts["batches"] = []
+        artifacts.setdefault("batches", [])
         for index, atom_ids in enumerate(_chunks(selected_atoms, self.batch_size), start=1):
+            batch_index = len(artifacts["batches"]) + 1
             prompt = build_batch_atom_binding_prompt(
                 program,
                 atom_ids,
@@ -730,18 +754,21 @@ class GovernedEvidenceMapStep:
                 evidence_by_atom=evidence_by_atom,
             )
             raw, cost, metrics = self._call_llm(
-                f"map_governed_atom_batch:{index}",
+                f"{stage_name_prefix}:{index}",
                 prompt,
             )
             call_metrics.append(metrics)
             parsed_by_atom = _parse_batch_binding_payloads(atom_ids, raw)
             batch_artifact = {
                 "atom_ids": atom_ids,
+                "batch_index": batch_index,
                 "prompt": prompt,
                 "raw_response": raw,
                 "parsed": parsed_by_atom,
                 "metrics": cost.model_dump(mode="json"),
             }
+            if batch_metadata:
+                batch_artifact.update(batch_metadata)
             artifacts["batches"].append(batch_artifact)
             for atom_id in atom_ids:
                 atom = program.map_spec.atoms[atom_id]
@@ -750,7 +777,7 @@ class GovernedEvidenceMapStep:
                     "batch response did not include this atom",
                 )
                 artifacts["atoms"][atom_id] = {
-                    "batch_index": index,
+                    "batch_index": batch_index,
                     "prompt": prompt,
                     "raw_response": raw,
                     "parsed": parsed,
@@ -761,6 +788,100 @@ class GovernedEvidenceMapStep:
                     atom.atom_type,
                     parsed,
                 )
+
+    def _bind_incremental_sufficiency(
+        self,
+        program: DeterminationProgram,
+        case: CaseExample,
+        context: MapStepContext,
+        selected_atoms: list[str],
+        initial_atoms: list[str],
+        sources: list[EvidenceSource],
+        evidence_by_atom: dict[str, str],
+        artifacts: dict[str, Any],
+        call_metrics: list[dict[str, Any]],
+        bindings: dict[str, AtomBindingRecord],
+    ) -> None:
+        attempted: set[str] = set()
+        rounds: list[dict[str, Any]] = []
+        next_atoms = list(initial_atoms)
+        for round_index in range(1, self.max_incremental_rounds + 1):
+            if not next_atoms:
+                next_atoms, selection = self._select_unresolved_load_bearing_atoms(
+                    program,
+                    context,
+                    bindings,
+                    selected_atoms,
+                )
+            else:
+                selection = {
+                    "mode": "initial_trace_guided_unresolved",
+                    "trace_unresolved_count": len(next_atoms),
+                }
+            candidate_atoms = [atom_id for atom_id in next_atoms if atom_id not in attempted]
+            atom_batch = candidate_atoms[: self.batch_size]
+            if not atom_batch:
+                rounds.append({
+                    "round": round_index,
+                    "selected_atoms": [],
+                    "selection": selection,
+                    "stop_reason": "no_new_load_bearing_atoms",
+                })
+                break
+            self._bind_atoms_in_batches(
+                program,
+                case,
+                atom_batch,
+                sources,
+                evidence_by_atom,
+                artifacts,
+                call_metrics,
+                bindings,
+                stage_name_prefix=f"map_governed_incremental_round:{round_index}",
+                batch_metadata={"incremental_round": round_index},
+            )
+            attempted.update(atom_batch)
+            refreshed_atoms, refreshed_selection = self._select_unresolved_load_bearing_atoms(
+                program,
+                context,
+                bindings,
+                selected_atoms,
+            )
+            next_atoms = [
+                atom_id for atom_id in refreshed_atoms
+                if atom_id not in attempted
+            ]
+            rounds.append({
+                "round": round_index,
+                "selected_atoms": atom_batch,
+                "selection": selection,
+                "post_round_selection": refreshed_selection,
+                "remaining_new_atoms": next_atoms,
+            })
+            if not next_atoms:
+                break
+        artifacts["incremental_sufficiency"] = {
+            "enabled": True,
+            "max_rounds": self.max_incremental_rounds,
+            "batch_size": self.batch_size,
+            "attempted_atoms": sorted(attempted),
+            "rounds": rounds,
+        }
+
+    def _select_unresolved_load_bearing_atoms(
+        self,
+        program: DeterminationProgram,
+        context: MapStepContext,
+        bindings: dict[str, AtomBindingRecord],
+        selected_atoms: list[str],
+    ) -> tuple[list[str], dict[str, Any]]:
+        temp_record = _temporary_map_record(program, context, bindings)
+        return _initial_llm_atom_selection(
+            program,
+            context,
+            temp_record,
+            selected_atoms,
+        )
 
     def _inventory_sources(
         self,
@@ -1340,6 +1461,36 @@ def _sources_from_map_record(map_record: MapExtractionRecord) -> list[EvidenceSo
         if isinstance(item, dict):
             sources.append(EvidenceSource.model_validate(item))
     return sources
+
+
+def _temporary_map_record(
+    program: DeterminationProgram,
+    context: MapStepContext,
+    bindings: dict[str, AtomBindingRecord],
+) -> MapExtractionRecord:
+    complete_bindings = {
+        atom_id: binding.model_copy(deep=True)
+        for atom_id, binding in bindings.items()
+    }
+    for atom_id, atom in program.map_spec.atoms.items():
+        if atom_id in complete_bindings:
+            continue
+        complete_bindings[atom_id] = AtomBindingRecord(
+            atom_id=atom_id,
+            atom_type=atom.atom_type,
+            value="undetermined",
+            status=AtomBindingStatus.UNDETERMINED,
+            basis=BindingBasis.NOT_FOUND,
+            source=context.substrate_id,
+        )
+    return MapExtractionRecord(
+        map_record_id=new_id("map_tmp"),
+        program_id=context.program_id,
+        program_version=context.program_version,
+        case_id="incremental_sufficiency",
+        bindings=complete_bindings,
+        substrate_id=context.substrate_id,
+    )
 
 
 def _binding_needs_llm_mapping(binding: AtomBindingRecord | None) -> bool:

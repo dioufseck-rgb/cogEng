@@ -28,6 +28,8 @@ def run_map_governance_eval(
     max_atoms: int | None = None,
     batch_size: int = 1,
     single_map_call: bool = False,
+    incremental_sufficiency: bool = False,
+    max_incremental_rounds: int = 8,
     repair_unresolved: bool = False,
     max_repair_atoms: int = 12,
     max_tokens: int = 4096,
@@ -65,6 +67,8 @@ def run_map_governance_eval(
             atom_ids=resolved_atom_ids,
             batch_size=batch_size,
             single_map_call=single_map_call,
+            incremental_sufficiency=incremental_sufficiency,
+            max_incremental_rounds=max_incremental_rounds,
             pricing=pricing,
         )
         result = adjudicate_cases(
@@ -89,6 +93,8 @@ def run_map_governance_eval(
         "selected_atom_count": len(resolved_atom_ids),
         "batch_size": batch_size,
         "single_map_call": single_map_call,
+        "incremental_sufficiency": incremental_sufficiency,
+        "max_incremental_rounds": max_incremental_rounds,
         "repair_unresolved": repair_unresolved,
         "max_repair_atoms": max_repair_atoms,
         "runs": runs,

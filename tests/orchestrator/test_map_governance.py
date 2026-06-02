@@ -4,6 +4,7 @@ from rulekit.build.llm import LLMCaller
 from rulekit.contract import (
     AtomBindingPolicy,
     AtomRef,
+    AndNodeSpec,
     BindingBasis,
     BooleanAtom,
     DeterminationProgram,
@@ -230,6 +231,67 @@ def test_governed_map_step_can_bind_atoms_in_batches():
     assert binding.basis == BindingBasis.CLOSED_WORLD_ABSENCE
     assert len(artifacts["batches"]) == 1
     assert artifacts["atoms"]["n400.aggravated_felony_after_1990"]["batch_index"] == 1
+
+
+def test_governed_map_incremental_sufficiency_rechecks_load_bearing_atoms():
+    program = _two_atom_program()
+    case = CaseExample(
+        case_id="incremental_packet",
+        title="Incremental packet",
+        narrative="The packet establishes condition A and condition B.",
+        expected_outcomes=[
+            ExpectedOutcome(
+                determination_id="test.compliant",
+                expected_value="true",
+            )
+        ],
+    )
+    llm = LLMCaller(
+        offline_responses={
+            "map_governed_source_inventory": '{"sources":[]}',
+            "map_governed_incremental_round:1:1": (
+                '{"bindings":[{"atom_id":"test.a","status":"bound","value":true,'
+                '"basis":"explicit_positive","source_ids":[],"evidence":"A",'
+                '"explanation":"A established","confidence":0.9}]}'
+            ),
+            "map_governed_incremental_round:2:1": (
+                '{"bindings":[{"atom_id":"test.b","status":"bound","value":true,'
+                '"basis":"explicit_positive","source_ids":[],"evidence":"B",'
+                '"explanation":"B established","confidence":0.9}]}'
+            ),
+        }
+    )
+    step = GovernedEvidenceMapStep(
+        llm,
+        atom_ids=["test.a", "test.b"],
+        batch_size=1,
+        incremental_sufficiency=True,
+    )
+
+    result = adjudicate_cases(
+        program,
+        [case],
+        determinations=["test.compliant"],
+        map_step=step,
+    )
+
+    record = result["map_records"][0]
+    artifacts = record["metadata"]["prompt_artifacts"]
+    assert result["matched_disposition_count"] == 1
+    assert record["metadata"]["incremental_sufficiency"] is True
+    assert record["bindings"]["test.a"]["value"] is True
+    assert record["bindings"]["test.b"]["value"] is True
+    assert artifacts["incremental_sufficiency"]["attempted_atoms"] == [
+        "test.a",
+        "test.b",
+    ]
+    assert len(artifacts["incremental_sufficiency"]["rounds"]) == 2
+    assert artifacts["incremental_sufficiency"]["rounds"][0]["selected_atoms"] == [
+        "test.a"
+    ]
+    assert artifacts["incremental_sufficiency"]["rounds"][1]["selected_atoms"] == [
+        "test.b"
+    ]
 
 
 def test_governed_map_step_can_bind_single_map_call():
@@ -624,6 +686,53 @@ def _program() -> DeterminationProgram:
                 id="n400.no_aggravated_felony_bar",
                 description="No aggravated felony bar is established.",
                 root_node="n_no_bar",
+            )
+        },
+        production_record=ProductionRecord(produced_by="test"),
+    )
+
+
+def _two_atom_program() -> DeterminationProgram:
+    return DeterminationProgram(
+        metadata=ProgramMetadata(name="Incremental governance test", version="0.1"),
+        map_spec=MapSpec(
+            atoms={
+                "test.a": BooleanAtom(
+                    id="test.a",
+                    statement="Condition A is established.",
+                    source_span="test",
+                    evaluation_mode=EvaluationMode.CHARACTERIZED,
+                ),
+                "test.b": BooleanAtom(
+                    id="test.b",
+                    statement="Condition B is established.",
+                    source_span="test",
+                    evaluation_mode=EvaluationMode.CHARACTERIZED,
+                ),
+            }
+        ),
+        nodes={
+            "n_a": AtomRef(
+                node_id="n_a",
+                provenance=Provenance.STRUCTURAL,
+                atom_id="test.a",
+            ),
+            "n_b": AtomRef(
+                node_id="n_b",
+                provenance=Provenance.STRUCTURAL,
+                atom_id="test.b",
+            ),
+            "n_root": AndNodeSpec(
+                node_id="n_root",
+                provenance=Provenance.STRUCTURAL,
+                children=["n_a", "n_b"],
+            ),
+        },
+        determinations={
+            "test.compliant": DeterminationSpec(
+                id="test.compliant",
+                description="Both conditions are satisfied.",
+                root_node="n_root",
             )
         },
         production_record=ProductionRecord(produced_by="test"),

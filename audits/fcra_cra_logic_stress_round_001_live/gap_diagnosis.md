@@ -233,7 +233,8 @@ unknown.
    - Increase output budget only as a temporary mitigation; it does not solve
      reliability.
 
-2. Add incremental sufficiency mapping.
+2. Add incremental sufficiency mapping. Implemented in commit after this report
+   as `--incremental-sufficiency`.
 
    Flow:
 
@@ -247,6 +248,8 @@ unknown.
      can be added.
 
    This preserves the governance benefit while avoiding 80 to 100 atom payloads.
+   The mode is intentionally optional so old one-call and batch runs remain
+   reproducible for comparison.
 
 3. Add Map-profile macro entailments.
 
@@ -292,4 +295,3 @@ it is under-mapping the FCRA policy. The largest immediate gap is not policy
 logic; it is the Map contract. The current one-call Map is too large and too
 fragile. The next implementation should focus on structured bounded Map calls,
 incremental sufficiency, and policy-authored profile macro entailments.
-

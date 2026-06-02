@@ -298,6 +298,12 @@ def _parser() -> argparse.ArgumentParser:
         help="bind sources and all selected atoms in one governed Map LLM call",
     )
     map_eval.add_argument(
+        "--incremental-sufficiency",
+        action="store_true",
+        help="bind bounded load-bearing atom chunks and re-run the engine between chunks",
+    )
+    map_eval.add_argument("--max-incremental-rounds", type=int, default=8)
+    map_eval.add_argument(
         "--repair-unresolved",
         action="store_true",
         help="run a trace-guided repair call for unresolved load-bearing atoms",
@@ -426,6 +432,8 @@ def _parser() -> argparse.ArgumentParser:
     calibration.add_argument("--max-atoms", type=int, default=None)
     calibration.add_argument("--batch-size", type=int, default=1)
     calibration.add_argument("--single-map-call", action="store_true")
+    calibration.add_argument("--incremental-sufficiency", action="store_true")
+    calibration.add_argument("--max-incremental-rounds", type=int, default=8)
     calibration.add_argument("--repair-unresolved", action="store_true")
     calibration.add_argument("--max-repair-atoms", type=int, default=12)
     calibration.add_argument(
@@ -717,6 +725,8 @@ def _map_eval(args: argparse.Namespace) -> int:
         max_atoms=args.max_atoms,
         batch_size=args.batch_size,
         single_map_call=args.single_map_call,
+        incremental_sufficiency=args.incremental_sufficiency,
+        max_incremental_rounds=args.max_incremental_rounds,
         repair_unresolved=args.repair_unresolved,
         max_repair_atoms=args.max_repair_atoms,
         max_tokens=args.llm_max_tokens,
@@ -770,6 +780,8 @@ def _calibration_eval(args: argparse.Namespace) -> int:
         max_atoms=args.max_atoms,
         batch_size=args.batch_size,
         single_map_call=args.single_map_call,
+        incremental_sufficiency=args.incremental_sufficiency,
+        max_incremental_rounds=args.max_incremental_rounds,
         repair_unresolved=args.repair_unresolved,
         max_repair_atoms=args.max_repair_atoms,
         max_tokens=args.llm_max_tokens,
