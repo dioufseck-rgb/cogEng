@@ -36,6 +36,19 @@ Candidate rules: `19`
 | `rk_auto_reseller_forwarded_source_cra_5bb28a750d` | `scope_supported_true` | 1 | 1 |
 | `rk_auto_reseller_conveyance_late_9364f425d8` | `numeric_profile_default` | 1 | 1 |
 
+## Baseline vs Candidate
+
+| Split | Baseline Matches | Candidate Matches | Delta | Candidate Accuracy |
+|---|---:|---:|---:|---:|
+| `repair` | 22 | 43 | +21 | 71.67% |
+| `validation` | 25 | 28 | +3 | 46.67% |
+
+## Promotion Gate
+
+Status: `hold_for_review`
+
+Candidate Map-profile rules improve or preserve validation accuracy, but validation accuracy is below the promotion threshold.
+
 ## Profile-Only Replay
 
 | Split | Matches | Mismatches | Accuracy |

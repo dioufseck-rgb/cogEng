@@ -196,6 +196,7 @@ def run_map_profile_repair(
         patched_program.model_dump_json(indent=2),
         encoding="utf-8",
     )
+    baseline_replay: dict[str, Any] = {}
     replay: dict[str, Any] = {}
     for split_name, cases in (
         ("repair", repair_cases),
@@ -203,7 +204,20 @@ def run_map_profile_repair(
     ):
         if not cases:
             continue
-        result = adjudicate_cases(
+        baseline_result = adjudicate_cases(
+            program,
+            cases,
+            determinations=determinations,
+            map_step=ProfileDefaultsMapStep(),
+            program_id=program.metadata.name,
+            program_version=program.metadata.version,
+        )
+        baseline_files = write_runtime_result(
+            baseline_result,
+            output_dir / f"{split_name}_profile_baseline",
+        )
+        baseline_replay[split_name] = _replay_summary(baseline_result, baseline_files)
+        candidate_result = adjudicate_cases(
             patched_program,
             cases,
             determinations=determinations,
@@ -211,13 +225,20 @@ def run_map_profile_repair(
             program_id=patched_program.metadata.name,
             program_version=patched_program.metadata.version,
         )
-        files = write_runtime_result(result, output_dir / f"{split_name}_profile_replay")
-        replay[split_name] = _replay_summary(result, files)
+        candidate_files = write_runtime_result(
+            candidate_result,
+            output_dir / f"{split_name}_profile_replay",
+        )
+        replay[split_name] = _replay_summary(candidate_result, candidate_files)
+    validation_gate = _profile_repair_validation_gate(baseline_replay, replay)
     regression_summary = {
         "status": "run",
         "repair_target": "map_profile.default_rules",
         "candidate_rule_count": patch.get("candidate_rule_count", 0),
+        "baseline_replay": baseline_replay,
         "replay": replay,
+        "delta": _replay_deltas(baseline_replay, replay),
+        "validation_gate": validation_gate,
         "final_holdout_used": False,
     }
     (output_dir / "regression_summary.json").write_text(
@@ -267,6 +288,37 @@ def build_map_profile_repair_report(
             f"{len(rule.get('if_any', [])) + len(rule.get('if_all', [])) + len(rule.get('if_regex_any', []))} |"
         )
     lines.extend([
+        "",
+        "## Baseline vs Candidate",
+        "",
+        "| Split | Baseline Matches | Candidate Matches | Delta | Candidate Accuracy |",
+        "|---|---:|---:|---:|---:|",
+    ])
+    baseline = regression_summary.get("baseline_replay", {})
+    candidate = regression_summary.get("replay", {})
+    deltas = regression_summary.get("delta", {})
+    for split_name in sorted(set(baseline) | set(candidate)):
+        base_summary = baseline.get(split_name, {})
+        candidate_summary = candidate.get(split_name, {})
+        total = candidate_summary.get("disposition_count", 0)
+        matches = candidate_summary.get("matched_disposition_count", 0)
+        accuracy = matches / total if total else 0.0
+        lines.append(
+            "| "
+            f"`{split_name}` | "
+            f"{base_summary.get('matched_disposition_count', 0)} | "
+            f"{matches} | "
+            f"{deltas.get(split_name, {}).get('matched_delta', 0):+d} | "
+            f"{accuracy:.2%} |"
+        )
+    gate = regression_summary.get("validation_gate", {})
+    lines.extend([
+        "",
+        "## Promotion Gate",
+        "",
+        f"Status: `{gate.get('status', 'unknown')}`",
+        "",
+        gate.get("reason", "No validation gate result was recorded."),
         "",
         "## Profile-Only Replay",
         "",
@@ -788,6 +840,76 @@ def _replay_summary(result: dict[str, Any], files: dict[str, str]) -> dict[str, 
         "mismatch_count": result["mismatch_count"],
         "map_mode": result["map_mode"],
         "files": files,
+    }
+
+
+def _replay_deltas(
+    baseline: dict[str, Any],
+    candidate: dict[str, Any],
+) -> dict[str, dict[str, Any]]:
+    deltas: dict[str, dict[str, Any]] = {}
+    for split_name in sorted(set(baseline) | set(candidate)):
+        base_summary = baseline.get(split_name, {})
+        candidate_summary = candidate.get(split_name, {})
+        deltas[split_name] = {
+            "matched_delta": (
+                int(candidate_summary.get("matched_disposition_count", 0))
+                - int(base_summary.get("matched_disposition_count", 0))
+            ),
+            "mismatch_delta": (
+                int(candidate_summary.get("mismatch_count", 0))
+                - int(base_summary.get("mismatch_count", 0))
+            ),
+        }
+    return deltas
+
+
+def _profile_repair_validation_gate(
+    baseline: dict[str, Any],
+    candidate: dict[str, Any],
+) -> dict[str, Any]:
+    validation_baseline = baseline.get("validation")
+    validation_candidate = candidate.get("validation")
+    if not validation_baseline or not validation_candidate:
+        return {
+            "status": "not_evaluated",
+            "reason": "No validation split replay was available.",
+        }
+    total = int(validation_candidate.get("disposition_count", 0))
+    candidate_matches = int(validation_candidate.get("matched_disposition_count", 0))
+    baseline_matches = int(validation_baseline.get("matched_disposition_count", 0))
+    delta = candidate_matches - baseline_matches
+    accuracy = candidate_matches / total if total else 0.0
+    if delta < 0:
+        return {
+            "status": "reject",
+            "reason": (
+                "Candidate Map-profile rules reduce validation accuracy and must "
+                "not be promoted."
+            ),
+            "validation_matched_delta": delta,
+            "validation_accuracy": accuracy,
+        }
+    if accuracy < 0.8:
+        return {
+            "status": "hold_for_review",
+            "reason": (
+                "Candidate Map-profile rules improve or preserve validation accuracy, "
+                "but validation accuracy is below the promotion threshold."
+            ),
+            "validation_matched_delta": delta,
+            "validation_accuracy": accuracy,
+            "promotion_threshold": 0.8,
+        }
+    return {
+        "status": "eligible_for_review",
+        "reason": (
+            "Candidate Map-profile rules improve or preserve validation accuracy "
+            "and meet the minimum promotion threshold."
+        ),
+        "validation_matched_delta": delta,
+        "validation_accuracy": accuracy,
+        "promotion_threshold": 0.8,
     }
 
 

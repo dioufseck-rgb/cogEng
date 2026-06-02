@@ -425,16 +425,22 @@ def build_calibration_report(summary: dict[str, Any], manifest: dict[str, Any]) 
         lines.extend([
             f"Map-profile candidate rules: `{repair.get('candidate_rule_count', 0)}`",
             f"Patched program: `{repair.get('patched_program')}`",
+            f"Promotion gate: `{repair.get('validation_gate', {}).get('status', 'unknown')}`",
             "",
-            "| Replay Split | Matches | Mismatches | Accuracy |",
-            "|---|---:|---:|---:|",
+            "| Replay Split | Baseline Matches | Candidate Matches | Delta | Accuracy |",
+            "|---|---:|---:|---:|---:|",
         ])
+        baseline = repair.get("baseline_replay", {})
+        deltas = repair.get("delta", {})
         for split_name, replay in repair.get("replay", {}).items():
             total = replay.get("disposition_count", 0)
             matches = replay.get("matched_disposition_count", 0)
-            mismatches = replay.get("mismatch_count", 0)
             accuracy = matches / total if total else 0.0
-            lines.append(f"| `{split_name}` | {matches} | {mismatches} | {accuracy:.2%} |")
+            base_matches = baseline.get(split_name, {}).get("matched_disposition_count", 0)
+            delta = deltas.get(split_name, {}).get("matched_delta", 0)
+            lines.append(
+                f"| `{split_name}` | {base_matches} | {matches} | {delta:+d} | {accuracy:.2%} |"
+            )
     else:
         lines.extend([
             "Map-profile repair was not run. Use `--auto-map-profile-repair`",
@@ -524,7 +530,10 @@ def _map_profile_repair_summary(repair: dict[str, Any] | None) -> dict[str, Any]
         "candidate_rule_count": patch.get("candidate_rule_count", 0),
         "patched_program": repair.get("patched_program"),
         "repair_target": patch.get("repair_target"),
+        "baseline_replay": regression.get("baseline_replay", {}),
         "replay": regression.get("replay", {}),
+        "delta": regression.get("delta", {}),
+        "validation_gate": regression.get("validation_gate", {}),
     }
 
 
