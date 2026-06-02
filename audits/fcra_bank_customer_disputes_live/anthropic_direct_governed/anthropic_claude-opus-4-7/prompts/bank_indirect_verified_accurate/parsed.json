@@ -1,0 +1,115 @@
+{
+  "case_id": "bank_indirect_verified_accurate",
+  "case_level_notes": "Indirect dispute resolved as verified-accurate; CRA furnisher-notice timing and full procedural compliance details are not stated in the narrative.",
+  "determinations": [
+    {
+      "anti_overclaim_check": "Cannot affirm timeliness of furnisher notice without explicit timing fact.",
+      "confidence": 0.5,
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "human_review_considered": false,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "CRA sent bank an ACDV packet with the customer's letter, account number, disputed month, and payment-history attachment",
+          "source": "narrative"
+        },
+        {
+          "basis": "missing",
+          "fact": "Timing of CRA's notice to furnisher relative to 5-business-day deadline not stated",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "The narrative confirms the CRA sent an ACDV packet with relevant consumer information, but does not state whether the notice was sent before the end of the fifth business day after receipt of the dispute.",
+      "uncertainty_flags": [
+        "missing timing fact for 5-business-day furnisher notice"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Determination tied to the explicit verified-accurate finding; not asserting deletion/modification not required.",
+      "confidence": 0.8,
+      "determination_id": "fcra.item_treatment_satisfied",
+      "human_review_considered": false,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Bank verified payment was received after the due date",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Bank reported verified-as-accurate results back to the CRA",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "After reasonable review, no defect was found; the item was verified as accurate and may remain verified per policy 5.",
+      "uncertainty_flags": []
+    },
+    {
+      "anti_overclaim_check": "Leaning toward satisfied but marking undetermined since procedural completeness beyond what's stated isn't fully confirmed.",
+      "confidence": 0.7,
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "human_review_considered": false,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Bank reviewed account ledger, payment posting records, and CRA packet",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Bank reported verified-as-accurate results back to CRA within the dispute deadline",
+          "source": "narrative"
+        },
+        {
+          "basis": "inferred",
+          "fact": "No inaccuracy found, so modify/delete/block duties not triggered",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "Furnisher reviewed relevant information, investigated, and reported results within the dispute deadline. However, the narrative does not address whether the furnisher would need to report findings to other nationwide CRAs (not triggered here since accurate) or other procedural completeness elements.",
+      "uncertainty_flags": [
+        "no information about other nationwide CRAs, though not triggered given verified outcome"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Marking satisfied/not applicable based on explicit indirect-dispute channel.",
+      "confidence": 0.9,
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "human_review_considered": false,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Customer disputed through a consumer reporting agency, not directly to the furnisher",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "Not applicable: this is an indirect dispute through a CRA, not a direct dispute to the furnisher.",
+      "uncertainty_flags": []
+    },
+    {
+      "anti_overclaim_check": "Routing triggers from policy 13 are not evident in the packet.",
+      "confidence": 0.8,
+      "determination_id": "fcra.human_review_required",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Bank's ledger and posting records supported verified-as-accurate determination",
+          "source": "narrative"
+        },
+        {
+          "basis": "open_world_absence",
+          "fact": "No indication of identity theft, court order, or mixed file",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "false",
+      "rationale": "No material conflicts, identity theft indicators, court order, veteran medical debt, missing primary documents, or conflicting dates are evident in the packet.",
+      "uncertainty_flags": []
+    }
+  ]
+}

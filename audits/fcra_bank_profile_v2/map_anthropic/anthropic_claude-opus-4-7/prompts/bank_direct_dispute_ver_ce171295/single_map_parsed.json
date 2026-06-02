@@ -1,0 +1,293 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.consumer_disputed_item",
+      "basis": "explicit_positive",
+      "confidence": 0.95,
+      "evidence": "Customer C mailed a direct dispute ... identified the auto-loan account, the allegedly inaccurate late-payment month",
+      "explanation": "Narrative affirmatively states the consumer disputed an item.",
+      "source_ids": [
+        "narrative.case"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.item_in_consumer_file",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Narrative discusses dispute sent directly to the bank; no mention of CRA file contents.",
+      "explanation": "Narrative is silent on whether the item is in a consumer file at a CRA.",
+      "source_ids": [
+        "narrative.case"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Dispute concerns the 'allegedly inaccurate late-payment month'; no mention of completeness.",
+      "explanation": "Narrative frames the dispute as accuracy; completeness is neither affirmed nor expressly denied.",
+      "source_ids": [
+        "narrative.case"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.dispute_about_accuracy",
+      "basis": "explicit_positive",
+      "confidence": 0.95,
+      "evidence": "'the allegedly inaccurate late-payment month'",
+      "explanation": "Narrative explicitly characterizes the dispute as concerning inaccuracy.",
+      "source_ids": [
+        "narrative.case"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.notice_direct_to_cra",
+      "basis": "explicit_negative",
+      "confidence": 0.9,
+      "evidence": "Customer mailed the dispute 'to the bank's published dispute address'",
+      "explanation": "Narrative affirmatively states the dispute was directed to the bank (furnisher), not the CRA.",
+      "source_ids": [
+        "narrative.case"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.consumer_identity_sufficient",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Narrative does not describe identity information included in the packet.",
+      "explanation": "No statement about identity information sufficiency; bank's ability to investigate suggests identity was workable but not affirmed.",
+      "source_ids": [
+        "narrative.case"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.account_identified",
+      "basis": "explicit_positive",
+      "confidence": 0.95,
+      "evidence": "'The letter identified the auto-loan account'",
+      "explanation": "Narrative explicitly states the account was identified.",
+      "source_ids": [
+        "narrative.case"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.disputed_field_identified",
+      "basis": "explicit_positive",
+      "confidence": 0.9,
+      "evidence": "'the allegedly inaccurate late-payment month'",
+      "explanation": "The specific disputed field (the late-payment month) is identified.",
+      "source_ids": [
+        "narrative.case"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.basis_explained",
+      "basis": "explicit_positive",
+      "confidence": 0.85,
+      "evidence": "'included a copy of the customer's online payment confirmation'",
+      "explanation": "The included payment confirmation explains the basis for claimed inaccuracy of the late-payment.",
+      "source_ids": [
+        "narrative.case"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.consumer_submission_authentic",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Narrative attributes the letter to 'Customer C' but does not address authentication.",
+      "explanation": "Authenticity is not affirmatively addressed by the narrative.",
+      "source_ids": [
+        "narrative.case"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Narrative does not mention any prior dispute.",
+      "explanation": "Silence on prior disputes does not affirmatively establish that this is or is not a duplicate.",
+      "source_ids": [
+        "narrative.case"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "basis": "inferred_from_record",
+      "confidence": 0.8,
+      "evidence": "'The bank reviewed the account ledger and payment posting system, found the reported information accurate'",
+      "explanation": "The bank actually conducted an investigation and reached a substantive conclusion, indicating sufficient information was provided.",
+      "source_ids": [
+        "narrative.case"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "basis": "not_found",
+      "confidence": 0.9,
+      "evidence": "No frivolous determination or related timing stated.",
+      "explanation": "Narrative provides no frivolous/irrelevant determination or associated business-day count.",
+      "source_ids": [
+        "narrative.case"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.furnished_by_furnisher",
+      "basis": "inferred_from_record",
+      "confidence": 0.8,
+      "evidence": "Bank holds the auto-loan account ledger and reviewed it as the entity that reported information.",
+      "explanation": "The bank's role reviewing its own ledger and reported information indicates it furnished the disputed item.",
+      "source_ids": [
+        "narrative.case"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.cra_notified_furnisher",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Narrative describes only direct dispute path to the bank; no CRA notice mentioned.",
+      "explanation": "Narrative is silent on whether a CRA notified the furnisher.",
+      "source_ids": [
+        "narrative.case"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.business_days_to_notify_furnisher",
+      "basis": "not_found",
+      "confidence": 0.9,
+      "evidence": "No CRA-to-furnisher timing information.",
+      "explanation": "Narrative provides no information about CRA-to-furnisher notification timing.",
+      "source_ids": [
+        "narrative.case"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.notice_included_all_relevant_info",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "No CRA furnisher notice is described.",
+      "explanation": "Narrative does not address content of any CRA-to-furnisher notice.",
+      "source_ids": [
+        "narrative.case"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.primary_documents_forwarded",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Narrative does not describe any forwarding to a furnisher from a CRA.",
+      "explanation": "The consumer submitted documents directly to the bank; nothing addresses forwarding from a CRA.",
+      "source_ids": [
+        "narrative.case"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.furnisher_received_cra_notice",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Narrative shows the bank received a direct consumer dispute, not a CRA notice.",
+      "explanation": "Whether a CRA also sent notice to the furnisher is not addressed.",
+      "source_ids": [
+        "narrative.case"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.furnisher_investigation_conducted",
+      "basis": "explicit_positive",
+      "confidence": 0.9,
+      "evidence": "'The bank reviewed the account ledger and payment posting system, found the reported information accurate'",
+      "explanation": "Narrative affirmatively states the furnisher (bank) conducted an investigation.",
+      "source_ids": [
+        "narrative.case"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.furnisher_reviewed_all_cra_info",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "No CRA-provided information is described; bank reviewed its own ledger and posting system.",
+      "explanation": "Narrative does not address review of CRA-provided information.",
+      "source_ids": [
+        "narrative.case"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.furnisher_reported_results_to_cra",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "'sent a written investigation result to the customer' \u2014 sent to consumer, not to CRA",
+      "explanation": "Narrative states results were sent to the consumer but is silent on reporting to any CRA.",
+      "source_ids": [
+        "narrative.case"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.days_to_furnisher_complete",
+      "basis": "not_found",
+      "confidence": 0.9,
+      "evidence": "No dates or day-count provided.",
+      "explanation": "Narrative provides no timing information to compute days to completion.",
+      "source_ids": [
+        "narrative.case"
+      ],
+      "status": "undetermined",
+      "value": false
+    }
+  ],
+  "sources": [
+    {
+      "as_of_date": null,
+      "closed_world_scopes": [
+        "consumer dispute submission contents",
+        "bank's investigation actions"
+      ],
+      "limitations": "Narrative does not address any CRA involvement, timing in days, prior disputes, or furnisher-to-CRA reporting steps.",
+      "source_id": "narrative.case",
+      "source_type": "case_narrative",
+      "title": "Customer C direct dispute to bank"
+    }
+  ]
+}

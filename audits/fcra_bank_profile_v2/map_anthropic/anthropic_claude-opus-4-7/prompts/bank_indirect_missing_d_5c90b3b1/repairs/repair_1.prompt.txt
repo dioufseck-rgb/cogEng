@@ -1,0 +1,427 @@
+You are repairing selected atom bindings for a governed policy engine.
+
+You are NOT deciding policy outcomes. The deterministic engine has already
+identified these atoms as unresolved on a load-bearing trace. Your job is only
+to revisit the listed atom bindings from the case packet and return improved
+bindings where the evidence supports them.
+
+Rules:
+- Treat each atom independently.
+- Do not change an atom just to make a determination true or false.
+- If the case packet still does not support a value, keep it undetermined.
+- If a conditional support atom is phrased like "if needed", "if applicable",
+  "if initial fail", or "when applicable", and the triggering condition is
+  clearly absent, it may bind true with basis "inferred_from_record" because the
+  branch is not applicable.
+- Return one binding object for every atom in REPAIR_ATOMS.
+
+Allowed basis values:
+explicit_positive, explicit_negative, closed_world_absence, open_world_absence,
+inferred_from_record, conflicting_evidence, computed, looked_up, not_found.
+
+CASE NARRATIVE
+==============
+Customer B disputed a charged-off credit card balance through a CRA and said settlement records proved the balance was wrong. The CRA notice to the bank contained the account number and dispute code but did not include the settlement letter or bank-statement images referenced by the customer. The bank reviewed the materials it received, responded to the CRA, and opened a manual review because the customer referenced source documents that were missing from the transmission.
+
+
+SOURCE INVENTORY
+================
+[
+  {
+    "as_of_date": null,
+    "closed_world_scopes": [
+      "contents of CRA notice transmitted to bank",
+      "bank's immediate response actions described"
+    ],
+    "limitations": "Narrative is brief; does not describe outcome of manual review, final reinvestigation findings, furnisher reporting actions to other CRAs, timing details, or prior dispute history.",
+    "metadata": {},
+    "source_id": "case_narrative",
+    "source_type": "case_narrative",
+    "title": "Customer B CRA Dispute Narrative"
+  }
+]
+
+REPAIR_ATOMS
+============
+[
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.dispute_duplicate_without_new_info",
+      "notes": "",
+      "source_span": "12 CFR 1022.43(f)(1)(ii)",
+      "statement": "The dispute is substantially the same as a prior dispute and contains no new required information.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "atom_type": "boolean",
+      "basis": "open_world_absence",
+      "confidence": 0.9,
+      "evidence": "Narrative does not mention any prior dispute by Customer B on this item.",
+      "explanation": "No information about prior disputes is provided; cannot determine whether this is substantially the same as a prior dispute.",
+      "metadata": {
+        "raw_atom_id": "fcra.dispute_duplicate_without_new_info"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "Customer B disputed a charged-off credit card balance through a CRA and said settlement records proved the balance was wrong. The CRA notice to the bank contained the account number and dispute code but did not include the settlement letter or bank-statement images referenced by the customer. The bank reviewed the materials it received, responded to the CRA, and opened a manual review because the customer referenced source documents that were missing from the transmission.\n",
+    "repair_reasons": [
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.insufficient_information_to_investigate",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(3)",
+      "statement": "The consumer failed to provide sufficient information to investigate the disputed information.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "atom_type": "boolean",
+      "basis": "not_found",
+      "confidence": 0.7,
+      "evidence": "The CRA notice contained account number and dispute code but referenced settlement letter and bank-statement images that were not transmitted. The bank opened a manual review.",
+      "explanation": "While referenced source documents were missing, the bank reviewed what it received and opened a manual review rather than declaring information insufficient. The narrative does not state a determination that information was insufficient to investigate.",
+      "metadata": {
+        "raw_atom_id": "fcra.insufficient_information_to_investigate"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "Customer B disputed a charged-off credit card balance through a CRA and said settlement records proved the balance was wrong. The CRA notice to the bank contained the account number and dispute code but did not include the settlement letter or bank-statement images referenced by the customer. The bank reviewed the materials it received, responded to the CRA, and opened a manual review because the customer referenced source documents that were missing from the transmission.\n",
+    "repair_reasons": [
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "numeric",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.business_days_to_frivolous_notice",
+      "notes": "",
+      "numeric_unit": "business_days",
+      "source_span": "15 U.S.C. 1681i(a)(3)(B)",
+      "statement": "Business days from frivolous or irrelevant determination to consumer notice.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "atom_type": "numeric",
+      "basis": "not_found",
+      "confidence": 0.95,
+      "evidence": "No frivolous/irrelevant determination or related timing is described.",
+      "explanation": "Narrative provides no numeric timing data regarding any frivolous determination notice.",
+      "metadata": {
+        "raw_atom_id": "fcra.business_days_to_frivolous_notice"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "Customer B disputed a charged-off credit card balance through a CRA and said settlement records proved the balance was wrong. The CRA notice to the bank contained the account number and dispute code but did not include the settlement letter or bank-statement images referenced by the customer. The bank reviewed the materials it received, responded to the CRA, and opened a manual review because the customer referenced source documents that were missing from the transmission.\n",
+    "repair_reasons": [
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_found_inaccurate",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "statement": "The reinvestigation found the disputed item inaccurate.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.item_found_inaccurate",
+      "atom_type": "boolean",
+      "basis": "not_found",
+      "confidence": 0.9,
+      "evidence": "Bank opened a manual review; no reinvestigation outcome stated.",
+      "explanation": "The reinvestigation/manual review outcome is not reported in the narrative.",
+      "metadata": {
+        "raw_atom_id": "fcra.item_found_inaccurate"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "Customer B disputed a charged-off credit card balance through a CRA and said settlement records proved the balance was wrong. The CRA notice to the bank contained the account number and dispute code but did not include the settlement letter or bank-statement images referenced by the customer. The bank reviewed the materials it received, responded to the CRA, and opened a manual review because the customer referenced source documents that were missing from the transmission.\n",
+    "repair_reasons": [
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_found_incomplete",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "statement": "The reinvestigation found the disputed item incomplete.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.item_found_incomplete",
+      "atom_type": "boolean",
+      "basis": "not_found",
+      "confidence": 0.9,
+      "evidence": "No reinvestigation findings reported.",
+      "explanation": "The narrative does not state any finding of incompleteness.",
+      "metadata": {
+        "raw_atom_id": "fcra.item_found_incomplete"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "Customer B disputed a charged-off credit card balance through a CRA and said settlement records proved the balance was wrong. The CRA notice to the bank contained the account number and dispute code but did not include the settlement letter or bank-statement images referenced by the customer. The bank reviewed the materials it received, responded to the CRA, and opened a manual review because the customer referenced source documents that were missing from the transmission.\n",
+    "repair_reasons": [
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_cannot_be_verified",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "statement": "The disputed item could not be verified.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "atom_type": "boolean",
+      "basis": "not_found",
+      "confidence": 0.9,
+      "evidence": "No verification outcome stated.",
+      "explanation": "The narrative does not indicate whether verification succeeded or failed; the manual review is ongoing as described.",
+      "metadata": {
+        "raw_atom_id": "fcra.item_cannot_be_verified"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "Customer B disputed a charged-off credit card balance through a CRA and said settlement records proved the balance was wrong. The CRA notice to the bank contained the account number and dispute code but did not include the settlement letter or bank-statement images referenced by the customer. The bank reviewed the materials it received, responded to the CRA, and opened a manual review because the customer referenced source documents that were missing from the transmission.\n",
+    "repair_reasons": [
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_verified_as_accurate",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)",
+      "statement": "The disputed item was verified as complete and accurate after reasonable reinvestigation.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.item_verified_as_accurate",
+      "atom_type": "boolean",
+      "basis": "not_found",
+      "confidence": 0.9,
+      "evidence": "Bank responded to CRA and opened manual review; no final verification outcome stated.",
+      "explanation": "The narrative does not state that the item was verified as complete and accurate.",
+      "metadata": {
+        "raw_atom_id": "fcra.item_verified_as_accurate"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "Customer B disputed a charged-off credit card balance through a CRA and said settlement records proved the balance was wrong. The CRA notice to the bank contained the account number and dispute code but did not include the settlement letter or bank-statement images referenced by the customer. The bank reviewed the materials it received, responded to the CRA, and opened a manual review because the customer referenced source documents that were missing from the transmission.\n",
+    "repair_reasons": [
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_status_recorded_current",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)",
+      "statement": "The current status of the disputed information was recorded.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.item_status_recorded_current",
+      "atom_type": "boolean",
+      "basis": "not_found",
+      "confidence": 0.9,
+      "evidence": "No statement about recording of current status of the disputed information.",
+      "explanation": "The narrative does not describe whether the current status of the disputed item was recorded.",
+      "metadata": {
+        "raw_atom_id": "fcra.item_status_recorded_current"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "Customer B disputed a charged-off credit card balance through a CRA and said settlement records proved the balance was wrong. The CRA notice to the bank contained the account number and dispute code but did not include the settlement letter or bank-statement images referenced by the customer. The bank reviewed the materials it received, responded to the CRA, and opened a manual review because the customer referenced source documents that were missing from the transmission.\n",
+    "repair_reasons": [
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_deleted",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "statement": "The disputed item was deleted from the consumer's file.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.item_deleted",
+      "atom_type": "boolean",
+      "basis": "not_found",
+      "confidence": 0.9,
+      "evidence": "No deletion action described.",
+      "explanation": "Outcome of manual review is not stated; no deletion is mentioned.",
+      "metadata": {
+        "raw_atom_id": "fcra.item_deleted"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "Customer B disputed a charged-off credit card balance through a CRA and said settlement records proved the balance was wrong. The CRA notice to the bank contained the account number and dispute code but did not include the settlement letter or bank-statement images referenced by the customer. The bank reviewed the materials it received, responded to the CRA, and opened a manual review because the customer referenced source documents that were missing from the transmission.\n",
+    "repair_reasons": [
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_modified",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "statement": "The disputed item was modified as appropriate.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.item_modified",
+      "atom_type": "boolean",
+      "basis": "not_found",
+      "confidence": 0.9,
+      "evidence": "No modification action described.",
+      "explanation": "Outcome of manual review is not stated; no modification is mentioned.",
+      "metadata": {
+        "raw_atom_id": "fcra.item_modified"
+      },
+      "source": "governed_llm",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    "relevant_evidence": "Customer B disputed a charged-off credit card balance through a CRA and said settlement records proved the balance was wrong. The CRA notice to the bank contained the account number and dispute code but did not include the settlement letter or bank-statement images referenced by the customer. The bank reviewed the materials it received, responded to the CRA, and opened a manual review because the customer referenced source documents that were missing from the transmission.\n",
+    "repair_reasons": [
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  }
+]
+
+Return ONLY this JSON shape:
+{
+  "bindings": [
+    {
+      "atom_id": "atom id from REPAIR_ATOMS",
+      "status": "bound|undetermined|error",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["source id"],
+      "evidence": "short exact evidence or summary",
+      "explanation": "why this basis is appropriate",
+      "confidence": 0.0
+    }
+  ]
+}

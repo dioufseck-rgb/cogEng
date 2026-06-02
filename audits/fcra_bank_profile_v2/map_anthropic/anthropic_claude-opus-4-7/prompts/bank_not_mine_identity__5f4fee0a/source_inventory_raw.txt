@@ -1,0 +1,273 @@
+{
+  "sources": [
+    {
+      "source_id": "case_narrative",
+      "source_type": "case_narrative",
+      "title": "Customer E dispute intake narrative",
+      "as_of_date": null,
+      "closed_world_scopes": ["intake events for Customer E's dispute submission", "documentation provided by consumer at intake"],
+      "limitations": "Narrative covers only intake and initial routing; does not cover CRA processing, furnisher actions, or reinvestigation outcomes."
+    }
+  ],
+  "bindings": [
+    {
+      "atom_id": "fcra.consumer_disputed_item",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["case_narrative"],
+      "evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\"",
+      "explanation": "Narrative affirmatively states the consumer disputed items.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.item_in_consumer_file",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "two reported accounts are \"not mine\"",
+      "explanation": "The accounts are described as 'reported', indicating they appear in the consumer's file at a CRA.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Dispute characterized as 'not mine' / identity theft; no mention of completeness concerns",
+      "explanation": "Narrative does not address completeness; absence is not affirmative.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.dispute_about_accuracy",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "two reported accounts are \"not mine\" and appear to involve identity theft",
+      "explanation": "A 'not mine' claim asserts the reported tradeline is inaccurate as to the consumer.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.notice_direct_to_cra",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Customer called and uploaded dispute to the bank; no mention of CRA notification",
+      "explanation": "Narrative describes notice to the bank/furnisher path, not whether the consumer separately notified a CRA.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.consumer_identity_sufficient",
+      "status": "undetermined",
+      "value": false,
+      "basis": "conflicting_evidence",
+      "source_ids": ["case_narrative"],
+      "evidence": "bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation",
+      "explanation": "Narrative indicates the bank could not match identity documents to the account-opening file, suggesting insufficiency, but it is framed as needing additional identity-theft documentation rather than a definitive determination of identity insufficiency.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.account_identified",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "two reported accounts are \"not mine\"",
+      "explanation": "Consumer identified two specific reported accounts as disputed.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.disputed_field_identified",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "two reported accounts are \"not mine\" and appear to involve identity theft",
+      "explanation": "The disputed field is account ownership (entire tradeline) which is identifiable from the 'not mine' claim.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "fcra.basis_explained",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["case_narrative"],
+      "evidence": "saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number",
+      "explanation": "Consumer explained the basis as identity theft and supplied a police incident number.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.consumer_submission_authentic",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Customer E called and uploaded a dispute",
+      "explanation": "Narrative attributes the submission to the named customer; no indication of inauthenticity.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "No mention of any prior dispute",
+      "explanation": "Narrative does not address whether this is a duplicate of a prior dispute.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "status": "undetermined",
+      "value": false,
+      "basis": "conflicting_evidence",
+      "source_ids": ["case_narrative"],
+      "evidence": "no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review",
+      "explanation": "Narrative indicates more documentation is needed, but the bank routed to manual review rather than making a formal insufficiency determination; policy engine must decide.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "undetermined",
+      "value": false,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No frivolous/irrelevant determination or related timing stated",
+      "explanation": "Narrative does not provide any frivolous determination or business-day timing.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.furnished_by_furnisher",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "two reported accounts ... account-opening file",
+      "explanation": "References to 'reported accounts' and an account-opening file indicate the bank is the furnisher of the disputed items.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "fcra.cra_notified_furnisher",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative covers consumer-to-bank intake only",
+      "explanation": "No information about whether a CRA notified the furnisher.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.business_days_to_notify_furnisher",
+      "status": "undetermined",
+      "value": false,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No CRA timing information provided",
+      "explanation": "Narrative does not contain any business-day count for CRA-to-furnisher notification.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.notice_included_all_relevant_info",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "No CRA notice content described",
+      "explanation": "Narrative does not address the contents of any CRA furnisher notice.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.primary_documents_forwarded",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative ends at routing to manual review",
+      "explanation": "No information about whether documents were forwarded to a furnisher.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.item_found_inaccurate",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Case routed to manual review; no reinvestigation outcome described",
+      "explanation": "No reinvestigation findings are reported in the narrative.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.item_found_incomplete",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "No reinvestigation outcome described",
+      "explanation": "No information on completeness findings.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "No reinvestigation outcome described",
+      "explanation": "Narrative does not describe verification outcome.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.item_verified_as_accurate",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "No reinvestigation outcome described",
+      "explanation": "Narrative does not state any verification result.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.item_status_recorded_current",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "No mention of recording current status",
+      "explanation": "Narrative does not describe whether the current status was recorded.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.item_deleted",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Case routed to manual review; no deletion described",
+      "explanation": "No information about deletion of the item.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.item_modified",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "No modification described",
+      "explanation": "Narrative does not address modification.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.furnisher_received_cra_notice",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Dispute came directly to the bank, not via CRA in this narrative",
+      "explanation": "Narrative does not state whether any CRA notice was received by the furnisher.",
+      "confidence": 0.5
+    },
+    

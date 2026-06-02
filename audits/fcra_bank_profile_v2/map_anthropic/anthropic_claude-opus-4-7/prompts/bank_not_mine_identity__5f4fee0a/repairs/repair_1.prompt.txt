@@ -1,0 +1,410 @@
+You are repairing selected atom bindings for a governed policy engine.
+
+You are NOT deciding policy outcomes. The deterministic engine has already
+identified these atoms as unresolved on a load-bearing trace. Your job is only
+to revisit the listed atom bindings from the case packet and return improved
+bindings where the evidence supports them.
+
+Rules:
+- Treat each atom independently.
+- Do not change an atom just to make a determination true or false.
+- If the case packet still does not support a value, keep it undetermined.
+- If a conditional support atom is phrased like "if needed", "if applicable",
+  "if initial fail", or "when applicable", and the triggering condition is
+  clearly absent, it may bind true with basis "inferred_from_record" because the
+  branch is not applicable.
+- Return one binding object for every atom in REPAIR_ATOMS.
+
+Allowed basis values:
+explicit_positive, explicit_negative, closed_world_absence, open_world_absence,
+inferred_from_record, conflicting_evidence, computed, looked_up, not_found.
+
+CASE NARRATIVE
+==============
+Customer E called and uploaded a dispute saying two reported accounts are "not mine" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.
+
+
+SOURCE INVENTORY
+================
+[]
+
+REPAIR_ATOMS
+============
+[
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.consumer_disputed_item",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)(A)",
+      "statement": "The consumer disputed an item.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.consumer_disputed_item",
+      "atom_type": "boolean",
+      "basis": "not_found",
+      "confidence": null,
+      "evidence": null,
+      "explanation": "single-map response did not include this atom",
+      "metadata": {
+        "raw_atom_id": "fcra.consumer_disputed_item"
+      },
+      "source": "governed_llm",
+      "source_ids": [],
+      "status": "error",
+      "value": "undetermined"
+    },
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n",
+    "repair_reasons": [
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_in_consumer_file",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)(A)",
+      "statement": "The disputed item is contained in the consumer's file at a consumer reporting agency.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.item_in_consumer_file",
+      "atom_type": "boolean",
+      "basis": "not_found",
+      "confidence": null,
+      "evidence": null,
+      "explanation": "single-map response did not include this atom",
+      "metadata": {
+        "raw_atom_id": "fcra.item_in_consumer_file"
+      },
+      "source": "governed_llm",
+      "source_ids": [],
+      "status": "error",
+      "value": "undetermined"
+    },
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n",
+    "repair_reasons": [
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.dispute_about_completeness",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)(A)",
+      "statement": "The dispute concerns completeness of the item.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.dispute_about_completeness",
+      "atom_type": "boolean",
+      "basis": "not_found",
+      "confidence": null,
+      "evidence": null,
+      "explanation": "single-map response did not include this atom",
+      "metadata": {
+        "raw_atom_id": "fcra.dispute_about_completeness"
+      },
+      "source": "governed_llm",
+      "source_ids": [],
+      "status": "error",
+      "value": "undetermined"
+    },
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n",
+    "repair_reasons": [
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.dispute_about_accuracy",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)(A)",
+      "statement": "The dispute concerns accuracy of the item.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.dispute_about_accuracy",
+      "atom_type": "boolean",
+      "basis": "not_found",
+      "confidence": null,
+      "evidence": null,
+      "explanation": "single-map response did not include this atom",
+      "metadata": {
+        "raw_atom_id": "fcra.dispute_about_accuracy"
+      },
+      "source": "governed_llm",
+      "source_ids": [],
+      "status": "error",
+      "value": "undetermined"
+    },
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n",
+    "repair_reasons": [
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.notice_direct_to_cra",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)(A)",
+      "statement": "The consumer notified the consumer reporting agency directly.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.notice_direct_to_cra",
+      "atom_type": "boolean",
+      "basis": "not_found",
+      "confidence": null,
+      "evidence": null,
+      "explanation": "single-map response did not include this atom",
+      "metadata": {
+        "raw_atom_id": "fcra.notice_direct_to_cra"
+      },
+      "source": "governed_llm",
+      "source_ids": [],
+      "status": "error",
+      "value": "undetermined"
+    },
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n",
+    "repair_reasons": [
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.consumer_identity_sufficient",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(3)",
+      "statement": "The packet contains sufficient consumer identity information to investigate.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.consumer_identity_sufficient",
+      "atom_type": "boolean",
+      "basis": "not_found",
+      "confidence": null,
+      "evidence": null,
+      "explanation": "single-map response did not include this atom",
+      "metadata": {
+        "raw_atom_id": "fcra.consumer_identity_sufficient"
+      },
+      "source": "governed_llm",
+      "source_ids": [],
+      "status": "error",
+      "value": "undetermined"
+    },
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n",
+    "repair_reasons": [
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.account_identified",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(3)",
+      "statement": "The disputed account or tradeline is identified.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.account_identified",
+      "atom_type": "boolean",
+      "basis": "not_found",
+      "confidence": null,
+      "evidence": null,
+      "explanation": "single-map response did not include this atom",
+      "metadata": {
+        "raw_atom_id": "fcra.account_identified"
+      },
+      "source": "governed_llm",
+      "source_ids": [],
+      "status": "error",
+      "value": "undetermined"
+    },
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n",
+    "repair_reasons": [
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.disputed_field_identified",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(3)",
+      "statement": "The specific disputed field or information is identified.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.disputed_field_identified",
+      "atom_type": "boolean",
+      "basis": "not_found",
+      "confidence": null,
+      "evidence": null,
+      "explanation": "single-map response did not include this atom",
+      "metadata": {
+        "raw_atom_id": "fcra.disputed_field_identified"
+      },
+      "source": "governed_llm",
+      "source_ids": [],
+      "status": "error",
+      "value": "undetermined"
+    },
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n",
+    "repair_reasons": [
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.basis_explained",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(3)",
+      "statement": "The dispute explains the basis for the claimed inaccuracy or incompleteness.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.basis_explained",
+      "atom_type": "boolean",
+      "basis": "not_found",
+      "confidence": null,
+      "evidence": null,
+      "explanation": "single-map response did not include this atom",
+      "metadata": {
+        "raw_atom_id": "fcra.basis_explained"
+      },
+      "source": "governed_llm",
+      "source_ids": [],
+      "status": "error",
+      "value": "undetermined"
+    },
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n",
+    "repair_reasons": [
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.consumer_submission_authentic",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)(A)",
+      "statement": "The dispute submission appears authentic to the consumer or authorized representative.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "current_binding": {
+      "atom_id": "fcra.consumer_submission_authentic",
+      "atom_type": "boolean",
+      "basis": "not_found",
+      "confidence": null,
+      "evidence": null,
+      "explanation": "single-map response did not include this atom",
+      "metadata": {
+        "raw_atom_id": "fcra.consumer_submission_authentic"
+      },
+      "source": "governed_llm",
+      "source_ids": [],
+      "status": "error",
+      "value": "undetermined"
+    },
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n",
+    "repair_reasons": [
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.cra_furnisher_notice_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.item_treatment_satisfied evaluated to undetermined and this atom appears in its load-bearing trace",
+      "fcra.furnisher_indirect_satisfied evaluated to undetermined and this atom appears in its load-bearing trace"
+    ]
+  }
+]
+
+Return ONLY this JSON shape:
+{
+  "bindings": [
+    {
+      "atom_id": "atom id from REPAIR_ATOMS",
+      "status": "bound|undetermined|error",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["source id"],
+      "evidence": "short exact evidence or summary",
+      "explanation": "why this basis is appropriate",
+      "confidence": 0.0
+    }
+  ]
+}

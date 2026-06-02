@@ -1,0 +1,127 @@
+{
+  "case_id": "bank_not_mine_identity_theft_packet_incomplete",
+  "case_level_notes": "Packet is mid-process with incomplete identity-theft documentation; most substantive determinations are undetermined pending manual review.",
+  "determinations": [
+    {
+      "anti_overclaim_check": "No facts in the packet confirm or deny furnisher notice transmission; marking undetermined avoids inferring compliance.",
+      "confidence": 0.7,
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Case routed to manual review pending identity-theft documentation",
+          "source": "narrative"
+        },
+        {
+          "basis": "missing",
+          "fact": "No record of CRA-to-furnisher transmission timing or content",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "The packet does not indicate whether the CRA transmitted notice to the furnisher within 5 business days or what information was forwarded; the case was routed to manual review before that step is documented.",
+      "uncertainty_flags": [
+        "missing fact"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Treatment outcome cannot be evaluated before the reinvestigation completes.",
+      "confidence": 0.8,
+      "determination_id": "fcra.item_treatment_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Bank could not match documents to account-opening file without further ID-theft documentation",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Case routed to manual review",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "Reinvestigation has not concluded; no determination of inaccuracy, incompleteness, or unverifiability has been made, and no deletion/modification decision is recorded.",
+      "uncertainty_flags": [
+        "missing fact",
+        "pending review"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Absence of furnisher activity in an open narrative is not proof of compliance or noncompliance.",
+      "confidence": 0.75,
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "missing",
+          "fact": "No furnisher response or investigation results recorded",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "No information in the packet describes furnisher investigation, results reporting, or modification actions following any CRA notice.",
+      "uncertainty_flags": [
+        "missing fact",
+        "source limitation"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Documentation sufficiency and any frivolous/irrelevant notice obligations are unresolved; not claiming satisfaction.",
+      "confidence": 0.7,
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Customer claims two accounts are 'not mine' and involve identity theft",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Police incident number provided but no completed identity-theft report or affidavit",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Bank routed to manual review pending additional ID-theft documentation",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "The dispute was uploaded to the bank (potentially a furnisher direct dispute), but the consumer did not supply a completed identity-theft report/affidavit, and the bank could not match documents to the account-opening file. Whether the dispute meets the qualifying-direct-dispute documentation requirement or warrants a frivolous/irrelevant determination notice has not been resolved; the case is pending manual review.",
+      "uncertainty_flags": [
+        "missing fact",
+        "pending review"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Routing criteria in policy section 13 are directly satisfied by explicit packet facts.",
+      "confidence": 0.95,
+      "determination_id": "fcra.human_review_required",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Identity theft alleged with only a police incident number and no affidavit",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Bank explicitly routed the case to manual review",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Uploaded documents could not be matched to account-opening file",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "Identity-theft evidence is plausible but incomplete (no affidavit/ID-theft report), primary source documents are missing, and the institution explicitly routed the case to manual review\u2014each independently triggers human review.",
+      "uncertainty_flags": []
+    }
+  ]
+}

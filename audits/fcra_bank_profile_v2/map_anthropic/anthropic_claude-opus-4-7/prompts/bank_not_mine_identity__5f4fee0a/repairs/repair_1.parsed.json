@@ -1,0 +1,120 @@
+{
+  "fcra.account_identified": {
+    "atom_id": "fcra.account_identified",
+    "basis": "inferred_from_record",
+    "confidence": 0.8,
+    "evidence": "two reported accounts ... 'not mine'",
+    "explanation": "The dispute identifies two specific reported accounts, enough to identify the tradelines at issue.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.basis_explained": {
+    "atom_id": "fcra.basis_explained",
+    "basis": "explicit_positive",
+    "confidence": 0.85,
+    "evidence": "appear to involve identity theft. The customer supplied a police incident number",
+    "explanation": "Consumer explained the basis: identity theft, supported by a police incident number.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.consumer_disputed_item": {
+    "atom_id": "fcra.consumer_disputed_item",
+    "basis": "explicit_positive",
+    "confidence": 0.95,
+    "evidence": "Customer E called and uploaded a dispute saying two reported accounts are 'not mine'",
+    "explanation": "Narrative explicitly states the consumer disputed two reported accounts.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.consumer_identity_sufficient": {
+    "atom_id": "fcra.consumer_identity_sufficient",
+    "basis": "conflicting_evidence",
+    "confidence": 0.6,
+    "evidence": "bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation",
+    "explanation": "Bank could not verify identity against the account-opening file; sufficiency for investigation is unresolved and routed to manual review.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": false
+  },
+  "fcra.consumer_submission_authentic": {
+    "atom_id": "fcra.consumer_submission_authentic",
+    "basis": "inferred_from_record",
+    "confidence": 0.75,
+    "evidence": "Customer E called and uploaded a dispute",
+    "explanation": "Submission came from the consumer directly via call and upload; no indication of inauthenticity.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.dispute_about_accuracy": {
+    "atom_id": "fcra.dispute_about_accuracy",
+    "basis": "explicit_positive",
+    "confidence": 0.9,
+    "evidence": "two reported accounts are 'not mine'",
+    "explanation": "Claiming accounts are 'not mine' is a dispute about the accuracy of the reported information.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.dispute_about_completeness": {
+    "atom_id": "fcra.dispute_about_completeness",
+    "basis": "explicit_negative",
+    "confidence": 0.85,
+    "evidence": "two reported accounts are 'not mine' and appear to involve identity theft",
+    "explanation": "Dispute concerns ownership/accuracy (not mine), not completeness of the item.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.disputed_field_identified": {
+    "atom_id": "fcra.disputed_field_identified",
+    "basis": "inferred_from_record",
+    "confidence": 0.75,
+    "evidence": "'not mine' and appear to involve identity theft",
+    "explanation": "The disputed information is account ownership/authorization, which is identified by the 'not mine / identity theft' claim.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.item_in_consumer_file": {
+    "atom_id": "fcra.item_in_consumer_file",
+    "basis": "inferred_from_record",
+    "confidence": 0.7,
+    "evidence": "two reported accounts ... appear to involve identity theft",
+    "explanation": "The accounts are described as 'reported', implying they appear in the consumer's CRA file.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.notice_direct_to_cra": {
+    "atom_id": "fcra.notice_direct_to_cra",
+    "basis": "not_found",
+    "confidence": 0.5,
+    "evidence": "Customer called and uploaded dispute to the bank; no mention of CRA notification",
+    "explanation": "Narrative indicates the dispute went to the bank (furnisher), not to a CRA. Whether the consumer separately notified a CRA is not addressed.",
+    "source_ids": [],
+    "status": "undetermined",
+    "value": false
+  }
+}

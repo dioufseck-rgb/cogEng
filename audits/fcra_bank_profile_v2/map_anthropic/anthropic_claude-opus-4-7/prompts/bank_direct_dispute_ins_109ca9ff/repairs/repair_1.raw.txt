@@ -1,0 +1,104 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.consumer_disputed_item",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "Customer F sent the bank a short message saying 'your credit reporting is wrong'",
+      "explanation": "The consumer expressed a dispute about credit reporting, which constitutes disputing an item.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.item_in_consumer_file",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Customer F did not identify the account or the specific reported field",
+      "explanation": "Without identification of the account or field, the record does not establish whether the disputed item is contained in a CRA file. The narrative concerns a direct dispute to the bank, not a CRA file lookup.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Customer F said only 'your credit reporting is wrong' with no specifics",
+      "explanation": "The message does not indicate whether the dispute concerns completeness specifically; the basis was not explained.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.dispute_about_accuracy",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "Customer F said 'your credit reporting is wrong'",
+      "explanation": "Stating that reporting is 'wrong' reasonably indicates an accuracy-based dispute, even though specifics are missing.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.notice_direct_to_cra",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "The message arrived at the bank's published dispute address",
+      "explanation": "The dispute was sent to the bank (furnisher), not directly to a consumer reporting agency.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.consumer_identity_sufficient",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Record does not describe what consumer identity information was included",
+      "explanation": "The narrative addresses missing account/issue details but does not state whether consumer identity information was sufficient.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.account_identified",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "did not identify the account ... the bank ... requested the missing account",
+      "explanation": "The record explicitly states the account was not identified.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.disputed_field_identified",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "did not identify ... the specific reported field",
+      "explanation": "The record explicitly states the specific disputed field was not identified.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.basis_explained",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "short message saying 'your credit reporting is wrong' ... no supporting documents ... bank requested the missing ... issue details",
+      "explanation": "The message gave no basis for the claimed inaccuracy; the bank requested missing issue details.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.consumer_submission_authentic",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "Customer F sent the bank a short message ... arrived at the bank's published dispute address",
+      "explanation": "The record attributes the submission to Customer F with no indication of inauthenticity or third-party fraud; the bank treated it as the customer's submission.",
+      "confidence": 0.7
+    }
+  ]
+}

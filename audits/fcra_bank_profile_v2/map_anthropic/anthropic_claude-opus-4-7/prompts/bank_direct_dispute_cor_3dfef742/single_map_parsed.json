@@ -1,0 +1,304 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.consumer_disputed_item",
+      "basis": "explicit_positive",
+      "confidence": 0.95,
+      "evidence": "Customer D submitted a direct dispute ... showing that a reported balance was overstated.",
+      "explanation": "Narrative explicitly states the consumer disputed an item.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.item_in_consumer_file",
+      "basis": "inferred_from_record",
+      "confidence": 0.8,
+      "evidence": "a reported balance was overstated ... CRAs that had received the inaccurate balance",
+      "explanation": "Narrative indicates the inaccurate balance had been reported to CRAs, implying the item was in the consumer's CRA file.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Dispute described as concerning an overstated balance (accuracy), no mention of completeness.",
+      "explanation": "Narrative does not affirmatively address completeness.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.dispute_about_accuracy",
+      "basis": "explicit_positive",
+      "confidence": 0.95,
+      "evidence": "payoff confirmation showing that a reported balance was overstated ... bank agreed that the balance was inaccurate",
+      "explanation": "Dispute expressly concerns accuracy of the reported balance.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.notice_direct_to_cra",
+      "basis": "explicit_negative",
+      "confidence": 0.9,
+      "evidence": "Customer D submitted a direct dispute to the bank's published dispute address",
+      "explanation": "Dispute was sent directly to the furnisher bank, not to the CRA.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.consumer_identity_sufficient",
+      "basis": "inferred_from_record",
+      "confidence": 0.6,
+      "evidence": "The bank ... modified the account record internally",
+      "explanation": "Bank was able to locate and modify the account, suggesting sufficient identifying info, but narrative does not explicitly state identity sufficiency.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.account_identified",
+      "basis": "inferred_from_record",
+      "confidence": 0.85,
+      "evidence": "bank ... modified the account record internally",
+      "explanation": "Bank acted on the specific account, indicating the account/tradeline was identified in the dispute.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.disputed_field_identified",
+      "basis": "explicit_positive",
+      "confidence": 0.9,
+      "evidence": "payoff confirmation showing that a reported balance was overstated",
+      "explanation": "The disputed field (balance) is specifically identified.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.basis_explained",
+      "basis": "explicit_positive",
+      "confidence": 0.9,
+      "evidence": "with a payoff confirmation showing that a reported balance was overstated",
+      "explanation": "Consumer provided payoff confirmation as basis for claimed inaccuracy.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.consumer_submission_authentic",
+      "basis": "inferred_from_record",
+      "confidence": 0.6,
+      "evidence": "The bank ... agreed that the balance was inaccurate and modified the account record",
+      "explanation": "Bank treated submission as authentic by acting on it, but authenticity is not explicitly stated.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "No mention of prior disputes.",
+      "explanation": "Narrative is silent on whether this is a duplicate of a prior dispute.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "basis": "inferred_from_record",
+      "confidence": 0.85,
+      "evidence": "The bank agreed that the balance was inaccurate and modified the account record internally.",
+      "explanation": "Bank was able to investigate and reach a substantive conclusion, indicating sufficient information was provided.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "basis": "not_found",
+      "confidence": 0.5,
+      "evidence": "No frivolous/irrelevant determination described.",
+      "explanation": "No timing information for frivolous notice in the record.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.furnished_by_furnisher",
+      "basis": "explicit_positive",
+      "confidence": 0.9,
+      "evidence": "CRAs that had received the inaccurate balance",
+      "explanation": "Bank furnished the disputed balance to the CRAs.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.cra_notified_furnisher",
+      "basis": "open_world_absence",
+      "confidence": 0.6,
+      "evidence": "Dispute was direct to furnisher; no mention of CRA notifying furnisher.",
+      "explanation": "Narrative concerns a direct dispute pathway; silent on any CRA-to-furnisher notice.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.business_days_to_notify_furnisher",
+      "basis": "not_found",
+      "confidence": 0.5,
+      "evidence": "No CRA-to-furnisher timing information.",
+      "explanation": "No data on CRA receipt or furnisher notice timing.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.notice_included_all_relevant_info",
+      "basis": "not_found",
+      "confidence": 0.5,
+      "evidence": "No CRA furnisher notice described.",
+      "explanation": "Narrative does not address CRA's notice content to furnisher.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.primary_documents_forwarded",
+      "basis": "not_found",
+      "confidence": 0.5,
+      "evidence": "No CRA-to-furnisher document forwarding described.",
+      "explanation": "Dispute was direct to furnisher; record is silent on CRA forwarding primary documents.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.furnisher_received_cra_notice",
+      "basis": "open_world_absence",
+      "confidence": 0.5,
+      "evidence": "Direct dispute pathway described; no CRA notice mentioned.",
+      "explanation": "Narrative does not state whether furnisher received any CRA-routed notice for this dispute.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.furnisher_investigation_conducted",
+      "basis": "explicit_positive",
+      "confidence": 0.9,
+      "evidence": "The investigation result was mailed to the customer",
+      "explanation": "Bank conducted an investigation and produced a result.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": true
+    },
+    {
+      "atom_id": "fcra.furnisher_reviewed_all_cra_info",
+      "basis": "not_found",
+      "confidence": 0.5,
+      "evidence": "No CRA-provided information described.",
+      "explanation": "Because dispute was direct, no CRA-provided info is described; not addressed.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.furnisher_reported_results_to_cra",
+      "basis": "explicit_negative",
+      "confidence": 0.85,
+      "evidence": "the bank file does not show that corrected information was sent to the CRAs that had received the inaccurate balance",
+      "explanation": "Bank file affirmatively lacks evidence of reporting corrected results to CRAs; closed-world scope of bank file supports negative finding.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    },
+    {
+      "atom_id": "fcra.days_to_furnisher_complete",
+      "basis": "not_found",
+      "confidence": 0.5,
+      "evidence": "No dates or day counts provided.",
+      "explanation": "Narrative provides no timing information for the investigation cycle.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "undetermined",
+      "value": null
+    },
+    {
+      "atom_id": "fcra.furnisher_reported_inaccuracy_to_other_cras",
+      "basis": "closed_world_absence",
+      "confidence": 0.85,
+      "evidence": "the bank file does not show that corrected information was sent to the CRAs that had received the inaccurate balance",
+      "explanation": "Bank file is the relevant closed-world record of furnisher transmissions; it affirmatively does not show corrected info was sent to recipient CRAs.",
+      "source_ids": [
+        "case_narrative"
+      ],
+      "status": "bound",
+      "value": false
+    }
+  ],
+  "sources": [
+    {
+      "as_of_date": null,
+      "closed_world_scopes": [
+        "bank file contents regarding transmission of corrected information to CRAs"
+      ],
+      "limitations": "Brief narrative; does not detail CRA-side actions, identity verification specifics, or full submission contents.",
+      "source_id": "case_narrative",
+      "source_type": "case_narrative",
+      "title": "Customer D Direct Dispute Narrative"
+    }
+  ]
+}

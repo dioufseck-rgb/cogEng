@@ -1,0 +1,104 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.consumer_disputed_item",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["case_narrative"],
+      "evidence": "Customer E called and uploaded a dispute saying two reported accounts are 'not mine'",
+      "explanation": "Narrative explicitly states the consumer disputed two reported accounts.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.item_in_consumer_file",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "two reported accounts ... appear to involve identity theft",
+      "explanation": "The accounts are described as 'reported', implying they appear in the consumer's CRA file.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "two reported accounts are 'not mine' and appear to involve identity theft",
+      "explanation": "Dispute concerns ownership/accuracy (not mine), not completeness of the item.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.dispute_about_accuracy",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["case_narrative"],
+      "evidence": "two reported accounts are 'not mine'",
+      "explanation": "Claiming accounts are 'not mine' is a dispute about the accuracy of the reported information.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.notice_direct_to_cra",
+      "status": "undetermined",
+      "value": false,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "Customer called and uploaded dispute to the bank; no mention of CRA notification",
+      "explanation": "Narrative indicates the dispute went to the bank (furnisher), not to a CRA. Whether the consumer separately notified a CRA is not addressed.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.consumer_identity_sufficient",
+      "status": "undetermined",
+      "value": false,
+      "basis": "conflicting_evidence",
+      "source_ids": ["case_narrative"],
+      "evidence": "bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation",
+      "explanation": "Bank could not verify identity against the account-opening file; sufficiency for investigation is unresolved and routed to manual review.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.account_identified",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "two reported accounts ... 'not mine'",
+      "explanation": "The dispute identifies two specific reported accounts, enough to identify the tradelines at issue.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.disputed_field_identified",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "'not mine' and appear to involve identity theft",
+      "explanation": "The disputed information is account ownership/authorization, which is identified by the 'not mine / identity theft' claim.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "fcra.basis_explained",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["case_narrative"],
+      "evidence": "appear to involve identity theft. The customer supplied a police incident number",
+      "explanation": "Consumer explained the basis: identity theft, supported by a police incident number.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.consumer_submission_authentic",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Customer E called and uploaded a dispute",
+      "explanation": "Submission came from the consumer directly via call and upload; no indication of inauthenticity.",
+      "confidence": 0.75
+    }
+  ]
+}

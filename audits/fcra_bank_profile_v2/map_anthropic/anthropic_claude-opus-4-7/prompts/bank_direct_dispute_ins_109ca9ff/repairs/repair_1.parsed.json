@@ -1,0 +1,102 @@
+{
+  "fcra.account_identified": {
+    "atom_id": "fcra.account_identified",
+    "basis": "explicit_negative",
+    "confidence": 0.95,
+    "evidence": "did not identify the account ... the bank ... requested the missing account",
+    "explanation": "The record explicitly states the account was not identified.",
+    "source_ids": [],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.basis_explained": {
+    "atom_id": "fcra.basis_explained",
+    "basis": "explicit_negative",
+    "confidence": 0.9,
+    "evidence": "short message saying 'your credit reporting is wrong' ... no supporting documents ... bank requested the missing ... issue details",
+    "explanation": "The message gave no basis for the claimed inaccuracy; the bank requested missing issue details.",
+    "source_ids": [],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.consumer_disputed_item": {
+    "atom_id": "fcra.consumer_disputed_item",
+    "basis": "explicit_positive",
+    "confidence": 0.85,
+    "evidence": "Customer F sent the bank a short message saying 'your credit reporting is wrong'",
+    "explanation": "The consumer expressed a dispute about credit reporting, which constitutes disputing an item.",
+    "source_ids": [],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.consumer_identity_sufficient": {
+    "atom_id": "fcra.consumer_identity_sufficient",
+    "basis": "open_world_absence",
+    "confidence": 0.5,
+    "evidence": "Record does not describe what consumer identity information was included",
+    "explanation": "The narrative addresses missing account/issue details but does not state whether consumer identity information was sufficient.",
+    "source_ids": [],
+    "status": "undetermined",
+    "value": false
+  },
+  "fcra.consumer_submission_authentic": {
+    "atom_id": "fcra.consumer_submission_authentic",
+    "basis": "inferred_from_record",
+    "confidence": 0.7,
+    "evidence": "Customer F sent the bank a short message ... arrived at the bank's published dispute address",
+    "explanation": "The record attributes the submission to Customer F with no indication of inauthenticity or third-party fraud; the bank treated it as the customer's submission.",
+    "source_ids": [],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.dispute_about_accuracy": {
+    "atom_id": "fcra.dispute_about_accuracy",
+    "basis": "inferred_from_record",
+    "confidence": 0.7,
+    "evidence": "Customer F said 'your credit reporting is wrong'",
+    "explanation": "Stating that reporting is 'wrong' reasonably indicates an accuracy-based dispute, even though specifics are missing.",
+    "source_ids": [],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.dispute_about_completeness": {
+    "atom_id": "fcra.dispute_about_completeness",
+    "basis": "open_world_absence",
+    "confidence": 0.6,
+    "evidence": "Customer F said only 'your credit reporting is wrong' with no specifics",
+    "explanation": "The message does not indicate whether the dispute concerns completeness specifically; the basis was not explained.",
+    "source_ids": [],
+    "status": "undetermined",
+    "value": false
+  },
+  "fcra.disputed_field_identified": {
+    "atom_id": "fcra.disputed_field_identified",
+    "basis": "explicit_negative",
+    "confidence": 0.95,
+    "evidence": "did not identify ... the specific reported field",
+    "explanation": "The record explicitly states the specific disputed field was not identified.",
+    "source_ids": [],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.item_in_consumer_file": {
+    "atom_id": "fcra.item_in_consumer_file",
+    "basis": "open_world_absence",
+    "confidence": 0.5,
+    "evidence": "Customer F did not identify the account or the specific reported field",
+    "explanation": "Without identification of the account or field, the record does not establish whether the disputed item is contained in a CRA file. The narrative concerns a direct dispute to the bank, not a CRA file lookup.",
+    "source_ids": [],
+    "status": "undetermined",
+    "value": false
+  },
+  "fcra.notice_direct_to_cra": {
+    "atom_id": "fcra.notice_direct_to_cra",
+    "basis": "explicit_negative",
+    "confidence": 0.9,
+    "evidence": "The message arrived at the bank's published dispute address",
+    "explanation": "The dispute was sent to the bank (furnisher), not directly to a consumer reporting agency.",
+    "source_ids": [],
+    "status": "bound",
+    "value": false
+  }
+}

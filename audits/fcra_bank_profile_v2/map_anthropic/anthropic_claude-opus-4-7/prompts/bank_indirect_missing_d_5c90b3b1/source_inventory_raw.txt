@@ -1,0 +1,164 @@
+{
+  "sources": [
+    {
+      "source_id": "case_narrative",
+      "source_type": "case_narrative",
+      "title": "Customer B CRA Dispute Narrative",
+      "as_of_date": null,
+      "closed_world_scopes": ["contents of CRA notice transmitted to bank", "bank's immediate response actions described"],
+      "limitations": "Narrative is brief; does not describe outcome of manual review, final reinvestigation findings, furnisher reporting actions to other CRAs, timing details, or prior dispute history."
+    }
+  ],
+  "bindings": [
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "Customer said settlement records proved the balance was wrong.",
+      "explanation": "The dispute as described concerns accuracy of the balance amount, not completeness of the item. The narrative characterizes the dispute as one about whether the balance was correct.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not mention any prior dispute by Customer B on this item.",
+      "explanation": "No information about prior disputes is provided; cannot determine whether this is substantially the same as a prior dispute.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "The CRA notice contained account number and dispute code but referenced settlement letter and bank-statement images that were not transmitted. The bank opened a manual review.",
+      "explanation": "While referenced source documents were missing, the bank reviewed what it received and opened a manual review rather than declaring information insufficient. The narrative does not state a determination that information was insufficient to investigate.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No frivolous/irrelevant determination or related timing is described.",
+      "explanation": "Narrative provides no numeric timing data regarding any frivolous determination notice.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.item_found_inaccurate",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "Bank opened a manual review; no reinvestigation outcome stated.",
+      "explanation": "The reinvestigation/manual review outcome is not reported in the narrative.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.item_found_incomplete",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No reinvestigation findings reported.",
+      "explanation": "The narrative does not state any finding of incompleteness.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No verification outcome stated.",
+      "explanation": "The narrative does not indicate whether verification succeeded or failed; the manual review is ongoing as described.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.item_verified_as_accurate",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "Bank responded to CRA and opened manual review; no final verification outcome stated.",
+      "explanation": "The narrative does not state that the item was verified as complete and accurate.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.item_status_recorded_current",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No statement about recording of current status of the disputed information.",
+      "explanation": "The narrative does not describe whether the current status of the disputed item was recorded.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.item_deleted",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No deletion action described.",
+      "explanation": "Outcome of manual review is not stated; no deletion is mentioned.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.item_modified",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No modification action described.",
+      "explanation": "Outcome of manual review is not stated; no modification is mentioned.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.furnisher_reported_inaccuracy_to_other_cras",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative only mentions response to the single CRA that sent the notice.",
+      "explanation": "The narrative does not address whether the furnisher reported findings to other nationwide CRAs.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.furnisher_modified_item",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No reporting modification action described.",
+      "explanation": "The narrative does not describe any furnisher modification of the reported item.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.furnisher_deleted_item",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No deletion action described.",
+      "explanation": "The narrative does not describe any furnisher deletion of the reported item.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.furnisher_blocked_item",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No blocking action described.",
+      "explanation": "The narrative does not describe any permanent block of reporting by the furnisher.",
+      "confidence": 0.9
+    }
+  ]
+}

@@ -1,0 +1,590 @@
+You are producing a governed Map record for a policy engine.
+
+You are NOT deciding policy outcomes. Your job is only:
+1. inventory the evidence sources, and
+2. bind every listed atom independently with value, epistemic basis, source ids,
+   evidence, explanation, and confidence.
+
+The deterministic RuleKit engine will decide the policy determinations later.
+Do not infer a binding from the desired or likely determination outcome.
+
+Critical binding rules:
+- Treat each atom independently.
+- Return one binding object for every atom in ATOMS.
+- Do NOT bind an atom to false merely because an open narrative does not mention it.
+- If the only reason for false is "not mentioned", return status "undetermined"
+  and basis "open_world_absence".
+- If a source affirmatively says a fact is absent and that source has a relevant
+  closed-world scope, false may use basis "closed_world_absence".
+- If sources conflict, return status "undetermined" and basis
+  "conflicting_evidence"; do not choose a winner.
+- If the atom cannot be answered from the evidence, return status
+  "undetermined" and basis "not_found".
+- For numeric atoms, extract only stated or directly computed values requested
+  by the atom; otherwise return "undetermined".
+
+For each source, return:
+- source_id
+- source_type
+- title
+- as_of_date if stated
+- closed_world_scopes: factual universes where absence from this source can
+  support a negative atom binding
+- limitations
+
+Allowed basis values:
+explicit_positive, explicit_negative, closed_world_absence, open_world_absence,
+inferred_from_record, conflicting_evidence, computed, looked_up, not_found.
+
+CASE NARRATIVE
+==============
+Customer E called and uploaded a dispute saying two reported accounts are "not mine" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.
+
+
+DECLARED SOURCES
+================
+[]
+
+ATOMS
+=====
+[
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.consumer_disputed_item",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)(A)",
+      "statement": "The consumer disputed an item.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_in_consumer_file",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)(A)",
+      "statement": "The disputed item is contained in the consumer's file at a consumer reporting agency.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.dispute_about_completeness",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)(A)",
+      "statement": "The dispute concerns completeness of the item.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.dispute_about_accuracy",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)(A)",
+      "statement": "The dispute concerns accuracy of the item.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.notice_direct_to_cra",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)(A)",
+      "statement": "The consumer notified the consumer reporting agency directly.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.consumer_identity_sufficient",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(3)",
+      "statement": "The packet contains sufficient consumer identity information to investigate.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.account_identified",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(3)",
+      "statement": "The disputed account or tradeline is identified.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.disputed_field_identified",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(3)",
+      "statement": "The specific disputed field or information is identified.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.basis_explained",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(3)",
+      "statement": "The dispute explains the basis for the claimed inaccuracy or incompleteness.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.consumer_submission_authentic",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)(A)",
+      "statement": "The dispute submission appears authentic to the consumer or authorized representative.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.dispute_duplicate_without_new_info",
+      "notes": "",
+      "source_span": "12 CFR 1022.43(f)(1)(ii)",
+      "statement": "The dispute is substantially the same as a prior dispute and contains no new required information.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.insufficient_information_to_investigate",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(3)",
+      "statement": "The consumer failed to provide sufficient information to investigate the disputed information.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "numeric",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.business_days_to_frivolous_notice",
+      "notes": "",
+      "numeric_unit": "business_days",
+      "source_span": "15 U.S.C. 1681i(a)(3)(B)",
+      "statement": "Business days from frivolous or irrelevant determination to consumer notice.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.furnished_by_furnisher",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(2)",
+      "statement": "The disputed item was provided by a furnisher.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.cra_notified_furnisher",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(2)",
+      "statement": "The consumer reporting agency notified the furnisher of the dispute.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "numeric",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.business_days_to_notify_furnisher",
+      "notes": "",
+      "numeric_unit": "business_days",
+      "source_span": "15 U.S.C. 1681i(a)(2)",
+      "statement": "Business days from CRA receipt of dispute to furnisher notice.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.notice_included_all_relevant_info",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(2)",
+      "statement": "The CRA's furnisher notice included all relevant information received from the consumer.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.primary_documents_forwarded",
+      "notes": "",
+      "source_span": "CFPB Circular 2022-07",
+      "statement": "Primary source documents submitted by the consumer were forwarded or made available to the furnisher.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_found_inaccurate",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "statement": "The reinvestigation found the disputed item inaccurate.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_found_incomplete",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "statement": "The reinvestigation found the disputed item incomplete.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_cannot_be_verified",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "statement": "The disputed item could not be verified.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_verified_as_accurate",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)",
+      "statement": "The disputed item was verified as complete and accurate after reasonable reinvestigation.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_status_recorded_current",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)",
+      "statement": "The current status of the disputed information was recorded.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_deleted",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "statement": "The disputed item was deleted from the consumer's file.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_modified",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "statement": "The disputed item was modified as appropriate.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.furnisher_received_cra_notice",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681s-2(b)",
+      "statement": "The furnisher received CRA notice of the consumer dispute.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.furnisher_investigation_conducted",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681s-2(b)",
+      "statement": "The furnisher conducted an investigation of the disputed information.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.furnisher_reviewed_all_cra_info",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681s-2(b)",
+      "statement": "The furnisher reviewed all relevant information provided by the CRA.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.furnisher_reported_results_to_cra",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681s-2(b)",
+      "statement": "The furnisher reported investigation results to the CRA.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "numeric",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.days_to_furnisher_complete",
+      "notes": "",
+      "numeric_unit": "calendar_days",
+      "source_span": "15 U.S.C. 1681s-2(b)",
+      "statement": "Calendar days from CRA dispute notice to furnisher completion of required investigation, review, and reports.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.furnisher_reported_inaccuracy_to_other_cras",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681s-2(b)",
+      "statement": "The furnisher reported incomplete or inaccurate findings to other nationwide CRAs to which it furnished the information.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.furnisher_modified_item",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681s-2(b)",
+      "statement": "The furnisher modified the disputed information for reporting purposes.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.furnisher_deleted_item",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681s-2(b)",
+      "statement": "The furnisher deleted the disputed information for reporting purposes.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.furnisher_blocked_item",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681s-2(b)",
+      "statement": "The furnisher permanently blocked reporting of the disputed information.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer E called and uploaded a dispute saying two reported accounts are \"not mine\" and appear to involve identity theft. The customer supplied a police incident number but no completed identity-theft report or affidavit. The bank could not match the uploaded documents to the account-opening file without additional identity-theft documentation and routed the case to manual review.\n"
+  }
+]
+
+Return ONLY this JSON shape:
+{
+  "sources": [
+    {
+      "source_id": "source id",
+      "source_type": "source type",
+      "title": "short title",
+      "as_of_date": "YYYY-MM-DD or null",
+      "closed_world_scopes": ["scope"],
+      "limitations": "limitations"
+    }
+  ],
+  "bindings": [
+    {
+      "atom_id": "atom id from ATOMS",
+      "status": "bound|undetermined|error",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["source id"],
+      "evidence": "short exact evidence or summary",
+      "explanation": "why this basis is appropriate",
+      "confidence": 0.0
+    }
+  ]
+}

@@ -1,0 +1,192 @@
+You are adjudicating a policy case directly.
+
+This is a governed-style direct baseline for research. Unlike RuleKit, you are
+still deciding the policy dispositions yourself, but you must apply conservative
+evidence discipline similar to a governed Map + engine flow.
+
+Important:
+- Return only JSON.
+- Do not invent facts not in the case packet.
+- Do not infer a satisfied determination merely because the packet looks clean.
+- Use "undetermined" when required facts are missing, conflicting, approximate,
+  source-limited, or outside the case packet's natural scope.
+- Treat source-scope carefully: absence from an open narrative is not proof of
+  absence; absence from an official/checking source may matter only within its
+  closed-world scope.
+- If a case has pending, inconsistent, missing, source-limited, or complex facts,
+  preserve that uncertainty or mark human-review-related determinations
+  accordingly.
+- For each determination, identify the material facts relied on, uncertainty
+  flags, and whether human review should be considered.
+- Use "true" when the determination is satisfied.
+- Use "false" when the determination is not satisfied.
+
+POLICY SUMMARY
+==============
+Bounded benchmark policy for consumer reporting disputes.
+
+1. Consumer reporting agency reinvestigation trigger. If the completeness or
+accuracy of an item in a consumer's file is disputed by the consumer and the
+consumer reporting agency receives notice directly or through a reseller, the
+agency must conduct a reasonable reinvestigation unless a valid frivolous or
+irrelevant termination applies. A valid dispute packet identifies the consumer,
+identifies the account or item, identifies the disputed field or information,
+and explains the basis for the dispute.
+
+2. Time to complete reinvestigation. The agency must complete the
+reinvestigation within 30 calendar days after receipt of the dispute notice.
+The period may extend to 45 days if the consumer provides additional relevant
+information during the initial 30-day period. The extension does not apply
+where the agency determines within the initial period that the item is
+inaccurate, incomplete, or cannot be verified.
+
+3. Furnisher notice by the agency. Before the end of the fifth business day
+after receiving the consumer's dispute, the agency must notify the furnisher
+of the disputed information when the item was provided by a furnisher, and the
+notice must include all relevant information received from the consumer. Later
+relevant information received during the reinvestigation period must be
+promptly provided to the furnisher. Primary source documents submitted by the
+consumer, such as bank statements, creditor letters, account statements,
+police reports, identity theft affidavits, court orders, or billing
+statements, are relevant when they bear on the disputed information.
+
+4. Consideration and reasonableness. The agency must review and consider all
+relevant consumer information. A reasonable reinvestigation compares the
+consumer submission, furnisher response, agency file, prior dispute history
+where relevant, and public-record source where relevant. Automated dispute
+coding alone is not sufficient when primary documents or material conflicts
+require review.
+
+5. Treatment of inaccurate, incomplete, or unverifiable information. If the
+item is inaccurate, incomplete, or cannot be verified, the agency must delete
+or modify it as appropriate and record the current status. If no defect is
+found after a reasonable reinvestigation, the item may remain verified.
+
+6. Results notice. Within 5 business days after completing the
+reinvestigation, the agency must provide written results to the consumer. The
+notice must state that the reinvestigation is completed, include a consumer
+report based on the revised file, disclose the right to request a description
+of the procedure used, disclose furnisher contact information if reasonably
+available, disclose the right to add a consumer statement, and disclose the
+right to request notification of deletion or dispute notation.
+
+7. Reinsertion. Deleted information may not be reinserted unless the furnisher
+certifies that it is complete and accurate. If reinserted, the agency must
+notify the consumer in writing within 5 business days, identify the furnisher,
+provide the consumer's right to add a statement, and maintain reasonable
+procedures designed to prevent improper reappearance.
+
+8. Frivolous or irrelevant disputes. The agency may terminate a
+reinvestigation if it reasonably determines that the dispute is frivolous or
+irrelevant, including because the consumer failed to provide sufficient
+information to investigate. The agency must notify the consumer within 5
+business days after that determination, provide the reasons, and identify any
+information required to investigate.
+
+9. Reseller disputes. A reseller receiving a dispute must determine within 5
+business days whether the item is incomplete or inaccurate because of a
+reseller act or omission. If so, the reseller must correct or delete within 20
+days. If not, the reseller must convey the dispute and all relevant consumer
+information to the consumer reporting agency that supplied the information and
+reconvey the agency's completion notice to the consumer.
+
+10. Furnisher duties after agency notice. A furnisher receiving agency notice
+of a dispute must investigate the disputed information, review all relevant
+information provided by the agency, report results to the agency, report
+incomplete or inaccurate findings to other nationwide consumer reporting
+agencies to which it furnished the information, and modify, delete, or
+permanently block information that is inaccurate, incomplete, or unverifiable.
+The furnisher must complete those actions before the agency's applicable
+reinvestigation deadline.
+
+11. Furnisher direct disputes. A furnisher receiving a qualifying direct
+dispute must investigate when the notice is sent to a proper address, identifies
+the account or relationship, identifies the specific disputed information,
+explains the basis for the dispute, includes reasonably required supporting
+documentation, and concerns covered account or relationship information. The
+furnisher need not investigate direct disputes outside the regulatory scope,
+including disputes solely about public records, fraud alerts, active duty
+alerts, information from another furnisher, or disputes reasonably believed to
+be submitted by a credit repair organization. A furnisher that invokes a
+frivolous or irrelevant direct-dispute determination must notify the consumer
+within 5 business days, state reasons, and identify information needed to
+investigate.
+
+12. Consumer statement and subsequent reporting. If the reinvestigation does
+not resolve the dispute and the consumer files a brief statement, subsequent
+reports containing the disputed information must clearly note that it is
+disputed and include the statement or an accurate codification or summary,
+unless there are reasonable grounds to believe the statement is frivolous or
+irrelevant.
+
+13. Human-review routing. Human review is required when material evidence
+conflicts remain unresolved, identity theft or mixed-file evidence is
+plausible but incomplete, a court order or legal-liability issue changes the
+ordinary fact-verification path, a veteran medical debt claim may require the
+special deletion process, primary source documents are missing from the record,
+material dates conflict, or the institution's manual review policy is
+triggered.
+
+
+SELECTED DETERMINATIONS
+=======================
+[
+  {
+    "description": "CRA furnisher-notice transmission duties are satisfied.",
+    "determination_id": "fcra.cra_furnisher_notice_satisfied",
+    "source_span": "15 U.S.C. 1681i(a)(2)"
+  },
+  {
+    "description": "Inaccurate, incomplete, or unverifiable information is treated correctly.",
+    "determination_id": "fcra.item_treatment_satisfied",
+    "source_span": "15 U.S.C. 1681i(a)(5)"
+  },
+  {
+    "description": "Furnisher duties after CRA notice are satisfied or not applicable.",
+    "determination_id": "fcra.furnisher_indirect_satisfied",
+    "source_span": "15 U.S.C. 1681s-2(b)"
+  },
+  {
+    "description": "Furnisher direct-dispute duties are satisfied or not applicable.",
+    "determination_id": "fcra.direct_furnisher_satisfied",
+    "source_span": "12 CFR 1022.43"
+  },
+  {
+    "description": "The packet requires human review routing.",
+    "determination_id": "fcra.human_review_required",
+    "source_span": "benchmark routing policy"
+  }
+]
+
+CASE PACKET
+===========
+{
+  "case_id": "bank_direct_dispute_verified_accurate",
+  "narrative": "Customer C mailed a direct dispute to the bank's published dispute address. The letter identified the auto-loan account, the allegedly inaccurate late-payment month, and included a copy of the customer's online payment confirmation. The bank reviewed the account ledger and payment posting system, found the reported information accurate, and sent a written investigation result to the customer.\n",
+  "structured_fields": {},
+  "title": "Direct bank dispute verified and reported to customer"
+}
+
+Return ONLY this JSON shape:
+{
+  "case_id": "bank_direct_dispute_verified_accurate",
+  "determinations": [
+    {
+      "determination_id": "id from SELECTED DETERMINATIONS",
+      "outcome": "true|false|undetermined",
+      "rationale": "brief reason based on the case packet",
+      "confidence": 0.0,
+      "material_facts": [
+        {
+          "fact": "short fact",
+          "source": "source title/id or narrative",
+          "basis": "explicit|closed_world_absence|open_world_absence|inferred|missing|conflicting"
+        }
+      ],
+      "uncertainty_flags": ["missing fact, source limitation, conflict, or empty"],
+      "human_review_considered": true,
+      "anti_overclaim_check": "why this is not overclaiming beyond the packet"
+    }
+  ],
+  "case_level_notes": "brief note or empty string"
+}

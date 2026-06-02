@@ -1106,6 +1106,8 @@ def apply_program_map_profile_defaults(
     for rule in rules:
         if not isinstance(rule, dict):
             continue
+        if not _profile_rule_applies_to_perspective(rule, program):
+            continue
         if not _profile_rule_matches(rule, narrative):
             continue
         atom_ids = rule.get("atom_ids", rule.get("atoms"))
@@ -1149,6 +1151,20 @@ def apply_program_map_profile_defaults(
             )
             applied += 1
     return applied
+
+
+def _profile_rule_applies_to_perspective(
+    rule: dict[str, Any],
+    program: DeterminationProgram,
+) -> bool:
+    allowed = _string_list(rule.get("perspectives") or rule.get("perspective_ids"))
+    if not allowed:
+        return True
+    active = program.metadata.extras.get("active_perspective")
+    if not isinstance(active, dict):
+        return False
+    perspective_id = active.get("perspective_id")
+    return str(perspective_id) in allowed
 
 
 def _profile_rule_matches(rule: dict[str, Any], narrative: str) -> bool:

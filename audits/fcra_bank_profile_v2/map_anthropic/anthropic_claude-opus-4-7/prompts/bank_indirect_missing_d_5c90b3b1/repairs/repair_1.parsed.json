@@ -1,0 +1,122 @@
+{
+  "fcra.business_days_to_frivolous_notice": {
+    "atom_id": "fcra.business_days_to_frivolous_notice",
+    "basis": "inferred_from_record",
+    "confidence": 0.75,
+    "evidence": "No frivolous or irrelevant determination was made; the bank opened a manual review instead.",
+    "explanation": "This is a conditional timing atom that only applies if a frivolous/irrelevant determination occurred. The narrative shows the bank proceeded with review rather than declaring the dispute frivolous, so the triggering condition is absent and the conditional support is satisfied vacuously.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": true
+  },
+  "fcra.dispute_duplicate_without_new_info": {
+    "atom_id": "fcra.dispute_duplicate_without_new_info",
+    "basis": "open_world_absence",
+    "confidence": 0.9,
+    "evidence": "Narrative does not mention any prior dispute by Customer B on this item.",
+    "explanation": "Prior dispute history is outside the narrative's closed-world scope; cannot determine whether this dispute is substantially the same as a prior one.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.insufficient_information_to_investigate": {
+    "atom_id": "fcra.insufficient_information_to_investigate",
+    "basis": "inferred_from_record",
+    "confidence": 0.7,
+    "evidence": "The bank reviewed the materials it received, responded to the CRA, and opened a manual review.",
+    "explanation": "The closed-world scope covers the bank's immediate response actions. Rather than declining to investigate for insufficient information, the bank proceeded with review and opened a manual review, indicating it did not treat the information as insufficient to investigate.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "bound",
+    "value": false
+  },
+  "fcra.item_cannot_be_verified": {
+    "atom_id": "fcra.item_cannot_be_verified",
+    "basis": "open_world_absence",
+    "confidence": 0.9,
+    "evidence": "No verification outcome stated; manual review is ongoing per narrative.",
+    "explanation": "Verification outcome is outside the narrative's described scope.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.item_deleted": {
+    "atom_id": "fcra.item_deleted",
+    "basis": "open_world_absence",
+    "confidence": 0.9,
+    "evidence": "No deletion action described; manual review outcome not reported.",
+    "explanation": "Outcome of reinvestigation is explicitly outside the narrative's described scope.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.item_found_inaccurate": {
+    "atom_id": "fcra.item_found_inaccurate",
+    "basis": "open_world_absence",
+    "confidence": 0.9,
+    "evidence": "Bank opened a manual review; no reinvestigation outcome stated.",
+    "explanation": "The outcome of the manual review is outside the narrative's stated limitations; cannot determine inaccuracy finding.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.item_found_incomplete": {
+    "atom_id": "fcra.item_found_incomplete",
+    "basis": "open_world_absence",
+    "confidence": 0.9,
+    "evidence": "No reinvestigation findings reported.",
+    "explanation": "Reinvestigation findings are explicitly outside the narrative's described scope.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.item_modified": {
+    "atom_id": "fcra.item_modified",
+    "basis": "open_world_absence",
+    "confidence": 0.9,
+    "evidence": "No modification action described; manual review outcome not reported.",
+    "explanation": "Outcome of reinvestigation is explicitly outside the narrative's described scope.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.item_status_recorded_current": {
+    "atom_id": "fcra.item_status_recorded_current",
+    "basis": "open_world_absence",
+    "confidence": 0.85,
+    "evidence": "No statement about recording of current status of the disputed information.",
+    "explanation": "Recording of current status is not within the narrative's closed-world scope of immediate response actions described.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  },
+  "fcra.item_verified_as_accurate": {
+    "atom_id": "fcra.item_verified_as_accurate",
+    "basis": "open_world_absence",
+    "confidence": 0.9,
+    "evidence": "Bank responded to CRA and opened manual review; no final verification outcome stated.",
+    "explanation": "Final verification outcome is outside the narrative's described scope.",
+    "source_ids": [
+      "case_narrative"
+    ],
+    "status": "undetermined",
+    "value": null
+  }
+}

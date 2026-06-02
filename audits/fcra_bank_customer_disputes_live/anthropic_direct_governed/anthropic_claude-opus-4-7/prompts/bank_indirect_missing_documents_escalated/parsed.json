@@ -1,0 +1,126 @@
+{
+  "case_id": "bank_indirect_missing_documents_escalated",
+  "case_level_notes": "Key issue is the CRA's incomplete transmission to the furnisher; downstream determinations remain undetermined pending the outcome of the bank's manual review and the CRA's final action.",
+  "determinations": [
+    {
+      "anti_overclaim_check": "Conclusion is limited to the transmission-content defect explicitly described; no claim about timing or other notice elements is made.",
+      "confidence": 0.85,
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "CRA notice to bank contained account number and dispute code only",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Settlement letter and bank-statement images referenced by customer were not transmitted",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "false",
+      "rationale": "The CRA's notice to the furnisher contained only the account number and dispute code and omitted the settlement letter and bank-statement images referenced by the consumer. Policy requires the notice to include all relevant information received from the consumer, including primary source documents like settlement letters and bank statements.",
+      "uncertainty_flags": [
+        "timing of CRA notice (within 5 business days) not stated"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Without a stated final treatment of the item, asserting true or false would invent facts.",
+      "confidence": 0.8,
+      "determination_id": "fcra.item_treatment_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Bank opened manual review; no final disposition described",
+          "source": "narrative"
+        },
+        {
+          "basis": "missing",
+          "fact": "No statement of CRA's final action on the item",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "The narrative does not state whether the CRA ultimately deleted, modified, or verified the charged-off balance after reinvestigation. Manual review is still open and the outcome is not in the packet.",
+      "uncertainty_flags": [
+        "missing outcome of reinvestigation"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Partial compliance signals exist but full duty satisfaction cannot be confirmed without invented facts.",
+      "confidence": 0.7,
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Bank reviewed received materials and responded to CRA",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Bank opened manual review due to referenced-but-missing documents",
+          "source": "narrative"
+        },
+        {
+          "basis": "missing",
+          "fact": "Timing of response and downstream reporting not stated",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "The bank reviewed the materials it received and responded to the CRA, and escalated to manual review when it noticed missing documents. However, the narrative does not confirm whether the bank reported results within the applicable deadline, reported findings to other nationwide CRAs if applicable, or modified/deleted/blocked information as required. The furnisher cannot review materials never transmitted, but its full set of duties is not described.",
+      "uncertainty_flags": [
+        "missing timing",
+        "missing downstream reporting details",
+        "manual review still open"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Absence of a direct dispute in an open narrative is not proof none occurred; marking undetermined avoids overclaim.",
+      "confidence": 0.7,
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "human_review_considered": false,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Customer disputed through a CRA",
+          "source": "narrative"
+        },
+        {
+          "basis": "open_world_absence",
+          "fact": "No direct dispute to the furnisher is described",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "The dispute was routed through a CRA (indirect), not as a direct dispute to the furnisher. Direct-dispute duties are not clearly applicable, but the packet does not affirmatively close out that path.",
+      "uncertainty_flags": [
+        "scope of direct-dispute pathway not addressed"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Routing is grounded in two explicit triggers stated in the narrative.",
+      "confidence": 0.95,
+      "determination_id": "fcra.human_review_required",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Primary source documents referenced by customer were missing from transmission",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Bank opened a manual review",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "Primary source documents (settlement letter and bank-statement images) referenced by the consumer are missing from the CRA's transmission, and the bank's manual review policy was triggered. Both conditions independently route to human review under the policy.",
+      "uncertainty_flags": []
+    }
+  ]
+}

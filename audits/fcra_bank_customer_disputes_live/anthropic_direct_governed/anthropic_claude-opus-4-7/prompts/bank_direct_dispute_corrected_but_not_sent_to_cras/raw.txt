@@ -1,0 +1,116 @@
+{
+  "case_id": "bank_direct_dispute_corrected_but_not_sent_to_cras",
+  "determinations": [
+    {
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "outcome": "undetermined",
+      "rationale": "This case concerns a direct dispute to a furnisher, not a CRA-routed dispute. The packet contains no facts about a CRA receiving a dispute or transmitting notice to a furnisher.",
+      "confidence": 0.7,
+      "material_facts": [
+        {
+          "fact": "Dispute was submitted directly to the bank, not to a CRA",
+          "source": "narrative",
+          "basis": "explicit"
+        },
+        {
+          "fact": "No information about CRA-side processing",
+          "source": "narrative",
+          "basis": "open_world_absence"
+        }
+      ],
+      "uncertainty_flags": ["source limitation - CRA actions not in scope of packet"],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Not asserting satisfaction or violation because the packet does not address CRA receipt of a dispute."
+    },
+    {
+      "determination_id": "fcra.item_treatment_satisfied",
+      "outcome": "undetermined",
+      "rationale": "This determination concerns CRA treatment under 1681i(a)(5). The packet describes a furnisher's internal correction, not CRA-side modification of a disputed item.",
+      "confidence": 0.7,
+      "material_facts": [
+        {
+          "fact": "Bank modified its internal account record after agreeing balance was inaccurate",
+          "source": "narrative",
+          "basis": "explicit"
+        },
+        {
+          "fact": "No CRA reinvestigation described",
+          "source": "narrative",
+          "basis": "open_world_absence"
+        }
+      ],
+      "uncertainty_flags": ["source limitation - CRA actions outside packet scope"],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Not concluding on CRA treatment because no CRA reinvestigation is in the packet."
+    },
+    {
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "outcome": "undetermined",
+      "rationale": "No facts indicate the bank received an indirect dispute notice from a CRA. The dispute path was direct. The duty to report corrections to other nationwide CRAs under 1681s-2(b) is triggered by CRA notice, not direct disputes.",
+      "confidence": 0.7,
+      "material_facts": [
+        {
+          "fact": "Dispute came directly to the bank's published address",
+          "source": "narrative",
+          "basis": "explicit"
+        },
+        {
+          "fact": "No CRA notice to furnisher described",
+          "source": "narrative",
+          "basis": "open_world_absence"
+        }
+      ],
+      "uncertainty_flags": ["indirect-dispute pathway not present in packet"],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Not claiming satisfaction or violation of indirect furnisher duties because the trigger (CRA notice) is not in the packet."
+    },
+    {
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "outcome": "false",
+      "rationale": "The bank investigated and found the reported balance inaccurate, but the file does not show that corrected information was transmitted to the CRAs that had received the inaccurate balance. Policy item 10 (incorporated by reference for furnisher duties) requires furnishers to report inaccurate findings to nationwide CRAs to which they furnished the information, and item 5 requires modification where information is inaccurate. The reporting-out step appears not to have occurred.",
+      "confidence": 0.8,
+      "material_facts": [
+        {
+          "fact": "Direct dispute included payoff confirmation as supporting documentation",
+          "source": "narrative",
+          "basis": "explicit"
+        },
+        {
+          "fact": "Bank agreed balance was inaccurate and modified internal record",
+          "source": "narrative",
+          "basis": "explicit"
+        },
+        {
+          "fact": "Investigation result mailed to customer",
+          "source": "narrative",
+          "basis": "explicit"
+        },
+        {
+          "fact": "Bank file does not show corrected information was sent to CRAs that received the inaccurate balance",
+          "source": "narrative",
+          "basis": "closed_world_absence"
+        }
+      ],
+      "uncertainty_flags": ["closed-world absence in bank file"],
+      "human_review_considered": true,
+      "anti_overclaim_check": "The narrative explicitly states the bank file does not show CRA transmission; this is a closed-world absence in the institution's own records, supporting a 'false' determination on the duty to correct downstream."
+    },
+    {
+      "determination_id": "fcra.human_review_required",
+      "outcome": "true",
+      "rationale": "An apparent furnisher-duty gap (failure to transmit corrected information to CRAs that received the inaccurate balance) is a material compliance issue warranting human review to confirm and remediate.",
+      "confidence": 0.85,
+      "material_facts": [
+        {
+          "fact": "Confirmed inaccuracy with no record of downstream correction to CRAs",
+          "source": "narrative",
+          "basis": "explicit"
+        }
+      ],
+      "uncertainty_flags": ["potential unresolved furnisher duty"],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Routing to human review is supported by the explicit gap in the bank file regarding CRA transmission."
+    }
+  ],
+  "case_level_notes": "Direct-dispute pathway only; CRA-side determinations are undetermined because no CRA process is described. Primary issue is the furnisher's apparent failure to push the correction to CRAs that had received the inaccurate balance."
+}

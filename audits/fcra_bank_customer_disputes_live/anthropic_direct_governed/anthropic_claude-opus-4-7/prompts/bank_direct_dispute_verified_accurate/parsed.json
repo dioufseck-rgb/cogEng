@@ -1,0 +1,134 @@
+{
+  "case_id": "bank_direct_dispute_verified_accurate",
+  "case_level_notes": "Case concerns a furnisher direct dispute only; CRA-pathway determinations are outside the packet's scope and marked undetermined accordingly.",
+  "determinations": [
+    {
+      "anti_overclaim_check": "Marked undetermined rather than true/false because the CRA pathway is not exercised in this packet and cannot be evaluated.",
+      "confidence": 0.7,
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "human_review_considered": false,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Customer mailed dispute directly to the bank, not to a CRA",
+          "source": "narrative"
+        },
+        {
+          "basis": "open_world_absence",
+          "fact": "No CRA involvement mentioned",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "This case involves a direct dispute to the furnisher (bank), not a dispute to a consumer reporting agency. No CRA is involved in the packet, so CRA furnisher-notice duties are outside scope.",
+      "uncertainty_flags": [
+        "source limitation - CRA pathway not present in packet"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Undetermined because the determination addresses CRA item treatment, not addressed by this furnisher-only case.",
+      "confidence": 0.6,
+      "determination_id": "fcra.item_treatment_satisfied",
+      "human_review_considered": false,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Bank found reported information accurate after review",
+          "source": "narrative"
+        },
+        {
+          "basis": "open_world_absence",
+          "fact": "No CRA reinvestigation occurred",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "Item treatment under 1681i(a)(5) applies to CRA reinvestigations. Here only a furnisher direct dispute occurred. The bank found the information accurate, but this determination concerns CRA item treatment, which is not in the packet's scope.",
+      "uncertainty_flags": [
+        "source limitation - this is a direct furnisher dispute, not a CRA process"
+      ]
+    },
+    {
+      "anti_overclaim_check": "Undetermined because the indirect-furnisher trigger (CRA notice) is absent; cannot affirm satisfaction or breach.",
+      "confidence": 0.8,
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "human_review_considered": false,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Dispute came directly from consumer to bank, not via CRA",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "undetermined",
+      "rationale": "Furnisher indirect duties under 1681s-2(b) are triggered by CRA notice of dispute. No CRA notice was involved here; the dispute came directly from the consumer.",
+      "uncertainty_flags": [
+        "not applicable pathway - no CRA notice in packet"
+      ]
+    },
+    {
+      "anti_overclaim_check": "All elements of a qualifying direct dispute and the furnisher's investigation/result duties are explicitly stated in the narrative; not inferring beyond stated facts.",
+      "confidence": 0.85,
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "human_review_considered": false,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Dispute mailed to bank's published dispute address",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Identified the auto-loan account and the disputed late-payment month",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Included online payment confirmation as supporting documentation",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Bank reviewed ledger and payment posting system, found information accurate",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Bank sent written investigation result to customer",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "true",
+      "rationale": "Customer sent a direct dispute to the bank's published dispute address, identified the auto-loan account, identified the specific disputed late-payment month, included supporting documentation (online payment confirmation), and explained the basis. The bank investigated using the account ledger and payment posting system, reached a finding, and reported the result in writing to the consumer. All qualifying-dispute elements and investigation/result duties are reflected.",
+      "uncertainty_flags": [
+        "timing of investigation completion not specified in packet"
+      ]
+    },
+    {
+      "anti_overclaim_check": "No human-review triggers are present in the packet; routing not required based on stated facts only.",
+      "confidence": 0.8,
+      "determination_id": "fcra.human_review_required",
+      "human_review_considered": true,
+      "material_facts": [
+        {
+          "basis": "explicit",
+          "fact": "Primary source document (payment confirmation) included",
+          "source": "narrative"
+        },
+        {
+          "basis": "open_world_absence",
+          "fact": "No identity theft, court order, or veteran medical debt indicators",
+          "source": "narrative"
+        },
+        {
+          "basis": "explicit",
+          "fact": "Bank's investigation reached a definitive finding",
+          "source": "narrative"
+        }
+      ],
+      "outcome": "false",
+      "rationale": "No material evidence conflict, no identity theft or mixed-file indicators, no court order, no veteran medical debt claim, primary source document (payment confirmation) is present, and no date conflict is described. Standard direct-dispute pathway resolved by the furnisher.",
+      "uncertainty_flags": []
+    }
+  ]
+}

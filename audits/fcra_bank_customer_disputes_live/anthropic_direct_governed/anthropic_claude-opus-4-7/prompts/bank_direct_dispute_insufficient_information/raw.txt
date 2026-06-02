@@ -1,0 +1,111 @@
+{
+  "case_id": "bank_direct_dispute_insufficient_information",
+  "determinations": [
+    {
+      "determination_id": "fcra.cra_furnisher_notice_satisfied",
+      "outcome": "undetermined",
+      "rationale": "This case involves a direct dispute sent to the bank (furnisher), not a CRA. No CRA notice or transmission to a furnisher is described.",
+      "confidence": 0.6,
+      "material_facts": [
+        {
+          "fact": "Dispute sent to the bank's published dispute address, not a CRA",
+          "source": "narrative",
+          "basis": "explicit"
+        },
+        {
+          "fact": "No CRA involvement described",
+          "source": "narrative",
+          "basis": "open_world_absence"
+        }
+      ],
+      "uncertainty_flags": ["outside packet scope - no CRA facts present"],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Marked undetermined rather than asserting satisfaction since CRA actions are not in the packet."
+    },
+    {
+      "determination_id": "fcra.item_treatment_satisfied",
+      "outcome": "undetermined",
+      "rationale": "No reinvestigation occurred because the direct dispute was insufficient; no item treatment outcome is described.",
+      "confidence": 0.6,
+      "material_facts": [
+        {
+          "fact": "Bank marked dispute as insufficient and requested missing details",
+          "source": "narrative",
+          "basis": "explicit"
+        },
+        {
+          "fact": "No determination of inaccuracy/incompleteness/unverifiability described",
+          "source": "narrative",
+          "basis": "open_world_absence"
+        }
+      ],
+      "uncertainty_flags": ["no reinvestigation outcome in packet"],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Cannot affirm correct treatment without an investigation outcome in the record."
+    },
+    {
+      "determination_id": "fcra.furnisher_indirect_satisfied",
+      "outcome": "undetermined",
+      "rationale": "No CRA-routed (indirect) dispute is described; only a direct dispute to the furnisher.",
+      "confidence": 0.7,
+      "material_facts": [
+        {
+          "fact": "Dispute arrived directly at the bank, not via a CRA",
+          "source": "narrative",
+          "basis": "explicit"
+        }
+      ],
+      "uncertainty_flags": ["indirect dispute pathway not present in packet"],
+      "human_review_considered": false,
+      "anti_overclaim_check": "Not asserting satisfaction or non-applicability conclusively without packet facts about CRA notice."
+    },
+    {
+      "determination_id": "fcra.direct_furnisher_satisfied",
+      "outcome": "undetermined",
+      "rationale": "The dispute failed to identify the account, the specific disputed field, the basis, or include supporting documentation, so the furnisher is not obligated to investigate. However, policy 11 requires that when a furnisher invokes a frivolous/irrelevant determination, it must notify the consumer within 5 business days, state reasons, and identify information needed. The packet shows the bank requested missing details but does not confirm timing, written notice, or stated reasons sufficient to confirm full compliance.",
+      "confidence": 0.6,
+      "material_facts": [
+        {
+          "fact": "Message did not identify account, field, basis, or include documents",
+          "source": "narrative",
+          "basis": "explicit"
+        },
+        {
+          "fact": "Bank marked the packet insufficient and requested missing details",
+          "source": "narrative",
+          "basis": "explicit"
+        },
+        {
+          "fact": "Timing of bank's response (within 5 business days) not stated",
+          "source": "narrative",
+          "basis": "missing"
+        },
+        {
+          "fact": "Whether response stated reasons and identified needed information formally not confirmed",
+          "source": "narrative",
+          "basis": "missing"
+        }
+      ],
+      "uncertainty_flags": ["missing timing facts", "missing notice content details"],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Although the dispute was facially insufficient, full satisfaction of the frivolous/irrelevant notification duty cannot be confirmed without timing and content details."
+    },
+    {
+      "determination_id": "fcra.human_review_required",
+      "outcome": "false",
+      "rationale": "No identity theft, mixed file, court order, veteran medical debt, missing primary documents within an active investigation, or conflicting material dates are indicated. The dispute is simply facially insufficient.",
+      "confidence": 0.7,
+      "material_facts": [
+        {
+          "fact": "Dispute lacks identifying information; no complex evidentiary triggers described",
+          "source": "narrative",
+          "basis": "explicit"
+        }
+      ],
+      "uncertainty_flags": [],
+      "human_review_considered": true,
+      "anti_overclaim_check": "Routing triggers from policy 13 are not present in the packet."
+    }
+  ],
+  "case_level_notes": "Direct dispute is facially insufficient under policy 11; confirmation of the furnisher's frivolous/irrelevant notification compliance (timing, written reasons, identification of needed information) is not in the packet."
+}

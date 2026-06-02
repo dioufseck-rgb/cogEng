@@ -1,0 +1,57 @@
+{
+  "sources": [
+    {
+      "source_id": "case_narrative",
+      "source_type": "case_narrative",
+      "title": "Case narrative: direct dispute on auto-loan late payment",
+      "as_of_date": null,
+      "closed_world_scopes": [
+        "outcome of the bank's direct dispute investigation",
+        "actions taken by the bank in response to the dispute"
+      ],
+      "limitations": "Brief narrative summary; does not describe downstream CRA notifications or unrelated events."
+    }
+  ],
+  "bindings": [
+    {
+      "atom_id": "fcra.item_found_inaccurate",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "the bank reviewed the account ledger and payment posting system, found the reported information accurate",
+      "explanation": "The narrative affirmatively states the investigation found the reported information accurate, which directly negates a finding of inaccuracy.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.item_found_incomplete",
+      "status": "bound",
+      "value": false,
+      "basis": "closed_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "found the reported information accurate, and sent a written investigation result to the customer",
+      "explanation": "The narrative provides a closed-world account of the investigation outcome and reports the information as accurate with no indication of incompleteness; absence of any incompleteness finding within this scope supports a negative binding.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "The bank reviewed the account ledger and payment posting system, found the reported information accurate",
+      "explanation": "The bank verified the item against its ledger and posting system and confirmed it accurate, which is inconsistent with an inability to verify.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.direct_furnisher_corrected_cras",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not mention any CRA notification or corrections; investigation found information accurate.",
+      "explanation": "The atom's antecedent (finding of inaccuracy) is not present in the narrative, and the narrative does not address whether CRAs were notified. Absence of mention is not affirmative evidence either way.",
+      "confidence": 0.6
+    }
+  ]
+}

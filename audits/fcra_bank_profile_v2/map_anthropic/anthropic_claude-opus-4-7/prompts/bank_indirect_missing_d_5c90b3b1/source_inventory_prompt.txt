@@ -1,0 +1,303 @@
+You are producing a governed Map record for a policy engine.
+
+You are NOT deciding policy outcomes. Your job is only:
+1. inventory the evidence sources, and
+2. bind every listed atom independently with value, epistemic basis, source ids,
+   evidence, explanation, and confidence.
+
+The deterministic RuleKit engine will decide the policy determinations later.
+Do not infer a binding from the desired or likely determination outcome.
+
+Critical binding rules:
+- Treat each atom independently.
+- Return one binding object for every atom in ATOMS.
+- Do NOT bind an atom to false merely because an open narrative does not mention it.
+- If the only reason for false is "not mentioned", return status "undetermined"
+  and basis "open_world_absence".
+- If a source affirmatively says a fact is absent and that source has a relevant
+  closed-world scope, false may use basis "closed_world_absence".
+- If sources conflict, return status "undetermined" and basis
+  "conflicting_evidence"; do not choose a winner.
+- If the atom cannot be answered from the evidence, return status
+  "undetermined" and basis "not_found".
+- For numeric atoms, extract only stated or directly computed values requested
+  by the atom; otherwise return "undetermined".
+
+For each source, return:
+- source_id
+- source_type
+- title
+- as_of_date if stated
+- closed_world_scopes: factual universes where absence from this source can
+  support a negative atom binding
+- limitations
+
+Allowed basis values:
+explicit_positive, explicit_negative, closed_world_absence, open_world_absence,
+inferred_from_record, conflicting_evidence, computed, looked_up, not_found.
+
+CASE NARRATIVE
+==============
+Customer B disputed a charged-off credit card balance through a CRA and said settlement records proved the balance was wrong. The CRA notice to the bank contained the account number and dispute code but did not include the settlement letter or bank-statement images referenced by the customer. The bank reviewed the materials it received, responded to the CRA, and opened a manual review because the customer referenced source documents that were missing from the transmission.
+
+
+DECLARED SOURCES
+================
+[]
+
+ATOMS
+=====
+[
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.dispute_about_completeness",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)(A)",
+      "statement": "The dispute concerns completeness of the item.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer B disputed a charged-off credit card balance through a CRA and said settlement records proved the balance was wrong. The CRA notice to the bank contained the account number and dispute code but did not include the settlement letter or bank-statement images referenced by the customer. The bank reviewed the materials it received, responded to the CRA, and opened a manual review because the customer referenced source documents that were missing from the transmission.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.dispute_duplicate_without_new_info",
+      "notes": "",
+      "source_span": "12 CFR 1022.43(f)(1)(ii)",
+      "statement": "The dispute is substantially the same as a prior dispute and contains no new required information.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer B disputed a charged-off credit card balance through a CRA and said settlement records proved the balance was wrong. The CRA notice to the bank contained the account number and dispute code but did not include the settlement letter or bank-statement images referenced by the customer. The bank reviewed the materials it received, responded to the CRA, and opened a manual review because the customer referenced source documents that were missing from the transmission.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.insufficient_information_to_investigate",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(3)",
+      "statement": "The consumer failed to provide sufficient information to investigate the disputed information.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer B disputed a charged-off credit card balance through a CRA and said settlement records proved the balance was wrong. The CRA notice to the bank contained the account number and dispute code but did not include the settlement letter or bank-statement images referenced by the customer. The bank reviewed the materials it received, responded to the CRA, and opened a manual review because the customer referenced source documents that were missing from the transmission.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "numeric",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.business_days_to_frivolous_notice",
+      "notes": "",
+      "numeric_unit": "business_days",
+      "source_span": "15 U.S.C. 1681i(a)(3)(B)",
+      "statement": "Business days from frivolous or irrelevant determination to consumer notice.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer B disputed a charged-off credit card balance through a CRA and said settlement records proved the balance was wrong. The CRA notice to the bank contained the account number and dispute code but did not include the settlement letter or bank-statement images referenced by the customer. The bank reviewed the materials it received, responded to the CRA, and opened a manual review because the customer referenced source documents that were missing from the transmission.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_found_inaccurate",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "statement": "The reinvestigation found the disputed item inaccurate.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer B disputed a charged-off credit card balance through a CRA and said settlement records proved the balance was wrong. The CRA notice to the bank contained the account number and dispute code but did not include the settlement letter or bank-statement images referenced by the customer. The bank reviewed the materials it received, responded to the CRA, and opened a manual review because the customer referenced source documents that were missing from the transmission.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_found_incomplete",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "statement": "The reinvestigation found the disputed item incomplete.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer B disputed a charged-off credit card balance through a CRA and said settlement records proved the balance was wrong. The CRA notice to the bank contained the account number and dispute code but did not include the settlement letter or bank-statement images referenced by the customer. The bank reviewed the materials it received, responded to the CRA, and opened a manual review because the customer referenced source documents that were missing from the transmission.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_cannot_be_verified",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "statement": "The disputed item could not be verified.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer B disputed a charged-off credit card balance through a CRA and said settlement records proved the balance was wrong. The CRA notice to the bank contained the account number and dispute code but did not include the settlement letter or bank-statement images referenced by the customer. The bank reviewed the materials it received, responded to the CRA, and opened a manual review because the customer referenced source documents that were missing from the transmission.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_verified_as_accurate",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)",
+      "statement": "The disputed item was verified as complete and accurate after reasonable reinvestigation.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer B disputed a charged-off credit card balance through a CRA and said settlement records proved the balance was wrong. The CRA notice to the bank contained the account number and dispute code but did not include the settlement letter or bank-statement images referenced by the customer. The bank reviewed the materials it received, responded to the CRA, and opened a manual review because the customer referenced source documents that were missing from the transmission.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_status_recorded_current",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(1)",
+      "statement": "The current status of the disputed information was recorded.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer B disputed a charged-off credit card balance through a CRA and said settlement records proved the balance was wrong. The CRA notice to the bank contained the account number and dispute code but did not include the settlement letter or bank-statement images referenced by the customer. The bank reviewed the materials it received, responded to the CRA, and opened a manual review because the customer referenced source documents that were missing from the transmission.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_deleted",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "statement": "The disputed item was deleted from the consumer's file.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer B disputed a charged-off credit card balance through a CRA and said settlement records proved the balance was wrong. The CRA notice to the bank contained the account number and dispute code but did not include the settlement letter or bank-statement images referenced by the customer. The bank reviewed the materials it received, responded to the CRA, and opened a manual review because the customer referenced source documents that were missing from the transmission.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.item_modified",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "statement": "The disputed item was modified as appropriate.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer B disputed a charged-off credit card balance through a CRA and said settlement records proved the balance was wrong. The CRA notice to the bank contained the account number and dispute code but did not include the settlement letter or bank-statement images referenced by the customer. The bank reviewed the materials it received, responded to the CRA, and opened a manual review because the customer referenced source documents that were missing from the transmission.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.furnisher_reported_inaccuracy_to_other_cras",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681s-2(b)",
+      "statement": "The furnisher reported incomplete or inaccurate findings to other nationwide CRAs to which it furnished the information.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer B disputed a charged-off credit card balance through a CRA and said settlement records proved the balance was wrong. The CRA notice to the bank contained the account number and dispute code but did not include the settlement letter or bank-statement images referenced by the customer. The bank reviewed the materials it received, responded to the CRA, and opened a manual review because the customer referenced source documents that were missing from the transmission.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.furnisher_modified_item",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681s-2(b)",
+      "statement": "The furnisher modified the disputed information for reporting purposes.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer B disputed a charged-off credit card balance through a CRA and said settlement records proved the balance was wrong. The CRA notice to the bank contained the account number and dispute code but did not include the settlement letter or bank-statement images referenced by the customer. The bank reviewed the materials it received, responded to the CRA, and opened a manual review because the customer referenced source documents that were missing from the transmission.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.furnisher_deleted_item",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681s-2(b)",
+      "statement": "The furnisher deleted the disputed information for reporting purposes.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer B disputed a charged-off credit card balance through a CRA and said settlement records proved the balance was wrong. The CRA notice to the bank contained the account number and dispute code but did not include the settlement letter or bank-statement images referenced by the customer. The bank reviewed the materials it received, responded to the CRA, and opened a manual review because the customer referenced source documents that were missing from the transmission.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.furnisher_blocked_item",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681s-2(b)",
+      "statement": "The furnisher permanently blocked reporting of the disputed information.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "Customer B disputed a charged-off credit card balance through a CRA and said settlement records proved the balance was wrong. The CRA notice to the bank contained the account number and dispute code but did not include the settlement letter or bank-statement images referenced by the customer. The bank reviewed the materials it received, responded to the CRA, and opened a manual review because the customer referenced source documents that were missing from the transmission.\n"
+  }
+]
+
+Return ONLY this JSON shape:
+{
+  "sources": [
+    {
+      "source_id": "source id",
+      "source_type": "source type",
+      "title": "short title",
+      "as_of_date": "YYYY-MM-DD or null",
+      "closed_world_scopes": ["scope"],
+      "limitations": "limitations"
+    }
+  ],
+  "bindings": [
+    {
+      "atom_id": "atom id from ATOMS",
+      "status": "bound|undetermined|error",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["source id"],
+      "evidence": "short exact evidence or summary",
+      "explanation": "why this basis is appropriate",
+      "confidence": 0.0
+    }
+  ]
+}
