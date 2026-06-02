@@ -428,6 +428,14 @@ def _parser() -> argparse.ArgumentParser:
     calibration.add_argument("--single-map-call", action="store_true")
     calibration.add_argument("--repair-unresolved", action="store_true")
     calibration.add_argument("--max-repair-atoms", type=int, default=12)
+    calibration.add_argument(
+        "--auto-map-profile-repair",
+        action="store_true",
+        help=(
+            "generate candidate map_profile.default_rules from repair-split "
+            "governed mismatches and replay repair/validation with the patched profile"
+        ),
+    )
     calibration.add_argument("--llm-max-tokens", type=int, default=4096)
     calibration.add_argument("--llm-timeout", type=float, default=120.0)
     calibration.add_argument("--llm-max-retries", type=int, default=2)
@@ -770,6 +778,7 @@ def _calibration_eval(args: argparse.Namespace) -> int:
         price_specs=args.price,
         direct_prompt_style=args.direct_prompt_style,
         run_final=args.run_final,
+        auto_map_profile_repair=args.auto_map_profile_repair,
     )
     payload = {"ok": True, **result}
     _print(payload, args.json)

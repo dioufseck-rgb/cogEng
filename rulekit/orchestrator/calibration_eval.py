@@ -17,6 +17,7 @@ from rulekit.orchestrator.map_governance_eval import (
     parse_price_spec,
     run_map_governance_eval,
 )
+from rulekit.orchestrator.map_profile_repair import run_map_profile_repair
 from rulekit.runtime import load_runtime_cases
 
 
@@ -49,6 +50,7 @@ def run_calibration_eval(
     price_specs: list[str] | None = None,
     direct_prompt_style: str = "profiled",
     run_final: bool = False,
+    auto_map_profile_repair: bool = False,
 ) -> dict[str, Any]:
     """Run a labeled-case calibration pass without leaking final holdout cases.
 
@@ -150,6 +152,25 @@ def run_calibration_eval(
                 prompt_style=direct_prompt_style,
             )
 
+    map_profile_repair: dict[str, Any] | None = None
+    if auto_map_profile_repair:
+        if not model_specs:
+            raise ValueError("auto_map_profile_repair requires a governed --model run")
+        repair_artifact_dir = _first_governed_run_artifact_dir(
+            output_dir / "repair" / "governed"
+        )
+        if repair_artifact_dir is None:
+            raise ValueError("auto_map_profile_repair could not find repair governed artifacts")
+        map_profile_repair = run_map_profile_repair(
+            program_path=program_path,
+            output_dir=output_dir / "map_profile_repair",
+            round_id=round_id,
+            repair_cases=split["repair"],
+            validation_cases=split["validation"],
+            repair_artifact_dir=repair_artifact_dir,
+            determinations=determinations,
+        )
+
     summary = {
         "round_id": round_id,
         "program": str(program_path),
@@ -163,11 +184,12 @@ def run_calibration_eval(
         },
         "governed": _summaries_by_slice(governed),
         "direct": _summaries_by_slice(direct),
+        "map_profile_repair": _map_profile_repair_summary(map_profile_repair),
     }
     (output_dir / "summary.json").write_text(_json(summary), encoding="utf-8")
     report = build_calibration_report(summary, manifest)
     (output_dir / "calibration_report.md").write_text(report, encoding="utf-8")
-    _write_placeholder_repair_files(output_dir, summary)
+    _write_repair_files(output_dir, summary, map_profile_repair)
     return summary
 
 
@@ -397,10 +419,29 @@ def build_calibration_report(summary: dict[str, Any], manifest: dict[str, Any]) 
         "",
         "## Repair Loop Status",
         "",
-        "This initial harness records split-safe evidence and reports. Candidate",
-        "patch generation is intentionally a later step: repair proposals must",
-        "be explicit policy-pack changes and must be validated/replayed before",
-        "the locked final holdout is released.",
+    ])
+    repair = summary.get("map_profile_repair") or {}
+    if repair:
+        lines.extend([
+            f"Map-profile candidate rules: `{repair.get('candidate_rule_count', 0)}`",
+            f"Patched program: `{repair.get('patched_program')}`",
+            "",
+            "| Replay Split | Matches | Mismatches | Accuracy |",
+            "|---|---:|---:|---:|",
+        ])
+        for split_name, replay in repair.get("replay", {}).items():
+            total = replay.get("disposition_count", 0)
+            matches = replay.get("matched_disposition_count", 0)
+            mismatches = replay.get("mismatch_count", 0)
+            accuracy = matches / total if total else 0.0
+            lines.append(f"| `{split_name}` | {matches} | {mismatches} | {accuracy:.2%} |")
+    else:
+        lines.extend([
+            "Map-profile repair was not run. Use `--auto-map-profile-repair`",
+            "after a governed repair-split run to generate candidate",
+            "`map_profile.default_rules` and replay repair/validation.",
+        ])
+    lines.extend([
         "",
     ])
     return "\n".join(lines)
@@ -473,6 +514,29 @@ def _summaries_by_slice(results: dict[str, Any]) -> dict[str, list[dict[str, Any
     }
 
 
+def _map_profile_repair_summary(repair: dict[str, Any] | None) -> dict[str, Any] | None:
+    if not repair:
+        return None
+    patch = repair.get("patch", {})
+    regression = repair.get("regression_summary", {})
+    return {
+        "status": patch.get("status"),
+        "candidate_rule_count": patch.get("candidate_rule_count", 0),
+        "patched_program": repair.get("patched_program"),
+        "repair_target": patch.get("repair_target"),
+        "replay": regression.get("replay", {}),
+    }
+
+
+def _first_governed_run_artifact_dir(root: Path) -> Path | None:
+    if not root.exists():
+        return None
+    for child in sorted(root.iterdir()):
+        if child.is_dir() and (child / "dispositions.json").exists():
+            return child
+    return None
+
+
 def _split_group_balance(manifest: dict[str, Any]) -> dict[str, dict[str, int]]:
     return {
         split_name: dict(Counter(
@@ -518,30 +582,46 @@ def _write_cases(path: Path, cases: list[Any]) -> None:
     path.write_text(_json(payload), encoding="utf-8")
 
 
-def _write_placeholder_repair_files(output_dir: Path, summary: dict[str, Any]) -> None:
-    candidate_patches = {
-        "status": "not_generated",
-        "reason": "initial split-safe calibration harness only",
-        "round_id": summary["round_id"],
-    }
-    (output_dir / "candidate_patches.json").write_text(
-        _json(candidate_patches),
-        encoding="utf-8",
-    )
-    regression_summary = {
-        "status": "not_run",
-        "reason": "no candidate patches generated",
-        "validation_split_available": summary["split_counts"].get("validation", 0) > 0,
-    }
-    (output_dir / "regression_summary.json").write_text(
-        _json(regression_summary),
-        encoding="utf-8",
-    )
+def _write_repair_files(
+    output_dir: Path,
+    summary: dict[str, Any],
+    map_profile_repair: dict[str, Any] | None,
+) -> None:
+    if map_profile_repair:
+        (output_dir / "candidate_patches.json").write_text(
+            _json(map_profile_repair.get("patch", {})),
+            encoding="utf-8",
+        )
+        (output_dir / "regression_summary.json").write_text(
+            _json(map_profile_repair.get("regression_summary", {})),
+            encoding="utf-8",
+        )
+    else:
+        candidate_patches = {
+            "status": "not_generated",
+            "reason": "run with --auto-map-profile-repair to generate Map-profile patches",
+            "round_id": summary["round_id"],
+            "repair_target": "map_profile.default_rules",
+        }
+        (output_dir / "candidate_patches.json").write_text(
+            _json(candidate_patches),
+            encoding="utf-8",
+        )
+        regression_summary = {
+            "status": "not_run",
+            "reason": "no candidate patches generated",
+            "validation_split_available": summary["split_counts"].get("validation", 0) > 0,
+        }
+        (output_dir / "regression_summary.json").write_text(
+            _json(regression_summary),
+            encoding="utf-8",
+        )
     open_questions = [
         "# Open Design Questions",
         "",
-        "- How should accepted repair patches be represented: JSON Patch,",
-        "  program-edit operations, or seed-level edits?",
+        "- Should accepted Map-profile patches be promoted directly into",
+        "  `program.metadata.extras.map_profile.default_rules` or into a",
+        "  seed-level profile source that regenerates the program artifact?",
         "- Which mismatch classes are allowed to produce automatic candidate",
         "  patches, and which require human review first?",
         "- How should routing determinations gate substantive determinations",

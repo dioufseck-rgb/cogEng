@@ -1,0 +1,4520 @@
+{
+  "contract_version": "1.0",
+  "metadata": {
+    "name": "FCRA credit reporting dispute reinvestigation candidate",
+    "version": "0.1",
+    "description": "",
+    "extras": {
+      "legal_scope_note": "This is an engineering benchmark, not legal advice and not a complete FCRA compliance program. It models selected public-law duties for consumer reporting agency disputes, furnisher indirect disputes, furnisher direct disputes, reseller routing, reinsertion, consumer statements, and routing review triggers.\n",
+      "map_profile": {
+        "default_rules": [
+          {
+            "atom_ids": [
+              "fcra.frivolous_determination_made",
+              "fcra.frivolous_notice_sent",
+              "fcra.frivolous_reason_identified",
+              "fcra.frivolous_missing_info_identified"
+            ],
+            "basis": "explicit_negative",
+            "evidence": "Narrative does not state a frivolous or irrelevant termination.",
+            "id": "no_frivolous_termination_mentioned",
+            "kind": "scoped_absence",
+            "unless_any": [
+              "frivolous",
+              "irrelevant",
+              "duplicate"
+            ],
+            "value": false
+          },
+          {
+            "atom_ids": [
+              "fcra.notice_through_reseller",
+              "fcra.reseller_received_dispute",
+              "fcra.reseller_item_due_to_reseller_error",
+              "fcra.reseller_corrected_or_deleted",
+              "fcra.reseller_conveyed_to_cra",
+              "fcra.reseller_reconveyed_results_to_consumer",
+              "fcra.reseller_reinvestigation_chosen"
+            ],
+            "basis": "explicit_negative",
+            "evidence": "Narrative does not describe reseller involvement.",
+            "id": "no_reseller_branch_mentioned",
+            "kind": "branch_not_applicable",
+            "unless_any": [
+              "reseller",
+              "tenant-screening"
+            ],
+            "value": false
+          },
+          {
+            "atom_ids": [
+              "fcra.item_reinserted",
+              "fcra.furnisher_certified_accuracy_for_reinsertion",
+              "fcra.reinsertion_notice_sent",
+              "fcra.reinsertion_notice_identifies_furnisher",
+              "fcra.reinsertion_notice_includes_statement_right",
+              "fcra.deleted_item_reappeared_without_certification"
+            ],
+            "basis": "explicit_negative",
+            "evidence": "Narrative does not describe deletion followed by reinsertion or reappearance.",
+            "id": "no_reinsertion_branch_mentioned",
+            "kind": "branch_not_applicable",
+            "unless_any": [
+              "reinserted",
+              "reinsertion",
+              "reappeared",
+              "reappears"
+            ],
+            "value": false
+          },
+          {
+            "atom_ids": [
+              "fcra.consumer_statement_filed",
+              "fcra.subsequent_reports_note_dispute"
+            ],
+            "basis": "explicit_negative",
+            "evidence": "Narrative does not state that a consumer statement was filed.",
+            "id": "no_consumer_statement_mentioned",
+            "kind": "branch_not_applicable",
+            "unless_any": [
+              "consumer statement",
+              "statement of dispute"
+            ],
+            "value": false
+          },
+          {
+            "atom_ids": [
+              "fcra.direct_dispute_received_by_furnisher",
+              "fcra.direct_dispute_at_proper_address",
+              "fcra.direct_dispute_identifies_account",
+              "fcra.direct_dispute_identifies_specific_info",
+              "fcra.direct_dispute_explains_basis",
+              "fcra.direct_dispute_supporting_docs_supplied",
+              "fcra.direct_dispute_public_record_only",
+              "fcra.direct_dispute_fraud_alert_only",
+              "fcra.direct_furnisher_investigation_conducted",
+              "fcra.direct_furnisher_reviewed_info",
+              "fcra.direct_furnisher_results_reported_to_consumer",
+              "fcra.direct_furnisher_corrected_cras"
+            ],
+            "basis": "explicit_negative",
+            "evidence": "Narrative does not describe a direct dispute sent to the furnisher.",
+            "id": "no_direct_furnisher_dispute_mentioned",
+            "kind": "branch_not_applicable",
+            "unless_any": [
+              "direct dispute",
+              "furnisher's published dispute address",
+              "furnisher dispute address"
+            ],
+            "value": false
+          },
+          {
+            "atom_ids": [
+              "fcra.consumer_disputed_item",
+              "fcra.item_in_consumer_file",
+              "fcra.dispute_about_accuracy",
+              "fcra.consumer_identity_sufficient",
+              "fcra.account_identified",
+              "fcra.disputed_field_identified",
+              "fcra.basis_explained",
+              "fcra.consumer_submission_authentic"
+            ],
+            "basis": "inferred_from_record",
+            "evidence": "Narrative describes a consumer dispute identifying an item and basis.",
+            "id": "ordinary_cra_dispute_trigger",
+            "if_any": [
+              "consumer disputed",
+              "disputed a",
+              "disputes"
+            ],
+            "kind": "scope_supported_true",
+            "value": true
+          },
+          {
+            "atom_ids": [
+              "fcra.notice_direct_to_cra"
+            ],
+            "basis": "inferred_from_record",
+            "evidence": "Narrative states direct CRA receipt.",
+            "id": "direct_cra_notice",
+            "if_any": [
+              "CRA file shows the dispute was received directly",
+              "received directly",
+              "dispute was received directly",
+              "CRA coded",
+              "CRA log",
+              "CRA has not yet received"
+            ],
+            "kind": "scope_supported_true",
+            "value": true
+          },
+          {
+            "atom_ids": [
+              "fcra.cra_reviewed_all_consumer_info",
+              "fcra.cra_considered_primary_source_documents",
+              "fcra.cra_compared_furnisher_response",
+              "fcra.cra_compared_own_file",
+              "fcra.cra_reasonable_reinvestigation_performed",
+              "fcra.dispositive_info_not_ignored",
+              "fcra.human_review_of_documents_performed"
+            ],
+            "basis": "inferred_from_record",
+            "evidence": "Narrative describes ordinary-course review of consumer and furnisher information.",
+            "id": "ordinary_cra_review_completed",
+            "if_any": [
+              "reviewed the consumer ledger against the furnisher payment history",
+              "reviewed consumer ledger",
+              "compared",
+              "sent complete written results"
+            ],
+            "kind": "scope_supported_true",
+            "unless_any": [
+              "not sent or made available",
+              "not forwarded",
+              "not yet received enough material"
+            ],
+            "value": true
+          },
+          {
+            "atom_ids": [
+              "fcra.item_verified_as_accurate",
+              "fcra.item_status_recorded_current"
+            ],
+            "basis": "inferred_from_record",
+            "evidence": "Narrative states the item was verified and recorded.",
+            "id": "ordinary_verified_item_treatment",
+            "if_any": [
+              "recorded the item as verified",
+              "verifying the late payment"
+            ],
+            "kind": "scope_supported_true",
+            "value": true
+          },
+          {
+            "atom_ids": [
+              "fcra.results_notice_sent",
+              "fcra.notice_states_reinvestigation_completed",
+              "fcra.revised_consumer_report_provided",
+              "fcra.procedure_description_right_disclosed",
+              "fcra.furnisher_contact_disclosed_if_available",
+              "fcra.consumer_statement_right_disclosed",
+              "fcra.notification_right_disclosed"
+            ],
+            "basis": "inferred_from_record",
+            "evidence": "Narrative describes a complete written results notice with revised report.",
+            "id": "ordinary_results_notice_complete",
+            "if_any": [
+              "mailed results with the revised report",
+              "sent complete written results",
+              "otherwise complete results notice"
+            ],
+            "kind": "scope_supported_true",
+            "value": true
+          },
+          {
+            "atom_ids": [
+              "fcra.furnisher_received_cra_notice",
+              "fcra.furnisher_investigation_conducted",
+              "fcra.furnisher_reviewed_all_cra_info",
+              "fcra.furnisher_reported_results_to_cra"
+            ],
+            "basis": "inferred_from_record",
+            "evidence": "Narrative describes furnisher response to CRA dispute notice.",
+            "id": "ordinary_furnisher_indirect_completed",
+            "if_any": [
+              "received a furnisher response verifying",
+              "furnisher response verifying",
+              "furnisher verified"
+            ],
+            "kind": "scope_supported_true",
+            "unless_any": [
+              "not sent or made available",
+              "not forwarded"
+            ],
+            "value": true
+          },
+          {
+            "atom_ids": [
+              "fcra.notice_through_reseller",
+              "fcra.reseller_received_dispute"
+            ],
+            "basis": "explicit_positive",
+            "evidence": "Narrative describes reseller receipt of the dispute.",
+            "id": "reseller_notice_path",
+            "if_any": [
+              "reseller",
+              "tenant-screening"
+            ],
+            "kind": "scope_supported_true",
+            "value": true
+          },
+          {
+            "atom_ids": [
+              "fcra.direct_dispute_received_by_furnisher",
+              "fcra.direct_dispute_at_proper_address",
+              "fcra.direct_dispute_identifies_account",
+              "fcra.direct_dispute_identifies_specific_info",
+              "fcra.direct_dispute_explains_basis",
+              "fcra.direct_dispute_supporting_docs_supplied",
+              "fcra.direct_dispute_subject_within_scope"
+            ],
+            "basis": "explicit_positive",
+            "evidence": "Narrative describes a qualifying direct furnisher dispute packet.",
+            "id": "direct_furnisher_notice_path",
+            "if_any": [
+              "furnisher's published dispute address",
+              "direct dispute to the furnisher"
+            ],
+            "kind": "scope_supported_true",
+            "value": true
+          },
+          {
+            "atom_ids": [
+              "fcra.notice_direct_to_cra",
+              "fcra.notice_through_reseller"
+            ],
+            "basis": "explicit_negative",
+            "evidence": "Narrative describes only a direct-to-furnisher dispute, not CRA receipt.",
+            "id": "no_cra_path_for_direct_furnisher_only",
+            "if_any": [
+              "furnisher's published dispute address",
+              "direct dispute to the furnisher"
+            ],
+            "kind": "branch_not_applicable",
+            "unless_any": [
+              "CRA file shows",
+              "source CRA",
+              "through a tenant-screening reseller"
+            ],
+            "value": false
+          },
+          {
+            "atom_ids": [
+              "fcra.primary_documents_forwarded",
+              "fcra.notice_included_all_relevant_info",
+              "fcra.cra_considered_primary_source_documents",
+              "fcra.dispositive_info_not_ignored"
+            ],
+            "basis": "explicit_negative",
+            "evidence": "Narrative states primary documents were not forwarded or made available.",
+            "id": "primary_documents_not_forwarded",
+            "if_any": [
+              "not sent or made available",
+              "were not sent",
+              "were not forwarded"
+            ],
+            "kind": "explicit_negative",
+            "value": false
+          },
+          {
+            "atom_ids": [
+              "fcra.automated_code_only"
+            ],
+            "basis": "explicit_positive",
+            "evidence": "Narrative describes generic dispute coding.",
+            "id": "automated_code_only_from_generic_code",
+            "if_any": [
+              "generic \"claims paid\" code",
+              "coded the dispute"
+            ],
+            "kind": "explicit_positive",
+            "value": true
+          },
+          {
+            "atom_ids": [
+              "fcra.manual_review_policy_trigger",
+              "fcra.conflicting_furnisher_and_consumer_docs"
+            ],
+            "basis": "inferred_from_record",
+            "evidence": "Missing primary-document forwarding and contrary furnisher verification trigger review.",
+            "id": "manual_review_for_forwarding_failure",
+            "if_any": [
+              "not sent or made available",
+              "old balance despite settlement documents"
+            ],
+            "kind": "routing_trigger",
+            "value": true
+          },
+          {
+            "atom_ids": [
+              "fcra.consumer_alleges_not_mine"
+            ],
+            "basis": "explicit_positive",
+            "evidence": "Narrative contains a not-mine dispute.",
+            "id": "not_mine_identity_route",
+            "if_any": [
+              "not mine",
+              "not belonging to the consumer"
+            ],
+            "kind": "routing_trigger",
+            "value": true
+          },
+          {
+            "atom_ids": [
+              "fcra.identity_theft_claimed"
+            ],
+            "basis": "explicit_positive",
+            "evidence": "Narrative mentions identity theft.",
+            "id": "identity_theft_route",
+            "if_any": [
+              "identity theft"
+            ],
+            "kind": "routing_trigger",
+            "value": true
+          },
+          {
+            "atom_ids": [
+              "fcra.mixed_file_claimed"
+            ],
+            "basis": "inferred_from_record",
+            "evidence": "Narrative describes mixed-file or similar-name evidence.",
+            "id": "mixed_file_route",
+            "if_any": [
+              "mixed-file",
+              "similar name"
+            ],
+            "kind": "routing_trigger",
+            "value": true
+          },
+          {
+            "atom_ids": [
+              "fcra.identity_theft_report_supplied"
+            ],
+            "basis": "explicit_negative",
+            "evidence": "Narrative states identity theft documentation is incomplete.",
+            "id": "missing_identity_theft_report",
+            "if_any": [
+              "not the actual identity theft report",
+              "affidavit is being prepared"
+            ],
+            "kind": "routing_trigger",
+            "value": false
+          },
+          {
+            "atom_ids": [
+              "fcra.source_documents_missing"
+            ],
+            "basis": "explicit_positive",
+            "evidence": "Narrative states source material is missing.",
+            "id": "source_gap_route",
+            "if_any": [
+              "not yet received enough material",
+              "not the actual identity theft report"
+            ],
+            "kind": "routing_trigger",
+            "value": true
+          },
+          {
+            "atom_ids": [
+              "fcra.material_date_conflict"
+            ],
+            "basis": "explicit_positive",
+            "evidence": "Narrative states material dates are inconsistent.",
+            "id": "material_date_conflict_route",
+            "if_any": [
+              "inconsistent dates"
+            ],
+            "kind": "routing_trigger",
+            "value": true
+          },
+          {
+            "atom_ids": [
+              "fcra.manual_review_policy_trigger"
+            ],
+            "basis": "inferred_from_record",
+            "evidence": "Narrative contains a routing cue requiring human review.",
+            "id": "human_review_from_routing_cues",
+            "if_any": [
+              "not mine",
+              "identity theft",
+              "mixed-file",
+              "similar name",
+              "not yet received enough material",
+              "inconsistent dates"
+            ],
+            "kind": "routing_trigger",
+            "value": true
+          },
+          {
+            "id": "rk_auto_valid_cra_intake_identified_4b60167a97",
+            "kind": "scope_supported_true",
+            "atom_ids": [
+              "fcra.consumer_disputed_item",
+              "fcra.item_in_consumer_file",
+              "fcra.dispute_about_accuracy",
+              "fcra.notice_direct_to_cra",
+              "fcra.consumer_identity_sufficient",
+              "fcra.account_identified",
+              "fcra.disputed_field_identified",
+              "fcra.basis_explained",
+              "fcra.consumer_submission_authentic"
+            ],
+            "value": true,
+            "basis": "inferred_from_record",
+            "if_any": [
+              "identified the account",
+              "identified the item",
+              "disputed field"
+            ],
+            "evidence": "Narrative describes a valid CRA intake packet.",
+            "apply_when": "missing_or_undetermined",
+            "metadata": {
+              "generated_by": "rulekit_map_profile_repair",
+              "source_case_id": "cra_logic_invalid_duplicate_with_new_material",
+              "source_split_group": "invalid_frivolous_termination",
+              "source_mismatch_determinations": [
+                "fcra.cra_furnisher_notice_satisfied",
+                "fcra.cra_reinvestigation_timely",
+                "fcra.furnisher_indirect_satisfied",
+                "fcra.human_review_required",
+                "fcra.item_treatment_satisfied",
+                "fcra.results_notice_satisfied"
+              ]
+            }
+          },
+          {
+            "id": "rk_auto_duplicate_with_new_material_not_frivolous_422ad5ddd7",
+            "kind": "scope_supported_false",
+            "atom_ids": [
+              "fcra.dispute_duplicate_without_new_info",
+              "fcra.insufficient_information_to_investigate",
+              "fcra.frivolous_missing_info_identified",
+              "fcra.reinvestigation_completed",
+              "fcra.cra_notified_furnisher",
+              "fcra.furnisher_received_cra_notice",
+              "fcra.cra_reviewed_all_consumer_info",
+              "fcra.results_notice_sent"
+            ],
+            "value": false,
+            "basis": "explicit_negative",
+            "if_any": [
+              "new packet included",
+              "not previously supplied",
+              "new letter was dispositive"
+            ],
+            "evidence": "Narrative states new material information was supplied despite duplicate coding.",
+            "apply_when": "missing_or_undetermined",
+            "metadata": {
+              "generated_by": "rulekit_map_profile_repair",
+              "source_case_id": "cra_logic_invalid_duplicate_with_new_material",
+              "source_split_group": "invalid_frivolous_termination",
+              "source_mismatch_determinations": [
+                "fcra.cra_furnisher_notice_satisfied",
+                "fcra.cra_reinvestigation_timely",
+                "fcra.furnisher_indirect_satisfied",
+                "fcra.human_review_required",
+                "fcra.item_treatment_satisfied",
+                "fcra.results_notice_satisfied"
+              ]
+            }
+          },
+          {
+            "id": "rk_auto_invalid_duplicate_termination_made_f57ca2296f",
+            "kind": "scope_supported_true",
+            "atom_ids": [
+              "fcra.frivolous_determination_made",
+              "fcra.frivolous_notice_sent",
+              "fcra.frivolous_reason_identified"
+            ],
+            "value": true,
+            "basis": "inferred_from_record",
+            "if_any": [
+              "marked the submission as duplicate and frivolous",
+              "marked it duplicate/frivolous"
+            ],
+            "evidence": "Narrative states a duplicate/frivolous termination was made.",
+            "apply_when": "missing_or_undetermined",
+            "metadata": {
+              "generated_by": "rulekit_map_profile_repair",
+              "source_case_id": "cra_logic_invalid_duplicate_with_new_material",
+              "source_split_group": "invalid_frivolous_termination",
+              "source_mismatch_determinations": [
+                "fcra.cra_furnisher_notice_satisfied",
+                "fcra.cra_reinvestigation_timely",
+                "fcra.furnisher_indirect_satisfied",
+                "fcra.human_review_required",
+                "fcra.item_treatment_satisfied",
+                "fcra.results_notice_satisfied"
+              ]
+            }
+          },
+          {
+            "id": "rk_auto_frivolous_termination_made_with_notice_df8de11b85",
+            "kind": "scope_supported_true",
+            "atom_ids": [
+              "fcra.frivolous_determination_made",
+              "fcra.frivolous_notice_sent",
+              "fcra.frivolous_reason_identified",
+              "fcra.frivolous_missing_info_identified"
+            ],
+            "value": true,
+            "basis": "inferred_from_record",
+            "if_any": [
+              "frivolous-or-irrelevant determination"
+            ],
+            "evidence": "Narrative states a frivolous-or-irrelevant termination with notice.",
+            "apply_when": "missing_or_undetermined",
+            "metadata": {
+              "generated_by": "rulekit_map_profile_repair",
+              "source_case_id": "cra_logic_valid_frivolous_termination_no_reinvestigation",
+              "source_split_group": "valid_frivolous_termination",
+              "source_mismatch_determinations": [
+                "fcra.frivolous_termination_valid"
+              ]
+            }
+          },
+          {
+            "id": "rk_auto_frivolous_notice_within_5_days_6133836d04",
+            "kind": "numeric_profile_default",
+            "atom_ids": [
+              "fcra.business_days_to_frivolous_notice"
+            ],
+            "value": 5,
+            "basis": "inferred_from_record",
+            "if_any": [
+              "frivolous-or-irrelevant determination",
+              "business days later"
+            ],
+            "evidence": "Narrative supports a numeric default of 5.",
+            "apply_when": "missing_or_undetermined",
+            "metadata": {
+              "generated_by": "rulekit_map_profile_repair",
+              "source_case_id": "cra_logic_valid_frivolous_termination_no_reinvestigation",
+              "source_split_group": "valid_frivolous_termination",
+              "source_mismatch_determinations": [
+                "fcra.frivolous_termination_valid"
+              ]
+            }
+          },
+          {
+            "id": "rk_auto_frivolous_insufficient_intake_cb587eca45",
+            "kind": "scope_supported_false",
+            "atom_ids": [
+              "fcra.account_identified",
+              "fcra.disputed_field_identified",
+              "fcra.basis_explained",
+              "fcra.reinvestigation_completed",
+              "fcra.results_notice_sent"
+            ],
+            "value": false,
+            "basis": "explicit_negative",
+            "if_any": [
+              "did not identify an account",
+              "did not identify a disputed field",
+              "did not explain a basis"
+            ],
+            "evidence": "Narrative states the intake packet lacked account, field, or basis.",
+            "apply_when": "missing_or_undetermined",
+            "metadata": {
+              "generated_by": "rulekit_map_profile_repair",
+              "source_case_id": "cra_logic_valid_frivolous_termination_no_reinvestigation",
+              "source_split_group": "valid_frivolous_termination",
+              "source_mismatch_determinations": [
+                "fcra.frivolous_termination_valid"
+              ]
+            }
+          },
+          {
+            "id": "rk_auto_insufficient_information_to_investigate_b867fc4521",
+            "kind": "scope_supported_true",
+            "atom_ids": [
+              "fcra.insufficient_information_to_investigate"
+            ],
+            "value": true,
+            "basis": "inferred_from_record",
+            "if_any": [
+              "did not identify an account",
+              "did not identify a disputed field",
+              "did not explain a basis"
+            ],
+            "evidence": "Narrative states information required to investigate was missing.",
+            "apply_when": "missing_or_undetermined",
+            "metadata": {
+              "generated_by": "rulekit_map_profile_repair",
+              "source_case_id": "cra_logic_valid_frivolous_termination_no_reinvestigation",
+              "source_split_group": "valid_frivolous_termination",
+              "source_mismatch_determinations": [
+                "fcra.frivolous_termination_valid"
+              ]
+            }
+          },
+          {
+            "id": "rk_auto_no_direct_furnisher_branch_a8820f2c34",
+            "kind": "branch_not_applicable",
+            "atom_ids": [
+              "fcra.direct_dispute_at_proper_address",
+              "fcra.direct_dispute_explains_basis",
+              "fcra.direct_dispute_fraud_alert_only",
+              "fcra.direct_dispute_identifies_account",
+              "fcra.direct_dispute_identifies_specific_info",
+              "fcra.direct_dispute_public_record_only",
+              "fcra.direct_dispute_received_by_furnisher",
+              "fcra.direct_dispute_subject_within_scope",
+              "fcra.direct_dispute_supporting_docs_supplied",
+              "fcra.direct_furnisher_corrected_cras",
+              "fcra.direct_furnisher_investigation_conducted",
+              "fcra.direct_furnisher_results_reported_to_consumer",
+              "fcra.direct_furnisher_reviewed_info"
+            ],
+            "value": false,
+            "basis": "explicit_negative",
+            "if_any": [
+              "no direct-furnisher",
+              "no direct furnisher",
+              "no direct dispute"
+            ],
+            "evidence": "Narrative states the direct furnisher branch does not apply.",
+            "apply_when": "always",
+            "metadata": {
+              "generated_by": "rulekit_map_profile_repair",
+              "source_case_id": "cra_logic_expedited_deletion_short_circuits_furnisher_notice",
+              "source_split_group": "expedited_deletion",
+              "source_mismatch_determinations": [
+                "fcra.cra_consideration_satisfied",
+                "fcra.cra_furnisher_notice_satisfied",
+                "fcra.cra_reinvestigation_timely",
+                "fcra.dispute_resolution_compliant",
+                "fcra.furnisher_indirect_satisfied",
+                "fcra.item_treatment_satisfied",
+                "fcra.reinsertion_satisfied",
+                "fcra.reseller_satisfied",
+                "fcra.results_notice_satisfied"
+              ]
+            }
+          },
+          {
+            "id": "rk_auto_no_reinsertion_branch_fb7d04a8a9",
+            "kind": "branch_not_applicable",
+            "atom_ids": [
+              "fcra.furnisher_certified_accuracy_for_reinsertion",
+              "fcra.item_reinserted",
+              "fcra.procedures_prevent_reappearance",
+              "fcra.reinsertion_notice_identifies_furnisher",
+              "fcra.reinsertion_notice_includes_statement_right",
+              "fcra.reinsertion_notice_sent"
+            ],
+            "value": false,
+            "basis": "explicit_negative",
+            "if_any": [
+              "no reinsertion",
+              "no reinsertion branch",
+              "no reinsertion occurred"
+            ],
+            "evidence": "Narrative states the reinsertion branch does not apply.",
+            "apply_when": "always",
+            "metadata": {
+              "generated_by": "rulekit_map_profile_repair",
+              "source_case_id": "cra_logic_expedited_deletion_short_circuits_furnisher_notice",
+              "source_split_group": "expedited_deletion",
+              "source_mismatch_determinations": [
+                "fcra.cra_consideration_satisfied",
+                "fcra.cra_furnisher_notice_satisfied",
+                "fcra.cra_reinvestigation_timely",
+                "fcra.dispute_resolution_compliant",
+                "fcra.furnisher_indirect_satisfied",
+                "fcra.item_treatment_satisfied",
+                "fcra.reinsertion_satisfied",
+                "fcra.reseller_satisfied",
+                "fcra.results_notice_satisfied"
+              ]
+            }
+          },
+          {
+            "id": "rk_auto_no_consumer_statement_branch_c878eca34b",
+            "kind": "branch_not_applicable",
+            "atom_ids": [
+              "fcra.consumer_statement_filed",
+              "fcra.subsequent_reports_note_dispute"
+            ],
+            "value": false,
+            "basis": "explicit_negative",
+            "if_any": [
+              "no consumer statement",
+              "no consumer-statement",
+              "consumer-statement branch applies"
+            ],
+            "evidence": "Narrative states the consumer statement branch does not apply.",
+            "apply_when": "always",
+            "metadata": {
+              "generated_by": "rulekit_map_profile_repair",
+              "source_case_id": "cra_logic_expedited_deletion_short_circuits_furnisher_notice",
+              "source_split_group": "expedited_deletion",
+              "source_mismatch_determinations": [
+                "fcra.cra_consideration_satisfied",
+                "fcra.cra_furnisher_notice_satisfied",
+                "fcra.cra_reinvestigation_timely",
+                "fcra.dispute_resolution_compliant",
+                "fcra.furnisher_indirect_satisfied",
+                "fcra.item_treatment_satisfied",
+                "fcra.reinsertion_satisfied",
+                "fcra.reseller_satisfied",
+                "fcra.results_notice_satisfied"
+              ]
+            }
+          },
+          {
+            "id": "rk_auto_expedited_deletion_path_15c922e806",
+            "kind": "scope_supported_true",
+            "atom_ids": [
+              "fcra.expedited_deleted_within_3_business_days",
+              "fcra.consumer_telephone_notice_of_expedited_deletion",
+              "fcra.expedited_written_confirmation_sent",
+              "fcra.item_deleted",
+              "fcra.item_status_recorded_current"
+            ],
+            "value": true,
+            "basis": "inferred_from_record",
+            "if_any": [
+              "within 3 business days",
+              "expedited deletion"
+            ],
+            "evidence": "Narrative describes expedited deletion and consumer notices.",
+            "apply_when": "missing_or_undetermined",
+            "metadata": {
+              "generated_by": "rulekit_map_profile_repair",
+              "source_case_id": "cra_logic_expedited_deletion_short_circuits_furnisher_notice",
+              "source_split_group": "expedited_deletion",
+              "source_mismatch_determinations": [
+                "fcra.cra_consideration_satisfied",
+                "fcra.cra_furnisher_notice_satisfied",
+                "fcra.cra_reinvestigation_timely",
+                "fcra.dispute_resolution_compliant",
+                "fcra.furnisher_indirect_satisfied",
+                "fcra.item_treatment_satisfied",
+                "fcra.reinsertion_satisfied",
+                "fcra.reseller_satisfied",
+                "fcra.results_notice_satisfied"
+              ]
+            }
+          },
+          {
+            "id": "rk_auto_no_furnisher_notice_for_expedited_deletion_2f13e5f5af",
+            "kind": "branch_not_applicable",
+            "atom_ids": [
+              "fcra.cra_notified_furnisher",
+              "fcra.furnisher_received_cra_notice"
+            ],
+            "value": false,
+            "basis": "explicit_negative",
+            "if_any": [
+              "before sending any furnisher notice",
+              "no furnisher transmission was sent"
+            ],
+            "evidence": "Narrative states the expedited path occurred before furnisher notice.",
+            "apply_when": "missing_or_undetermined",
+            "metadata": {
+              "generated_by": "rulekit_map_profile_repair",
+              "source_case_id": "cra_logic_expedited_deletion_short_circuits_furnisher_notice",
+              "source_split_group": "expedited_deletion",
+              "source_mismatch_determinations": [
+                "fcra.cra_consideration_satisfied",
+                "fcra.cra_furnisher_notice_satisfied",
+                "fcra.cra_reinvestigation_timely",
+                "fcra.dispute_resolution_compliant",
+                "fcra.furnisher_indirect_satisfied",
+                "fcra.item_treatment_satisfied",
+                "fcra.reinsertion_satisfied",
+                "fcra.reseller_satisfied",
+                "fcra.results_notice_satisfied"
+              ]
+            }
+          },
+          {
+            "id": "rk_auto_complete_results_notice_15b3ac656a",
+            "kind": "scope_supported_true",
+            "atom_ids": [
+              "fcra.results_notice_sent",
+              "fcra.notice_states_reinvestigation_completed",
+              "fcra.revised_consumer_report_provided",
+              "fcra.procedure_description_right_disclosed",
+              "fcra.furnisher_contact_disclosed_if_available",
+              "fcra.consumer_statement_right_disclosed",
+              "fcra.notification_right_disclosed"
+            ],
+            "value": true,
+            "basis": "inferred_from_record",
+            "if_any": [
+              "complete written results",
+              "timely results notice",
+              "sent a timely results notice",
+              "sent complete results"
+            ],
+            "evidence": "Narrative describes a complete CRA results notice.",
+            "apply_when": "missing_or_undetermined",
+            "metadata": {
+              "generated_by": "rulekit_map_profile_repair",
+              "source_case_id": "cra_logic_reseller_forwarding_late_no_reconveyance",
+              "source_split_group": "reseller_forwarding_failure",
+              "source_mismatch_determinations": [
+                "fcra.cra_consideration_satisfied",
+                "fcra.cra_furnisher_notice_satisfied",
+                "fcra.cra_reinvestigation_timely",
+                "fcra.dispute_resolution_compliant",
+                "fcra.furnisher_indirect_satisfied",
+                "fcra.item_treatment_satisfied",
+                "fcra.reseller_satisfied",
+                "fcra.results_notice_satisfied"
+              ]
+            }
+          },
+          {
+            "id": "rk_auto_results_notice_within_5_days_347c80ce4d",
+            "kind": "numeric_profile_default",
+            "atom_ids": [
+              "fcra.business_days_to_results_notice"
+            ],
+            "value": 5,
+            "basis": "inferred_from_record",
+            "if_any": [
+              "complete written results",
+              "timely results notice",
+              "sent a timely results notice",
+              "sent complete results"
+            ],
+            "evidence": "Narrative supports a numeric default of 5.",
+            "apply_when": "missing_or_undetermined",
+            "metadata": {
+              "generated_by": "rulekit_map_profile_repair",
+              "source_case_id": "cra_logic_reseller_forwarding_late_no_reconveyance",
+              "source_split_group": "reseller_forwarding_failure",
+              "source_mismatch_determinations": [
+                "fcra.cra_consideration_satisfied",
+                "fcra.cra_furnisher_notice_satisfied",
+                "fcra.cra_reinvestigation_timely",
+                "fcra.dispute_resolution_compliant",
+                "fcra.furnisher_indirect_satisfied",
+                "fcra.item_treatment_satisfied",
+                "fcra.reseller_satisfied",
+                "fcra.results_notice_satisfied"
+              ]
+            }
+          },
+          {
+            "id": "rk_auto_verified_item_treatment_f1e43c7251",
+            "kind": "scope_supported_true",
+            "atom_ids": [
+              "fcra.item_verified_as_accurate",
+              "fcra.item_status_recorded_current"
+            ],
+            "value": true,
+            "basis": "inferred_from_record",
+            "if_any": [
+              "verified the item",
+              "verified that auto-loan item",
+              "recorded the item as current and verified"
+            ],
+            "evidence": "Narrative describes verified item treatment.",
+            "apply_when": "missing_or_undetermined",
+            "metadata": {
+              "generated_by": "rulekit_map_profile_repair",
+              "source_case_id": "cra_logic_reseller_forwarding_late_no_reconveyance",
+              "source_split_group": "reseller_forwarding_failure",
+              "source_mismatch_determinations": [
+                "fcra.cra_consideration_satisfied",
+                "fcra.cra_furnisher_notice_satisfied",
+                "fcra.cra_reinvestigation_timely",
+                "fcra.dispute_resolution_compliant",
+                "fcra.furnisher_indirect_satisfied",
+                "fcra.item_treatment_satisfied",
+                "fcra.reseller_satisfied",
+                "fcra.results_notice_satisfied"
+              ]
+            }
+          },
+          {
+            "id": "rk_auto_reseller_dispute_received_a8a77adb08",
+            "kind": "scope_supported_true",
+            "atom_ids": [
+              "fcra.notice_through_reseller",
+              "fcra.reseller_received_dispute"
+            ],
+            "value": true,
+            "basis": "inferred_from_record",
+            "if_any": [
+              "through a reseller"
+            ],
+            "evidence": "Narrative describes a reseller dispute.",
+            "apply_when": "missing_or_undetermined",
+            "metadata": {
+              "generated_by": "rulekit_map_profile_repair",
+              "source_case_id": "cra_logic_reseller_forwarding_late_no_reconveyance",
+              "source_split_group": "reseller_forwarding_failure",
+              "source_mismatch_determinations": [
+                "fcra.cra_consideration_satisfied",
+                "fcra.cra_furnisher_notice_satisfied",
+                "fcra.cra_reinvestigation_timely",
+                "fcra.dispute_resolution_compliant",
+                "fcra.furnisher_indirect_satisfied",
+                "fcra.item_treatment_satisfied",
+                "fcra.reseller_satisfied",
+                "fcra.results_notice_satisfied"
+              ]
+            }
+          },
+          {
+            "id": "rk_auto_reseller_forwarding_late_or_missing_654ebf86de",
+            "kind": "scope_supported_false",
+            "atom_ids": [
+              "fcra.reseller_item_due_to_reseller_error",
+              "fcra.reseller_reconveyed_results_to_consumer"
+            ],
+            "value": false,
+            "basis": "explicit_negative",
+            "if_any": [
+              "not due to reseller error",
+              "never reconveyed"
+            ],
+            "evidence": "Narrative states source-CRA path with no reconveyance.",
+            "apply_when": "missing_or_undetermined",
+            "metadata": {
+              "generated_by": "rulekit_map_profile_repair",
+              "source_case_id": "cra_logic_reseller_forwarding_late_no_reconveyance",
+              "source_split_group": "reseller_forwarding_failure",
+              "source_mismatch_determinations": [
+                "fcra.cra_consideration_satisfied",
+                "fcra.cra_furnisher_notice_satisfied",
+                "fcra.cra_reinvestigation_timely",
+                "fcra.dispute_resolution_compliant",
+                "fcra.furnisher_indirect_satisfied",
+                "fcra.item_treatment_satisfied",
+                "fcra.reseller_satisfied",
+                "fcra.results_notice_satisfied"
+              ]
+            }
+          },
+          {
+            "id": "rk_auto_reseller_forwarded_source_cra_5bb28a750d",
+            "kind": "scope_supported_true",
+            "atom_ids": [
+              "fcra.reseller_conveyed_to_cra"
+            ],
+            "value": true,
+            "basis": "inferred_from_record",
+            "if_any": [
+              "conveyed the dispute packet to the source cra"
+            ],
+            "evidence": "Narrative states the reseller forwarded to the source CRA.",
+            "apply_when": "missing_or_undetermined",
+            "metadata": {
+              "generated_by": "rulekit_map_profile_repair",
+              "source_case_id": "cra_logic_reseller_forwarding_late_no_reconveyance",
+              "source_split_group": "reseller_forwarding_failure",
+              "source_mismatch_determinations": [
+                "fcra.cra_consideration_satisfied",
+                "fcra.cra_furnisher_notice_satisfied",
+                "fcra.cra_reinvestigation_timely",
+                "fcra.dispute_resolution_compliant",
+                "fcra.furnisher_indirect_satisfied",
+                "fcra.item_treatment_satisfied",
+                "fcra.reseller_satisfied",
+                "fcra.results_notice_satisfied"
+              ]
+            }
+          },
+          {
+            "id": "rk_auto_reseller_conveyance_late_9364f425d8",
+            "kind": "numeric_profile_default",
+            "atom_ids": [
+              "fcra.business_days_to_reseller_conveyance"
+            ],
+            "value": 8,
+            "basis": "inferred_from_record",
+            "if_any": [
+              "eighth business day"
+            ],
+            "evidence": "Narrative supports a numeric default of 8.",
+            "apply_when": "missing_or_undetermined",
+            "metadata": {
+              "generated_by": "rulekit_map_profile_repair",
+              "source_case_id": "cra_logic_reseller_forwarding_late_no_reconveyance",
+              "source_split_group": "reseller_forwarding_failure",
+              "source_mismatch_determinations": [
+                "fcra.cra_consideration_satisfied",
+                "fcra.cra_furnisher_notice_satisfied",
+                "fcra.cra_reinvestigation_timely",
+                "fcra.dispute_resolution_compliant",
+                "fcra.furnisher_indirect_satisfied",
+                "fcra.item_treatment_satisfied",
+                "fcra.reseller_satisfied",
+                "fcra.results_notice_satisfied"
+              ]
+            }
+          }
+        ],
+        "repair_history": [
+          {
+            "round_id": "fcra_cra_logic_stress_round_001",
+            "repair_target": "map_profile.default_rules",
+            "candidate_rule_count": 19
+          }
+        ]
+      },
+      "primary_sources": [
+        "15 U.S.C. 1681i",
+        "15 U.S.C. 1681s-2",
+        "12 CFR 1022.43"
+      ],
+      "purpose": "Deep, realistic credit-reporting dispute benchmark for testing governed Map plus deterministic RuleKit execution against direct LLM disposition.\n"
+    }
+  },
+  "constants": {},
+  "nodes": {
+    "n_20d": {
+      "node_id": "n_20d",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "constant",
+      "literal_value": "20",
+      "constant_label": null
+    },
+    "n_30d": {
+      "node_id": "n_30d",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "constant",
+      "literal_value": "30",
+      "constant_label": null
+    },
+    "n_45d": {
+      "node_id": "n_45d",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "constant",
+      "literal_value": "45",
+      "constant_label": null
+    },
+    "n_5bd": {
+      "node_id": "n_5bd",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "constant",
+      "literal_value": "5",
+      "constant_label": null
+    },
+    "n_account_id": {
+      "node_id": "n_account_id",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.account_identified"
+    },
+    "n_accuracy": {
+      "node_id": "n_accuracy",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.dispute_about_accuracy"
+    },
+    "n_addl_info": {
+      "node_id": "n_addl_info",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.additional_relevant_info_received_in_30_days"
+    },
+    "n_allowed_days": {
+      "node_id": "n_allowed_days",
+      "provenance": "structural",
+      "surface_label": "30-day deadline with possible 45-day extension",
+      "source_span": "15 U.S.C. 1681i(a)(1)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "conditional_numeric",
+      "condition": "n_addl_info",
+      "if_true": "n_45d",
+      "if_false": "n_30d"
+    },
+    "n_auto_only": {
+      "node_id": "n_auto_only",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.automated_code_only"
+    },
+    "n_basis": {
+      "node_id": "n_basis",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.basis_explained"
+    },
+    "n_compared_file": {
+      "node_id": "n_compared_file",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.cra_compared_own_file"
+    },
+    "n_compared_furnisher": {
+      "node_id": "n_compared_furnisher",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.cra_compared_furnisher_response"
+    },
+    "n_complete_days": {
+      "node_id": "n_complete_days",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "numeric_atom_ref",
+      "atom_id": "fcra.days_to_complete_reinvestigation"
+    },
+    "n_completed_in_allowed_days": {
+      "node_id": "n_completed_in_allowed_days",
+      "provenance": "structural",
+      "surface_label": "completed within applicable deadline",
+      "source_span": "15 U.S.C. 1681i(a)(1)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "comparison",
+      "operator": "leq",
+      "left": "n_complete_days",
+      "right": "n_allowed_days"
+    },
+    "n_completeness": {
+      "node_id": "n_completeness",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.dispute_about_completeness"
+    },
+    "n_conflict_docs": {
+      "node_id": "n_conflict_docs",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.conflicting_furnisher_and_consumer_docs"
+    },
+    "n_consideration_met": {
+      "node_id": "n_consideration_met",
+      "provenance": "structural",
+      "surface_label": "reasonable CRA consideration performed",
+      "source_span": "15 U.S.C. 1681i(a)(1), (a)(4)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "and",
+      "children": [
+        "n_cra_required",
+        "n_reviewed_all_info",
+        "n_considered_primary_docs",
+        "n_compared_furnisher",
+        "n_compared_file",
+        "n_reasonable_reinv",
+        "n_dispositive_not_ignored",
+        "n_not_auto_only",
+        "n_doc_review"
+      ]
+    },
+    "n_consideration_satisfied": {
+      "node_id": "n_consideration_satisfied",
+      "provenance": "structural",
+      "surface_label": "CRA consideration satisfied or not required",
+      "source_span": "15 U.S.C. 1681i(a)(4)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "or",
+      "children": [
+        "n_not_cra_required",
+        "n_consideration_met"
+      ]
+    },
+    "n_considered_primary_docs": {
+      "node_id": "n_considered_primary_docs",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.cra_considered_primary_source_documents"
+    },
+    "n_court_order": {
+      "node_id": "n_court_order",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.court_order_supplied"
+    },
+    "n_cra_notified_furnisher": {
+      "node_id": "n_cra_notified_furnisher",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.cra_notified_furnisher"
+    },
+    "n_cra_required": {
+      "node_id": "n_cra_required",
+      "provenance": "structural",
+      "surface_label": "CRA reinvestigation required",
+      "source_span": "15 U.S.C. 1681i(a)(1), (a)(3)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "and",
+      "children": [
+        "n_valid_cra_trigger",
+        "n_not_frivolous_valid"
+      ]
+    },
+    "n_date_conflict": {
+      "node_id": "n_date_conflict",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.material_date_conflict"
+    },
+    "n_defect_found": {
+      "node_id": "n_defect_found",
+      "provenance": "structural",
+      "surface_label": "inaccurate incomplete or unverifiable",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "or",
+      "children": [
+        "n_inaccurate",
+        "n_incomplete",
+        "n_unverifiable"
+      ]
+    },
+    "n_defect_furnisher": {
+      "node_id": "n_defect_furnisher",
+      "provenance": "structural",
+      "surface_label": "furnisher corrected defective information after indirect dispute",
+      "source_span": "15 U.S.C. 1681s-2(b)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "and",
+      "children": [
+        "n_defect_found",
+        "n_furnisher_investigated",
+        "n_furnisher_reviewed",
+        "n_furnisher_reported",
+        "n_furnisher_reported_others",
+        "n_furnisher_action",
+        "n_furnisher_within_deadline"
+      ]
+    },
+    "n_defect_treatment": {
+      "node_id": "n_defect_treatment",
+      "provenance": "structural",
+      "surface_label": "defect corrected by deletion or modification",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "and",
+      "children": [
+        "n_defect_found",
+        "n_delete_or_modify",
+        "n_item_status_current"
+      ]
+    },
+    "n_delete_or_modify": {
+      "node_id": "n_delete_or_modify",
+      "provenance": "structural",
+      "surface_label": "item deleted or modified",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "or",
+      "children": [
+        "n_deleted",
+        "n_modified"
+      ]
+    },
+    "n_deleted": {
+      "node_id": "n_deleted",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.item_deleted"
+    },
+    "n_direct_account": {
+      "node_id": "n_direct_account",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.direct_dispute_identifies_account"
+    },
+    "n_direct_address": {
+      "node_id": "n_direct_address",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.direct_dispute_at_proper_address"
+    },
+    "n_direct_basis": {
+      "node_id": "n_direct_basis",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.direct_dispute_explains_basis"
+    },
+    "n_direct_corrected_cras": {
+      "node_id": "n_direct_corrected_cras",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.direct_furnisher_corrected_cras"
+    },
+    "n_direct_defect_path": {
+      "node_id": "n_direct_defect_path",
+      "provenance": "structural",
+      "surface_label": "direct dispute corrected with required process",
+      "source_span": "12 CFR 1022.43(e)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "and",
+      "children": [
+        "n_direct_valid_notice",
+        "n_defect_found",
+        "n_direct_investigated",
+        "n_direct_reviewed",
+        "n_direct_reported_consumer",
+        "n_direct_corrected_cras"
+      ]
+    },
+    "n_direct_dispute": {
+      "node_id": "n_direct_dispute",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.direct_dispute_received_by_furnisher"
+    },
+    "n_direct_docs": {
+      "node_id": "n_direct_docs",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.direct_dispute_supporting_docs_supplied"
+    },
+    "n_direct_exception": {
+      "node_id": "n_direct_exception",
+      "provenance": "structural",
+      "surface_label": "direct-dispute exception applies",
+      "source_span": "12 CFR 1022.43(b)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "or",
+      "children": [
+        "n_direct_public_only",
+        "n_direct_fraud_alert_only"
+      ]
+    },
+    "n_direct_fraud_alert_only": {
+      "node_id": "n_direct_fraud_alert_only",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.direct_dispute_fraud_alert_only"
+    },
+    "n_direct_furnisher_satisfied": {
+      "node_id": "n_direct_furnisher_satisfied",
+      "provenance": "structural",
+      "surface_label": "direct furnisher dispute duties satisfied",
+      "source_span": "12 CFR 1022.43",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "or",
+      "children": [
+        "n_no_direct_dispute",
+        "n_direct_exception",
+        "n_direct_no_defect_path",
+        "n_direct_defect_path"
+      ]
+    },
+    "n_direct_investigated": {
+      "node_id": "n_direct_investigated",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.direct_furnisher_investigation_conducted"
+    },
+    "n_direct_no_defect_path": {
+      "node_id": "n_direct_no_defect_path",
+      "provenance": "structural",
+      "surface_label": "direct dispute verified with required process",
+      "source_span": "12 CFR 1022.43(e)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "and",
+      "children": [
+        "n_direct_valid_notice",
+        "n_no_defect_found",
+        "n_direct_investigated",
+        "n_direct_reviewed",
+        "n_direct_reported_consumer"
+      ]
+    },
+    "n_direct_public_only": {
+      "node_id": "n_direct_public_only",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.direct_dispute_public_record_only"
+    },
+    "n_direct_reported_consumer": {
+      "node_id": "n_direct_reported_consumer",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.direct_furnisher_results_reported_to_consumer"
+    },
+    "n_direct_reviewed": {
+      "node_id": "n_direct_reviewed",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.direct_furnisher_reviewed_info"
+    },
+    "n_direct_scope": {
+      "node_id": "n_direct_scope",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.direct_dispute_subject_within_scope"
+    },
+    "n_direct_specific": {
+      "node_id": "n_direct_specific",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.direct_dispute_identifies_specific_info"
+    },
+    "n_direct_to_cra": {
+      "node_id": "n_direct_to_cra",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.notice_direct_to_cra"
+    },
+    "n_direct_valid_notice": {
+      "node_id": "n_direct_valid_notice",
+      "provenance": "structural",
+      "surface_label": "qualifying direct dispute notice",
+      "source_span": "12 CFR 1022.43(c)-(d)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "and",
+      "children": [
+        "n_direct_dispute",
+        "n_direct_address",
+        "n_direct_account",
+        "n_direct_specific",
+        "n_direct_basis",
+        "n_direct_docs",
+        "n_direct_scope"
+      ]
+    },
+    "n_dispositive_not_ignored": {
+      "node_id": "n_dispositive_not_ignored",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.dispositive_info_not_ignored"
+    },
+    "n_dispute_subject": {
+      "node_id": "n_dispute_subject",
+      "provenance": "structural",
+      "surface_label": "completeness or accuracy dispute",
+      "source_span": "15 U.S.C. 1681i(a)(1)(A)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "or",
+      "children": [
+        "n_completeness",
+        "n_accuracy"
+      ]
+    },
+    "n_disputed": {
+      "node_id": "n_disputed",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.consumer_disputed_item"
+    },
+    "n_doc_review": {
+      "node_id": "n_doc_review",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.human_review_of_documents_performed"
+    },
+    "n_duplicate_no_new": {
+      "node_id": "n_duplicate_no_new",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.dispute_duplicate_without_new_info"
+    },
+    "n_expedited_delete": {
+      "node_id": "n_expedited_delete",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.expedited_deleted_within_3_business_days"
+    },
+    "n_field_id": {
+      "node_id": "n_field_id",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.disputed_field_identified"
+    },
+    "n_friv_basis": {
+      "node_id": "n_friv_basis",
+      "provenance": "structural",
+      "surface_label": "permissible frivolous basis",
+      "source_span": "15 U.S.C. 1681i(a)(3)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "or",
+      "children": [
+        "n_duplicate_no_new",
+        "n_insufficient"
+      ]
+    },
+    "n_friv_days": {
+      "node_id": "n_friv_days",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "numeric_atom_ref",
+      "atom_id": "fcra.business_days_to_frivolous_notice"
+    },
+    "n_friv_made": {
+      "node_id": "n_friv_made",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.frivolous_determination_made"
+    },
+    "n_friv_missing_info": {
+      "node_id": "n_friv_missing_info",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.frivolous_missing_info_identified"
+    },
+    "n_friv_notice": {
+      "node_id": "n_friv_notice",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.frivolous_notice_sent"
+    },
+    "n_friv_notice_timely": {
+      "node_id": "n_friv_notice_timely",
+      "provenance": "structural",
+      "surface_label": "frivolous notice within five business days",
+      "source_span": "15 U.S.C. 1681i(a)(3)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "comparison",
+      "operator": "leq",
+      "left": "n_friv_days",
+      "right": "n_5bd"
+    },
+    "n_friv_reason": {
+      "node_id": "n_friv_reason",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.frivolous_reason_identified"
+    },
+    "n_frivolous_valid": {
+      "node_id": "n_frivolous_valid",
+      "provenance": "structural",
+      "surface_label": "valid frivolous or irrelevant termination",
+      "source_span": "15 U.S.C. 1681i(a)(3)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "and",
+      "children": [
+        "n_friv_made",
+        "n_friv_basis",
+        "n_friv_notice",
+        "n_friv_reason",
+        "n_friv_missing_info",
+        "n_friv_notice_timely"
+      ]
+    },
+    "n_furnished_by_furnisher": {
+      "node_id": "n_furnished_by_furnisher",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.furnished_by_furnisher"
+    },
+    "n_furnisher_action": {
+      "node_id": "n_furnisher_action",
+      "provenance": "structural",
+      "surface_label": "furnisher corrected or blocked defective item",
+      "source_span": "15 U.S.C. 1681s-2(b)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "or",
+      "children": [
+        "n_furnisher_mod",
+        "n_furnisher_del",
+        "n_furnisher_block"
+      ]
+    },
+    "n_furnisher_block": {
+      "node_id": "n_furnisher_block",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.furnisher_blocked_item"
+    },
+    "n_furnisher_contact": {
+      "node_id": "n_furnisher_contact",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.furnisher_contact_disclosed_if_available"
+    },
+    "n_furnisher_days": {
+      "node_id": "n_furnisher_days",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "numeric_atom_ref",
+      "atom_id": "fcra.days_to_furnisher_complete"
+    },
+    "n_furnisher_del": {
+      "node_id": "n_furnisher_del",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.furnisher_deleted_item"
+    },
+    "n_furnisher_indirect_met": {
+      "node_id": "n_furnisher_indirect_met",
+      "provenance": "structural",
+      "surface_label": "furnisher indirect dispute duties met",
+      "source_span": "15 U.S.C. 1681s-2(b)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "or",
+      "children": [
+        "n_no_defect_furnisher",
+        "n_defect_furnisher"
+      ]
+    },
+    "n_furnisher_indirect_satisfied": {
+      "node_id": "n_furnisher_indirect_satisfied",
+      "provenance": "structural",
+      "surface_label": "furnisher indirect duties satisfied or not applicable",
+      "source_span": "15 U.S.C. 1681s-2(b)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "or",
+      "children": [
+        "n_not_cra_required",
+        "n_no_furnisher_cra_notice",
+        "n_furnisher_indirect_met"
+      ]
+    },
+    "n_furnisher_investigated": {
+      "node_id": "n_furnisher_investigated",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.furnisher_investigation_conducted"
+    },
+    "n_furnisher_mod": {
+      "node_id": "n_furnisher_mod",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.furnisher_modified_item"
+    },
+    "n_furnisher_notice_satisfied": {
+      "node_id": "n_furnisher_notice_satisfied",
+      "provenance": "structural",
+      "surface_label": "furnisher notice satisfied",
+      "source_span": "15 U.S.C. 1681i(a)(2), (a)(8)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "or",
+      "children": [
+        "n_not_cra_required",
+        "n_not_furnished_by_furnisher",
+        "n_expedited_delete",
+        "n_furnisher_transmission_met"
+      ]
+    },
+    "n_furnisher_received_cra": {
+      "node_id": "n_furnisher_received_cra",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.furnisher_received_cra_notice"
+    },
+    "n_furnisher_reported": {
+      "node_id": "n_furnisher_reported",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.furnisher_reported_results_to_cra"
+    },
+    "n_furnisher_reported_others": {
+      "node_id": "n_furnisher_reported_others",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.furnisher_reported_inaccuracy_to_other_cras"
+    },
+    "n_furnisher_reviewed": {
+      "node_id": "n_furnisher_reviewed",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.furnisher_reviewed_all_cra_info"
+    },
+    "n_furnisher_transmission_met": {
+      "node_id": "n_furnisher_transmission_met",
+      "provenance": "structural",
+      "surface_label": "CRA furnisher transmission obligations met",
+      "source_span": "15 U.S.C. 1681i(a)(2)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "and",
+      "children": [
+        "n_cra_required",
+        "n_furnished_by_furnisher",
+        "n_cra_notified_furnisher",
+        "n_notify_within_5",
+        "n_notice_all_info",
+        "n_primary_docs_forwarded",
+        "n_later_info_satisfied"
+      ]
+    },
+    "n_furnisher_within_deadline": {
+      "node_id": "n_furnisher_within_deadline",
+      "provenance": "structural",
+      "surface_label": "furnisher completed within agency deadline",
+      "source_span": "15 U.S.C. 1681s-2(b)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "comparison",
+      "operator": "leq",
+      "left": "n_furnisher_days",
+      "right": "n_allowed_days"
+    },
+    "n_human_review": {
+      "node_id": "n_human_review",
+      "provenance": "structural",
+      "surface_label": "human review routing triggers",
+      "source_span": "benchmark routing policy",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "or",
+      "children": [
+        "n_id_theft_missing_report",
+        "n_mixed_file",
+        "n_legal_only",
+        "n_court_order",
+        "n_conflict_docs",
+        "n_pending_litigation",
+        "n_veteran_medical",
+        "n_source_docs_missing",
+        "n_date_conflict",
+        "n_not_mine",
+        "n_manual_trigger"
+      ]
+    },
+    "n_id_theft_missing_report": {
+      "node_id": "n_id_theft_missing_report",
+      "provenance": "structural",
+      "surface_label": "identity theft claim lacks required report",
+      "source_span": "15 U.S.C. 1681c-2",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "and",
+      "children": [
+        "n_identity_theft",
+        "n_id_theft_report_missing"
+      ]
+    },
+    "n_id_theft_report": {
+      "node_id": "n_id_theft_report",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.identity_theft_report_supplied"
+    },
+    "n_id_theft_report_missing": {
+      "node_id": "n_id_theft_report_missing",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "not",
+      "child": "n_id_theft_report"
+    },
+    "n_identity_ok": {
+      "node_id": "n_identity_ok",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.consumer_identity_sufficient"
+    },
+    "n_identity_theft": {
+      "node_id": "n_identity_theft",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.identity_theft_claimed"
+    },
+    "n_in_file": {
+      "node_id": "n_in_file",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.item_in_consumer_file"
+    },
+    "n_inaccurate": {
+      "node_id": "n_inaccurate",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.item_found_inaccurate"
+    },
+    "n_incomplete": {
+      "node_id": "n_incomplete",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.item_found_incomplete"
+    },
+    "n_insufficient": {
+      "node_id": "n_insufficient",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.insufficient_information_to_investigate"
+    },
+    "n_intake_sufficient": {
+      "node_id": "n_intake_sufficient",
+      "provenance": "structural",
+      "surface_label": "sufficient intake packet",
+      "source_span": "15 U.S.C. 1681i(a)(1), (a)(3)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "and",
+      "children": [
+        "n_identity_ok",
+        "n_account_id",
+        "n_field_id",
+        "n_basis",
+        "n_submission_authentic"
+      ]
+    },
+    "n_item_status_current": {
+      "node_id": "n_item_status_current",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.item_status_recorded_current"
+    },
+    "n_item_treatment_if_required": {
+      "node_id": "n_item_treatment_if_required",
+      "provenance": "structural",
+      "surface_label": "item treatment after reinvestigation",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "or",
+      "children": [
+        "n_no_defect_treatment",
+        "n_defect_treatment"
+      ]
+    },
+    "n_item_treatment_satisfied": {
+      "node_id": "n_item_treatment_satisfied",
+      "provenance": "structural",
+      "surface_label": "item treatment satisfied",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "or",
+      "children": [
+        "n_not_cra_required",
+        "n_item_treatment_if_required"
+      ]
+    },
+    "n_item_verified": {
+      "node_id": "n_item_verified",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.item_verified_as_accurate"
+    },
+    "n_later_info_forwarded": {
+      "node_id": "n_later_info_forwarded",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.later_relevant_info_forwarded"
+    },
+    "n_later_info_not_received": {
+      "node_id": "n_later_info_not_received",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "not",
+      "child": "n_later_info_received"
+    },
+    "n_later_info_received": {
+      "node_id": "n_later_info_received",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.later_relevant_info_received"
+    },
+    "n_later_info_satisfied": {
+      "node_id": "n_later_info_satisfied",
+      "provenance": "structural",
+      "surface_label": "later relevant information forwarding satisfied",
+      "source_span": "15 U.S.C. 1681i(a)(2)(B)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "or",
+      "children": [
+        "n_later_info_not_received",
+        "n_later_info_forwarded"
+      ]
+    },
+    "n_legal_only": {
+      "node_id": "n_legal_only",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.legal_liability_dispute_only"
+    },
+    "n_manual_trigger": {
+      "node_id": "n_manual_trigger",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.manual_review_policy_trigger"
+    },
+    "n_mixed_file": {
+      "node_id": "n_mixed_file",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.mixed_file_claimed"
+    },
+    "n_modified": {
+      "node_id": "n_modified",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.item_modified"
+    },
+    "n_no_defect_found": {
+      "node_id": "n_no_defect_found",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "not",
+      "child": "n_defect_found"
+    },
+    "n_no_defect_furnisher": {
+      "node_id": "n_no_defect_furnisher",
+      "provenance": "structural",
+      "surface_label": "furnisher verified no defect after indirect dispute",
+      "source_span": "15 U.S.C. 1681s-2(b)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "and",
+      "children": [
+        "n_no_defect_found",
+        "n_furnisher_investigated",
+        "n_furnisher_reviewed",
+        "n_furnisher_reported",
+        "n_furnisher_within_deadline"
+      ]
+    },
+    "n_no_defect_treatment": {
+      "node_id": "n_no_defect_treatment",
+      "provenance": "structural",
+      "surface_label": "no-defect verified status treatment",
+      "source_span": "15 U.S.C. 1681i(a)(1)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "and",
+      "children": [
+        "n_no_defect_found",
+        "n_item_verified",
+        "n_item_status_current"
+      ]
+    },
+    "n_no_direct_dispute": {
+      "node_id": "n_no_direct_dispute",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "not",
+      "child": "n_direct_dispute"
+    },
+    "n_no_furnisher_cra_notice": {
+      "node_id": "n_no_furnisher_cra_notice",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "not",
+      "child": "n_furnisher_received_cra"
+    },
+    "n_no_reseller_error": {
+      "node_id": "n_no_reseller_error",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "not",
+      "child": "n_reseller_error"
+    },
+    "n_no_reseller_received": {
+      "node_id": "n_no_reseller_received",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "not",
+      "child": "n_reseller_received"
+    },
+    "n_no_statement_filed": {
+      "node_id": "n_no_statement_filed",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "not",
+      "child": "n_statement_filed"
+    },
+    "n_not_auto_only": {
+      "node_id": "n_not_auto_only",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "not",
+      "child": "n_auto_only"
+    },
+    "n_not_cra_required": {
+      "node_id": "n_not_cra_required",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "not",
+      "child": "n_cra_required"
+    },
+    "n_not_frivolous_valid": {
+      "node_id": "n_not_frivolous_valid",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "not",
+      "child": "n_frivolous_valid"
+    },
+    "n_not_furnished_by_furnisher": {
+      "node_id": "n_not_furnished_by_furnisher",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "not",
+      "child": "n_furnished_by_furnisher"
+    },
+    "n_not_mine": {
+      "node_id": "n_not_mine",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.consumer_alleges_not_mine"
+    },
+    "n_not_reinserted": {
+      "node_id": "n_not_reinserted",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "not",
+      "child": "n_reinserted"
+    },
+    "n_notice_all_info": {
+      "node_id": "n_notice_all_info",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.notice_included_all_relevant_info"
+    },
+    "n_notice_completed": {
+      "node_id": "n_notice_completed",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.notice_states_reinvestigation_completed"
+    },
+    "n_notification_right": {
+      "node_id": "n_notification_right",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.notification_right_disclosed"
+    },
+    "n_notify_days": {
+      "node_id": "n_notify_days",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "numeric_atom_ref",
+      "atom_id": "fcra.business_days_to_notify_furnisher"
+    },
+    "n_notify_within_5": {
+      "node_id": "n_notify_within_5",
+      "provenance": "structural",
+      "surface_label": "furnisher notice within five business days",
+      "source_span": "15 U.S.C. 1681i(a)(2)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "comparison",
+      "operator": "leq",
+      "left": "n_notify_days",
+      "right": "n_5bd"
+    },
+    "n_overall": {
+      "node_id": "n_overall",
+      "provenance": "structural",
+      "surface_label": "selected credit-reporting dispute obligations satisfied",
+      "source_span": "benchmark root",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "and",
+      "children": [
+        "n_reinv_timely",
+        "n_furnisher_notice_satisfied",
+        "n_consideration_satisfied",
+        "n_item_treatment_satisfied",
+        "n_results_notice_satisfied",
+        "n_reinsertion_satisfied",
+        "n_furnisher_indirect_satisfied",
+        "n_direct_furnisher_satisfied",
+        "n_reseller_satisfied",
+        "n_statement_satisfied"
+      ]
+    },
+    "n_pending_litigation": {
+      "node_id": "n_pending_litigation",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.pending_litigation_affects_account"
+    },
+    "n_prevent_reappearance": {
+      "node_id": "n_prevent_reappearance",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.procedures_prevent_reappearance"
+    },
+    "n_primary_docs_forwarded": {
+      "node_id": "n_primary_docs_forwarded",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.primary_documents_forwarded"
+    },
+    "n_proc_right": {
+      "node_id": "n_proc_right",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.procedure_description_right_disclosed"
+    },
+    "n_reasonable_reinv": {
+      "node_id": "n_reasonable_reinv",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.cra_reasonable_reinvestigation_performed"
+    },
+    "n_received_channel": {
+      "node_id": "n_received_channel",
+      "provenance": "structural",
+      "surface_label": "direct or reseller notice received",
+      "source_span": "15 U.S.C. 1681i(a)(1)(A)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "or",
+      "children": [
+        "n_direct_to_cra",
+        "n_through_reseller"
+      ]
+    },
+    "n_reinsert_cert": {
+      "node_id": "n_reinsert_cert",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.furnisher_certified_accuracy_for_reinsertion"
+    },
+    "n_reinsert_days": {
+      "node_id": "n_reinsert_days",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "numeric_atom_ref",
+      "atom_id": "fcra.business_days_to_reinsertion_notice"
+    },
+    "n_reinsert_identifies_furnisher": {
+      "node_id": "n_reinsert_identifies_furnisher",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.reinsertion_notice_identifies_furnisher"
+    },
+    "n_reinsert_notice": {
+      "node_id": "n_reinsert_notice",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.reinsertion_notice_sent"
+    },
+    "n_reinsert_notice_within_5": {
+      "node_id": "n_reinsert_notice_within_5",
+      "provenance": "structural",
+      "surface_label": "reinsertion notice within five business days",
+      "source_span": "15 U.S.C. 1681i(a)(5)(B)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "comparison",
+      "operator": "leq",
+      "left": "n_reinsert_days",
+      "right": "n_5bd"
+    },
+    "n_reinsert_statement_right": {
+      "node_id": "n_reinsert_statement_right",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.reinsertion_notice_includes_statement_right"
+    },
+    "n_reinserted": {
+      "node_id": "n_reinserted",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.item_reinserted"
+    },
+    "n_reinsertion_package": {
+      "node_id": "n_reinsertion_package",
+      "provenance": "structural",
+      "surface_label": "reinsertion safeguards satisfied",
+      "source_span": "15 U.S.C. 1681i(a)(5)(B)-(C)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "and",
+      "children": [
+        "n_reinserted",
+        "n_reinsert_cert",
+        "n_reinsert_notice",
+        "n_reinsert_notice_within_5",
+        "n_reinsert_identifies_furnisher",
+        "n_reinsert_statement_right",
+        "n_prevent_reappearance"
+      ]
+    },
+    "n_reinsertion_satisfied": {
+      "node_id": "n_reinsertion_satisfied",
+      "provenance": "structural",
+      "surface_label": "reinsertion satisfied or not applicable",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "or",
+      "children": [
+        "n_not_reinserted",
+        "n_reinsertion_package"
+      ]
+    },
+    "n_reinv_completed": {
+      "node_id": "n_reinv_completed",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.reinvestigation_completed"
+    },
+    "n_reinv_timely": {
+      "node_id": "n_reinv_timely",
+      "provenance": "structural",
+      "surface_label": "reinvestigation timing satisfied or not required",
+      "source_span": "15 U.S.C. 1681i(a)(1)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "or",
+      "children": [
+        "n_not_cra_required",
+        "n_reinv_timely_if_required"
+      ]
+    },
+    "n_reinv_timely_if_required": {
+      "node_id": "n_reinv_timely_if_required",
+      "provenance": "structural",
+      "surface_label": "required reinvestigation completed timely",
+      "source_span": "15 U.S.C. 1681i(a)(1)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "and",
+      "children": [
+        "n_cra_required",
+        "n_reinv_completed",
+        "n_completed_in_allowed_days"
+      ]
+    },
+    "n_reseller_convey_days": {
+      "node_id": "n_reseller_convey_days",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "numeric_atom_ref",
+      "atom_id": "fcra.business_days_to_reseller_conveyance"
+    },
+    "n_reseller_convey_within_5": {
+      "node_id": "n_reseller_convey_within_5",
+      "provenance": "structural",
+      "surface_label": "reseller conveyance within five business days",
+      "source_span": "15 U.S.C. 1681i(f)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "comparison",
+      "operator": "leq",
+      "left": "n_reseller_convey_days",
+      "right": "n_5bd"
+    },
+    "n_reseller_conveyed": {
+      "node_id": "n_reseller_conveyed",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.reseller_conveyed_to_cra"
+    },
+    "n_reseller_correct_days": {
+      "node_id": "n_reseller_correct_days",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "numeric_atom_ref",
+      "atom_id": "fcra.days_to_reseller_correct_delete"
+    },
+    "n_reseller_correct_within_20": {
+      "node_id": "n_reseller_correct_within_20",
+      "provenance": "structural",
+      "surface_label": "reseller correction within 20 days",
+      "source_span": "15 U.S.C. 1681i(f)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "comparison",
+      "operator": "leq",
+      "left": "n_reseller_correct_days",
+      "right": "n_20d"
+    },
+    "n_reseller_corrected": {
+      "node_id": "n_reseller_corrected",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.reseller_corrected_or_deleted"
+    },
+    "n_reseller_error": {
+      "node_id": "n_reseller_error",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.reseller_item_due_to_reseller_error"
+    },
+    "n_reseller_error_path": {
+      "node_id": "n_reseller_error_path",
+      "provenance": "structural",
+      "surface_label": "reseller corrected own error",
+      "source_span": "15 U.S.C. 1681i(f)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "and",
+      "children": [
+        "n_reseller_received",
+        "n_reseller_error",
+        "n_reseller_corrected",
+        "n_reseller_correct_within_20"
+      ]
+    },
+    "n_reseller_forward_path": {
+      "node_id": "n_reseller_forward_path",
+      "provenance": "structural",
+      "surface_label": "reseller forwarded source CRA dispute and reconveyed results",
+      "source_span": "15 U.S.C. 1681i(f)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "and",
+      "children": [
+        "n_reseller_received",
+        "n_no_reseller_error",
+        "n_reseller_conveyed",
+        "n_reseller_convey_within_5",
+        "n_reseller_reconveyed"
+      ]
+    },
+    "n_reseller_received": {
+      "node_id": "n_reseller_received",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.reseller_received_dispute"
+    },
+    "n_reseller_reconveyed": {
+      "node_id": "n_reseller_reconveyed",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.reseller_reconveyed_results_to_consumer"
+    },
+    "n_reseller_satisfied": {
+      "node_id": "n_reseller_satisfied",
+      "provenance": "structural",
+      "surface_label": "reseller obligations satisfied or not applicable",
+      "source_span": "15 U.S.C. 1681i(f)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "or",
+      "children": [
+        "n_no_reseller_received",
+        "n_reseller_error_path",
+        "n_reseller_forward_path"
+      ]
+    },
+    "n_results_days": {
+      "node_id": "n_results_days",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "numeric_atom_ref",
+      "atom_id": "fcra.business_days_to_results_notice"
+    },
+    "n_results_notice_met": {
+      "node_id": "n_results_notice_met",
+      "provenance": "structural",
+      "surface_label": "results notice requirements met",
+      "source_span": "15 U.S.C. 1681i(a)(6)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "and",
+      "children": [
+        "n_cra_required",
+        "n_reinv_completed",
+        "n_results_sent",
+        "n_results_within_5",
+        "n_notice_completed",
+        "n_revised_report",
+        "n_proc_right",
+        "n_furnisher_contact",
+        "n_statement_right",
+        "n_notification_right"
+      ]
+    },
+    "n_results_notice_satisfied": {
+      "node_id": "n_results_notice_satisfied",
+      "provenance": "structural",
+      "surface_label": "results notice satisfied",
+      "source_span": "15 U.S.C. 1681i(a)(6)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "or",
+      "children": [
+        "n_not_cra_required",
+        "n_results_notice_met"
+      ]
+    },
+    "n_results_sent": {
+      "node_id": "n_results_sent",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.results_notice_sent"
+    },
+    "n_results_within_5": {
+      "node_id": "n_results_within_5",
+      "provenance": "structural",
+      "surface_label": "results notice within five business days",
+      "source_span": "15 U.S.C. 1681i(a)(6)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "comparison",
+      "operator": "leq",
+      "left": "n_results_days",
+      "right": "n_5bd"
+    },
+    "n_reviewed_all_info": {
+      "node_id": "n_reviewed_all_info",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.cra_reviewed_all_consumer_info"
+    },
+    "n_revised_report": {
+      "node_id": "n_revised_report",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.revised_consumer_report_provided"
+    },
+    "n_source_docs_missing": {
+      "node_id": "n_source_docs_missing",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.source_documents_missing"
+    },
+    "n_statement_filed": {
+      "node_id": "n_statement_filed",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.consumer_statement_filed"
+    },
+    "n_statement_right": {
+      "node_id": "n_statement_right",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.consumer_statement_right_disclosed"
+    },
+    "n_statement_satisfied": {
+      "node_id": "n_statement_satisfied",
+      "provenance": "structural",
+      "surface_label": "consumer statement handling satisfied",
+      "source_span": "15 U.S.C. 1681i(b)-(c)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "or",
+      "children": [
+        "n_no_statement_filed",
+        "n_subseq_note"
+      ]
+    },
+    "n_submission_authentic": {
+      "node_id": "n_submission_authentic",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.consumer_submission_authentic"
+    },
+    "n_subseq_note": {
+      "node_id": "n_subseq_note",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.subsequent_reports_note_dispute"
+    },
+    "n_through_reseller": {
+      "node_id": "n_through_reseller",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.notice_through_reseller"
+    },
+    "n_unverifiable": {
+      "node_id": "n_unverifiable",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.item_cannot_be_verified"
+    },
+    "n_valid_cra_trigger": {
+      "node_id": "n_valid_cra_trigger",
+      "provenance": "structural",
+      "surface_label": "valid CRA reinvestigation trigger",
+      "source_span": "15 U.S.C. 1681i(a)(1)",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "and",
+      "children": [
+        "n_disputed",
+        "n_in_file",
+        "n_dispute_subject",
+        "n_received_channel",
+        "n_intake_sufficient"
+      ]
+    },
+    "n_veteran_medical": {
+      "node_id": "n_veteran_medical",
+      "provenance": "structural",
+      "surface_label": "",
+      "source_span": "",
+      "confidence": null,
+      "latent_type": null,
+      "kind": "atom_ref",
+      "atom_id": "fcra.medical_debt_veteran_claimed"
+    }
+  },
+  "map_spec": {
+    "atoms": {
+      "fcra.account_identified": {
+        "id": "fcra.account_identified",
+        "statement": "The disputed account or tradeline is identified.",
+        "source_span": "15 U.S.C. 1681i(a)(3)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.additional_relevant_info_received_in_30_days": {
+        "id": "fcra.additional_relevant_info_received_in_30_days",
+        "statement": "The consumer provided additional relevant information during the initial 30-day period.",
+        "source_span": "15 U.S.C. 1681i(a)(1)(B)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.automated_code_only": {
+        "id": "fcra.automated_code_only",
+        "statement": "The investigation consisted only of automated dispute coding without meaningful document review.",
+        "source_span": "CFPB Circular 2022-07",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.basis_explained": {
+        "id": "fcra.basis_explained",
+        "statement": "The dispute explains the basis for the claimed inaccuracy or incompleteness.",
+        "source_span": "15 U.S.C. 1681i(a)(3)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.business_days_to_frivolous_notice": {
+        "id": "fcra.business_days_to_frivolous_notice",
+        "statement": "Business days from frivolous or irrelevant determination to consumer notice.",
+        "source_span": "15 U.S.C. 1681i(a)(3)(B)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "numeric",
+        "numeric_unit": "business_days"
+      },
+      "fcra.business_days_to_notify_furnisher": {
+        "id": "fcra.business_days_to_notify_furnisher",
+        "statement": "Business days from CRA receipt of dispute to furnisher notice.",
+        "source_span": "15 U.S.C. 1681i(a)(2)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "numeric",
+        "numeric_unit": "business_days"
+      },
+      "fcra.business_days_to_reinsertion_notice": {
+        "id": "fcra.business_days_to_reinsertion_notice",
+        "statement": "Business days from reinsertion to consumer notice.",
+        "source_span": "15 U.S.C. 1681i(a)(5)(B)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "numeric",
+        "numeric_unit": "business_days"
+      },
+      "fcra.business_days_to_reseller_conveyance": {
+        "id": "fcra.business_days_to_reseller_conveyance",
+        "statement": "Business days from reseller receipt to conveyance to the CRA.",
+        "source_span": "15 U.S.C. 1681i(f)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "numeric",
+        "numeric_unit": "business_days"
+      },
+      "fcra.business_days_to_results_notice": {
+        "id": "fcra.business_days_to_results_notice",
+        "statement": "Business days from reinvestigation completion to results notice.",
+        "source_span": "15 U.S.C. 1681i(a)(6)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "numeric",
+        "numeric_unit": "business_days"
+      },
+      "fcra.conflicting_furnisher_and_consumer_docs": {
+        "id": "fcra.conflicting_furnisher_and_consumer_docs",
+        "statement": "Furnisher records and consumer primary documents materially conflict.",
+        "source_span": "15 U.S.C. 1681i(a)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.consumer_alleges_not_mine": {
+        "id": "fcra.consumer_alleges_not_mine",
+        "statement": "The consumer alleges the disputed account or item is not theirs.",
+        "source_span": "15 U.S.C. 1681i(a)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.consumer_authorized_representative": {
+        "id": "fcra.consumer_authorized_representative",
+        "statement": "Any representative submitting the dispute is authorized by the consumer.",
+        "source_span": "15 U.S.C. 1681i(a)(1)(A)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.consumer_disputed_item": {
+        "id": "fcra.consumer_disputed_item",
+        "statement": "The consumer disputed an item.",
+        "source_span": "15 U.S.C. 1681i(a)(1)(A)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.consumer_identity_sufficient": {
+        "id": "fcra.consumer_identity_sufficient",
+        "statement": "The packet contains sufficient consumer identity information to investigate.",
+        "source_span": "15 U.S.C. 1681i(a)(3)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.consumer_info_dispositive": {
+        "id": "fcra.consumer_info_dispositive",
+        "statement": "Consumer-submitted information is dispositive or potentially dispositive of the dispute.",
+        "source_span": "CFPB Circular 2022-07",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.consumer_statement_filed": {
+        "id": "fcra.consumer_statement_filed",
+        "statement": "The consumer filed a brief statement of dispute after reinvestigation did not resolve the dispute.",
+        "source_span": "15 U.S.C. 1681i(b)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.consumer_statement_right_disclosed": {
+        "id": "fcra.consumer_statement_right_disclosed",
+        "statement": "The results notice disclosed the right to add a consumer statement.",
+        "source_span": "15 U.S.C. 1681i(a)(6)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.consumer_submission_authentic": {
+        "id": "fcra.consumer_submission_authentic",
+        "statement": "The dispute submission appears authentic to the consumer or authorized representative.",
+        "source_span": "15 U.S.C. 1681i(a)(1)(A)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.consumer_telephone_notice_of_expedited_deletion": {
+        "id": "fcra.consumer_telephone_notice_of_expedited_deletion",
+        "statement": "The consumer received prompt telephone notice of expedited deletion.",
+        "source_span": "15 U.S.C. 1681i(a)(8)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.court_order_supplied": {
+        "id": "fcra.court_order_supplied",
+        "statement": "The consumer supplied a court order material to the disputed reporting.",
+        "source_span": "12 CFR 1022.43(d)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.cra_checked_prior_dispute_history": {
+        "id": "fcra.cra_checked_prior_dispute_history",
+        "statement": "The CRA checked prior dispute history where relevant.",
+        "source_span": "15 U.S.C. 1681i(a)(3)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.cra_checked_public_record_source": {
+        "id": "fcra.cra_checked_public_record_source",
+        "statement": "The CRA checked the public-record source where public-record data was material.",
+        "source_span": "15 U.S.C. 1681i(a)(1)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.cra_compared_furnisher_response": {
+        "id": "fcra.cra_compared_furnisher_response",
+        "statement": "The CRA compared the furnisher response against the consumer's dispute basis.",
+        "source_span": "15 U.S.C. 1681i(a)(1)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.cra_compared_own_file": {
+        "id": "fcra.cra_compared_own_file",
+        "statement": "The CRA compared the dispute against its own file contents.",
+        "source_span": "15 U.S.C. 1681i(a)(1)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.cra_considered_primary_source_documents": {
+        "id": "fcra.cra_considered_primary_source_documents",
+        "statement": "The CRA considered primary source documents submitted by the consumer.",
+        "source_span": "15 U.S.C. 1681i(a)(4)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.cra_notified_furnisher": {
+        "id": "fcra.cra_notified_furnisher",
+        "statement": "The consumer reporting agency notified the furnisher of the dispute.",
+        "source_span": "15 U.S.C. 1681i(a)(2)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.cra_reasonable_reinvestigation_performed": {
+        "id": "fcra.cra_reasonable_reinvestigation_performed",
+        "statement": "The CRA performed a reasonable reinvestigation of the disputed item.",
+        "source_span": "15 U.S.C. 1681i(a)(1)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.cra_received_dispute_date_known": {
+        "id": "fcra.cra_received_dispute_date_known",
+        "statement": "The consumer reporting agency's dispute receipt date is known.",
+        "source_span": "15 U.S.C. 1681i(a)(1)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.cra_resolved_internal_inconsistency": {
+        "id": "fcra.cra_resolved_internal_inconsistency",
+        "statement": "The CRA resolved material internal inconsistencies in its file or processing records.",
+        "source_span": "15 U.S.C. 1681i(a)(1)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.cra_reviewed_all_consumer_info": {
+        "id": "fcra.cra_reviewed_all_consumer_info",
+        "statement": "The CRA reviewed all relevant information submitted by the consumer.",
+        "source_span": "15 U.S.C. 1681i(a)(4)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.days_to_complete_reinvestigation": {
+        "id": "fcra.days_to_complete_reinvestigation",
+        "statement": "Calendar days from dispute receipt to reinvestigation completion.",
+        "source_span": "15 U.S.C. 1681i(a)(1)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "numeric",
+        "numeric_unit": "calendar_days"
+      },
+      "fcra.days_to_furnisher_complete": {
+        "id": "fcra.days_to_furnisher_complete",
+        "statement": "Calendar days from CRA dispute notice to furnisher completion of required investigation, review, and reports.",
+        "source_span": "15 U.S.C. 1681s-2(b)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "numeric",
+        "numeric_unit": "calendar_days"
+      },
+      "fcra.days_to_reseller_correct_delete": {
+        "id": "fcra.days_to_reseller_correct_delete",
+        "statement": "Days from reseller receipt to correction or deletion by reseller.",
+        "source_span": "15 U.S.C. 1681i(f)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "numeric",
+        "numeric_unit": "calendar_days"
+      },
+      "fcra.days_to_send_procedure_description": {
+        "id": "fcra.days_to_send_procedure_description",
+        "statement": "Days from procedure-description request to description sent.",
+        "source_span": "15 U.S.C. 1681i(a)(7)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "numeric",
+        "numeric_unit": "calendar_days"
+      },
+      "fcra.deleted_item_reappeared_without_certification": {
+        "id": "fcra.deleted_item_reappeared_without_certification",
+        "statement": "Deleted information reappeared without required furnisher certification.",
+        "source_span": "15 U.S.C. 1681i(a)(5)(B)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.direct_dispute_at_proper_address": {
+        "id": "fcra.direct_dispute_at_proper_address",
+        "statement": "The direct dispute was sent to a proper furnisher dispute address.",
+        "source_span": "12 CFR 1022.43(c)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.direct_dispute_explains_basis": {
+        "id": "fcra.direct_dispute_explains_basis",
+        "statement": "The direct dispute explains the basis for the dispute.",
+        "source_span": "12 CFR 1022.43(d)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.direct_dispute_fraud_alert_only": {
+        "id": "fcra.direct_dispute_fraud_alert_only",
+        "statement": "The direct dispute concerns only fraud alerts or active duty alerts outside direct-furnisher dispute scope.",
+        "source_span": "12 CFR 1022.43(b)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.direct_dispute_identifies_account": {
+        "id": "fcra.direct_dispute_identifies_account",
+        "statement": "The direct dispute identifies the account or relationship in dispute.",
+        "source_span": "12 CFR 1022.43(d)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.direct_dispute_identifies_specific_info": {
+        "id": "fcra.direct_dispute_identifies_specific_info",
+        "statement": "The direct dispute identifies the specific information being disputed.",
+        "source_span": "12 CFR 1022.43(d)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.direct_dispute_public_record_only": {
+        "id": "fcra.direct_dispute_public_record_only",
+        "statement": "The direct dispute concerns only public-record information outside direct-furnisher dispute scope.",
+        "source_span": "12 CFR 1022.43(b)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.direct_dispute_received_by_furnisher": {
+        "id": "fcra.direct_dispute_received_by_furnisher",
+        "statement": "The furnisher received a direct dispute notice from the consumer.",
+        "source_span": "12 CFR 1022.43",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.direct_dispute_subject_within_scope": {
+        "id": "fcra.direct_dispute_subject_within_scope",
+        "statement": "The direct dispute concerns covered account or relationship information bearing on creditworthiness or similar attributes.",
+        "source_span": "12 CFR 1022.43(a)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.direct_dispute_supporting_docs_supplied": {
+        "id": "fcra.direct_dispute_supporting_docs_supplied",
+        "statement": "The consumer supplied supporting documentation reasonably required by the furnisher.",
+        "source_span": "12 CFR 1022.43(d)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.direct_furnisher_corrected_cras": {
+        "id": "fcra.direct_furnisher_corrected_cras",
+        "statement": "The furnisher notified CRAs and provided corrections when the direct investigation found reported information inaccurate.",
+        "source_span": "12 CFR 1022.43(e)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.direct_furnisher_investigation_conducted": {
+        "id": "fcra.direct_furnisher_investigation_conducted",
+        "statement": "The furnisher conducted a reasonable investigation of a qualifying direct dispute.",
+        "source_span": "12 CFR 1022.43(e)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.direct_furnisher_results_reported_to_consumer": {
+        "id": "fcra.direct_furnisher_results_reported_to_consumer",
+        "statement": "The furnisher reported direct-dispute investigation results to the consumer within the applicable period.",
+        "source_span": "12 CFR 1022.43(e)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.direct_furnisher_reviewed_info": {
+        "id": "fcra.direct_furnisher_reviewed_info",
+        "statement": "The furnisher reviewed all relevant information provided by the consumer with the direct dispute notice.",
+        "source_span": "12 CFR 1022.43(e)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.dispositive_info_not_ignored": {
+        "id": "fcra.dispositive_info_not_ignored",
+        "statement": "Dispositive or potentially dispositive consumer information was not ignored.",
+        "source_span": "CFPB Circular 2022-07",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.dispute_about_accuracy": {
+        "id": "fcra.dispute_about_accuracy",
+        "statement": "The dispute concerns accuracy of the item.",
+        "source_span": "15 U.S.C. 1681i(a)(1)(A)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.dispute_about_completeness": {
+        "id": "fcra.dispute_about_completeness",
+        "statement": "The dispute concerns completeness of the item.",
+        "source_span": "15 U.S.C. 1681i(a)(1)(A)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.dispute_duplicate_without_new_info": {
+        "id": "fcra.dispute_duplicate_without_new_info",
+        "statement": "The dispute is substantially the same as a prior dispute and contains no new required information.",
+        "source_span": "12 CFR 1022.43(f)(1)(ii)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.dispute_not_credit_repair_org_form": {
+        "id": "fcra.dispute_not_credit_repair_org_form",
+        "statement": "The direct furnisher dispute was not submitted by or on a form supplied by a credit repair organization.",
+        "source_span": "12 CFR 1022.43(b)(2)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.disputed_field_identified": {
+        "id": "fcra.disputed_field_identified",
+        "statement": "The specific disputed field or information is identified.",
+        "source_span": "15 U.S.C. 1681i(a)(3)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.expedited_deleted_within_3_business_days": {
+        "id": "fcra.expedited_deleted_within_3_business_days",
+        "statement": "The dispute was resolved by deletion within 3 business days after receipt.",
+        "source_span": "15 U.S.C. 1681i(a)(8)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.expedited_written_confirmation_sent": {
+        "id": "fcra.expedited_written_confirmation_sent",
+        "statement": "Written confirmation and a revised report were sent after expedited deletion.",
+        "source_span": "15 U.S.C. 1681i(a)(8)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.frivolous_determination_made": {
+        "id": "fcra.frivolous_determination_made",
+        "statement": "The institution determined the dispute was frivolous or irrelevant.",
+        "source_span": "15 U.S.C. 1681i(a)(3)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.frivolous_missing_info_identified": {
+        "id": "fcra.frivolous_missing_info_identified",
+        "statement": "The frivolous or irrelevant notice identified information required to investigate.",
+        "source_span": "15 U.S.C. 1681i(a)(3)(C)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.frivolous_notice_sent": {
+        "id": "fcra.frivolous_notice_sent",
+        "statement": "Notice of the frivolous or irrelevant determination was sent to the consumer.",
+        "source_span": "15 U.S.C. 1681i(a)(3)(B)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.frivolous_reason_identified": {
+        "id": "fcra.frivolous_reason_identified",
+        "statement": "The frivolous or irrelevant notice identified the reasons for the determination.",
+        "source_span": "15 U.S.C. 1681i(a)(3)(C)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.furnished_by_furnisher": {
+        "id": "fcra.furnished_by_furnisher",
+        "statement": "The disputed item was provided by a furnisher.",
+        "source_span": "15 U.S.C. 1681i(a)(2)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.furnisher_address_available": {
+        "id": "fcra.furnisher_address_available",
+        "statement": "The furnisher address or notification mechanism is available.",
+        "source_span": "15 U.S.C. 1681i(a)(2)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.furnisher_blocked_item": {
+        "id": "fcra.furnisher_blocked_item",
+        "statement": "The furnisher permanently blocked reporting of the disputed information.",
+        "source_span": "15 U.S.C. 1681s-2(b)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.furnisher_certified_accuracy_for_reinsertion": {
+        "id": "fcra.furnisher_certified_accuracy_for_reinsertion",
+        "statement": "The furnisher certified the reinserted information as complete and accurate.",
+        "source_span": "15 U.S.C. 1681i(a)(5)(B)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.furnisher_contact_disclosed_if_available": {
+        "id": "fcra.furnisher_contact_disclosed_if_available",
+        "statement": "The procedure-right notice includes furnisher contact information when reasonably available.",
+        "source_span": "15 U.S.C. 1681i(a)(6)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.furnisher_deleted_item": {
+        "id": "fcra.furnisher_deleted_item",
+        "statement": "The furnisher deleted the disputed information for reporting purposes.",
+        "source_span": "15 U.S.C. 1681s-2(b)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.furnisher_investigation_conducted": {
+        "id": "fcra.furnisher_investigation_conducted",
+        "statement": "The furnisher conducted an investigation of the disputed information.",
+        "source_span": "15 U.S.C. 1681s-2(b)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.furnisher_modified_item": {
+        "id": "fcra.furnisher_modified_item",
+        "statement": "The furnisher modified the disputed information for reporting purposes.",
+        "source_span": "15 U.S.C. 1681s-2(b)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.furnisher_received_cra_notice": {
+        "id": "fcra.furnisher_received_cra_notice",
+        "statement": "The furnisher received CRA notice of the consumer dispute.",
+        "source_span": "15 U.S.C. 1681s-2(b)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.furnisher_reported_inaccuracy_to_other_cras": {
+        "id": "fcra.furnisher_reported_inaccuracy_to_other_cras",
+        "statement": "The furnisher reported incomplete or inaccurate findings to other nationwide CRAs to which it furnished the information.",
+        "source_span": "15 U.S.C. 1681s-2(b)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.furnisher_reported_results_to_cra": {
+        "id": "fcra.furnisher_reported_results_to_cra",
+        "statement": "The furnisher reported investigation results to the CRA.",
+        "source_span": "15 U.S.C. 1681s-2(b)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.furnisher_reviewed_all_cra_info": {
+        "id": "fcra.furnisher_reviewed_all_cra_info",
+        "statement": "The furnisher reviewed all relevant information provided by the CRA.",
+        "source_span": "15 U.S.C. 1681s-2(b)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.human_review_of_documents_performed": {
+        "id": "fcra.human_review_of_documents_performed",
+        "statement": "A human or equivalent document-review process evaluated material primary documents.",
+        "source_span": "CFPB Circular 2022-07",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.identity_theft_claimed": {
+        "id": "fcra.identity_theft_claimed",
+        "statement": "The consumer claims the disputed item resulted from identity theft.",
+        "source_span": "15 U.S.C. 1681c-2, 1681i",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.identity_theft_report_supplied": {
+        "id": "fcra.identity_theft_report_supplied",
+        "statement": "The consumer supplied an identity theft report or equivalent identity theft documentation.",
+        "source_span": "15 U.S.C. 1681c-2",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.info_found_inaccurate_during_30_days": {
+        "id": "fcra.info_found_inaccurate_during_30_days",
+        "statement": "The item was found inaccurate during the initial 30-day period.",
+        "source_span": "15 U.S.C. 1681i(a)(1)(C)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.info_found_incomplete_during_30_days": {
+        "id": "fcra.info_found_incomplete_during_30_days",
+        "statement": "The item was found incomplete during the initial 30-day period.",
+        "source_span": "15 U.S.C. 1681i(a)(1)(C)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.info_unverifiable_during_30_days": {
+        "id": "fcra.info_unverifiable_during_30_days",
+        "statement": "The item was determined unverifiable during the initial 30-day period.",
+        "source_span": "15 U.S.C. 1681i(a)(1)(C)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.insufficient_information_to_investigate": {
+        "id": "fcra.insufficient_information_to_investigate",
+        "statement": "The consumer failed to provide sufficient information to investigate the disputed information.",
+        "source_span": "15 U.S.C. 1681i(a)(3)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.item_cannot_be_verified": {
+        "id": "fcra.item_cannot_be_verified",
+        "statement": "The disputed item could not be verified.",
+        "source_span": "15 U.S.C. 1681i(a)(5)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.item_deleted": {
+        "id": "fcra.item_deleted",
+        "statement": "The disputed item was deleted from the consumer's file.",
+        "source_span": "15 U.S.C. 1681i(a)(5)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.item_found_inaccurate": {
+        "id": "fcra.item_found_inaccurate",
+        "statement": "The reinvestigation found the disputed item inaccurate.",
+        "source_span": "15 U.S.C. 1681i(a)(5)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.item_found_incomplete": {
+        "id": "fcra.item_found_incomplete",
+        "statement": "The reinvestigation found the disputed item incomplete.",
+        "source_span": "15 U.S.C. 1681i(a)(5)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.item_in_consumer_file": {
+        "id": "fcra.item_in_consumer_file",
+        "statement": "The disputed item is contained in the consumer's file at a consumer reporting agency.",
+        "source_span": "15 U.S.C. 1681i(a)(1)(A)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.item_modified": {
+        "id": "fcra.item_modified",
+        "statement": "The disputed item was modified as appropriate.",
+        "source_span": "15 U.S.C. 1681i(a)(5)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.item_reinserted": {
+        "id": "fcra.item_reinserted",
+        "statement": "Previously deleted information was reinserted into the consumer's file.",
+        "source_span": "15 U.S.C. 1681i(a)(5)(B)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.item_status_recorded_current": {
+        "id": "fcra.item_status_recorded_current",
+        "statement": "The current status of the disputed information was recorded.",
+        "source_span": "15 U.S.C. 1681i(a)(1)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.item_verified_as_accurate": {
+        "id": "fcra.item_verified_as_accurate",
+        "statement": "The disputed item was verified as complete and accurate after reasonable reinvestigation.",
+        "source_span": "15 U.S.C. 1681i(a)(1)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.later_relevant_info_forwarded": {
+        "id": "fcra.later_relevant_info_forwarded",
+        "statement": "Later relevant information was promptly provided to the furnisher.",
+        "source_span": "15 U.S.C. 1681i(a)(2)(B)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.later_relevant_info_received": {
+        "id": "fcra.later_relevant_info_received",
+        "statement": "Additional relevant information was received from the consumer after furnisher notice and before the reinvestigation deadline.",
+        "source_span": "15 U.S.C. 1681i(a)(2)(B)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.legal_liability_dispute_only": {
+        "id": "fcra.legal_liability_dispute_only",
+        "statement": "The dispute turns only on legal liability rather than objectively verifiable factual reporting.",
+        "source_span": "15 U.S.C. 1681i(a)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.manual_review_policy_trigger": {
+        "id": "fcra.manual_review_policy_trigger",
+        "statement": "The institution's manual review policy is triggered by the dispute packet.",
+        "source_span": "benchmark routing policy",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.material_date_conflict": {
+        "id": "fcra.material_date_conflict",
+        "statement": "Material dates in the dispute record conflict.",
+        "source_span": "15 U.S.C. 1681i(a)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.medical_debt_veteran_claimed": {
+        "id": "fcra.medical_debt_veteran_claimed",
+        "statement": "The dispute claims veteran medical-debt treatment may apply.",
+        "source_span": "15 U.S.C. 1681i(g)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.mixed_file_claimed": {
+        "id": "fcra.mixed_file_claimed",
+        "statement": "The consumer claims the report mixed another person's information into the consumer's file.",
+        "source_span": "15 U.S.C. 1681i(a)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.notice_direct_to_cra": {
+        "id": "fcra.notice_direct_to_cra",
+        "statement": "The consumer notified the consumer reporting agency directly.",
+        "source_span": "15 U.S.C. 1681i(a)(1)(A)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.notice_included_all_relevant_info": {
+        "id": "fcra.notice_included_all_relevant_info",
+        "statement": "The CRA's furnisher notice included all relevant information received from the consumer.",
+        "source_span": "15 U.S.C. 1681i(a)(2)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.notice_states_reinvestigation_completed": {
+        "id": "fcra.notice_states_reinvestigation_completed",
+        "statement": "The results notice states that the reinvestigation is completed.",
+        "source_span": "15 U.S.C. 1681i(a)(6)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.notice_through_reseller": {
+        "id": "fcra.notice_through_reseller",
+        "statement": "The consumer notified the consumer reporting agency indirectly through a reseller.",
+        "source_span": "15 U.S.C. 1681i(a)(1)(A)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "Applies when a reseller forwards the dispute.",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.notification_right_disclosed": {
+        "id": "fcra.notification_right_disclosed",
+        "statement": "The results notice disclosed the right to request notifications of deletion or dispute notation.",
+        "source_span": "15 U.S.C. 1681i(a)(6)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.pending_litigation_affects_account": {
+        "id": "fcra.pending_litigation_affects_account",
+        "statement": "Pending litigation materially affects the disputed account reporting.",
+        "source_span": "15 U.S.C. 1681i(a)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.primary_documents_forwarded": {
+        "id": "fcra.primary_documents_forwarded",
+        "statement": "Primary source documents submitted by the consumer were forwarded or made available to the furnisher.",
+        "source_span": "CFPB Circular 2022-07",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.procedure_description_requested": {
+        "id": "fcra.procedure_description_requested",
+        "statement": "The consumer requested a description of the reinvestigation procedure used.",
+        "source_span": "15 U.S.C. 1681i(a)(7)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.procedure_description_right_disclosed": {
+        "id": "fcra.procedure_description_right_disclosed",
+        "statement": "The results notice disclosed the right to request the procedure used.",
+        "source_span": "15 U.S.C. 1681i(a)(6)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.procedure_description_sent": {
+        "id": "fcra.procedure_description_sent",
+        "statement": "The CRA sent the requested description of the reinvestigation procedure.",
+        "source_span": "15 U.S.C. 1681i(a)(7)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.procedures_prevent_reappearance": {
+        "id": "fcra.procedures_prevent_reappearance",
+        "statement": "The CRA maintained reasonable procedures designed to prevent improper reappearance of deleted information.",
+        "source_span": "15 U.S.C. 1681i(a)(5)(C)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.reinsertion_notice_identifies_furnisher": {
+        "id": "fcra.reinsertion_notice_identifies_furnisher",
+        "statement": "The reinsertion notice identified the furnisher's business name and address if reasonably available.",
+        "source_span": "15 U.S.C. 1681i(a)(5)(B)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.reinsertion_notice_includes_statement_right": {
+        "id": "fcra.reinsertion_notice_includes_statement_right",
+        "statement": "The reinsertion notice told the consumer of the right to add a statement.",
+        "source_span": "15 U.S.C. 1681i(a)(5)(B)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.reinsertion_notice_sent": {
+        "id": "fcra.reinsertion_notice_sent",
+        "statement": "Written notice of reinsertion was sent to the consumer.",
+        "source_span": "15 U.S.C. 1681i(a)(5)(B)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.reinvestigation_completed": {
+        "id": "fcra.reinvestigation_completed",
+        "statement": "The consumer reporting agency completed the reinvestigation.",
+        "source_span": "15 U.S.C. 1681i(a)(1)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.reseller_conveyed_to_cra": {
+        "id": "fcra.reseller_conveyed_to_cra",
+        "statement": "The reseller conveyed the dispute and all relevant information to the source CRA.",
+        "source_span": "15 U.S.C. 1681i(f)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.reseller_corrected_or_deleted": {
+        "id": "fcra.reseller_corrected_or_deleted",
+        "statement": "The reseller corrected or deleted information caused by its act or omission.",
+        "source_span": "15 U.S.C. 1681i(f)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.reseller_item_due_to_reseller_error": {
+        "id": "fcra.reseller_item_due_to_reseller_error",
+        "statement": "The incomplete or inaccurate item resulted from an act or omission of the reseller.",
+        "source_span": "15 U.S.C. 1681i(f)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.reseller_received_dispute": {
+        "id": "fcra.reseller_received_dispute",
+        "statement": "A reseller received the consumer dispute.",
+        "source_span": "15 U.S.C. 1681i(f)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.reseller_reconveyed_results_to_consumer": {
+        "id": "fcra.reseller_reconveyed_results_to_consumer",
+        "statement": "The reseller reconveyed the CRA completion notice to the consumer.",
+        "source_span": "15 U.S.C. 1681i(f)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.reseller_reinvestigation_chosen": {
+        "id": "fcra.reseller_reinvestigation_chosen",
+        "statement": "The reseller elected to conduct its own reinvestigation.",
+        "source_span": "15 U.S.C. 1681i(f)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.results_notice_sent": {
+        "id": "fcra.results_notice_sent",
+        "statement": "The CRA sent written reinvestigation results to the consumer.",
+        "source_span": "15 U.S.C. 1681i(a)(6)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.revised_consumer_report_provided": {
+        "id": "fcra.revised_consumer_report_provided",
+        "statement": "The results notice included a consumer report based on the revised file.",
+        "source_span": "15 U.S.C. 1681i(a)(6)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.source_documents_missing": {
+        "id": "fcra.source_documents_missing",
+        "statement": "Material source documents needed to resolve the dispute are missing from the packet.",
+        "source_span": "15 U.S.C. 1681i(a)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      },
+      "fcra.subsequent_reports_note_dispute": {
+        "id": "fcra.subsequent_reports_note_dispute",
+        "statement": "Subsequent reports containing the information clearly note the consumer's dispute and statement or summary.",
+        "source_span": "15 U.S.C. 1681i(c)",
+        "evaluation_mode": "characterized",
+        "extraction_template": null,
+        "undetermined_rule": "",
+        "notes": "",
+        "binding_policy": null,
+        "atom_type": "boolean"
+      }
+    },
+    "default_extraction_template": null,
+    "computed_handlers": {},
+    "lookup_handlers": {}
+  },
+  "determinations": {
+    "fcra.consumer_statement_satisfied": {
+      "id": "fcra.consumer_statement_satisfied",
+      "description": "Consumer statement handling is satisfied or not applicable.",
+      "polarity": "neutral",
+      "source_span": "15 U.S.C. 1681i(b)-(c)",
+      "composition": "derived",
+      "root_node": "n_statement_satisfied",
+      "linked_to": null,
+      "determination_kind": "adjudication",
+      "routing": null
+    },
+    "fcra.cra_consideration_satisfied": {
+      "id": "fcra.cra_consideration_satisfied",
+      "description": "CRA consideration and reasonableness duties are satisfied.",
+      "polarity": "neutral",
+      "source_span": "15 U.S.C. 1681i(a)(4)",
+      "composition": "derived",
+      "root_node": "n_consideration_satisfied",
+      "linked_to": null,
+      "determination_kind": "adjudication",
+      "routing": null
+    },
+    "fcra.cra_furnisher_notice_satisfied": {
+      "id": "fcra.cra_furnisher_notice_satisfied",
+      "description": "CRA furnisher-notice transmission duties are satisfied.",
+      "polarity": "neutral",
+      "source_span": "15 U.S.C. 1681i(a)(2)",
+      "composition": "derived",
+      "root_node": "n_furnisher_notice_satisfied",
+      "linked_to": null,
+      "determination_kind": "adjudication",
+      "routing": null
+    },
+    "fcra.cra_reinvestigation_required": {
+      "id": "fcra.cra_reinvestigation_required",
+      "description": "The CRA is required to conduct a reinvestigation.",
+      "polarity": "neutral",
+      "source_span": "15 U.S.C. 1681i(a)(1)",
+      "composition": "derived",
+      "root_node": "n_cra_required",
+      "linked_to": null,
+      "determination_kind": "adjudication",
+      "routing": null
+    },
+    "fcra.cra_reinvestigation_timely": {
+      "id": "fcra.cra_reinvestigation_timely",
+      "description": "CRA reinvestigation timing is satisfied.",
+      "polarity": "neutral",
+      "source_span": "15 U.S.C. 1681i(a)(1)",
+      "composition": "derived",
+      "root_node": "n_reinv_timely",
+      "linked_to": null,
+      "determination_kind": "adjudication",
+      "routing": null
+    },
+    "fcra.cra_reinvestigation_trigger_valid": {
+      "id": "fcra.cra_reinvestigation_trigger_valid",
+      "description": "A valid CRA reinvestigation trigger exists.",
+      "polarity": "neutral",
+      "source_span": "15 U.S.C. 1681i(a)(1)",
+      "composition": "derived",
+      "root_node": "n_valid_cra_trigger",
+      "linked_to": null,
+      "determination_kind": "adjudication",
+      "routing": null
+    },
+    "fcra.direct_furnisher_satisfied": {
+      "id": "fcra.direct_furnisher_satisfied",
+      "description": "Furnisher direct-dispute duties are satisfied or not applicable.",
+      "polarity": "neutral",
+      "source_span": "12 CFR 1022.43",
+      "composition": "derived",
+      "root_node": "n_direct_furnisher_satisfied",
+      "linked_to": null,
+      "determination_kind": "adjudication",
+      "routing": null
+    },
+    "fcra.dispute_resolution_compliant": {
+      "id": "fcra.dispute_resolution_compliant",
+      "description": "Selected credit-reporting dispute obligations are satisfied.",
+      "polarity": "neutral",
+      "source_span": "benchmark root",
+      "composition": "derived",
+      "root_node": "n_overall",
+      "linked_to": null,
+      "determination_kind": "adjudication",
+      "routing": null
+    },
+    "fcra.frivolous_termination_valid": {
+      "id": "fcra.frivolous_termination_valid",
+      "description": "Any frivolous or irrelevant termination is valid.",
+      "polarity": "neutral",
+      "source_span": "15 U.S.C. 1681i(a)(3)",
+      "composition": "derived",
+      "root_node": "n_frivolous_valid",
+      "linked_to": null,
+      "determination_kind": "adjudication",
+      "routing": null
+    },
+    "fcra.furnisher_indirect_satisfied": {
+      "id": "fcra.furnisher_indirect_satisfied",
+      "description": "Furnisher duties after CRA notice are satisfied or not applicable.",
+      "polarity": "neutral",
+      "source_span": "15 U.S.C. 1681s-2(b)",
+      "composition": "derived",
+      "root_node": "n_furnisher_indirect_satisfied",
+      "linked_to": null,
+      "determination_kind": "adjudication",
+      "routing": null
+    },
+    "fcra.human_review_required": {
+      "id": "fcra.human_review_required",
+      "description": "The packet requires human review routing.",
+      "polarity": "neutral",
+      "source_span": "benchmark routing policy",
+      "composition": "derived",
+      "root_node": "n_human_review",
+      "linked_to": null,
+      "determination_kind": "routing",
+      "routing": {
+        "mode": "any_true",
+        "trigger_atoms": [
+          "fcra.identity_theft_claimed",
+          "fcra.mixed_file_claimed",
+          "fcra.legal_liability_dispute_only",
+          "fcra.court_order_supplied",
+          "fcra.conflicting_furnisher_and_consumer_docs",
+          "fcra.pending_litigation_affects_account",
+          "fcra.medical_debt_veteran_claimed",
+          "fcra.source_documents_missing",
+          "fcra.material_date_conflict",
+          "fcra.consumer_alleges_not_mine",
+          "fcra.manual_review_policy_trigger"
+        ],
+        "missing_behavior": "false",
+        "conflict_behavior": "true",
+        "error_behavior": "true"
+      }
+    },
+    "fcra.item_treatment_satisfied": {
+      "id": "fcra.item_treatment_satisfied",
+      "description": "Inaccurate, incomplete, or unverifiable information is treated correctly.",
+      "polarity": "neutral",
+      "source_span": "15 U.S.C. 1681i(a)(5)",
+      "composition": "derived",
+      "root_node": "n_item_treatment_satisfied",
+      "linked_to": null,
+      "determination_kind": "adjudication",
+      "routing": null
+    },
+    "fcra.reinsertion_satisfied": {
+      "id": "fcra.reinsertion_satisfied",
+      "description": "Reinsertion safeguards are satisfied or not applicable.",
+      "polarity": "neutral",
+      "source_span": "15 U.S.C. 1681i(a)(5)(B)",
+      "composition": "derived",
+      "root_node": "n_reinsertion_satisfied",
+      "linked_to": null,
+      "determination_kind": "adjudication",
+      "routing": null
+    },
+    "fcra.reseller_satisfied": {
+      "id": "fcra.reseller_satisfied",
+      "description": "Reseller dispute duties are satisfied or not applicable.",
+      "polarity": "neutral",
+      "source_span": "15 U.S.C. 1681i(f)",
+      "composition": "derived",
+      "root_node": "n_reseller_satisfied",
+      "linked_to": null,
+      "determination_kind": "adjudication",
+      "routing": null
+    },
+    "fcra.results_notice_satisfied": {
+      "id": "fcra.results_notice_satisfied",
+      "description": "CRA results notice duties are satisfied.",
+      "polarity": "neutral",
+      "source_span": "15 U.S.C. 1681i(a)(6)",
+      "composition": "derived",
+      "root_node": "n_results_notice_satisfied",
+      "linked_to": null,
+      "determination_kind": "adjudication",
+      "routing": null
+    }
+  },
+  "case_input_schema": {
+    "has_narrative": true,
+    "structured_fields": {}
+  },
+  "test_cases": [],
+  "production_record": {
+    "produced_at": "2026-05-31T20:42:43.643557Z",
+    "produced_by": "unknown",
+    "source_revision": "",
+    "decisions": [],
+    "deferred": [],
+    "tested": []
+  }
+}

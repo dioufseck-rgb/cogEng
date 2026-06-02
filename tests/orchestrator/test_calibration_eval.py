@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from pathlib import Path
 
 from rulekit.orchestrator.calibration_eval import (
     build_calibration_report,
@@ -10,6 +11,21 @@ from rulekit.orchestrator.calibration_eval import (
     run_calibration_eval,
 )
 from rulekit.orchestrator.cases import CaseExample, ExpectedOutcome
+from rulekit.orchestrator.map_profile_repair import (
+    ProfileDefaultsMapStep,
+    apply_map_profile_repair_patch,
+    build_map_profile_repair_patch,
+)
+from rulekit.runtime import adjudicate_cases, load_program
+
+
+FCRA_PROFILE_PROGRAM_PATH = (
+    Path(__file__).parents[2]
+    / "audits"
+    / "fcra_credit_reporting_deep"
+    / "rulekit_export_profile2"
+    / "program.json"
+)
 
 
 def _case(index: int, *, split_group: str | None = None) -> CaseExample:
@@ -188,3 +204,67 @@ def test_mismatch_direction_counts_supports_governed_and_direct_shapes():
         "false->undetermined": 1,
         "true->false": 1,
     }
+
+
+def test_map_profile_repair_generates_replayable_branch_defaults():
+    program = load_program(FCRA_PROFILE_PROGRAM_PATH)
+    case = CaseExample(
+        case_id="repair_case",
+        title="No side branches",
+        narrative=(
+            "No reseller branch applies. No reinsertion branch applies. "
+            "No consumer-statement branch applies. No direct-furnisher branch applies."
+        ),
+        expected_outcomes=[
+            ExpectedOutcome(
+                determination_id="fcra.reseller_satisfied",
+                expected_value="true",
+            ),
+            ExpectedOutcome(
+                determination_id="fcra.reinsertion_satisfied",
+                expected_value="true",
+            ),
+            ExpectedOutcome(
+                determination_id="fcra.direct_furnisher_satisfied",
+                expected_value="true",
+            ),
+            ExpectedOutcome(
+                determination_id="fcra.consumer_statement_satisfied",
+                expected_value="true",
+            ),
+        ],
+    )
+    patch = build_map_profile_repair_patch(
+        program=program,
+        repair_cases=[case],
+        repair_dispositions=[
+            {
+                "case_id": case.case_id,
+                "determination_id": "fcra.reseller_satisfied",
+                "outcome": "undetermined",
+                "expected_outcome": "true",
+                "matched_expected": False,
+            }
+        ],
+        repair_map_records=[],
+        round_id="round_x",
+    )
+
+    assert patch["repair_target"] == "map_profile.default_rules"
+    assert patch["candidate_rule_count"] >= 2
+
+    patched = apply_map_profile_repair_patch(program, patch)
+    result = adjudicate_cases(
+        patched,
+        [case],
+        determinations=[
+            "fcra.reseller_satisfied",
+            "fcra.reinsertion_satisfied",
+            "fcra.direct_furnisher_satisfied",
+            "fcra.consumer_statement_satisfied",
+        ],
+        map_step=ProfileDefaultsMapStep(),
+    )
+
+    assert result["matched_disposition_count"] == 4
+    assert result["mismatch_count"] == 0
