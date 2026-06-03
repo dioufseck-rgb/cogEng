@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.cra_considered_primary_source_documents",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative describes reseller's own transcription error correction; no mention of primary source documents.",
+      "explanation": "Narrative does not address whether primary source documents were considered.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.cra_compared_furnisher_response",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No direct furnisher dispute was sent; no description of comparing furnisher response.",
+      "explanation": "Narrative is silent on whether any furnisher response comparison occurred; absence not affirmatively stated as closed world.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.cra_compared_own_file",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Reseller identified its own transcription error and corrected it.",
+      "explanation": "While the reseller reviewed its own records to find the transcription error, the narrative does not explicitly state a CRA file comparison.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.cra_reasonable_reinvestigation_performed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Reseller corrected and deleted erroneous balance within 12 days; no source-CRA reinvestigation required.",
+      "explanation": "Whether the action constitutes a reasonable reinvestigation is a characterization not affirmatively addressed; narrative does not state this.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.dispositive_info_not_ignored",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "Reseller identified its own transcription error, corrected and deleted the erroneous balance within 12 days.",
+      "explanation": "The reseller acted on the dispositive information (its own error) rather than ignoring it.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.automated_code_only",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative describes reseller determining the error was a transcription error.",
+      "explanation": "Narrative does not specify whether the process was solely automated coding or included substantive review.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.human_review_of_documents_performed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Reseller determined transcription error came from its own records.",
+      "explanation": "While determining a transcription error suggests some review, the narrative does not explicitly state human document review of primary documents.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.furnished_by_furnisher",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "The inaccurate rent-balance item came from its own transcription error rather than from the source CRA.",
+      "explanation": "The narrative affirmatively states the inaccuracy originated from the reseller's transcription error, not from a furnisher.",
+      "confidence": 0.8
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.basis_explained",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "gave a clear basis",
+      "explanation": "Narrative explicitly states consumer gave a clear basis for the dispute.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.consumer_submission_authentic",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "The consumer sent a direct CRA dispute",
+      "explanation": "Narrative describes the consumer as the sender with no indication of authenticity concerns.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of prior dispute",
+      "explanation": "Narrative does not address whether the dispute is duplicative of a prior one.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "identified the account and disputed field, and gave a clear basis... reasonably reviewed the consumer and furnisher records",
+      "explanation": "The narrative shows sufficient information was provided and the CRA was able to investigate.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No frivolous determination mentioned",
+      "explanation": "There was no frivolous/irrelevant determination, so no such interval is stated.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.cra_reviewed_all_consumer_info",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "reasonably reviewed the consumer and furnisher records",
+      "explanation": "Narrative explicitly states CRA reasonably reviewed consumer records.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.cra_considered_primary_source_documents",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of primary source documents",
+      "explanation": "Narrative does not specify whether consumer submitted primary source documents or whether CRA considered them.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.cra_compared_furnisher_response",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "reasonably reviewed the consumer and furnisher records, verified the item as accurate",
+      "explanation": "Reasonable review of both consumer and furnisher records and verification implies comparison of furnisher response against the dispute.",
+      "confidence": 0.75
+    }
+  ]
+}

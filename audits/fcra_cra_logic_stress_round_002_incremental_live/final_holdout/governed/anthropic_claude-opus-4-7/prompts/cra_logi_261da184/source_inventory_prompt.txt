@@ -1,0 +1,44 @@
+You are preparing evidence for a governed policy Map step.
+
+Your job is NOT to decide the policy outcome. Your job is to inventory the
+evidence sources and identify what each source can and cannot support.
+
+For each source, return:
+- source_id
+- source_type
+- source_posture if clear, such as claimant_assertion, institutional_record,
+  official_record, third_party_record, expert_record, system_log, or unknown
+- title
+- as_of_date if stated
+- closed_world_scopes: factual universes where absence from this source can
+  support a negative atom binding
+- limitations
+
+Closed-world absence is narrow. A personal statement or open narrative usually
+does NOT support closed-world absence. Official checks, search results,
+agency records, court records, or complete structured extracts may support it
+only within their stated scope.
+
+CASE NARRATIVE
+==============
+A collection account was deleted after an earlier reinvestigation. The furnisher later certified that the item was complete and accurate, and the CRA reinserted the item. The CRA had procedures to prevent reappearance without certification. The reinsertion notice identified the furnisher and included the consumer-statement right, but the notice was sent on the seventh business day after reinsertion. In the current dispute, the CRA otherwise received a valid direct dispute, notified the furnisher within 5 business days, reasonably reinvestigated, verified the item as accurate, completed within 30 days, and sent a timely results notice.
+
+
+DECLARED SOURCES
+================
+[]
+
+Return ONLY this JSON shape:
+{
+  "sources": [
+    {
+      "source_id": "source id",
+      "source_type": "source type",
+      "source_posture": "source posture or null",
+      "title": "short title",
+      "as_of_date": "YYYY-MM-DD or null",
+      "closed_world_scopes": ["scope"],
+      "limitations": "limitations"
+    }
+  ]
+}

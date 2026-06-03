@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.direct_furnisher_corrected_cras",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "found the balance inaccurate, but did not notify CRAs or provide the corrected balance",
+      "explanation": "Narrative affirmatively states the furnisher did not notify CRAs or provide corrections.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "fcra.consumer_disputed_item",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "The consumer sent a direct dispute ... identified the credit-card account, the specific overstated balance",
+      "explanation": "Narrative explicitly states the consumer disputed an item (the overstated balance on the credit-card account).",
+      "confidence": 0.97
+    },
+    {
+      "atom_id": "fcra.item_in_consumer_file",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "the CRA received a valid dispute, notified the furnisher within 5 business days, modified the tradeline",
+      "explanation": "The tradeline exists at the CRA and was modified, indicating the item is in the consumer's file.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Dispute described as overstated balance / inaccuracy; no mention of completeness",
+      "explanation": "Narrative characterizes the dispute as accuracy-based; completeness is not addressed.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.dispute_about_accuracy",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "specific overstated balance ... found the balance inaccurate",
+      "explanation": "Dispute concerned the accuracy of the reported balance.",
+      "confidence": 0.97
+    },
+    {
+      "atom_id": "fcra.consumer_identity_sufficient",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "The furnisher investigated ... the CRA received a valid dispute, notified the furnisher within 5 business days",
+      "explanation": "Both furnisher and CRA were able to investigate, implying identity information was sufficient.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.account_identified",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "The notice identified the credit-card account",
+      "explanation": "Narrative explicitly states the account was identified.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "fcra.disputed_field_identified",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "identified ... the specific overstated balance, the payoff basis, and included a payoff statement",
+      "explanation": "The specific disputed field (balance) was identified with supporting basis.",
+      "confidence": 0.97
+    }
+  ]
+}

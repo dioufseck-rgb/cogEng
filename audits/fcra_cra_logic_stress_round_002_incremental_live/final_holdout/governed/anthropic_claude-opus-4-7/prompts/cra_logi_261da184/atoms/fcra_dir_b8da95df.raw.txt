@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.direct_dispute_received_by_furnisher",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "CRA otherwise received a valid direct dispute, notified the furnisher within 5 business days",
+      "explanation": "The narrative describes a valid direct dispute and the furnisher being notified/involved in reinvestigation, supporting that the furnisher received the direct dispute.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.direct_dispute_public_record_only",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "A collection account ... verified the item as accurate",
+      "explanation": "The dispute concerns a collection account (furnisher-reported tradeline), not public-record-only information.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.direct_dispute_fraud_alert_only",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "dispute concerns a collection account",
+      "explanation": "The dispute concerns a collection account, not fraud or active duty alerts.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.direct_dispute_at_proper_address",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "CRA otherwise received a valid direct dispute",
+      "explanation": "Characterization as a 'valid direct dispute' implies it was submitted to a proper address, a regulatory prerequisite to validity.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "fcra.direct_dispute_identifies_account",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "valid direct dispute",
+      "explanation": "Validity under 1022.43(d) requires identifying the account; characterizing the dispute as valid implies this element.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "fcra.direct_dispute_identifies_specific_info",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "valid direct dispute",
+      "explanation": "Validity requires identifying the specific information disputed; the 'valid' characterization implies this.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "fcra.direct_dispute_explains_basis",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "valid direct dispute",
+      "explanation": "Validity under 1022.43(d) requires explaining the basis; the 'valid' characterization implies this.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.direct_dispute_supporting_docs_supplied",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "valid direct dispute",
+      "explanation": "Validity under 1022.43(d) includes supplying any reasonably required supporting documentation; the 'valid' characterization implies this element was met.",
+      "confidence": 0.65
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.business_days_to_results_notice",
+      "status": "bound",
+      "value": 8,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "sent on the eighth business day after completion",
+      "explanation": "Narrative explicitly states the notice was sent on the eighth business day after completion.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "fcra.notice_states_reinvestigation_completed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "The written results notice included all required disclosures and the revised report",
+      "explanation": "Narrative says 'all required disclosures' but does not specifically affirm a completion statement; ambiguous whether implicitly covered.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.revised_consumer_report_provided",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "included all required disclosures and the revised report",
+      "explanation": "Narrative explicitly states the notice included the revised report.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.procedure_description_right_disclosed",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "included all required disclosures",
+      "explanation": "Narrative states all required disclosures were included, which encompasses procedure-description right.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.furnisher_contact_disclosed_if_available",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "included all required disclosures",
+      "explanation": "Narrative's blanket 'all required disclosures' statement implies furnisher contact disclosure when applicable.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.consumer_statement_right_disclosed",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "included all required disclosures",
+      "explanation": "Narrative's statement of 'all required disclosures' covers the consumer statement right.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.notification_right_disclosed",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "included all required disclosures",
+      "explanation": "Narrative's blanket 'all required disclosures' indicates notification right was disclosed.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "fcra.business_days_to_reinsertion_notice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "item was verified as accurate; no reinsertion described",
+      "explanation": "No reinsertion event is described in the narrative (item was verified, not deleted/reinserted), so the timing cannot be extracted.",
+      "confidence": 0.9
+    }
+  ]
+}

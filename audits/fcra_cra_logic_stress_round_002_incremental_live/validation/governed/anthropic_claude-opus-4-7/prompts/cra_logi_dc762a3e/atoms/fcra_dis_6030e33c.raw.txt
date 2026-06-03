@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.consumer_disputed_item",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "The consumer wrote to the CRA saying 'something on my report is wrong.'",
+      "explanation": "The consumer communicated a dispute, even if vague.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.item_in_consumer_file",
+      "status": "undetermined",
+      "value": false,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No specific item was identified; cannot determine whether a specific item is in the consumer's file.",
+      "explanation": "Since no account or field was identified, there is no way to confirm a specific item exists in the file.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "undetermined",
+      "value": false,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "Submission did not explain a basis; only said 'something is wrong.'",
+      "explanation": "Nature of dispute (completeness vs accuracy) was not specified.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.dispute_about_accuracy",
+      "status": "undetermined",
+      "value": false,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "Consumer said 'something is wrong' but did not specify the nature of the dispute.",
+      "explanation": "'Wrong' suggests accuracy but is too vague to characterize definitively; basis not explained.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.notice_direct_to_cra",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "The consumer wrote to the CRA.",
+      "explanation": "Narrative explicitly states the consumer wrote directly to the CRA.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.consumer_identity_sufficient",
+      "status": "undetermined",
+      "value": false,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "Narrative does not address consumer identity information sufficiency; CRA's frivolous determination focused on missing account/disputed information.",
+      "explanation": "No evidence on identity sufficiency one way or the other.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.account_identified",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "The submission did not identify an account.",
+      "explanation": "Narrative affirmatively states no account was identified.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.disputed_field_identified",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "The submission did not identify a disputed field.",
+      "explanation": "Narrative affirmatively states no disputed field was identified.",
+      "confidence": 0.95
+    }
+  ]
+}

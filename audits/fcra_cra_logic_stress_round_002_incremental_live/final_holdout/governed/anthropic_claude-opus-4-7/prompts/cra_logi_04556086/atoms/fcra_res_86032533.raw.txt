@@ -1,0 +1,54 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.reseller_corrected_or_deleted",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_001"],
+      "evidence": "No reseller, reinsertion, consumer-statement, or direct-furnisher branch applies.",
+      "explanation": "The narrative asserts no reseller branch applies, but this is an open narrative summary without closed-world scope. Cannot affirm or deny reseller corrective action from this source.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.days_to_reseller_correct_delete",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["narrative_001"],
+      "evidence": "No numeric value about reseller correction/deletion timing is stated.",
+      "explanation": "No stated or computable number of days for reseller correction/deletion is present.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.reseller_conveyed_to_cra",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_001"],
+      "evidence": "No reseller, reinsertion, consumer-statement, or direct-furnisher branch applies.",
+      "explanation": "Open narrative cannot support a closed-world denial; no affirmative evidence of reseller conveyance is recorded.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.business_days_to_reseller_conveyance",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["narrative_001"],
+      "evidence": "No timing value for reseller-to-CRA conveyance is stated.",
+      "explanation": "No stated or computable number of business days for reseller conveyance.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.reseller_reconveyed_results_to_consumer",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_001"],
+      "evidence": "CRA has not yet completed reinvestigation or sent final results; no reseller branch mentioned.",
+      "explanation": "No affirmative evidence of reseller reconveyance; the narrative is open-world and cannot ground a closed-world negative.",
+      "confidence": 0.6
+    }
+  ]
+}

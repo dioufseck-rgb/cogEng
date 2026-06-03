@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.furnisher_blocked_item",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No direct furnisher dispute was sent; narrative does not address furnisher blocking.",
+      "explanation": "Narrative is silent on any furnisher blocking action; absence of mention is not negation.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.direct_dispute_subject_within_scope",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "No direct furnisher dispute was sent.",
+      "explanation": "Narrative affirmatively states no direct furnisher dispute occurred, so the scope condition for a direct dispute is not satisfied.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.reseller_item_due_to_reseller_error",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "The reseller determined that the inaccurate rent-balance item came from its own transcription error rather than from the source CRA.",
+      "explanation": "Narrative explicitly attributes the inaccuracy to the reseller's own act.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.reseller_corrected_or_deleted",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "The reseller corrected the item and deleted the erroneous balance within 12 days.",
+      "explanation": "Narrative explicitly states correction and deletion by the reseller.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.days_to_reseller_correct_delete",
+      "status": "bound",
+      "value": 12,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "corrected the item and deleted the erroneous balance within 12 days",
+      "explanation": "Stated value, treated as calendar days; represents an upper bound on the duration.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.reseller_conveyed_to_cra",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No source-CRA reinvestigation was required for the reseller's own error.",
+      "explanation": "Narrative states no CRA reinvestigation was required but does not confirm or deny that conveyance to the CRA occurred.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.business_days_to_reseller_conveyance",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No timing information for any conveyance is provided.",
+      "explanation": "Narrative provides no business-day count for conveyance to the CRA.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.reseller_reconveyed_results_to_consumer",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not mention reconveyance of any CRA completion notice to the consumer.",
+      "explanation": "Silence is not negation; reconveyance status cannot be determined.",
+      "confidence": 0.7
+    }
+  ]
+}

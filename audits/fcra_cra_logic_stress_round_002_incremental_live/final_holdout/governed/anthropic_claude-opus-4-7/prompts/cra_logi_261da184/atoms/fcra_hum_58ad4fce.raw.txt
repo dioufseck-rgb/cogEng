@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.cra_compared_own_file",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative states CRA reasonably reinvestigated but does not specifically mention comparing against own file contents.",
+      "explanation": "No affirmative statement about file comparison; absence alone is not negative.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.cra_reasonable_reinvestigation_performed",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "'reasonably reinvestigated'",
+      "explanation": "Narrative explicitly states a reasonable reinvestigation occurred.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.dispositive_info_not_ignored",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of any dispositive consumer information being ignored or considered.",
+      "explanation": "Narrative does not address handling of dispositive information specifically.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.automated_code_only",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No description of investigation methods (automated vs. manual).",
+      "explanation": "Narrative does not specify whether automated coding alone was used.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.human_review_of_documents_performed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of human or document review process.",
+      "explanation": "Narrative does not describe the review mechanism.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.furnished_by_furnisher",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "'the furnisher later certified that the item was complete and accurate' and 'notified the furnisher'",
+      "explanation": "Narrative repeatedly identifies a furnisher providing the disputed collection account.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.expedited_deleted_within_3_business_days",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "'reasonably reinvestigated, verified the item as accurate, completed within 30 days'",
+      "explanation": "The dispute was verified as accurate (not deleted) and completed within 30 days, not via 3-day expedited deletion.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.cra_notified_furnisher",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "'notified the furnisher within 5 business days'",
+      "explanation": "Narrative explicitly states the CRA notified the furnisher.",
+      "confidence": 0.98
+    }
+  ]
+}

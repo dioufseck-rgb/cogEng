@@ -1,0 +1,215 @@
+You are binding MULTIPLE atoms for a governed policy engine.
+
+You are NOT deciding the policy outcome. Decide only whether the evidence
+supports each atom value, and on what epistemic basis.
+
+Critical rules:
+- Treat each atom independently.
+- Do NOT bind an atom to false merely because an open narrative does not mention it.
+- If the only reason for false is "not mentioned", return value "undetermined"
+  with basis "open_world_absence".
+- If a source affirmatively says a fact is absent and that source has a relevant
+  closed-world scope, false may use basis "closed_world_absence".
+- If sources conflict, return status "undetermined" and basis
+  "conflicting_evidence"; do not choose a winner.
+- If the atom cannot be answered from the evidence, return status
+  "undetermined" and basis "not_found".
+- For numeric atoms, extract only stated or directly computed values requested
+  by the atom; otherwise return "undetermined".
+- Return one binding object for every atom in ATOMS.
+
+SOURCE INVENTORY
+================
+[
+  {
+    "as_of_date": null,
+    "closed_world_scopes": [],
+    "limitations": "Open narrative from the consumer's perspective; cannot support closed-world absence findings. Characterizes the servicer letter as 'dispositive' and the CRA's actions as deficient, but these are assertions, not verified records. Does not include the underlying documents (servicer correction letter, CRA closure notice, dispute packet) as attached evidence.",
+    "metadata": {},
+    "source_id": "case_narrative",
+    "source_posture": "claimant_assertion",
+    "source_type": "case_narrative",
+    "title": "Consumer dispute narrative regarding CRA handling"
+  },
+  {
+    "as_of_date": null,
+    "closed_world_scopes": [],
+    "limitations": "Only described in the narrative; the actual letter is not provided. Narrative states it identified the account, disputed field, and basis, but the document itself is unavailable for direct inspection. Cannot support closed-world absence; cannot independently verify content, authenticity, or dispositive nature.",
+    "metadata": {},
+    "source_id": "servicer_correction_letter_referenced",
+    "source_posture": "third_party_record",
+    "source_type": "third_party_record_referenced",
+    "title": "Servicer correction letter (referenced, not attached)"
+  },
+  {
+    "as_of_date": null,
+    "closed_world_scopes": [],
+    "limitations": "Only described in the narrative; the actual notice is not provided. Narrative asserts it did not identify missing information, but the document itself is unavailable for inspection. Cannot support closed-world absence about its contents without the document in hand.",
+    "metadata": {},
+    "source_id": "cra_closure_notice_referenced",
+    "source_posture": "institutional_record",
+    "source_type": "institutional_record_referenced",
+    "title": "CRA closure notice marking submission duplicate/frivolous (referenced, not attached)"
+  },
+  {
+    "as_of_date": null,
+    "closed_world_scopes": [],
+    "limitations": "Only described in the narrative; contents of the prior dispute are not provided. Cannot verify what was or was not included previously. Cannot support closed-world absence regarding whether the servicer correction letter was in the prior packet.",
+    "metadata": {},
+    "source_id": "prior_dispute_packet_referenced",
+    "source_posture": "claimant_assertion",
+    "source_type": "claimant_record_referenced",
+    "title": "Prior dispute submission (referenced, not attached)"
+  }
+]
+
+CASE NARRATIVE
+==============
+The consumer disputed the same mortgage late-payment notation that had been disputed before, but this new packet included a servicer correction letter that had not been supplied in the prior dispute. The letter identified the account, disputed field, and basis. The CRA nevertheless marked the submission as duplicate and frivolous, closed the file without reinvestigation, did not notify the furnisher, did not review the new letter, and sent a closure notice that did not identify missing information. The new letter was dispositive if accepted.
+
+
+ATOMS
+=====
+[
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.furnished_by_furnisher",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(2)",
+      "statement": "The disputed item was provided by a furnisher.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer disputed the same mortgage late-payment notation that had been disputed before, but this new packet included a servicer correction letter that had not been supplied in the prior dispute. The letter identified the account, disputed field, and basis. The CRA nevertheless marked the submission as duplicate and frivolous, closed the file without reinvestigation, did not notify the furnisher, did not review the new letter, and sent a closure notice that did not identify missing information. The new letter was dispositive if accepted.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.expedited_deleted_within_3_business_days",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(8)",
+      "statement": "The dispute was resolved by deletion within 3 business days after receipt.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer disputed the same mortgage late-payment notation that had been disputed before, but this new packet included a servicer correction letter that had not been supplied in the prior dispute. The letter identified the account, disputed field, and basis. The CRA nevertheless marked the submission as duplicate and frivolous, closed the file without reinvestigation, did not notify the furnisher, did not review the new letter, and sent a closure notice that did not identify missing information. The new letter was dispositive if accepted.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.cra_notified_furnisher",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(2)",
+      "statement": "The consumer reporting agency notified the furnisher of the dispute.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer disputed the same mortgage late-payment notation that had been disputed before, but this new packet included a servicer correction letter that had not been supplied in the prior dispute. The letter identified the account, disputed field, and basis. The CRA nevertheless marked the submission as duplicate and frivolous, closed the file without reinvestigation, did not notify the furnisher, did not review the new letter, and sent a closure notice that did not identify missing information. The new letter was dispositive if accepted.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "numeric",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.business_days_to_notify_furnisher",
+      "notes": "",
+      "numeric_unit": "business_days",
+      "source_span": "15 U.S.C. 1681i(a)(2)",
+      "statement": "Business days from CRA receipt of dispute to furnisher notice.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer disputed the same mortgage late-payment notation that had been disputed before, but this new packet included a servicer correction letter that had not been supplied in the prior dispute. The letter identified the account, disputed field, and basis. The CRA nevertheless marked the submission as duplicate and frivolous, closed the file without reinvestigation, did not notify the furnisher, did not review the new letter, and sent a closure notice that did not identify missing information. The new letter was dispositive if accepted.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.notice_included_all_relevant_info",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(2)",
+      "statement": "The CRA's furnisher notice included all relevant information received from the consumer.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer disputed the same mortgage late-payment notation that had been disputed before, but this new packet included a servicer correction letter that had not been supplied in the prior dispute. The letter identified the account, disputed field, and basis. The CRA nevertheless marked the submission as duplicate and frivolous, closed the file without reinvestigation, did not notify the furnisher, did not review the new letter, and sent a closure notice that did not identify missing information. The new letter was dispositive if accepted.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.primary_documents_forwarded",
+      "notes": "",
+      "source_span": "CFPB Circular 2022-07",
+      "statement": "Primary source documents submitted by the consumer were forwarded or made available to the furnisher.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer disputed the same mortgage late-payment notation that had been disputed before, but this new packet included a servicer correction letter that had not been supplied in the prior dispute. The letter identified the account, disputed field, and basis. The CRA nevertheless marked the submission as duplicate and frivolous, closed the file without reinvestigation, did not notify the furnisher, did not review the new letter, and sent a closure notice that did not identify missing information. The new letter was dispositive if accepted.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.later_relevant_info_received",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(2)(B)",
+      "statement": "Additional relevant information was received from the consumer after furnisher notice and before the reinvestigation deadline.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer disputed the same mortgage late-payment notation that had been disputed before, but this new packet included a servicer correction letter that had not been supplied in the prior dispute. The letter identified the account, disputed field, and basis. The CRA nevertheless marked the submission as duplicate and frivolous, closed the file without reinvestigation, did not notify the furnisher, did not review the new letter, and sent a closure notice that did not identify missing information. The new letter was dispositive if accepted.\n"
+  },
+  {
+    "atom": {
+      "atom_type": "boolean",
+      "binding_policy": null,
+      "evaluation_mode": "characterized",
+      "extraction_template": null,
+      "id": "fcra.later_relevant_info_forwarded",
+      "notes": "",
+      "source_span": "15 U.S.C. 1681i(a)(2)(B)",
+      "statement": "Later relevant information was promptly provided to the furnisher.",
+      "undetermined_rule": ""
+    },
+    "binding_policy": null,
+    "relevant_evidence": "The consumer disputed the same mortgage late-payment notation that had been disputed before, but this new packet included a servicer correction letter that had not been supplied in the prior dispute. The letter identified the account, disputed field, and basis. The CRA nevertheless marked the submission as duplicate and frivolous, closed the file without reinvestigation, did not notify the furnisher, did not review the new letter, and sent a closure notice that did not identify missing information. The new letter was dispositive if accepted.\n"
+  }
+]
+
+Allowed basis values:
+explicit_positive, explicit_negative, closed_world_absence, open_world_absence,
+inferred_from_record, conflicting_evidence, computed, looked_up, not_found.
+
+Return ONLY this JSON shape:
+{
+  "bindings": [
+    {
+      "atom_id": "atom id from ATOMS",
+      "status": "bound|undetermined|error",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["source id"],
+      "evidence": "short exact evidence or summary",
+      "explanation": "why this basis is appropriate",
+      "confidence": 0.0
+    }
+  ]
+}

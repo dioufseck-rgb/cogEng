@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.business_days_to_notify_furnisher",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "Narrative states CRA 'notified the furnisher timely' but gives no specific day count.",
+      "explanation": "No numeric value stated or directly computable for business days from CRA receipt to furnisher notice.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.notice_included_all_relevant_info",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not address the content of the furnisher notice.",
+      "explanation": "Silence on whether all relevant information was included; cannot infer false from absence.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.primary_documents_forwarded",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not mention whether primary documents were forwarded to the furnisher.",
+      "explanation": "No affirmative or negative statement; cannot determine from absence.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.later_relevant_info_received",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not mention any additional information from consumer after furnisher notice.",
+      "explanation": "Absence of mention does not establish false; undetermined.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.later_relevant_info_forwarded",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of later information or forwarding thereof.",
+      "explanation": "Predicate event not established; cannot determine.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.reinvestigation_completed",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "'The source CRA itself completed a reasonable reinvestigation... verified the item... sent a timely results notice.'",
+      "explanation": "Narrative explicitly affirms completion of the reinvestigation.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.days_to_complete_reinvestigation",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "Narrative says 'timely' but provides no specific calendar day count.",
+      "explanation": "No numeric value extractable for calendar days to completion.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.additional_relevant_info_received_in_30_days",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative is silent on additional information during the 30-day period.",
+      "explanation": "Cannot infer false from absence of mention.",
+      "confidence": 0.8
+    }
+  ]
+}

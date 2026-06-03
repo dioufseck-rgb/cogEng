@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.reseller_item_due_to_reseller_error",
+      "status": "undetermined",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "No reinsertion, reseller, or direct-furnisher dispute branch applies.",
+      "explanation": "Narrative affirmatively excludes the reseller branch, so this atom is not applicable; treating as undetermined for binding purposes.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.reseller_corrected_or_deleted",
+      "status": "undetermined",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "No reinsertion, reseller, or direct-furnisher dispute branch applies.",
+      "explanation": "Reseller branch explicitly does not apply; atom cannot be meaningfully bound.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.days_to_reseller_correct_delete",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No reseller branch applies; no numeric value provided.",
+      "explanation": "No numeric data available; reseller branch inapplicable.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.reseller_conveyed_to_cra",
+      "status": "undetermined",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "No reinsertion, reseller, or direct-furnisher dispute branch applies.",
+      "explanation": "Reseller branch explicitly excluded; atom inapplicable.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.business_days_to_reseller_conveyance",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No numeric data; reseller branch inapplicable.",
+      "explanation": "No value provided in evidence.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.reseller_reconveyed_results_to_consumer",
+      "status": "undetermined",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "No reinsertion, reseller, or direct-furnisher dispute branch applies.",
+      "explanation": "Reseller branch explicitly excluded; atom inapplicable.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.results_notice_sent",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative describes reinvestigation as timely and reasonable but does not state whether written results notice was sent.",
+      "explanation": "Not mentioned; open-world absence applies.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.business_days_to_results_notice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No timing details for the results notice are provided.",
+      "explanation": "Numeric value not stated or derivable.",
+      "confidence": 0.9
+    }
+  ]
+}

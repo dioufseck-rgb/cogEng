@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.basis_explained",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative describes scope of disputes but not whether basis was explained.",
+      "explanation": "No affirmative statement about whether the dispute explained the basis for inaccuracy.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.consumer_submission_authentic",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not address authenticity of submission.",
+      "explanation": "No evidence affirming or denying authenticity; cannot infer.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of any prior dispute.",
+      "explanation": "Narrative is silent on whether the dispute is a duplicate of a prior one.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No statement about sufficiency of information provided by consumer.",
+      "explanation": "Narrative does not address whether consumer provided sufficient info.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No frivolous/irrelevant determination or notice timing mentioned.",
+      "explanation": "No numeric value stated or computable for frivolous notice timing.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.cra_reviewed_all_consumer_info",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "CRA 'completed a reasonable reinvestigation in 24 days, verified that auto-loan item'.",
+      "explanation": "A characterized reasonable reinvestigation implies review of all relevant consumer-submitted information.",
+      "confidence": 0.65
+    },
+    {
+      "atom_id": "fcra.cra_considered_primary_source_documents",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative mentions reasonable reinvestigation but not primary source documents specifically.",
+      "explanation": "No explicit mention of primary source documents being submitted or considered.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.cra_compared_furnisher_response",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "CRA notified furnisher, completed reasonable reinvestigation, verified the auto-loan item, recorded current status.",
+      "explanation": "Verification with status recording following furnisher response implies comparison against the dispute basis.",
+      "confidence": 0.6
+    }
+  ]
+}

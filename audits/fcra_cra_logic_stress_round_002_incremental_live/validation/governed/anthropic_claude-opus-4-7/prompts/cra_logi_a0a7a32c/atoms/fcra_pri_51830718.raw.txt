@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.business_days_to_notify_furnisher",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "notified the furnisher timely",
+      "explanation": "Narrative states timely notice but does not specify the number of business days.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.notice_included_all_relevant_info",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "notified the furnisher timely",
+      "explanation": "Narrative does not address whether all relevant information was included in the notice.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.primary_documents_forwarded",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of consumer-submitted primary source documents or their forwarding.",
+      "explanation": "Narrative is silent on primary source documents.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.later_relevant_info_received",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not mention any additional information received after furnisher notice.",
+      "explanation": "Absence of mention alone cannot establish false.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.later_relevant_info_forwarded",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of later info or its forwarding.",
+      "explanation": "Predicate (later info received) is itself undetermined; forwarding is unaddressed.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.reinvestigation_completed",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "completed a reasonable reinvestigation in 24 days, verified that auto-loan item",
+      "explanation": "Narrative explicitly states the reinvestigation was completed.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "fcra.days_to_complete_reinvestigation",
+      "status": "bound",
+      "value": 24,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "completed a reasonable reinvestigation in 24 days",
+      "explanation": "Narrative explicitly states 24 days to complete the reinvestigation.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "fcra.additional_relevant_info_received_in_30_days",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not mention any additional info during the 30-day period.",
+      "explanation": "Silence cannot establish false under open-world reading.",
+      "confidence": 0.8
+    }
+  ]
+}

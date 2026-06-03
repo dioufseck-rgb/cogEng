@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.consumer_disputed_item",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "The CRA side separately had a valid direct dispute about a furnished auto-loan item",
+      "explanation": "The narrative affirmatively states the consumer disputed an item (the auto-loan item) to the CRA.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.item_in_consumer_file",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "valid direct dispute about a furnished auto-loan item ... notified the furnisher timely ... verified that auto-loan item",
+      "explanation": "The auto-loan item is a furnished tradeline that the CRA reinvestigated and verified, indicating it is in the consumer's file at the CRA.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative describes a 'valid direct dispute' but does not specify whether it concerns completeness.",
+      "explanation": "The narrative does not specify the nature (completeness vs. accuracy) of the CRA-side dispute.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.dispute_about_accuracy",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative describes a 'valid direct dispute' but does not specify whether it concerns accuracy.",
+      "explanation": "The narrative does not specify the nature (accuracy vs. completeness) of the CRA-side dispute.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.notice_direct_to_cra",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "The CRA side separately had a valid direct dispute about a furnished auto-loan item",
+      "explanation": "The narrative states there was a valid direct dispute to the CRA, meaning the consumer notified the CRA directly.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.consumer_identity_sufficient",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "valid direct dispute ... completed a reasonable reinvestigation in 24 days, verified that auto-loan item",
+      "explanation": "Description of the dispute as 'valid' and the CRA's successful reinvestigation implies sufficient identity information was provided.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "fcra.account_identified",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "valid direct dispute about a furnished auto-loan item ... verified that auto-loan item",
+      "explanation": "The specific auto-loan item was identified well enough for the CRA to reinvestigate and verify it.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.disputed_field_identified",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative refers to the dispute generally without specifying which field was disputed.",
+      "explanation": "The narrative does not state whether a specific field within the auto-loan tradeline was identified.",
+      "confidence": 0.6
+    }
+  ]
+}

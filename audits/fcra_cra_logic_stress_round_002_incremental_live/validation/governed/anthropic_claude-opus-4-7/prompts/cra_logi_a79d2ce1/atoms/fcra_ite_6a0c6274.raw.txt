@@ -1,0 +1,54 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.item_verified_as_accurate",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "found the reported delinquency date incomplete, modified the tradeline",
+      "explanation": "The CRA found the item incomplete and modified it rather than verifying it as complete and accurate.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.item_status_recorded_current",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "recorded current status",
+      "explanation": "Narrative explicitly states the CRA recorded current status.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "fcra.item_deleted",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "modified the tradeline",
+      "explanation": "The item was modified, not deleted.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.item_modified",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "modified the tradeline ... the furnisher also modified the item",
+      "explanation": "Narrative explicitly states modification of the tradeline.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "fcra.business_days_to_results_notice",
+      "status": "bound",
+      "value": 4,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "sent complete written results 4 business days later",
+      "explanation": "Narrative explicitly states 4 business days between completion and results notice.",
+      "confidence": 0.98
+    }
+  ]
+}

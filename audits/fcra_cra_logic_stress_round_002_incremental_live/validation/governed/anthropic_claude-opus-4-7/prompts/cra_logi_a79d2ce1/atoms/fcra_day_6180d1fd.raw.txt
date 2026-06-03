@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.furnished_by_furnisher",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "credit-card tradeline... CRA sent the original dispute to the furnisher",
+      "explanation": "The narrative refers to a furnisher of the tradeline, indicating the item was furnished.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.expedited_deleted_within_3_business_days",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "CRA completed the reinvestigation on day 43... modified the tradeline",
+      "explanation": "The item was modified, not deleted, and resolution occurred at day 43, far beyond 3 business days.",
+      "confidence": 0.97
+    },
+    {
+      "atom_id": "fcra.cra_notified_furnisher",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "The CRA sent the original dispute to the furnisher on the third business day",
+      "explanation": "Narrative explicitly states the CRA notified the furnisher.",
+      "confidence": 0.99
+    },
+    {
+      "atom_id": "fcra.business_days_to_notify_furnisher",
+      "status": "bound",
+      "value": 3,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "sent the original dispute to the furnisher on the third business day",
+      "explanation": "Narrative states notification occurred on the third business day.",
+      "confidence": 0.97
+    },
+    {
+      "atom_id": "fcra.later_relevant_info_received",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "On day 18, the consumer submitted a new payoff letter that was relevant to the same disputed field",
+      "explanation": "Additional relevant info was received after furnisher notice (day 3) and before deadline (day 45).",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "fcra.later_relevant_info_forwarded",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "the later payoff letter was not sent or made available to the furnisher",
+      "explanation": "Narrative explicitly states the later relevant info was not provided to the furnisher.",
+      "confidence": 0.99
+    },
+    {
+      "atom_id": "fcra.reinvestigation_completed",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "The CRA completed the reinvestigation on day 43",
+      "explanation": "Narrative explicitly states reinvestigation was completed.",
+      "confidence": 0.99
+    },
+    {
+      "atom_id": "fcra.days_to_complete_reinvestigation",
+      "status": "bound",
+      "value": 43,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "The CRA completed the reinvestigation on day 43",
+      "explanation": "Day 43 from receipt is explicitly stated.",
+      "confidence": 0.98
+    }
+  ]
+}

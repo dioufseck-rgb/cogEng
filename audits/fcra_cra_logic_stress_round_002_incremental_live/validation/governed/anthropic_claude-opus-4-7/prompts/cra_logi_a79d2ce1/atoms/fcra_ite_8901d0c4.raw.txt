@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.additional_relevant_info_received_in_30_days",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "On day 18, the consumer submitted a new payoff letter that was relevant to the same disputed field",
+      "explanation": "Day 18 is within the initial 30-day period and the letter was relevant to the disputed field.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.furnisher_received_cra_notice",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "The CRA sent the original dispute to the furnisher on the third business day",
+      "explanation": "Narrative affirmatively states the furnisher received the CRA's notice of dispute.",
+      "confidence": 0.97
+    },
+    {
+      "atom_id": "fcra.item_found_inaccurate",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "found the reported delinquency date incomplete",
+      "explanation": "The narrative says the item was found incomplete, but does not affirmatively state inaccuracy.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.item_found_incomplete",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "found the reported delinquency date incomplete",
+      "explanation": "Narrative explicitly states the reinvestigation found the item incomplete.",
+      "confidence": 0.97
+    },
+    {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative describes finding the item incomplete and modifying it, with no statement about inability to verify.",
+      "explanation": "No affirmative statement about verification failure; cannot be determined from narrative.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.furnisher_investigation_conducted",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "the furnisher also modified the item and reported the correction to other CRAs",
+      "explanation": "The furnisher's modification and reporting of correction implies an investigation was conducted.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.furnisher_reviewed_all_cra_info",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "the later payoff letter was not sent or made available to the furnisher",
+      "explanation": "Narrative affirmatively states the payoff letter (relevant info) was not provided to the furnisher, so it could not have reviewed all relevant CRA information.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.furnisher_reported_results_to_cra",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "the furnisher also modified the item and reported the correction to other CRAs",
+      "explanation": "Reporting corrections to other CRAs implies furnisher communicated investigation results; however, narrative directly mentions reporting to other CRAs, strongly suggesting results were reported.",
+      "confidence": 0.75
+    }
+  ]
+}

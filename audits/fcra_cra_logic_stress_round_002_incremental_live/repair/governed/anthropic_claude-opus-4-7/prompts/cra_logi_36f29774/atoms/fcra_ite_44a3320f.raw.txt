@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.reinvestigation_completed",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "CRA deleted the disputed item within 3 business days and sent written confirmation; no reinsertion occurred.",
+      "explanation": "Deletion via expedited path with confirmation constitutes completion of the reinvestigation process for the disputed item.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.days_to_complete_reinvestigation",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "Narrative states 'Within 3 business days' but atom requires calendar days.",
+      "explanation": "Stated duration is in business days; calendar-day value is not directly stated or computable without knowing the specific dates.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.additional_relevant_info_received_in_30_days",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of additional information provided during the 30-day period.",
+      "explanation": "Narrative does not affirmatively address whether additional relevant information was received.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.furnisher_received_cra_notice",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "'before sending any furnisher notice' and 'no furnisher transmission was sent'.",
+      "explanation": "Narrative explicitly states no furnisher notice was sent, so the furnisher did not receive CRA notice.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.item_found_inaccurate",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Item was deleted via expedited path without a stated inaccuracy finding.",
+      "explanation": "Expedited deletion does not affirm or deny an inaccuracy finding; narrative is silent on this characterization.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.item_found_incomplete",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No statement regarding incompleteness finding.",
+      "explanation": "Narrative does not address whether the item was found incomplete.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No statement regarding verification status.",
+      "explanation": "Narrative does not address whether the item could not be verified; expedited deletion bypassed verification.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.furnisher_investigation_conducted",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "'no furnisher transmission was sent' and furnisher never received notice.",
+      "explanation": "Since the furnisher was never notified, no furnisher investigation under 1681s-2(b) was triggered or conducted.",
+      "confidence": 0.9
+    }
+  ]
+}

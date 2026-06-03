@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.item_found_inaccurate",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "verified the item",
+      "explanation": "The narrative states the item was verified, which is inconsistent with a finding of inaccuracy.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.item_found_incomplete",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "verified the item, recorded current status",
+      "explanation": "The narrative affirms verification and current status recording, inconsistent with an incompleteness finding.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "verified the item",
+      "explanation": "Narrative explicitly states the item was verified.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.item_verified_as_accurate",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "completed a reasonable reinvestigation, ... verified the item",
+      "explanation": "Narrative explicitly states verification following reasonable reinvestigation.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.item_status_recorded_current",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "recorded current status",
+      "explanation": "Narrative explicitly states current status was recorded.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.item_deleted",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "verified the item",
+      "explanation": "Item was verified, indicating it was not deleted.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.item_modified",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "verified the item",
+      "explanation": "Verification indicates the item was retained as-is, not modified.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.results_notice_sent",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "sent a timely results notice",
+      "explanation": "Narrative explicitly states the source CRA sent a timely results notice to the consumer.",
+      "confidence": 0.9
+    }
+  ]
+}

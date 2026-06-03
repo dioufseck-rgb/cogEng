@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.direct_dispute_public_record_only",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "The dispute concerned a credit-card account balance, not public-record information.",
+      "explanation": "Narrative affirmatively identifies the dispute subject as a credit-card account balance, which is covered account information, not public record.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.direct_dispute_fraud_alert_only",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "Dispute concerned overstated balance on a credit-card account, not fraud or active duty alerts.",
+      "explanation": "The narrative affirmatively characterizes the dispute as about an account balance, excluding fraud/active-duty alert scope.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.item_found_inaccurate",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "found the balance inaccurate",
+      "explanation": "Narrative explicitly states the furnisher's investigation found the balance inaccurate.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.item_found_incomplete",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative states item was found inaccurate; no statement about incompleteness.",
+      "explanation": "Narrative does not address incompleteness; absence of mention is not affirmative denial.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "furnisher investigated and ... found the balance inaccurate",
+      "explanation": "The furnisher reached a substantive verification outcome (found inaccurate), which is inconsistent with an unverifiable result.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.direct_furnisher_investigation_conducted",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "The furnisher investigated and reported results to the consumer",
+      "explanation": "Narrative explicitly states the furnisher investigated the qualifying direct dispute (sent to published address, covered account info).",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.direct_furnisher_reviewed_info",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative states furnisher investigated but does not specify review of all relevant information provided.",
+      "explanation": "While the furnisher investigated and reached a substantive conclusion, the narrative does not affirmatively state all relevant information was reviewed.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.direct_furnisher_results_reported_to_consumer",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "The furnisher investigated and reported results to the consumer",
+      "explanation": "Narrative explicitly states the furnisher reported investigation results to the consumer. Timing not specified but reporting occurred.",
+      "confidence": 0.75
+    }
+  ]
+}

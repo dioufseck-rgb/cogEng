@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.cra_considered_primary_source_documents",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative states reinvestigation was 'otherwise timely and reasonable' but does not mention primary source documents.",
+      "explanation": "No affirmative statement about primary source documents; absence is not closed-world.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.cra_compared_furnisher_response",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative describes reinvestigation as reasonable but does not specify comparison with furnisher response.",
+      "explanation": "No explicit mention; cannot infer false from silence.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.cra_compared_own_file",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not address comparison against CRA's own file.",
+      "explanation": "Silence in open narrative; undetermined.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.cra_reasonable_reinvestigation_performed",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "'an otherwise timely and reasonable reinvestigation verified a disputed personal-loan item'",
+      "explanation": "Narrative explicitly characterizes reinvestigation as reasonable.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.dispositive_info_not_ignored",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of dispositive consumer information being submitted or ignored during reinvestigation.",
+      "explanation": "Cannot determine from narrative.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.automated_code_only",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not describe the method of reinvestigation (automated vs. human).",
+      "explanation": "No information on automation; undetermined.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.human_review_of_documents_performed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not describe human review or document evaluation.",
+      "explanation": "Silence in narrative; undetermined.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.furnished_by_furnisher",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "'a disputed personal-loan item' that was verified through reinvestigation; references to furnisher dispute branch.",
+      "explanation": "A personal-loan tradeline reported on a CRA file is necessarily supplied by a furnisher, and the narrative references furnisher context.",
+      "confidence": 0.85
+    }
+  ]
+}

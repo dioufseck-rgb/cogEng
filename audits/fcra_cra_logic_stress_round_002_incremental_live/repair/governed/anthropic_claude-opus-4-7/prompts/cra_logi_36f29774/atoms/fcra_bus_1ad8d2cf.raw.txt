@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative states consumer 'identified the item and basis' but does not specify whether the basis was completeness or accuracy.",
+      "explanation": "The narrative does not affirmatively state the nature of the dispute basis as completeness; absence of mention does not equal false.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.notice_direct_to_cra",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "'A consumer disputed a small collection tradeline directly with the CRA'",
+      "explanation": "Narrative explicitly states the dispute was made directly to the CRA.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of any prior dispute or duplication.",
+      "explanation": "Narrative does not address whether this is a duplicate of a prior dispute; absence is not affirmative negation.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "'supplied enough identity information' and 'identified the item and basis'",
+      "explanation": "Narrative affirmatively states the consumer supplied sufficient identifying information and dispute basis, negating insufficiency.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No frivolous/irrelevant determination was made; the item was deleted through expedited path.",
+      "explanation": "No frivolous determination occurred, so no business-day count to consumer notice is applicable or stated.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.cra_reviewed_all_consumer_info",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not state whether the CRA reviewed all consumer-submitted information.",
+      "explanation": "Expedited deletion path is described, but the narrative is silent on whether all submitted info was reviewed.",
+      "confidence": 0.65
+    },
+    {
+      "atom_id": "fcra.cra_considered_primary_source_documents",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of primary source documents being submitted or considered.",
+      "explanation": "Narrative does not address primary source documents; absence is not affirmative negation.",
+      "confidence": 0.65
+    },
+    {
+      "atom_id": "fcra.cra_compared_furnisher_response",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "'Because the item was deleted through the expedited path, no furnisher transmission was sent.'",
+      "explanation": "Narrative affirmatively states no furnisher transmission occurred, so no furnisher response could have been compared.",
+      "confidence": 0.92
+    }
+  ]
+}

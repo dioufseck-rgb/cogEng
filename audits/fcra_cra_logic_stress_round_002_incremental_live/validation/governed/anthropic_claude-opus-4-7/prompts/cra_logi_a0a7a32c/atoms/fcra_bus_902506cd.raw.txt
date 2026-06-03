@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.business_days_to_results_notice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "Narrative states 'sent a timely results notice' but does not specify business days from reinvestigation completion to results notice.",
+      "explanation": "No numeric value stated or computable for business days between completion and notice.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.notice_states_reinvestigation_completed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative mentions 'timely results notice' but does not state its contents.",
+      "explanation": "Contents of the notice not described; cannot affirm or deny.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.revised_consumer_report_provided",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Item was verified, not changed; narrative silent on whether a revised report was included.",
+      "explanation": "Not mentioned in narrative.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.procedure_description_right_disclosed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not describe content of the results notice regarding procedure-description right.",
+      "explanation": "Not mentioned in narrative.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.furnisher_contact_disclosed_if_available",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not describe whether furnisher contact info was disclosed.",
+      "explanation": "Not mentioned in narrative.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.consumer_statement_right_disclosed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative says 'No reseller, reinsertion, or consumer-statement branch applies' but this concerns branch applicability, not whether the notice disclosed the right.",
+      "explanation": "The statement that the consumer-statement branch does not apply does not affirmatively address whether the notice disclosed the right to add a consumer statement.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.notification_right_disclosed",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not describe disclosure of notification rights in the results notice.",
+      "explanation": "Not mentioned in narrative.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.item_reinserted",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "'No reseller, reinsertion, or consumer-statement branch applies.'",
+      "explanation": "Narrative affirmatively states the reinsertion branch does not apply, indicating no item was reinserted.",
+      "confidence": 0.9
+    }
+  ]
+}

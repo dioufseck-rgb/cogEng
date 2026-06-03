@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.furnished_by_furnisher",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "disputed a small collection tradeline... no furnisher transmission was sent [because deleted]",
+      "explanation": "The narrative refers to a collection tradeline and contemplates a furnisher (mentioning furnisher notice would have been required absent expedited deletion), indicating the item was furnished by a furnisher.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.expedited_deleted_within_3_business_days",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "Within 3 business days, before sending any furnisher notice, the CRA deleted the disputed item",
+      "explanation": "Narrative explicitly states deletion occurred within 3 business days.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "fcra.cra_notified_furnisher",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "Because the item was deleted through the expedited path, no furnisher transmission was sent.",
+      "explanation": "Narrative affirmatively states no furnisher notice was sent.",
+      "confidence": 0.97
+    },
+    {
+      "atom_id": "fcra.business_days_to_notify_furnisher",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "no furnisher transmission was sent",
+      "explanation": "No furnisher notice was sent, so a numeric business-days value is not applicable/available.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.notice_included_all_relevant_info",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "no furnisher transmission was sent",
+      "explanation": "No notice was sent, so contents of such a notice cannot be evaluated.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.primary_documents_forwarded",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of forwarding primary documents to a furnisher.",
+      "explanation": "Narrative does not address whether primary documents were forwarded; no furnisher transmission occurred.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.later_relevant_info_received",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative silent on additional info after notice.",
+      "explanation": "No furnisher notice was sent, and the narrative does not mention later relevant information being received.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.later_relevant_info_forwarded",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not address forwarding later info.",
+      "explanation": "No information available about later forwarding; predicate condition (later info received and furnisher notice) not established.",
+      "confidence": 0.8
+    }
+  ]
+}

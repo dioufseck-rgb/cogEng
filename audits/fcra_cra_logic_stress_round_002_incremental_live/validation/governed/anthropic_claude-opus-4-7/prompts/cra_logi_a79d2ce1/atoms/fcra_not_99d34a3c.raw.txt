@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "found the reported delinquency date incomplete",
+      "explanation": "The narrative explicitly states the disputed field was found incomplete, and the consumer disputed that field.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.notice_direct_to_cra",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "A consumer disputed the date of first delinquency... directly with the CRA",
+      "explanation": "Narrative explicitly states dispute was made directly to the CRA.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "initial dispute... On day 18, the consumer submitted a new payoff letter",
+      "explanation": "Record shows this is an initial dispute with new supporting information later, not a duplicate of a prior dispute.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "The initial dispute identified the account, disputed field, and basis... CRA completed the reinvestigation",
+      "explanation": "CRA conducted and completed the reinvestigation, and the dispute identified the necessary elements, indicating sufficient information.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "no frivolous or irrelevant determination mentioned",
+      "explanation": "No frivolous/irrelevant determination occurred in the record, so the numeric value cannot be extracted.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.cra_reviewed_all_consumer_info",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "The CRA reviewed the later letter internally",
+      "explanation": "Narrative explicitly states the CRA reviewed the later submitted letter; together with handling the initial dispute, this indicates review of submitted information.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.cra_compared_furnisher_response",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "narrative does not describe comparison of furnisher response",
+      "explanation": "No statement about whether CRA compared the furnisher's response to the dispute basis.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.cra_compared_own_file",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "narrative does not describe comparison against own file",
+      "explanation": "No explicit mention of the CRA comparing the dispute against its own file contents.",
+      "confidence": 0.7
+    }
+  ]
+}

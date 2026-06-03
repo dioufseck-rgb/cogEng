@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.days_to_complete_reinvestigation",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "Narrative says reinvestigation was 'otherwise timely' but provides no specific day count.",
+      "explanation": "No numeric value stated or computable.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.additional_relevant_info_received_in_30_days",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not mention additional relevant info during the 30-day reinvestigation period.",
+      "explanation": "Absence in open narrative is insufficient to bind false.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.furnisher_received_cra_notice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative is silent on whether the furnisher received CRA notice; states no furnisher dispute branch applies.",
+      "explanation": "The 'no direct-furnisher dispute branch applies' statement is about policy branch applicability, not an affirmative denial of notice receipt.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.item_found_inaccurate",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "'reinvestigation verified a disputed personal-loan item'",
+      "explanation": "Verification of the item entails it was not found inaccurate.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.item_found_incomplete",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "'reinvestigation verified a disputed personal-loan item'",
+      "explanation": "Verification implies the item was not found incomplete.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "'reinvestigation verified a disputed personal-loan item'",
+      "explanation": "The item was affirmatively verified.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.furnisher_investigation_conducted",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not describe furnisher conduct; only states no furnisher-dispute branch applies.",
+      "explanation": "No affirmative statement about whether furnisher investigated.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.furnisher_reviewed_all_cra_info",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not address furnisher's review of CRA-provided information.",
+      "explanation": "No evidence either way; cannot bind.",
+      "confidence": 0.6
+    }
+  ]
+}

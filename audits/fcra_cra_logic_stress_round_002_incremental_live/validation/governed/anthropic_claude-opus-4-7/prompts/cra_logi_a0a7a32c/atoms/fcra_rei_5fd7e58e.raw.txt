@@ -1,0 +1,85 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.furnisher_certified_accuracy_for_reinsertion",
+      "status": "undetermined",
+      "value": null,
+      "basis": "closed_world_absence",
+      "source_ids": [],
+      "evidence": "No reseller, reinsertion, or consumer-statement branch applies.",
+      "explanation": "Narrative affirmatively states no reinsertion branch applies, so the certification predicate is inapplicable rather than answerable true/false.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.reinsertion_notice_sent",
+      "status": "undetermined",
+      "value": null,
+      "basis": "closed_world_absence",
+      "source_ids": [],
+      "evidence": "No reseller, reinsertion, or consumer-statement branch applies.",
+      "explanation": "Reinsertion branch explicitly does not apply; no notice predicate to evaluate.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.business_days_to_reinsertion_notice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No reinsertion occurred per narrative.",
+      "explanation": "No numeric value stated or computable since no reinsertion took place.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.reinsertion_notice_identifies_furnisher",
+      "status": "undetermined",
+      "value": null,
+      "basis": "closed_world_absence",
+      "source_ids": [],
+      "evidence": "No reseller, reinsertion, or consumer-statement branch applies.",
+      "explanation": "Reinsertion branch inapplicable; predicate unevaluable.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.reinsertion_notice_includes_statement_right",
+      "status": "undetermined",
+      "value": null,
+      "basis": "closed_world_absence",
+      "source_ids": [],
+      "evidence": "No reseller, reinsertion, or consumer-statement branch applies.",
+      "explanation": "Reinsertion branch inapplicable; predicate unevaluable.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.procedures_prevent_reappearance",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not address CRA procedures to prevent reappearance of deleted information.",
+      "explanation": "No information about reasonable procedures for preventing reappearance; cannot bind.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.furnisher_received_cra_notice",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "notified the furnisher timely",
+      "explanation": "Narrative explicitly states CRA notified the furnisher timely of the auto-loan dispute.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.furnisher_investigation_conducted",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "basis_note": "",
+      "source_ids": [],
+      "evidence": "verified that auto-loan item, recorded current status",
+      "explanation": "Verification and recording of current status by the furnisher's process imply an investigation was conducted on the disputed item.",
+      "confidence": 0.8
+    }
+  ]
+}

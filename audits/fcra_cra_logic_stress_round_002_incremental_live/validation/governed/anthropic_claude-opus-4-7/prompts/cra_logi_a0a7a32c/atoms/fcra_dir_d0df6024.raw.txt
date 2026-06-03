@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.direct_dispute_received_by_furnisher",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "The consumer sent the bank a direct dispute at the bank's published dispute address",
+      "explanation": "Narrative states the bank received a direct dispute from the consumer.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.direct_dispute_public_record_only",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "the dispute concerned only a courthouse judgment appearing as public-record information and did not challenge account or relationship information furnished by the bank",
+      "explanation": "Narrative explicitly states the dispute concerned only public-record info outside furnisher dispute scope.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.direct_dispute_fraud_alert_only",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "the dispute concerned only a courthouse judgment appearing as public-record information",
+      "explanation": "Narrative specifies the dispute concerned a public-record judgment, not fraud or active duty alerts.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.direct_dispute_at_proper_address",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "sent the bank a direct dispute at the bank's published dispute address",
+      "explanation": "Sent to the bank's published dispute address, satisfying proper address requirement.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.direct_dispute_identifies_account",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not specify whether the dispute identified an account or relationship.",
+      "explanation": "No information about whether account identification was provided.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.direct_dispute_identifies_specific_info",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "evidence": "the dispute concerned only a courthouse judgment appearing as public-record information",
+      "source_ids": [],
+      "explanation": "Narrative identifies the specific information disputed (the courthouse judgment public record).",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.direct_dispute_explains_basis",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of the consumer explaining a basis for the dispute.",
+      "explanation": "Narrative is silent on whether basis was explained.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.direct_dispute_supporting_docs_supplied",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of supporting documentation.",
+      "explanation": "Narrative does not address whether supporting documents were supplied.",
+      "confidence": 0.6
+    }
+  ]
+}

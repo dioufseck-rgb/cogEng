@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.furnisher_deleted_item",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative states the source CRA verified the item; no mention of furnisher deletion.",
+      "explanation": "The narrative does not affirmatively address furnisher deletion; absence of mention is open-world.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.furnisher_blocked_item",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of furnisher blocking.",
+      "explanation": "Narrative is silent on any block action by the furnisher.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.direct_dispute_subject_within_scope",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "Dispute was filed through a reseller (a CRA pathway), not directly to the furnisher.",
+      "explanation": "The atom concerns direct disputes under 12 CFR 1022.43; the narrative describes an indirect dispute via reseller, so the direct-dispute scope question is not addressed.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.reseller_item_due_to_reseller_error",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "'The reseller determined that the item came from the source CRA and was not due to reseller error.'",
+      "explanation": "Narrative explicitly states the inaccuracy was not due to reseller act/omission.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.reseller_corrected_or_deleted",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "Since item was not due to reseller error, reseller-correction obligation not triggered; no statement on correction/deletion by reseller.",
+      "explanation": "Narrative does not address whether the reseller corrected or deleted; the precondition (reseller error) was negated.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.days_to_reseller_correct_delete",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No correction/deletion by the reseller is described.",
+      "explanation": "No numeric value for time to reseller correction/deletion is stated or computable.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.reseller_conveyed_to_cra",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "'The reseller conveyed the dispute packet to the source CRA on the eighth business day.'",
+      "explanation": "Narrative explicitly confirms conveyance occurred.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.business_days_to_reseller_conveyance",
+      "status": "bound",
+      "value": 8,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "'conveyed the dispute packet to the source CRA on the eighth business day'",
+      "explanation": "Narrative explicitly states 8 business days to conveyance.",
+      "confidence": 0.95
+    }
+  ]
+}

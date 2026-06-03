@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.reinvestigation_completed",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "closed the file without reinvestigation",
+      "explanation": "Narrative affirmatively states the CRA closed the file without reinvestigation.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.days_to_complete_reinvestigation",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No dates or day counts provided; reinvestigation not completed.",
+      "explanation": "No numeric value can be extracted or computed; no reinvestigation occurred and no dates given.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.additional_relevant_info_received_in_30_days",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["case_narrative", "servicer_correction_letter_referenced"],
+      "evidence": "this new packet included a servicer correction letter that had not been supplied in the prior dispute... identified the account, disputed field, and basis",
+      "explanation": "Narrative affirmatively describes new relevant information (servicer correction letter) submitted with the dispute.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.furnisher_received_cra_notice",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "did not notify the furnisher",
+      "explanation": "Narrative affirmatively states the CRA did not notify the furnisher.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.item_found_inaccurate",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No reinvestigation was conducted; no finding made.",
+      "explanation": "Because no reinvestigation occurred, there is no finding of inaccuracy to report; atom cannot be answered.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.item_found_incomplete",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No reinvestigation was conducted; no finding made.",
+      "explanation": "No reinvestigation produced a finding of incompleteness; atom cannot be answered.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "No reinvestigation was conducted; no verification attempt.",
+      "explanation": "Without a reinvestigation, there is no verification result to report.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.furnisher_investigation_conducted",
+      "status": "undetermined",
+      "value": null,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "did not notify the furnisher",
+      "explanation": "Narrative says the furnisher was not notified by the CRA, but does not affirmatively address whether the furnisher conducted any investigation. Cannot definitively bind to false without a record from the furnisher.",
+      "confidence": 0.6
+    }
+  ]
+}

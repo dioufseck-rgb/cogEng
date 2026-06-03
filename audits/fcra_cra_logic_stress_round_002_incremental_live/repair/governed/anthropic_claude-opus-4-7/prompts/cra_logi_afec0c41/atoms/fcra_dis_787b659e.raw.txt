@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.consumer_statement_filed",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "the consumer filed a concise statement of dispute with the CRA. The CRA accepted the statement.",
+      "explanation": "Narrative explicitly states the consumer filed a brief statement of dispute after reinvestigation.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.subsequent_reports_note_dispute",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "Later reports that included the same item did not note that the item was disputed and did not include or summarize the consumer's statement.",
+      "explanation": "Narrative affirmatively states subsequent reports did not note dispute or include the statement.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not specify whether the dispute was about completeness or accuracy.",
+      "explanation": "No information about the nature of the dispute (completeness vs. accuracy).",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.notice_direct_to_cra",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "the consumer filed a concise statement of dispute with the CRA",
+      "explanation": "Narrative indicates direct filing with the CRA; also notes no reseller or direct-furnisher branch applies.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not describe the dispute as duplicate or compare to prior disputes.",
+      "explanation": "No evidence about duplicate-dispute status.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "an otherwise timely and reasonable reinvestigation verified a disputed personal-loan item",
+      "explanation": "Reinvestigation was actually completed and verified the item, implying sufficient information was provided.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No frivolous/irrelevant determination is described in the narrative.",
+      "explanation": "No numeric value or frivolous determination event is mentioned.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.cra_reviewed_all_consumer_info",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative says reinvestigation was reasonable but does not explicitly state all consumer info was reviewed.",
+      "explanation": "Although reinvestigation was 'reasonable,' the narrative does not directly affirm review of all relevant consumer-submitted information.",
+      "confidence": 0.55
+    }
+  ]
+}

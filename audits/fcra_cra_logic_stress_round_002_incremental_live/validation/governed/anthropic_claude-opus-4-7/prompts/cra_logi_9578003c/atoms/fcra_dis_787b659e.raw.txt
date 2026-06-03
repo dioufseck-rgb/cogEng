@@ -1,0 +1,85 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.consumer_statement_filed",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "No consumer statement was filed",
+      "explanation": "Narrative affirmatively states no consumer statement was filed.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.subsequent_reports_note_dispute",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not address subsequent reports.",
+      "explanation": "No information about whether subsequent reports note the dispute; item was deleted and no statement filed, but atom not directly addressed.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Dispute described as about an 'inaccurate rent-balance item'.",
+      "explanation": "Narrative characterizes the dispute as accuracy-related but does not affirmatively address completeness.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.notice_direct_to_cra",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "The consumer disputed a tenant-screening report through a reseller.",
+      "explanation": "Narrative explicitly states the dispute was routed through a reseller, not directly to the CRA.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of prior duplicate disputes.",
+      "explanation": "Narrative does not address whether the dispute duplicates a prior one.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "basis_note": "The reseller successfully investigated and corrected the item, so information was sufficient.",
+      "source_ids": [],
+      "evidence": "The reseller corrected the item and deleted the erroneous balance within 12 days.",
+      "explanation": "The dispute was successfully investigated and resolved, indicating information was sufficient.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No frivolous/irrelevant determination occurred.",
+      "explanation": "No frivolous determination was made, so no business-days value applies or is stated.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.cra_reviewed_all_consumer_info",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative discusses reseller correction, not CRA review of consumer info.",
+      "explanation": "No affirmative statement about CRA review of all relevant consumer-submitted information.",
+      "confidence": 0.5
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.furnisher_reported_inaccuracy_to_other_cras",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_001"],
+      "evidence": "Narrative does not address furnisher reporting to other nationwide CRAs.",
+      "explanation": "No affirmative statement; open narrative cannot support closed-world absence.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.furnisher_modified_item",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_001"],
+      "evidence": "CRA has not determined whether the item should be verified, deleted, or modified; no statement about furnisher modification.",
+      "explanation": "Narrative does not affirmatively address furnisher modification action.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.furnisher_deleted_item",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_001"],
+      "evidence": "No statement that furnisher deleted the item.",
+      "explanation": "Narrative is silent on furnisher deletion; open-world absence.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.furnisher_blocked_item",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_001"],
+      "evidence": "No statement about permanent blocking by furnisher.",
+      "explanation": "Narrative silent; cannot infer false.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.item_verified_as_accurate",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_001"],
+      "evidence": "CRA has not completed the reinvestigation and has not determined whether the item should be verified, deleted, or modified.",
+      "explanation": "Reinvestigation incomplete; no verification has occurred yet, but the narrative is an open summary and cannot close the world on a final outcome.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.item_status_recorded_current",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_001"],
+      "evidence": "No statement about recording the current status of the disputed information.",
+      "explanation": "Narrative silent on status recording.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.item_deleted",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_001"],
+      "evidence": "CRA has not determined whether the item should be verified, deleted, or modified, and has not sent final results.",
+      "explanation": "No deletion has occurred per narrative, but open-world summary cannot support closed-world absence.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.item_modified",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_001"],
+      "evidence": "CRA has not determined whether the item should be verified, deleted, or modified, and has not sent final results.",
+      "explanation": "No modification has occurred per narrative, but open-world summary cannot support closed-world absence.",
+      "confidence": 0.85
+    }
+  ]
+}

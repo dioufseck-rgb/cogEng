@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.business_days_to_notify_furnisher",
+      "status": "bound",
+      "value": 2,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "The CRA notified the furnisher on the second business day",
+      "explanation": "Narrative explicitly states the furnisher was notified on the second business day.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.notice_included_all_relevant_info",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "forwarded all relevant information",
+      "explanation": "Narrative explicitly affirms all relevant information was forwarded to the furnisher.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.primary_documents_forwarded",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative mentions 'forwarded all relevant information' but does not specify whether primary source documents were submitted or forwarded.",
+      "explanation": "No indication consumer submitted primary documents; cannot determine whether such documents were forwarded.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.later_relevant_info_received",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "No later information was received during the first 30 days.",
+      "explanation": "Narrative affirmatively states no later information was received.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.later_relevant_info_forwarded",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No later information was received, so forwarding question is moot/not applicable.",
+      "explanation": "Since no later information was received, there is nothing to forward; atom cannot be meaningfully bound true or false.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.reinvestigation_completed",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "completed the reinvestigation in 26 days",
+      "explanation": "Narrative explicitly states the reinvestigation was completed.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "fcra.days_to_complete_reinvestigation",
+      "status": "bound",
+      "value": 26,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "completed the reinvestigation in 26 days",
+      "explanation": "Narrative explicitly provides 26 days.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "fcra.additional_relevant_info_received_in_30_days",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "No later information was received during the first 30 days.",
+      "explanation": "Narrative affirmatively negates additional information during the 30-day period.",
+      "confidence": 0.95
+    }
+  ]
+}

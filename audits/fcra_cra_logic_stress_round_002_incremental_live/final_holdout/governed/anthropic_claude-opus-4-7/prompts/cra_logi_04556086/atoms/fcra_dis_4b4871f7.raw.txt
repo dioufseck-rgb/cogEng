@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_001"],
+      "evidence": "The consumer disputed a late-payment month directly with the CRA",
+      "explanation": "Narrative describes a dispute about a late-payment month but does not characterize it as concerning completeness vs. accuracy. Open narrative cannot support closed-world absence.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.notice_direct_to_cra",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["narrative_001"],
+      "evidence": "The consumer disputed a late-payment month directly with the CRA and the intake packet was valid.",
+      "explanation": "Narrative explicitly states the consumer notified the CRA directly.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_001"],
+      "evidence": "No mention of any prior dispute.",
+      "explanation": "Narrative does not address whether this dispute duplicates a prior one. Open narrative cannot support closed-world absence.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["narrative_001"],
+      "evidence": "the intake packet was valid... forwarded the consumer's payment receipt",
+      "explanation": "Narrative affirms the intake packet was valid and the consumer provided a payment receipt that was forwarded; the dispute is proceeding into reinvestigation/manual review, indicating sufficient information was provided.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["narrative_001"],
+      "evidence": "No frivolous or irrelevant determination is described.",
+      "explanation": "Narrative does not indicate a frivolous determination occurred, so no business-day count can be extracted.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.cra_reviewed_all_consumer_info",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_001"],
+      "evidence": "The CRA has not yet resolved the conflict, has not completed the reinvestigation",
+      "explanation": "Reinvestigation is unresolved and routed to manual review; narrative does not state whether the CRA has reviewed all relevant information submitted by the consumer.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.cra_considered_primary_source_documents",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_001"],
+      "evidence": "forwarded the consumer's payment receipt... CRA has not yet resolved the conflict",
+      "explanation": "The receipt was forwarded to the furnisher, but the narrative does not explicitly state the CRA itself considered the primary source documents during an (incomplete) reinvestigation.",
+      "confidence": 0.55
+    },
+    {
+      "atom_id": "fcra.cra_compared_furnisher_response",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_001"],
+      "evidence": "show materially conflicting dates... case is routed to manual review because of the material date conflict",
+      "explanation": "The narrative notes conflicting dates among receipt, CRA file, and furnisher response and that the case is routed to manual review, but does not explicitly confirm the CRA performed a comparison of the furnisher response against the consumer's dispute basis.",
+      "confidence": 0.5
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "undetermined",
+      "value": false,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "Dispute concerns a 'mortgage late-payment notation'; narrative does not specify whether the dispute is about accuracy or completeness.",
+      "explanation": "The narrative describes a disputed late-payment notation but does not characterize the dispute as one about completeness versus accuracy.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.notice_direct_to_cra",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "The CRA... marked the submission as duplicate and frivolous, closed the file... sent a closure notice.",
+      "explanation": "The narrative describes the consumer submitting a dispute packet directly to the CRA, which then processed and closed it.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.frivolous_determination_made",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["case_narrative"],
+      "evidence": "The CRA nevertheless marked the submission as duplicate and frivolous, closed the file without reinvestigation.",
+      "explanation": "Narrative explicitly states the CRA made a frivolous determination.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "this new packet included a servicer correction letter that had not been supplied in the prior dispute.",
+      "explanation": "Narrative affirmatively states the new packet contained new information (a servicer correction letter) not present in the prior dispute, so it is not substantially the same without new info.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "The letter identified the account, disputed field, and basis... The new letter was dispositive if accepted.",
+      "explanation": "Narrative affirmatively asserts the letter contained sufficient identifying and substantive information.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.frivolous_notice_sent",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["case_narrative"],
+      "evidence": "sent a closure notice that did not identify missing information.",
+      "explanation": "Narrative explicitly states a closure notice was sent regarding the duplicate/frivolous determination.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.frivolous_reason_identified",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "sent a closure notice that did not identify missing information.",
+      "explanation": "Narrative addresses missing-information identification but does not state whether the notice identified the reasons for the frivolous determination.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.frivolous_missing_info_identified",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "sent a closure notice that did not identify missing information.",
+      "explanation": "Narrative affirmatively asserts the closure notice failed to identify required information.",
+      "confidence": 0.85
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.reinvestigation_completed",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "The reseller corrected the item and deleted the erroneous balance within 12 days.",
+      "explanation": "The dispute was resolved (item deleted) by the reseller, which constitutes completion of the reinvestigation process for the disputed item.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.days_to_complete_reinvestigation",
+      "status": "bound",
+      "value": 12,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "deleted the erroneous balance within 12 days",
+      "explanation": "Narrative states the correction/deletion occurred within 12 days of the dispute.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.additional_relevant_info_received_in_30_days",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of additional information from consumer during the period.",
+      "explanation": "Narrative does not address whether additional relevant information was provided; absence alone is insufficient.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.expedited_deleted_within_3_business_days",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "deleted the erroneous balance within 12 days",
+      "explanation": "Deletion took 12 days, which exceeds the 3-business-day expedited window.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.cra_notified_furnisher",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "No source-CRA reinvestigation was required for the reseller's own error... no direct furnisher dispute was sent.",
+      "explanation": "Narrative affirmatively states no furnisher dispute was sent and no source-CRA reinvestigation occurred since the error was the reseller's own.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.business_days_to_notify_furnisher",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No furnisher notification occurred per narrative.",
+      "explanation": "Since no furnisher notice was sent, no number of days can be extracted.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.notice_included_all_relevant_info",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No furnisher notice was sent.",
+      "explanation": "No furnisher notice exists to evaluate for relevant-info inclusion.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.primary_documents_forwarded",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not mention primary source documents from the consumer.",
+      "explanation": "No information about consumer-submitted primary documents or their forwarding; absence alone is insufficient to bind false.",
+      "confidence": 0.6
+    }
+  ]
+}

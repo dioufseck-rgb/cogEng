@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.item_found_inaccurate",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "verified the item as accurate",
+      "explanation": "Narrative affirmatively states the item was verified as accurate, contradicting a finding of inaccuracy.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.item_found_incomplete",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "verified the item as accurate ... recorded the item as current and verified",
+      "explanation": "The reinvestigation verified the item as accurate and current, affirmatively indicating it was not found incomplete.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "verified the item as accurate",
+      "explanation": "The narrative explicitly states the item was verified, so it is not unverifiable.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.item_verified_as_accurate",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "reasonably reviewed the consumer and furnisher records, verified the item as accurate",
+      "explanation": "Narrative explicitly states the item was verified as accurate after reasonable reinvestigation.",
+      "confidence": 0.97
+    },
+    {
+      "atom_id": "fcra.item_status_recorded_current",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "recorded the item as current and verified",
+      "explanation": "Narrative explicitly states the current status was recorded.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.item_deleted",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "verified the item as accurate ... recorded the item as current and verified",
+      "explanation": "Item was verified and retained as current; affirmatively not deleted.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.item_modified",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "verified the item as accurate",
+      "explanation": "The narrative states the item was verified as accurate (not modified); inconsistent with modification.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.results_notice_sent",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "The written results notice included all required disclosures and the revised report, but it was sent on the eighth business day after completion.",
+      "explanation": "Narrative explicitly confirms a written results notice was sent (timing is a separate question).",
+      "confidence": 0.95
+    }
+  ]
+}

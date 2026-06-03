@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.item_deleted",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "reinvestigation verified a disputed personal-loan item; later reports included the same item",
+      "explanation": "The item was verified and continued to appear in later reports, indicating it was not deleted.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.item_modified",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "reinvestigation verified a disputed personal-loan item",
+      "explanation": "Verification (not modification) was the reinvestigation outcome; no modification indicated.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.item_reinserted",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "No reinsertion, reseller, or direct-furnisher dispute branch applies.",
+      "explanation": "Narrative affirmatively excludes the reinsertion branch.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.furnisher_certified_accuracy_for_reinsertion",
+      "status": "undetermined",
+      "value": false,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No reinsertion branch applies.",
+      "explanation": "Since no reinsertion occurred, this atom is not addressed by the evidence.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.reinsertion_notice_sent",
+      "status": "undetermined",
+      "value": false,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No reinsertion branch applies.",
+      "explanation": "No reinsertion occurred, so a reinsertion notice is not addressed.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.business_days_to_reinsertion_notice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No reinsertion branch applies.",
+      "explanation": "No numeric value stated or derivable.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.reinsertion_notice_identifies_furnisher",
+      "status": "undetermined",
+      "value": false,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No reinsertion branch applies.",
+      "explanation": "No reinsertion notice exists in the record to evaluate.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.reinsertion_notice_includes_statement_right",
+      "status": "undetermined",
+      "value": false,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No reinsertion branch applies.",
+      "explanation": "No reinsertion notice exists in the record to evaluate.",
+      "confidence": 0.8
+    }
+  ]
+}

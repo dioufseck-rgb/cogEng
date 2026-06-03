@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.furnisher_received_cra_notice",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "The CRA notified the furnisher on the second business day",
+      "explanation": "Narrative explicitly states the CRA notified the furnisher.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.furnisher_investigation_conducted",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "reasonably reviewed the consumer and furnisher records, verified the item as accurate",
+      "explanation": "Narrative describes the furnisher conducting the investigation/review.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.furnisher_reviewed_all_cra_info",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "forwarded all relevant information, reasonably reviewed the consumer and furnisher records",
+      "explanation": "CRA forwarded all relevant information and furnisher reasonably reviewed records.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.furnisher_reported_results_to_cra",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "verified the item as accurate ... recorded the item as current and verified",
+      "explanation": "Furnisher reported verification results back, recorded as current/verified.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.days_to_furnisher_complete",
+      "status": "bound",
+      "value": 26,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "completed the reinvestigation in 26 days",
+      "explanation": "Narrative states completion in 26 days from the dispute timeline.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.furnisher_reported_inaccuracy_to_other_cras",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of reporting to other CRAs; item was verified as accurate, not found inaccurate.",
+      "explanation": "Narrative does not address reporting to other CRAs; also no inaccuracy was found, so the trigger may not apply, but evidence is silent.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.furnisher_modified_item",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "verified the item as accurate, and recorded the item as current and verified",
+      "explanation": "Item was verified as accurate, indicating no modification was made.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.furnisher_deleted_item",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "verified the item as accurate ... recorded the item as current and verified",
+      "explanation": "Item was verified and retained, not deleted.",
+      "confidence": 0.9
+    }
+  ]
+}

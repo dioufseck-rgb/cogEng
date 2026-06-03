@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.direct_dispute_subject_within_scope",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "CRA otherwise received a valid direct dispute concerning a collection account",
+      "explanation": "A collection account bears on creditworthiness and qualifies as covered information; the dispute is described as valid.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.item_found_inaccurate",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "verified the item as accurate",
+      "explanation": "Narrative affirmatively states the item was verified as accurate, contradicting an inaccuracy finding.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.item_found_incomplete",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "verified the item as accurate; furnisher certified the item was complete and accurate",
+      "explanation": "Evidence affirmatively states completeness/accuracy, contradicting an incompleteness finding.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "verified the item as accurate",
+      "explanation": "Item was affirmatively verified, so it is not unverifiable.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.direct_furnisher_investigation_conducted",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative describes CRA reinvestigation, not furnisher's direct-dispute investigation process",
+      "explanation": "The record describes a CRA-handled dispute; it does not state whether the furnisher conducted its own reasonable investigation of a direct dispute.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.direct_furnisher_reviewed_info",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of furnisher reviewing consumer-provided information",
+      "explanation": "Narrative is silent on whether the furnisher reviewed all relevant information from the consumer.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.direct_furnisher_results_reported_to_consumer",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative references CRA's results notice, not a furnisher direct-dispute results notice",
+      "explanation": "No information about whether the furnisher reported direct-dispute results to the consumer.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.direct_furnisher_corrected_cras",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Item verified as accurate; no inaccuracy finding triggering correction duty discussed",
+      "explanation": "Since no inaccuracy was found, the duty may not have been triggered, and the record does not address furnisher corrections to CRAs.",
+      "confidence": 0.5
+    }
+  ]
+}

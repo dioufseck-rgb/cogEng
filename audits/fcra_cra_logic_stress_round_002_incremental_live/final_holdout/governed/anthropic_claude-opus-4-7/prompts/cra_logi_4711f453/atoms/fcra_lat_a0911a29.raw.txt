@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.furnished_by_furnisher",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "mortgage late-payment notation ... servicer correction letter ... did not notify the furnisher",
+      "explanation": "The narrative describes a mortgage tradeline with a servicer/furnisher, indicating the disputed item was furnished by a furnisher.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.expedited_deleted_within_3_business_days",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "marked the submission as duplicate and frivolous, closed the file without reinvestigation",
+      "explanation": "The CRA closed the file as frivolous rather than deleting the item; the dispute was not resolved by deletion.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.cra_notified_furnisher",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "did not notify the furnisher",
+      "explanation": "Narrative explicitly asserts the CRA did not notify the furnisher.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.business_days_to_notify_furnisher",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "did not notify the furnisher",
+      "explanation": "No notice was given, so no numeric business-day value can be extracted or computed.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.notice_included_all_relevant_info",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "did not notify the furnisher",
+      "explanation": "Because no furnisher notice was sent, whether it included all relevant information is not applicable/determinable from the evidence.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.primary_documents_forwarded",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "did not notify the furnisher, did not review the new letter",
+      "explanation": "Since the CRA did not notify the furnisher and did not review the servicer correction letter, primary documents were not forwarded.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.later_relevant_info_received",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative describes only the initial submission packet contents.",
+      "explanation": "The narrative does not address whether additional information was received after any furnisher notice; no notice was sent, so this is not addressed.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.later_relevant_info_forwarded",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "No mention of later information or its forwarding.",
+      "explanation": "The narrative does not address any later-received information being forwarded; cannot bind from absence in an open-world source.",
+      "confidence": 0.6
+    }
+  ]
+}

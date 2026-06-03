@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.cra_compared_own_file",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_001"],
+      "evidence": "Narrative mentions CRA file shows conflicting dates but does not state CRA compared dispute against its own file contents.",
+      "explanation": "No affirmative statement that the CRA performed a comparison against its own file; narrative is open-world and cannot support closed-world absence.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.cra_reasonable_reinvestigation_performed",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_001"],
+      "evidence": "The CRA has not yet resolved the conflict, has not completed the reinvestigation... routed to manual review.",
+      "explanation": "Reinvestigation is incomplete and ongoing; reasonableness cannot yet be assessed from the narrative.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.dispositive_info_not_ignored",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_001"],
+      "evidence": "Case routed to manual review because of material date conflict and conflicting documents; reinvestigation not completed.",
+      "explanation": "No information about whether dispositive consumer info was considered or ignored; reinvestigation pending.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.automated_code_only",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_001"],
+      "evidence": "The case is routed to manual review because of the material date conflict and conflicting documents.",
+      "explanation": "Routing to manual review suggests not solely automated, but the narrative does not affirmatively confirm the nature of investigation; cannot conclusively bind.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.human_review_of_documents_performed",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_001"],
+      "evidence": "Case routed to manual review; reinvestigation not yet completed.",
+      "explanation": "Routing to manual review is not the same as confirming a human review of documents has occurred; narrative does not state it has been performed.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.furnished_by_furnisher",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": ["narrative_001"],
+      "evidence": "The CRA notified the furnisher on the third business day and forwarded the consumer's payment receipt... the furnisher response show...",
+      "explanation": "The narrative repeatedly identifies a furnisher associated with the disputed item, supporting that the item was provided by a furnisher.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.expedited_deleted_within_3_business_days",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["narrative_001"],
+      "evidence": "The CRA has not yet resolved the conflict, has not completed the reinvestigation, has not determined whether the item should be verified, deleted, or modified, and has not sent final results.",
+      "explanation": "Narrative affirmatively states no deletion or resolution has occurred, so expedited deletion within 3 business days did not happen.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.cra_notified_furnisher",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["narrative_001"],
+      "evidence": "The CRA notified the furnisher on the third business day and forwarded the consumer's payment receipt.",
+      "explanation": "Narrative explicitly states the CRA notified the furnisher.",
+      "confidence": 0.95
+    }
+  ]
+}

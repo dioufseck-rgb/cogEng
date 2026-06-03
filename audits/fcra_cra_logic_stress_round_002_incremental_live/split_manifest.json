@@ -1,0 +1,89 @@
+{
+  "cases": "rulekit\\orchestrator\\example_cases\\fcra_cra_logic_stress_eval.yaml",
+  "final_holdout_locked": true,
+  "round_id": "fcra_cra_logic_stress_round_002_incremental",
+  "run_final": false,
+  "seed": 17,
+  "split_strategy": "stratified",
+  "splits": {
+    "final_holdout": [
+      {
+        "case_id": "cra_logic_invalid_duplicate_with_new_material",
+        "expected_outcome_count": 15,
+        "split_group": "invalid_frivolous_termination",
+        "title": "Duplicate termination despite new material proof"
+      },
+      {
+        "case_id": "cra_logic_clean_conflict_pending_manual_review",
+        "expected_outcome_count": 15,
+        "split_group": "conflict_pending",
+        "title": "Clear conflict leaves substantive disposition undetermined"
+      },
+      {
+        "case_id": "cra_logic_late_results_notice_after_timely_reinvestigation",
+        "expected_outcome_count": 15,
+        "split_group": "results_notice_timing",
+        "title": "Timely reinvestigation followed by late results notice"
+      },
+      {
+        "case_id": "cra_logic_reinsertion_certified_but_notice_late",
+        "expected_outcome_count": 15,
+        "split_group": "reinsertion_notice",
+        "title": "Reinserted item certified but notice sent late"
+      }
+    ],
+    "repair": [
+      {
+        "case_id": "cra_logic_expedited_deletion_short_circuits_furnisher_notice",
+        "expected_outcome_count": 15,
+        "split_group": "expedited_deletion",
+        "title": "Expedited deletion without furnisher notice"
+      },
+      {
+        "case_id": "cra_logic_consumer_statement_not_carried_forward",
+        "expected_outcome_count": 15,
+        "split_group": "consumer_statement",
+        "title": "Consumer statement filed but later reports omit dispute notation"
+      },
+      {
+        "case_id": "cra_logic_direct_furnisher_defect_not_corrected",
+        "expected_outcome_count": 15,
+        "split_group": "direct_furnisher_correction",
+        "title": "Qualifying direct furnisher dispute found inaccurate but not corrected to CRAs"
+      },
+      {
+        "case_id": "cra_logic_reseller_forwarding_late_no_reconveyance",
+        "expected_outcome_count": 15,
+        "split_group": "reseller_forwarding_failure",
+        "title": "Reseller forwards source-CRA dispute late and never reconveys"
+      }
+    ],
+    "reserve": [],
+    "validation": [
+      {
+        "case_id": "cra_logic_extension_later_info_not_forwarded",
+        "expected_outcome_count": 15,
+        "split_group": "conditional_deadline_forwarding",
+        "title": "Forty-five-day extension but later information not forwarded"
+      },
+      {
+        "case_id": "cra_logic_valid_frivolous_termination_no_reinvestigation",
+        "expected_outcome_count": 15,
+        "split_group": "valid_frivolous_termination",
+        "title": "Valid frivolous termination makes reinvestigation not required"
+      },
+      {
+        "case_id": "cra_logic_reseller_own_error_corrected_timely",
+        "expected_outcome_count": 15,
+        "split_group": "reseller_own_error",
+        "title": "Reseller corrects its own error within 20 days"
+      },
+      {
+        "case_id": "cra_logic_direct_furnisher_public_record_exception",
+        "expected_outcome_count": 15,
+        "split_group": "direct_furnisher_exception",
+        "title": "Direct furnisher dispute concerns only public-record judgment"
+      }
+    ]
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.item_found_inaccurate",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "verified that auto-loan item",
+      "explanation": "The narrative states the item was verified, which affirmatively negates a finding of inaccuracy.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.item_found_incomplete",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "verified that auto-loan item, recorded current status",
+      "explanation": "Verification affirmatively indicates the item was not found incomplete.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "verified that auto-loan item",
+      "explanation": "The narrative explicitly states the item was verified, negating the inability-to-verify outcome.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.item_verified_as_accurate",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "completed a reasonable reinvestigation in 24 days, verified that auto-loan item",
+      "explanation": "The narrative directly states a reasonable reinvestigation verified the item.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.item_status_recorded_current",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "recorded current status",
+      "explanation": "Narrative explicitly states current status was recorded.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.item_deleted",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "verified that auto-loan item",
+      "explanation": "Item was verified rather than deleted; verification is incompatible with deletion in this characterized record.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.item_modified",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "verified that auto-loan item",
+      "explanation": "Verification of the item (without indication of change beyond recording current status) affirmatively indicates no modification outcome under 1681i(a)(5).",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.results_notice_sent",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "sent a timely results notice",
+      "explanation": "Narrative directly states a results notice was sent.",
+      "confidence": 0.95
+    }
+  ]
+}

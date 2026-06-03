@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.business_days_to_notify_furnisher",
+      "status": "undetermined",
+      "value": null,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "notified the furnisher within 5 business days",
+      "explanation": "Narrative states 'within 5 business days' but does not give an exact number; cannot extract precise numeric value.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.notice_included_all_relevant_info",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not address contents of furnisher notice regarding consumer-provided info.",
+      "explanation": "No affirmation or denial that all relevant consumer information was included in the furnisher notice.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.primary_documents_forwarded",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not mention primary source documents.",
+      "explanation": "Silence on whether primary documents were forwarded; cannot infer false from absence.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.later_relevant_info_received",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not mention any later additional information from consumer.",
+      "explanation": "Absence of mention does not establish that no later info was received.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.later_relevant_info_forwarded",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No evidence about later info or its forwarding.",
+      "explanation": "Predicate (later info received) is unknown; cannot determine forwarding.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.reinvestigation_completed",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "reasonably reinvestigated, verified the item as accurate, completed within 30 days",
+      "explanation": "Narrative explicitly states reinvestigation was completed.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.days_to_complete_reinvestigation",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "completed within 30 days",
+      "explanation": "Narrative says 'within 30 days' but does not state an exact number of calendar days.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.additional_relevant_info_received_in_30_days",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not mention additional consumer information during the 30-day period.",
+      "explanation": "Silence does not establish absence; cannot bind to false.",
+      "confidence": 0.7
+    }
+  ]
+}

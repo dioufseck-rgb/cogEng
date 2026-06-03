@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.cra_compared_own_file",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "completed a reasonable reinvestigation in 24 days, verified that auto-loan item",
+      "explanation": "A reasonable reinvestigation that verified the item inherently includes comparison against the CRA's own file contents.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.cra_reasonable_reinvestigation_performed",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "completed a reasonable reinvestigation in 24 days",
+      "explanation": "Narrative explicitly states a reasonable reinvestigation was performed.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.dispositive_info_not_ignored",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of dispositive consumer information being ignored or considered.",
+      "explanation": "Narrative does not affirmatively address whether dispositive information existed or was considered.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.automated_code_only",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No description of the investigation method beyond 'reasonable reinvestigation'.",
+      "explanation": "Narrative does not specify whether the investigation was automated-only or included document review.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.human_review_of_documents_performed",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of human document review.",
+      "explanation": "Narrative is silent on whether human or equivalent document review occurred.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.furnished_by_furnisher",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "valid direct dispute about a furnished auto-loan item",
+      "explanation": "The disputed auto-loan item is explicitly described as furnished by a furnisher.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.expedited_deleted_within_3_business_days",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "completed a reasonable reinvestigation in 24 days, verified that auto-loan item",
+      "explanation": "The dispute was resolved by verification after 24 days, not by deletion within 3 business days.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.cra_notified_furnisher",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "notified the furnisher timely",
+      "explanation": "Narrative explicitly states the CRA notified the furnisher timely.",
+      "confidence": 0.95
+    }
+  ]
+}

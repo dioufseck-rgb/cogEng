@@ -398,36 +398,36 @@ def _write_run_artifacts(output_dir: Path, result: dict[str, Any]) -> None:
     prompts_dir = output_dir / "prompts"
     prompts_dir.mkdir(parents=True, exist_ok=True)
     for record in result["map_records"]:
-        case_dir = prompts_dir / _safe_name(record["case_id"])
+        case_dir = prompts_dir / _artifact_name(record["case_id"])
         case_dir.mkdir(parents=True, exist_ok=True)
         artifacts = record.get("metadata", {}).get("prompt_artifacts", {})
         source = artifacts.get("source_inventory")
         if source:
-            (case_dir / "source_inventory_prompt.txt").write_text(
+            _write_text_file(
+                case_dir / "source_inventory_prompt.txt",
                 source.get("prompt", ""),
-                encoding="utf-8",
             )
-            (case_dir / "source_inventory_raw.txt").write_text(
+            _write_text_file(
+                case_dir / "source_inventory_raw.txt",
                 source.get("raw_response", ""),
-                encoding="utf-8",
             )
-            (case_dir / "source_inventory_parsed.json").write_text(
+            _write_text_file(
+                case_dir / "source_inventory_parsed.json",
                 _json(source.get("parsed")),
-                encoding="utf-8",
             )
         single = artifacts.get("single_map")
         if single:
-            (case_dir / "single_map_prompt.txt").write_text(
+            _write_text_file(
+                case_dir / "single_map_prompt.txt",
                 single.get("prompt", ""),
-                encoding="utf-8",
             )
-            (case_dir / "single_map_raw.txt").write_text(
+            _write_text_file(
+                case_dir / "single_map_raw.txt",
                 single.get("raw_response", ""),
-                encoding="utf-8",
             )
-            (case_dir / "single_map_parsed.json").write_text(
+            _write_text_file(
+                case_dir / "single_map_parsed.json",
                 _json(single.get("parsed")),
-                encoding="utf-8",
             )
         repairs = artifacts.get("repairs", [])
         if isinstance(repairs, list) and repairs:
@@ -435,17 +435,17 @@ def _write_run_artifacts(output_dir: Path, result: dict[str, Any]) -> None:
             repair_dir.mkdir(parents=True, exist_ok=True)
             for index, repair in enumerate(repairs, start=1):
                 stem = f"repair_{index}"
-                (repair_dir / f"{stem}.prompt.txt").write_text(
+                _write_text_file(
+                    repair_dir / f"{stem}.prompt.txt",
                     repair.get("prompt", ""),
-                    encoding="utf-8",
                 )
-                (repair_dir / f"{stem}.raw.txt").write_text(
+                _write_text_file(
+                    repair_dir / f"{stem}.raw.txt",
                     repair.get("raw_response", ""),
-                    encoding="utf-8",
                 )
-                (repair_dir / f"{stem}.parsed.json").write_text(
+                _write_text_file(
+                    repair_dir / f"{stem}.parsed.json",
                     _json(repair.get("parsed")),
-                    encoding="utf-8",
                 )
         atoms = artifacts.get("atoms", {})
         atom_dir = case_dir / "atoms"
@@ -453,19 +453,24 @@ def _write_run_artifacts(output_dir: Path, result: dict[str, Any]) -> None:
         for atom_id, artifact in atoms.items():
             if artifact.get("single_map"):
                 continue
-            stem = _safe_name(atom_id)
-            (atom_dir / f"{stem}.prompt.txt").write_text(
+            stem = _artifact_name(atom_id)
+            _write_text_file(
+                atom_dir / f"{stem}.prompt.txt",
                 artifact.get("prompt", ""),
-                encoding="utf-8",
             )
-            (atom_dir / f"{stem}.raw.txt").write_text(
+            _write_text_file(
+                atom_dir / f"{stem}.raw.txt",
                 artifact.get("raw_response", ""),
-                encoding="utf-8",
             )
-            (atom_dir / f"{stem}.parsed.json").write_text(
+            _write_text_file(
+                atom_dir / f"{stem}.parsed.json",
                 _json(artifact.get("parsed")),
-                encoding="utf-8",
             )
+
+
+def _write_text_file(path: Path, text: Any) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text("" if text is None else str(text), encoding="utf-8")
 
 
 def _json(payload: Any) -> str:
@@ -478,6 +483,14 @@ def _safe_name(value: str) -> str:
         return safe
     digest = hashlib.sha1(value.encode("utf-8")).hexdigest()[:8]
     return f"{safe[:23]}_{digest}"
+
+
+def _artifact_name(value: str) -> str:
+    safe = "".join(ch if ch.isalnum() or ch in {"-", "_"} else "_" for ch in value)
+    digest = hashlib.sha1(value.encode("utf-8")).hexdigest()[:8]
+    if len(safe) <= 16:
+        return safe
+    return f"{safe[:8]}_{digest}"
 
 
 __all__ = [

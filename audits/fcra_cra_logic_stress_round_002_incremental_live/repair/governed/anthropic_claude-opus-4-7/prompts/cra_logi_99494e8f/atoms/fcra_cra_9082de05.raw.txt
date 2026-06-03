@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative says consumer disputed a mortgage tradeline but does not specify basis.",
+      "explanation": "The narrative does not state whether the dispute concerns completeness, accuracy, or something else.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.notice_direct_to_cra",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "The consumer disputed a mortgage tradeline through a reseller.",
+      "explanation": "The dispute was made through a reseller, not directly to the CRA.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.dispute_duplicate_without_new_info",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of prior disputes or duplication.",
+      "explanation": "Narrative is silent on whether this is a duplicate dispute.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.insufficient_information_to_investigate",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "CRA completed reasonable reinvestigation; no mention of insufficient information.",
+      "explanation": "Narrative does not affirmatively address sufficiency of consumer-provided information.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No frivolous determination indicated.",
+      "explanation": "Narrative does not indicate a frivolous/irrelevant determination, so no such interval can be extracted.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.cra_reviewed_all_consumer_info",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "CRA completed a reasonable reinvestigation.",
+      "explanation": "Reasonable reinvestigation is stated generally but the narrative does not explicitly address review of all consumer-submitted information.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.cra_considered_primary_source_documents",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of primary source documents.",
+      "explanation": "Narrative does not address whether primary source documents were submitted or considered.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.cra_compared_furnisher_response",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "CRA notified the furnisher timely and verified the item.",
+      "explanation": "Narrative does not explicitly state the CRA compared the furnisher response against the consumer's dispute basis.",
+      "confidence": 0.5
+    }
+  ]
+}

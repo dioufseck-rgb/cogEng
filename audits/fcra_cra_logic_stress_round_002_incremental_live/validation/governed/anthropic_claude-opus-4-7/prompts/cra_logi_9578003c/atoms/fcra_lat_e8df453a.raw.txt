@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.later_relevant_info_received",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not address whether additional relevant info was received after furnisher notice.",
+      "explanation": "No furnisher notice occurred in this scenario, and the narrative is silent on later relevant info; absence is not affirmative.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.later_relevant_info_forwarded",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No direct furnisher dispute was sent.",
+      "explanation": "Narrative says no furnisher dispute was sent, but does not affirmatively address forwarding of later relevant information; treat as undetermined.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.item_found_inaccurate",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "The reseller determined that the inaccurate rent-balance item came from its own transcription error.",
+      "explanation": "The reseller affirmatively determined the item was inaccurate.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.item_found_incomplete",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative discusses inaccuracy but not incompleteness.",
+      "explanation": "No information about incompleteness; cannot infer false from silence.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "Reseller identified the error as its own transcription error and corrected it.",
+      "explanation": "The error source was affirmatively identified; the item was not unverifiable.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "fcra.item_verified_as_accurate",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "The inaccurate rent-balance item ... reseller corrected the item and deleted the erroneous balance.",
+      "explanation": "Item was found inaccurate and deleted, not verified as accurate.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.item_status_recorded_current",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative describes correction and deletion but does not state recording of current status.",
+      "explanation": "Silent on whether the current status was formally recorded.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.item_deleted",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "The reseller corrected the item and deleted the erroneous balance within 12 days.",
+      "explanation": "Narrative explicitly states deletion of the erroneous balance.",
+      "confidence": 0.95
+    }
+  ]
+}

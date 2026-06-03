@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.reseller_item_due_to_reseller_error",
+      "status": "undetermined",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "No direct-furnisher, reseller, or consumer-statement branch applies.",
+      "explanation": "Narrative explicitly states no reseller branch applies, so the reseller-error condition is affirmatively absent in this case.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.reseller_corrected_or_deleted",
+      "status": "undetermined",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "No direct-furnisher, reseller, or consumer-statement branch applies.",
+      "explanation": "Narrative affirmatively states the reseller branch does not apply; no reseller correction/deletion occurred.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.days_to_reseller_correct_delete",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No reseller branch applies.",
+      "explanation": "No reseller activity occurred, so no day count is available or applicable.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.reseller_conveyed_to_cra",
+      "status": "undetermined",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "No direct-furnisher, reseller, or consumer-statement branch applies.",
+      "explanation": "Narrative affirmatively negates the reseller branch; no conveyance occurred.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.business_days_to_reseller_conveyance",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No reseller branch applies.",
+      "explanation": "No reseller conveyance occurred; no value to extract.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.reseller_reconveyed_results_to_consumer",
+      "status": "undetermined",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "No direct-furnisher, reseller, or consumer-statement branch applies.",
+      "explanation": "Narrative affirmatively excludes the reseller branch; no reconveyance occurred.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.results_notice_sent",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "telephoned the consumer with notice of the expedited deletion, and sent written confirmation",
+      "explanation": "The CRA sent written confirmation of the deletion to the consumer, satisfying the written results notice.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.business_days_to_results_notice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "Within 3 business days... CRA deleted... and sent written confirmation.",
+      "explanation": "Narrative states the deletion and confirmation occurred within 3 business days of dispute but does not specify the gap between reinvestigation completion and results notice.",
+      "confidence": 0.6
+    }
+  ]
+}

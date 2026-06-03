@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.item_verified_as_accurate",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "reasonably reinvestigated, verified the item as accurate",
+      "explanation": "Narrative explicitly states the item was verified as accurate after reasonable reinvestigation.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.item_status_recorded_current",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not mention recording current status.",
+      "explanation": "No affirmative statement about recording current status of the disputed information.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.item_deleted",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "verified the item as accurate (in current dispute); previously deleted item was reinserted",
+      "explanation": "In the current dispute the item was verified as accurate, not deleted. The earlier deletion was reversed by reinsertion.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.item_modified",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not mention modification.",
+      "explanation": "No mention of modification; only verification as accurate.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.results_notice_sent",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "sent a timely results notice",
+      "explanation": "Narrative explicitly states a timely results notice was sent.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.business_days_to_results_notice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "sent a timely results notice (no specific business day count provided)",
+      "explanation": "Narrative does not provide a specific number of business days between completion and results notice.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.notice_states_reinvestigation_completed",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "sent a timely results notice (no detail on content stating completion)",
+      "explanation": "Narrative does not specify whether the notice stated the reinvestigation was completed.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.revised_consumer_report_provided",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of a consumer report based on revised file being included.",
+      "explanation": "Narrative does not address whether a revised consumer report accompanied the results notice.",
+      "confidence": 0.6
+    }
+  ]
+}

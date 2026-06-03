@@ -1,0 +1,85 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.consumer_disputed_item",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "the CRA otherwise received a valid direct dispute",
+      "explanation": "Narrative explicitly states a valid direct dispute was received.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.item_in_consumer_file",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "the CRA reinserted the item ... verified the item as accurate",
+      "explanation": "The item was reinserted into the file and is the subject of the current dispute, so it is in the consumer's file.",
+      "confidence": 0.9
+    },
+    {
+      "atom": "fcra.dispute_about_completeness",
+      "atom_id": "fcra.dispute_about_completeness",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative says 'valid direct dispute' without specifying completeness vs accuracy.",
+      "explanation": "No affirmative statement about whether the dispute concerned completeness.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.dispute_about_accuracy",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative references a valid direct dispute and that the item was verified as accurate, but does not specify the dispute's subject matter.",
+      "explanation": "Cannot affirm the dispute was specifically about accuracy from the narrative alone.",
+      "confidence": 0.55
+    },
+    {
+      "atom_id": "fcra.notice_direct_to_cra",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "the CRA otherwise received a valid direct dispute",
+      "explanation": "A direct dispute to the CRA is stated.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.consumer_identity_sufficient",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "valid direct dispute ... reasonably reinvestigated",
+      "explanation": "Characterization as 'valid' and the CRA's ability to reinvestigate implies sufficient identity information.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.account_identified",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "valid direct dispute ... verified the item as accurate",
+      "explanation": "A valid dispute that was reinvestigated and verified necessarily identified the account.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.disputed_field_identified",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not specify which field of the item was disputed.",
+      "explanation": "No affirmative statement about identification of a specific disputed field.",
+      "confidence": 0.6
+    }
+  ]
+}

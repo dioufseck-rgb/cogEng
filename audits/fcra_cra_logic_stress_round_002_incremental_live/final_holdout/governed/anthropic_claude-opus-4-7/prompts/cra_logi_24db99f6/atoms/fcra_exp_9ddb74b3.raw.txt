@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.cra_compared_own_file",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "reasonably reviewed the consumer and furnisher records",
+      "explanation": "Review of consumer records implies comparison against the CRA's own file contents.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.cra_reasonable_reinvestigation_performed",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "reasonably reviewed the consumer and furnisher records, verified the item as accurate",
+      "explanation": "Narrative explicitly states the reinvestigation was reasonable.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.dispositive_info_not_ignored",
+      "status": "bound",
+      "value": true,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "No later information was received during the first 30 days; reasonably reviewed the consumer and furnisher records",
+      "explanation": "No additional dispositive consumer information existed to ignore, and the review was reasonable.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.automated_code_only",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "reasonably reviewed the consumer and furnisher records",
+      "explanation": "Narrative describes a reasonable review of records, inconsistent with automated-code-only processing.",
+      "confidence": 0.75
+    },
+    {
+      "atom_id": "fcra.human_review_of_documents_performed",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "reasonably reviewed the consumer and furnisher records",
+      "explanation": "Narrative mentions reasonable review of records but does not specify human review of material primary documents.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.furnished_by_furnisher",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "The CRA notified the furnisher on the second business day",
+      "explanation": "The narrative identifies a furnisher associated with the disputed auto-loan item.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.expedited_deleted_within_3_business_days",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "verified the item as accurate, completed the reinvestigation in 26 days",
+      "explanation": "The item was verified, not deleted, and resolution took 26 days, not within 3 business days.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.cra_notified_furnisher",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "The CRA notified the furnisher on the second business day",
+      "explanation": "Narrative explicitly states the CRA notified the furnisher.",
+      "confidence": 0.98
+    }
+  ]
+}

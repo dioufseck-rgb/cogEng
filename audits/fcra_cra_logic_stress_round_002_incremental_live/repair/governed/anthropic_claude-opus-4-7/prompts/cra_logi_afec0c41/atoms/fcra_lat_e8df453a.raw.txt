@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.expedited_deleted_within_3_business_days",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "Reinvestigation verified the item (not deleted); consumer then filed statement of dispute.",
+      "explanation": "The narrative affirmatively states the item was verified, not deleted, so the expedited deletion atom is false.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.cra_notified_furnisher",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative describes an 'otherwise timely and reasonable reinvestigation' but does not explicitly state furnisher notice.",
+      "explanation": "Not affirmatively addressed; only inferable. Per rules, absence in narrative yields undetermined.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.business_days_to_notify_furnisher",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "No numeric value for business days stated.",
+      "explanation": "Narrative provides no stated or computable number of business days.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.notice_included_all_relevant_info",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not describe content of any furnisher notice.",
+      "explanation": "No affirmative statement about the notice's contents; undetermined.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.primary_documents_forwarded",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "No mention of primary source documents being submitted or forwarded.",
+      "explanation": "Silent on document forwarding; undetermined.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.later_relevant_info_received",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not mention additional info received before reinvestigation deadline.",
+      "explanation": "Silent on later information receipt; undetermined.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.later_relevant_info_forwarded",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": [],
+      "evidence": "Narrative does not mention forwarding any later information to the furnisher.",
+      "explanation": "Silent; undetermined.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.reinvestigation_completed",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "'an otherwise timely and reasonable reinvestigation verified a disputed personal-loan item'",
+      "explanation": "The narrative affirmatively states the reinvestigation was completed and verified the item.",
+      "confidence": 0.97
+    }
+  ]
+}

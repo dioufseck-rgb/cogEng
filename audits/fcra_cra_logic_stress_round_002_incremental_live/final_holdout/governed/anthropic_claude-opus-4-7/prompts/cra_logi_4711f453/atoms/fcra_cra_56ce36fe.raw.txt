@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.business_days_to_frivolous_notice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative mentions a closure notice was sent but provides no timing in business days.",
+      "explanation": "No numeric value for business days is stated or computable from the evidence.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.cra_reviewed_all_consumer_info",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "'did not review the new letter'",
+      "explanation": "Narrative affirmatively asserts the CRA did not review the new servicer correction letter, which was part of consumer-submitted info.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.cra_considered_primary_source_documents",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "'did not review the new letter'",
+      "explanation": "The servicer correction letter is a primary source document; narrative states it was not reviewed.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.cra_compared_furnisher_response",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": ["case_narrative"],
+      "evidence": "'closed the file without reinvestigation, did not notify the furnisher'",
+      "explanation": "Since the furnisher was not notified and no reinvestigation occurred, no furnisher response could have been compared.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.cra_compared_own_file",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative does not address whether CRA compared the dispute against its own file contents.",
+      "explanation": "No affirmative statement about internal file comparison; cannot conclude either way.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.cra_reasonable_reinvestigation_performed",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "'closed the file without reinvestigation'",
+      "explanation": "Narrative explicitly states no reinvestigation was performed.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.dispositive_info_not_ignored",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": ["case_narrative"],
+      "evidence": "'did not review the new letter ... The new letter was dispositive if accepted.'",
+      "explanation": "Narrative characterizes the letter as dispositive and states it was not reviewed, meaning dispositive info was ignored.",
+      "confidence": 0.8
+    },
+    {
+      "atom_id": "fcra.automated_code_only",
+      "status": "undetermined",
+      "value": null,
+      "basis": "open_world_absence",
+      "source_ids": ["case_narrative"],
+      "evidence": "Narrative describes marking submission as duplicate/frivolous but does not specify whether process was automated coding only.",
+      "explanation": "No explicit characterization of automated-only coding; cannot determine from available evidence.",
+      "confidence": 0.6
+    }
+  ]
+}

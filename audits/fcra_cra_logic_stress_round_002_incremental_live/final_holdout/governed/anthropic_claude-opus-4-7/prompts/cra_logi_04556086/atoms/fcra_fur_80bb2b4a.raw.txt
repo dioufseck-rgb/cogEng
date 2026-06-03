@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.furnisher_received_cra_notice",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": ["narrative_001"],
+      "evidence": "The CRA notified the furnisher on the third business day and forwarded the consumer's payment receipt.",
+      "explanation": "Narrative affirmatively states the CRA notified the furnisher.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.item_found_inaccurate",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_001"],
+      "evidence": "The CRA has not yet resolved the conflict, has not completed the reinvestigation, has not determined whether the item should be verified, deleted, or modified.",
+      "explanation": "Reinvestigation is not yet complete; no finding of inaccuracy has been made.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.item_found_incomplete",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_001"],
+      "evidence": "has not completed the reinvestigation, has not determined whether the item should be verified, deleted, or modified",
+      "explanation": "No finding of incompleteness has been made; reinvestigation pending.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.item_cannot_be_verified",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_001"],
+      "evidence": "has not determined whether the item should be verified, deleted, or modified",
+      "explanation": "No determination on verifiability has been made yet.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.furnisher_investigation_conducted",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_001"],
+      "evidence": "the furnisher response show materially conflicting dates",
+      "explanation": "Narrative mentions a furnisher response but does not affirm or deny that a required investigation was conducted; open narrative cannot support closed-world absence.",
+      "confidence": 0.6
+    },
+    {
+      "atom_id": "fcra.furnisher_reviewed_all_cra_info",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_001"],
+      "evidence": "No statement in narrative about whether furnisher reviewed all relevant CRA-provided information.",
+      "explanation": "Narrative does not address review scope; open narrative cannot support closed-world absence.",
+      "confidence": 0.7
+    },
+    {
+      "atom_id": "fcra.furnisher_reported_results_to_cra",
+      "status": "undetermined",
+      "value": false,
+      "basis": "open_world_absence",
+      "source_ids": ["narrative_001"],
+      "evidence": "the furnisher response show materially conflicting dates",
+      "explanation": "A 'furnisher response' is mentioned but it is unclear whether this constitutes reporting investigation results; narrative is open-world.",
+      "confidence": 0.5
+    },
+    {
+      "atom_id": "fcra.days_to_furnisher_complete",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": ["narrative_001"],
+      "evidence": "No dates provided; reinvestigation not completed and no calendar-day count stated or derivable.",
+      "explanation": "Narrative provides no dates or day counts; furnisher completion not established.",
+      "confidence": 0.9
+    }
+  ]
+}

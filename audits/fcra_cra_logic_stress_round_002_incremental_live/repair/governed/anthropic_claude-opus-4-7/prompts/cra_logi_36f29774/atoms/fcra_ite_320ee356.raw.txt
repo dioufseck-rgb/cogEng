@@ -1,0 +1,84 @@
+{
+  "bindings": [
+    {
+      "atom_id": "fcra.item_verified_as_accurate",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "CRA deleted the disputed item through the expedited path; no reinvestigation/verification occurred.",
+      "explanation": "The narrative affirmatively describes deletion rather than verification, so the item was not verified as accurate.",
+      "confidence": 0.9
+    },
+    {
+      "atom_id": "fcra.item_status_recorded_current",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "The CRA recorded current deleted status.",
+      "explanation": "Narrative explicitly states current status was recorded.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.item_deleted",
+      "status": "bound",
+      "value": true,
+      "basis": "explicit_positive",
+      "source_ids": [],
+      "evidence": "the CRA deleted the disputed item from the consumer's file",
+      "explanation": "Narrative explicitly states deletion occurred.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "fcra.item_modified",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "Item was deleted, not modified.",
+      "explanation": "Deletion path was used; no modification described, and deletion is distinct from modification.",
+      "confidence": 0.85
+    },
+    {
+      "atom_id": "fcra.item_reinserted",
+      "status": "bound",
+      "value": false,
+      "basis": "explicit_negative",
+      "source_ids": [],
+      "evidence": "no reinsertion occurred",
+      "explanation": "Narrative explicitly affirms absence of reinsertion.",
+      "confidence": 0.98
+    },
+    {
+      "atom_id": "fcra.furnisher_certified_accuracy_for_reinsertion",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "no reinsertion occurred",
+      "explanation": "Without reinsertion, no furnisher certification for reinsertion exists.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.reinsertion_notice_sent",
+      "status": "bound",
+      "value": false,
+      "basis": "inferred_from_record",
+      "source_ids": [],
+      "evidence": "no reinsertion occurred",
+      "explanation": "Since no reinsertion occurred, no reinsertion notice was required or sent.",
+      "confidence": 0.95
+    },
+    {
+      "atom_id": "fcra.business_days_to_reinsertion_notice",
+      "status": "undetermined",
+      "value": null,
+      "basis": "not_found",
+      "source_ids": [],
+      "evidence": "no reinsertion occurred",
+      "explanation": "No reinsertion event exists from which to measure business days to a reinsertion notice.",
+      "confidence": 0.9
+    }
+  ]
+}
