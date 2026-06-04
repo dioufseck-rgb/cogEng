@@ -22,6 +22,7 @@ from rulekit.orchestrator.examples.prior_auth_typed import prior_auth_typed_seed
 from rulekit.orchestrator.examples.fcra_dispute import fcra_dispute_seed
 from rulekit.orchestrator.llm_config import create_map_step
 from rulekit.orchestrator.map_governance_eval import (
+    parse_model_spec,
     parse_price_spec,
     run_map_governance_eval,
 )
@@ -384,9 +385,14 @@ def _parser() -> argparse.ArgumentParser:
     total_map_eval.add_argument("--out", required=True, help="output workbench directory")
     total_map_eval.add_argument(
         "--mode",
-        choices=["schema", "simulate"],
+        choices=["schema", "simulate", "live"],
         default="simulate",
-        help="schema writes prompts/catalog only; simulate emits deterministic trial bindings",
+        help="schema writes prompts/catalog only; simulate emits deterministic trial bindings; live calls an LLM",
+    )
+    total_map_eval.add_argument(
+        "--model",
+        default="anthropic:claude-opus-4-7",
+        help="provider:model for live mode, e.g. anthropic:claude-opus-4-7",
     )
     total_map_eval.add_argument(
         "--case-id",
@@ -404,6 +410,18 @@ def _parser() -> argparse.ArgumentParser:
         "--no-profile-defaults",
         action="store_true",
         help="do not apply policy map_profile defaults in simulation mode",
+    )
+    total_map_eval.add_argument("--llm-max-tokens", type=int, default=20000)
+    total_map_eval.add_argument("--llm-timeout", type=float, default=180.0)
+    total_map_eval.add_argument("--llm-max-retries", type=int, default=2)
+    total_map_eval.add_argument(
+        "--price",
+        action="append",
+        default=[],
+        help=(
+            "optional estimated pricing as "
+            "provider:model=input_usd_per_million,output_usd_per_million; may repeat"
+        ),
     )
     total_map_eval.add_argument("--json", action="store_true", help="print JSON summary")
 
@@ -795,6 +813,7 @@ def _direct_eval(args: argparse.Namespace) -> int:
 
 
 def _total_map_eval(args: argparse.Namespace) -> int:
+    provider, model = parse_model_spec(args.model)
     result = run_total_atom_map_eval(
         program_path=args.program,
         cases_path=args.cases,
@@ -803,6 +822,12 @@ def _total_map_eval(args: argparse.Namespace) -> int:
         case_ids=args.case_id or None,
         mode=args.mode,
         apply_profile_defaults=not args.no_profile_defaults,
+        provider=provider,
+        model=model,
+        max_tokens=args.llm_max_tokens,
+        timeout=args.llm_timeout,
+        max_retries=args.llm_max_retries,
+        pricing=dict(parse_price_spec(item) for item in args.price),
     )
     payload = {
         "ok": result.get("mismatch_count", 0) == 0,
@@ -827,6 +852,7 @@ def _compact_total_map_result(result: dict[str, Any]) -> dict[str, Any]:
         "mismatch_count",
         "outcome_counts",
         "basis_counts",
+        "cost_metrics",
         "prompts",
     ]
     return {key: result[key] for key in keys if key in result}

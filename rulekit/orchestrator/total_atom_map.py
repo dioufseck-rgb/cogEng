@@ -11,10 +11,12 @@ import json
 import re
 from collections import Counter
 from pathlib import Path
+from time import perf_counter
 from typing import Any
 
 from pydantic_core import to_jsonable_python
 
+from rulekit.build.llm import LLMCaller, parse_json_response
 from rulekit.contract import BindingBasis, DeterminationProgram, safe_program_to_engine
 from rulekit.orchestrator.cases import CaseExample
 from rulekit.orchestrator.evaluation import evaluate_determination_with_map_record
@@ -23,7 +25,10 @@ from rulekit.orchestrator.exercise import (
     fact_bundle_from_values,
     fact_values_from_map_record,
 )
-from rulekit.orchestrator.governed_map import apply_program_map_profile_defaults
+from rulekit.orchestrator.governed_map import (
+    _estimate_run_cost,
+    apply_program_map_profile_defaults,
+)
 from rulekit.orchestrator.ids import new_id
 from rulekit.orchestrator.map_record import (
     AtomBindingRecord,
@@ -59,6 +64,14 @@ CASE PACKET
 ===========
 {case_json}
 
+ACTIVE PERSPECTIVE
+==================
+{active_perspective_json}
+
+PROFILE GUIDANCE
+================
+{profile_guidance_json}
+
 ATOM CATALOG
 ============
 {atom_catalog_json}
@@ -92,10 +105,17 @@ def run_total_atom_map_eval(
     case_ids: list[str] | None = None,
     mode: str = "simulate",
     apply_profile_defaults: bool = True,
+    llm: LLMCaller | None = None,
+    provider: str = "anthropic",
+    model: str = "claude-opus-4-7",
+    max_tokens: int = 20000,
+    timeout: float = 180.0,
+    max_retries: int = 2,
+    pricing: dict[tuple[str, str], tuple[float, float]] | None = None,
 ) -> dict[str, Any]:
     """Run the isolated total-atom Map workbench."""
-    if mode not in {"schema", "simulate"}:
-        raise ValueError("mode must be 'schema' or 'simulate'")
+    if mode not in {"schema", "simulate", "live"}:
+        raise ValueError("mode must be 'schema', 'simulate', or 'live'")
     program = load_program(program_path)
     cases = load_runtime_cases(cases_path)
     if case_ids:
@@ -114,6 +134,15 @@ def run_total_atom_map_eval(
     map_records: list[MapExtractionRecord] = []
     dispositions: list[dict[str, Any]] = []
     runtime = safe_program_to_engine(program)
+    active_llm = llm
+    if mode == "live" and active_llm is None:
+        active_llm = LLMCaller(
+            provider=provider,
+            model=model,
+            max_tokens=max_tokens,
+            timeout=timeout,
+            max_retries=max_retries,
+        )
 
     for case in cases:
         case_dir = output / "cases" / _safe_name(case.case_id)
@@ -123,11 +152,31 @@ def run_total_atom_map_eval(
         prompts.append({"case_id": case.case_id, "path": str(case_dir / "total_atom_map.prompt.txt")})
         if mode == "schema":
             continue
-        map_record = simulate_total_atom_map_record(
-            program,
-            case,
-            apply_profile_defaults=apply_profile_defaults,
-        )
+        if mode == "live":
+            if active_llm is None:
+                raise ValueError("live mode requires an LLM caller")
+            map_record, live_payload = live_total_atom_map_record(
+                program,
+                case,
+                active_llm,
+                prompt=prompt,
+                apply_profile_defaults=apply_profile_defaults,
+                pricing=pricing or {},
+            )
+            (case_dir / "raw_response.txt").write_text(
+                live_payload["raw_response"],
+                encoding="utf-8",
+            )
+            (case_dir / "parsed_response.json").write_text(
+                _json(live_payload["parsed_response"]),
+                encoding="utf-8",
+            )
+        else:
+            map_record = simulate_total_atom_map_record(
+                program,
+                case,
+                apply_profile_defaults=apply_profile_defaults,
+            )
         map_record, validation = apply_map_validation(
             program,
             map_record,
@@ -165,10 +214,14 @@ def run_total_atom_map_eval(
         "atom_count": len(program.map_spec.atoms),
         "prompts": prompts,
     }
-    if mode == "simulate":
+    if mode in {"simulate", "live"}:
         result.update(
             {
-                "map_mode": "total_atom_map_simulation",
+                "map_mode": (
+                    "total_atom_map_live"
+                    if mode == "live"
+                    else "total_atom_map_simulation"
+                ),
                 "disposition_count": len(dispositions),
                 "matched_disposition_count": sum(
                     1 for item in dispositions if item.get("matched_expected") is True
@@ -178,6 +231,7 @@ def run_total_atom_map_eval(
                 ),
                 "outcome_counts": dict(Counter(item["outcome"] for item in dispositions)),
                 "basis_counts": _basis_counts(map_records),
+                "cost_metrics": _cost_metrics(map_records),
                 "dispositions": dispositions,
                 "map_records": [record.model_dump(mode="json") for record in map_records],
             }
@@ -195,6 +249,8 @@ def build_total_atom_map_prompt(program: DeterminationProgram, case: CaseExample
     return TOTAL_ATOM_MAP_PROMPT.format(
         case_id=case.case_id,
         case_json=_json(case.model_dump(mode="json")),
+        active_perspective_json=_json(_active_perspective(program)),
+        profile_guidance_json=_json(_profile_guidance(program)),
         atom_catalog_json=_json(atom_catalog(program)),
     )
 
@@ -250,6 +306,97 @@ def simulate_total_atom_map_record(
             "note": "Deterministic sandbox simulation, not production Map output.",
         },
     )
+
+
+def live_total_atom_map_record(
+    program: DeterminationProgram,
+    case: CaseExample,
+    llm: LLMCaller,
+    *,
+    prompt: str | None = None,
+    apply_profile_defaults: bool = True,
+    pricing: dict[tuple[str, str], tuple[float, float]] | None = None,
+) -> tuple[MapExtractionRecord, dict[str, Any]]:
+    """Run one live total-atom Map call and convert it into a Map record."""
+    active_prompt = prompt or build_total_atom_map_prompt(program, case)
+    started = perf_counter()
+    raw = llm.call(f"total_atom_map:{case.case_id}", active_prompt, stream=True)
+    latency_s = perf_counter() - started
+    parsed = parse_json_response(raw)
+    bindings = bindings_from_total_atom_payload(program, parsed)
+    profile_default_count = 0
+    if apply_profile_defaults:
+        profile_default_count = apply_program_map_profile_defaults(
+            program,
+            case,
+            bindings,
+            source="total_atom_map_profile_default",
+        )
+    cost = _estimate_run_cost(
+        provider=llm.provider,
+        model=llm.model,
+        prompt=active_prompt,
+        response=raw,
+        latency_s=latency_s,
+        pricing=pricing or {},
+    )
+    record = MapExtractionRecord(
+        map_record_id=new_id("map_total_live"),
+        program_id=program.metadata.name,
+        program_version=program.metadata.version,
+        case_id=case.case_id,
+        bindings=bindings,
+        substrate_id="total_atom_map_live",
+        latency_s=latency_s,
+        cost=cost,
+        metadata={
+            "experimental": True,
+            "mode": "total_atom_map_live",
+            "provider": llm.provider,
+            "model": llm.model,
+            "profile_default_count": profile_default_count,
+            "llm_call_count": 1,
+        },
+    )
+    return record, {"raw_response": raw, "parsed_response": parsed}
+
+
+def bindings_from_total_atom_payload(
+    program: DeterminationProgram,
+    payload: Any,
+) -> dict[str, AtomBindingRecord]:
+    """Normalize a live total-map JSON payload into one binding per atom."""
+    bindings = _undetermined_bindings(program)
+    if not isinstance(payload, dict):
+        raise ValueError("total-map response must be a JSON object")
+    raw_bindings = payload.get("bindings")
+    if not isinstance(raw_bindings, list):
+        raise ValueError("total-map response must include a bindings list")
+    for item in raw_bindings:
+        if not isinstance(item, dict):
+            continue
+        atom_id = str(item.get("atom_id") or "")
+        atom = program.map_spec.atoms.get(atom_id)
+        if atom is None:
+            continue
+        status = _normalize_status(item.get("status"), item.get("value"))
+        value = item.get("value", "undetermined")
+        if status != AtomBindingStatus.BOUND:
+            value = "undetermined"
+        bindings[atom_id] = AtomBindingRecord(
+            atom_id=atom_id,
+            atom_type=atom.atom_type,
+            value=value,
+            status=status,
+            basis=_normalize_basis(item.get("basis"), status),
+            source_ids=[str(source_id) for source_id in item.get("source_ids") or []],
+            evidence=_optional_string(item.get("evidence")),
+            explanation=_optional_string(item.get("explanation")),
+            confidence=_normalize_confidence(item.get("confidence")),
+            source="total_atom_map_live",
+            metadata={"experimental_total_atom_map": True},
+        )
+    return bindings
 
 
 def _undetermined_bindings(program: DeterminationProgram) -> dict[str, AtomBindingRecord]:
@@ -644,6 +791,104 @@ def _basis_counts(records: list[MapExtractionRecord]) -> dict[str, int]:
     return dict(counter)
 
 
+def _cost_metrics(records: list[MapExtractionRecord]) -> dict[str, Any]:
+    costs = [record.cost for record in records if record.cost is not None]
+    configured = [
+        cost.estimated_cost_usd
+        for cost in costs
+        if cost.estimated_cost_usd is not None
+    ]
+    return {
+        "case_count": len(records),
+        "llm_call_count": len(costs),
+        "estimated_input_tokens": sum(cost.input_tokens or 0 for cost in costs),
+        "estimated_output_tokens": sum(cost.output_tokens or 0 for cost in costs),
+        "estimated_total_tokens": sum(cost.total_tokens or 0 for cost in costs),
+        "llm_latency_s": sum(cost.latency_s or 0.0 for cost in costs),
+        "avg_llm_call_latency_s": (
+            sum(cost.latency_s or 0.0 for cost in costs) / len(costs)
+            if costs
+            else 0.0
+        ),
+        "estimated_cost_usd": sum(configured) if configured else None,
+        "pricing_basis": (
+            "configured_usd_per_million_tokens"
+            if configured
+            else "not_configured"
+        ),
+        "token_count_basis": "estimated_from_character_count",
+    }
+
+
+def _normalize_status(value: Any, binding_value: Any) -> AtomBindingStatus:
+    raw = str(value or "").lower()
+    if raw in {AtomBindingStatus.BOUND.value, AtomBindingStatus.UNDETERMINED.value, AtomBindingStatus.ERROR.value}:
+        return AtomBindingStatus(raw)
+    if binding_value is None or str(binding_value).lower() == "undetermined":
+        return AtomBindingStatus.UNDETERMINED
+    return AtomBindingStatus.BOUND
+
+
+def _normalize_basis(value: Any, status: AtomBindingStatus) -> BindingBasis:
+    raw = str(value or "").lower()
+    try:
+        return BindingBasis(raw)
+    except ValueError:
+        return BindingBasis.NOT_FOUND if status != AtomBindingStatus.BOUND else BindingBasis.INFERRED_FROM_RECORD
+
+
+def _normalize_confidence(value: Any) -> float | None:
+    if value is None:
+        return None
+    try:
+        return max(0.0, min(1.0, float(value)))
+    except (TypeError, ValueError):
+        return None
+
+
+def _optional_string(value: Any) -> str | None:
+    return None if value is None else str(value)
+
+
+def _active_perspective(program: DeterminationProgram) -> dict[str, Any]:
+    active = program.metadata.extras.get("active_perspective")
+    return active if isinstance(active, dict) else {}
+
+
+def _profile_guidance(program: DeterminationProgram) -> list[dict[str, Any]]:
+    profile = program.metadata.extras.get("map_profile")
+    if not isinstance(profile, dict):
+        return []
+    rules = profile.get("default_rules")
+    if not isinstance(rules, list):
+        return []
+    active = _active_perspective(program).get("perspective_id")
+    guidance: list[dict[str, Any]] = []
+    for rule in rules:
+        if not isinstance(rule, dict):
+            continue
+        allowed = _string_list(rule.get("perspectives") or rule.get("perspective_ids"))
+        if allowed and str(active) not in allowed:
+            continue
+        guidance.append(
+            {
+                "id": rule.get("id"),
+                "description": rule.get("description"),
+                "kind": rule.get("kind"),
+                "when_cues": rule.get("when_cues") or rule.get("match_any"),
+                "unless_cues": rule.get("unless_cues") or rule.get("unless_any"),
+                "atom_defaults": rule.get("atom_defaults"),
+            }
+        )
+    return guidance
+
+
+def _string_list(value: Any) -> list[str]:
+    if not isinstance(value, list):
+        return []
+    return [str(item) for item in value]
+
+
 def _summary(result: dict[str, Any]) -> dict[str, Any]:
     return {
         key: result[key]
@@ -658,6 +903,7 @@ def _summary(result: dict[str, Any]) -> dict[str, Any]:
             "mismatch_count",
             "outcome_counts",
             "basis_counts",
+            "cost_metrics",
         )
         if key in result
     }
@@ -675,7 +921,9 @@ def _json(payload: Any) -> str:
 __all__ = [
     "TOTAL_ATOM_MAP_PROMPT",
     "atom_catalog",
+    "bindings_from_total_atom_payload",
     "build_total_atom_map_prompt",
+    "live_total_atom_map_record",
     "run_total_atom_map_eval",
     "simulate_total_atom_map_record",
 ]

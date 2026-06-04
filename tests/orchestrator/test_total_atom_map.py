@@ -2,7 +2,11 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from rulekit.orchestrator.total_atom_map import run_total_atom_map_eval
+from rulekit.orchestrator.total_atom_map import (
+    bindings_from_total_atom_payload,
+    run_total_atom_map_eval,
+)
+from rulekit.runtime import load_program
 
 
 PROGRAM_PATH = Path("audits/fcra_credit_reporting_deep/rulekit_export_profile2/program.json")
@@ -50,3 +54,37 @@ def test_total_atom_map_schema_mode_writes_prompt_artifacts_only(tmp_path: Path)
     assert prompt_path.exists()
     assert "Return ONLY this JSON shape" in prompt_path.read_text(encoding="utf-8")
     assert not (tmp_path / "total_atom_map_schema" / "dispositions.json").exists()
+
+
+def test_live_total_atom_payload_parser_keeps_one_binding_per_atom() -> None:
+    program = load_program(PROGRAM_PATH)
+    payload = {
+        "case_id": "case_1",
+        "bindings": [
+            {
+                "atom_id": "fcra.consumer_disputed_item",
+                "status": "bound",
+                "value": True,
+                "basis": "explicit_positive",
+                "source_ids": ["narrative"],
+                "evidence": "consumer disputed the item",
+                "explanation": "explicitly stated",
+                "confidence": 0.93,
+            },
+            {
+                "atom_id": "fcra.not_a_real_atom",
+                "status": "bound",
+                "value": True,
+                "basis": "explicit_positive",
+            },
+        ],
+    }
+
+    bindings = bindings_from_total_atom_payload(program, payload)
+
+    assert len(bindings) == 120
+    assert bindings["fcra.consumer_disputed_item"].status == "bound"
+    assert bindings["fcra.consumer_disputed_item"].value is True
+    assert bindings["fcra.consumer_disputed_item"].basis == "explicit_positive"
+    assert bindings["fcra.account_identified"].status == "undetermined"
+    assert "fcra.not_a_real_atom" not in bindings
