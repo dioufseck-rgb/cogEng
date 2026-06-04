@@ -29,6 +29,7 @@ from rulekit.orchestrator.perspectives import (
     list_program_perspectives,
     project_program_perspective,
 )
+from rulekit.orchestrator.total_atom_map import run_total_atom_map_eval
 from rulekit.orchestrator.workflow import (
     apply_persisted_program_edits,
     add_persisted_case,
@@ -87,6 +88,8 @@ def main(argv: list[str] | None = None) -> int:
             return _direct_eval(args)
         if args.command == "calibration-eval":
             return _calibration_eval(args)
+        if args.command == "total-map-eval":
+            return _total_map_eval(args)
         if args.command == "perspective":
             return _perspective(args)
     except Exception as exc:  # pragma: no cover - exercised through return behavior
@@ -371,6 +374,38 @@ def _parser() -> argparse.ArgumentParser:
         ),
     )
     direct_eval.add_argument("--json", action="store_true", help="print JSON summary")
+
+    total_map_eval = subcommands.add_parser(
+        "total-map-eval",
+        help="run the isolated total-atom Map workbench",
+    )
+    total_map_eval.add_argument("--program", required=True, help="program.json path")
+    total_map_eval.add_argument("--cases", required=True, help="JSON/YAML runtime cases file")
+    total_map_eval.add_argument("--out", required=True, help="output workbench directory")
+    total_map_eval.add_argument(
+        "--mode",
+        choices=["schema", "simulate"],
+        default="simulate",
+        help="schema writes prompts/catalog only; simulate emits deterministic trial bindings",
+    )
+    total_map_eval.add_argument(
+        "--case-id",
+        action="append",
+        default=[],
+        help="case id to include; may repeat; defaults to all cases",
+    )
+    total_map_eval.add_argument(
+        "--determination",
+        action="append",
+        default=[],
+        help="determination id to evaluate; may repeat; defaults to all",
+    )
+    total_map_eval.add_argument(
+        "--no-profile-defaults",
+        action="store_true",
+        help="do not apply policy map_profile defaults in simulation mode",
+    )
+    total_map_eval.add_argument("--json", action="store_true", help="print JSON summary")
 
     calibration = subcommands.add_parser(
         "calibration-eval",
@@ -757,6 +792,44 @@ def _direct_eval(args: argparse.Namespace) -> int:
     payload = {"ok": True, **result}
     _print(payload, args.json)
     return 0
+
+
+def _total_map_eval(args: argparse.Namespace) -> int:
+    result = run_total_atom_map_eval(
+        program_path=args.program,
+        cases_path=args.cases,
+        output_dir=args.out,
+        determinations=args.determination or None,
+        case_ids=args.case_id or None,
+        mode=args.mode,
+        apply_profile_defaults=not args.no_profile_defaults,
+    )
+    payload = {
+        "ok": result.get("mismatch_count", 0) == 0,
+        **_compact_total_map_result(result),
+    }
+    _print(payload, args.json)
+    return 0
+
+
+def _compact_total_map_result(result: dict[str, Any]) -> dict[str, Any]:
+    keys = [
+        "mode",
+        "map_mode",
+        "program",
+        "cases",
+        "output_dir",
+        "case_count",
+        "determination_count",
+        "atom_count",
+        "disposition_count",
+        "matched_disposition_count",
+        "mismatch_count",
+        "outcome_counts",
+        "basis_counts",
+        "prompts",
+    ]
+    return {key: result[key] for key in keys if key in result}
 
 
 def _calibration_eval(args: argparse.Namespace) -> int:
