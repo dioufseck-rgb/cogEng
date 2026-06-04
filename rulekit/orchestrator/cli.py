@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 from typing import Any
 
+from rulekit.orchestrator.branch_findings_eval import run_branch_findings_eval
 from rulekit.orchestrator.calibration_eval import run_calibration_eval
 from rulekit.orchestrator.config import load_policy_workspace_seed, save_policy_workspace_seed
 from rulekit.orchestrator.direct_disposition_eval import (
@@ -87,6 +88,8 @@ def main(argv: list[str] | None = None) -> int:
             return _map_eval(args)
         if args.command == "direct-eval":
             return _direct_eval(args)
+        if args.command == "branch-findings-eval":
+            return _branch_findings_eval(args)
         if args.command == "calibration-eval":
             return _calibration_eval(args)
         if args.command == "total-map-eval":
@@ -381,6 +384,60 @@ def _parser() -> argparse.ArgumentParser:
         ),
     )
     direct_eval.add_argument("--json", action="store_true", help="print JSON summary")
+
+    branch_findings_eval = subcommands.add_parser(
+        "branch-findings-eval",
+        help="run branch-level LLM findings with deterministic final composition",
+    )
+    branch_findings_eval.add_argument("--program", required=True, help="program.json path")
+    branch_findings_eval.add_argument("--cases", required=True, help="JSON/YAML runtime cases file")
+    branch_findings_eval.add_argument("--out", required=True, help="output evidence directory")
+    branch_findings_eval.add_argument(
+        "--model",
+        action="append",
+        required=True,
+        help="provider:model, e.g. anthropic:claude-opus-4-7; may repeat",
+    )
+    branch_findings_eval.add_argument(
+        "--seed",
+        default=None,
+        help="optional policy workspace seed containing benchmark policy text",
+    )
+    branch_findings_eval.add_argument(
+        "--case-id",
+        action="append",
+        default=[],
+        help="case id to include; may repeat; defaults to all cases",
+    )
+    branch_findings_eval.add_argument(
+        "--determination",
+        action="append",
+        default=[],
+        help="determination id to evaluate; may repeat; defaults to all",
+    )
+    branch_findings_eval.add_argument(
+        "--final-determination",
+        default=None,
+        help="determination id to compute from branch findings",
+    )
+    branch_findings_eval.add_argument(
+        "--routing-determination",
+        default=None,
+        help="optional routing determination id to parse separately",
+    )
+    branch_findings_eval.add_argument("--llm-max-tokens", type=int, default=12000)
+    branch_findings_eval.add_argument("--llm-timeout", type=float, default=180.0)
+    branch_findings_eval.add_argument("--llm-max-retries", type=int, default=2)
+    branch_findings_eval.add_argument(
+        "--price",
+        action="append",
+        default=[],
+        help=(
+            "optional estimated pricing as "
+            "provider:model=input_usd_per_million,output_usd_per_million; may repeat"
+        ),
+    )
+    branch_findings_eval.add_argument("--json", action="store_true", help="print JSON summary")
 
     total_map_eval = subcommands.add_parser(
         "total-map-eval",
@@ -813,6 +870,27 @@ def _direct_eval(args: argparse.Namespace) -> int:
         max_retries=args.llm_max_retries,
         pricing=pricing_from_specs(args.price),
         prompt_style=args.prompt_style,
+    )
+    payload = {"ok": True, **result}
+    _print(payload, args.json)
+    return 0
+
+
+def _branch_findings_eval(args: argparse.Namespace) -> int:
+    result = run_branch_findings_eval(
+        program_path=args.program,
+        cases_path=args.cases,
+        model_specs=args.model,
+        output_dir=args.out,
+        seed_path=args.seed,
+        case_ids=args.case_id or None,
+        determinations=args.determination or None,
+        final_determination=args.final_determination,
+        routing_determination=args.routing_determination,
+        max_tokens=args.llm_max_tokens,
+        timeout=args.llm_timeout,
+        max_retries=args.llm_max_retries,
+        pricing=dict(parse_price_spec(item) for item in args.price),
     )
     payload = {"ok": True, **result}
     _print(payload, args.json)
