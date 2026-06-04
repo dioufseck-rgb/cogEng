@@ -1,0 +1,68 @@
+{
+  "case_count": 12,
+  "cost_metrics": {
+    "avg_llm_call_latency_s": 65.16893458333168,
+    "case_count": 12,
+    "estimated_cost_usd": 1.157133,
+    "estimated_input_tokens": 84886,
+    "estimated_output_tokens": 60165,
+    "estimated_total_tokens": 145051,
+    "llm_call_count": 12,
+    "llm_latency_s": 782.0272149999801,
+    "pricing_basis": "configured_usd_per_million_tokens",
+    "token_count_basis": "estimated_from_character_count"
+  },
+  "determination_agreement": {
+    "agreement_rate": 0.9666666666666667,
+    "compared_count": 180,
+    "reference_agree_count": 174,
+    "reference_disagree_count": 6
+  },
+  "disposition_count": 180,
+  "final_agreement": {
+    "agreement_rate": 0.9166666666666666,
+    "compared_count": 12,
+    "reference_agree_count": 11,
+    "reference_disagree_count": 1
+  },
+  "final_determination": "fcra.dispute_resolution_compliant",
+  "map_mode": "branch_findings_llm",
+  "material_finding_metrics": {
+    "avg_material_findings_per_finding": 1.7738095238095237,
+    "basis_counts": {
+      "explicit": 190,
+      "inferred": 60,
+      "not_applicable": 2,
+      "profile_default": 46
+    },
+    "finding_count": 168,
+    "material_finding_count": 298,
+    "status_counts": {
+      "conflicting": 4,
+      "established": 220,
+      "not_applicable": 65,
+      "undetermined": 9
+    },
+    "support_counts": {
+      "applicability": 107,
+      "blocking": 32,
+      "context": 3,
+      "routing": 18,
+      "satisfaction": 138
+    }
+  },
+  "model": "claude-sonnet-4-6",
+  "outcome_counts": {
+    "false": 46,
+    "true": 128,
+    "undetermined": 6
+  },
+  "provider": "anthropic",
+  "routing_agreement": {
+    "agreement_rate": 0.9166666666666666,
+    "compared_count": 12,
+    "reference_agree_count": 11,
+    "reference_disagree_count": 1
+  },
+  "routing_determination": "fcra.human_review_required"
+}

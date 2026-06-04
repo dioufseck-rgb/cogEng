@@ -1,0 +1,40 @@
+{
+  "cases": "rulekit\\orchestrator\\example_cases\\fcra_cra_logic_stress_eval.yaml",
+  "model_count": 1,
+  "program": "audits\\fcra_credit_reporting_deep\\rulekit_export_profile2\\program.json",
+  "prompt_style": "profiled",
+  "reference_dispositions": null,
+  "runs": [
+    {
+      "case_count": 12,
+      "cost_metrics": {
+        "avg_llm_call_latency_s": 67.45461600000515,
+        "case_count": 12,
+        "estimated_cost_usd": 1.056645,
+        "estimated_input_tokens": 79870,
+        "estimated_output_tokens": 54469,
+        "estimated_total_tokens": 134339,
+        "llm_call_count": 12,
+        "llm_latency_s": 809.4553920000617,
+        "pricing_basis": "configured_usd_per_million_tokens",
+        "token_count_basis": "estimated_from_character_count"
+      },
+      "disposition_count": 180,
+      "model": "claude-sonnet-4-6",
+      "outcome_counts": {
+        "false": 34,
+        "true": 138,
+        "undetermined": 8
+      },
+      "prompt_style": "profiled",
+      "provider": "anthropic",
+      "reference_agreement": {
+        "agreement_rate": 0.9,
+        "compared_count": 180,
+        "reference_agree_count": 162,
+        "reference_disagree_count": 18
+      }
+    }
+  ],
+  "seed": "rulekit\\orchestrator\\example_seeds\\fcra_credit_reporting_dispute_deep.yaml"
+}

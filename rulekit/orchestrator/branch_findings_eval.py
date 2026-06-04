@@ -31,6 +31,15 @@ Important:
 - Return only JSON.
 - Do not invent facts not in the case packet.
 - Work at the branch level, not microscopic atom level.
+- The outcome must be the truth value of the listed determination, not a
+  generic compliance pass/fail. Keep outcome and blocks_final separate.
+- Existential, trigger, and requirement determinations are not "satisfied or
+  not applicable" duties. For example:
+  - cra_reinvestigation_trigger_valid is true only when a valid trigger exists.
+  - cra_reinvestigation_required is true only when reinvestigation is required.
+  - frivolous_termination_valid is true only when a frivolous/irrelevant
+    termination was invoked and valid; if no such termination was invoked,
+    outcome is false and blocks_final is false.
 - Each branch finding must include material_findings: branch-scoped audit slots
   that explain the conclusion. These are not microscopic policy atoms. They
   are the few material facts needed to audit applicability, satisfaction,
@@ -46,6 +55,21 @@ Important:
   invoked means outcome false but blocks_final false.
 - Do not import a failure from one branch into another branch unless that
   branch itself requires it.
+- Do not blame a recipient-side branch for upstream transmission failures
+  unless that recipient-side determination itself requires the missing upstream
+  act. For example, a furnisher may satisfy the duty to review all information
+  provided by the agency even if the agency separately failed to provide all
+  relevant consumer information.
+- Respect trigger timing. A post-completion duty such as results notice cannot
+  fail before the reinvestigation is complete unless the case packet establishes
+  that the applicable post-completion deadline has already passed. If completion
+  has not occurred and the deadline cannot yet be measured, use outcome
+  "undetermined" and blocks_final "undetermined".
+- Human-review routing is reserved for unresolved conflicts, missing primary
+  source documents needed to adjudicate the case, identity-theft/mixed-file
+  uncertainty, legal-liability/court-order posture, special debt processes,
+  material date conflicts, or manual-review policy triggers. Do not set it true
+  merely because an already-determined compliance defect exists.
 - If a branch is applicable and failed, set blocks_final true.
 - If a branch is applicable and genuinely unresolved, set blocks_final
   "undetermined".

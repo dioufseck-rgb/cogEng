@@ -118,6 +118,9 @@ def test_branch_findings_eval_computes_final_from_fake_llm(tmp_path, monkeypatch
             assert "ROUTING DETERMINATIONS" in prompt
             assert "material_findings" in prompt
             assert '"slot": "notice_timing"' in prompt
+            assert "outcome must be the truth value" in prompt
+            assert "Keep outcome and blocks_final separate" in prompt
+            assert "Respect trigger timing" in prompt
             return raw
 
     monkeypatch.setattr(branch_eval, "LLMCaller", FakeLLM)
