@@ -46,6 +46,17 @@ def test_branch_findings_eval_computes_final_from_fake_llm(tmp_path, monkeypatch
       "decisive_branch": "consumer statement subsequent reporting",
       "rationale": "Reports omitted the statement/dispute notation.",
       "critical_facts": ["consumer statement omitted"],
+      "material_findings": [
+        {
+          "slot": "failure_fact",
+          "value": "consumer statement omitted from subsequent reporting",
+          "status": "established",
+          "basis": "explicit",
+          "evidence": "Reports omitted the statement/dispute notation.",
+          "source_ids": ["narrative"],
+          "supports": "blocking"
+        }
+      ],
       "confidence": 0.9
     },
     {
@@ -57,6 +68,17 @@ def test_branch_findings_eval_computes_final_from_fake_llm(tmp_path, monkeypatch
       "decisive_branch": "not invoked",
       "rationale": "No frivolous termination was invoked.",
       "critical_facts": [],
+      "material_findings": [
+        {
+          "slot": "branch_applicability",
+          "value": false,
+          "status": "not_applicable",
+          "basis": "explicit",
+          "evidence": "No frivolous termination was invoked.",
+          "source_ids": ["narrative"],
+          "supports": "applicability"
+        }
+      ],
       "confidence": 0.9
     }
   ],
@@ -65,6 +87,17 @@ def test_branch_findings_eval_computes_final_from_fake_llm(tmp_path, monkeypatch
       "determination_id": "fcra.human_review_required",
       "outcome": "false",
       "rationale": "No routing trigger.",
+      "material_findings": [
+        {
+          "slot": "routing_trigger",
+          "value": "none",
+          "status": "established",
+          "basis": "inferred",
+          "evidence": "No routing trigger.",
+          "source_ids": ["narrative"],
+          "supports": "routing"
+        }
+      ],
       "confidence": 0.9
     }
   ],
@@ -83,6 +116,8 @@ def test_branch_findings_eval_computes_final_from_fake_llm(tmp_path, monkeypatch
             assert stage_name == "branch_findings:cra_logic_consumer_statement_not_carried_forward"
             assert "BRANCH DETERMINATIONS" in prompt
             assert "ROUTING DETERMINATIONS" in prompt
+            assert "material_findings" in prompt
+            assert '"slot": "notice_timing"' in prompt
             return raw
 
     monkeypatch.setattr(branch_eval, "LLMCaller", FakeLLM)
@@ -107,3 +142,10 @@ def test_branch_findings_eval_computes_final_from_fake_llm(tmp_path, monkeypatch
     assert run["final_agreement"]["reference_agree_count"] == 1
     assert run["routing_agreement"]["reference_agree_count"] == 1
     assert run["determination_agreement"]["reference_agree_count"] == 4
+    assert run["material_finding_metrics"]["material_finding_count"] == 3
+    assert run["material_finding_metrics"]["status_counts"]["established"] == 2
+    assert run["material_finding_metrics"]["status_counts"]["not_applicable"] == 1
+
+    run_dir = tmp_path / "branch" / "anthropic_fake"
+    findings = (run_dir / "prompts" / "cra_logic_consumer_statement_not_carried_forward" / "branch_findings.json").read_text()
+    assert "failure_fact" in findings

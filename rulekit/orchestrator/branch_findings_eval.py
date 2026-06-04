@@ -31,6 +31,14 @@ Important:
 - Return only JSON.
 - Do not invent facts not in the case packet.
 - Work at the branch level, not microscopic atom level.
+- Each branch finding must include material_findings: branch-scoped audit slots
+  that explain the conclusion. These are not microscopic policy atoms. They
+  are the few material facts needed to audit applicability, satisfaction,
+  non-applicability, blocking, uncertainty, or routing.
+- Prefer stable material slot names such as branch_applicability,
+  triggering_event, timing, required_action, content_or_scope,
+  correction_or_treatment, notice_or_reporting, exception_or_short_circuit,
+  failure_fact, uncertainty, and evidence_conflict.
 - A branch can be not applicable. If a determination is described as
   "satisfied or not applicable", then not applicable usually means outcome
   true and blocks_final false.
@@ -83,6 +91,17 @@ Return ONLY this JSON shape:
       "decisive_branch": "short branch label",
       "rationale": "brief reason grounded in the case packet",
       "critical_facts": ["fact"],
+      "material_findings": [
+        {{
+          "slot": "notice_timing",
+          "value": "within_5_business_days",
+          "status": "established|not_applicable|undetermined|conflicting",
+          "basis": "explicit|inferred|profile_default|not_applicable|missing|conflicting",
+          "evidence": "short evidence from the case packet",
+          "source_ids": ["narrative"],
+          "supports": "applicability|satisfaction|blocking|routing|context"
+        }}
+      ],
       "confidence": 0.0
     }}
   ],
@@ -91,6 +110,17 @@ Return ONLY this JSON shape:
       "determination_id": "id from ROUTING DETERMINATIONS",
       "outcome": "true|false|undetermined",
       "rationale": "brief reason grounded in the case packet",
+      "material_findings": [
+        {{
+          "slot": "routing_trigger",
+          "value": "none",
+          "status": "established|not_applicable|undetermined|conflicting",
+          "basis": "explicit|inferred|profile_default|not_applicable|missing|conflicting",
+          "evidence": "short evidence from the case packet",
+          "source_ids": ["narrative"],
+          "supports": "routing"
+        }}
+      ],
       "confidence": 0.0
     }}
   ],
@@ -195,6 +225,7 @@ def summarize_branch_findings_run(
         "final_agreement": final_agreement,
         "routing_agreement": routing_agreement,
         "determination_agreement": det_agreement,
+        "material_finding_metrics": _material_finding_metrics(result["case_runs"]),
         "cost_metrics": _cost_metrics(result["case_runs"]),
     }
 
@@ -386,6 +417,7 @@ def _normalize_branch_findings(payload: dict[str, Any], branch_ids: list[str]) -
                 "decisive_branch": item.get("decisive_branch"),
                 "rationale": item.get("rationale"),
                 "critical_facts": item.get("critical_facts") if isinstance(item.get("critical_facts"), list) else [],
+                "material_findings": _normalize_material_findings(item.get("material_findings")),
                 "confidence": _normalize_confidence(item.get("confidence")),
             }
         )
@@ -407,6 +439,7 @@ def _normalize_routing_findings(payload: dict[str, Any], routing_ids: list[str])
                 "determination_id": det_id,
                 "outcome": _normalize_outcome(item.get("outcome")),
                 "rationale": item.get("rationale"),
+                "material_findings": _normalize_material_findings(item.get("material_findings")),
                 "confidence": _normalize_confidence(item.get("confidence")),
             }
         )
@@ -572,6 +605,95 @@ def _normalize_confidence(value: Any) -> float | None:
         return max(0.0, min(1.0, float(value)))
     except (TypeError, ValueError):
         return None
+
+
+_MATERIAL_STATUSES = {"established", "not_applicable", "undetermined", "conflicting"}
+_MATERIAL_BASES = {
+    "explicit",
+    "inferred",
+    "profile_default",
+    "not_applicable",
+    "missing",
+    "conflicting",
+}
+_MATERIAL_SUPPORTS = {
+    "applicability",
+    "satisfaction",
+    "blocking",
+    "routing",
+    "context",
+}
+
+
+def _normalize_material_findings(value: Any) -> list[dict[str, Any]]:
+    if not isinstance(value, list):
+        return []
+    findings: list[dict[str, Any]] = []
+    for item in value:
+        if not isinstance(item, dict):
+            continue
+        findings.append(
+            {
+                "slot": _clean_string(item.get("slot")) or "unspecified",
+                "value": item.get("value", "undetermined"),
+                "status": _normalize_choice(
+                    item.get("status"),
+                    choices=_MATERIAL_STATUSES,
+                    fallback="undetermined",
+                ),
+                "basis": _normalize_choice(
+                    item.get("basis"),
+                    choices=_MATERIAL_BASES,
+                    fallback="missing",
+                ),
+                "evidence": _clean_string(item.get("evidence")),
+                "source_ids": _string_list(item.get("source_ids")),
+                "supports": _normalize_choice(
+                    item.get("supports"),
+                    choices=_MATERIAL_SUPPORTS,
+                    fallback="context",
+                ),
+            }
+        )
+    return findings
+
+
+def _normalize_choice(value: Any, *, choices: set[str], fallback: str) -> str:
+    normalized = str(value).strip().lower()
+    return normalized if normalized in choices else fallback
+
+
+def _clean_string(value: Any) -> str | None:
+    if value is None:
+        return None
+    text = str(value).strip()
+    return text or None
+
+
+def _material_finding_metrics(case_runs: list[dict[str, Any]]) -> dict[str, Any]:
+    material_findings: list[dict[str, Any]] = []
+    finding_count = 0
+    for case_run in case_runs:
+        branch_findings = case_run.get("branch_findings") or []
+        routing_findings = case_run.get("routing_findings") or []
+        finding_count += len(branch_findings) + len(routing_findings)
+        for finding in [*branch_findings, *routing_findings]:
+            if isinstance(finding, dict):
+                material_findings.extend(finding.get("material_findings") or [])
+
+    status_counts = Counter(item.get("status") for item in material_findings)
+    basis_counts = Counter(item.get("basis") for item in material_findings)
+    support_counts = Counter(item.get("supports") for item in material_findings)
+    return {
+        "finding_count": finding_count,
+        "material_finding_count": len(material_findings),
+        "avg_material_findings_per_finding": (
+            len(material_findings) / finding_count if finding_count else 0.0
+        ),
+        "status_counts": dict(sorted(status_counts.items())),
+        "basis_counts": dict(sorted(basis_counts.items())),
+        "support_counts": dict(sorted(support_counts.items())),
+    }
 
 
 def _cost_metrics(case_runs: list[dict[str, Any]]) -> dict[str, Any]:
