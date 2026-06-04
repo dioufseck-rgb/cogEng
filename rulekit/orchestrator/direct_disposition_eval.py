@@ -220,6 +220,7 @@ def run_direct_disposition_eval(
     output_dir: str | Path,
     seed_path: str | Path | None = None,
     determinations: list[str] | None = None,
+    case_ids: list[str] | None = None,
     reference_dispositions_path: str | Path | None = None,
     max_tokens: int = 4096,
     timeout: float = 120.0,
@@ -230,6 +231,9 @@ def run_direct_disposition_eval(
     """Run one direct adjudication prompt per case for each provider/model."""
     program = load_program(program_path)
     cases = load_runtime_cases(cases_path)
+    if case_ids:
+        allowed = set(case_ids)
+        cases = [case for case in cases if case.case_id in allowed]
     selected_determinations = determinations or list(program.determinations)
     policy_text = _policy_text(program, seed_path)
     references = _expected_outcomes_from_cases(cases)

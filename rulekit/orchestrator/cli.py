@@ -356,6 +356,12 @@ def _parser() -> argparse.ArgumentParser:
         default=[],
         help="determination id to evaluate; may repeat; defaults to all",
     )
+    direct_eval.add_argument(
+        "--case-id",
+        action="append",
+        default=[],
+        help="case id to include; may repeat; defaults to all cases",
+    )
     direct_eval.add_argument("--llm-max-tokens", type=int, default=4096)
     direct_eval.add_argument("--llm-timeout", type=float, default=120.0)
     direct_eval.add_argument("--llm-max-retries", type=int, default=2)
@@ -800,6 +806,7 @@ def _direct_eval(args: argparse.Namespace) -> int:
         output_dir=args.out,
         seed_path=args.seed,
         determinations=args.determination or None,
+        case_ids=args.case_id or None,
         reference_dispositions_path=args.reference_dispositions,
         max_tokens=args.llm_max_tokens,
         timeout=args.llm_timeout,

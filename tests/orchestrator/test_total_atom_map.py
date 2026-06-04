@@ -52,7 +52,11 @@ def test_total_atom_map_schema_mode_writes_prompt_artifacts_only(tmp_path: Path)
     assert result["case_count"] == 1
     assert result["atom_count"] == 120
     assert prompt_path.exists()
-    assert "Return ONLY this JSON shape" in prompt_path.read_text(encoding="utf-8")
+    prompt = prompt_path.read_text(encoding="utf-8")
+    assert "Return ONLY this JSON shape" in prompt
+    assert "Numeric atoms must have a number" in prompt
+    assert "Branch-closure rules" in prompt
+    assert "Human-review trigger atoms are special routing atoms" in prompt
     assert not (tmp_path / "total_atom_map_schema" / "dispositions.json").exists()
 
 
@@ -77,6 +81,12 @@ def test_live_total_atom_payload_parser_keeps_one_binding_per_atom() -> None:
                 "value": True,
                 "basis": "explicit_positive",
             },
+            {
+                "atom_id": "fcra.days_to_complete_reinvestigation",
+                "status": "bound",
+                "value": True,
+                "basis": "computed",
+            },
         ],
     }
 
@@ -86,5 +96,7 @@ def test_live_total_atom_payload_parser_keeps_one_binding_per_atom() -> None:
     assert bindings["fcra.consumer_disputed_item"].status == "bound"
     assert bindings["fcra.consumer_disputed_item"].value is True
     assert bindings["fcra.consumer_disputed_item"].basis == "explicit_positive"
+    assert bindings["fcra.days_to_complete_reinvestigation"].status == "undetermined"
+    assert bindings["fcra.days_to_complete_reinvestigation"].value == "undetermined"
     assert bindings["fcra.account_identified"].status == "undetermined"
     assert "fcra.not_a_real_atom" not in bindings

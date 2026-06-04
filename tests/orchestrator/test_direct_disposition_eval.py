@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+import rulekit.orchestrator.direct_disposition_eval as direct_eval
 from rulekit.orchestrator.cases import CaseExample
 from rulekit.orchestrator.config import load_policy_workspace_seed
 from rulekit.orchestrator.direct_disposition_eval import (
     _expected_outcomes_from_cases,
+    run_direct_disposition_eval,
     build_direct_disposition_prompt,
     summarize_direct_run,
 )
@@ -147,3 +149,75 @@ def test_direct_eval_can_use_case_expected_outcomes_as_references():
     references = _expected_outcomes_from_cases([case])
 
     assert references == {("case_1", "sample.eligible"): "true"}
+
+
+def test_direct_eval_can_filter_cases(tmp_path, monkeypatch):
+    cases_path = tmp_path / "cases.yaml"
+    cases_path.write_text(
+        """
+metadata:
+  name: filtered cases
+cases:
+  - case_id: keep
+    title: Keep
+    narrative: Keep this case.
+    expected_outcomes:
+      n400.no_aggravated_felony_bar: "true"
+  - case_id: skip
+    title: Skip
+    narrative: Skip this case.
+    expected_outcomes:
+      n400.no_aggravated_felony_bar: "false"
+""",
+        encoding="utf-8",
+    )
+    raw = """
+{
+  "case_id": "keep",
+  "determinations": [
+    {
+      "determination_id": "n400.no_aggravated_felony_bar",
+      "outcome": "true",
+      "rationale": "offline",
+      "confidence": 1.0
+    }
+  ],
+  "case_level_notes": ""
+}
+"""
+
+    class FakeLLM:
+        provider = "anthropic"
+        model = "fake"
+
+        def __init__(self, **kwargs):
+            pass
+
+        def call(self, stage_name, prompt, stream=True):
+            assert stage_name == "direct_disposition:keep"
+            assert "Keep this case." in prompt
+            assert "Skip this case." not in prompt
+            return raw
+
+    monkeypatch.setattr(direct_eval, "LLMCaller", FakeLLM)
+    result = run_direct_disposition_eval(
+        program_path=_program_path(tmp_path),
+        cases_path=cases_path,
+        model_specs=["anthropic:fake"],
+        output_dir=tmp_path / "out",
+        determinations=["n400.no_aggravated_felony_bar"],
+        case_ids=["keep"],
+        pricing={},
+        max_retries=0,
+    )
+
+    run = result["runs"][0]
+    assert run["case_count"] == 1
+    assert run["reference_agreement"]["reference_agree_count"] == 1
+    assert run["reference_agreement"]["compared_count"] == 1
+
+
+def _program_path(tmp_path):
+    path = tmp_path / "program.json"
+    path.write_text(_program().model_dump_json(), encoding="utf-8")
+    return path

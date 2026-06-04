@@ -10,6 +10,7 @@ from __future__ import annotations
 import json
 import re
 from collections import Counter
+from decimal import Decimal, InvalidOperation
 from pathlib import Path
 from time import perf_counter
 from typing import Any
@@ -45,7 +46,7 @@ You are NOT deciding policy determinations. Your job is to fill every atom in
 the atom catalog with a local evidence judgment. The deterministic RuleKit
 engine will evaluate the policy DAG later.
 
-For each atom:
+Core rules for each atom:
 - Return exactly one binding.
 - Use true/false only when the case packet supports that local atom value.
 - Use undetermined when the case packet does not support a local value.
@@ -55,6 +56,62 @@ For each atom:
 - If an atom is outside the natural scope of the case and the policy profile
   says the branch is not applicable, use that profile default.
 - Keep local atom reasoning separate from global determination outcomes.
+
+Type rules:
+- Boolean atoms must have value true, false, or "undetermined".
+- Numeric atoms must have a number, such as 3, 24, or 7. Do NOT return true or
+  false for numeric atoms. If the numeric value cannot be stated, computed, or
+  safely threshold-filled under the rules below, return "undetermined".
+
+Branch-closure rules:
+- When the narrative states a branch was completed timely or within a policy
+  deadline but gives no exact day, you may fill the relevant numeric deadline
+  atom with the policy-safe boundary value from the atom/profile context
+  rather than leaving it undetermined. Example: "sent a timely results notice"
+  can support business_days_to_results_notice = 5 when the policy deadline is
+  5 business days.
+- When the narrative says "within 5 business days", "within 30 days", "within
+  the applicable deadline", or similar, fill the corresponding numeric atom
+  with that threshold value and basis inferred_from_record.
+- When a process was not completed, final outcome/process-completion atoms
+  should usually be undetermined if the process is still pending, not false.
+  Use false only when the narrative says a required act failed, was late, was
+  not done, or the branch was invalidly closed.
+- If all relevant information was forwarded and no later relevant information
+  existed, bind later_relevant_info_forwarded true with basis
+  inferred_from_record. Do not leave that atom undetermined merely because
+  there was no later information.
+- If a narrative says all relevant information or all documents were forwarded,
+  bind primary_documents_forwarded true unless the same packet says primary
+  documents were withheld, missing, not sent, or not made available.
+- Do not convert a failure in one branch into failure of another branch unless
+  the atom itself asks about that branch. A CRA forwarding failure does not by
+  itself mean the furnisher failed its own investigation duties.
+
+Routing rules:
+- Human-review trigger atoms are special routing atoms. Bind them true only
+  when the case packet describes the trigger itself: unresolved material
+  conflict, identity theft/mixed-file indicators, legal/court-order posture,
+  missing primary source documents from the adjudication record, material date
+  conflict, veteran medical debt, pending litigation, or an explicit manual
+  review route.
+- Do NOT bind source_documents_missing true merely because a consumer packet is
+  insufficient for a valid frivolous-or-irrelevant termination. Missing
+  information for a valid frivolous termination is a termination-path fact, not
+  automatically a human-review source-document gap.
+- If a case is expressly routed to manual review because a conflict remains
+  unresolved, preserve substantive completion atoms as undetermined unless the
+  narrative separately states they were completed or failed.
+
+Invocation rules:
+- For atoms about whether an event occurred, distinguish "not invoked" from
+  "validly invoked". If no frivolous termination, reinsertion, reseller branch,
+  consumer statement, or direct-furnisher branch was invoked, event-occurrence
+  atoms for that branch should be false or profile-defaulted false; compliance
+  support atoms may be true only when the profile marks the branch as not
+  applicable.
+- For atoms about validity of a termination or exception, true requires that
+  the termination/exception was actually invoked and its requirements were met.
 
 Allowed basis values:
 explicit_positive, explicit_negative, closed_world_absence, open_world_absence,
@@ -380,9 +437,11 @@ def bindings_from_total_atom_payload(
         if atom is None:
             continue
         status = _normalize_status(item.get("status"), item.get("value"))
-        value = item.get("value", "undetermined")
-        if status != AtomBindingStatus.BOUND:
-            value = "undetermined"
+        status, value = _normalize_value_for_atom_type(
+            atom.atom_type,
+            item.get("value", "undetermined"),
+            status,
+        )
         bindings[atom_id] = AtomBindingRecord(
             atom_id=atom_id,
             atom_type=atom.atom_type,
@@ -827,6 +886,32 @@ def _normalize_status(value: Any, binding_value: Any) -> AtomBindingStatus:
     if binding_value is None or str(binding_value).lower() == "undetermined":
         return AtomBindingStatus.UNDETERMINED
     return AtomBindingStatus.BOUND
+
+
+def _normalize_value_for_atom_type(
+    atom_type: str,
+    value: Any,
+    status: AtomBindingStatus,
+) -> tuple[AtomBindingStatus, Any]:
+    if status != AtomBindingStatus.BOUND:
+        return AtomBindingStatus.UNDETERMINED, "undetermined"
+    if atom_type == "boolean":
+        if isinstance(value, bool):
+            return status, value
+        raw = str(value).strip().lower()
+        if raw == "true":
+            return status, True
+        if raw == "false":
+            return status, False
+        return AtomBindingStatus.UNDETERMINED, "undetermined"
+    if atom_type == "numeric":
+        if isinstance(value, bool):
+            return AtomBindingStatus.UNDETERMINED, "undetermined"
+        try:
+            Decimal(str(value))
+        except (InvalidOperation, ValueError):
+            return AtomBindingStatus.UNDETERMINED, "undetermined"
+    return status, value
 
 
 def _normalize_basis(value: Any, status: AtomBindingStatus) -> BindingBasis:
